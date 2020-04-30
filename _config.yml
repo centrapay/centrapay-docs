@@ -1,1 +1,8 @@
 theme: jekyll-theme-minimal
+github:
+  is_project_page: false
+  is_user_page: false
+show_downloads: false
+title: Centrapay Docs
+description: Developer integration documentation
+logo: https://avatars1.githubusercontent.com/u/50654586?s=200&v=4
