@@ -5,15 +5,15 @@ title: Centrapay Documentation
 
 # Introduction
 
-Welcome to Centrapay! We allow you to transact Digital Assets or Pocket Vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our Payments API which allows merchants, customers, terminals, and smart wallets to interact with eachother. 
+Welcome to Centrapay! We allow you to transact Digital Assets or Vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our Payments API which allows merchants, customers, terminals, and smart wallets to interact with eachother. 
 
 # Example Payment Flows
 
-## Pocket Vouchers
+## Voucher Redemption
 
 1. Merchant creates a payment request via our API 
-2. Costumer is prompted to enter a Pocket Voucher code on terminal
-3. Constumer enters Pocket Voucher Code into terminal 
+2. Costumer is prompted to enter a voucher code on terminal
+3. Constumer enters voucher Code into terminal 
 4. The terminal calls our API with the details of the transaciton 
 5. We redeem the voucher if it is valid or reject it if it isn't
 6. terminal displays result.
@@ -193,10 +193,15 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
     -d amount=100
 ```
 
-Refunding a transaction can be done two ways:
+### Refunding a transaction can be done two ways:
 
-- Refund the full or partial amount once
-- Refund a partial amount multiple times up to the transaction amount
+1. Refund the full or partial amount once
+
+    * If you refund a transaction without providing an external reference, you will get a succesful response for the first request and then an ALREADY_REFUNDED message for any refund requests that follow for the same transaction, unless an external reference is provided.
+
+2. Refund a partial amount multiple times up to the transaction amount
+
+    * If you provide an external reference then a transaction can be refunded multiple times provided that the external reference is unique for each refund request. When a duplicate external reference is provided when attempting to refund the same transaction we return a successful response if the amount of the request is the same both times but do not process another refund, this is because we assume it to be a repeat request. If the amount is different you will get a REPEAT_REFERENCE error message.
 
 **Required Parameters for one time refund**
 
