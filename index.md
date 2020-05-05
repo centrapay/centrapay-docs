@@ -249,7 +249,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 179        | 404       | BITCOIN_TRANSACTION_NOT_FOUND       | A transaction for the provided authorization could not be found on the bitcoin block chain |
 | 180        | 400       | OLD_TRANSACTION                     | The provided authorization is for a transaction that was confirmed before the payment request was created |
 | 181        | 400       | INSUFFICIENT_PAYMENT                | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment |
-| 182        | 403       | MERCHANT_TRANSACTION_LIMIT_EXCEEDED | The merchant that the voucher is assosicated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher. |
+| 182        | 403       | MERCHANT_TRANSACTION_LIMIT_EXCEEDED | The merchant that the voucher is associated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher. |
 | 183        | 403       | INVALID_TRANSACTION_AMOUNT          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
 | 184        | 403       | INVALID_VOUCHER_AMOUNT              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
 | 185        | 403       | VOUCHER_EXPIRED                     | The voucher has expired |
