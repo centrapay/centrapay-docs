@@ -218,45 +218,45 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 ## Error codes
 
-| Error code | Http code | Message                             |
-| 1          | 401       | KEY_NOT_AUTHORIZED                  |
-| 2          | 404       | REQUEST_NOT_FOUND                   |
-| 3          | 404       | TRANSACTION_NOT_FOUND               |
-| 4          | 404       | MERCHANT_NOT_FOUND                  |
-| 5          | 400       | INVALID_REQUEST_ID                  |
-| 6          | 400       | INVALID_AMOUNT                      |
-| 7          | 400       | INVALID_ASSET                       |
-| 8          | 400       | INVALID_AUTHORIZATION               |
-| 9          | 400       | INVALID_LEDGER                      |
-| 10         | 400       | INVALID_MERCHANT_ID                 |
-| 11         | 400       | INVALID_CLIENT_ID                   |
-| 12         | 400       | INVALID_PATRON_CODE                 |
-| 13         | 400       | INVALID_DESCRIPTION                 |
-| 14         | 400       | INVALID_REFERENCE                   |
-| 15         | 400       | INVALID_NOTIFY_URL                  |
-| 16         | 400       | INVALID_TRANSACTION_ID              |
-| 17         | 400       | REQUEST_CANCELLED                   |
-| 18         | 400       | REQUEST_EXPIRED                     |
-| 19         | 400       | REQUEST_PAID                        |
-| 51         | 500       | INTERNAL_ERROR                      |
-| 76         | 503       | EXTERNAL_SERVICE                    |
-| 77         | 500       | INTERNAL_ERROR                      |
-| 126        | 403       | IN_USE                              |
-| 151        | 403       | IN_USE                              |
-| 176        | 400       | LEDGER_NOT_ENABLED                  |
-| 177        | 400       | INVALID_LEDGER                      |
-| 178        | 500       | INTERNAL_SERVER_ERROR               |
-| 179        | 404       | BITCOIN_TRANSACTION_NOT_FOUND       |
-| 180        | 400       | OLD_TRANSACTION                     |
-| 181        | 400       | INSUFFICIENT_PAYMENT                |
-| 182        | 403       | MERCHANT_TRANSACTION_LIMIT_EXCEEDED |
-| 183        | 403       | INVALID_TRANSACTION_AMOUNT          |
-| 184        | 403       | INVALID_VOUCHER_AMOUNT              |
-| 185        | 403       | VOUCHER_EXPIRED                     |
-| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        |
-| 187        | 404       | VOUCHER_UNKNOWN                     |
-| 276        | 400       | ALREADY_REFUNDED                    |
-| 277        | 400       | INVALID_AMOUNT                      |
+| Error code | Http code | Message                             | Description                              |
+| 1          | 401       | KEY_NOT_AUTHORIZED                  | Either the Api Key was not found in the headers, the Api Key provided is invalid, or it doesn’t have the required permissions |
+| 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist |
+| 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist |
+| 4          | 404       | MERCHANT_NOT_FOUND                  | The provided Merchant doesn’t exist |
+| 5          | 400       | INVALID_REQUEST_ID                  | requestId must be a valid UUID |
+| 6          | 400       | INVALID_AMOUNT                      | Amount must be a positive integer greater than zero |
+| 7          | 400       | INVALID_ASSET                       | Asset was not a supported currency type |
+| 8          | 400       | INVALID_AUTHORIZATION               | Authorization must be a non empty string |
+| 9          | 400       | INVALID_LEDGER                      | Ledger must be a non empty string |
+| 10         | 400       | INVALID_MERCHANT_ID                 | MerchantId must be a non empty string |
+| 11         | 400       | INVALID_CLIENT_ID                   | ClientId must be a valid UUID |
+| 12         | 400       | INVALID_PATRON_CODE                 | PatronCode must be a non empty string |
+| 13         | 400       | INVALID_DESCRIPTION                 | Description must be a non empty string |
+| 14         | 400       | INVALID_REFERENCE                   | ExternalReference must be a non empty string |
+| 15         | 400       | INVALID_NOTIFY_URL                  | NotifyUrl must be a non empty string |
+| 16         | 400       | INVALID_TRANSACTION_ID              | TransactionId must be a non empty string |
+| 17         | 400       | REQUEST_CANCELLED                   | Action cannot be completed because the request has already been cancelled |
+| 18         | 400       | REQUEST_EXPIRED                     | Action cannot be completed because the request has expired |
+| 19         | 400       | REQUEST_PAID                        | Action cannot be completed because the request has been paid |
+| 51         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong. |
+| 76         | 503       | EXTERNAL_SERVICE                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.|
+| 77         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong. |
+| 126        | 403       | IN_USE                              | A webSocket channel for this request already exists |
+| 151        | 403       | IN_USE                              | An active WS connection already exists for that patronCode |
+| 176        | 400       | LEDGER_NOT_ENABLED                  | Merchant is not configured with the provided ledger |
+| 177        | 400       | INVALID_LEDGER                      | The ledger provided doesn’t exist |
+| 178        | 500       | INTERNAL_SERVER_ERROR               | Something went wrong while trying to pay a request, we have received an error message and will figure out what went wrong. |
+| 179        | 404       | BITCOIN_TRANSACTION_NOT_FOUND       | A transaction for the provided authorization could not be found on the bitcoin block chain |
+| 180        | 400       | OLD_TRANSACTION                     | The provided authorization is for a transaction that was confirmed before the payment request was created |
+| 181        | 400       | INSUFFICIENT_PAYMENT                | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment |
+| 182        | 403       | MERCHANT_TRANSACTION_LIMIT_EXCEEDED | The merchant that the voucher is associated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher. |
+| 183        | 403       | INVALID_TRANSACTION_AMOUNT          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
+| 184        | 403       | INVALID_VOUCHER_AMOUNT              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
+| 185        | 403       | VOUCHER_EXPIRED                     | The voucher has expired |
+| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        | The voucher balance is less then required amount |
+| 187        | 404       | VOUCHER_UNKNOWN                     | The voucher code supplied does not correspond to any valid vouchers |
+| 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded |
+| 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount|
 
 # Webhooks
 
