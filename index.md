@@ -67,6 +67,10 @@ terminals, and smart wallets to interact with eachother.
 
 We handle authorization via api keys, which are sent in the header when making a request to any of our endpoints. To get set up with an api key so you can start using the payments API contact us via email at **devsupport@centrapay.com.**
 
+# Payment Requests and Transactions
+
+Throughout our documentation we will talk about payment requests and transactions in serveral places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid succesfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
+
 # Endpoints
 
 Our endpoints are documented fully using Swagger here [https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation)
@@ -270,9 +274,39 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 # Webhooks
 
-Webhook notifications are sent for significant Payment Request lifecycle
+Webhook notifications are sent for significant Payment lifecycle
 events. The Webhook endpoint is notified by sending an HTTP POST request to the
-`notifyUrl` defined on the Payment Request.
+`notifyUrl` defined in the Payment Request.
+
+## LifeCycle Events That Trigger Webhooks
+
+The supported event types that will be notified to the Payment Requests webhook
+and the associated "transactionType" value that will be sent in the payload
+are:
+
+
+| Event Type                | Value of "transactionType" |
+|---------------------------|----------------------------|
+| Payment Request Cancelled | CANCELLED                  |
+| Payment Request Expired   | EXPIRED                    |
+| Transaction Completed     | PURCHASE                   |
+| Transaction Refunded      | REFUND                     |
+
+### Payment Request Cancelled
+
+  A payment request can be cancelled by either calling the `/requests.cancel` or `/requests.void` endpoint before a request has been paid successfully. When a request has been cancelled we send a JWT that when decoded matches the "Payment Request Cancelled" example in the Decoded Webhook JWT Examples section below. 
+
+### Payment Request Expired
+
+  A payment request expires two minutes after being created if it hasn't been cancelled, or paid. When a request has expired we send a JWT that when decoded matches the "Payment Request Cancelled" example in the Decoded Webhook JWT Examples section below with the `transactionType` set to EXPIRED. 
+
+### Transaction Completed 
+
+  A transaction is considered complete when `requests.pay` is called with parameters that satisfy a payment request and the request has been paid successfully. When a transaction has been completed we send a JWT that when decoded matches the "Transaction Completed" example in the Decoded Webhook JWT Examples section belolw.
+
+### Transaction Refunded
+
+  A transaction can be refunded one to many times and each time a transaction has been refunded succesfully we notify the webhook associated with the original payment request. A transaction can be refunded when `transactions.refund` has been called for a partial or full refund, or when `requests.void` is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the "Transaction Completed" example in the Decoded Webhook JWT Examples section below but with `transactionType` set to REFUND.
 
 ## Webhook Payload
 
@@ -304,19 +338,6 @@ example:
 }
 ```
 
-
-The supported event types that will be notified to the Payment Request webhook
-and the assiciated "transactionType" value that will be sent in the payload
-are:
-
-
-| Event Type                | Value of "transactionType" |
-|---------------------------|----------------------------|
-| Payment Request Cancelled | CANCELLED                  |
-| Payment Request Expired   | EXPIRED                    |
-| Transaction Completed     | PURCHASE                   |
-| Transaction Refunded      | REFUND                     |
-
 ## Webhook JWT Validation
 
 A webhook JWT can be validated by checking the signature against the Centrapay
@@ -331,7 +352,7 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 
 ## Decoded Webhook JWT Examples
 
-### Payment Completed Successfully
+### Transaction Completed Successfully
 
 ```json
 {
@@ -360,7 +381,7 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 }
 ```
 
-### Payment Cancelled
+### Payment Request Cancelled
 
 ```json
 {
