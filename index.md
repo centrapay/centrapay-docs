@@ -260,63 +260,111 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 # Webhooks
 
-## Successful webhook notification
+Webhook notifications are sent for significant Payment Request lifecycle
+events. The Webhook endpoint is notified by sending an HTTP POST request to the
+`notifyUrl` defined on the Payment Request.
 
-```json
-{ 
-    "iss": "b4d5d7a3-38bf-4c41-8e38-e33d96ddb169", 
-    "iat": 1538440151, 
-    "jti": "fff41104-8a22-493a-a9d2-f6d94e7b901e", 
-    "transaction": { 
-        "transactionId": "aba4b07d-fd12-43bc-bbb1-12fda46d9937", 
-        "transactionType": "PURCHASE", 
-        "ledger": "g.crypto.bitcoin.mainnet", 
-        "state": "completed", 
-        "amount": 2000, 
-        "request": { 
-        "requestId": "1b23d1f9-8a3e-414d-ac94-f4b331095197", 
-        "merchantId": "0b1100be-6a76-45b0-adb8-bfe7db5ae720", 
-        "externalReference": "12345sixseveneightnineten", 
-        "denomination": { "asset": "NZD", "amount": 2000 } 
-        }, 
-        "createdAt": "2018-10-02T00:29:09.307Z", 
-        "updatedAt": "2018-10-02T00:29:11.383Z", 
-        "type": "BITCOIN", 
-        "timestamp": "2018-10-02T00:29:08.761Z", 
-        "account": "1Fy8xwtT8csbVwVCw2NMkpTjXx7AURY7fp", 
-        "responseCode": "00", 
-        "settlementDate": "2018-10-02T00:29:08.760Z", 
-        "receipt": "", 
-        "authCode": "961241" 
-    } 
-} 
-```
+## Webhook Payload
 
-## Failure webhook notification
+The body of the webhook is a JSON document with the following format:
 
 ```json
 {
-    "iss": "b4d5d7a3-38bf-4c41-8e38-e33d96ddb169",
-    "iat": 1585003238,
-    "jti": "44c32390-aa1f-400b-b01a-b1bc58339745",
-    "transaction": {
-        "transactionType": "CANCELLED",
-        "request": {
-            "requestId": "bec358bf-edb5-4633-a785-a95cc281d3b7",
-            "merchantId": "c614d516-7fbe-4acc-8a49-ed1ce8c54e77",
-            "clientId": "ac1cf8f3-3bbb-4286-beb5-70e7efe562c8",
-            "denomination": {
-                "asset": "NZD",
-                "amount": "1"
-            }
-        }
-    }
+  "token": "${JWT}"
 }
 ```
 
-`TransactionType` can either be:
+The decoded JWT will contain a "transaction" property with a "transactionType"
+that indicates the event type. Depending on the type of event, the payload will
+also contain additional details about the transaction and payment request. For
+example:
 
-| CANCELLED | For a request that has been cancelled |
-| EXPIRED   | For a request that has expired        |
-| PURCHASE  | For a completed transaction           |
-| REFUND    | For a refunded transaction            |
+```json
+{
+  "transaction": {
+    "transactionType": "REFUND",
+    "request": {
+      "requestId": "bec358bf-edb5-4633-a785-a95cc281d3b7",
+      "denomination": {
+        "asset": "NZD",
+        "amount": "100"
+      }
+    }
+  }
+}
+```
+
+
+The supported event types that will be notified to the Payment Request webhook
+and the assiciated "transactionType" value that will be sent in the payload
+are:
+
+
+| Event Type                | Value of "transactionType" |
+|---------------------------|----------------------------|
+| Payment Request Cancelled | CANCELLED                  |
+| Payment Request Expired   | EXPIRED                    |
+| Transaction Completed     | PURCHASE                   |
+| Transaction Refunded      | REFUND                     |
+
+## Webhook JWT Validation
+
+A webhook JWT can be validated by checking the signature against the Centrapay
+Webhook public key:
+
+```
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEt+vW2fE0mLLmdzJtYrz7J9q/yEXl
+gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
+-----END PUBLIC KEY-----
+```
+
+## Decoded Webhook JWT Examples
+
+### Payment Completed Successfully
+
+```json
+{
+  "transaction": {
+    "transactionId": "aba4b07d-fd12-43bc-bbb1-12fda46d9937",
+    "transactionType": "PURCHASE",
+    "ledger": "g.crypto.bitcoin.mainnet",
+    "state": "completed",
+    "amount": 2000,
+    "request": {
+      "requestId": "1b23d1f9-8a3e-414d-ac94-f4b331095197",
+      "merchantId": "0b1100be-6a76-45b0-adb8-bfe7db5ae720",
+      "externalReference": "12345sixseveneightnineten",
+      "denomination": { "asset": "NZD", "amount": 2000 }
+    },
+    "createdAt": "2018-10-02T00:29:09.307Z",
+    "updatedAt": "2018-10-02T00:29:11.383Z",
+    "type": "BITCOIN",
+    "timestamp": "2018-10-02T00:29:08.761Z",
+    "account": "1Fy8xwtT8csbVwVCw2NMkpTjXx7AURY7fp",
+    "responseCode": "00",
+    "settlementDate": "2018-10-02T00:29:08.760Z",
+    "receipt": "",
+    "authCode": "961241"
+  }
+}
+```
+
+### Payment Cancelled
+
+```json
+{
+  "transaction": {
+    "transactionType": "CANCELLED",
+    "request": {
+      "requestId": "bec358bf-edb5-4633-a785-a95cc281d3b7",
+      "merchantId": "c614d516-7fbe-4acc-8a49-ed1ce8c54e77",
+      "clientId": "ac1cf8f3-3bbb-4286-beb5-70e7efe562c8",
+      "denomination": {
+        "asset": "NZD",
+        "amount": "1"
+      }
+    }
+  }
+}
+```
