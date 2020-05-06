@@ -69,7 +69,7 @@ We handle authorization via api keys, which are sent in the header when making a
 
 # Payment Requests and Transactions
 
-Throughout our documentation we will talk about payment requests and transactions in serveral places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid succesfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
+Throughout our documentation we will talk about payment requests and transactions in several places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid succesfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
 
 # Endpoints
 
