@@ -3,3 +3,5 @@ github:
   is_user_page: false
 show_downloads: false
 title: Centrapay Docs
+kramdown:
+  toc_levels: '1,2'

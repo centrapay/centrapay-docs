@@ -4,8 +4,18 @@ title: Centrapay Documentation
 ---
 
 # Introduction
+{:.no_toc}
 
-Welcome to Centrapay! We allow you to transact Digital Assets or Vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our Payments API which allows merchants, customers, terminals, and smart wallets to interact with eachother. 
+Welcome to Centrapay! We allow you to transact Digital Assets or Vouchers via
+your point of sale, payment terminal, shopping cart or unattended device. We
+accomplish this via our Payments API which allows merchants, customers,
+terminals, and smart wallets to interact with eachother.
+
+# Contents
+{:.no_toc}
+
+* TOC
+{:toc}
 
 # Example Payment Flows
 
