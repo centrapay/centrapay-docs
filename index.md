@@ -337,6 +337,20 @@ example:
   }
 }
 ```
+### Webhook Payload Fields
+
+| Property        | Description                                                 |
+|-----------------|-------------------------------------------------------------|
+| transactionId   | Id of the transaction                                       |
+| transactionType | Indicates which event triggered the notification message    |
+| state           | Current state of the transaction                            |
+| ledger          | The ledger at which the authorization was processed         |
+| amount          | Transaction amount in the lowest denomination available     |
+| createdAt       | Timestamp at which the request was created                  |
+| updatedAt       | Timestamp at which the request was updated                  |
+| type            | The payment type used by the issuer to reconcile settlement |
+| request         | Request object, see details at request.info                 |
+| authCode        | Authorization code used to settle this transaction          |
 
 ## Webhook JWT Validation
 
@@ -371,11 +385,6 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
     "createdAt": "2018-10-02T00:29:09.307Z",
     "updatedAt": "2018-10-02T00:29:11.383Z",
     "type": "BITCOIN",
-    "timestamp": "2018-10-02T00:29:08.761Z",
-    "account": "1Fy8xwtT8csbVwVCw2NMkpTjXx7AURY7fp",
-    "responseCode": "00",
-    "settlementDate": "2018-10-02T00:29:08.760Z",
-    "receipt": "",
     "authCode": "961241"
   }
 }
