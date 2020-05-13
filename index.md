@@ -111,7 +111,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | description       | Description of the payment                                   |
 | externalReference | Unique merchant reference for the payment request            |
 | notifyUrl         | The URL that will receive **POST** requests from the webhook |
-
+| paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 |
 
 ## Getting the information about a payment request 
 
@@ -237,7 +237,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist |
 | 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist |
 | 4          | 404       | MERCHANT_NOT_FOUND                  | The provided Merchant doesn’t exist |
-| 5          | 400       | INVALID_REQUEST_ID                  | requestId must be a valid UUID |
+| 5          | 400       | INVALID_REQUEST_ID                  | RequestId must be a valid UUID |
 | 6          | 400       | INVALID_AMOUNT                      | Amount must be a positive integer greater than zero |
 | 7          | 400       | INVALID_ASSET                       | Asset was not a supported currency type |
 | 8          | 400       | INVALID_AUTHORIZATION               | Authorization must be a non empty string |
@@ -252,6 +252,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 17         | 400       | REQUEST_CANCELLED                   | Action cannot be completed because the request has already been cancelled |
 | 18         | 400       | REQUEST_EXPIRED                     | Action cannot be completed because the request has expired |
 | 19         | 400       | REQUEST_PAID                        | Action cannot be completed because the request has been paid |
+| 20         | 400       | INVALID_PAYMENT_EXPIRY_SECONDS      | PaymentExpirySeconds is either empty, or is not an integer greater than 0 |
 | 51         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong. |
 | 76         | 503       | EXTERNAL_SERVICE                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.|
 | 77         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong. |
