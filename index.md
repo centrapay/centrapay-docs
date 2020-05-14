@@ -6,10 +6,10 @@ title: Centrapay Documentation
 # Introduction
 {:.no_toc}
 
-Welcome to Centrapay! We allow you to transact Digital Assets or Vouchers via
+Welcome to Centrapay! We enable you to transact Digital Assets or Vouchers via
 your point of sale, payment terminal, shopping cart or unattended device. We
 accomplish this via our Payments API which allows merchants, customers,
-terminals, and smart wallets to interact with eachother.
+terminals, and smart wallets to interact with each other.
 
 # Contents
 {:.no_toc}
@@ -22,9 +22,9 @@ terminals, and smart wallets to interact with eachother.
 ## Voucher Redemption
 
 1. Merchant creates a payment request via our API 
-2. Costumer is prompted to enter a voucher code on terminal
-3. Constumer enters voucher Code into terminal 
-4. The terminal calls our API with the details of the transaciton 
+2. Consumer is prompted to enter a voucher code on terminal
+3. Consumer enters voucher Code into terminal 
+4. The terminal calls our API with the details of the transaction 
 5. We redeem the voucher if it is valid or reject it if it isn't
 6. terminal displays result.
 
@@ -34,7 +34,7 @@ terminals, and smart wallets to interact with eachother.
 2. We respond with the payment request and a generated QR code
 3. The QR code is displayed by the terminal
 4. Consumer scans the QR code displayed
-5. Consumer selects payment type from a list of payment options a merchant supports via a centrapay connected app
+5. Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app
 6. We prompt their smart wallet to pay the request
 7. Smart wallet pays the request
 8. We verify payment and notify the terminal
@@ -57,7 +57,7 @@ terminals, and smart wallets to interact with eachother.
 3. We respond with the payment request and a generated QR code
 4. The QR code is displayed by the terminal 
 5. Consumer scans the QR code displayed
-6. Consumer selects payment type from a list of payment options a merchant supports via a centrapay connected app
+6. Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app
 7. We prompt their smart wallet to pay the request
 8. Smart wallet pays the request
 9. We verify payment and notify the terminal
@@ -69,7 +69,7 @@ We handle authorization via api keys, which are sent in the header when making a
 
 # Payment Requests and Transactions
 
-Throughout our documentation we will talk about payment requests and transactions in several places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid succesfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
+Throughout our documentation we will talk about payment requests and transactions in several places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid successfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
 
 # Endpoints
 
@@ -211,7 +211,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 1. Refund the full or partial amount once
 
-    * If you refund a transaction without providing an external reference, you will get a succesful response for the first request and then an ALREADY_REFUNDED message for any refund requests that follow for the same transaction, unless an external reference is provided.
+    * If you refund a transaction without providing an external reference, you will get a successful response for the first request and then an ALREADY_REFUNDED message for any refund requests that follow for the same transaction, unless an external reference is provided.
 
 2. Refund a partial amount multiple times up to the transaction amount
 
@@ -275,11 +275,11 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 # Webhooks
 
-Webhook notifications are sent for significant Payment lifecycle
+Webhook notifications are sent for significant Payment life-cycle
 events. The Webhook endpoint is notified by sending an HTTP POST request to the
 `notifyUrl` defined in the Payment Request.
 
-## Lifecycle Events That Trigger Webhooks
+## Life-cycle Events That Trigger Webhooks
 
 The supported event types that will be notified to the Payment Requests webhook
 and the associated "transactionType" value that will be sent in the payload
@@ -307,7 +307,7 @@ are:
 
 ### Transaction Refunded
 
-  A transaction can be refunded one to many times and each time a transaction has been refunded succesfully we notify the webhook associated with the original payment request. A transaction can be refunded when `transactions.refund` has been called for a partial or full refund, or when `requests.void` is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section below but with `transactionType` set to REFUND.
+  A transaction can be refunded one to many times and each time a transaction has been refunded successfully we notify the webhook associated with the original payment request. A transaction can be refunded when `transactions.refund` has been called for a partial or full refund, or when `requests.void` is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section below but with `transactionType` set to REFUND.
 
 ## Webhook Payload
 
