@@ -2,6 +2,7 @@
 layout: default
 title: Centrapay Documentation
 ---
+[Back to home](https://www.centrapay.com){:target="_self"}
 
 # Introduction
 {:.no_toc}
