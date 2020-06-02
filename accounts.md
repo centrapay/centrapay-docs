@@ -10,6 +10,7 @@ POST `https://service.centrapay.com/api/accounts`
 ```
 curl -X POST "https://service.centrapay.com/api/accounts" \
 -H "x-api-key: 1234" \
+-H "content-type: application/json" \
 -d '{"name":"Centrapay Cafe"}'
 ```
 
@@ -22,7 +23,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 
 ```
 {
-  "id": "5d7a4430-9960-11ea-8f5c-97c91f485570",
+  "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Centrapay Cafe"
 }
 ```
@@ -32,7 +33,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 GET `https://service.centrapay.com/api/accounts/{accountId}`
 
 ```
-curl -X GET "https://service.centrapay.com/api/accounts/5d7a4430-9960-11ea-8f5c-97c91f485570" \
+curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
 -H "x-api-key: 1234" 
 ```
 
@@ -40,7 +41,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/5d7a4430-9960-11ea-8f5c-
 
 ```
 {
-  "id": "5d7a4430-9960-11ea-8f5c-97c91f485570",
+  "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Centrapay Cafe"
 }
 ```
@@ -51,8 +52,9 @@ curl -X GET "https://service.centrapay.com/api/accounts/5d7a4430-9960-11ea-8f5c-
 PUT `https://service.centrapay.com/api/accounts/{accountId}`
 
 ```
-curl -X PUT "https://service.centrapay.com/api/accounts/5d7a4430-9960-11ea-8f5c-97c91f485570" \
+curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
 -H "x-api-key: 1234" \
+-H "content-type: application/json" \
 -d '{"name":"Shortland St Cafe"}'
 ```
 
@@ -65,7 +67,91 @@ curl -X PUT "https://service.centrapay.com/api/accounts/5d7a4430-9960-11ea-8f5c-
 
 ```
 {
-  "id": "5d7a4430-9960-11ea-8f5c-97c91f485570",
+  "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Shortland St Cafe"
 }
+```
+
+## Creating an API key
+
+POST `https://service.centrapay.com/api/accounts/{accountId}/api-keys`
+
+```
+curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
+-H "x-api-key: 1234" \
+-H "content-type: application/json" \
+-d '{"name": "MyAPIkey", "role": "merchant-terminal"}'
+```
+
+**Required Fields**
+
+| Field | Type   | Description                                                          |
+| name  | String | The alphanumeric name of the API key, must be unique within account  |
+| role  | String | API key role. Currently, only supported is "merchant-terminal"       |
+
+**Example response payload**
+
+```
+{
+  "name":"MyAPIkey",
+  "createdAt":"2020-06-01T22:32:56.631Z",
+  "enabled":true,
+  "role":"merchant-terminal",
+  "accountId":"Jaim1Cu1Q55uooxSens6yk",
+  "apiKey":"EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
+}
+```
+
+## List account API keys
+
+GET `https://service.centrapay.com/api/accounts/{accountId}/api-keys`
+
+```
+curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys"
+```
+
+**Example response payload**
+
+```
+[{
+    "accountId":"Jaim1Cu1Q55uooxSens6yk",
+    "name":"MyOtherAPIkey",
+    "createdAt":"2020-06-01T21:57:25.888Z",
+    "enabled":false,
+    "role":"merchant-terminal"
+  },{
+    "accountId":"Jaim1Cu1Q55uooxSens6yk",
+    "name":"MyAPIkey",
+    "createdAt":"2020-06-01T22:34:31.308Z",
+    "enabled":true,
+    "role":"merchant-terminal"
+}]
+```
+
+## Update account API key
+
+PUT `https://service.centrapay.com/api/accounts/{accountId}/api-keys/{apikey-name}`
+
+```
+curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey" \
+-H "x-api-key: 1234" \
+-H "content-type: application/json" \
+-d '{"enabled": false}'
+```
+
+**Required Fields**
+
+| Field    | Type    | Description            |
+| enabled  | Boolean | Enable/Disable API key |
+
+**Example response payload**
+
+```
+{
+  "accountId":"Jaim1Cu1Q55uooxSens6yk",
+  "name":"MyAPIkey",
+  "createdAt":"2020-06-01T22:34:31.308Z",
+  "enabled":false,
+  "role":"merchant-terminal"
+}                                                     
 ```
