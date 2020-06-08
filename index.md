@@ -233,7 +233,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 ## Error codes
 
 | Error code | Http code | Message                             | Description                              |
-| 1          | 401       | KEY_NOT_AUTHORIZED                  | Either the Api Key was not found in the headers, the Api Key provided is invalid, or it doesn’t have the required permissions |
+| 1          | 401       | KEY_NOT_AUTHORIZED                  | The Api Key was not found in the headers or is invalid |
 | 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist |
 | 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist |
 | 4          | 404       | MERCHANT_NOT_FOUND                  | The provided Merchant doesn’t exist |
@@ -253,6 +253,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 18         | 400       | REQUEST_EXPIRED                     | Action cannot be completed because the request has expired |
 | 19         | 400       | REQUEST_PAID                        | Action cannot be completed because the request has been paid |
 | 20         | 400       | INVALID_PAYMENT_EXPIRY_SECONDS      | PaymentExpirySeconds is either empty, or is not an integer greater than 0 |
+| 21         | 403       | FORBIDDEN                           | The Api Key provided doesn’t have the required permissions or the resource is not found |
 | 51         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong. |
 | 76         | 503       | EXTERNAL_SERVICE                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.|
 | 77         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong. |
