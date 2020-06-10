@@ -98,7 +98,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
   "enabled":true,
   "role":"merchant-terminal",
   "accountId":"Jaim1Cu1Q55uooxSens6yk",
-  "apiKey":"EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
+  "secret":"EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
 }
 ```
 
