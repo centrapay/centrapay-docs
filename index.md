@@ -351,7 +351,7 @@ example:
 | createdAt       | Timestamp at which the request was created                  |
 | updatedAt       | Timestamp at which the request was updated                  |
 | type            | The payment type used by the issuer to reconcile settlement |
-| request         | Request object, see details at request.info                 |
+| request         | Request object, see details at requests.info                |
 | authCode        | Authorization code used to settle this transaction          |
 
 ## Webhook JWT Validation
