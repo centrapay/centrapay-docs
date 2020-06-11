@@ -11,6 +11,11 @@ your point of sale, payment terminal, shopping cart or unattended device. We
 accomplish this via our Payments API which allows merchants, customers,
 terminals, and smart wallets to interact with each other.
 
+# Experimental Features
+{:.no_toc}
+
+{% include experimental.md  %}
+
 # Contents
 {:.no_toc}
 
