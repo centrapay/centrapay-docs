@@ -23,7 +23,7 @@ POST `https://service.centrapay.com/api/merchants`
 curl -X POST "https://service.centrapay.com/api/merchants" \
   -H "x-api-key: 123" \
   -H "content-type: application/json" \
-  -d '{"accountId": "C4QnjXvj8At6SMsEN4LRi9", "name": "Centrapay Cafe Auckland, "country":"NZ", "test":false}'
+  -d '{"accountId": "C4QnjXvj8At6SMsEN4LRi9", "name": "Centrapay Cafe Auckland", "country":"NZ", "test":false}'
 ```
 
 **Required Fields**
