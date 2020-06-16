@@ -1,6 +1,6 @@
 # Accounts API 
 
-An account represents a subsription to centrapay services and it owns resources within centrapay such as merchants and wallets.
+An account represents a subscription to centrapay services and it owns resources within centrapay such as merchants and wallets.
 Accounts will have apiKeys and users associated with them. Account membership grants access to all resources owned by the account.  
 
 ## Experimental Features
@@ -23,21 +23,28 @@ POST `https://service.centrapay.com/api/accounts`
 curl -X POST "https://service.centrapay.com/api/accounts" \
 -H "x-api-key: 1234" \
 -H "content-type: application/json" \
--d '{"name":"Centrapay Cafe"}'
+-d '{"name":"Centrapay Cafe", "type": "org"}'
 ```
 
 **Required Fields**
 
-| Field |  Type  |       Description       |
-| ----- | ------ | ----------------------- |
-| name  | String | The name of the account |
+| Field |  Type  |                    Description                     |
+| ----- | ------ | -------------------------------------------------- |
+| name  | String | The name of the account                            |
+| type  | String | Account type, must be either 'org' or 'individual' |
 
 **Example response payload**
 
 ```
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
-  "name": "Centrapay Cafe"
+  "name": "Centrapay Cafe",
+  "type": "org",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "version": "1"
 }
 ```
 
@@ -55,7 +62,13 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 ```
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
-  "name": "Centrapay Cafe"
+  "name": "Centrapay Cafe",
+  "type": "org",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "version": "1"
 }
 ```
 
@@ -82,7 +95,13 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 ```
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
-  "name": "Shortland St Cafe"
+  "name": "Shortland St Cafe",
+  "type": "org",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "modifiedAt": "2020-06-12T02:35:12.112Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "version": "2"
 }
 ```
 
