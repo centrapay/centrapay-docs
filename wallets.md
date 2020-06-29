@@ -23,14 +23,14 @@ POST `https://service.centrapay.com/api/wallets`
 curl -X POST "https://service.centrapay.com/api/wallets" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
-  -d '{"accountId":"Te2uDM7xhDLWGVJU3nzwnh", "ledgerId":"centrapay.nzd.live"}'
+  -d '{"accountId":"Te2uDM7xhDLWGVJU3nzwnh", "ledgerId":"centrapay.nzd.main"}'
 ```
 
 **Required Fields**
 
 | Field     | Type   | Description                                                      |
 | accountId | String | The id of the account                                            |
-| ledgerId  | String | The id of the ledger e.g. centrapay.nzd.live, centrapay.nzd.test |
+| ledgerId  | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test |
 
 **Example response payload**
 
@@ -38,7 +38,7 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.live",
+  "ledgerId": "centrapay.nzd.main",
   "currency": "NZD",
   "balance": "2000" 
 }
@@ -59,7 +59,7 @@ curl -X GET "https://service.centrapay.com/api/wallets" \
 [{
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.live",
+  "ledgerId": "centrapay.nzd.main",
   "currency": "NZD",
   "balance": "2000" 
 },
