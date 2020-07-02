@@ -2,6 +2,13 @@
 layout: default
 title: Centrapay Documentation
 ---
+<style>
+
+a.external:after {
+  content: " " url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
+}
+
+</style>
 
 # Introduction
 {:.no_toc}
@@ -78,7 +85,8 @@ Throughout our documentation we will talk about payment requests and transaction
 
 # Endpoints
 
-Our endpoints are documented fully using Swagger here [https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation)
+Our payments endpoints have interactive Swagger documentation at
+[https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
 **Base Url:** service.centrapay.com/payments/api
 
@@ -90,7 +98,7 @@ Our endpoints are documented fully using Swagger here [https://service.centrapay
 
 ## Creating a payment request
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.create
 
@@ -120,7 +128,8 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 ## Getting the information about a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="_blank"}
+
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
 **GET** https://service.centrapay.com/payments/api/requests.info
 
@@ -138,7 +147,7 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 ## Paying a payment request
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/requests/postRequestspay){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/requests/postRequestspay){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.pay
 
@@ -165,7 +174,7 @@ The received code is only valid for two weeks from the issue date. You might get
 
 ## Cancelling a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.cancel 
 
@@ -183,7 +192,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 ## Voiding a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.void
 
@@ -201,7 +210,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 ## Refunding a transaction 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/transactions.refund
 
