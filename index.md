@@ -2,6 +2,13 @@
 layout: default
 title: Centrapay Documentation
 ---
+<style>
+
+a.external:after {
+  content: " " url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
+}
+
+</style>
 
 # Introduction
 {:.no_toc}
@@ -78,7 +85,8 @@ Throughout our documentation we will talk about payment requests and transaction
 
 # Endpoints
 
-Our endpoints are documented fully using Swagger here [https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation)
+Our payments endpoints have interactive Swagger documentation at
+[https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
 **Base Url:** service.centrapay.com/payments/api
 
@@ -90,7 +98,7 @@ Our endpoints are documented fully using Swagger here [https://service.centrapay
 
 ## Creating a payment request
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.create
 
@@ -105,22 +113,25 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 **Required Parameters**
 
 | Parameter  | Description                                 |
+|------------|---------------------------------------------|
 | amount     | The payment amount in cents                 |
 | asset      | The currency - NZD or AUD                   |
 | merchantId | The ID of the merchant creating the request |
 
 **OptionalParameters**
 
-| Parameter         | Description                                                  |
-| clientId          | The ID of the merchant specific client configuration         |
-| description       | Description of the payment                                   |
-| externalReference | Unique merchant reference for the payment request            |
-| notifyUrl         | The URL that will receive **POST** requests from the webhook |
+| Parameter            | Description                                                                      |
+|----------------------|----------------------------------------------------------------------------------|
+| clientId             | The ID of the merchant specific client configuration                             |
+| description          | Description of the payment                                                       |
+| externalReference    | Unique merchant reference for the payment request                                |
+| notifyUrl            | The URL that will receive **POST** requests from the webhook                     |
 | paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 |
 
 ## Getting the information about a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="_blank"}
+
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
 **GET** https://service.centrapay.com/payments/api/requests.info
 
@@ -133,12 +144,13 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 **Required Parameters**
 
 | Parameter | Description                                                               |
+|-----------|---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
 ## Paying a payment request
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/requests/postRequestspay){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestspay){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.pay
 
@@ -150,22 +162,40 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
     -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
 ```
 
-**Note** To test Pocket Vouchers, generate a test value voucher by texting ‘CENTRALBONUS’ 393.
-You will then receive a response text containing an 8 digit voucher code that has $20 of loaded credit. 
-
-The received code is only valid for two weeks from the issue date. You might get charged your standard text rates from your provider.
-
 **Required Parameters**
 
-| Parameter     | Description                                                               |
-| authorization | The voucher code                                                          |
-| ledger        | The ledger to use for payment          |
-| requestId     | The payment requestId that is generated when `/requests.create` is called |
+| Parameter     | Description                                                                                              |
+|---------------|----------------------------------------------------------------------------------------------------------|
+| authorization | An identifier that can be used to pay or verify payment on the ledger. See below for expected values.    |
+| ledger        | The ledger to use for payment. See `payments[].ledger` in the `requests.info` response for valid values. |
+| requestId     | The payment requestId that is generated when `/requests.create` is called.                               |
+
+**Expected Authorization Values**
+
+| Ledger Type      | Authorization Param Value    |
+|------------------|------------------------------|
+| Centrapay Wallet | Centrapay wallet id          |
+| Pocket Vouchers  | Pocket Vouchers voucher code |
+| Bitcoin          | Bitcoin transaction id       |
+
+**Centrapay Wallet Permissions**
+
+To pay with a Centrapay Wallet ledger the user (identified by the API Key or
+identity token) must have permission to transfer funds from the specified
+wallet.
+
+**Testing Pocket Vouchers**
+
+To test Pocket Vouchers, generate a test value voucher by texting
+"CENTRALBONUS" to 393.  You will then receive a response text containing an 8
+digit voucher code that has $20 of loaded credit. The received code is only
+valid for two weeks from the issue date. You might get charged your standard
+text rates from your provider.
 
 
 ## Cancelling a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.cancel 
 
@@ -178,12 +208,13 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 **Required Parameters**
 
 | Parameter | Description                                                               |
+|-----------|---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
 ## Voiding a payment request 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.void
 
@@ -195,13 +226,14 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 **Required Parameters**
 
-| Parameter | Description |         
-| requestId | The payment requestId that is generated when `/requests.create` is called.|
+| Parameter | Description                                                                |
+|-----------|----------------------------------------------------------------------------|
+| requestId | The payment requestId that is generated when `/requests.create` is called. |
 
 
 ## Refunding a transaction 
 
-[Documentation](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="_blank"}
+[Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/transactions.refund
 
@@ -224,20 +256,24 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 **Required Parameters for one time refund**
 
-| Parameter | Description |
+| Parameter     | Description                           |
+|---------------|---------------------------------------|
 | transactionId | The transaction to refund you can either get this by setting notifyUrl when the request is created and receiving a webhook notification with the transaction details, or call `/requests.info` and grab the transactionId from there. |
-| amount | The amount to refund in cents |
+| amount        | The amount to refund in cents         |
 
 **Additional required Parameter for multiple refunds**
 
-| Parameter | Description |
+| Parameter         | Description                          |
+|-------------------|--------------------------------------|
 | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. |
 
 # Errors
 
 ## Error codes
 
+
 | Error code | Http code | Message                             | Description                              |
+|------------|-----------|-------------------------------------|------------------------------------------|
 | 1          | 401       | KEY_NOT_AUTHORIZED                  | The Api Key was not found in the headers or is invalid |
 | 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist |
 | 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist |
@@ -274,8 +310,11 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 183        | 403       | INVALID_TRANSACTION_AMOUNT          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
 | 184        | 403       | INVALID_VOUCHER_AMOUNT              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
 | 185        | 403       | VOUCHER_EXPIRED                     | The voucher has expired |
-| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        | The voucher balance is less then required amount |
+| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        | The voucher balance is less than the required amount |
 | 187        | 404       | VOUCHER_UNKNOWN                     | The voucher code supplied does not correspond to any valid vouchers |
+| 189        | 403       | INSUFFICIENT_WALLET_BALANCE         | The wallet balance is less than the required amount |
+| 190        | 200       | TRANSACTION_ALREADY_EXISTS          | A successful payment transaction already exists for a payment request. |
+| 191        | 500       | OPTIMISTIC_LOCK_ERROR               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable. |
 | 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded |
 | 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount|
 
