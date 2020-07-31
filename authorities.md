@@ -65,6 +65,11 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
     "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
 ```
+**Error Responses**
+
+| Status |             Code              |                         Description                         |
+| ------ | ----------------------------- | ----------------------------------------------------------- |
+| 403    | BANK_AUTHORITY_LIMIT_EXCEEDED | The account already has the max amount of bank authorities. |
 
 ## Get information about a bank authority  
 
