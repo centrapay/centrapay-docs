@@ -33,6 +33,14 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 | name  | String | The name of the account                            |
 | type  | String | Account type, must be either 'org' or 'individual' |
 
+
+**Optional Fields**
+
+| Field |  Type  |                      Description                       |
+| ----- | ------ | ------------------------------------------------------ |
+| owner | String | Id of user to add as member with "account-owner" role. |
+
+
 **Example response payload**
 
 ```
@@ -189,4 +197,66 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
   "enabled":false,
   "role":"merchant-terminal"
 }                                                     
+```
+
+## Add account member **EXPERIMENTAL**
+
+POST `https://service.centrapay.com/api/accounts/${accountId}/members`
+
+```
+curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members" \
+-H "x-api-key: 1234" \
+-H "content-type: application/json" \
+-d '{ "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc", "role": "account-owner" }'
+```
+
+**Required Fields**
+
+| Field  |  Type  |                           Description                             |
+|--------|--------|-------------------------------------------------------------------|
+| userId | String | The id of the user to add to the acccount.                        |
+| role   | String | Account member role. Currently only "account-owner" is supported. |
+
+
+**Example response payload**
+
+```
+{
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+  "role": "account-owner",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "version": "1"
+}
+```
+
+## List account members
+
+GET `https://service.centrapay.com/api/accounts/{accountId}/members`
+
+```
+curl -X GET http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```
+[
+  {
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "userId": "b657195e-dc2f-11ea-8566-e7710d592c99",
+    "createdAt": "2020-06-01T21:57:25.888Z",
+    "role": "account-owner"
+  },
+  {
+    "accountId":"Jaim1Cu1Q55uooxSens6yk",
+    "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
+    "createdAt":"2020-06-01T22:34:31.308Z",
+    "role":"account-owner"
+  }
+]
 ```
