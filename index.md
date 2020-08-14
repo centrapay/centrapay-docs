@@ -93,7 +93,7 @@ Our payments endpoints have interactive Swagger documentation at
 |             |                                                                                                   |
 | Requests    | /requests.cancel <br> /requests.create <br> /requests.info <br> /requests.pay <br> /requests.void |
 | Service     | /service.info                                                                                     |
-| Transaction | /transactions.refund                                        |
+| Transaction | /transactions.refund                                                                              |
 
 
 ## Creating a payment request
@@ -112,21 +112,23 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 **Required Parameters**
 
-| Parameter  | Description                                 |
-|------------|---------------------------------------------|
+| Parameter  |                 Description                 |
+| ---------- | ------------------------------------------- |
 | amount     | The payment amount in cents                 |
 | asset      | The currency - NZD or AUD                   |
 | merchantId | The ID of the merchant creating the request |
 
 **OptionalParameters**
 
-| Parameter            | Description                                                                      |
-|----------------------|----------------------------------------------------------------------------------|
+|      Parameter       |                                   Description                                    |
+| -------------------- | -------------------------------------------------------------------------------- |
 | clientId             | The ID of the merchant specific client configuration                             |
 | description          | Description of the payment                                                       |
 | externalReference    | Unique merchant reference for the payment request                                |
 | notifyUrl            | The URL that will receive **POST** requests from the webhook                     |
 | paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 |
+| terminalId           | The payment system terminal Id                                                   |
+| deviceId             | Physical payment system device Id                                                |
 
 ## Getting the information about a payment request 
 
@@ -143,8 +145,8 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 **Required Parameters**
 
-| Parameter | Description                                                               |
-|-----------|---------------------------------------------------------------------------|
+| Parameter |                                Description                                |
+| --------- | ------------------------------------------------------------------------- |
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
@@ -164,16 +166,16 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 
 **Required Parameters**
 
-| Parameter     | Description                                                                                              |
-|---------------|----------------------------------------------------------------------------------------------------------|
+|   Parameter   |                                               Description                                                |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
 | authorization | An identifier that can be used to pay or verify payment on the ledger. See below for expected values.    |
 | ledger        | The ledger to use for payment. See `payments[].ledger` in the `requests.info` response for valid values. |
 | requestId     | The payment requestId that is generated when `/requests.create` is called.                               |
 
 **Expected Authorization Values**
 
-| Ledger Type      | Authorization Param Value    |
-|------------------|------------------------------|
+|   Ledger Type    |  Authorization Param Value   |
+| ---------------- | ---------------------------- |
 | Centrapay Wallet | Centrapay wallet id          |
 | Pocket Vouchers  | Pocket Vouchers voucher code |
 | Bitcoin          | Bitcoin transaction id       |
@@ -207,8 +209,8 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 **Required Parameters**
 
-| Parameter | Description                                                               |
-|-----------|---------------------------------------------------------------------------|
+| Parameter |                                Description                                |
+| --------- | ------------------------------------------------------------------------- |
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
@@ -226,8 +228,8 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 **Required Parameters**
 
-| Parameter | Description                                                                |
-|-----------|----------------------------------------------------------------------------|
+| Parameter |                                Description                                 |
+| --------- | -------------------------------------------------------------------------- |
 | requestId | The payment requestId that is generated when `/requests.create` is called. |
 
 
@@ -256,15 +258,15 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 **Required Parameters for one time refund**
 
-| Parameter     | Description                           |
-|---------------|---------------------------------------|
+|   Parameter   |                                                                                                              Description                                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | transactionId | The transaction to refund you can either get this by setting notifyUrl when the request is created and receiving a webhook notification with the transaction details, or call `/requests.info` and grab the transactionId from there. |
-| amount        | The amount to refund in cents         |
+| amount        | The amount to refund in cents                                                                                                                                                                                                         |
 
 **Additional required Parameter for multiple refunds**
 
-| Parameter         | Description                          |
-|-------------------|--------------------------------------|
+|     Parameter     |                                                                  Description                                                                  |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. |
 
 # Errors
@@ -272,51 +274,51 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 ## Error codes
 
 
-| Error code | Http code | Message                             | Description                              |
-|------------|-----------|-------------------------------------|------------------------------------------|
-| 1          | 401       | KEY_NOT_AUTHORIZED                  | The Api Key was not found in the headers or is invalid |
-| 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist |
-| 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist |
-| 4          | 404       | MERCHANT_NOT_FOUND                  | The provided Merchant doesn’t exist |
-| 5          | 400       | INVALID_REQUEST_ID                  | RequestId must be a valid UUID |
-| 6          | 400       | INVALID_AMOUNT                      | Amount must be a positive integer greater than zero |
-| 7          | 400       | INVALID_ASSET                       | Asset was not a supported currency type |
-| 8          | 400       | INVALID_AUTHORIZATION               | Authorization must be a non empty string |
-| 9          | 400       | INVALID_LEDGER                      | Ledger must be a non empty string |
-| 10         | 400       | INVALID_MERCHANT_ID                 | MerchantId must be a non empty string |
-| 11         | 400       | INVALID_CLIENT_ID                   | ClientId must be a valid UUID |
-| 12         | 400       | INVALID_PATRON_CODE                 | PatronCode must be a non empty string |
-| 13         | 400       | INVALID_DESCRIPTION                 | Description must be a non empty string |
-| 14         | 400       | INVALID_REFERENCE                   | ExternalReference must be a non empty string |
-| 15         | 400       | INVALID_NOTIFY_URL                  | NotifyUrl must be a non empty string |
-| 16         | 400       | INVALID_TRANSACTION_ID              | TransactionId must be a non empty string |
-| 17         | 400       | REQUEST_CANCELLED                   | Action cannot be completed because the request has already been cancelled |
-| 18         | 400       | REQUEST_EXPIRED                     | Action cannot be completed because the request has expired |
-| 19         | 400       | REQUEST_PAID                        | Action cannot be completed because the request has been paid |
-| 20         | 400       | INVALID_PAYMENT_EXPIRY_SECONDS      | PaymentExpirySeconds is either empty, or is not an integer greater than 0 |
-| 21         | 403       | FORBIDDEN                           | The Api Key provided doesn’t have the required permissions or the resource is not found |
-| 51         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong. |
-| 76         | 503       | EXTERNAL_SERVICE                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.|
-| 77         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong. |
-| 126        | 403       | IN_USE                              | A webSocket channel for this request already exists |
-| 151        | 403       | IN_USE                              | An active WS connection already exists for that patronCode |
-| 176        | 400       | LEDGER_NOT_ENABLED                  | Merchant is not configured with the provided ledger |
-| 177        | 400       | INVALID_LEDGER                      | The ledger provided doesn’t exist |
-| 178        | 500       | INTERNAL_SERVER_ERROR               | Something went wrong while trying to pay a request, we have received an error message and will figure out what went wrong. |
-| 179        | 404       | BITCOIN_TRANSACTION_NOT_FOUND       | A transaction for the provided authorization could not be found on the bitcoin block chain |
-| 180        | 400       | OLD_TRANSACTION                     | The provided authorization is for a transaction that was confirmed before the payment request was created |
-| 181        | 400       | INSUFFICIENT_PAYMENT                | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment |
+| Error code | Http code |               Message               |                                                                                                                        Description                                                                                                                        |
+| ---------- | --------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1          | 401       | KEY_NOT_AUTHORIZED                  | The Api Key was not found in the headers or is invalid                                                                                                                                                                                                    |
+| 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist                                                                                                                                                                                                                        |
+| 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist                                                                                                                                                                                                                    |
+| 4          | 404       | MERCHANT_NOT_FOUND                  | The provided Merchant doesn’t exist                                                                                                                                                                                                                       |
+| 5          | 400       | INVALID_REQUEST_ID                  | RequestId must be a valid UUID                                                                                                                                                                                                                            |
+| 6          | 400       | INVALID_AMOUNT                      | Amount must be a positive integer greater than zero                                                                                                                                                                                                       |
+| 7          | 400       | INVALID_ASSET                       | Asset was not a supported currency type                                                                                                                                                                                                                   |
+| 8          | 400       | INVALID_AUTHORIZATION               | Authorization must be a non empty string                                                                                                                                                                                                                  |
+| 9          | 400       | INVALID_LEDGER                      | Ledger must be a non empty string                                                                                                                                                                                                                         |
+| 10         | 400       | INVALID_MERCHANT_ID                 | MerchantId must be a non empty string                                                                                                                                                                                                                     |
+| 11         | 400       | INVALID_CLIENT_ID                   | ClientId must be a valid UUID                                                                                                                                                                                                                             |
+| 12         | 400       | INVALID_PATRON_CODE                 | PatronCode must be a non empty string                                                                                                                                                                                                                     |
+| 13         | 400       | INVALID_DESCRIPTION                 | Description must be a non empty string                                                                                                                                                                                                                    |
+| 14         | 400       | INVALID_REFERENCE                   | ExternalReference must be a non empty string                                                                                                                                                                                                              |
+| 15         | 400       | INVALID_NOTIFY_URL                  | NotifyUrl must be a non empty string                                                                                                                                                                                                                      |
+| 16         | 400       | INVALID_TRANSACTION_ID              | TransactionId must be a non empty string                                                                                                                                                                                                                  |
+| 17         | 400       | REQUEST_CANCELLED                   | Action cannot be completed because the request has already been cancelled                                                                                                                                                                                 |
+| 18         | 400       | REQUEST_EXPIRED                     | Action cannot be completed because the request has expired                                                                                                                                                                                                |
+| 19         | 400       | REQUEST_PAID                        | Action cannot be completed because the request has been paid                                                                                                                                                                                              |
+| 20         | 400       | INVALID_PAYMENT_EXPIRY_SECONDS      | PaymentExpirySeconds is either empty, or is not an integer greater than 0                                                                                                                                                                                 |
+| 21         | 403       | FORBIDDEN                           | The Api Key provided doesn’t have the required permissions or the resource is not found                                                                                                                                                                   |
+| 51         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong.                                                                                                                           |
+| 76         | 503       | EXTERNAL_SERVICE                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.                                                                                                                                    |
+| 77         | 500       | INTERNAL_ERROR                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong.                                                                                                                           |
+| 126        | 403       | IN_USE                              | A webSocket channel for this request already exists                                                                                                                                                                                                       |
+| 151        | 403       | IN_USE                              | An active WS connection already exists for that patronCode                                                                                                                                                                                                |
+| 176        | 400       | LEDGER_NOT_ENABLED                  | Merchant is not configured with the provided ledger                                                                                                                                                                                                       |
+| 177        | 400       | INVALID_LEDGER                      | The ledger provided doesn’t exist                                                                                                                                                                                                                         |
+| 178        | 500       | INTERNAL_SERVER_ERROR               | Something went wrong while trying to pay a request, we have received an error message and will figure out what went wrong.                                                                                                                                |
+| 179        | 404       | BITCOIN_TRANSACTION_NOT_FOUND       | A transaction for the provided authorization could not be found on the bitcoin block chain                                                                                                                                                                |
+| 180        | 400       | OLD_TRANSACTION                     | The provided authorization is for a transaction that was confirmed before the payment request was created                                                                                                                                                 |
+| 181        | 400       | INSUFFICIENT_PAYMENT                | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment                                                                                                                            |
 | 182        | 403       | MERCHANT_TRANSACTION_LIMIT_EXCEEDED | The merchant that the voucher is associated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher. |
-| 183        | 403       | INVALID_TRANSACTION_AMOUNT          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
-| 184        | 403       | INVALID_VOUCHER_AMOUNT              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher |
-| 185        | 403       | VOUCHER_EXPIRED                     | The voucher has expired |
-| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        | The voucher balance is less than the required amount |
-| 187        | 404       | VOUCHER_UNKNOWN                     | The voucher code supplied does not correspond to any valid vouchers |
-| 189        | 403       | INSUFFICIENT_WALLET_BALANCE         | The wallet balance is less than the required amount |
-| 190        | 200       | TRANSACTION_ALREADY_EXISTS          | A successful payment transaction already exists for a payment request. |
-| 191        | 500       | OPTIMISTIC_LOCK_ERROR               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable. |
-| 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded |
-| 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount|
+| 183        | 403       | INVALID_TRANSACTION_AMOUNT          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher                                                                                                                                          |
+| 184        | 403       | INVALID_VOUCHER_AMOUNT              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher                                                                                                                                          |
+| 185        | 403       | VOUCHER_EXPIRED                     | The voucher has expired                                                                                                                                                                                                                                   |
+| 186        | 403       | INSUFFICIENT_VOUCHER_BALANCE        | The voucher balance is less than the required amount                                                                                                                                                                                                      |
+| 187        | 404       | VOUCHER_UNKNOWN                     | The voucher code supplied does not correspond to any valid vouchers                                                                                                                                                                                       |
+| 189        | 403       | INSUFFICIENT_WALLET_BALANCE         | The wallet balance is less than the required amount                                                                                                                                                                                                       |
+| 190        | 200       | TRANSACTION_ALREADY_EXISTS          | A successful payment transaction already exists for a payment request.                                                                                                                                                                                    |
+| 191        | 500       | OPTIMISTIC_LOCK_ERROR               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable.                                                                                                                                               |
+| 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded                                                                                                                                                                                                                 |
+| 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount                                                                                                                                                                                               |
 
 # Webhooks
 
@@ -331,8 +333,8 @@ and the associated "transactionType" value that will be sent in the payload
 are:
 
 
-| Event Type                | Value of "transactionType" |
-|---------------------------|----------------------------|
+|        Event Type         | Value of "transactionType" |
+| ------------------------- | -------------------------- |
 | Payment Request Cancelled | CANCELLED                  |
 | Payment Request Expired   | EXPIRED                    |
 | Transaction Completed     | PURCHASE                   |
@@ -385,8 +387,8 @@ example:
 ```
 ### Webhook Payload Fields
 
-| Property        | Description                                                 |
-|-----------------|-------------------------------------------------------------|
+|    Property     |                         Description                         |
+| --------------- | ----------------------------------------------------------- |
 | transactionId   | Id of the transaction                                       |
 | transactionType | Indicates which event triggered the notification message    |
 | state           | Current state of the transaction                            |
