@@ -1,15 +1,11 @@
-# Merchants API
+# Merchants
 {:.no_toc}
 
-A merchant is member of the centrapay account. Merchant can have different configurations with different payment methods. 
-
-## Experimental Features
-{:.no_toc}
-
-{% include experimental.md  %}
+A merchant is member of the centrapay account. Merchant can have different
+configurations with different payment methods.
 
 ## Contents
-{:.no_toc}
+{:.no_toc .text-delta}
 
 * TOC
 {:toc}
@@ -19,17 +15,22 @@ A merchant is member of the centrapay account. Merchant can have different confi
 
 POST `https://service.centrapay.com/api/merchants`
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/api/merchants" \
   -H "x-api-key: 123" \
   -H "content-type: application/json" \
-  -d '{"accountId": "C4QnjXvj8At6SMsEN4LRi9", "name": "Centrapay Cafe Auckland", "country":"NZ", "test":false}'
+  -d '{
+    "accountId": "C4QnjXvj8At6SMsEN4LRi9",
+    "name": "Centrapay Cafe Auckland",
+    "country": "NZ",
+    "test": false
+  }'
 ```
 
 **Required Fields**
 
 |   Field   |  Type   |                Description                |
-| --------- | ------- | ----------------------------------------- |
+|:--------- |:------- |:----------------------------------------- |
 | accountId | String  | Owning account reference                  |
 | name      | String  | Merchant name                             |
 | country   | String  | Merchants country in alpha 2 standard     |
@@ -38,12 +39,12 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
 **Optional Fields**
 
 |      Field       |  Type  |                 Description                 |
-| ---------------- | ------ | ------------------------------------------- |
+|:---------------- |:------ |:------------------------------------------- |
 | settlementConfig | Object | **EXPERIMENTAL** Merchant settlement config |
 
 **Example response payload**
 
-```
+```json
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -57,14 +58,14 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
 
 GET `https://service.centrapay.com/api/merchants/{merchantId}`
 
-```
+```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
   -H "x-api-key: 1234"
 ```
 
 **Example response payload**
 
-```
+```json
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -78,7 +79,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 PUT `https://service.centrapay.com/api/merchants/{merchantId}`
 
-```
+```sh
 curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
@@ -88,14 +89,14 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 **Optional Fields**
 
 |      Field       |  Type  |                 Description                 |
-| ---------------- | ------ | ------------------------------------------- |
+|:---------------- |:------ |:------------------------------------------- |
 | name             | String | Merchant name                               |
 | country          | String | Merchants country in alpha 2 standard       |
 | settlementConfig | Object | **EXPERIMENTAL** Merchant settlement config |
 
 **Example response payload**
 
-```
+```json
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -109,7 +110,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 POST `https://service.centrapay.com/api/merchants/{merchantId}/configs/`
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
@@ -119,7 +120,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 **Required Fields**
 
 |          Field          |  Type  |                                                Description                                                       |
-| ----------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
+|:----------------------- |:------ |:---------------------------------------------------------------------------------------------------------------------- |
 | paymentOptions          | Array  | Array of paymentOptions objects                                                                                        |
 | paymentOptions[\*]      | Object | Object containing paymentOption properties                                                                             |
 | paymentOptions[\*].type | String | Type of payment. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
@@ -127,7 +128,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 
 **Example response payload**
 
-```
+```json
 {
   "id": "5ee168e8597be5002af7b454",
   "merchantId": "5ee0c486308f590260d9a07f",
@@ -143,14 +144,14 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 
 GET `https://service.centrapay.com/api/merchants/{merchantId}/configs/{id}`
 
-```
+```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload** 
+**Example response payload**
 
-```
+```json
 {
   "id": "5ee168e8597be5002af7b454",
   "merchantId": "5ee0c486308f590260d9a07f",
@@ -166,14 +167,14 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 GET `https://service.centrapay.com/api/merchants/{merchantId}/configs/`
 
-```
+```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload** 
+**Example response payload**
 
-```
+```json
 [
   {
     "id": "5ee168e8597be5002af7b454",
@@ -200,7 +201,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 PUT `https://service.centrapay.com/api/merchants/{merchantId}/configs/{id}`
 
-```
+```sh
 curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed/" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
@@ -210,14 +211,14 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 **Required Fields**
 
 |          Field          |  Type  |                                                          Description                                                          |
-| ----------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+|:----------------------- |:------ |:----------------------------------------------------------------------------------------------------------------------------- |
 | paymentOptions          | Array  | Array of paymentOptions objects                                                                                               |
 | paymentOptions[\*]      | Object | Object containing paymentOption properties                                                                                    |
 | paymentOptions[\*].type | String | Type of payment method. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
 | paymentOptions[\*].account | String | Account the funds will be transferred to, currently only supported for 'centrapay.nzd.test' ledger |
 
-**Example response payload** 
-```
+**Example response payload**
+```json
 {
   "id": "5ee168e8597be5002af7baed",
   "merchantId": "5ee0c486308f590260d9a07f",
