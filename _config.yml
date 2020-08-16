@@ -1,7 +1,21 @@
+source: src
 github:
   is_project_page: false
   is_user_page: false
 show_downloads: false
 title: Centrapay Docs
 kramdown:
-  toc_levels: '1,2'
+  toc_levels: '2,3'
+theme: "just-the-docs"
+footer_content: "Copyright &copy; 2020 Centrapay"
+
+search_enabled: true
+search:
+  button: true
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+aux_links:
+  "Centrapay":
+    - "https://centrapay.com"

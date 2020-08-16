@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Centrapay Documentation
+title: Transacting
+nav_order: 2
 ---
 <style>
 
@@ -10,90 +11,28 @@ a.external:after {
 
 </style>
 
-# Introduction
+# Transacting
 {:.no_toc}
 
-Welcome to Centrapay! We enable you to transact Digital Assets or Vouchers via
-your point of sale, payment terminal, shopping cart or unattended device. We
-accomplish this via our Payments API which allows merchants, customers,
-terminals, and smart wallets to interact with each other.
 
-# Experimental Features
-{:.no_toc}
-
-{% include experimental.md  %}
-
-# Contents
-{:.no_toc}
-
-* TOC
-{:toc}
-
-# Example Payment Flows
-
-## Voucher Redemption
-
-1. Merchant creates a payment request via our API 
-2. Consumer is prompted to enter a voucher code on terminal
-3. Consumer enters voucher Code into terminal 
-4. The terminal calls our API with the details of the transaction 
-5. We redeem the voucher if it is valid or reject it if it isn't
-6. terminal displays result.
-
-## Dynamic QR Code
-
-1. Merchant creates a payment request via our API
-2. We respond with the payment request and a generated QR code
-3. The QR code is displayed by the terminal
-4. Consumer scans the QR code displayed
-5. Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app
-6. We prompt their smart wallet to pay the request
-7. Smart wallet pays the request
-8. We verify payment and notify the terminal
-9. Terminal displays result
-
-## Static QR Code at a vending machine
-
-1. Consumer scans QR code and calls the merchants backend
-2. Merchant creates a payment request via our API
-3. Smart wallet displays information to the customer
-4. Customer selects payment options supported by the given merchant
-5. Smart wallet transfers funds to merchant
-6. We verify they have the required credit and notify merchant
-7. Customer picks an item from the machine > Product is vended > Merchant refunds the customer via our API
-
-## Barcode
-
-1. Customer generates a one time barcode via our connected app inside of their smart wallet
-2. Merchant scans the barcode and creates a payment request via our API which includes the customers barcode as a parameter
-3. We respond with the payment request and a generated QR code
-4. The QR code is displayed by the terminal 
-5. Consumer scans the QR code displayed
-6. Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app
-7. We prompt their smart wallet to pay the request
-8. Smart wallet pays the request
-9. We verify payment and notify the terminal
-10. Terminal displays result
-
-# API keys and access
-
-We handle authorization via api keys, which are sent in the header when making a request to any of our endpoints. To get set up with an api key so you can start using the payments API contact us via email at **devsupport@centrapay.com.**
-
-# Payment Requests and Transactions
-
-Throughout our documentation we will talk about payment requests and transactions in several places, and it is important to know the difference. A payment request is generated when the `/requests.create` endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid successfully via the `requests.pay` endpoint, or when a completed transaction has been refunded via the `requests.void` or `transactions.refund` endpoint. 
-
-# Endpoints
+Throughout our documentation we will talk about payment requests and
+transactions in several places, and it is important to know the difference. A
+payment request is generated when the `/requests.create` endpoint has been
+called. Payment Requests are then used to configure the different payment types
+a merchant accepts, set the amount of the transaction as well as the fiat
+currency e.g. NZD, and to set up any webhooks. Transactions are created when a
+payment request has been paid successfully via the `requests.pay` endpoint, or
+when a completed transaction has been refunded via the `requests.void` or
+`transactions.refund` endpoint.
 
 Our payments endpoints have interactive Swagger documentation at
 [https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
-**Base Url:** service.centrapay.com/payments/api
+## Contents
+{:.no_toc .text-delta}
 
-|             |                                                                                                   |
-| Requests    | /requests.cancel <br> /requests.create <br> /requests.info <br> /requests.pay <br> /requests.void |
-| Service     | /service.info                                                                                     |
-| Transaction | /transactions.refund                                                                              |
+* TOC
+{:toc}
 
 
 ## Creating a payment request
@@ -102,26 +41,26 @@ Our payments endpoints have interactive Swagger documentation at
 
 **POST** https://service.centrapay.com/payments/api/requests.create
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d merchantId="1399b053-b3dd-4c5b-9859-b5bf5c2ac477" \
-    -d amount=300 \
-    -d asset='NZD'
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d merchantId="1399b053-b3dd-4c5b-9859-b5bf5c2ac477" \
+  -d amount=300 \
+  -d asset='NZD'
 ```
 
 **Required Parameters**
 
-| Parameter  |                 Description                 |
-| ---------- | ------------------------------------------- |
+| Parameter  | Description                                 |
+|:-----------|:--------------------------------------------|
 | amount     | The payment amount in cents                 |
 | asset      | The currency - NZD or AUD                   |
 | merchantId | The ID of the merchant creating the request |
 
 **OptionalParameters**
 
-|      Parameter       |                                   Description                                    |
-| -------------------- | -------------------------------------------------------------------------------- |
+| Parameter            | Description                                                                      |
+|:---------------------|:---------------------------------------------------------------------------------|
 | clientId             | The ID of the merchant specific client configuration                             |
 | description          | Description of the payment                                                       |
 | externalReference    | Unique merchant reference for the payment request                                |
@@ -130,23 +69,23 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | terminalId           | The payment system terminal Id                                                   |
 | deviceId             | Physical payment system device Id                                                |
 
-## Getting the information about a payment request 
+## Getting the information about a payment request
 
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
 **GET** https://service.centrapay.com/payments/api/requests.info
 
-```
+```sh
 curl -G "https://service.centrapay.com/payments/api/requests.info" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
 **Required Parameters**
 
-| Parameter |                                Description                                |
-| --------- | ------------------------------------------------------------------------- |
+| Parameter | Description                                                               |
+|:----------|:--------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
@@ -156,26 +95,26 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 **POST** https://service.centrapay.com/payments/api/requests.pay
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d authorization="12345678" \
-    -d ledger="g.pocketvouchers.pv" \
-    -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d authorization="12345678" \
+  -d ledger="g.pocketvouchers.pv" \
+  -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
 ```
 
 **Required Parameters**
 
-|   Parameter   |                                               Description                                                |
-| ------------- | -------------------------------------------------------------------------------------------------------- |
+| Parameter     | Description                                                                                              |
+|:--------------|:---------------------------------------------------------------------------------------------------------|
 | authorization | An identifier that can be used to pay or verify payment on the ledger. See below for expected values.    |
 | ledger        | The ledger to use for payment. See `payments[].ledger` in the `requests.info` response for valid values. |
 | requestId     | The payment requestId that is generated when `/requests.create` is called.                               |
 
 **Expected Authorization Values**
 
-|   Ledger Type    |  Authorization Param Value   |
-| ---------------- | ---------------------------- |
+| Ledger Type      | Authorization Param Value    |
+|:-----------------|:-----------------------------|
 | Centrapay Wallet | Centrapay wallet id          |
 | Pocket Vouchers  | Pocket Vouchers voucher code |
 | Bitcoin          | Bitcoin transaction id       |
@@ -195,55 +134,55 @@ valid for two weeks from the issue date. You might get charged your standard
 text rates from your provider.
 
 
-## Cancelling a payment request 
+## Cancelling a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/requests.cancel 
+**POST** https://service.centrapay.com/payments/api/requests.cancel
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
 **Required Parameters**
 
-| Parameter |                                Description                                |
-| --------- | ------------------------------------------------------------------------- |
+| Parameter | Description                                                               |
+|:----------|:--------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when `/requests.create` is called |
 
 
-## Voiding a payment request 
+## Voiding a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/requests.void
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
 **Required Parameters**
 
-| Parameter |                                Description                                 |
-| --------- | -------------------------------------------------------------------------- |
+| Parameter | Description                                                                |
+|:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when `/requests.create` is called. |
 
 
-## Refunding a transaction 
+## Refunding a transaction
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
 **POST** https://service.centrapay.com/payments/api/transactions.refund
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
-    -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-    -d transactionId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9" \
-    -d amount=100
+  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -d transactionId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9" \
+  -d amount=100
 ```
 
 ### Refunding a transaction can be done two ways:
@@ -258,24 +197,24 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 **Required Parameters for one time refund**
 
-|   Parameter   |                                                                                                              Description                                                                                                              |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter     | Description                           |
+|:--------------|:--------------------------------------|
 | transactionId | The transaction to refund you can either get this by setting notifyUrl when the request is created and receiving a webhook notification with the transaction details, or call `/requests.info` and grab the transactionId from there. |
 | amount        | The amount to refund in cents                                                                                                                                                                                                         |
 
 **Additional required Parameter for multiple refunds**
 
-|     Parameter     |                                                                  Description                                                                  |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter         | Description                          |
+|:------------------|:-------------------------------------|
 | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. |
 
-# Errors
+## Errors
 
-## Error codes
+### Error codes
 
 
 | Error code | Http code |               Message               |                                                                                                                        Description                                                                                                                        |
-| ---------- | --------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|:---------- |:--------- |:----------------------------------- |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1          | 401       | KEY_NOT_AUTHORIZED                  | The Api Key was not found in the headers or is invalid                                                                                                                                                                                                    |
 | 2          | 404       | REQUEST_NOT_FOUND                   | The provided request doesn’t exist                                                                                                                                                                                                                        |
 | 3          | 404       | TRANSACTION_NOT_FOUND               | The provided transaction doesn’t exist                                                                                                                                                                                                                    |
@@ -320,43 +259,43 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded                                                                                                                                                                                                                 |
 | 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount                                                                                                                                                                                               |
 
-# Webhooks
+## Webhooks
 
 Webhook notifications are sent for significant Payment life-cycle
 events. The Webhook endpoint is notified by sending an HTTP POST request to the
 `notifyUrl` defined in the Payment Request.
 
-## Life-cycle Events That Trigger Webhooks
+### Life-cycle Events That Trigger Webhooks
 
 The supported event types that will be notified to the Payment Requests webhook
 and the associated "transactionType" value that will be sent in the payload
 are:
 
 
-|        Event Type         | Value of "transactionType" |
-| ------------------------- | -------------------------- |
+| Event Type                | Value of "transactionType" |
+|:--------------------------|:---------------------------|
 | Payment Request Cancelled | CANCELLED                  |
 | Payment Request Expired   | EXPIRED                    |
 | Transaction Completed     | PURCHASE                   |
 | Transaction Refunded      | REFUND                     |
 
-### Payment Request Cancelled
+#### Payment Request Cancelled
 
-  A payment request can be cancelled by either calling the `/requests.cancel` or `/requests.void` endpoint before a request has been paid successfully. When a request has been cancelled we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below. 
+  A payment request can be cancelled by either calling the `/requests.cancel` or `/requests.void` endpoint before a request has been paid successfully. When a request has been cancelled we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below.
 
-### Payment Request Expired
+#### Payment Request Expired
 
-  A payment request expires two minutes after being created if it hasn't been cancelled, or paid. When a request has expired we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below with the `transactionType` set to EXPIRED. 
+  A payment request expires two minutes after being created if it hasn't been cancelled, or paid. When a request has expired we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below with the `transactionType` set to EXPIRED.
 
-### Transaction Completed 
+#### Transaction Completed
 
   A transaction is considered complete when `requests.pay` is called with parameters that satisfy a payment request and the request has been paid successfully. When a transaction has been completed we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section belolw.
 
-### Transaction Refunded
+#### Transaction Refunded
 
   A transaction can be refunded one to many times and each time a transaction has been refunded successfully we notify the webhook associated with the original payment request. A transaction can be refunded when `transactions.refund` has been called for a partial or full refund, or when `requests.void` is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section below but with `transactionType` set to REFUND.
 
-## Webhook Payload
+### Webhook Payload
 
 The body of the webhook is a JSON document with the following format:
 
@@ -385,10 +324,10 @@ example:
   }
 }
 ```
-### Webhook Payload Fields
+#### Webhook Payload Fields
 
-|    Property     |                         Description                         |
-| --------------- | ----------------------------------------------------------- |
+| Property        | Description                                                 |
+|:----------------|:------------------------------------------------------------|
 | transactionId   | Id of the transaction                                       |
 | transactionType | Indicates which event triggered the notification message    |
 | state           | Current state of the transaction                            |
@@ -400,7 +339,7 @@ example:
 | request         | Request object, see details at requests.info                |
 | authCode        | Authorization code used to settle this transaction          |
 
-## Webhook JWT Validation
+### Webhook JWT Validation
 
 A webhook JWT can be validated by checking the signature against the Centrapay
 Webhook public key:
@@ -412,9 +351,9 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 -----END PUBLIC KEY-----
 ```
 
-## Decoded Webhook JWT Examples
+### Decoded Webhook JWT Examples
 
-### Transaction Completed Successfully
+#### Transaction Completed Successfully
 
 ```json
 {
@@ -438,7 +377,7 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 }
 ```
 
-### Payment Request Cancelled
+#### Payment Request Cancelled
 
 ```json
 {

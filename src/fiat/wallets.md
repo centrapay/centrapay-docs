@@ -1,46 +1,48 @@
-# Wallets API
+---
+layout: default
+parent: Fiat
+---
 
-A wallet represents a balance in a certain currency, that a given centrapay account has access to. 
-
-
-## Experimental Features
+# Wallets
 {:.no_toc}
 
-{% include experimental.md  %}
+A wallet represents a balance in a certain currency, that a given centrapay
+account has access to.
 
 ## Contents
-{:.no_toc}
+{:.no_toc .text-delta}
 
 * TOC
 {:toc}
 
 
-## Creating a wallet 
+## Creating a wallet
 
 POST `https://service.centrapay.com/api/wallets`
 
-```
+```sh
 curl -X POST "https://service.centrapay.com/api/wallets" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
-  -d '{"accountId":"Te2uDM7xhDLWGVJU3nzwnh", "ledgerId":"centrapay.nzd.main"}'
+  -d '{ "accountId": "Te2uDM7xhDLWGVJU3nzwnh", "ledgerId": "centrapay.nzd.main" }'
 ```
 
 **Required Fields**
 
 | Field     | Type   | Description                                                      |
+|:----------|:-------|:-----------------------------------------------------------------|
 | accountId | String | The id of the account                                            |
 | ledgerId  | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test |
 
 **Example response payload**
 
-```
+```json
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
   "ledgerId": "centrapay.nzd.main",
   "currency": "NZD",
-  "balance": "2000" 
+  "balance": "2000"
 }
 ```
 
@@ -48,43 +50,45 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 
 GET `https://service.centrapay.com/api/wallets`
 
-```
+```sh
 curl -X GET "https://service.centrapay.com/api/wallets" \
-  -H "x-api-key: 1234" 
+  -H "x-api-key: 1234"
 ```
 
 **Example response payload**
 
-```
-[{
-  "id": "WRhAxxWpTKb5U7pXyxQjjY",
-  "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.main",
-  "currency": "NZD",
-  "balance": "2000" 
-},
-{
-  "id": "NQ1yeromwnWPD2hY41L2yS",
-  "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.test",
-  "currency": "NZD",
-  "balance": "20" 
-}]
+```json
+[
+  {
+    "id": "WRhAxxWpTKb5U7pXyxQjjY",
+    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "ledgerId": "centrapay.nzd.main",
+    "currency": "NZD",
+    "balance": "2000"
+  },
+  {
+    "id": "NQ1yeromwnWPD2hY41L2yS",
+    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "ledgerId": "centrapay.nzd.test",
+    "currency": "NZD",
+    "balance": "20"
+  }
+]
 ```
 
 ## Listing Wallet Transactions **EXPERIMENTAL**
 
 GET `https://service.centrapay.com/api/wallets/${walletId}/transactions`
 
-```
+```sh
 curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions" \
-  -H "x-api-key: 1234" 
+  -H "x-api-key: 1234"
 ```
 
-**Transaction Fields** 
+**Transaction Fields**
 
 | Field            | Description                                                               |
-|------------------|---------------------------------------------------------------------------|
+|:-----------------|:--------------------------------------------------------------------------|
 | amount           | Absolute transaction amount in cents.                                     |
 | value            | Change to the wallet's balance in cents when the transaction was applied. |
 | currency         | The currency of the transacion (same for all transactions in the wallet). |
@@ -99,7 +103,7 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
 
 **Example response payload**
 
-```
+```json
 {
   "items": [
     {
@@ -112,5 +116,5 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
       "srcWalletId": "EBVSreNmpsE2Pazw3SipXC"
     }
   ]
-]
+}
 ```
