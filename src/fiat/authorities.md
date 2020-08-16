@@ -43,7 +43,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 **Required Fields**
 
 |       Field       |  Type  |                    Description                    |
-|:----------------- |:------ |:------------------------------------------------- |
+| :---------------- | :----- | :------------------------------------------------ |
 | fullName          | String | The first and last name of the user               |
 | streetAddress     | String | The street address of the user                    |
 | suburb            | String | The suburb relating to the user's address         |
@@ -69,6 +69,8 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
   "emailAddress": "John.doe@email.com",
   "bankAccountNumber": "12-1234-1234567-123",
   "bankAccountName": "John Doe",
+  "status": "created",
+  "verified": false,
   "createdAt": "2020-06-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
@@ -78,7 +80,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 **Error Responses**
 
 | Status |             Code              |                         Description                         |
-|:------ |:----------------------------- |:----------------------------------------------------------- |
+| :----- | :---------------------------- | :---------------------------------------------------------- |
 | 403    | BANK_AUTHORITY_LIMIT_EXCEEDED | The account already has the max amount of bank authorities. |
 
 ## Get information about a bank authority
@@ -92,7 +94,7 @@ curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxS
 
 **Example response payload**
 
-```
+```JSON
 {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -105,6 +107,8 @@ curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxS
     "emailAddress": "John.doe@email.com",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "John Doe",
+    "status": "created",
+    "verified": false,
     "createdAt": "2020-06-12T01:17:46.499Z",
     "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
     "modifiedAt": "2020-06-12T01:17:46.499Z",
@@ -114,7 +118,7 @@ curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxS
 
 ## List authorized bank authorities
 
-**GET** `https://service.centrapay.com/api/bank-authorities
+**GET** `https://service.centrapay.com/api/bank-authorities`
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/bank-authorities" \
@@ -130,6 +134,8 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "John Doe",
+    "status": "created",
+    "verified": false,
     "createdAt": "2020-06-12T01:17:46.499Z",
   },
   {
@@ -137,7 +143,34 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "Jane Doe",
+    "status": "active",
+    "verified": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
   }
 ]
+```
+
+## Verify a bank authority
+
+**POST** `https://service.centrapay.com/api/bank-authorities/{id}/verify`
+
+```sh
+curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify" \
+  -H "x-api-key: 1234" \
+  -H "content-type: application/json" \
+  -d '{ "verificationCode": "ABC123" }'
+```
+
+**Required Fields** 
+
+|      Field       |  Type  |                                                                                                          Description                                                                                                           |
+| :--------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. |
+
+**Example response payload**
+
+```json
+{
+  "verificationCode": "ABC123"
+}
 ```
