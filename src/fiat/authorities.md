@@ -1,7 +1,7 @@
--------  -------
+---
 layout:  default
 parent:  Fiat
--------  -------
+---
 
 # Bank Authorities
 {:.no_toc}
@@ -143,8 +143,8 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "Jane Doe",
-    "status": "created",
-    "verified": false,
+    "status": "active",
+    "verified": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
   }
 ]
@@ -163,30 +163,14 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 
 **Required Fields** 
 
-|      Field       |  Type  |                              Description                              |
-| :--------------- | :----- | :-------------------------------------------------------------------- |
-| verificationCode | String | The code relating to the top up for the bank authority being verified |
+|      Field       |  Type  |                                                                                                          Description                                                                                                           |
+| :--------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. |
 
 **Example response payload**
 
 ```json
 {
-  "id": "WRhAxxWpTKb5U7pXyxQjjY",
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "fullName": "John Doe",
-  "streetAddress": "11 Shortland St",
-  "suburb": "Auckland Central",
-  "city": "Auckland",
-  "postCode": "1100",
-  "phoneNumber": "+64212345678",
-  "emailAddress": "John.doe@email.com",
-  "bankAccountNumber": "12-1234-1234567-123",
-  "bankAccountName": "John Doe",
-  "status": "active",
-  "verified": true,
-  "createdAt": "2020-06-12T01:17:46.499Z",
-  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "modifiedAt": "2020-06-12T01:17:46.499Z",
-  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "verificationCode": "ABC123"
 }
 ```
