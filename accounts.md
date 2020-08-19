@@ -78,6 +78,32 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 }
 ```
 
+## List account memberships
+
+GET `https://service.centrapay.com/api/account-memberships`
+
+```sh
+curl -X GET "https://service.centrapay.com/api/account-memberships" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+[
+  {
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "accountType": "org",
+    "role": "account-owner"
+  },
+  {
+    "accountId": "5uooxSens6ykJaim1Cu1Q5",
+    "accountType": "org",
+    "role": "account-owner"
+  }
+]
+```
+
 ## Update an account
 
 
