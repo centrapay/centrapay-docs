@@ -1,6 +1,7 @@
 ---
 layout: default
 parent: Fiat
+title: Wallets
 ---
 
 # Wallets

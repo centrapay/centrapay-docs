@@ -1,3 +1,8 @@
+---
+layout: default
+title: Accounts
+---
+
 # Accounts
 {:.no_toc}
 
