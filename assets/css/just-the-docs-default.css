@@ -2246,3 +2246,5 @@ pre.highlight code, figure.highlight code { padding: 0; border: 0; }
   .text-small { font-size: 8pt !important; }
   pre.highlight { border: 1px solid #eeebee; }
   .main { max-width: none; margin-left: 0; } }
+/* Just The Docs theme style overrides  https://pmarsceill.github.io/just-the-docs/docs/customization/#override-and-completely-custom-styles */
+a { /* Unset "nowrap" to prevent horzontal scrolling on mobile */ white-space: unset !important; }
