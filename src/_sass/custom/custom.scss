@@ -1,0 +1,10 @@
+/*
+ * Just The Docs theme style overrides
+ *
+ * https://pmarsceill.github.io/just-the-docs/docs/customization/#override-and-completely-custom-styles
+ */
+
+a {
+  /* Unset "nowrap" to prevent horzontal scrolling on mobile */
+  white-space: unset !important;
+}
