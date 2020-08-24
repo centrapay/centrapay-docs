@@ -82,7 +82,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 | Status |             Code              |                         Description                         |
 | :----- | :---------------------------- | :---------------------------------------------------------- |
-| 403    | BANK_AUTHORITY_LIMIT_EXCEEDED | The account already has the max amount of bank authorities. |
+| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %} | The account already has the max amount of bank authorities. |
 
 ## Get information about a bank authority
 
