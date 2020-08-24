@@ -26,7 +26,7 @@ when a completed transaction has been refunded via the `requests.void` or
 `transactions.refund` endpoint.
 
 Our payments endpoints have interactive Swagger documentation at
-[https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
+[{% break / https://service.centrapay.com/payments/api/documentation %}](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
 ## Contents
 {:.no_toc .text-delta}
