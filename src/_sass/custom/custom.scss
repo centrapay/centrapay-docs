@@ -8,3 +8,21 @@ a {
   /* Unset "nowrap" to prevent horzontal scrolling on mobile */
   white-space: unset !important;
 }
+
+
+/*
+ * Reduce min-width of Payments error code columns
+ */
+.payments-errors {
+  td {
+    min-width: unset;
+  }
+  thead {
+    th:nth-child(1) {
+      min-width: 60px;
+    }
+    th:nth-child(2) {
+      min-width: 60px;
+    }
+  }
+}
