@@ -19,7 +19,7 @@ account has access to.
 
 ## Creating a wallet
 
-POST `https://service.centrapay.com/api/wallets`
+{% endpoint POST https://service.centrapay.com/api/wallets %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/wallets" \
@@ -49,7 +49,7 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 
 ## Listing authorized wallets
 
-GET `https://service.centrapay.com/api/wallets`
+{% endpoint GET https://service.centrapay.com/api/wallets %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/wallets" \
@@ -79,7 +79,7 @@ curl -X GET "https://service.centrapay.com/api/wallets" \
 
 ## Listing Wallet Transactions **EXPERIMENTAL**
 
-GET `https://service.centrapay.com/api/wallets/${walletId}/transactions`
+{% endpoint GET https://service.centrapay.com/api/wallets/${walletId}/transactions %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions" \

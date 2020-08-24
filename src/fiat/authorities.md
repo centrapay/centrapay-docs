@@ -21,7 +21,7 @@ Centrapay account that the wallet belongs to.
 
 ## Creating a bank authority
 
-**POST** `https://service.centrapay.com/api/bank-authorities`
+{% endpoint POST https://service.centrapay.com/api/bank-authorities %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/bank-authorities" \
@@ -86,7 +86,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 ## Get information about a bank authority
 
-**GET** `https://service.centrapay.com/api/bank-authorities/{id}`
+{% endpoint GET https://service.centrapay.com/api/bank-authorities/{id} %}
 
 ```sh
 curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk` \
@@ -95,7 +95,7 @@ curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxS
 
 **Example response payload**
 
-```JSON
+```json
 {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -119,7 +119,7 @@ curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxS
 
 ## List authorized bank authorities
 
-**GET** `https://service.centrapay.com/api/bank-authorities`
+{% endpoint GET https://service.centrapay.com/api/bank-authorities %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/bank-authorities" \
@@ -153,7 +153,7 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
 
 ## Verify a bank authority
 
-**POST** `https://service.centrapay.com/api/bank-authorities/{id}/verify`
+{% endpoint POST https://service.centrapay.com/api/bank-authorities/{id}/verify %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify" \

@@ -39,7 +39,7 @@ Our payments endpoints have interactive Swagger documentation at
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/requests.create
+{% endpoint POST https://service.centrapay.com/payments/api/requests.create %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
@@ -74,7 +74,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
-**GET** https://service.centrapay.com/payments/api/requests.info
+{% endpoint GET https://service.centrapay.com/payments/api/requests.info %}
 
 ```sh
 curl -G "https://service.centrapay.com/payments/api/requests.info" \
@@ -93,7 +93,7 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestspay){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/requests.pay
+{% endpoint POST https://service.centrapay.com/payments/api/requests.pay %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
@@ -138,7 +138,7 @@ text rates from your provider.
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/requests.cancel
+{% endpoint POST https://service.centrapay.com/payments/api/requests.cancel %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
@@ -157,7 +157,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/requests.void
+{% endpoint POST https://service.centrapay.com/payments/api/requests.void %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
@@ -176,7 +176,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
-**POST** https://service.centrapay.com/payments/api/transactions.refund
+{% endpoint POST https://service.centrapay.com/payments/api/transactions.refund %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \

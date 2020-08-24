@@ -18,7 +18,7 @@ configurations with different payment methods.
 
 ## Creating merchant
 
-POST `https://service.centrapay.com/api/merchants`
+{% endpoint POST https://service.centrapay.com/api/merchants %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/merchants" \
@@ -61,7 +61,7 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
 
 ## Get information about a merchant
 
-GET `https://service.centrapay.com/api/merchants/{merchantId}`
+{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId} %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
@@ -82,7 +82,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## Update a merchant
 
-PUT `https://service.centrapay.com/api/merchants/{merchantId}`
+{% endpoint PUT https://service.centrapay.com/api/merchants/{merchantId} %}
 
 ```sh
 curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
@@ -113,7 +113,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## Creating merchant configuration
 
-POST `https://service.centrapay.com/api/merchants/{merchantId}/configs/`
+{% endpoint POST https://service.centrapay.com/api/merchants/{merchantId}/configs/ %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
@@ -147,7 +147,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 
 ## Get merchant configuration
 
-GET `https://service.centrapay.com/api/merchants/{merchantId}/configs/{id}`
+{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454" \
@@ -170,7 +170,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## List all merchant configurations
 
-GET `https://service.centrapay.com/api/merchants/{merchantId}/configs/`
+{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId}/configs/ %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
@@ -204,7 +204,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## Update merchant configuration
 
-PUT `https://service.centrapay.com/api/merchants/{merchantId}/configs/{id}`
+{% endpoint PUT https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} %}
 
 ```sh
 curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed/" \

@@ -18,7 +18,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 ## Creating a top up
 
-**POST** `https://service.centrapay.com/api/topups`
+{% endpoint POST https://service.centrapay.com/api/topups %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/topups" \
@@ -57,7 +57,7 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 
 ## Getting a top up by id
 
-**GET** `https://service.centrapay.com/api/topups/${id}`
+{% endpoint GET https://service.centrapay.com/api/topups/${id} %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
@@ -82,7 +82,7 @@ curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
 
 ## List top ups for a bank authority
 
-**GET** `https://service.centrapay.com/topups`
+{% endpoint GET https://service.centrapay.com/topups %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/topups" \
