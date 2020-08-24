@@ -212,6 +212,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 ### Error codes
 
+<div class="payments-errors" markdown="1">
 
 | Error code | Http code |               Message               |                                                                                                                        Description                                                                                                                        |
 |:---------- |:--------- |:----------------------------------- |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -258,6 +259,8 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 191        | 500       | OPTIMISTIC_LOCK_ERROR               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable.                                                                                                                                               |
 | 276        | 400       | ALREADY_REFUNDED                    | The transaction has already been refunded                                                                                                                                                                                                                 |
 | 277        | 400       | INVALID_AMOUNT                      | The refund requested is greater than the transaction amount                                                                                                                                                                                               |
+
+</div>
 
 ## Webhooks
 
