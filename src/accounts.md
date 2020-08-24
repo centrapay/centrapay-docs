@@ -20,7 +20,7 @@ resources owned by the account.
 
 ## Creating an account
 
-POST `https://service.centrapay.com/api/accounts`
+{% endpoint POST https://service.centrapay.com/api/accounts %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/accounts" \
@@ -61,7 +61,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 
 ## Get information about an account
 
-GET `https://service.centrapay.com/api/accounts/{accountId}`
+{% endpoint GET https://service.centrapay.com/api/accounts/{accountId} %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
@@ -112,7 +112,7 @@ curl -X GET "https://service.centrapay.com/api/account-memberships" \
 ## Update an account
 
 
-PUT `https://service.centrapay.com/api/accounts/{accountId}`
+{% endpoint PUT https://service.centrapay.com/api/accounts/{accountId} %}
 
 ```sh
 curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
@@ -144,7 +144,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 
 ## Creating an API key
 
-POST `https://service.centrapay.com/api/accounts/{accountId}/api-keys`
+{% endpoint POST https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
@@ -175,7 +175,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 ## List account API keys
 
-GET `https://service.centrapay.com/api/accounts/{accountId}/api-keys`
+{% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
 
 ```sh
 curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys"
@@ -204,7 +204,7 @@ curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys"
 
 ## Update account API key
 
-PUT `https://service.centrapay.com/api/accounts/{accountId}/api-keys/{apikey-name}`
+{% endpoint PUT https://service.centrapay.com/api/accounts/{accountId}/api-keys/{apikey-name} %}
 
 ```sh
 curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey" \
@@ -233,7 +233,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
 
 ## Add account member **EXPERIMENTAL**
 
-POST `https://service.centrapay.com/api/accounts/${accountId}/members`
+{% endpoint POST https://service.centrapay.com/api/accounts/${accountId}/members %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members" \
@@ -267,7 +267,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 ## List account members
 
-GET `https://service.centrapay.com/api/accounts/{accountId}/members`
+{% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/members %}
 
 ```sh
 curl -X GET http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
