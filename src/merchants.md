@@ -1,3 +1,8 @@
+---
+layout: default
+title: Merchants
+---
+
 # Merchants
 {:.no_toc}
 
