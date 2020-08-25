@@ -25,8 +25,7 @@ payment request has been paid successfully via the `requests.pay` endpoint, or
 when a completed transaction has been refunded via the `requests.void` or
 `transactions.refund` endpoint.
 
-Our payments endpoints have interactive Swagger documentation at
-[https://service.centrapay.com/payments/api/documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
+Our payments endpoints also have [interactive Swagger documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
 ## Contents
 {:.no_toc .text-delta}
