@@ -80,7 +80,7 @@ curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
 }
 ```
 
-## List top ups for a bank authority
+## List top ups for authorized accounts
 
 {% endpoint GET https://service.centrapay.com/topups %}
 
