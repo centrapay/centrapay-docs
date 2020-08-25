@@ -109,7 +109,7 @@
   },"18": {
     "doc": "Funds Transfers",
     "title": "Contents",
-    "content": ". | Creating a top up | Getting a top up by id | List top ups for a bank authority | . ",
+    "content": ". | Creating a top up | Getting a top up by id | List top ups for authorized accounts | . ",
     "url": "/fiat/funds-transfers.html#contents",
     "relUrl": "/fiat/funds-transfers.html#contents"
   },"19": {
@@ -126,10 +126,10 @@
     "relUrl": "/fiat/funds-transfers.html#getting-a-top-up-by-id"
   },"21": {
     "doc": "Funds Transfers",
-    "title": "List top ups for a bank authority",
+    "title": "List top ups for authorized accounts",
     "content": "GET https://service.centrapay.com/topups . curl -X GET \"https://service.centrapay.com/api/topups\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"5thg2RPBZEfYTPJdQ63Cre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\" \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" }, { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\" \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
-    "url": "/fiat/funds-transfers.html#list-top-ups-for-a-bank-authority",
-    "relUrl": "/fiat/funds-transfers.html#list-top-ups-for-a-bank-authority"
+    "url": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts",
+    "relUrl": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts"
   },"22": {
     "doc": "Fiat",
     "title": "Fiat",
