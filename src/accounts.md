@@ -32,7 +32,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 **Required Fields**
 
 | Field |  Type  |                    Description                     |
-|:----- |:------ |:-------------------------------------------------- |
+| :---- | :----- | :------------------------------------------------- |
 | name  | String | The name of the account                            |
 | type  | String | Account type, must be either 'org' or 'individual' |
 
@@ -40,7 +40,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 **Optional Fields**
 
 | Field |  Type  |                      Description                       |
-|:----- |:------ |:------------------------------------------------------ |
+| :---- | :----- | :----------------------------------------------------- |
 | owner | String | Id of user to add as member with "account-owner" role. |
 
 
@@ -124,7 +124,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 **Required Fields**
 
 | Field |  Type  |       Description       |
-|:----- |:------ |:----------------------- |
+| :---- | :----- | :---------------------- |
 | name  | String | The name of the account |
 
 **Example response payload**
@@ -155,10 +155,10 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 **Required Fields**
 
-| Field |  Type  |                             Description                             |
-|:----- |:------ |:------------------------------------------------------------------- |
-| name  | String | The alphanumeric name of the API key, must be unique within account |
-| role  | String | API key role. Currently, only supported is "merchant-terminal"      |
+| Field |  Type  |                                    Description                                     |
+| :---- | :----- | :--------------------------------------------------------------------------------- |
+| name  | String | The alphanumeric name of the API key, must be unique within account                |
+| role  | String | API key role. Currently, only supported are "merchant-terminal" and "account-owner" |
 
 **Example response payload**
 
@@ -216,7 +216,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
 **Required Fields**
 
 |  Field  |  Type   |      Description       |
-|:------- |:------- |:---------------------- |
+| :------ | :------ | :--------------------- |
 | enabled | Boolean | Enable/Disable API key |
 
 **Example response payload**
@@ -244,8 +244,8 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 **Required Fields**
 
-| Field  |  Type  |                           Description                             |
-|:-------|:-------|:------------------------------------------------------------------|
+| Field  |  Type  |                            Description                            |
+| :----- | :----- | :---------------------------------------------------------------- |
 | userId | String | The id of the user to add to the acccount.                        |
 | role   | String | Account member role. Currently only "account-owner" is supported. |
 
