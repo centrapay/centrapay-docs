@@ -49,7 +49,7 @@ curl -X POST "https://service.centrapay.com/api/topups" \
   "accountId": "aBc932S9182qwCDqwer",
   "type": "topup",
   "amount": "10000",
-  "status": "created"
+  "status": "created",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
@@ -74,7 +74,7 @@ curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
   "accountId": "aBc932S9182qwCDqwer",
   "type": "topup",
   "amount": "10000",
-  "status": "created"
+  "status": "created",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
@@ -100,7 +100,7 @@ curl -X GET "https://service.centrapay.com/api/topups" \
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
-    "status": "created"
+    "status": "created",
     "createdAt": "2020-05-01T12:30:00.000Z",
     "updatedAt": "2020-05-01T12:30:00.000Z"
   },
@@ -111,7 +111,7 @@ curl -X GET "https://service.centrapay.com/api/topups" \
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
-    "status": "created"
+    "status": "created",
     "createdAt": "2020-05-01T12:30:00.000Z",
     "updatedAt": "2020-05-01T12:30:00.000Z"
   }
