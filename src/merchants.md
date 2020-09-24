@@ -80,6 +80,43 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 }
 ```
 
+## List all merchants
+
+{% endpoint GET https://service.centrapay.com/api/merchants %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/merchants" \
+-H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+[
+    {
+        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+        "country": "BT",
+        "id": "5f6bf6ff81552101f8ff6122",
+        "name": "Adams, Runolfsdottir and Botsford",
+        "test": true
+    },
+    {
+        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+        "country": "GM",
+        "id": "5f6bf6ff81552101f8ff6123",
+        "name": "Vandervort Inc",
+        "test": false
+    },
+    {
+        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+        "country": "MZ",
+        "id": "5f6bf6ff81552101f8ff6124",
+        "name": "West, O'Reilly and Huels",
+        "test": true
+    },
+]
+```
+
 ## Update a merchant
 
 {% endpoint PUT https://service.centrapay.com/api/merchants/{merchantId} %}
