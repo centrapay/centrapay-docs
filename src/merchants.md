@@ -163,12 +163,12 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 
 **Required Fields**
 
-|            Field            |  Type  |                                                      Description                                                       |
-| :-------------------------- | :----- | :--------------------------------------------------------------------------------------------------------------------- |
-| paymentOptions              | Array  | Array of paymentOptions objects                                                                                        |
-| paymentOptions[\*]          | Object | Object containing paymentOption properties                                                                             |
-| paymentOptions[\*].type     | String | Type of payment. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
-| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' ledger                      |
+|            Field            |  Type  |                                                          Description                                                          |
+| :-------------------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------- |
+| paymentOptions              | Array  | Array of paymentOptions objects                                                                                               |
+| paymentOptions[\*]          | Object | Object containing paymentOption properties                                                                                    |
+| paymentOptions[\*].type     | String | Type of payment method. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
+| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' and 'centrapay.nzd.main ledger     |
 
 **Example response payload**
 
@@ -263,7 +263,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 | paymentOptions              | Array  | Array of paymentOptions objects                                                                                               |
 | paymentOptions[\*]          | Object | Object containing paymentOption properties                                                                                    |
 | paymentOptions[\*].type     | String | Type of payment method. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
-| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' ledger                             |
+| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' and 'centrapay.nzd.main ledger     |
 
 **Example response payload**
 ```json
