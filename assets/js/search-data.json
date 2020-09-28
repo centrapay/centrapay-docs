@@ -205,7 +205,7 @@
   },"34": {
     "doc": "Merchants",
     "title": "List all merchants",
-    "content": "GET https://service.centrapay.com/api/merchants . curl -X GET \"https://service.centrapay.com/api/merchants\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"BT\", \"id\": \"5f6bf6ff81552101f8ff6122\", \"name\": \"Adams, Runolfsdottir and Botsford\", \"test\": true }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"GM\", \"id\": \"5f6bf6ff81552101f8ff6123\", \"name\": \"Vandervort Inc\", \"test\": false }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"MZ\", \"id\": \"5f6bf6ff81552101f8ff6124\", \"name\": \"West, O'Reilly and Huels\", \"test\": true }, ] . ",
+    "content": "GET https://service.centrapay.com/api/merchants . curl -X GET \"https://service.centrapay.com/api/merchants\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"items\": [ { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"BT\", \"id\": \"5f6bf6ff81552101f8ff6122\", \"name\": \"Adams, Runolfsdottir and Botsford\", \"test\": true }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"GM\", \"id\": \"5f6bf6ff81552101f8ff6123\", \"name\": \"Vandervort Inc\", \"test\": false }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"MZ\", \"id\": \"5f6bf6ff81552101f8ff6124\", \"name\": \"West, O'Reilly and Huels\", \"test\": true }, ] } . ",
     "url": "/merchants.html#list-all-merchants",
     "relUrl": "/merchants.html#list-all-merchants"
   },"35": {

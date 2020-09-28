@@ -25,29 +25,31 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <h2 id="list-all-merchants"> <a href="#list-all-merchants" aria-labelledby="list-all-merchants" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> List all merchants </h2> <p>GET <code>https:/<wbr />/<wbr />service.centrapay.com/<wbr />api/<wbr />merchants</code></p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://service.centrapay.com/api/merchants"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"x-api-key: 1234"</span>
-</code></pre></div></div> <p><strong>Example response payload</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+</code></pre></div></div> <p><strong>Example response payload</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BT"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6122"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adams, Runolfsdottir and Botsford"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6122"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adams, Runolfsdottir and Botsford"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GM"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6123"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vandervort Inc"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GM"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6123"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vandervort Inc"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MZ"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6124"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"West, O'Reilly and Huels"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3xsjxxwmnpkunjbcpekyekc84rzxr4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MZ"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f6bf6ff81552101f8ff6124"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"West, O'Reilly and Huels"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">},</span><span class="w">
-</span><span class="p">]</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <h2 id="update-a-merchant"> <a href="#update-a-merchant" aria-labelledby="update-a-merchant" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Update a merchant </h2> <p>PUT <code>https:/<wbr />/<wbr />service.centrapay.com/<wbr />api/<wbr />merchants/<wbr />{merchantId}</code></p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> PUT <span class="s2">"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"x-api-key: 1234"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"content-type: application/json"</span> <span class="se">\</span>
