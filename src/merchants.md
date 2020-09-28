@@ -92,29 +92,31 @@ curl -X GET "https://service.centrapay.com/api/merchants" \
 **Example response payload**
 
 ```json
-[
+{
+  "items": [
     {
-        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-        "country": "BT",
-        "id": "5f6bf6ff81552101f8ff6122",
-        "name": "Adams, Runolfsdottir and Botsford",
-        "test": true
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "BT",
+      "id": "5f6bf6ff81552101f8ff6122",
+      "name": "Adams, Runolfsdottir and Botsford",
+      "test": true
     },
     {
-        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-        "country": "GM",
-        "id": "5f6bf6ff81552101f8ff6123",
-        "name": "Vandervort Inc",
-        "test": false
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "GM",
+      "id": "5f6bf6ff81552101f8ff6123",
+      "name": "Vandervort Inc",
+      "test": false
     },
     {
-        "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-        "country": "MZ",
-        "id": "5f6bf6ff81552101f8ff6124",
-        "name": "West, O'Reilly and Huels",
-        "test": true
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "MZ",
+      "id": "5f6bf6ff81552101f8ff6124",
+      "name": "West, O'Reilly and Huels",
+      "test": true
     },
-]
+  ]
+}
 ```
 
 ## Update a merchant
