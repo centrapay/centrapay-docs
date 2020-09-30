@@ -55,6 +55,14 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 }
 ```
 
+**Error Responses**
+
+| Status |             Code              |                         Description                         |
+| :----- | :---------------------------- | :---------------------------------------------------------- |
+| 403    | {% break _ BANK_AUTHORITY_WALLET_MISMATCH %} | The wallet and the bank authority for the top up request do not belong to the same account. |
+| 403    | {% break _ MAX_INFLIGHT_TOPUPS_EXCEEDED %}   | The bank authority already has ten pending top ups, which is the maximum a bank authority can have at any one time. |
+| 403    | {% break _ MAX_INFLIGHT_TOPUP_AMOUNT_EXCEEDED %} | The top up can not be created because it is above the max amount of funds a bank authority can have pending at any one time. The max amount is $1000.00 for verified bank authorities and $100.00 for non-verified bank authorities. |
+
 ## Getting a top up by id
 
 {% endpoint GET https://service.centrapay.com/api/topups/${id} %}
