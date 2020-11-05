@@ -87,7 +87,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 ## Get information about a bank authority
 
-{% endpoint GET https://service.centrapay.com/api/bank-authorities/{id} %}
+{% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
 
 ```sh
 curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk` \
@@ -163,7 +163,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
   -d '{ "verificationCode": "ABC123" }'
 ```
 
-**Required Fields** 
+**Required Fields**
 
 |      Field       |  Type  |                                                                                                          Description                                                                                                           |
 | :--------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

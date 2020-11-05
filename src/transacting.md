@@ -56,7 +56,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | asset      | The currency - NZD or AUD                   |
 | merchantId | The ID of the merchant creating the request |
 
-**OptionalParameters**
+**Optional Parameters**
 
 | Parameter            | Description                                                                      |
 |:---------------------|:---------------------------------------------------------------------------------|
