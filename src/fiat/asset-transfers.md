@@ -79,7 +79,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers" \
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
-  "unclaimed": true,
+  "claimable": true,
   "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
   "senderAccountId": "aBc932S9182qwCDqwer",
   "recipientAccountId": "oS3Xom2au3Ooy9aihai",
@@ -123,7 +123,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7
 {% endpoint GET https://service.centraypay.com/api/asset-transfers/${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h \
+curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -149,12 +149,12 @@ curl -X GET https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h 
 }
 ```
 
-## List Unclaimed Asset Transfers
+## List Claimable Asset Transfers
 
-{% endpoint GET https://service.centraypay.com/api/asset-transfers?unclaimed=1 %}
+{% endpoint GET https://service.centraypay.com/api/asset-transfers?claimable=1 %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?unclaimed=1 \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?claimable=1" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -172,7 +172,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?unclaimed=1 \
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
-    "unclaimed": true,
+    "claimable": true,
     "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
     "senderAccountId": "aBc932S9182qwCDqwer",
     "recipientAccountId": "oS3Xom2au3Ooy9aihai",
@@ -186,7 +186,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?unclaimed=1 \
 {% endpoint GET https://service.centraypay.com/api/asset-transfers?senderAccountId=${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -204,7 +204,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?senderAccountId=a
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
-    "unclaimed": true,
+    "claimable": true,
     "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
     "senderAccountId": "aBc932S9182qwCDqwer",
     "recipientAccountId": "oS3Xom2au3Ooy9aihai",
@@ -218,7 +218,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?senderAccountId=a
 {% endpoint GET https://service.centraypay.com/api/asset-transfers?recipientAccountId=${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -236,7 +236,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?recipientAccountI
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
-    "unclaimed": true,
+    "claimable": true,
     "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
     "senderAccountId": "aBc932S9182qwCDqwer",
     "recipientAccountId": "oS3Xom2au3Ooy9aihai",
