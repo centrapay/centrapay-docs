@@ -123,7 +123,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7
 {% endpoint GET https://service.centraypay.com/api/asset-transfers/${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h \
+curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -154,7 +154,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h 
 {% endpoint GET https://service.centraypay.com/api/asset-transfers?claimable=1 %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?claimable=1 \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?claimable=1" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -186,7 +186,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?claimable=1 \
 {% endpoint GET https://service.centraypay.com/api/asset-transfers?senderAccountId=${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -218,7 +218,7 @@ curl -X GET https://service.centraypay.com/api/asset-transfers?senderAccountId=a
 {% endpoint GET https://service.centraypay.com/api/asset-transfers?recipientAccountId=${id} %}
 
 ```sh
-curl -X GET https://service.centraypay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai \
+curl -X GET "https://service.centraypay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
