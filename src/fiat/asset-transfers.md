@@ -112,9 +112,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7
   "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
   "senderAccountId": "aBc932S9182qwCDqwer",
   "recipientAccountId": "oS3Xom2au3Ooy9aihai",
-  "createdAt": "2020-05-01T12:30:00.000Z",
-  "sentAt": "2020-05-01T12:30:00.000Z",
-  "claimedAt": "2020-05-01T12:45:00.000Z"
+  "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
 
@@ -143,9 +141,7 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h
   "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
   "senderAccountId": "aBc932S9182qwCDqwer",
   "recipientAccountId": "oS3Xom2au3Ooy9aihai",
-  "createdAt": "2020-05-01T12:30:00.000Z",
-  "sentAt": "2020-05-01T12:30:00.000Z",
-  "claimedAt": "2020-05-01T12:45:00.000Z"
+  "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
 
