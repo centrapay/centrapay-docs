@@ -78,10 +78,8 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
+  "recipientAlias": "+642812312345",
   "claimable": true,
-  "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-  "senderAccountId": "aBc932S9182qwCDqwer",
-  "recipientAccountId": "oS3Xom2au3Ooy9aihai",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
@@ -113,9 +111,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
-  "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-  "senderAccountId": "aBc932S9182qwCDqwer",
-  "recipientAccountId": "oS3Xom2au3Ooy9aihai",
+  "recipientAlias": "+642812312345",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
@@ -161,9 +157,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
-  "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-  "senderAccountId": "aBc932S9182qwCDqwer",
-  "recipientAccountId": "oS3Xom2au3Ooy9aihai",
+  "recipientAlias": "+642812312345",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
@@ -190,10 +184,8 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?claimable=1" \
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
+    "recipientAlias": "+642812312345",
     "claimable": true,
-    "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-    "senderAccountId": "aBc932S9182qwCDqwer",
-    "recipientAccountId": "oS3Xom2au3Ooy9aihai",
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
@@ -221,10 +213,8 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
+    "recipientAlias": "+642812312345",
     "claimable": true,
-    "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-    "senderAccountId": "aBc932S9182qwCDqwer",
-    "recipientAccountId": "oS3Xom2au3Ooy9aihai",
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
@@ -252,10 +242,8 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
     "description": "$60 Giftcard",
     "message": "Happy birthday",
     "senderName": "My Cafe",
+    "recipientAlias": "+642812312345",
     "claimable": true,
-    "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
-    "senderAccountId": "aBc932S9182qwCDqwer",
-    "recipientAccountId": "oS3Xom2au3Ooy9aihai",
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
