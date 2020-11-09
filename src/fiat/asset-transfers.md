@@ -73,7 +73,6 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers" \
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "created",
-  "assetType": "centrapay.nzd.main",
   "value": "6000",
   "assetId": "YGRo6TYYSxH3js7",
   "description": "$60 Giftcard",
@@ -103,7 +102,6 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "claimed",
-  "assetType": "centrapay.nzd.main",
   "value": "6000",
   "assetId": "YGRo6TYYSxH3js7",
   "description": "$60 Giftcard",
@@ -128,13 +126,32 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h
   -H "content-type: application/json"
 ```
 
-**Example response payload**
+**Example response payload (ledger asset)**
+
+```json
+{
+  "id": "M7Kn2stAxNa6ri7h",
+  "status": "sent",
+  "value": "6000",
+  "walletId": "sai2Pai7ohgongo",
+  "ledgerId": "centrapay.nzd.main",
+  "description": "$60 Giftcard",
+  "message": "Happy birthday",
+  "senderName": "My Cafe",
+  "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
+  "senderAccountId": "aBc932S9182qwCDqwer",
+  "recipientAccountId": "oS3Xom2au3Ooy9aihai",
+  "createdAt": "2020-05-01T12:30:00.000Z",
+  "sentAt": "2020-05-01T12:30:00.000Z"
+}
+```
+
+**Example response payload (discreet asset)**
 
 ```json
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "claimed",
-  "assetType": "centrapay.nzd.main",
   "value": "6000",
   "assetId": "YGRo6TYYSxH3js7",
   "description": "$60 Giftcard",
@@ -166,7 +183,6 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers?claimable=1" \
   {
     "id": "M7Kn2stAxNa6ri7h",
     "status": "created",
-    "assetType": "centrapay.nzd.main",
     "value": "6000",
     "assetId": "YGRo6TYYSxH3js7",
     "description": "$60 Giftcard",
@@ -198,7 +214,6 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers?senderAccountId=
   {
     "id": "M7Kn2stAxNa6ri7h",
     "status": "created",
-    "assetType": "centrapay.nzd.main",
     "value": "6000",
     "assetId": "YGRo6TYYSxH3js7",
     "description": "$60 Giftcard",
@@ -230,7 +245,6 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers?recipientAccount
   {
     "id": "M7Kn2stAxNa6ri7h",
     "status": "created",
-    "assetType": "centrapay.nzd.main",
     "value": "6000",
     "assetId": "YGRo6TYYSxH3js7",
     "description": "$60 Giftcard",
