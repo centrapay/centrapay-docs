@@ -86,6 +86,12 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers" \
 }
 ```
 
+**Error Responses**
+
+| Status | Code                                      | Description                                                       |
+|:-------|:------------------------------------------|:------------------------------------------------------------------|
+| 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
+
 ## Claim an Asset Transfer
 
 {% endpoint POST /api/asset-transfers/${id}/claim %}
