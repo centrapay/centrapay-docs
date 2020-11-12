@@ -20,14 +20,14 @@ their phone number.
 
 ## Create an Asset Transfer
 
-{% endpoint POST https://service.centraypay.com/api/asset-transfers %}
+{% endpoint POST https://service.centrapay.com/api/asset-transfers %}
 
 You can transfer an asset or an amount from a wallet to a recipient.
 
 Here's an example of an asset transfer which sends the entire value to the recipient:
 
 ```sh
-curl -X POST "https://service.centraypay.com/api/asset-transfers" \
+curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
   -d '{
@@ -39,7 +39,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers" \
 Here's an example of a $60 transfer from a wallet:
 
 ```sh
-curl -X POST "https://service.centraypay.com/api/asset-transfers" \
+curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
   -d '{
@@ -97,7 +97,7 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers" \
 {% endpoint POST /api/asset-transfers/${id}/claim %}
 
 ```sh
-curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim" \
+curl -X POST "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -122,10 +122,10 @@ curl -X POST "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7
 
 ## Look up an Asset Transfer
 
-{% endpoint GET https://service.centraypay.com/api/asset-transfers/${id} %}
+{% endpoint GET https://service.centrapay.com/api/asset-transfers/${id} %}
 
 ```sh
-curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h" \
+curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -170,10 +170,10 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers/M7Kn2stAxNa6ri7h
 
 ## List Claimable Asset Transfers
 
-{% endpoint GET https://service.centraypay.com/api/asset-transfers?claimable=1 %}
+{% endpoint GET https://service.centrapay.com/api/asset-transfers?claimable=1 %}
 
 ```sh
-curl -X GET "https://service.centraypay.com/api/asset-transfers?claimable=1" \
+curl -X GET "https://service.centrapay.com/api/asset-transfers?claimable=1" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -201,10 +201,10 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers?claimable=1" \
 
 ## List Sent Asset Transfers
 
-{% endpoint GET https://service.centraypay.com/api/asset-transfers?senderAccountId=${id} %}
+{% endpoint GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} %}
 
 ```sh
-curl -X GET "https://service.centraypay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer" \
+curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
@@ -232,10 +232,10 @@ curl -X GET "https://service.centraypay.com/api/asset-transfers?senderAccountId=
 
 ## List Received Asset Transfers
 
-{% endpoint GET https://service.centraypay.com/api/asset-transfers?recipientAccountId=${id} %}
+{% endpoint GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} %}
 
 ```sh
-curl -X GET "https://service.centraypay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai" \
+curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json"
 ```
