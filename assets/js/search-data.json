@@ -25,7 +25,7 @@
   },"4": {
     "doc": "Accounts",
     "title": "List account memberships",
-    "content": "GET https://service.centrapay.com/api/account-memberships . curl -X GET \"https://service.centrapay.com/api/account-memberships\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountType\": \"org\", \"role\": \"account-owner\" }, { \"accountId\": \"5uooxSens6ykJaim1Cu1Q5\", \"accountType\": \"org\", \"role\": \"account-owner\" } ] . ",
+    "content": "List memberships for authorized user or API key: . GET https://service.centrapay.com/api/account-memberships . curl -X GET \"https://service.centrapay.com/api/account-memberships\" \\ -H \"x-api-key: 1234\" . List memberships for specific user: . GET https://service.centrapay.com/api/users/{userId}/account-memberships . curl -X GET \"https://service.centrapay.com/api/users/1234/account-memberships\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountType\": \"org\", \"role\": \"account-owner\" }, { \"accountId\": \"5uooxSens6ykJaim1Cu1Q5\", \"accountType\": \"org\", \"role\": \"account-owner\" } ] . ",
     "url": "/accounts.html#list-account-memberships",
     "relUrl": "/accounts.html#list-account-memberships"
   },"5": {
@@ -133,7 +133,7 @@
   },"22": {
     "doc": "Bank Authorities",
     "title": "Get information about a bank authority",
-    "content": "GET https://service.centrapay.com/api/bank-authorities/${id} . curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk` \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"fullName\": \"John Doe\", \"streetAddress\": \"11 Shortland St\", \"suburb\": \"Auckland Central\", \"city\": \"Auckland\", \"postCode\": \"1100\", \"phoneNumber\": \"+64212345678\", \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . ",
+    "content": "GET https://service.centrapay.com/api/bank-authorities/${id} . curl -X GET https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"fullName\": \"John Doe\", \"streetAddress\": \"11 Shortland St\", \"suburb\": \"Auckland Central\", \"city\": \"Auckland\", \"postCode\": \"1100\", \"phoneNumber\": \"+64212345678\", \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . ",
     "url": "/fiat/authorities.html#get-information-about-a-bank-authority",
     "relUrl": "/fiat/authorities.html#get-information-about-a-bank-authority"
   },"23": {
