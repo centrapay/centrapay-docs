@@ -85,10 +85,20 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 
 ## List account memberships
 
-GET `https://service.centrapay.com/api/account-memberships`
+List memberships for authorized user or API key:
+
+{% endpoint GET https://service.centrapay.com/api/account-memberships %}
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/account-memberships" \
+  -H "x-api-key: 1234"
+```
+List memberships for specific user:
+
+{% endpoint GET https://service.centrapay.com/api/users/{userId}/account-memberships %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
   -H "x-api-key: 1234"
 ```
 

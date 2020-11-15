@@ -90,7 +90,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 {% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
 
 ```sh
-curl -X GET `https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk` \
+curl -X GET https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk \
   -H "x-api-key: 1234"
 ```
 
