@@ -92,7 +92,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 ## Claim an Asset Transfer
 
-{% endpoint POST /api/asset-transfers/${id}/claim %}
+{% endpoint POST https://service.centrapay.com/api/asset-transfers/${id}/claim %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim" \
@@ -247,4 +247,19 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
+```
+
+## Resolve claimable assets
+
+{% endpoint POST https://service.centrapay.com/api/me/resolve-claimable-assets %}
+
+```sh
+curl -X POST "https://service.centrapay.com/api/me/resolve-claimable-assets" \
+  -H "x-api-key: 1234"
+```
+
+** Example response payload
+
+```json
+{}
 ```
