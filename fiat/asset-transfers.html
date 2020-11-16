@@ -21,10 +21,8 @@
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"claimable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <p><strong>Error Responses</strong></p> <div class="table-wrapper"><table> <thead> <tr> <th style="text-align: left">Status</th> <th style="text-align: left">Code</th> <th style="text-align: left">Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INSUFFICIENT_<wbr />WALLET_<wbr />BALANCE</td> <td style="text-align: left">The value of the asset-transfer exceeds the balance on the wallet</td> </tr> </tbody> </table></div> <h2 id="claim-an-asset-transfer"> <a href="#claim-an-asset-transfer" aria-labelledby="claim-an-asset-transfer" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Claim an Asset Transfer </h2> <p>POST <code>/<wbr />api/<wbr />asset-transfers/<wbr />${id}/<wbr />claim</code></p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim"</span> <span class="se">\</span>
@@ -38,9 +36,7 @@
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <h2 id="look-up-an-asset-transfer"> <a href="#look-up-an-asset-transfer" aria-labelledby="look-up-an-asset-transfer" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Look up an Asset Transfer </h2> <p>GET <code>https:/<wbr />/<wbr />service.centrapay.com/<wbr />api/<wbr />asset-transfers/<wbr />${id}</code></p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"</span> <span class="se">\</span>
@@ -69,9 +65,7 @@
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <h2 id="list-claimable-asset-transfers"> <a href="#list-claimable-asset-transfers" aria-labelledby="list-claimable-asset-transfers" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> List Claimable Asset Transfers </h2> <p>GET <code>https:/<wbr />/<wbr />service.centrapay.com/<wbr />api/<wbr />asset-transfers?claimable=1</code></p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://service.centrapay.com/api/asset-transfers?claimable=1"</span> <span class="se">\</span>
@@ -86,10 +80,8 @@
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"claimable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -105,10 +97,8 @@
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"claimable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -124,10 +114,8 @@
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Giftcard"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Happy birthday"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"senderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"recipientAlias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+642812312345"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"claimable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a2d0bfe8-18b1-11eb-8c75-13468b775817"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"senderAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBc932S9182qwCDqwer"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"recipientAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oS3Xom2au3Ooy9aihai"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
