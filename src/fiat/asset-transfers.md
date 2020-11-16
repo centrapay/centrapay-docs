@@ -79,7 +79,6 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   "message": "Happy birthday",
   "senderName": "My Cafe",
   "recipientAlias": "+642812312345",
-  "claimable": true,
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
@@ -162,35 +161,6 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
 }
 ```
 
-## List Claimable Asset Transfers
-
-{% endpoint GET https://service.centrapay.com/api/asset-transfers?claimable=1 %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/asset-transfers?claimable=1" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json"
-```
-
-**Example response payload**
-
-```json
-[
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "created",
-    "value": "6000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "recipientAlias": "+642812312345",
-    "claimable": true,
-    "createdAt": "2020-05-01T12:30:00.000Z"
-  }
-]
-```
-
 ## List Sent Asset Transfers
 
 {% endpoint GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} %}
@@ -214,7 +184,6 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
     "message": "Happy birthday",
     "senderName": "My Cafe",
     "recipientAlias": "+642812312345",
-    "claimable": true,
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
@@ -243,7 +212,6 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
     "message": "Happy birthday",
     "senderName": "My Cafe",
     "recipientAlias": "+642812312345",
-    "claimable": true,
     "createdAt": "2020-05-01T12:30:00.000Z"
   }
 ]
