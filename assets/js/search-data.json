@@ -68,86 +68,86 @@
     "doc": "Asset Transfers",
     "title": "Asset Transfers",
     "content": "An asset transfer is an asynchronous exchange of an asset or an amount to a recipient. A recipient is an existing Centrapay user or someone who can create an account to claim the asset transfer by verifying their phone number. ",
-    "url": "/fiat/asset-transfers.html",
-    "relUrl": "/fiat/asset-transfers.html"
+    "url": "/assets/asset-transfers.html",
+    "relUrl": "/assets/asset-transfers.html"
   },"12": {
     "doc": "Asset Transfers",
     "title": "Contents",
     "content": ". | Create an Asset Transfer | Claim an Asset Transfer | Look up an Asset Transfer | List Sent Asset Transfers | List Received Asset Transfers | Resolve claimable assets | . ",
-    "url": "/fiat/asset-transfers.html#contents",
-    "relUrl": "/fiat/asset-transfers.html#contents"
+    "url": "/assets/asset-transfers.html#contents",
+    "relUrl": "/assets/asset-transfers.html#contents"
   },"13": {
     "doc": "Asset Transfers",
     "title": "Create an Asset Transfer",
     "content": "POST https://service.centrapay.com/api/asset-transfers . You can transfer an asset or an amount from a wallet to a recipient. Here’s an example of an asset transfer which sends the entire value to the recipient: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"assetId\": \"YGRo6TYYSxH3js7\", \"recipientAlias\": \"+64221231234\" }' . Here’s an example of a $60 transfer from a wallet: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"walletId\": \"sai2Pai7ohgongo\", \"value\": \"6000\", \"recipientAlias\": \"+64221231234\" }' . Required Fields . | Parameter | Type | Description | . | assetId | String | id of the asset to send. Required if walletId not specified | . | walletId | String | id of the wallet to send from. The ID associated with the asset, usually wallet id | . | value | String | Amount to send. Units depend on the wallet ledger type. Required if walletId present | . | recipientAlias | String | Phone number, email or handle of receiver | . Optional Parameters . | Parameter | Type | Description | . | description | String | Shows up in your transaction history against the transfer | . | message | String | A message which shows up in the SMS of the receiver | . | senderName | String | Human readable name for the sender | . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . Error Responses . | Status | Code | Description | . | 403 | INSUFFICIENT_WALLET_BALANCE | The value of the asset-transfer exceeds the balance on the wallet | . ",
-    "url": "/fiat/asset-transfers.html#create-an-asset-transfer",
-    "relUrl": "/fiat/asset-transfers.html#create-an-asset-transfer"
+    "url": "/assets/asset-transfers.html#create-an-asset-transfer",
+    "relUrl": "/assets/asset-transfers.html#create-an-asset-transfer"
   },"14": {
     "doc": "Asset Transfers",
     "title": "Claim an Asset Transfer",
     "content": "POST https://service.centrapay.com/api/asset-transfers/${id}/claim . curl -X POST \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
-    "url": "/fiat/asset-transfers.html#claim-an-asset-transfer",
-    "relUrl": "/fiat/asset-transfers.html#claim-an-asset-transfer"
+    "url": "/assets/asset-transfers.html#claim-an-asset-transfer",
+    "relUrl": "/assets/asset-transfers.html#claim-an-asset-transfer"
   },"15": {
     "doc": "Asset Transfers",
     "title": "Look up an Asset Transfer",
     "content": "GET https://service.centrapay.com/api/asset-transfers/${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload (ledger asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"sent\", \"value\": \"6000\", \"walletId\": \"sai2Pai7ohgongo\", \"ledgerId\": \"centrapay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"a2d0bfe8-18b1-11eb-8c75-13468b775817\", \"senderAccountId\": \"aBc932S9182qwCDqwer\", \"recipientAccountId\": \"oS3Xom2au3Ooy9aihai\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"sentAt\": \"2020-05-01T12:30:00.000Z\" } . Example response payload (discreet asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
-    "url": "/fiat/asset-transfers.html#look-up-an-asset-transfer",
-    "relUrl": "/fiat/asset-transfers.html#look-up-an-asset-transfer"
+    "url": "/assets/asset-transfers.html#look-up-an-asset-transfer",
+    "relUrl": "/assets/asset-transfers.html#look-up-an-asset-transfer"
   },"16": {
     "doc": "Asset Transfers",
     "title": "List Sent Asset Transfers",
     "content": "GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
-    "url": "/fiat/asset-transfers.html#list-sent-asset-transfers",
-    "relUrl": "/fiat/asset-transfers.html#list-sent-asset-transfers"
+    "url": "/assets/asset-transfers.html#list-sent-asset-transfers",
+    "relUrl": "/assets/asset-transfers.html#list-sent-asset-transfers"
   },"17": {
     "doc": "Asset Transfers",
     "title": "List Received Asset Transfers",
     "content": "GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
-    "url": "/fiat/asset-transfers.html#list-received-asset-transfers",
-    "relUrl": "/fiat/asset-transfers.html#list-received-asset-transfers"
+    "url": "/assets/asset-transfers.html#list-received-asset-transfers",
+    "relUrl": "/assets/asset-transfers.html#list-received-asset-transfers"
   },"18": {
     "doc": "Asset Transfers",
     "title": "Resolve claimable assets",
     "content": "POST https://service.centrapay.com/api/me/resolve-claimable-assets . curl -X POST \"https://service.centrapay.com/api/me/resolve-claimable-assets\" \\ -H \"x-api-key: 1234\" . ** Example response payload . {} . ",
-    "url": "/fiat/asset-transfers.html#resolve-claimable-assets",
-    "relUrl": "/fiat/asset-transfers.html#resolve-claimable-assets"
+    "url": "/assets/asset-transfers.html#resolve-claimable-assets",
+    "relUrl": "/assets/asset-transfers.html#resolve-claimable-assets"
   },"19": {
     "doc": "Bank Authorities",
     "title": "Bank Authorities",
     "content": "A bank authority represents an individual’s consent for Centrapay to transfer funds to and from a bank account. In order to move funds between a bank account and a Centrapay wallet, there must be a verified bank authority for the Centrapay account that the wallet belongs to. ",
-    "url": "/fiat/authorities.html",
-    "relUrl": "/fiat/authorities.html"
+    "url": "/fiat/bank-authorities.html",
+    "relUrl": "/fiat/bank-authorities.html"
   },"20": {
     "doc": "Bank Authorities",
     "title": "Contents",
     "content": ". | Creating a bank authority | Get information about a bank authority | List authorized bank authorities | Verify a bank authority | . ",
-    "url": "/fiat/authorities.html#contents",
-    "relUrl": "/fiat/authorities.html#contents"
+    "url": "/fiat/bank-authorities.html#contents",
+    "relUrl": "/fiat/bank-authorities.html#contents"
   },"21": {
     "doc": "Bank Authorities",
     "title": "Creating a bank authority",
     "content": "POST https://service.centrapay.com/api/bank-authorities . curl -X POST \"https://service.centrapay.com/api/bank-authorities\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"fullName\": \"John Doe\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"streetAddress\": \"11 Shortland St\", \"suburb\": \"Auckland Central\", \"city\": \"Auckland\", \"postCode\": \"1100\", \"phoneNumber\": \"+64212345678\", \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\" }' . Required Fields . | Field | Type | Description | . | fullName | String | The first and last name of the user | . | streetAddress | String | The street address of the user | . | suburb | String | The suburb relating to the user’s address | . | city | String | The city relating to the users address | . | postCode | String | The postal code relating to the user’s address | . | phoneNumber | String | The user’s phone number | . | emailAddress | String | The user’s email address | . | bankAccountNumber | String | The user’s bank account number | . | bankAccountName | String | The name on the bank account provided by the user | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"fullName\": \"John Doe\", \"streetAddress\": \"11 Shortland St\", \"suburb\": \"Auckland Central\", \"city\": \"Auckland\", \"postCode\": \"1100\", \"phoneNumber\": \"+64212345678\", \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Error Responses . | Status | Code | Description | . | 403 | BANK_AUTHORITY_LIMIT_EXCEEDED | The account already has the max amount of bank authorities. | . | 403 | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank authorities for the provided bank account number, which is the maximum allowed. | . ",
-    "url": "/fiat/authorities.html#creating-a-bank-authority",
-    "relUrl": "/fiat/authorities.html#creating-a-bank-authority"
+    "url": "/fiat/bank-authorities.html#creating-a-bank-authority",
+    "relUrl": "/fiat/bank-authorities.html#creating-a-bank-authority"
   },"22": {
     "doc": "Bank Authorities",
     "title": "Get information about a bank authority",
     "content": "GET https://service.centrapay.com/api/bank-authorities/${id} . curl -X GET https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"fullName\": \"John Doe\", \"streetAddress\": \"11 Shortland St\", \"suburb\": \"Auckland Central\", \"city\": \"Auckland\", \"postCode\": \"1100\", \"phoneNumber\": \"+64212345678\", \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . ",
-    "url": "/fiat/authorities.html#get-information-about-a-bank-authority",
-    "relUrl": "/fiat/authorities.html#get-information-about-a-bank-authority"
+    "url": "/fiat/bank-authorities.html#get-information-about-a-bank-authority",
+    "relUrl": "/fiat/bank-authorities.html#get-information-about-a-bank-authority"
   },"23": {
     "doc": "Bank Authorities",
     "title": "List authorized bank authorities",
     "content": "GET https://service.centrapay.com/api/bank-authorities . curl -X GET \"https://service.centrapay.com/api/bank-authorities\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", }, { \"id\": \"b5URhAxxWpTKyxQjjY7pXW\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"Jane Doe\", \"status\": \"active\", \"verified\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", } ] . ",
-    "url": "/fiat/authorities.html#list-authorized-bank-authorities",
-    "relUrl": "/fiat/authorities.html#list-authorized-bank-authorities"
+    "url": "/fiat/bank-authorities.html#list-authorized-bank-authorities",
+    "relUrl": "/fiat/bank-authorities.html#list-authorized-bank-authorities"
   },"24": {
     "doc": "Bank Authorities",
     "title": "Verify a bank authority",
     "content": "POST https://service.centrapay.com/api/bank-authorities/{id}/verify . curl -X POST \"https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"verificationCode\": \"ABC123\" }' . Required Fields . | Field | Type | Description | . | verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. | . Example response payload . { \"verificationCode\": \"ABC123\" } . ",
-    "url": "/fiat/authorities.html#verify-a-bank-authority",
-    "relUrl": "/fiat/authorities.html#verify-a-bank-authority"
+    "url": "/fiat/bank-authorities.html#verify-a-bank-authority",
+    "relUrl": "/fiat/bank-authorities.html#verify-a-bank-authority"
   },"25": {
     "doc": "Discreet Assets",
     "title": "Discreet Assets",
@@ -386,31 +386,31 @@
     "doc": "Wallets",
     "title": "Wallets",
     "content": "A wallet represents a balance in a certain currency, that a given centrapay account has access to. ",
-    "url": "/fiat/wallets.html",
-    "relUrl": "/fiat/wallets.html"
+    "url": "/assets/wallets.html",
+    "relUrl": "/assets/wallets.html"
   },"65": {
     "doc": "Wallets",
     "title": "Contents",
     "content": ". | Creating a wallet | Listing authorized wallets | Listing Wallet Transactions EXPERIMENTAL | . ",
-    "url": "/fiat/wallets.html#contents",
-    "relUrl": "/fiat/wallets.html#contents"
+    "url": "/assets/wallets.html#contents",
+    "relUrl": "/assets/wallets.html#contents"
   },"66": {
     "doc": "Wallets",
     "title": "Creating a wallet",
     "content": "POST https://service.centrapay.com/api/wallets . curl -X POST \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" } . ",
-    "url": "/fiat/wallets.html#creating-a-wallet",
-    "relUrl": "/fiat/wallets.html#creating-a-wallet"
+    "url": "/assets/wallets.html#creating-a-wallet",
+    "relUrl": "/assets/wallets.html#creating-a-wallet"
   },"67": {
     "doc": "Wallets",
     "title": "Listing authorized wallets",
     "content": "GET https://service.centrapay.com/api/wallets . curl -X GET \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" }, { \"id\": \"NQ1yeromwnWPD2hY41L2yS\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.test\", \"currency\": \"NZD\", \"balance\": \"20\" } ] . ",
-    "url": "/fiat/wallets.html#listing-authorized-wallets",
-    "relUrl": "/fiat/wallets.html#listing-authorized-wallets"
+    "url": "/assets/wallets.html#listing-authorized-wallets",
+    "relUrl": "/assets/wallets.html#listing-authorized-wallets"
   },"68": {
     "doc": "Wallets",
     "title": "Listing Wallet Transactions EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/wallets/${walletId}/transactions . curl -X GET \"https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions\" \\ -H \"x-api-key: 1234\" . Transaction Fields . | Field | Description | . | amount | Absolute transaction amount in cents. | . | value | Change to the wallet’s balance in cents when the transaction was applied. | . | currency | The currency of the transacion (same for all transactions in the wallet). | . | createdAt | Transaction timestamp as ISO8601 date string. | . | type | Transcation type: “transfer”, “deposit” or “withdrawal”. | . | destWalletId | Id of the destination wallet if applicable. | . | srcWalletId | Id of the source wallet if applicable. | . | paymentRequestId | Id of the related payment request | . | paymentTxnId | Id of the related payment request transaction. | . | depositId | Id of the related deposit request. | . | withdrawalId | Id of the related withdrawal request. | . Example response payload . { \"items\": [ { \"amount\": \"350\", \"value\": \"-350\", \"currency\": \"NZD\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"type\": \"transfer\", \"destWalletId\": \"EfYJd5tZQ63CrehgTP2RPB\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\" } ] } . ",
-    "url": "/fiat/wallets.html#listing-wallet-transactions-experimental",
-    "relUrl": "/fiat/wallets.html#listing-wallet-transactions-experimental"
+    "url": "/assets/wallets.html#listing-wallet-transactions-experimental",
+    "relUrl": "/assets/wallets.html#listing-wallet-transactions-experimental"
   }
 }
