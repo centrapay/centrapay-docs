@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Merchants
+nav_order: 4
 ---
 
 # Merchants
