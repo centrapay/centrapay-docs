@@ -1,6 +1,6 @@
 ---
 layout: default
-parent: Fiat
+parent: Assets
 title: Asset Transfers
 ---
 
