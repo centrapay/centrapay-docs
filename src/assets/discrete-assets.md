@@ -1,15 +1,15 @@
 ---
 layout: default
 parent: Assets
-title: Discreet Assets
+title: Discrete Assets
 ---
 
-# Discreet Assets
+# Discrete Assets
 {:.no_toc}
 
-Discreet assets are assets which may be spent in whole or in part but can only
-be sent in whole.  Discreet assets may be issued by Centrapay or by a supported
-third-party/external issuer.  Discreet assets can be spent by the owner to
+Discrete assets are assets which may be spent in whole or in part but can only
+be sent in whole.  Discrete assets may be issued by Centrapay or by a supported
+third-party/external issuer.  Discrete assets can be spent by the owner to
 satisfy payment requests which support the asset type.
 
 

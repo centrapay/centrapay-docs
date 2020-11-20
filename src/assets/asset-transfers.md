@@ -145,7 +145,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
 }
 ```
 
-**Example response payload (discreet asset)**
+**Example response payload (discrete asset)**
 
 ```json
 {
