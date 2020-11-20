@@ -91,7 +91,7 @@
   },"15": {
     "doc": "Asset Transfers",
     "title": "Look up an Asset Transfer",
-    "content": "GET https://service.centrapay.com/api/asset-transfers/${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload (ledger asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"sent\", \"value\": \"6000\", \"walletId\": \"sai2Pai7ohgongo\", \"ledgerId\": \"centrapay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"a2d0bfe8-18b1-11eb-8c75-13468b775817\", \"senderAccountId\": \"aBc932S9182qwCDqwer\", \"recipientAccountId\": \"oS3Xom2au3Ooy9aihai\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"sentAt\": \"2020-05-01T12:30:00.000Z\" } . Example response payload (discreet asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
+    "content": "GET https://service.centrapay.com/api/asset-transfers/${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload (ledger asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"sent\", \"value\": \"6000\", \"walletId\": \"sai2Pai7ohgongo\", \"ledgerId\": \"centrapay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"a2d0bfe8-18b1-11eb-8c75-13468b775817\", \"senderAccountId\": \"aBc932S9182qwCDqwer\", \"recipientAccountId\": \"oS3Xom2au3Ooy9aihai\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"sentAt\": \"2020-05-01T12:30:00.000Z\" } . Example response payload (discrete asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
     "url": "/assets/asset-transfers.html#look-up-an-asset-transfer",
     "relUrl": "/assets/asset-transfers.html#look-up-an-asset-transfer"
   },"16": {
@@ -149,23 +149,23 @@
     "url": "/fiat/bank-authorities.html#verify-a-bank-authority",
     "relUrl": "/fiat/bank-authorities.html#verify-a-bank-authority"
   },"25": {
-    "doc": "Discreet Assets",
-    "title": "Discreet Assets",
-    "content": "Discreet assets are assets which may be spent in whole or in part but can only be sent in whole. Discreet assets may be issued by Centrapay or by a supported third-party/external issuer. Discreet assets can be spent by the owner to satisfy payment requests which support the asset type. ",
-    "url": "/assets/discreet-assets.html",
-    "relUrl": "/assets/discreet-assets.html"
+    "doc": "Discrete Assets",
+    "title": "Discrete Assets",
+    "content": "Discrete assets are assets which may be spent in whole or in part but can only be sent in whole. Discrete assets may be issued by Centrapay or by a supported third-party/external issuer. Discrete assets can be spent by the owner to satisfy payment requests which support the asset type. ",
+    "url": "/assets/discrete-assets.html",
+    "relUrl": "/assets/discrete-assets.html"
   },"26": {
-    "doc": "Discreet Assets",
+    "doc": "Discrete Assets",
     "title": "Contents",
     "content": ". | Load an External Asset (EXPERIMENTAL) | . ",
-    "url": "/assets/discreet-assets.html#contents",
-    "relUrl": "/assets/discreet-assets.html#contents"
+    "url": "/assets/discrete-assets.html#contents",
+    "relUrl": "/assets/discrete-assets.html#contents"
   },"27": {
-    "doc": "Discreet Assets",
+    "doc": "Discrete Assets",
     "title": "Load an External Asset (EXPERIMENTAL)",
     "content": "POST https://service.centrapay.com/api/external-assets . Load an asset from a supported third-party issuer. Asset details will be obtained from the issuer. curl -X POST \"https://service.centrapay.com/api/external-assets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"type\": \"giftcard\", \"issuer\": \"ezipay\", \"externalId\": \"6060234032832627\" \"pin\": \"1234\" }' . Required Fields . | Parameter | Type | Description | . | accountId | String | The Centrapay account which will own the asset. | . | type | String | The asset type. Valid values: “giftcard”. | . | issuer | String | The asset issuer. Valid values: “ezipay”. | . | externalId | String | The issuer’s asset id such as card number. | . Optional Parameters . | Parameter | Type | Description | . | pin | String | Additional secret required by the issuer for loading or redeeming the asset. | . | description | String | Description of the asset, eg: “$60 Acme Giftcard”. | . Example response payload . { \"id\": \"L75M3L56N2PtBSt8g7uXLU\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"type\": \"giftcard\", \"issuer\": \"ezipay\", \"externalId\": \"***********60119\", \"pin\": \"****\", \"description\": \"$60 Acme Giftcard\", \"value\": \"6000\", \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . Error Responses . | Status | Code | Description | . | 403 | FORBIDDEN | Invalid external id or pin or asset already exists. | . ",
-    "url": "/assets/discreet-assets.html#load-an-external-asset-experimental",
-    "relUrl": "/assets/discreet-assets.html#load-an-external-asset-experimental"
+    "url": "/assets/discrete-assets.html#load-an-external-asset-experimental",
+    "relUrl": "/assets/discrete-assets.html#load-an-external-asset-experimental"
   },"28": {
     "doc": "Funds Transfers",
     "title": "Funds Transfers",
@@ -197,29 +197,29 @@
     "url": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts",
     "relUrl": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts"
   },"33": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": "Assets are resources that can be used to satisfy payment requests. Assets are owned by an account and can be sent to other users. ",
-    "url": "/assets/",
-    "relUrl": "/assets/"
-  },"34": {
-    "doc": "Assets",
-    "title": "Contents",
-    "content": " ",
-    "url": "/assets/#contents",
-    "relUrl": "/assets/#contents"
-  },"35": {
     "doc": "Fiat",
     "title": "Fiat",
     "content": "Fiat currency transactions operate on Wallets. Wallets are topped up by making Funds Transfers via Bank Authorities. ",
     "url": "/fiat/",
     "relUrl": "/fiat/"
-  },"36": {
+  },"34": {
     "doc": "Fiat",
     "title": "Contents",
     "content": " ",
     "url": "/fiat/#contents",
     "relUrl": "/fiat/#contents"
+  },"35": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": "Assets are resources that can be used to satisfy payment requests. Assets are owned by an account and can be sent to other users. ",
+    "url": "/assets/",
+    "relUrl": "/assets/"
+  },"36": {
+    "doc": "Assets",
+    "title": "Contents",
+    "content": " ",
+    "url": "/assets/#contents",
+    "relUrl": "/assets/#contents"
   },"37": {
     "doc": "Home",
     "title": "Introduction",
