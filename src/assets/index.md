@@ -38,13 +38,14 @@ curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
   "issuer": "ezipay",
   "externalId": "23403283262",
   "description": "$60 Acme Giftcard",
-  "initialValue": "6000",
-  "currentValue": "6000",
-  "currentValueUpdatedAt": "2021-01-01T00:00:00.000Z",
+  "initialBalance": "6000",
+  "balance": "6000",
+  "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
 ```
+
 ## List Assets for Account
 
 {% endpoint GET https://service.centrapay.com/api/accounts/${id}/assets %}
@@ -60,18 +61,20 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
 
 ```json
 {
-  "items": [{
-    "id": "L75M3L56N2PtBSt8g7uXLU",
-    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "type": "giftcard",
-    "issuer": "ezipay",
-    "externalId": "23403283262",
-    "description": "$60 Acme Giftcard",
-    "initialValue": "6000",
-    "currentValue": "6000",
-    "currentValueUpdatedAt": "2021-01-01T00:00:00.000Z",
-    "expiresAt": "2020-12-31T00:00:00.000Z",
-    "createdAt": "2020-05-01T12:30:00.000Z"
-  }]
+  "items": [
+    {
+      "id": "L75M3L56N2PtBSt8g7uXLU",
+        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "type": "giftcard",
+        "issuer": "ezipay",
+        "externalId": "23403283262",
+        "description": "$60 Acme Giftcard",
+        "initialBalance": "6000",
+        "balance": "6000",
+        "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+        "expiresAt": "2020-12-31T00:00:00.000Z",
+        "createdAt": "2020-05-01T12:30:00.000Z"
+    }
+  ]
 }
 ```
