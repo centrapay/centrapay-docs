@@ -7,27 +7,29 @@
   </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"initialValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"currentValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"currentValueUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <h2 id="list-assets-for-account"> <a href="#list-assets-for-account" aria-labelledby="list-assets-for-account" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> List Assets for Account </h2> <p>GET <code>https:/<wbr />/<wbr />service.centrapay.com/<wbr />api/<wbr />accounts/<wbr />${id}/<wbr />assets</code></p> <p>List asset by account id. Returned response can be an array of any supported asset types (wallet or gift card).</p> <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"x-api-key: 1234"</span>
 </code></pre></div></div> <p><strong>Example response payload</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"initialValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"currentValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"currentValueUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
-  </span><span class="p">}]</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <hr> <h2 class="text-delta">Table of contents</h2> <ul> <li> <a href="/assets/asset-transfers.html">Asset Transfers</a> </li> <li> <a href="/assets/discrete-assets.html">Discrete Assets</a> </li> <li> <a href="/assets/wallets.html">Wallets</a> </li> </ul> <hr> <footer> <p><a href="#top" id="back-to-top">Back to top</a></p> <p class="text-small text-grey-dk-000 mb-0">Copyright &copy; 2020 Centrapay</p> </footer> </div> </div> <a href="#" id="search-button" class="search-button"> <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-search"></use></svg> </a> <div class="search-overlay"></div> </div> </body> </html>
