@@ -159,17 +159,14 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
-  -d '{ "paymentOptions": [{ "type": "pocketvouchers" }, { "type": "centrapay.nzd.test", "walletId": "1234c486308f3f0a23f0f92b"}] }'
+  -d '{ "paymentOptions": [
+    { "type": "centrapay.nzd.main", "walletId": "1234c486308f3f0a23f0f92b"},
+    { "type": "epay.nzd.main", "terminalId": "11000021"},
+    { "type": "pocketvouchers" },
+  ]}'
 ```
 
-**Required Fields**
-
-|            Field            |  Type  |                                                          Description                                                          |
-| :-------------------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------- |
-| paymentOptions              | Array  | Array of paymentOptions objects                                                                                               |
-| paymentOptions[\*]          | Object | Object containing paymentOption properties                                                                                    |
-| paymentOptions[\*].type     | String | Type of payment method. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
-| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' and 'centrapay.nzd.main ledger     |
+See [Merchant configuration model](#merchant-configuration-model) for expected request body format.
 
 **Example response payload**
 
@@ -183,7 +180,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
     },
     {
       "type": "centrapay.nzd.test",
-      "account": "1234c486308f3f0a23f0f92b"
+      "walletId": "1234c486308f3f0a23f0f92b"
     }
   ]
 }
@@ -254,17 +251,13 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
-  -d '{ "paymentOptions": [{ "type": "bitcoin.main" },  { "type": "centrapay.nzd.test", "walletId": "1234c486308f3f0a23f0f92b" }] }'
+  -d '{ "paymentOptions": [
+    { "type": "bitcoin.main" },
+    { "type": "centrapay.nzd.test", "walletId": "1234c486308f3f0a23f0f92b" }
+  ]}'
 ```
 
-**Required Fields**
-
-|            Field            |  Type  |                                                          Description                                                          |
-| :-------------------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------- |
-| paymentOptions              | Array  | Array of paymentOptions objects                                                                                               |
-| paymentOptions[\*]          | Object | Object containing paymentOption properties                                                                                    |
-| paymentOptions[\*].type     | String | Type of payment method. Supported types: 'test', 'pocketvouchers', 'bitcoin.main', 'centrapay.nzd.main', 'centrapay.nzd.test' |
-| paymentOptions[\*].walletId | String | Wallet the funds will be transferred to, currently only supported for 'centrapay.nzd.test' and 'centrapay.nzd.main ledger     |
+See [Merchant configuration model](#merchant-configuration-model) for expected request body format.
 
 **Example response payload**
 ```json
@@ -277,8 +270,40 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
     },
     {
       "type": "centrapay.nzd.test",
-      "account": "1234c486308f3f0a23f0f92b"
+      "walletId": "1234c486308f3f0a23f0f92b"
     }
   ]
 }
 ```
+
+## Merchant configuration model
+
+**Required Fields**
+
+| Field                                 | Type   | Description                                                |
+| :------------------------------------ | :----- | :--------------------------------------------------------  |
+| paymentOptions                        | Array  | Array of paymentOptions objects                            |
+| paymentOptions[\*]                    | Object | Object containing paymentOption properties                 |
+| {% break . paymentOptions[\*].type %} | String | Type of payment method. See supported payment types below. |
+
+**Optional Fields**
+
+| Field                                       | Type   | Description                                                                          |
+|:--------------------------------------------|:-------|:-------------------------------------------------------------------------------------|
+| {% break . paymentOptions[\*].walletId %}   | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types. |
+| {% break . paymentOptions[\*].terminalId %} | String | Merchant's Epay terminal id. Required for `epay.nzd` types.                          |
+
+**Supported Payment Types**
+
+The following table describes the supported payment option types.
+
+{% warning Test payment options should never be used for live merchant configurations. %}
+
+| Name               | Description                          |
+|:-------------------|:-------------------------------------|
+| centrapay.nzd.main | Centrapay NZD wallet                 |
+| centrapay.nzd.test | Centrapay NZD wallet (test ledger)   |
+| bitcoin.main       | Bitcoin                              |
+| epay.nzd.main      | EPay NZ giftcards                    |
+| pocketvouchers     | Pocket Vouchers                      |
+| test               | No-op test payment (always approved) |
