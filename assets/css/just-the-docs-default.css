@@ -1532,11 +1532,7 @@ pre.highlight code, figure.highlight code { padding: 0; border: 0; }
 /* Just The Docs theme style overrides https://pmarsceill.github.io/just-the-docs/docs/customization/#override-and-completely-custom-styles */
 a { /* Unset "nowrap" to prevent horzontal scrolling on mobile */ white-space: unset !important; }
 
-/* Reduce min-width of Payments error code columns */
-.payments-errors td { min-width: unset; }
-
-.payments-errors thead th:nth-child(1) { min-width: 60px; }
-
-.payments-errors thead th:nth-child(2) { min-width: 60px; }
+/* Remove column min-width */
+th, td { min-width: unset; }
 
 /*# sourceMappingURL=just-the-docs-default.css.map */
