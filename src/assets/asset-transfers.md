@@ -226,7 +226,7 @@ curl -X POST "https://service.centrapay.com/api/me/resolve-claimable-assets" \
   -H "x-api-key: 1234"
 ```
 
-** Example response payload
+**Example response payload**
 
 ```json
 {}
