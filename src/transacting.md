@@ -105,25 +105,37 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 
 **Required Parameters**
 
-| Parameter       | Description                                                                                                |
-| :-------------- | :--------------------------------------------------------------------------------------------------------- |
-| authorization   | An identifier that can be used to pay or verify payment on the ledger. See below for expected values.      |
-| ledger          | The ledger to use for payment. See `payments[].ledger` in the [requests.info][] response for valid values. |
-| requestId       | The payment requestId that is generated when [requests.create][] is called.                                |
+| Parameter       | Description                                                                             |
+| :-------------- | :-------------------------------------------------------------------------------------- |
+| requestId       | The id of the payment request to pay. See [requests.create][].                          |
+| ledger          | The selected payment option to use. See below for expected values.                      |
+| authorization   | An identifier that can be used to pay or verify payment. See below for expected values. |
 
-**Expected Authorization Values**
+**Expected Ledger and Authorization Values**
 
-| Asset Type       | Authorization Param Value    |
-|:-----------------|:-----------------------------|
-| Centrapay Wallet | Centrapay wallet id          |
-| Pocket Vouchers  | Pocket Vouchers voucher code |
-| Bitcoin          | Bitcoin transaction id       |
+The "ledger" parameter indicates which payment option has been selected to pay
+the payment request. The selected payment option must be one of the options
+available for the payment request as per the `payments` array in the
+[requests.create][] and [requests.info][] responses. 
 
-**Centrapay Wallet Permissions**
+The table below lists the possible ledger and authorization param values. The
+asset type is the value used to configure the merchant. The ledger param value
+is returned with the payment request info as `payments[].ledger`.
 
-To pay with a Centrapay Wallet ledger the user (identified by the API Key or
-identity token) must have permission to transfer funds from the specified
-wallet.
+| Asset Type         | Ledger Param Value       | Authorization Param Value      |
+|:-------------------|:-------------------------|:-------------------------------|
+| centrapay.nzd.main | centrapay.nzd.main       | *Centrapay wallet id*          |
+| centrapay.nzd.test | centrapay.nzd.test       | *Centrapay wallet id*          |
+| epay.nzd.main      | epay.nzd.main            | *Centrapay asset id*           |
+| pocketvouchers     | g.pocketvouchers.pv      | *Pocket Vouchers voucher code* |
+| bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
+| test               | g.test.testUplink        | *None*                         |
+
+**Centrapay Asset Permissions**
+
+To pay with a Centrapay asset or wallet ledger the user (identified by the API
+Key or identity token) must have permission to redeem the asset or transfer
+funds from the specified wallet.
 
 **Testing Pocket Vouchers**
 
