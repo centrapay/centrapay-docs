@@ -75,4 +75,6 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 
 | Status | Code                    | Description                                         |
 |:-------|:------------------------|:----------------------------------------------------|
-| 403    | {% break _ FORBIDDEN %} | Invalid external id or pin or asset already exists. |
+| 403    | UNKNOWN_ASSET           | Asset ID or PIN is incorrect.                       |
+| 403    | DUPLICATE_ASSET         | Asset already claimed by another account.           |
+| 403    | UNSUPPORTED_ASSET_TYPE  | Unsupported asset type, origin, or issuer.          |
