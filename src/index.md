@@ -14,8 +14,9 @@ a.external:after {
 # Introduction
 {:.no_toc}
 
-Welcome to Centrapay! We enable you to transact Digital Assets or Vouchers via
-your point of sale, payment terminal, shopping cart or unattended device. We
+Welcome to Centrapay! We enable you to transact Fiat currency, 
+Giftcards, Digital Assets and Vouchers via your point of sale, 
+payment terminal, shopping cart or unattended device. We
 accomplish this via our APIs which allow merchants, customers,
 terminals, and smart wallets to interact with each other.
 

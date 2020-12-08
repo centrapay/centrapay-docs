@@ -33,7 +33,7 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
     "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
     "type": "giftcard",
     "issuer": "ezipay",
-    "externalId": "6060234032832627"
+    "externalId": "23403283262",
     "pin": "1234"
   }'
 ```

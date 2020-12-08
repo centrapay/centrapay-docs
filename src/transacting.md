@@ -17,13 +17,13 @@ a.external:after {
 
 Throughout our documentation we will talk about payment requests and
 transactions in several places, and it is important to know the difference. A
-payment request is generated when the `/requests.create` endpoint has been
+payment request is generated when the [requests.create][] endpoint has been
 called. Payment Requests are then used to configure the different payment types
 a merchant accepts, set the amount of the transaction as well as the fiat
 currency e.g. NZD, and to set up any webhooks. Transactions are created when a
-payment request has been paid successfully via the `requests.pay` endpoint, or
-when a completed transaction has been refunded via the `requests.void` or
-`transactions.refund` endpoint.
+payment request has been paid successfully via the [requests.pay][] endpoint, or
+when a completed transaction has been refunded via the [requests.void][] or
+[transactions.refund][] endpoint.
 
 Our payments endpoints also have [interactive Swagger documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
@@ -33,7 +33,7 @@ Our payments endpoints also have [interactive Swagger documentation](https://ser
 * TOC
 {:toc}
 
-
+<a name="requests-create">
 ## Creating a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
@@ -68,8 +68,9 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | terminalId           | The payment system terminal Id                                                   |
 | deviceId             | Physical payment system device Id                                                |
 
-## Getting the information about a payment request
 
+<a name="requests-info">
+## Getting the information about a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
@@ -83,11 +84,11 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 **Required Parameters**
 
-| Parameter | Description                                                               |
-|:----------|:--------------------------------------------------------------------------|
-| requestId | The payment requestId that is generated when `/requests.create` is called |
+| Parameter | Description                                                                                |
+|:----------|:-------------------------------------------------------------------------------------------|
+| requestId | The payment requestId that is generated when [requests.create][] is called |
 
-
+<a name="requests-pay">
 ## Paying a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestspay){:target="\_blank"}{:.external}
@@ -104,25 +105,37 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 
 **Required Parameters**
 
-| Parameter     | Description                                                                                              |
-|:--------------|:---------------------------------------------------------------------------------------------------------|
-| authorization | An identifier that can be used to pay or verify payment on the ledger. See below for expected values.    |
-| ledger        | The ledger to use for payment. See `payments[].ledger` in the `requests.info` response for valid values. |
-| requestId     | The payment requestId that is generated when `/requests.create` is called.                               |
+| Parameter       | Description                                                                             |
+| :-------------- | :-------------------------------------------------------------------------------------- |
+| requestId       | The id of the payment request to pay. See [requests.create][].                          |
+| ledger          | The selected payment option to use. See below for expected values.                      |
+| authorization   | An identifier that can be used to pay or verify payment. See below for expected values. |
 
-**Expected Authorization Values**
+**Expected Ledger and Authorization Values**
 
-| Ledger Type      | Authorization Param Value    |
-|:-----------------|:-----------------------------|
-| Centrapay Wallet | Centrapay wallet id          |
-| Pocket Vouchers  | Pocket Vouchers voucher code |
-| Bitcoin          | Bitcoin transaction id       |
+The "ledger" parameter indicates which payment option has been selected to pay
+the payment request. The selected payment option must be one of the options
+available for the payment request as per the `payments` array in the
+[requests.create][] and [requests.info][] responses. 
 
-**Centrapay Wallet Permissions**
+The table below lists the possible ledger and authorization param values. The
+asset type is the value used to configure the merchant. The ledger param value
+is returned with the payment request info as `payments[].ledger`.
 
-To pay with a Centrapay Wallet ledger the user (identified by the API Key or
-identity token) must have permission to transfer funds from the specified
-wallet.
+| Asset Type         | Ledger Param Value       | Authorization Param Value      |
+|:-------------------|:-------------------------|:-------------------------------|
+| centrapay.nzd.main | centrapay.nzd.main       | *Centrapay wallet id*          |
+| centrapay.nzd.test | centrapay.nzd.test       | *Centrapay wallet id*          |
+| epay.nzd.main      | epay.nzd.main            | *Centrapay asset id*           |
+| pocketvouchers     | g.pocketvouchers.pv      | *Pocket Vouchers voucher code* |
+| bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
+| test               | g.test.testUplink        | *None*                         |
+
+**Centrapay Asset Permissions**
+
+To pay with a Centrapay asset or wallet ledger the user (identified by the API
+Key or identity token) must have permission to redeem the asset or transfer
+funds from the specified wallet.
 
 **Testing Pocket Vouchers**
 
@@ -133,6 +146,7 @@ valid for two weeks from the issue date. You might get charged your standard
 text rates from your provider.
 
 
+<a name="requests-cancel">
 ## Cancelling a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
@@ -147,11 +161,12 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 **Required Parameters**
 
-| Parameter | Description                                                               |
-|:----------|:--------------------------------------------------------------------------|
-| requestId | The payment requestId that is generated when `/requests.create` is called |
+| Parameter | Description                                                                                |
+|:----------|:-------------------------------------------------------------------------------------------|
+| requestId | The payment requestId that is generated when [requests.create][] is called |
 
 
+<a name="requests-void">
 ## Voiding a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
@@ -166,11 +181,12 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 **Required Parameters**
 
-| Parameter | Description                                                                |
-|:----------|:---------------------------------------------------------------------------|
-| requestId | The payment requestId that is generated when `/requests.create` is called. |
+| Parameter | Description                                                                 |
+|:----------|:--------------------------------------------------------------------------- |
+| requestId | The payment requestId that is generated when [requests.create][] is called. |
 
 
+<a name="transactions-refund">
 ## Refunding a transaction
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
@@ -188,18 +204,27 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 1. Refund the full or partial amount once
 
-    * If you refund a transaction without providing an external reference, you will get a successful response for the first request and then an ALREADY_REFUNDED message for any refund requests that follow for the same transaction, unless an external reference is provided.
+   If you refund a transaction without providing an external reference, you
+   will get a successful response for the first request and then an
+   ALREADY_REFUNDED message for any refund requests that follow for the same
+   transaction, unless an external reference is provided.
 
 2. Refund a partial amount multiple times up to the transaction amount
 
-    * If you provide an external reference then a transaction can be refunded multiple times provided that the external reference is unique for each refund request. When a duplicate external reference is provided when attempting to refund the same transaction we return a successful response if the amount of the request is the same both times but do not process another refund, this is because we assume it to be a repeat request. If the amount is different you will get a REPEAT_REFERENCE error message.
+   If you provide an external reference then a transaction can be refunded
+   multiple times provided that the external reference is unique for each
+   refund request. When a duplicate external reference is provided when
+   attempting to refund the same transaction we return a successful response if
+   the amount of the request is the same both times but do not process another
+   refund, this is because we assume it to be a repeat request. If the amount
+   is different you will get a REPEAT_REFERENCE error message.
 
 **Required Parameters for one time refund**
 
-| Parameter     | Description                           |
-|:--------------|:--------------------------------------|
-| transactionId | The transaction to refund you can either get this by setting notifyUrl when the request is created and receiving a webhook notification with the transaction details, or call `/requests.info` and grab the transactionId from there. |
-| amount        | The amount to refund in cents                                                                                                                                                                                                         |
+| Parameter     | Description                                                                                                                        |
+|:--------------|:-----------------------------------------------------------------------------------------------------------------------------------|
+| transactionId | The transaction to refund. The transaction id for a payment can be obtained from a webhook notification or from [requests.info][]. |
+| amount        | The amount to refund in cents                                                                                                      |
 
 **Additional required Parameter for multiple refunds**
 
@@ -283,19 +308,37 @@ are:
 
 #### Payment Request Cancelled
 
-  A payment request can be cancelled by either calling the `/requests.cancel` or `/requests.void` endpoint before a request has been paid successfully. When a request has been cancelled we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below.
+A payment request can be cancelled by either calling the [requests.cancel][]
+or [requests.void][] endpoint before a request has been paid successfully.
+When a request has been cancelled we send a JWT that when decoded matches the
+*Payment Request Cancelled* example in the Decoded Webhook JWT Examples
+section below.
 
 #### Payment Request Expired
 
-  A payment request expires two minutes after being created if it hasn't been cancelled, or paid. When a request has expired we send a JWT that when decoded matches the *Payment Request Cancelled* example in the Decoded Webhook JWT Examples section below with the `transactionType` set to EXPIRED.
+A payment request expires two minutes after being created if it hasn't been
+cancelled, or paid. When a request has expired we send a JWT that when
+decoded matches the *Payment Request Cancelled* example in the Decoded
+Webhook JWT Examples section below with the `transactionType` set to EXPIRED.
 
 #### Transaction Completed
 
-  A transaction is considered complete when `requests.pay` is called with parameters that satisfy a payment request and the request has been paid successfully. When a transaction has been completed we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section belolw.
+A transaction is considered complete when [requests.pay][] is called with
+parameters that satisfy a payment request and the request has been paid
+successfully. When a transaction has been completed we send a JWT that when
+decoded matches the *Transaction Completed* example in the Decoded Webhook
+JWT Examples section below.
 
 #### Transaction Refunded
 
-  A transaction can be refunded one to many times and each time a transaction has been refunded successfully we notify the webhook associated with the original payment request. A transaction can be refunded when `transactions.refund` has been called for a partial or full refund, or when `requests.void` is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the *Transaction Completed* example in the Decoded Webhook JWT Examples section below but with `transactionType` set to REFUND.
+A transaction can be refunded one to many times and each time a transaction
+has been refunded successfully we notify the webhook associated with the
+original payment request. A transaction can be refunded when
+[transactions.refund][] has been called for a partial or full refund, or when
+[requests.void][] is called for a request that has been paid. When a
+transaction has been refunded we send a JWT that when decoded matches the
+*Transaction Completed* example in the Decoded Webhook JWT Examples section
+below but with `transactionType` set to REFUND.
 
 ### Webhook Payload
 
@@ -338,7 +381,7 @@ example:
 | createdAt       | Timestamp at which the request was created                  |
 | updatedAt       | Timestamp at which the request was updated                  |
 | type            | The payment type used by the issuer to reconcile settlement |
-| request         | Request object, see details at requests.info                |
+| request         | Request object, see details at [requests.info][]            |
 | authCode        | Authorization code used to settle this transaction          |
 
 ### Webhook JWT Validation
@@ -397,3 +440,11 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
   }
 }
 ```
+
+
+[requests.create]: #requests-create
+[requests.pay]: #requests-pay
+[requests.info]: #requests-info
+[requests.void]: #requests-void
+[requests.cancel]: #requests-cancel
+[transactions.refund]: #transactions-refund
