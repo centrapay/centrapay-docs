@@ -34,7 +34,8 @@ curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "type": "giftcard",
+  "category": "giftcard",
+  "type": "epay.nzd.main",
   "issuer": "ezipay",
   "externalId": "23403283262",
   "description": "$60 Acme Giftcard",
@@ -64,16 +65,25 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
   "items": [
     {
       "id": "L75M3L56N2PtBSt8g7uXLU",
-        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "type": "giftcard",
-        "issuer": "ezipay",
-        "externalId": "23403283262",
-        "description": "$60 Acme Giftcard",
-        "initialBalance": "6000",
-        "balance": "6000",
-        "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
-        "expiresAt": "2020-12-31T00:00:00.000Z",
-        "createdAt": "2020-05-01T12:30:00.000Z"
+      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "category": "giftcard",
+      "type": "epay.nzd.main",
+      "issuer": "ezipay",
+      "externalId": "23403283262",
+      "description": "$60 Acme Giftcard",
+      "initialBalance": "6000",
+      "balance": "6000",
+      "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+      "expiresAt": "2020-12-31T00:00:00.000Z",
+      "createdAt": "2020-05-01T12:30:00.000Z"
+    },
+    {
+      "id": "3aKubx3wr9cUHFecRq5nFL",
+      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "currency": "NZD",
+      "ledgerId": "centrapay.nzd.main",
+      "type": "centrapay.nzd.main",
+      "category": "wallet"
     }
   ]
 }
