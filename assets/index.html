@@ -3,7 +3,8 @@
 </code></pre></div></div> <p><strong>Example response payload</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
@@ -19,16 +20,25 @@
   </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3aKubx3wr9cUHFecRq5nFL"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ledgerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wallet"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
