@@ -89,7 +89,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 |:-------|:------------------------------------------|:------------------------------------------------------------------|
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
 
-## Claim an Asset Transfer
+## Claim an Asset Transfer **EXPERIMENTAL**
 
 {% endpoint POST https://service.centrapay.com/api/asset-transfers/${id}/claim %}
 
@@ -161,7 +161,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
 }
 ```
 
-## List Sent Asset Transfers
+## List Sent Asset Transfers **EXPERIMENTAL**
 
 {% endpoint GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} %}
 
@@ -174,22 +174,24 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
 **Example response payload**
 
 ```json
-[
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "created",
-    "value": "6000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "recipientAlias": "+642812312345",
-    "createdAt": "2020-05-01T12:30:00.000Z"
-  }
-]
+{
+  "items": [
+    {
+      "id": "M7Kn2stAxNa6ri7h",
+      "status": "created",
+      "value": "6000",
+      "assetId": "YGRo6TYYSxH3js7",
+      "description": "$60 Giftcard",
+      "message": "Happy birthday",
+      "senderName": "My Cafe",
+      "recipientAlias": "+642812312345",
+      "createdAt": "2020-05-01T12:30:00.000Z"
+    }
+  ]
+}
 ```
 
-## List Received Asset Transfers
+## List Received Asset Transfers **EXPERIMENTAL**
 
 {% endpoint GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} %}
 
@@ -202,19 +204,21 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
 **Example response payload**
 
 ```json
-[
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "created",
-    "value": "6000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "recipientAlias": "+642812312345",
-    "createdAt": "2020-05-01T12:30:00.000Z"
-  }
-]
+{
+  "items": [
+    {
+      "id": "M7Kn2stAxNa6ri7h",
+      "status": "created",
+      "value": "6000",
+      "assetId": "YGRo6TYYSxH3js7",
+      "description": "$60 Giftcard",
+      "message": "Happy birthday",
+      "senderName": "My Cafe",
+      "recipientAlias": "+642812312345",
+      "createdAt": "2020-05-01T12:30:00.000Z"
+    }
+  ]
+}
 ```
 
 ## Resolve claimable assets
