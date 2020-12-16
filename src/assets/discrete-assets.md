@@ -31,7 +31,8 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
   -H "content-type: application/json" \
   -d '{
     "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "type": "giftcard",
+    "category": "giftcard",
+    "type": "epay.nzd.main",
     "issuer": "ezipay",
     "externalId": "23403283262",
     "pin": "1234"
@@ -40,12 +41,13 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 
 **Required Fields**
 
-| Parameter  | Type   | Description                                                                          |
-|:-----------|:-------|:-------------------------------------------------------------------------------------|
-| accountId  | String | The Centrapay account which will own the asset.                                      |
-| type       | String | The asset type. Valid values: "giftcard".                                            |
-| issuer     | String | The asset issuer. Valid values: "ezipay".                                            |
-| externalId | String | The issuer's asset id such as card number.                                           |
+| Parameter  | Type   | Description                                                                                      |
+|:-----------|:-------|:-------------------------------------------------------------------------------------------------|
+| accountId  | String | The Centrapay account which will own the asset.                                                  |
+| category   | String | The category an asset will be grouped by. Valid values: "giftcard".                              |
+| type       | String | The Centrapay ledger corresponding to the asset. Valid values: "epay.nzd.main", "epay.nzd.test". |
+| issuer     | String | The asset issuer. Valid values: "ezipay".                                                        |
+| externalId | String | The issuer's asset id such as card number.                                                       |
 
 **Optional Parameters**
 
@@ -59,7 +61,8 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 ```json
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
-  "type": "giftcard",
+  "category": "giftcard",
+  "type": "epay.nzd.main",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
   "issuer": "ezipay",
   "externalId": "***********60119",
