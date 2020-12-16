@@ -51,12 +51,12 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 **Required Fields**
 
-| Parameter      | Type   | Description                                                                          |
-|:---------------|:-------|:-------------------------------------------------------------------------------------|
-| assetId        | String | id of the asset to send. Required if walletId not specified                          |
-| walletId       | String | id of the wallet to send from. The ID associated with the asset, usually wallet id   |
-| value          | String | Amount to send. Units depend on the wallet ledger type. Required if walletId present |
-| recipientAlias | String | Phone number, email or handle of receiver                                            |
+| Parameter      | Type   | Description                                                                           |
+|:---------------|:-------|:--------------------------------------------------------------------------------------|
+| assetId        | String | Id of the asset to send. Required if walletId not specified.                          |
+| walletId       | String | Id of the wallet to send from. Required if assetId not specified.                     |
+| value          | String | Amount to send. Units depend on the wallet ledger type. Required if walletId present. |
+| recipientAlias | String | Phone number, email or handle of receiver.                                            |
 
 **Optional Parameters**
 
