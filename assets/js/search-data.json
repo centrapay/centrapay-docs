@@ -73,7 +73,7 @@
   },"12": {
     "doc": "Asset Transfers",
     "title": "Contents",
-    "content": ". | Create an Asset Transfer | Claim an Asset Transfer | Look up an Asset Transfer | List Sent Asset Transfers | List Received Asset Transfers | Resolve claimable assets | . ",
+    "content": ". | Create an Asset Transfer | Claim an Asset Transfer EXPERIMENTAL | Look up an Asset Transfer | List Sent Asset Transfers EXPERIMENTAL | List Received Asset Transfers EXPERIMENTAL | Resolve claimable assets | . ",
     "url": "/assets/asset-transfers.html#contents",
     "relUrl": "/assets/asset-transfers.html#contents"
   },"13": {
@@ -84,10 +84,10 @@
     "relUrl": "/assets/asset-transfers.html#create-an-asset-transfer"
   },"14": {
     "doc": "Asset Transfers",
-    "title": "Claim an Asset Transfer",
+    "title": "Claim an Asset Transfer EXPERIMENTAL",
     "content": "POST https://service.centrapay.com/api/asset-transfers/${id}/claim . curl -X POST \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
-    "url": "/assets/asset-transfers.html#claim-an-asset-transfer",
-    "relUrl": "/assets/asset-transfers.html#claim-an-asset-transfer"
+    "url": "/assets/asset-transfers.html#claim-an-asset-transfer-experimental",
+    "relUrl": "/assets/asset-transfers.html#claim-an-asset-transfer-experimental"
   },"15": {
     "doc": "Asset Transfers",
     "title": "Look up an Asset Transfer",
@@ -96,16 +96,16 @@
     "relUrl": "/assets/asset-transfers.html#look-up-an-asset-transfer"
   },"16": {
     "doc": "Asset Transfers",
-    "title": "List Sent Asset Transfers",
-    "content": "GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
-    "url": "/assets/asset-transfers.html#list-sent-asset-transfers",
-    "relUrl": "/assets/asset-transfers.html#list-sent-asset-transfers"
+    "title": "List Sent Asset Transfers EXPERIMENTAL",
+    "content": "GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"items\": [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] } . ",
+    "url": "/assets/asset-transfers.html#list-sent-asset-transfers-experimental",
+    "relUrl": "/assets/asset-transfers.html#list-sent-asset-transfers-experimental"
   },"17": {
     "doc": "Asset Transfers",
-    "title": "List Received Asset Transfers",
-    "content": "GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
-    "url": "/assets/asset-transfers.html#list-received-asset-transfers",
-    "relUrl": "/assets/asset-transfers.html#list-received-asset-transfers"
+    "title": "List Received Asset Transfers EXPERIMENTAL",
+    "content": "GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"items\": [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] } . ",
+    "url": "/assets/asset-transfers.html#list-received-asset-transfers-experimental",
+    "relUrl": "/assets/asset-transfers.html#list-received-asset-transfers-experimental"
   },"18": {
     "doc": "Asset Transfers",
     "title": "Resolve claimable assets",
