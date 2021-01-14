@@ -75,10 +75,11 @@ also need to be whitelisted for cross-origin requests.
 
 ### Claims
 
-The user id token may contain the following claims:
+The following table lists the claims which may be be included a user id token.
+At minimum, the "sub" claim and one of "phone_number" or "email" will be present.
 
 | Name                  | Description                                                       |
-|-----------------------|-------------------------------------------------------------------|
+|:----------------------|:------------------------------------------------------------------|
 | sub                   | Centrapay user id                                                 |
 | email                 | email address                                                     |
 | phone_number          | phone number                                                      |
