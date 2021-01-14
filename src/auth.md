@@ -75,7 +75,7 @@ also need to be whitelisted for cross-origin requests.
 
 ### Claims
 
-The following table lists the claims which may be be included a user id token.
+The following table lists the claims which may be be included in a user id token.
 At minimum, the "sub" claim and one of "phone_number" or "email" will be present.
 
 | Name                  | Description                                                       |
