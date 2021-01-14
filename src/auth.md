@@ -99,36 +99,36 @@ permissions, such as payment-requests:pay, apply globally to all resources
 regardless of the account the resource belongs to. The global permissions are
 indicated below with a star (✸).
 
-| Permission                            | Account Owner | Anon Consumer | Merchant Terminal |
-|:--------------------------------------|:-------------:|:-------------:|:-----------------:|
-| {% break : accounts:create         %} |       ✅      |               |                   |
-| {% break : accounts:read           %} |       ✅      |               |                   |
-| {% break : accounts:update         %} |       ✅      |               |                   |
-| {% break : api-keys:create         %} |       ✅      |               |                   |
-| {% break : api-keys:update         %} |       ✅      |               |                   |
-| {% break : api-keys:list           %} |       ✅      |               |                   |
-| {% break : merchants:create        %} |       ✅      |               |                   |
-| {% break : merchants:read          %} |       ✅      |               |                   |
-| {% break : merchants:update        %} |       ✅      |               |                   |
-| {% break : merchants:list          %} |       ✅      |               |                   |
-| {% break : payment-requests:create %} |               |               |         ✅        |
-| {% break : payment-requests:read   %} |      ✸ ✅     |      ✸ ✅     |         ✅        |
-| {% break : payment-requests:update %} |               |               |         ✅        |
-| {% break : payment-requests:pay    %} |      ✸ ✅     |      ✸ ✅     |                   |
-| {% break : payment-requests:void   %} |               |               |         ✅        |
-| {% break : payment-requests:refund %} |               |               |         ✅        |
-| {% break : assets:read             %} |       ✅      |               |                   |
-| {% break : assets:spend            %} |       ✅      |               |                   |
-| {% break : wallets:transfer        %} |       ✅      |               |                   |
-| {% break : wallets:withdraw        %} |       ✅      |               |                   |
-| {% break : wallets:deposit         %} |       ✅      |               |                   |
-| {% break : wallets:create          %} |       ✅      |               |                   |
-| {% break : wallets:read            %} |       ✅      |               |                   |
-| {% break : asset-transfers:create  %} |       ✅      |               |                   |
-| {% break : asset-transfers:read    %} |       ✅      |               |                   |
-| {% break : asset-transfers:claim   %} |       ✅      |               |                   |
-| {% break : bank-authorities:create %} |       ✅      |               |                   |
-| {% break : bank-authorities:read   %} |       ✅      |               |                   |
+| Permission                            |  Account Owner  | Anon Consumer | Merchant Terminal |
+|:--------------------------------------|:---------------:|:-------------:|:-----------------:|
+| {% break : accounts:create         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : accounts:read           %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : accounts:update         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : api-keys:create         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : api-keys:update         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : api-keys:list           %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : merchants:create        %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : merchants:read          %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : merchants:update        %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : merchants:list          %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : payment-requests:create %} |                 |               |         ✅        |
+| {% break : payment-requests:read   %} |       ✸ ✅      |      ✸ ✅     |         ✅        |
+| {% break : payment-requests:update %} |                 |               |         ✅        |
+| {% break : payment-requests:pay    %} |       ✸ ✅      |      ✸ ✅     |                   |
+| {% break : payment-requests:void   %} |                 |               |         ✅        |
+| {% break : payment-requests:refund %} |                 |               |         ✅        |
+| {% break : assets:read             %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : assets:spend            %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : wallets:transfer        %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : wallets:withdraw        %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : wallets:deposit         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : wallets:create          %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : wallets:read            %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : asset-transfers:create  %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : asset-transfers:read    %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : asset-transfers:claim   %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : bank-authorities:create %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : bank-authorities:read   %} | &nbsp;&nbsp; ✅ |               |                   |
 
 
 
