@@ -15,7 +15,7 @@ nav_order: 2
 ## Authenticating API Calls
 
 API calls can be authenticated by either providing an API key in the
-"X-Api-Key" header or by providing an user access token in the "Authorization"
+"X-Api-Key" header or by providing a user access token in the "Authorization"
 header.
 
 
@@ -55,10 +55,10 @@ After successfully negotiating the OIDC code flow your application will have acc
 
 A good starting point for learning more about OIDC is Okta's [OAuth OIDC Illustrated Guide][okta-oidc]{:.external}.
 
-When initiating a login request a valid redirect URI must be provided. To
+When initiating a login request, a valid redirect URI must be provided. To
 obtain a dedicated OAuth client id with your application's redirect URI(s)
 whitelisted please contact Centrapay support. Your callback URI can be for a
-website (such as "https://yourapp.example.com/oidc-callback") or a mobile app
+website (such as "https://yourapp.example.com/oidc-callback") or mobile app
 (such as "com.example.yourapp://oidc-callback").
 
 Your application can use any OIDC client to negotiate the authentication flow
@@ -66,7 +66,7 @@ but it must support OIDC authorization code flow with [PKCE][pkce]{:.external}. 
 [Example Web Browser OIDC Consumer][oidcjs-example] section below for a
 working example using the "oidc-client" JavaScript library.
 
-When handling the OIDC callback, Browser based applications should slurp the
+When handling the OIDC callback, browser based applications should slurp the
 callback parameters by performing a `location.replace()` so they are not
 available in the browser's location bar or browsing history. If your application
 needs to talk directly to service.centrapay.com from a browser then it will
