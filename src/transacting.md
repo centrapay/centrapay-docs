@@ -37,23 +37,25 @@ Our payments endpoints also have [interactive Swagger documentation](https://ser
 curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
   -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
   -d merchantId="1399b053-b3dd-4c5b-9859-b5bf5c2ac477" \
+  -d clientId="5efbe2fb96c08357bb2b9242" \
   -d amount=300 \
-  -d asset='NZD'
+  -d asset="NZD" 
 ```
 
 **Required Parameters**
 
-| Parameter  | Description                                 |
-|:-----------|:--------------------------------------------|
-| amount     | The payment amount in cents                 |
-| asset      | The currency - NZD or AUD                   |
-| merchantId | The ID of the merchant creating the request |
+| Parameter  | Description                                          |
+|:-----------|:-----------------------------------------------------|
+| amount     | The payment amount in cents                          |
+| asset      | The currency - NZD or AUD                            |
+| merchantId | The ID of the merchant creating the request          |
+| clientId   | The ID of the merchant specific client configuration |
+
 
 **Optional Parameters**
 
 | Parameter            | Description                                                                      |
 |:---------------------|:---------------------------------------------------------------------------------|
-| clientId             | The ID of the merchant specific client configuration                             |
 | description          | Description of the payment                                                       |
 | externalReference    | Unique merchant reference for the payment request                                |
 | notifyUrl            | The URL that will receive **POST** requests from the webhook                     |
