@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Merchants
-nav_order: 4
+nav_order: 5
 ---
 
 # Merchants
@@ -305,5 +305,7 @@ The following table describes the supported payment option types.
 | centrapay.nzd.test | Centrapay NZD wallet (test ledger)   |
 | bitcoin.main       | Bitcoin                              |
 | epay.nzd.main      | EPay NZ giftcards                    |
+| epay.nzd.test      | EPay NZ giftcards (test ledger)      |
+| cennznet.main      | Cennznet                             |
 | pocketvouchers     | Pocket Vouchers                      |
 | test               | No-op test payment (always approved) |
