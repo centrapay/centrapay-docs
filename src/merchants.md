@@ -288,10 +288,11 @@ See [Merchant configuration model](#merchant-configuration-model) for expected r
 
 **Optional Fields**
 
-| Field                                       | Type   | Description                                                                          |
-|:--------------------------------------------|:-------|:-------------------------------------------------------------------------------------|
-| {% break . paymentOptions[\*].walletId %}   | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types. |
-| {% break . paymentOptions[\*].terminalId %} | String | Merchant's Epay terminal id. Required for `epay.nzd` types.                          |
+| Field                                               | Type   | Description                                                                          |
+|:----------------------------------------------------|:-------|:-------------------------------------------------------------------------------------|
+| {% break . paymentOptions[\*].walletId %}           | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types. |
+| {% break . paymentOptions[\*].terminalId %}         | String | Merchant's Epay terminal id. Required for `epay.nzd` types.                          |
+| {% break . paymentOptions[\*].wavesPublicAddress %} | String | Merchant's public waves address. Required for `zap.main` types.                      |
 
 **Supported Payment Types**
 
@@ -308,4 +309,5 @@ The following table describes the supported payment option types.
 | epay.nzd.test      | EPay NZ giftcards (test ledger)      |
 | cennznet.main      | Cennznet                             |
 | pocketvouchers     | Pocket Vouchers                      |
+| zap.main           | Zap tokens                           |
 | test               | No-op test payment (always approved) |

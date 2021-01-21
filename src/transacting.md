@@ -124,6 +124,8 @@ is returned with the payment request info as `payments[].ledger`.
 | epay.nzd.main      | epay.nzd.main            | *Centrapay asset id*           |
 | pocketvouchers     | g.pocketvouchers.pv      | *Pocket Vouchers voucher code* |
 | bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
+| cennznet.main      | cennznet.main            | *Cennznet transaction id*      |
+| zap.main           | zap.main                 | *Waves transaction id*         |
 | test               | g.test.testUplink        | *None*                         |
 
 **Centrapay Asset Permissions**
