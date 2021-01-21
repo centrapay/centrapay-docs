@@ -127,7 +127,7 @@
   },"21": {
     "doc": "Auth",
     "title": "Authenticating API Calls",
-    "content": "API calls can be authenticated by either providing an API key in the “X-Api-Key” header or by providing a user access token in the “Authorization” header. Example call with API key: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" -H \"X-Api-Key: my-api-key\" . Example call with user access token: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" -H \"Authorization my-access-token\" . ",
+    "content": "API calls can be authenticated by either providing an API key in the “X-Api-Key” header or by providing a user access token in the “Authorization” header. Example call with API key: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" -H \"X-Api-Key: ${my_api_key}\" . Example call with user access token: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" -H \"Authorization: ${my_access_token}\" . ",
     "url": "/auth.html#authenticating-api-calls",
     "relUrl": "/auth.html#authenticating-api-calls"
   },"22": {
