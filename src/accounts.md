@@ -84,42 +84,6 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 }
 ```
 
-## List account memberships
-
-List memberships for authorized user or API key:
-
-{% endpoint GET https://service.centrapay.com/api/account-memberships %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/account-memberships" \
-  -H "x-api-key: 1234"
-```
-List memberships for specific user:
-
-{% endpoint GET https://service.centrapay.com/api/users/{userId}/account-memberships %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
-  -H "x-api-key: 1234"
-```
-
-**Example response payload**
-
-```json
-[
-  {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "accountType": "org",
-    "role": "account-owner"
-  },
-  {
-    "accountId": "5uooxSens6ykJaim1Cu1Q5",
-    "accountType": "org",
-    "role": "account-owner"
-  }
-]
-```
-
 ## Update an account
 
 
@@ -276,7 +240,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 }
 ```
 
-## List account members
+## List members for account
 
 {% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/members %}
 
@@ -299,6 +263,42 @@ curl -X GET http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/mem
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
     "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
     "createdAt": "2020-06-01T22:34:31.308Z",
+    "role": "account-owner"
+  }
+]
+```
+
+## List account memberships for subject
+
+List memberships for authorized user or API key:
+
+{% endpoint GET https://service.centrapay.com/api/account-memberships %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/account-memberships" \
+  -H "x-api-key: 1234"
+```
+List memberships for specific user:
+
+{% endpoint GET https://service.centrapay.com/api/users/{userId}/account-memberships %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+[
+  {
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "accountType": "org",
+    "role": "account-owner"
+  },
+  {
+    "accountId": "5uooxSens6ykJaim1Cu1Q5",
+    "accountType": "org",
     "role": "account-owner"
   }
 ]
