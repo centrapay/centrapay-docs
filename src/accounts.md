@@ -206,7 +206,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
 }
 ```
 
-## Add account member **EXPERIMENTAL**
+## Add account member
 
 {% endpoint POST https://service.centrapay.com/api/accounts/${accountId}/members %}
 
