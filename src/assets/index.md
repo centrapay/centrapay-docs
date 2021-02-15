@@ -88,3 +88,40 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
   ]
 }
 ```
+
+## Archive Asset (EXPERIMENTAL)
+
+{% endpoint POST https://service.centrapay.com/api/assets/${id}/archive %}
+
+Archive supported asset types by asset id, currently only gift cards may be archived.
+
+```sh
+curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+{
+  "id": "L75M3L56N2PtBSt8g7uXLU",
+  "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "category": "giftcard",
+  "type": "epay.nzd.main",
+  "issuer": "ezipay",
+  "externalId": "23403283262",
+  "description": "$60 Acme Giftcard",
+  "initialBalance": "6000",
+  "balance": "0",
+  "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+  "expiresAt": "2020-12-31T00:00:00.000Z",
+  "createdAt": "2020-05-01T12:30:00.000Z",
+  "status": "archived",
+}
+```
+
+**Error Responses**
+
+| Status | Code                    | Description                                         |
+|:-------|:------------------------|:----------------------------------------------------|
+| 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
