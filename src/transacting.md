@@ -79,8 +79,8 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 **Required Parameters**
 
-| Parameter | Description                                                                                |
-|:----------|:-------------------------------------------------------------------------------------------|
+| Parameter | Description                                                                |
+|:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
 
 <a name="requests-pay">
@@ -100,11 +100,11 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 
 **Required Parameters**
 
-| Parameter       | Description                                                                             |
-| :-------------- | :-------------------------------------------------------------------------------------- |
-| requestId       | The id of the payment request to pay. See [requests.create][].                          |
-| ledger          | The selected payment option to use. See below for expected values.                      |
-| authorization   | An identifier that can be used to pay or verify payment. See below for expected values. |
+| Parameter     | Description                                                                             |
+|---------------|-----------------------------------------------------------------------------------------|
+| requestId     | The id of the payment request to pay. See [requests.create][].                          |
+| ledger        | The selected payment option to use. See below for expected values.                      |
+| authorization | An identifier that can be used to pay or verify payment. See below for expected values. |
 
 **Expected Ledger and Authorization Values**
 
@@ -158,8 +158,8 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 **Required Parameters**
 
-| Parameter | Description                                                                                |
-|:----------|:-------------------------------------------------------------------------------------------|
+| Parameter | Description                                                                |
+|:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
 
 
@@ -179,7 +179,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 **Required Parameters**
 
 | Parameter | Description                                                                 |
-|:----------|:--------------------------------------------------------------------------- |
+|:----------|:----------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called. |
 
 
@@ -225,8 +225,8 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 **Additional required Parameter for multiple refunds**
 
-| Parameter         | Description                          |
-|:------------------|:-------------------------------------|
+| Parameter         | Description                                                                                                                                   |
+|:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
 | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. |
 
 ## Errors
@@ -235,8 +235,8 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 
 <div class="payments-errors" markdown="1">
 
-| Error code | Http code |                      Message                      |                                                                                                                               Description                                                                                                                                |
-| :--------- | :-------- | :------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Error code | Http code | Message                                           | Description                                                                                                                                                                                                                                                              |
+|------------|-----------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1          | 401       | {% break _ KEY_NOT_AUTHORIZED %}                  | The Api Key was not found in the headers or is invalid                                                                                                                                                                                                                   |
 | 2          | 404       | {% break _ REQUEST_NOT_FOUND %}                   | The provided request doesn’t exist                                                                                                                                                                                                                                       |
 | 3          | 404       | {% break _ TRANSACTION_NOT_FOUND %}               | The provided transaction doesn’t exist                                                                                                                                                                                                                                   |
@@ -292,6 +292,7 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 279        | 403       | {% break _ INVALID_TRANSACTION_TYPE %}            | The transaction attempted to be refunded is a refund which is not allowed                                                                                                                                                                                                |
 | 280        | 403       | {% break _ REPEAT_REFERENCE %}                    | A separate refund request for the same transaction has the same external reference, trying to refund the same transaction twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200 |
 | 281        | 403       | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}         | The asset does not support partial refunds.                                                                                                                                                                                                                              |
+| 400        | 400       | {% break _ BAD_REQUEST %}                         | The transaction had invalid parameters not listed above.                                                                                                                                                                                                                                                                     |
 
 </div>
 
