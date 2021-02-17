@@ -60,7 +60,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | externalReference    | Unique merchant reference for the payment request                                |
 | notifyUrl            | The URL that will receive **POST** requests from the webhook                     |
 | paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 |
-| terminalId           | The payment system terminal Id                                                   |
+| terminalId           | The payment system terminal Id. Required for NZ Epay integration.                |
 | deviceId             | Physical payment system device Id                                                |
 
 
