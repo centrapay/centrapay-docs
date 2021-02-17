@@ -291,7 +291,7 @@ See [Merchant configuration model](#merchant-configuration-model) for expected r
 | Field                                               | Type   | Description                                                                          |
 |:----------------------------------------------------|:-------|:-------------------------------------------------------------------------------------|
 | {% break . paymentOptions[\*].walletId %}           | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types. |
-| {% break . paymentOptions[\*].terminalId %}         | String | Merchant's Epay terminal id. Required for `epay.nzd` types.                          |
+| {% break . paymentOptions[\*].terminalId %}         | String | Merchant's Epay terminal id.                                                         |
 | {% break . paymentOptions[\*].wavesPublicAddress %} | String | Merchant's public waves address. Required for `zap.main` types.                      |
 
 **Supported Payment Types**
