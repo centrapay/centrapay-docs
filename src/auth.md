@@ -62,9 +62,11 @@ website (such as "https://yourapp.example.com/oidc-callback") or mobile app
 (such as "com.example.yourapp://oidc-callback").
 
 Your application can use any OIDC client to negotiate the authentication flow
-but it must support OIDC authorization code flow with [PKCE][pkce]{:.external}. See the
-[Example Web Browser OIDC Consumer][oidcjs-example] section below for a
-working example using the "oidc-client" JavaScript library.
+but it must support OIDC authorization code flow with [PKCE][pkce]{:.external}.
+See the [Example Web Browser OIDC Consumer][oidcjs-example] section below for a
+working example using the "oidc-client" JavaScript library. The Centrapy
+authorization server configuration can be interrogated via
+`https://auth.centrapay.com/.well-known/openid-configuration`.
 
 When handling the OIDC callback, browser based applications should slurp the
 callback parameters by performing a `location.replace()` so they are not
