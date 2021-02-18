@@ -74,12 +74,13 @@ terminals, and smart wallets to interact with each other.
 9. We verify payment and notify the terminal
 10. Terminal displays result
 
-## API keys and access
+## API keys and access tokens
 
-We handle authorization via api keys, which are sent in the header when making
-a request to any of our endpoints. To get set up with an api key so you can
-start using the payments API contact us via email at
-**devsupport@centrapay.com.**
+We handle authorization via merchant API keys or user access tokens. See our
+[auth documentation]({% link auth.md %}) for more details. Our APIs for initiating
+transactions can be tested using the documented test merchant API keys.  User
+access tokens are issued via our login page using OAuth. For more help getting
+setup, contact us via email at **devsupport@centrapay.com**.
 
 ## Experimental Features
 
