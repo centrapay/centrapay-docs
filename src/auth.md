@@ -159,8 +159,12 @@ const userManager = new Oidc.UserManager({
   response_type: 'code',
   scope: 'openid',
   client_id: yourCentrapayOauthClientId,
-  redirect_uri: yourAppOidcRedirectUri,
+  redirect_uri: yourAppOidcLoginRedirectUri,
   loadUserInfo: false, // "/oauth2/userInfo" call unsupported by Centrapay OAuth server
+  post_logout_redirect_uri: yourAppOidcLogoutRedirectUri,
+  metadata: {
+    end_session_endpoint: 'https://auth.centrapay.com/logout'
+  }
   /*
    * Recommended configs
    */
@@ -170,7 +174,6 @@ const userManager = new Oidc.UserManager({
   extraQueryParams: { u: userPhoneNumber }, // Populate Centrapay login form
 });
 ```
-
 
 ### Minimal OIDC Client Usage
 
@@ -244,7 +247,18 @@ userManager.events.addUserLoaded((user) => {
 ### OIDC Client Logout
 
 ```javascript
-userManager.removeUser();
+async function logout() {
+  /* State attribute is stored and retrievable with OIDC callback state param */
+  await userManager.signoutRedirect({ state: window.location.href });
+}
+
+async function handleLogoutOidcCallback() {
+  const result = await userManager.signoutRedirectCallback().catch((err) => {
+    console.log('Something went wrong handling OIDC callback');
+  });
+  /* Restore previous location stored against state param */
+  window.location.replace(result.state || '/');
+}
 ```
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
