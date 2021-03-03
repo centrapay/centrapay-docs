@@ -27,6 +27,13 @@ terminals, and smart wallets to interact with each other.
 {:toc}
 
 
+## Explanation of concepts
+ 
+ * merchant id - scope of settlement, ie, may be shared  by multiple sites
+ * client id - payment configuration for a merchant, may be shared by multiple integrated terminals
+ * scope of merchant api key -
+ * terminal id - used for billing - merchant Centrapay subscriptions allow a number of unique terminals per month
+ * device id - used for auditing and police investigations 
 
 ## Example Payment Flows
 
