@@ -47,6 +47,13 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 }
 ```
 
+**Error Responses**
+
+| Status | Code                                      | Description                                                          |
+| :----- | :---------------------------------------- | :------------------------------------------------------------------- |
+| 403    | {% break _ ACCOUNT_MAX_WALLETS_REACHED %} | The maximum number of wallets for the given ledger has been reached. |
+
+
 ## Listing authorized wallets
 
 {% endpoint GET https://service.centrapay.com/api/wallets %}
