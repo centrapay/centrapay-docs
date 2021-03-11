@@ -457,7 +457,7 @@
   },"76": {
     "doc": "Wallets",
     "title": "Creating a wallet",
-    "content": "POST https://service.centrapay.com/api/wallets . curl -X POST \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" } . ",
+    "content": "POST https://service.centrapay.com/api/wallets . curl -X POST \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" } . Error Responses . | Status | Code | Description | . | 403 | ACCOUNT_MAX_WALLETS_REACHED | The maximum number of wallets for the given ledger has been reached. | . ",
     "url": "/assets/wallets.html#creating-a-wallet",
     "relUrl": "/assets/wallets.html#creating-a-wallet"
   },"77": {
