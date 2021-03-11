@@ -46,14 +46,19 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 |       Field       |  Type  |                    Description                    |
 | :---------------- | :----- | :------------------------------------------------ |
 | fullName          | String | The first and last name of the user               |
-| streetAddress     | String | The street address of the user                    |
-| suburb            | String | The suburb relating to the user's address         |
-| city              | String | The city relating to the users address            |
-| postCode          | String | The postal code relating to the user's address    |
 | phoneNumber       | String | The user's phone number                           |
 | emailAddress      | String | The user's email address                          |
 | bankAccountNumber | String | The user's bank account number                    |
 | bankAccountName   | String | The name on the bank account provided by the user |
+
+**Optional Fields**
+
+|       Field       |  Type  |                    Description                    |
+| :---------------- | :----- | :------------------------------------------------ |
+| streetAddress     | String | The street address of the user                    |
+| suburb            | String | The suburb relating to the user's address         |
+| city              | String | The city relating to the users address            |
+| postCode          | String | The postal code relating to the user's address    |
 
 **Example response payload**
 
