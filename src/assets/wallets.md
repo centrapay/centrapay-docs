@@ -50,7 +50,7 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 **Error Responses**
 
 | Status | Code                                      | Description                                                          |
-| :----- | :---------------------------------------- | :------------------------------------------------------------------- |
+|--------|-------------------------------------------|----------------------------------------------------------------------|
 | 403    | {% break _ ACCOUNT_MAX_WALLETS_REACHED %} | The maximum number of wallets for the given ledger has been reached. |
 
 
@@ -97,6 +97,7 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
 
 | Field            | Description                                                               |
 |:-----------------|:--------------------------------------------------------------------------|
+| activityNumber   | Unique sequential wallet transaction number                               |
 | amount           | Absolute transaction amount in cents.                                     |
 | value            | Change to the wallet's balance in cents when the transaction was applied. |
 | createdAt        | Transaction timestamp as ISO8601 date string.                             |
@@ -123,6 +124,7 @@ email, masked user phone, or bank account.
 {
   "items": [
     {
+      "activityNumber": "1",
       "amount": "350",
       "value": "-350",
       "createdAt": "2020-06-17T18:00:23.000Z",
@@ -142,6 +144,7 @@ email, masked user phone, or bank account.
 {
   "items": [
     {
+      "activityNumber": "1",
       "amount": "5000",
       "value": "5000",
       "createdAt": "2020-06-17T18:00:23.000Z",
@@ -160,6 +163,7 @@ email, masked user phone, or bank account.
 {
   "items": [
     {
+      "activityNumber": "1",
       "amount": "2500",
       "value": "-2500",
       "createdAt": "2020-06-17T18:00:23.000Z",
@@ -178,6 +182,7 @@ email, masked user phone, or bank account.
 {
   "items": [
     {
+      "activityNumber": "1",
       "amount": "2500",
       "value": "2500",
       "createdAt": "2020-06-17T18:00:23.000Z",
