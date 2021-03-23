@@ -101,13 +101,12 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
 | amount           | Absolute transaction amount in cents.                                     |
 | value            | Change to the wallet's balance in cents when the transaction was applied. |
 | createdAt        | Transaction timestamp as ISO8601 date string.                             |
-| type             | Transcation type: "transfer", "deposit" or "withdrawal".                  |
+| activityType     | Hints to the type of transaction: undefined or "returned-asset-transfer"  |
 | destWalletId     | Id of the destination wallet if applicable.                               |
 | srcWalletId      | Id of the source wallet if applicable.                                    |
 | destParty        | Display value for party receiving funds if applicable. See note below.    |
 | srcParty         | Display value for party providing funds if applicable. See note below.    |
 | paymentRequestId | Id of the related payment request if applicable.                          |
-| withdrawalId     | Id of the related withdrawal request if applicable.                       |
 | topupId          | Id of the related topup funds transfer request if applicable.             |
 | assetTransferId  | Id of the related asset transfer request if applicable.                   |
 
@@ -128,7 +127,6 @@ email, masked user phone, or bank account.
       "amount": "350",
       "value": "-350",
       "createdAt": "2020-06-17T18:00:23.000Z",
-      "type": "transfer",
       "destParty": "Centrapay Cafe",
       "destWalletId": "GfYJd5tZQ63CrehgTP2RPB",
       "srcWalletId": "EBVSreNmpsE2Pazw3SipXC",
@@ -148,7 +146,6 @@ email, masked user phone, or bank account.
       "amount": "5000",
       "value": "5000",
       "createdAt": "2020-06-17T18:00:23.000Z",
-      "type": "deposit",
       "srcParty": "12-4000-100001-00",
       "destWalletId": "EBVSreNmpsE2Pazw3SipXC",
       "topupId": "77hqHDzw6KaaG2P2hoshUB"
@@ -167,7 +164,6 @@ email, masked user phone, or bank account.
       "amount": "2500",
       "value": "-2500",
       "createdAt": "2020-06-17T18:00:23.000Z",
-      "type": "withdrawal",
       "destParty": "+6422*****36",
       "srcWalletId": "EBVSreNmpsE2Pazw3SipXC",
       "assetTransferId": "TtQHufC4LGBY2eiPRopRm3"
@@ -186,7 +182,25 @@ email, masked user phone, or bank account.
       "amount": "2500",
       "value": "2500",
       "createdAt": "2020-06-17T18:00:23.000Z",
-      "type": "deposit",
+      "srcParty": "+6421*****18",
+      "destWalletId": "EBVSreNmpsE2Pazw3SipXC",
+      "assetTransferId": "TtQHufC4LGBY2eiPRopRm3"
+    }
+  ]
+}
+```
+
+**Example response payload (Returned Asset)**
+
+```json
+{
+  "items": [
+    {
+      "activityNumber": "1",
+      "amount": "2500",
+      "value": "2500",
+      "createdAt": "2020-06-17T18:00:23.000Z",
+      "activityType": "returned-asset-transfer",
       "srcParty": "+6421*****18",
       "destWalletId": "EBVSreNmpsE2Pazw3SipXC",
       "assetTransferId": "TtQHufC4LGBY2eiPRopRm3"
