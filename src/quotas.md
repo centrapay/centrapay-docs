@@ -21,6 +21,10 @@ period (daily, monthly, yearly). Account quotas may be affected by the verificat
 
 {% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/quotas %}
 
+Retrieve quota limits and usages for the current intervals. Ie, all quotas for
+the current day, current month and current year as well as any quotas that are
+not associated with a temporal period.
+
 ```sh
 curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas" \
   -H "x-api-key: 1234" \
@@ -40,26 +44,18 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
     "assetType": "centrapay.nzd.main"
   },
   {
-    "limit": "1000",
-    "interval": "2021-02",
-    "period": "monthly",
-    "usage": "55",
-    "type": "spend",
-    "assetType": "centrapay.nzd.main"
-  },
-  {
     "limit": "9999",
     "interval": "2021",
     "period": "yearly",
-    "usage": "555",
+    "usage": "1555",
     "type": "spend",
     "assetType": "centrapay.nzd.main"
   },
   {
     "limit": "1000",
-    "interval": "2021-02",
+    "interval": "2021-03",
     "period": "monthly",
-    "usage": "5",
+    "usage": "5000",
     "type": "topup",
     "assetType": "centrapay.nzd.main"
   },
@@ -67,7 +63,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
     "limit": "9999",
     "interval": "2021",
     "period": "yearly",
-    "usage": "5",
+    "usage": "5000",
     "type": "topup",
     "assetType": "centrapay.nzd.main"
   }
