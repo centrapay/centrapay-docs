@@ -107,6 +107,7 @@ indicated below with a star (✸).
 | {% break : accounts:create         %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : accounts:read           %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : accounts:update         %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : quotas:read             %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : api-keys:create         %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : api-keys:update         %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : api-keys:list           %} | &nbsp;&nbsp; ✅ |               |                   |
