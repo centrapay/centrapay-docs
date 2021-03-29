@@ -22,7 +22,7 @@ their phone number.
 
 {% endpoint POST https://service.centrapay.com/api/asset-transfers %}
 
-You can transfer a descrete asset or an amount from a wallet to a recipient.
+You can transfer a discrete asset or an amount from a wallet to a recipient.
 
 Here's an example of a $60 transfer from a wallet:
 
@@ -37,7 +37,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   }'
 ```
 
-For descrete assets, you transfer the entire value to the recipient as balances can't be transferred
+For discrete assets, you transfer the entire value to the recipient as balances can't be transferred
 between accounts. Here's an example:
 
 ```sh
@@ -54,8 +54,9 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 | Parameter      | Type   | Description                                                |
 |:---------------|:-------|:-----------------------------------------------------------|
-| assetId        | String | Id of a descrete asset to transfer or wallet to draw from. |
+| assetId        | String | Id of a discrete asset to transfer or wallet to draw from. |
 | recipientAlias | String | Phone number, email or handle of receiver.                 |
+
 
 **Optional Parameters**
 
@@ -94,6 +95,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 | Status | Code                                      | Description                                                       |
 |:-------|:------------------------------------------|:------------------------------------------------------------------|
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
+| 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits see [ Quota Error Response ]({% link quotas.md %}#quota-error-response-anchor)  |
 
 ## Look up an Asset Transfer
 
