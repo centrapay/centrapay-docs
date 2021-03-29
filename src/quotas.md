@@ -55,7 +55,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
     "limit": "1000",
     "interval": "2021-03",
     "period": "monthly",
-    "usage": "5000",
+    "usage": "500",
     "type": "topup",
     "assetType": "centrapay.nzd.main"
   },
