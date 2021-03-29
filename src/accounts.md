@@ -131,9 +131,9 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 **Required Fields**
 
-| Field |  Type  |                                    Description                                     |
-| :---- | :----- | :--------------------------------------------------------------------------------- |
-| name  | String | The alphanumeric name of the API key, must be unique within account                |
+| Field |  Type  |                                    Description                                      |
+| :---- | :----- | :---------------------------------------------------------------------------------- |
+| name  | String | The alphanumeric name of the API key, must be unique within account                 |
 | role  | String | API key role. Currently, only supported are "merchant-terminal" and "account-owner" |
 
 **Example response payload**
