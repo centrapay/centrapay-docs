@@ -133,7 +133,7 @@ indicated below with a star (✸).
 | {% break : asset-transfers:claim   %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : bank-authorities:create %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : bank-authorities:read   %} | &nbsp;&nbsp; ✅ |               |                   |
-
+| {% break : quotas:read             %} | &nbsp;&nbsp; ✅ |               |                   |
 
 
 ## Example Web Browser OIDC Consumer
