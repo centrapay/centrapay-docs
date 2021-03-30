@@ -35,7 +35,7 @@ curl -X GET "https://service.centrapay.com/api/account-memberships" -H "Authoriz
 
 API keys provide enduring access to a single Centrapay account.
 
-See: [Creating API Keys]({% link accounts.md %}#creating-an-api-key).
+See: [Creating API Keys]({% link accounts.md %}#creating-api-key).
 
 The Centrapay test merchant API key is available to test creating payment requests:
 `f32c5497297084e5354b47c40d5ccacb109ce483`.
@@ -63,7 +63,7 @@ website (such as "https://yourapp.example.com/oidc-callback") or mobile app
 
 Your application can use any OIDC client to negotiate the authentication flow
 but it must support OIDC authorization code flow with [PKCE][pkce]{:.external}.
-See the [Example Web Browser OIDC Consumer][oidcjs-example] section below for a
+See the [Example Web Browser OIDC Consumer](#oidcjs-example) section below for a
 working example using the "oidc-client" JavaScript library. The Centrapy
 authorization server configuration can be interrogated via
 `https://auth.centrapay.com/.well-known/openid-configuration`.
@@ -136,6 +136,7 @@ indicated below with a star (✸).
 | {% break : quotas:read             %} | &nbsp;&nbsp; ✅ |               |                   |
 
 
+<span id="oidcjs-example"></span>
 ## Example Web Browser OIDC Consumer
 
 This example demonstrates how to integrate a browser based application with the
@@ -265,4 +266,3 @@ async function handleLogoutOidcCallback() {
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
 [oidcjs]: https://github.com/IdentityModel/oidc-client-js
-[oidcjs-example]: #oidcjs-example
