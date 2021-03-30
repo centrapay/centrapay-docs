@@ -117,6 +117,7 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 }
 ```
 
+<span id="creating-api-key"></span>
 ## Creating an API key
 
 {% endpoint POST https://service.centrapay.com/api/accounts/{accountId}/api-keys %}

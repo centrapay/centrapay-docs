@@ -100,7 +100,7 @@ applicable to the quota.
 | spend | Value of wallet-based payments or asset transfers from the account. |   Yes  | `monthly` `yearly` |
 | topup | Value of topups from bank accounts linked to the account.           |   Yes  | `monthly` `yearly` |
 
-<span id="quota-error-response-anchor"></span>
+<span id="quota-error-response"></span>
 **Error Responses**
 
 If a quota limit is exceeded by an action that enforces quota limits, the following error response will be returned. The `quotas` field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.

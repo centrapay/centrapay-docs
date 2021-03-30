@@ -166,7 +166,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
   ]}'
 ```
 
-See [Merchant configuration model](#merchant-configuration-model) for expected request body format.
+See [Merchant configuration model](#config-model) for expected request body format.
 
 **Example response payload**
 
@@ -257,7 +257,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
   ]}'
 ```
 
-See [Merchant configuration model](#merchant-configuration-model) for expected request body format.
+See [Merchant configuration model](#config-model) for expected request body format.
 
 **Example response payload**
 ```json
@@ -276,6 +276,7 @@ See [Merchant configuration model](#merchant-configuration-model) for expected r
 }
 ```
 
+<span id="config-model"></span>
 ## Merchant configuration model
 
 **Required Fields**
