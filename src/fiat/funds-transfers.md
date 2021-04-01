@@ -126,3 +126,41 @@ curl -X GET "https://service.centrapay.com/api/topups" \
   }
 ]
 ```
+
+## List top ups for an account **EXPERIMENTAL**
+
+{% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/topups %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topups" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+[
+  {
+    "id": "5thg2RPBZEfYTPJdQ63Cre",
+    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "accountId": "aBc932S9182qwCDqwer",
+    "type": "topup",
+    "amount": "10000",
+    "status": "created",
+    "createdAt": "2020-05-01T12:30:00.000Z",
+    "updatedAt": "2020-05-01T12:30:00.000Z"
+  },
+  {
+    "id": "hg2RfYTQ635tPBZEPJdCre",
+    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "accountId": "aBc932S9182qwCDqwer",
+    "type": "topup",
+    "amount": "10000",
+    "status": "created",
+    "createdAt": "2020-05-01T12:30:00.000Z",
+    "updatedAt": "2020-05-01T12:30:00.000Z"
+  }
+]
+```
