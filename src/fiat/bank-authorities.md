@@ -7,10 +7,16 @@ title: Bank Authorities
 # Bank Authorities
 {:.no_toc}
 
-A bank authority represents an individual's consent for Centrapay to transfer
-funds to and from a bank account. In order to move funds between a bank account
-and a Centrapay wallet, there must be a verified bank authority for the
-Centrapay account that the wallet belongs to.
+A bank authority represents an individual's consent for Centrapay to transfer funds to and from a
+bank account.
+
+In order to move funds from a Centrapay wallet to a bank account (withdrawal), we only need the
+minimum required fields. There's no need to authorize direct debit authority, nor verify the account
+using a code on a bank statement.
+
+In order to move funds between a bank account to a Centrapay wallet (top up), we need explicit
+authorization and verification from the user. Bank account authorization and verification status can
+be observed based on the `directDebitAuthorized` and `verified` flags.
 
 ## Contents
 {:.no_toc .text-delta}
@@ -18,26 +24,42 @@ Centrapay account that the wallet belongs to.
 * TOC
 {:toc}
 
+<span id="bank-account-create"></span>
+## Creating a bank account **EXPERIMENTAL**
 
-## Creating a bank authority
+{% endpoint POST https://service.centrapay.com/api/bank-accounts %}
 
-{% endpoint POST https://service.centrapay.com/api/bank-authorities %}
+An example of a minimal POST to create a bank authority.
 
 ```sh
-curl -X POST "https://service.centrapay.com/api/bank-authorities" \
+curl -X POST "https://service.centrapay.com/api/bank-accounts" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
   -d '{
-    "fullName": "John Doe",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "streetAddress": "11 Shortland St",
-    "suburb": "Auckland Central",
-    "city": "Auckland",
-    "postCode": "1100",
-    "phoneNumber": "+64212345678",
-    "emailAddress": "John.doe@email.com",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "John Doe"
+  }'
+```
+
+An example of a minimal POST to create a bank authority and a direct debit authority.
+
+By including directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
+and has authority to operate this account.
+
+```sh
+curl -X POST "https://service.centrapay.com/api/bank-accounts" \
+  -H "x-api-key: 1234" \
+  -H "content-type: application/json" \
+  -d '{
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "bankAccountNumber": "12-1234-1234567-123",
+    "bankAccountName": "John Doe",
+    "directDebitAuthority": {
+      "phoneNumber": "+64212345678",
+      "fullName": "John Doe",
+      "emailAddress": "john.doe@gmail.com"
+    }
   }'
 ```
 
@@ -45,20 +67,20 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 |       Field       |  Type  |                    Description                    |
 | :---------------- | :----- | :------------------------------------------------ |
-| fullName          | String | The first and last name of the user               |
-| phoneNumber       | String | The user's phone number                           |
-| emailAddress      | String | The user's email address                          |
 | bankAccountNumber | String | The user's bank account number                    |
 | bankAccountName   | String | The name on the bank account provided by the user |
 
 **Optional Fields**
 
-|       Field       |  Type  |                    Description                    |
-| :---------------- | :----- | :------------------------------------------------ |
-| streetAddress     | String | The street address of the user                    |
-| suburb            | String | The suburb relating to the user's address         |
-| city              | String | The city relating to the users address            |
-| postCode          | String | The postal code relating to the user's address    |
+Note, fields which have a star (✩) create a direct-debit authority and are required for Top Up. All
+fields below when specified are required together.
+
+|    Field     |  Type   |              Description               |
+| :----------- | :------ | :------------------------------------- |
+| phoneNumber  | String  | ✩ The user's phone number.             |
+| fullName     | String  | ✩ The first and last name of the user. |
+| emailAddress | String  | ✩ The user's email address.            |
+
 
 **Example response payload**
 
@@ -66,15 +88,9 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "fullName": "John Doe",
-  "streetAddress": "11 Shortland St",
-  "suburb": "Auckland Central",
-  "city": "Auckland",
-  "postCode": "1100",
-  "phoneNumber": "+64212345678",
-  "emailAddress": "John.doe@email.com",
   "bankAccountNumber": "12-1234-1234567-123",
   "bankAccountName": "John Doe",
+  "directDebitAuthorized": true,
   "status": "created",
   "verified": false,
   "createdAt": "2020-06-12T01:17:46.499Z",
@@ -83,19 +99,104 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
 ```
+
 **Error Responses**
 
-| Status |             Code              |                         Description                         |
-| :----- | :---------------------------- | :---------------------------------------------------------- |
-| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %} | The account already has the max amount of bank authorities. |
+| Status |                           Code                           |                                                Description                                                 |
+| :----- | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank authorities.                                                |
 | 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank authorities for the provided bank account number, which is the maximum allowed. |
 
-## Get information about a bank authority
+<span id="direct-debit-authority"></span>
+## Adding a direct debit authority to a bank account **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
+By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
+authority to operate this account.
+
+{% endpoint POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/direct-debit-authorities %}
 
 ```sh
-curl -X GET https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSens6yk \
+curl -X PUT https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
+  -H "x-api-key: 1234" \
+  -H "content-type: application/json" \
+  -d '{
+    "phoneNumber": "+64212345678",
+    "fullName": "John Doe",
+    "emailAddress": "john@doe.org"
+  }'
+```
+
+**Example response payload**
+
+```json
+{
+  "id": "WRhAxxWpTKb5U7pXyxQjjY",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "bankAccountNumber": "12-1234-1234567-123",
+  "bankAccountName": "John Doe",
+  "directDebitAuthorized": true,
+  "status": "created",
+  "verified": false,
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+}
+```
+
+**Required Fields**
+
+Note, fields which have a star (✩) are required for Top Up. All fields below when specified are
+required together.
+
+|    Field     |  Type   |              Description               |
+| :----------- | :------ | :------------------------------------- |
+| phoneNumber  | String  | ✩ The user's phone number.             |
+| fullName     | String  | ✩ The first and last name of the user. |
+| emailAddress | String  | ✩ The user's email address.            |
+
+
+**Error Responses**
+
+| Status |                           Code                |                          Description                               |
+| :----- | :-------------------------------------------- | :----------------------------------------------------------------- |
+| 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set. |
+
+## Verify a bank authority
+
+Verification codes show up on statements when a user makes withdrawals and depsits. To verify an
+account, you need to direct the user to make a topup/withdrawal and then check their satatement.
+
+{% endpoint POST https://service.centrapay.com/api/bank-authorities/${bankAccountId}/verify %}
+
+```sh
+curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify" \
+  -H "x-api-key: 1234" \
+  -H "content-type: application/json" \
+  -d '{ "verificationCode": "1111" }'
+```
+
+**Required Fields**
+
+|      Field       |  Type  |                                                                                                          Description                                                                                                                            |
+| :--------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. |
+
+**Example response payload**
+
+```json
+{
+  "verificationCode": "1111"
+}
+```
+
+<span id="bank-authority-get"></span>
+## Get information about a bank account **EXPERIMENTAL**
+
+{% endpoint GET https://service.centrapay.com/api/bank-accounts/${id} %}
+
+```sh
+curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \
   -H "x-api-key: 1234"
 ```
 
@@ -103,27 +204,63 @@ curl -X GET https://service.centrapay.com/api/bank-authorities/Jaim1Cu1Q55uooxSe
 
 ```json
 {
+  "id": "WRhAxxWpTKb5U7pXyxQjjY",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "bankAccountNumber": "12-1234-1234567-123",
+  "bankAccountName": "John Doe",
+  "status": "created",
+  "directDebitAuthorized": true,
+  "verified": false,
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+}
+```
+
+
+<span id="bank-account-list"></span>
+## List bank accounts **EXPERIMENTAL**
+
+{% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/bank-accounts %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+[
+  {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "fullName": "John Doe",
-    "streetAddress": "11 Shortland St",
-    "suburb": "Auckland Central",
-    "city": "Auckland",
-    "postCode": "1100",
-    "phoneNumber": "+64212345678",
-    "emailAddress": "John.doe@email.com",
     "bankAccountNumber": "12-1234-1234567-123",
     "bankAccountName": "John Doe",
     "status": "created",
     "verified": false,
+    "directDebitAuthorized": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
-    "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-    "modifiedAt": "2020-06-12T01:17:46.499Z",
-    "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-}
+  },
+  {
+    "id": "b5URhAxxWpTKyxQjjY7pXW",
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "bankAccountNumber": "12-1234-1234567-123",
+    "bankAccountName": "Jane Doe",
+    "status": "active",
+    "verified": true,
+    "directDebitAuthorized": true,
+    "createdAt": "2020-06-12T01:17:46.499Z",
+  }
+]
 ```
 
-## List authorized bank authorities
+## List bank authorities **DEPRECATED**
+
+If you're creating new interfaces, please work with our [list endpoint](#bank-account-list)
+for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
+authority.
 
 {% endpoint GET https://service.centrapay.com/api/bank-authorities %}
 
@@ -143,6 +280,7 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
     "bankAccountName": "John Doe",
     "status": "created",
     "verified": false,
+    "directDebitAuthorized": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
   },
   {
@@ -152,32 +290,103 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
     "bankAccountName": "Jane Doe",
     "status": "active",
     "verified": true,
+    "directDebitAuthorized": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
   }
 ]
 ```
 
-## Verify a bank authority
+## Creating a bank authority **DEPRECATED**
 
-{% endpoint POST https://service.centrapay.com/api/bank-authorities/{id}/verify %}
+If you're creating new interfaces, please work with our [create endpoint](#bank-account-create)
+for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
+authority.
+
+By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
+authority to operate this account.
+
+{% endpoint POST https://service.centrapay.com/api/bank-authorities %}
 
 ```sh
-curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify" \
+curl -X POST "https://service.centrapay.com/api/bank-authorities" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
-  -d '{ "verificationCode": "ABC123" }'
+  -d '{
+    "fullName": "John Doe",
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "phoneNumber": "+64212345678",
+    "directDebitAuthorized": true,
+    "emailAddress": "John.doe@email.com",
+    "bankAccountNumber": "12-1234-1234567-123",
+    "bankAccountName": "John Doe"
+  }'
 ```
 
 **Required Fields**
 
-|      Field       |  Type  |                                                                                                          Description                                                                                                           |
-| :--------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. |
+|       Field       |  Type  |                    Description                        |
+| :---------------- | :----- | :---------------------------------------------------- |
+| accountId         | String | The [account id]({% link accounts.md %}) of the user |
+| fullName          | String | The first and last name of the user                   |
+| phoneNumber       | String | The user's phone number                               |
+| emailAddress      | String | The user's email address                              |
+| bankAccountNumber | String | The user's bank account number                        |
+| bankAccountName   | String | The name on the bank account provided by the user     |
 
 **Example response payload**
 
 ```json
 {
-  "verificationCode": "ABC123"
+  "id": "WRhAxxWpTKb5U7pXyxQjjY",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "bankAccountNumber": "12-1234-1234567-123",
+  "bankAccountName": "John Doe",
+  "status": "created",
+  "verified": false,
+  "directDebitAuthorized": true,
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
 ```
+
+**Error Responses**
+
+| Status |             Code                                         |                         Description                                                                        |
+| :----- | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank authorities.                                                |
+| 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank authorities for the provided bank account number, which is the maximum allowed. |
+
+## Get information about a bank authority **DEPRECATED**
+
+If you're creating new interfaces, please work with our [get endpoint](#bank-authority-get)
+for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
+authority.
+
+{% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
+
+```sh
+curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+{
+  "id": "WRhAxxWpTKb5U7pXyxQjjY",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "bankAccountNumber": "12-1234-1234567-123",
+  "bankAccountName": "John Doe",
+  "status": "created",
+  "directDebitAuthorized": true,
+  "verified": false,
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "modifiedAt": "2020-06-12T01:17:46.499Z",
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+}
+```
+
+[dd-terms]: https://centrapay.com/directdebit-termsandconditions/
