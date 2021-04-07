@@ -36,7 +36,7 @@ Our payments endpoints also have [interactive Swagger documentation](https://ser
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
   -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
-  -d merchantId="1399b053-b3dd-4c5b-9859-b5bf5c2ac477" \
+  -d merchantId="5efbe17d96c083633e2b9241" \
   -d clientId="5efbe2fb96c08357bb2b9242" \
   -d amount=300 \
   -d asset="NZD" 
