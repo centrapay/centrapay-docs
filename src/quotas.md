@@ -27,8 +27,7 @@ not associated with a temporal period.
 
 ```sh
 curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
+  -H "x-api-key: 1234"
 ```
 
 **Example response payload**
