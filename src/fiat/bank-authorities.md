@@ -102,10 +102,11 @@ fields below when specified are required together.
 
 **Error Responses**
 
-| Status |                           Code                           |                                                Description                                                 |
-| :----- | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank authorities.                                                |
-| 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank authorities for the provided bank account number, which is the maximum allowed. |
+| Status |                      Code                        |                                     Description                                         |
+| :----- | :----------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_LIMIT_EXCEEDED %}        | The Centrapay account already has the max amount of bank accounts.                      |
+| 403    | {% break _ BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED %} | The global maximum bank accounts for the provided bank account number has been reached. |
+| 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this bank account.                                  |
 
 <span id="direct-debit-authority"></span>
 ## Adding a direct debit authority to a bank account **EXPERIMENTAL**
@@ -116,7 +117,7 @@ authority to operate this account.
 {% endpoint POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/direct-debit-authorities %}
 
 ```sh
-curl -X PUT https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
+curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities" \
   -H "x-api-key: 1234" \
   -H "content-type: application/json" \
   -d '{
