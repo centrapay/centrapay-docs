@@ -80,14 +80,31 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
     {
       "id": "3aKubx3wr9cUHFecRq5nFL",
       "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "currency": "NZD",
       "ledgerId": "centrapay.nzd.main",
       "type": "centrapay.nzd.main",
-      "category": "wallet"
+      "category": "wallet",
+      "currency": "NZD",
+      "balance": "2000"
+    },
+    {
+      "id": "Aj7rtHmd7rDeWoJgw9MPHe",
+      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "type": "cca.coke.main",
+      "description": "Coke™ Token",
+      "category": "token",
+      "value": [
+        {
+          "currency": "NZD",
+          "amount": "400"
+        }
+      ],
+      "expiresAt": "2020-12-31T00:00:00.000Z",
+      "createdAt": "2020-05-01T12:30:00.000Z"
     }
   ]
 }
 ```
+
 
 ## Archive Asset (EXPERIMENTAL)
 
@@ -116,7 +133,7 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
   "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z",
-  "status": "archived",
+  "status": "archived"
 }
 ```
 
