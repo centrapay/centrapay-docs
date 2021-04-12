@@ -208,3 +208,21 @@ email, masked user phone, or bank account.
   ]
 }
 ```
+
+**Example response payload (Withdraw)**
+
+```json
+{
+  "items": [
+    {
+      "activityNumber": "1",
+      "amount": "2500",
+      "value": "2500",
+      "createdAt": "2020-06-17T18:00:23.000Z",
+      "srcWalletId": "EBVSreNmpsE2Pazw3SipXC",
+      "destParty": "12-3546-2544786-00",
+      "withdrawalId": "TtQHufC4LGBY2eiPRopRm3"
+    }
+  ]
+}
+```
