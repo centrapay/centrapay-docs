@@ -109,6 +109,7 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
 | paymentRequestId | Id of the related payment request if applicable.                          |
 | topupId          | Id of the related topup funds transfer request if applicable.             |
 | assetTransferId  | Id of the related asset transfer request if applicable.                   |
+| withdrawalId     | Id of the related withdrawal request if applicable.                       |
 
 **Party Values**
 
