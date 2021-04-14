@@ -154,7 +154,8 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 {% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
 
 ```sh
-curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys"
+curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
+  -H "x-api-key: 1234"
 ```
 
 **Example response payload**

@@ -22,7 +22,8 @@ header.
 Example call with API key:
 
 ```
-curl -X GET "https://service.centrapay.com/api/account-memberships" -H "X-Api-Key: ${my_api_key}"
+curl -X GET "https://service.centrapay.com/api/account-memberships" \
+    -H "X-Api-Key: ${my_api_key}"
 ```
 
 Example call with user access token:

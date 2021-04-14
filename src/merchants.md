@@ -23,7 +23,7 @@ configurations with different payment methods.
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/merchants" \
-  -H "x-api-key: 123" \
+  -H "x-api-key: 1234" \
   -H "content-type: application/json" \
   -d '{
     "accountId": "C4QnjXvj8At6SMsEN4LRi9",

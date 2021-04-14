@@ -35,7 +35,7 @@ Our payments endpoints also have [interactive Swagger documentation](https://ser
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d merchantId="5efbe17d96c083633e2b9241" \
   -d clientId="5efbe2fb96c08357bb2b9242" \
   -d amount=300 \
@@ -73,7 +73,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 ```sh
 curl -G "https://service.centrapay.com/payments/api/requests.info" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
@@ -92,7 +92,7 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d authorization="12345678" \
   -d ledger="g.pocketvouchers.pv" \
   -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
@@ -152,7 +152,7 @@ text rates from your provider.
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
@@ -172,7 +172,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
@@ -192,7 +192,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 ```sh
 curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
-  -H 'x-api-key:f32c5497297084e5354b47c40d5ccacb109ce483' \
+  -H 'x-api-key: 1234' \
   -d transactionId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9" \
   -d amount=100
 ```
