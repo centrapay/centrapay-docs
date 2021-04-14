@@ -154,7 +154,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 {% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
 
 ```sh
-curl "http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
+curl "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
   -H "x-api-key: 1234"
 ```
 
@@ -247,7 +247,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 {% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/members %}
 
 ```sh
-curl -X GET http://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
   -H "x-api-key: 1234"
 ```
 
