@@ -19,7 +19,7 @@ satisfy payment requests which support the asset type.
 * TOC
 {:toc}
 
-## Load an External Asset (EXPERIMENTAL)
+## Load an External Asset
 
 {% endpoint POST https://service.centrapay.com/api/external-assets %}
 
