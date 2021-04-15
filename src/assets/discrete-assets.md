@@ -80,8 +80,8 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 
 | Status | Code                                   | Description                                                 |
 |:-------|:-------------------------------------- |:------------------------------------------------------------|
-| 403    | {% break _ UNKNOWN_ASSET }             | Asset ID or PIN is incorrect.                               |
-| 403    | {% break _ DUPLICATE_ASSET }           | Asset already claimed by another account.                   |
-| 403    | {% break _ UNSUPPORTED_ASSET_TYPE }    | Unsupported asset type, origin, or issuer.                  |
-| 403    | {% break _ DENIED_BY_ASSET_PROVIDER }  | Asset exists, but is not enabled for use through centrapay. |
-| 403    | {% break _ EXPIRED_BY_ASSET_PROVIDER } | Asset exists, but it's expired.                             |
+| 403    | {% break _ UNKNOWN_ASSET %}             | Asset ID or PIN is incorrect.                               |
+| 403    | {% break _ DUPLICATE_ASSET %}           | Asset already claimed by another account.                   |
+| 403    | {% break _ UNSUPPORTED_ASSET_TYPE %}    | Unsupported asset type, origin, or issuer.                  |
+| 403    | {% break _ DENIED_BY_ASSET_PROVIDER %}  | Asset exists, but is not enabled for use through centrapay. |
+| 403    | {% break _ EXPIRED_BY_ASSET_PROVIDER %} | Asset exists, but it's expired.                             |
