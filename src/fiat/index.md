@@ -10,8 +10,5 @@ has_children: true
 Fiat currency transactions operate on Wallets. Wallets are topped up by
 making Funds Transfers via Bank Authorities.
 
-## Contents
-{:.no_toc .text-delta}
-
 * TOC
 {:toc}
