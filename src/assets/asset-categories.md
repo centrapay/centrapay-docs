@@ -32,6 +32,7 @@ specific to its category.
 | accountId   | String      | The asset's owning Centrapay account id.           |
 | category    | String      | Asset category ("giftcard", "wallet", or "token"). |
 | type        | String      | Asset type id used by payment option asset types.  |
+| liveness    | String      | Either "main" (live payments allowed) or "test".   |
 | description | String      | Displayable asset description.                     |
 | createdAt   | Date String | Date when the asset was created or issued.         |
 
@@ -45,10 +46,10 @@ Money assets can be exchanged relatively freely within the same asset type.
 
 Beyond the base fields, money assets also have the following:
 
-| Field    | Type           | Description                                                                    |
-|:---------|:---------------|:-------------------------------------------------------------------------------|
-| currency | String         | Currency code, eg "NZD"                                                        |
-| balance  | Numeric String | Current balance in the smallest denomination for the currency (usually cents). |
+| Field    | Type           | Description                                                          |
+|:---------|:---------------|:---------------------------------------------------------------------|
+| currency | String         | Currency code, eg "NZD"                                              |
+| balance  | Numeric String | Current balance in the currency's smallest denomination (ie. cents). |
 
 ## Gift Cards
 
@@ -61,11 +62,13 @@ Beyond the base fields, gift card assets also have the following fields.
 
 **Required Fields**
 
-| Field          | Type           | Description                                     |
-|:---------------|:---------------|:------------------------------------------------|
-| issuer         | String         | The identifier for the issuer of the gift card. |
-| initialBalance | Numeric String | The balance when the asset was created.         |
-| balance        | Numeric String | The current asset balance.                      |
+| Field          | Type           | Description                                                          |
+|:---------------|:---------------|:---------------------------------------------------------------------|
+| issuer         | String         | The identifier for the issuer of the gift card.                      |
+| currency       | String         | Currency code, eg "NZD"                                              |
+| balance        | Numeric String | Current balance in the currency's smallest denomination (ie. cents). |
+| initialBalance | Numeric String | The balance when the asset was created.                              |
+| status         | String         | "active" if the asset can be used for payments                       |
 
 **Optional Fields**
 
@@ -74,6 +77,7 @@ Beyond the base fields, gift card assets also have the following fields.
 | externalId       | String      | The asset identifier from the issuing system.              |
 | expiresAt        | Date String | The date when the asset expires.                           |
 | balanceUpdatedAt | Date String | The date when the balance was last observed to be updated. |
+
 
 
 ## Tokens (EXPERIMENTAL)
@@ -89,7 +93,7 @@ all the base fields as well as the following fields.
 
 **Token Value Object**
 
-| Field    | Type           | Description                                                          |
-|:---------|:---------------|:---------------------------------------------------------------------|
-| currency | String         | Currency code, eg "NZD".                                             |
-| amount   | Numeric String | Value in the smallest denomination for the currency (usually cents). |
+| Field    | Type           | Description                                                |
+|:---------|:---------------|:-----------------------------------------------------------|
+| currency | String         | Currency code, eg "NZD".                                   |
+| amount   | Numeric String | Value in the currency's smallest denomination (ie. cents). |
