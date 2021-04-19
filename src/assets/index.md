@@ -82,7 +82,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
       "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
       "ledgerId": "centrapay.nzd.main",
       "type": "centrapay.nzd.main",
-      "category": "wallet",
+      "category": "money",
       "currency": "NZD",
       "balance": "2000"
     },
