@@ -35,7 +35,7 @@ specific to its category.
 | liveness    | String      | Either "main" (live payments allowed) or "test".   |
 | description | String      | Displayable asset description.                     |
 | createdAt   | Date String | Date when the asset was created or issued.         |
-
+| status      | String      | "active" if the asset can be used for payments.    |
 
 ## Money
 
@@ -68,7 +68,6 @@ Beyond the base fields, gift card assets also have the following fields.
 | currency       | String         | Currency code, eg "NZD"                                              |
 | balance        | Numeric String | Current balance in the currency's smallest denomination (ie. cents). |
 | initialBalance | Numeric String | The balance when the asset was created.                              |
-| status         | String         | "active" if the asset can be used for payments                       |
 
 **Optional Fields**
 
@@ -90,6 +89,13 @@ all the base fields as well as the following fields.
 | Field | Type                  | Description                           |
 |:------|:----------------------|:--------------------------------------|
 | value | Array&lt;Token Value> | Token values in supported currencies. |
+
+**Optional Fields**
+
+| Field     | Type          | Description                                |
+| :-------  | :------------ | :----------------------------------------- |
+| validFrom | Date String   | The date when the asset becomes spendable. |
+| expiresAt | Date String   | The date when the asset expires.           |
 
 **Token Value Object**
 
