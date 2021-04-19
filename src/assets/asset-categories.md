@@ -30,7 +30,7 @@ specific to its category.
 |:------------|:------------|:---------------------------------------------------|
 | id          | String      | The asset's unique identifier.                     |
 | accountId   | String      | The asset's owning Centrapay account id.           |
-| category    | String      | Asset category ("giftcard", "wallet", or "token"). |
+| category    | String      | Asset category ("money", "giftcard", or "token").  |
 | type        | String      | Asset type id used by payment option asset types.  |
 | liveness    | String      | Either "main" (live payments allowed) or "test".   |
 | description | String      | Displayable asset description.                     |
