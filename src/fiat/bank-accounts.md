@@ -1,14 +1,15 @@
 ---
 layout:  default
 parent:  Fiat
-title: Bank Authorities
+title: Bank Accounts
 ---
 
-# Bank Authorities
+# Bank Accounts
 {:.no_toc}
 
-A bank authority represents an individual's consent for Centrapay to transfer funds to and from a
-bank account.
+A Bank Account is a way to get funds in and out of a user's wallet.
+
+A Bank Authority represents an individual's consent for Centrapay to transfer funds.
 
 In order to move funds from a Centrapay wallet to a bank account (withdrawal), we only need the
 minimum required fields. There's no need to authorize direct debit authority, nor verify the account
@@ -29,7 +30,7 @@ be observed based on the `directDebitAuthorized` and `verified` flags.
 
 {% endpoint POST https://service.centrapay.com/api/bank-accounts %}
 
-An example of a minimal POST to create a bank authority.
+An example of a minimal POST to create a bank account.
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/bank-accounts" \
@@ -42,7 +43,7 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts" \
   }'
 ```
 
-An example of a minimal POST to create a bank authority and a direct debit authority.
+An example of a minimal POST to create a bank account and a direct debit authority.
 
 By including directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
 and has authority to operate this account.
@@ -396,10 +397,10 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 **Error Responses**
 
-| Status |             Code                                         |                         Description                                                                        |
-| :----- | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank authorities.                                                |
-| 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank authorities for the provided bank account number, which is the maximum allowed. |
+| Status |             Code                                         |                         Description                                                                     |
+| :----- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank accounts.                                                |
+| 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
 
 ## Get information about a bank authority **DEPRECATED**
 
