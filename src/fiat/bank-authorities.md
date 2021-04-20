@@ -163,10 +163,61 @@ required together.
 | :----- | :-------------------------------------------- | :----------------------------------------------------------------- |
 | 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set. |
 
-## Verify a bank authority
+<span id="bank-authority-get"></span>
+## Get information about a bank account **EXPERIMENTAL**
 
-Verification codes show up on statements when a user makes withdrawals and depsits. To verify an
-account, you need to direct the user to make a topup/withdrawal and then check their satatement.
+{% endpoint GET https://service.centrapay.com/api/bank-accounts/${id} %}
+
+```sh
+curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \
+  -H "x-api-key: 1234"
+```
+
+<span id="verify-bank-account"></span>
+## Verify a bank account **EXPERIMENTAL**
+
+Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
+account, you need to direct the user to make a topup/withdrawal and then check their statement.
+
+{% endpoint POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/verify %}
+
+```sh
+curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify" \
+  -H "x-api-key: 1234" \
+  -H "content-type: application/json" \
+  -d '{ "verificationCode": "1111" }'
+```
+
+**Required Fields**
+
+|      Field       |  Type  |              Description              |
+| :--------------- | :----- | :------------------------------------ |
+| verificationCode | String | The code on the user's bank statement |
+
+**Example response payload**
+
+```json
+{
+  "verificationCode": "1111"
+}
+```
+
+**Error Responses**
+
+| Status | Code                                                      | Description                                                                     |
+| :----- | :-------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| 403    | {% break _ BANK_ACCOUNT_ALREADY_VERIFIED %}               | The bank account is already verified.                                           |
+| 403    | {% break _ BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED %} | The bank account's maximum failed verification attempts has been reached.       |
+| 403    | {% break _ ACCOUNT_MISMATCH %}                            | The top up / withdrawal and the bank account do not belong to the same account. |
+
+
+## Verify a bank authority **DEPRECATED**
+
+If you're creating new interfaces, please work with our [verify endpoint](#verify-bank-account)
+for bank accounts.
+
+Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
+account, you need to direct the user to make a topup/withdrawal and then check their statement.
 
 {% endpoint POST https://service.centrapay.com/api/bank-authorities/${bankAccountId}/verify %}
 
@@ -179,9 +230,9 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 
 **Required Fields**
 
-|      Field       |  Type  |                                                                                                          Description                                                                                                                            |
-| :--------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| verificationCode | String | The code relating to the top up the user created as part of registering a bank account with Centrapay. This code will show up on their bank statement and will be used to verify that the user has access to the bank account being registered. |
+|      Field       |  Type  |              Description              |
+| :--------------- | :----- | :------------------------------------ |
+| verificationCode | String | The code on the user's bank statement |
 
 **Example response payload**
 
@@ -189,16 +240,6 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 {
   "verificationCode": "1111"
 }
-```
-
-<span id="bank-authority-get"></span>
-## Get information about a bank account **EXPERIMENTAL**
-
-{% endpoint GET https://service.centrapay.com/api/bank-accounts/${id} %}
-
-```sh
-curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \
-  -H "x-api-key: 1234"
 ```
 
 **Example response payload**
@@ -260,8 +301,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/b
 ## List bank authorities **DEPRECATED**
 
 If you're creating new interfaces, please work with our [list endpoint](#bank-account-list)
-for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
-authority.
+for bank accounts.
 
 {% endpoint GET https://service.centrapay.com/api/bank-authorities %}
 
@@ -300,7 +340,9 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
 ## Creating a bank authority **DEPRECATED**
 
 If you're creating new interfaces, please work with our [create endpoint](#bank-account-create)
-for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
+for bank accounts.
+
+Creating a bank authority both creates a new bank account and a direct debit
 authority.
 
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
@@ -362,8 +404,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 ## Get information about a bank authority **DEPRECATED**
 
 If you're creating new interfaces, please work with our [get endpoint](#bank-authority-get)
-for bank accounts. Creating a bank authority both creates a new bank account and a direct debit
-authority.
+for bank accounts.
 
 {% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
 
