@@ -62,7 +62,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 | Parameter      | Type   | Description                                                                                |
 |:---------------|:-------|:-------------------------------------------------------------------------------------------|
-| description    | String | Shows up in transaction history against the transfer                                       |
+| description    | String | Shows up in your transaction history against the transfer                                  |
 | message        | String | A message which shows up in the SMS of the receiver                                        |
 | value          | String | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type. |
 | senderName     | String | Human readable name for the sender                                                         |
