@@ -193,33 +193,33 @@
   },"32": {
     "doc": "Bank Accounts",
     "title": "Contents",
-    "content": ". | Creating a bank account EXPERIMENTAL | Adding a direct debit authority to a bank account EXPERIMENTAL | Get information about a bank account EXPERIMENTAL | Verify a bank account EXPERIMENTAL | Verify a bank authority DEPRECATED | List bank accounts EXPERIMENTAL | List bank authorities DEPRECATED | Creating a bank authority DEPRECATED | Get information about a bank authority DEPRECATED | . ",
+    "content": ". | Creating a bank account | Adding a direct debit authority to a bank account | Get information about a bank account | Verify a bank account | Verify a bank authority DEPRECATED | List bank accounts | List bank authorities DEPRECATED | Creating a bank authority DEPRECATED | Get information about a bank authority DEPRECATED | . ",
     "url": "/fiat/bank-accounts.html#contents",
     "relUrl": "/fiat/bank-accounts.html#contents"
   },"33": {
     "doc": "Bank Accounts",
-    "title": "Creating a bank account EXPERIMENTAL",
+    "title": "Creating a bank account",
     "content": "POST https://service.centrapay.com/api/bank-accounts . An example of a minimal POST to create a bank account. curl -X POST \"https://service.centrapay.com/api/bank-accounts\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\" }' . An example of a minimal POST to create a bank account and a direct debit authority. By including directDebitAuthority, the user accepts our Direct Debit terms and has authority to operate this account. curl -X POST \"https://service.centrapay.com/api/bank-accounts\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthority\": { \"phoneNumber\": \"+64212345678\", \"fullName\": \"John Doe\", \"emailAddress\": \"john.doe@gmail.com\" } }' . Required Fields . | Field | Type | Description | . | bankAccountNumber | String | The user’s bank account number | . | bankAccountName | String | The name on the bank account provided by the user | . Optional Fields . Note, fields which have a star (✩) create a direct-debit authority and are required for Top Up. All fields below when specified are required together. | Field | Type | Description | . | phoneNumber | String | ✩ The user’s phone number. | . | fullName | String | ✩ The first and last name of the user. | . | emailAddress | String | ✩ The user’s email address. | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthorized\": true, \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Error Responses . | Status | Code | Description | . | 403 | BANK_ACCOUNT_LIMIT_EXCEEDED | The Centrapay account already has the max amount of bank accounts. | . | 403 | BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED | The global maximum bank accounts for the provided bank account number has been reached. | . | 403 | DUPLICATE_BANK_ACCOUNT | The Centrapay account already holds this bank account. | . ",
-    "url": "/fiat/bank-accounts.html#creating-a-bank-account-experimental",
-    "relUrl": "/fiat/bank-accounts.html#creating-a-bank-account-experimental"
+    "url": "/fiat/bank-accounts.html#creating-a-bank-account",
+    "relUrl": "/fiat/bank-accounts.html#creating-a-bank-account"
   },"34": {
     "doc": "Bank Accounts",
-    "title": "Adding a direct debit authority to a bank account EXPERIMENTAL",
+    "title": "Adding a direct debit authority to a bank account",
     "content": "By using this endpoint, the user accepts our Direct Debit terms and has authority to operate this account. POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/direct-debit-authorities . curl -X POST \"https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"phoneNumber\": \"+64212345678\", \"fullName\": \"John Doe\", \"emailAddress\": \"john@doe.org\" }' . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthorized\": true, \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Required Fields . Note, fields which have a star (✩) are required for Top Up. All fields below when specified are required together. | Field | Type | Description | . | phoneNumber | String | ✩ The user’s phone number. | . | fullName | String | ✩ The first and last name of the user. | . | emailAddress | String | ✩ The user’s email address. | . Error Responses . | Status | Code | Description | . | 403 | DIRECT_DEBIT_ALREADY_AUTHORIZED | This bank authority cannot be changed as all fields have been set. | . ",
-    "url": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account-experimental",
-    "relUrl": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account-experimental"
+    "url": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account",
+    "relUrl": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account"
   },"35": {
     "doc": "Bank Accounts",
-    "title": "Get information about a bank account EXPERIMENTAL",
+    "title": "Get information about a bank account",
     "content": "GET https://service.centrapay.com/api/bank-accounts/${id} . curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \\ -H \"x-api-key: 1234\" . ",
-    "url": "/fiat/bank-accounts.html#get-information-about-a-bank-account-experimental",
-    "relUrl": "/fiat/bank-accounts.html#get-information-about-a-bank-account-experimental"
+    "url": "/fiat/bank-accounts.html#get-information-about-a-bank-account",
+    "relUrl": "/fiat/bank-accounts.html#get-information-about-a-bank-account"
   },"36": {
     "doc": "Bank Accounts",
-    "title": "Verify a bank account EXPERIMENTAL",
+    "title": "Verify a bank account",
     "content": "Verification codes show up on statements when a user makes withdrawals and deposits. To verify an account, you need to direct the user to make a topup/withdrawal and then check their statement. POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/verify . curl -X POST \"https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"verificationCode\": \"1111\" }' . Required Fields . | Field | Type | Description | . | verificationCode | String | The code on the user’s bank statement | . Example response payload . { \"verificationCode\": \"1111\" } . Error Responses . | Status | Code | Description | . | 403 | BANK_ACCOUNT_ALREADY_VERIFIED | The bank account is already verified. | . | 403 | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account’s maximum failed verification attempts has been reached. | . | 403 | ACCOUNT_MISMATCH | The top up / withdrawal and the bank account do not belong to the same account. | . ",
-    "url": "/fiat/bank-accounts.html#verify-a-bank-account-experimental",
-    "relUrl": "/fiat/bank-accounts.html#verify-a-bank-account-experimental"
+    "url": "/fiat/bank-accounts.html#verify-a-bank-account",
+    "relUrl": "/fiat/bank-accounts.html#verify-a-bank-account"
   },"37": {
     "doc": "Bank Accounts",
     "title": "Verify a bank authority DEPRECATED",
@@ -228,10 +228,10 @@
     "relUrl": "/fiat/bank-accounts.html#verify-a-bank-authority-deprecated"
   },"38": {
     "doc": "Bank Accounts",
-    "title": "List bank accounts EXPERIMENTAL",
+    "title": "List bank accounts",
     "content": "GET https://service.centrapay.com/api/accounts/${accountId}/bank-accounts . curl -X GET \"https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", }, { \"id\": \"b5URhAxxWpTKyxQjjY7pXW\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"Jane Doe\", \"status\": \"active\", \"verified\": true, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", } ] . ",
-    "url": "/fiat/bank-accounts.html#list-bank-accounts-experimental",
-    "relUrl": "/fiat/bank-accounts.html#list-bank-accounts-experimental"
+    "url": "/fiat/bank-accounts.html#list-bank-accounts",
+    "relUrl": "/fiat/bank-accounts.html#list-bank-accounts"
   },"39": {
     "doc": "Bank Accounts",
     "title": "List bank authorities DEPRECATED",
