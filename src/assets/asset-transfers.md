@@ -60,12 +60,14 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 **Optional Parameters**
 
-| Parameter      | Type   | Description                                                                                |
-|:---------------|:-------|:-------------------------------------------------------------------------------------------|
-| description    | String | Shows up in your transaction history against the transfer                                  |
-| message        | String | A message which shows up in the SMS of the receiver                                        |
-| value          | String | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type. |
-| senderName     | String | Human readable name for the sender                                                         |
+|  Parameter  |  Type  |                                                                                                                                                                         Description                                                                                                                                                                          |
+| :---------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| description | String | Shows up in transaction history against the transfer                                                                                                                                                                                                                                                                                                         |
+| message     | String | A message which shows up in the SMS of the receiver. 140 character limit                                                                                                                                                                                                                                                                                     |
+| value       | String | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type.                                                                                                                                                                                                                                                                   |
+| senderName  | String | Human readable name for the sender                                                                                                                                                                                                                                                                                                                           |
+| senderAlias | String | Phone number, email or handle of sender, only provide this value if you are invoking asset transfer with api key. In case that recipient doesn't claim asset in 2 weeks or asset was sent to an invalid Alias (wrong phone number etc) we will use senderAlias to return the asset. If asset cannot be returned to a sender it will be returned to asset owner. |
+| notifyUrl   | String | The URL that will receive **POST** requests from the webhook on asset transfer status update.                                                                                                                                                                                                                                                                |
 
 
 **Example response payload**
@@ -96,6 +98,13 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 |:-------|:------------------------------------------|:------------------------------------------------------------------|
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
 | 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits see [ Quota Error Response ]({% link quotas.md %}#quota-error-response)  |
+
+**Example webhook response**
+
+TBD
+```json
+{}
+```
 
 ## Look up an Asset Transfer
 
