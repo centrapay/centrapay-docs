@@ -26,7 +26,7 @@ be observed based on the `directDebitAuthorized` and `verified` flags.
 {:toc}
 
 <span id="bank-account-create"></span>
-## Creating a bank account **EXPERIMENTAL**
+## Creating a bank account
 
 {% endpoint POST https://service.centrapay.com/api/bank-accounts %}
 
@@ -110,7 +110,7 @@ fields below when specified are required together.
 | 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this bank account.                                  |
 
 <span id="direct-debit-authority"></span>
-## Adding a direct debit authority to a bank account **EXPERIMENTAL**
+## Adding a direct debit authority to a bank account
 
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
 authority to operate this account.
@@ -165,7 +165,7 @@ required together.
 | 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set. |
 
 <span id="bank-authority-get"></span>
-## Get information about a bank account **EXPERIMENTAL**
+## Get information about a bank account
 
 {% endpoint GET https://service.centrapay.com/api/bank-accounts/${id} %}
 
@@ -175,7 +175,7 @@ curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQj
 ```
 
 <span id="verify-bank-account"></span>
-## Verify a bank account **EXPERIMENTAL**
+## Verify a bank account
 
 Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
 account, you need to direct the user to make a topup/withdrawal and then check their statement.
@@ -263,7 +263,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 
 
 <span id="bank-account-list"></span>
-## List bank accounts **EXPERIMENTAL**
+## List bank accounts
 
 {% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/bank-accounts %}
 
