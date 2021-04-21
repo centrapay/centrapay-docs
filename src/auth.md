@@ -132,8 +132,8 @@ indicated below with a star (✸).
 | {% break : asset-transfers:create  %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : asset-transfers:read    %} | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : asset-transfers:claim   %} | &nbsp;&nbsp; ✅ |               |                   |
-| {% break : bank-authorities:create %} | &nbsp;&nbsp; ✅ |               |                   |
-| {% break : bank-authorities:read   %} | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : bank-accounts:create %}    | &nbsp;&nbsp; ✅ |               |                   |
+| {% break : bank-accounts:read   %}    | &nbsp;&nbsp; ✅ |               |                   |
 | {% break : quotas:read             %} | &nbsp;&nbsp; ✅ |               |                   |
 
 
