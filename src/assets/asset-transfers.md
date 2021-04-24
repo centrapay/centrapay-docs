@@ -18,6 +18,20 @@ their phone number.
 * TOC
 {:toc}
 
+## Asset Transfer lifecycle
+
+Asset Transfer goes through different lifecycle stages.
+
+<img src="{{site.url}}/images/asset-lifecycle.png" style="display: block; margin: auto;" />
+
+| State    | Description                                                                                                        |
+|:---------|:-------------------------------------------------------------------------------------------------------------------|
+| created  | Asset transfer successfully created                                                                                |
+| sent     | Asset transfer notification (sms, email) was sent to a new user                                                    |
+| expired  | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
+| returned | Asset transfer expired and was returned to original owner                                                          |
+| claimed  | Asset transfer was successfully completed                                                                          |
+
 ## Create an Asset Transfer
 
 {% endpoint POST https://service.centrapay.com/api/asset-transfers %}
@@ -84,7 +98,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   "senderName": "My Cafe",
   "recipientId": "49105001-384a-40ed-b666-3d56dd1aa2c5",
   "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-  "recipientAlias": "+642812312345",
+  "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
 }
@@ -108,7 +122,7 @@ TBD
 
 ## Look up an Asset Transfer
 
-After an asset transfer is resolved we scrub the recipientAlias field to avoid storing PII against
+After an asset transfer is resolved we scrub the recipientAlias, lastSentTo and message fields to avoid storing PII against
 our model.
 
 {% endpoint GET https://service.centrapay.com/api/asset-transfers/${id} %}
@@ -131,10 +145,11 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
+  "lastSentTo": "+64212312345",
   "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
   "senderAccountId": "aBc932S9182qwCDqwer",
   "recipientAccountId": "oS3Xom2au3Ooy9aihai",
-  "recipientAlias": "+64*****2345",
+  "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
 }
