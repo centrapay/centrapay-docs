@@ -109,484 +109,490 @@
   },"18": {
     "doc": "Asset Transfers",
     "title": "Contents",
-    "content": ". | Create an Asset Transfer | Look up an Asset Transfer | Resolve claimable assets EXPERIMENTAL | List Sent Asset Transfers EXPERIMENTAL | List Received Asset Transfers EXPERIMENTAL | . ",
+    "content": ". | Asset Transfer lifecycle | Create an Asset Transfer | Look up an Asset Transfer | Resolve claimable assets EXPERIMENTAL | List Sent Asset Transfers EXPERIMENTAL | List Received Asset Transfers EXPERIMENTAL | . ",
     "url": "/assets/asset-transfers.html#contents",
     "relUrl": "/assets/asset-transfers.html#contents"
   },"19": {
     "doc": "Asset Transfers",
-    "title": "Create an Asset Transfer",
-    "content": "POST https://service.centrapay.com/api/asset-transfers . You can transfer a discrete asset or an amount from a wallet to a recipient. Here’s an example of a $60 transfer from a wallet: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"assetId\": \"sai2Pai7ohgongo\", \"value\": \"6000\", \"recipientAlias\": \"+64221231234\" }' . For discrete assets, you transfer the entire value to the recipient as balances can’t be transferred between accounts. Here’s an example: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"assetId\": \"YGRo6TYYSxH3js7\", \"recipientAlias\": \"+64221231234\" }' . Required Fields . | Parameter | Type | Description | . | assetId | String | Id of a discrete asset to transfer or wallet to draw from. | . | recipientAlias | String | Phone number, email or handle of receiver. | . Optional Parameters . | Parameter | Type | Description | . | description | String | Shows up in transaction history against the transfer | . | message | String | A message which shows up in the SMS of the receiver. 100 character limit | . | value | String | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type. | . | senderName | String | Human readable name for the sender | . | senderAlias | String | Phone number, email or handle of sender, only provide this value if you are invoking asset transfer with api key. In case that recipient doesn’t claim asset in 2 weeks or asset was sent to an invalid Alias (wrong phone number etc) we will use senderAlias to return the asset. If asset cannot be returned to a sender it will be returned to asset owner. | . | notifyUrl | String | The URL that will receive POST requests from the webhook on asset transfer status update. | . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"1000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+642812312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . The above example has $10 left on a $60 dollar giftcard at the time of transfer. Error Responses . | Status | Code | Description | . | 403 | INSUFFICIENT_WALLET_BALANCE | The value of the asset-transfer exceeds the balance on the wallet | . | 403 | QUOTA_EXCEEDED | The transfer exceeds one or more spend quota limits see Quota Error Response | . Example webhook response . TBD . {} . ",
-    "url": "/assets/asset-transfers.html#create-an-asset-transfer",
-    "relUrl": "/assets/asset-transfers.html#create-an-asset-transfer"
+    "title": "Asset Transfer lifecycle",
+    "content": "Asset Transfer goes through different lifecycle stages. | State | Description | . | created | Asset transfer successfully created | . | sent | Asset transfer notification (sms, email) was sent to a new user | . | expired | Asset transfer expired as new user didn’t create his account and claimed the asset. This is very short lived state | . | returned | Asset transfer expired and was returned to original owner | . | claimed | Asset transfer was successfully completed | . ",
+    "url": "/assets/asset-transfers.html#asset-transfer-lifecycle",
+    "relUrl": "/assets/asset-transfers.html#asset-transfer-lifecycle"
   },"20": {
     "doc": "Asset Transfers",
+    "title": "Create an Asset Transfer",
+    "content": "POST https://service.centrapay.com/api/asset-transfers . You can transfer a discrete asset or an amount from a wallet to a recipient. Here’s an example of a $60 transfer from a wallet: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"assetId\": \"sai2Pai7ohgongo\", \"value\": \"6000\", \"recipientAlias\": \"+64221231234\" }' . For discrete assets, you transfer the entire value to the recipient as balances can’t be transferred between accounts. Here’s an example: . curl -X POST \"https://service.centrapay.com/api/asset-transfers\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"assetId\": \"YGRo6TYYSxH3js7\", \"recipientAlias\": \"+64221231234\" }' . Required Fields . | Parameter | Type | Description | . | assetId | String | Id of a discrete asset to transfer or wallet to draw from. | . | recipientAlias | String | Phone number, email or handle of receiver. | . Optional Parameters . | Parameter | Type | Description | . | description | String | Shows up in transaction history against the transfer | . | message | String | A message which shows up in the SMS of the receiver. 100 character limit | . | value | String | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type. | . | senderName | String | Human readable name for the sender | . | senderAlias | String | Phone number, email or handle of sender, only provide this value if you are invoking asset transfer with api key. In case that recipient doesn’t claim asset in 2 weeks or asset was sent to an invalid Alias (wrong phone number etc) we will use senderAlias to return the asset. If asset cannot be returned to a sender it will be returned to asset owner. | . | notifyUrl | String | The URL that will receive POST requests from the webhook on asset transfer status update. | . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"1000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64212312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . The above example has $10 left on a $60 dollar giftcard at the time of transfer. Error Responses . | Status | Code | Description | . | 403 | INSUFFICIENT_WALLET_BALANCE | The value of the asset-transfer exceeds the balance on the wallet | . | 403 | QUOTA_EXCEEDED | The transfer exceeds one or more spend quota limits see Quota Error Response | . Example webhook response . TBD . {} . ",
+    "url": "/assets/asset-transfers.html#create-an-asset-transfer",
+    "relUrl": "/assets/asset-transfers.html#create-an-asset-transfer"
+  },"21": {
+    "doc": "Asset Transfers",
     "title": "Look up an Asset Transfer",
-    "content": "After an asset transfer is resolved we scrub the recipientAlias field to avoid storing PII against our model. GET https://service.centrapay.com/api/asset-transfers/${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload (ledger asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"sent\", \"value\": \"6000\", \"assetId\": \"sai2Pai7ohgongo\", \"assetType\": \"centrapay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"a2d0bfe8-18b1-11eb-8c75-13468b775817\", \"senderAccountId\": \"aBc932S9182qwCDqwer\", \"recipientAccountId\": \"oS3Xom2au3Ooy9aihai\", \"recipientAlias\": \"+64*****2345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . Example response payload (discrete asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64*****2345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . ",
+    "content": "After an asset transfer is resolved we scrub the recipientAlias, lastSentTo and message fields to avoid storing PII against our model. GET https://service.centrapay.com/api/asset-transfers/${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload (ledger asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"sent\", \"value\": \"6000\", \"assetId\": \"sai2Pai7ohgongo\", \"assetType\": \"centrapay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"lastSentTo\": \"+64212312345\", \"recipientId\": \"a2d0bfe8-18b1-11eb-8c75-13468b775817\", \"senderAccountId\": \"aBc932S9182qwCDqwer\", \"recipientAccountId\": \"oS3Xom2au3Ooy9aihai\", \"recipientAlias\": \"+64212312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . Example response payload (discrete asset) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"claimed\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64*****2345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } . ",
     "url": "/assets/asset-transfers.html#look-up-an-asset-transfer",
     "relUrl": "/assets/asset-transfers.html#look-up-an-asset-transfer"
-  },"21": {
+  },"22": {
     "doc": "Asset Transfers",
     "title": "Resolve claimable assets EXPERIMENTAL",
     "content": "When you send another centrapay user cash or assets, they’re automatically assigned to them. However, if they’re not signed up yet then these assets are not immediately assigned. If unclaimed, asset transfers are returned after 2 weeks. New accounts should call this endpoint to allocate assets that you’ve been sent. POST https://service.centrapay.com/api/me/resolve-claimable-assets . curl -X POST \"https://service.centrapay.com/api/me/resolve-claimable-assets\" \\ -H \"x-api-key: 1234\" . Example response payload . {} . ",
     "url": "/assets/asset-transfers.html#resolve-claimable-assets-experimental",
     "relUrl": "/assets/asset-transfers.html#resolve-claimable-assets-experimental"
-  },"22": {
+  },"23": {
     "doc": "Asset Transfers",
     "title": "List Sent Asset Transfers EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"items\": [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64*****2345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } ] } . ",
     "url": "/assets/asset-transfers.html#list-sent-asset-transfers-experimental",
     "relUrl": "/assets/asset-transfers.html#list-sent-asset-transfers-experimental"
-  },"23": {
+  },"24": {
     "doc": "Asset Transfers",
     "title": "List Received Asset Transfers EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} . curl -X GET \"https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" . Example response payload . { \"items\": [ { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"6000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientId\": \"49105001-384a-40ed-b666-3d56dd1aa2c5\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64*****2345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\" } ] } . ",
     "url": "/assets/asset-transfers.html#list-received-asset-transfers-experimental",
     "relUrl": "/assets/asset-transfers.html#list-received-asset-transfers-experimental"
-  },"24": {
+  },"25": {
     "doc": "Auth",
     "title": "Auth",
     "content": " ",
     "url": "/auth.html",
     "relUrl": "/auth.html"
-  },"25": {
+  },"26": {
     "doc": "Auth",
     "title": "Contents",
     "content": ". | Authenticating API Calls | API Keys | User Access Tokens . | Claims | . | Permissions | Example Web Browser OIDC Consumer . | OIDC User Manager Configuration | Minimal OIDC Client Usage | Trigger Token Refresh | Detect OIDC User Refresh | OIDC Client Logout | . | . ",
     "url": "/auth.html#contents",
     "relUrl": "/auth.html#contents"
-  },"26": {
+  },"27": {
     "doc": "Auth",
     "title": "Authenticating API Calls",
     "content": "API calls can be authenticated by either providing an API key in the “X-Api-Key” header or by providing a user access token in the “Authorization” header. Example call with API key: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" \\ -H \"X-Api-Key: ${my_api_key}\" . Example call with user access token: . curl -X GET \"https://service.centrapay.com/api/account-memberships\" -H \"Authorization: ${my_access_token}\" . ",
     "url": "/auth.html#authenticating-api-calls",
     "relUrl": "/auth.html#authenticating-api-calls"
-  },"27": {
+  },"28": {
     "doc": "Auth",
     "title": "API Keys",
     "content": "API keys provide enduring access to a single Centrapay account. See: Creating API Keys. The Centrapay test merchant API key is available to test creating payment requests: f32c5497297084e5354b47c40d5ccacb109ce483. ",
     "url": "/auth.html#api-keys",
     "relUrl": "/auth.html#api-keys"
-  },"28": {
+  },"29": {
     "doc": "Auth",
     "title": "User Access Tokens",
     "content": "User access tokens provide time-limited access to all Centrapy accounts for which the user is a member. Access tokens are issued using OIDC code flow via the Centrapay OAuth authorization server and login page at auth.centrapay.com. After successfully negotiating the OIDC code flow your application will have access to three tokens: . | Id Token | JWT containing user attributes such as id, phone and email. | . | Access Token | JWT granting access to Centrapay APIs. Expires after 1 hour. | . | Refresh Token | Token for OIDC token exchange. Expires after 60 days or when revoked. | . A good starting point for learning more about OIDC is Okta’s OAuth OIDC Illustrated Guide. When initiating a login request, a valid redirect URI must be provided. To obtain a dedicated OAuth client id with your application’s redirect URI(s) whitelisted please contact Centrapay support. Your callback URI can be for a website (such as “https://yourapp.example.com/oidc-callback”) or mobile app (such as “com.example.yourapp://oidc-callback”). Your application can use any OIDC client to negotiate the authentication flow but it must support OIDC authorization code flow with PKCE. See the Example Web Browser OIDC Consumer section below for a working example using the “oidc-client” JavaScript library. The Centrapy authorization server configuration can be interrogated via https://auth.centrapay.com/.well-known/openid-configuration. When handling the OIDC callback, browser based applications should slurp the callback parameters by performing a location.replace() so they are not available in the browser’s location bar or browsing history. If your application needs to talk directly to service.centrapay.com from a browser then it will also need to be whitelisted for cross-origin requests. Claims . The following table lists the claims which may be be included in a user id token. At minimum, the “sub” claim and one of “phone_number” or “email” will be present. | Name | Description | . | sub | Centrapay user id | . | email | email address | . | phone_number | phone number | . | given_name | given name(s) | . | family_name | surname | . | preferred_username | Centrapay user handle | . | phone_number_verified | phone number has been verified (can be used for account recovery) | . | email_verified | email has been verified (can be used for account recovery) | . ",
     "url": "/auth.html#user-access-tokens",
     "relUrl": "/auth.html#user-access-tokens"
-  },"29": {
+  },"30": {
     "doc": "Auth",
     "title": "Permissions",
     "content": "Users and API keys are assigned a role for their associated Centrapay account(s). The permissions granted to the roles are shown in the table below. Most permissions apply only to resources owned by the associated account. Some permissions, such as payment-requests:pay, apply globally to all resources regardless of the account the resource belongs to. The global permissions are indicated below with a star (✸). | Permission | Account Owner | Anon Consumer | Merchant Terminal | . | accounts:create |    ✅ |   |   | . | accounts:read |    ✅ |   |   | . | accounts:update |    ✅ |   |   | . | quotas:read |    ✅ |   |   | . | api-keys:create |    ✅ |   |   | . | api-keys:update |    ✅ |   |   | . | api-keys:list |    ✅ |   |   | . | merchants:create |    ✅ |   |   | . | merchants:read |    ✅ |   |   | . | merchants:update |    ✅ |   |   | . | merchants:list |    ✅ |   |   | . | payment-requests:create |   |   | ✅ | . | payment-requests:read | ✸ ✅ | ✸ ✅ | ✅ | . | payment-requests:update |   |   | ✅ | . | payment-requests:pay | ✸ ✅ | ✸ ✅ |   | . | payment-requests:void |   |   | ✅ | . | payment-requests:refund |   |   | ✅ | . | assets:read |    ✅ |   |   | . | assets:spend |    ✅ |   |   | . | wallets:transfer |    ✅ |   |   | . | wallets:withdraw |    ✅ |   |   | . | wallets:deposit |    ✅ |   |   | . | wallets:create |    ✅ |   |   | . | wallets:read |    ✅ |   |   | . | asset-transfers:create |    ✅ |   |   | . | asset-transfers:read |    ✅ |   |   | . | asset-transfers:claim |    ✅ |   |   | . | bank-accounts:create |    ✅ |   |   | . | bank-accounts:read |    ✅ |   |   | . | quotas:read |    ✅ |   |   | . ",
     "url": "/auth.html#permissions",
     "relUrl": "/auth.html#permissions"
-  },"30": {
+  },"31": {
     "doc": "Auth",
     "title": "Example Web Browser OIDC Consumer",
     "content": "This example demonstrates how to integrate a browser based application with the Centrapay OAuth server using the oidc-client-js JavaScript library. OIDC User Manager Configuration . import Oidc from 'oidc-client'; Oidc.Log.logger = console; const yourCentrapayOauthClientId = '7mapl0nqonkgl5vfeb3cf86miu'; const yourAppOidcRedirectUri = window.location.origin + '/oidc-callback'; const userPhoneNumber = '+6421234567890'; const userManager = new Oidc.UserManager({ /* * Required configs */ authority: 'https://auth.centrapay.com/', response_type: 'code', scope: 'openid', client_id: yourCentrapayOauthClientId, redirect_uri: yourAppOidcLoginRedirectUri, loadUserInfo: false, // \"/oauth2/userInfo\" call unsupported by Centrapay OAuth server post_logout_redirect_uri: yourAppOidcLogoutRedirectUri, metadata: { end_session_endpoint: 'https://auth.centrapay.com/logout' } /* * Recommended configs */ userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }), automaticSilentRenew: true, monitorSession: false, // Suppress session event double firing extraQueryParams: { u: userPhoneNumber }, // Populate Centrapay login form }); . Minimal OIDC Client Usage . async function login() { userManager.stopSilentRenew(); userManager.clearStaleState(); /* State attribute is stored and retrievable with OIDC callback state param */ await userManager.signinRedirect({ state: window.location.href }); } async function handleOidcCallback() { const result = await userManager.signinRedirectCallback().catch((err) =&gt; { console.log('Something went wrong handling OIDC callback'); }); /* Restore previous location stored against state param */ window.location.replace(result.state || '/'); } async function init() { let user = null; if (window.location.pathname == '/oidc-callback') { await handleOidcCallback(); } else { user = await userManager.getUser(); } if (!user) { await login(); } return user; } init().then(console.log); . Trigger Token Refresh . Manually trigger a token refresh when expired due to user being offline. async function refreshUser() { const user await userManager.getUser(); if (user.expired) { await userManager.signinSilent(); await userManager.signinSilentCallback(); console.log('User refreshed'); } else { console.log('User not refreshed'); } return await userManager.getUser(); } refreshUser() .then(console.log) .catch(err =&gt; { console.log({ msg: 'Something went wrong refreshing user token, login required', err }); }); . Detect OIDC User Refresh . Detect when OIDC user is refreshed via auto silent renew. The new user may have changed with updated claims, for example, if they have added an email address. userManager.events.addUserLoaded((user) =&gt; { console.log({ msg: 'user auto renew completed', user }); }); . OIDC Client Logout . async function logout() { /* State attribute is stored and retrievable with OIDC callback state param */ await userManager.signoutRedirect({ state: window.location.href }); } async function handleLogoutOidcCallback() { const result = await userManager.signoutRedirectCallback().catch((err) =&gt; { console.log('Something went wrong handling OIDC callback'); }); /* Restore previous location stored against state param */ window.location.replace(result.state || '/'); } . ",
     "url": "/auth.html#example-web-browser-oidc-consumer",
     "relUrl": "/auth.html#example-web-browser-oidc-consumer"
-  },"31": {
+  },"32": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": "A Bank Account is a way to get funds in and out of a user’s wallet. A Bank Authority represents an individual’s consent for Centrapay to transfer funds. In order to move funds from a Centrapay wallet to a bank account (withdrawal), we only need the minimum required fields. There’s no need to authorize direct debit authority, nor verify the account using a code on a bank statement. In order to move funds between a bank account to a Centrapay wallet (top up), we need explicit authorization and verification from the user. Bank account authorization and verification status can be observed based on the directDebitAuthorized and verified flags. ",
     "url": "/fiat/bank-accounts.html",
     "relUrl": "/fiat/bank-accounts.html"
-  },"32": {
+  },"33": {
     "doc": "Bank Accounts",
     "title": "Contents",
     "content": ". | Creating a bank account | Adding a direct debit authority to a bank account | Get information about a bank account | Verify a bank account | Verify a bank authority DEPRECATED | List bank accounts | List bank authorities DEPRECATED | Creating a bank authority DEPRECATED | Get information about a bank authority DEPRECATED | . ",
     "url": "/fiat/bank-accounts.html#contents",
     "relUrl": "/fiat/bank-accounts.html#contents"
-  },"33": {
+  },"34": {
     "doc": "Bank Accounts",
     "title": "Creating a bank account",
     "content": "POST https://service.centrapay.com/api/bank-accounts . An example of a minimal POST to create a bank account. curl -X POST \"https://service.centrapay.com/api/bank-accounts\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\" }' . An example of a minimal POST to create a bank account and a direct debit authority. By including directDebitAuthority, the user accepts our Direct Debit terms and has authority to operate this account. curl -X POST \"https://service.centrapay.com/api/bank-accounts\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthority\": { \"phoneNumber\": \"+64212345678\", \"fullName\": \"John Doe\", \"emailAddress\": \"john.doe@gmail.com\" } }' . Required Fields . | Field | Type | Description | . | bankAccountNumber | String | The user’s bank account number | . | bankAccountName | String | The name on the bank account provided by the user | . Optional Fields . Note, fields which have a star (✩) create a direct-debit authority and are required for Top Up. All fields below when specified are required together. | Field | Type | Description | . | phoneNumber | String | ✩ The user’s phone number. | . | fullName | String | ✩ The first and last name of the user. | . | emailAddress | String | ✩ The user’s email address. | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthorized\": true, \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Error Responses . | Status | Code | Description | . | 403 | BANK_ACCOUNT_LIMIT_EXCEEDED | The Centrapay account already has the max amount of bank accounts. | . | 403 | BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED | The global maximum bank accounts for the provided bank account number has been reached. | . | 403 | DUPLICATE_BANK_ACCOUNT | The Centrapay account already holds this bank account. | . ",
     "url": "/fiat/bank-accounts.html#creating-a-bank-account",
     "relUrl": "/fiat/bank-accounts.html#creating-a-bank-account"
-  },"34": {
+  },"35": {
     "doc": "Bank Accounts",
     "title": "Adding a direct debit authority to a bank account",
     "content": "By using this endpoint, the user accepts our Direct Debit terms and has authority to operate this account. POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/direct-debit-authorities . curl -X POST \"https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"phoneNumber\": \"+64212345678\", \"fullName\": \"John Doe\", \"emailAddress\": \"john@doe.org\" }' . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"directDebitAuthorized\": true, \"status\": \"created\", \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Required Fields . Note, fields which have a star (✩) are required for Top Up. All fields below when specified are required together. | Field | Type | Description | . | phoneNumber | String | ✩ The user’s phone number. | . | fullName | String | ✩ The first and last name of the user. | . | emailAddress | String | ✩ The user’s email address. | . Error Responses . | Status | Code | Description | . | 403 | DIRECT_DEBIT_ALREADY_AUTHORIZED | This bank authority cannot be changed as all fields have been set. | . ",
     "url": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account",
     "relUrl": "/fiat/bank-accounts.html#adding-a-direct-debit-authority-to-a-bank-account"
-  },"35": {
+  },"36": {
     "doc": "Bank Accounts",
     "title": "Get information about a bank account",
     "content": "GET https://service.centrapay.com/api/bank-accounts/${id} . curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \\ -H \"x-api-key: 1234\" . ",
     "url": "/fiat/bank-accounts.html#get-information-about-a-bank-account",
     "relUrl": "/fiat/bank-accounts.html#get-information-about-a-bank-account"
-  },"36": {
+  },"37": {
     "doc": "Bank Accounts",
     "title": "Verify a bank account",
     "content": "Verification codes show up on statements when a user makes withdrawals and deposits. To verify an account, you need to direct the user to make a topup/withdrawal and then check their statement. POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/verify . curl -X POST \"https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"verificationCode\": \"1111\" }' . Required Fields . | Field | Type | Description | . | verificationCode | String | The code on the user’s bank statement | . Example response payload . { \"verificationCode\": \"1111\" } . Error Responses . | Status | Code | Description | . | 403 | BANK_ACCOUNT_ALREADY_VERIFIED | The bank account is already verified. | . | 403 | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account’s maximum failed verification attempts has been reached. | . | 403 | ACCOUNT_MISMATCH | The top up / withdrawal and the bank account do not belong to the same account. | . ",
     "url": "/fiat/bank-accounts.html#verify-a-bank-account",
     "relUrl": "/fiat/bank-accounts.html#verify-a-bank-account"
-  },"37": {
+  },"38": {
     "doc": "Bank Accounts",
     "title": "Verify a bank authority DEPRECATED",
     "content": "If you’re creating new interfaces, please work with our verify endpoint for bank accounts. Verification codes show up on statements when a user makes withdrawals and deposits. To verify an account, you need to direct the user to make a topup/withdrawal and then check their statement. POST https://service.centrapay.com/api/bank-authorities/${bankAccountId}/verify . curl -X POST \"https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"verificationCode\": \"1111\" }' . Required Fields . | Field | Type | Description | . | verificationCode | String | The code on the user’s bank statement | . Example response payload . { \"verificationCode\": \"1111\" } . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"directDebitAuthorized\": true, \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . ",
     "url": "/fiat/bank-accounts.html#verify-a-bank-authority-deprecated",
     "relUrl": "/fiat/bank-accounts.html#verify-a-bank-authority-deprecated"
-  },"38": {
+  },"39": {
     "doc": "Bank Accounts",
     "title": "List bank accounts",
     "content": "GET https://service.centrapay.com/api/accounts/${accountId}/bank-accounts . curl -X GET \"https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", }, { \"id\": \"b5URhAxxWpTKyxQjjY7pXW\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"Jane Doe\", \"status\": \"active\", \"verified\": true, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", } ] . ",
     "url": "/fiat/bank-accounts.html#list-bank-accounts",
     "relUrl": "/fiat/bank-accounts.html#list-bank-accounts"
-  },"39": {
+  },"40": {
     "doc": "Bank Accounts",
     "title": "List bank authorities DEPRECATED",
     "content": "If you’re creating new interfaces, please work with our list endpoint for bank accounts. GET https://service.centrapay.com/api/bank-authorities . curl -X GET \"https://service.centrapay.com/api/bank-authorities\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", }, { \"id\": \"b5URhAxxWpTKyxQjjY7pXW\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"Jane Doe\", \"status\": \"active\", \"verified\": true, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", } ] . ",
     "url": "/fiat/bank-accounts.html#list-bank-authorities-deprecated",
     "relUrl": "/fiat/bank-accounts.html#list-bank-authorities-deprecated"
-  },"40": {
+  },"41": {
     "doc": "Bank Accounts",
     "title": "Creating a bank authority DEPRECATED",
     "content": "If you’re creating new interfaces, please work with our create endpoint for bank accounts. Creating a bank authority both creates a new bank account and a direct debit authority. By using this endpoint, the user accepts our Direct Debit terms and has authority to operate this account. POST https://service.centrapay.com/api/bank-authorities . curl -X POST \"https://service.centrapay.com/api/bank-authorities\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"fullName\": \"John Doe\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"phoneNumber\": \"+64212345678\", \"directDebitAuthorized\": true, \"emailAddress\": \"John.doe@email.com\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The account id of the user | . | fullName | String | The first and last name of the user | . | phoneNumber | String | The user’s phone number | . | emailAddress | String | The user’s email address | . | bankAccountNumber | String | The user’s bank account number | . | bankAccountName | String | The name on the bank account provided by the user | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"verified\": false, \"directDebitAuthorized\": true, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . Error Responses . | Status | Code | Description | . | 403 | BANK_AUTHORITY_LIMIT_EXCEEDED | The account already has the max amount of bank accounts. | . | 403 | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. | . ",
     "url": "/fiat/bank-accounts.html#creating-a-bank-authority-deprecated",
     "relUrl": "/fiat/bank-accounts.html#creating-a-bank-authority-deprecated"
-  },"41": {
+  },"42": {
     "doc": "Bank Accounts",
     "title": "Get information about a bank authority DEPRECATED",
     "content": "If you’re creating new interfaces, please work with our get endpoint for bank accounts. GET https://service.centrapay.com/api/bank-authorities/${id} . curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"bankAccountNumber\": \"12-1234-1234567-123\", \"bankAccountName\": \"John Doe\", \"status\": \"created\", \"directDebitAuthorized\": true, \"verified\": false, \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", } . ",
     "url": "/fiat/bank-accounts.html#get-information-about-a-bank-authority-deprecated",
     "relUrl": "/fiat/bank-accounts.html#get-information-about-a-bank-authority-deprecated"
-  },"42": {
+  },"43": {
     "doc": "Discrete Assets",
     "title": "Discrete Assets",
     "content": "Discrete assets are assets which may be spent in whole or in part but can only be sent in whole. Discrete assets may be issued by Centrapay or by a supported third-party/external issuer. Discrete assets can be spent by the owner to satisfy payment requests which support the asset type. ",
     "url": "/assets/discrete-assets.html",
     "relUrl": "/assets/discrete-assets.html"
-  },"43": {
+  },"44": {
     "doc": "Discrete Assets",
     "title": "Contents",
     "content": ". | Load an External Asset | . ",
     "url": "/assets/discrete-assets.html#contents",
     "relUrl": "/assets/discrete-assets.html#contents"
-  },"44": {
+  },"45": {
     "doc": "Discrete Assets",
     "title": "Load an External Asset",
     "content": "POST https://service.centrapay.com/api/external-assets . Load an asset from a supported third-party issuer. Asset details will be obtained from the issuer. curl -X POST \"https://service.centrapay.com/api/external-assets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"giftcard\", \"type\": \"epay.nzd.main\", \"issuer\": \"ezipay\", \"externalId\": \"23403283262\", \"pin\": \"1234\" }' . Required Fields . | Parameter | Type | Description | . | accountId | String | The Centrapay account which will own the asset. | . | category | String | The category an asset will be grouped by. Valid values: “giftcard”. | . | type | String | The Centrapay ledger corresponding to the asset. Valid values: “epay.nzd.main”, “epay.nzd.test”. | . | issuer | String | The asset issuer. Valid values: “ezipay”. | . | externalId | String | The issuer’s asset id such as card number. | . Optional Parameters . | Parameter | Type | Description | . | pin | String | Additional secret required by the issuer for loading or redeeming the asset. | . | description | String | Description of the asset, eg: “$60 Acme Giftcard”. | . Example response payload . { \"id\": \"L75M3L56N2PtBSt8g7uXLU\", \"category\": \"giftcard\", \"type\": \"epay.nzd.main\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"issuer\": \"ezipay\", \"externalId\": \"***********60119\", \"description\": \"$60 Acme Giftcard\", \"currency\": \"NZD\", \"initialBalance\": \"7000\", \"balance\": \"6000\", \"balanceUpdatedAt\": \"2020-06-10T15:30:00.000Z\", \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . Error Responses . | Status | Code | Description | . | 403 | UNKNOWN_ASSET | Asset ID or PIN is incorrect. | . | 403 | DUPLICATE_ASSET | Asset already claimed by another account. | . | 403 | UNSUPPORTED_ASSET_TYPE | Unsupported asset type, origin, or issuer. | . | 403 | DENIED_BY_ASSET_PROVIDER | Asset exists, but is not enabled for use through centrapay. | . | 403 | EXPIRED_BY_ASSET_PROVIDER | Asset exists, but it’s expired. | . ",
     "url": "/assets/discrete-assets.html#load-an-external-asset",
     "relUrl": "/assets/discrete-assets.html#load-an-external-asset"
-  },"45": {
+  },"46": {
     "doc": "Funds Transfers",
     "title": "Funds Transfers",
     "content": "A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet. Topping up a wallet consists of making a bank transfer from the user’s bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet equal to the amount of the bank transfer. ",
     "url": "/fiat/funds-transfers.html",
     "relUrl": "/fiat/funds-transfers.html"
-  },"46": {
+  },"47": {
     "doc": "Funds Transfers",
     "title": "Contents",
     "content": ". | Creating a top up | Get a top up by id | List top ups for authorized accounts | List top ups for an account EXPERIMENTAL | Creating a Withdrawal EXPERIMENTAL | Get a Withdrawal by id EXPERIMENTAL | List withdrawals for an account EXPERIMENTAL | . ",
     "url": "/fiat/funds-transfers.html#contents",
     "relUrl": "/fiat/funds-transfers.html#contents"
-  },"47": {
+  },"48": {
     "doc": "Funds Transfers",
     "title": "Creating a top up",
     "content": "POST https://service.centrapay.com/api/topups . curl -X POST \"https://service.centrapay.com/api/topups\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"amount\": \"10000\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\" }' . Required Fields . | Field | Type | Description | . | amount | String | Total amount of the transaction in cents | . | walletId | String | The id of the wallet | . | bankAuthorityId | String | The id of the bank account | . Example response payload . { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } . Error Responses . | Status | Code | Description | . | 403 | BANK_AUTHORITY_WALLET_MISMATCH | The wallet and the bank account for the top up request do not belong to the same account. | . | 403 | MAX_INFLIGHT_TOPUPS_EXCEEDED | The bank account already has ten pending top ups, which is the maximum a bank authority can have at any one time. | . | 403 | MAX_INFLIGHT_TOPUP_AMOUNT_EXCEEDED | The top up can not be created because it is above the max amount of funds a bank account can have pending at any one time. The max amount is $1000.00 for verified bank accounts and $100.00 for non-verified bank accounts. | . | 403 | QUOTA_EXCEEDED | The topup exceeds one or more topup quota limits see Quota Error Response | . | 403 | DIRECT_DEBIT_NOT_AUTHORIZED | Bank account requires authorization for topup. See bank accounts direct debit endpoint. | . ",
     "url": "/fiat/funds-transfers.html#creating-a-top-up",
     "relUrl": "/fiat/funds-transfers.html#creating-a-top-up"
-  },"48": {
+  },"49": {
     "doc": "Funds Transfers",
     "title": "Get a top up by id",
     "content": "GET https://service.centrapay.com/api/topups/${id} . curl -X GET \"https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } . ",
     "url": "/fiat/funds-transfers.html#get-a-top-up-by-id",
     "relUrl": "/fiat/funds-transfers.html#get-a-top-up-by-id"
-  },"49": {
+  },"50": {
     "doc": "Funds Transfers",
     "title": "List top ups for authorized accounts",
     "content": "GET https://service.centrapay.com/api/topups . curl -X GET \"https://service.centrapay.com/api/topups\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"5thg2RPBZEfYTPJdQ63Cre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" }, { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
     "url": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts",
     "relUrl": "/fiat/funds-transfers.html#list-top-ups-for-authorized-accounts"
-  },"50": {
+  },"51": {
     "doc": "Funds Transfers",
     "title": "List top ups for an account EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/accounts/${accountId}/topups . curl -X GET \"https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topups\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"5thg2RPBZEfYTPJdQ63Cre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" }, { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"topup\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } ] . ",
     "url": "/fiat/funds-transfers.html#list-top-ups-for-an-account-experimental",
     "relUrl": "/fiat/funds-transfers.html#list-top-ups-for-an-account-experimental"
-  },"51": {
+  },"52": {
     "doc": "Funds Transfers",
     "title": "Creating a Withdrawal EXPERIMENTAL",
     "content": "POST https://service.centrapay.com/api/withdrawals . curl -X POST \"https://service.centrapay.com/api/withdrawals\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"amount\": \"10000\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\" }' . Required Fields . | Field | Type | Description | . | amount | String | Total amount of the transaction in cents | . | walletId | String | The id of the wallet | . | bankAuthorityId | String | The id of the bank account | . Example response payload . { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"withdrawal\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } . Error Responses . | Status | Code | Description | . | 403 | BANK_AUTHORITY_WALLET_MISMATCH | The wallet and the bank account for the withdrawal request do not belong to the same account. | . | 403 | INSUFFICIENT_WALLET_BALANCE | The wallet balance is less than the required amount. | . ",
     "url": "/fiat/funds-transfers.html#creating-a-withdrawal-experimental",
     "relUrl": "/fiat/funds-transfers.html#creating-a-withdrawal-experimental"
-  },"52": {
+  },"53": {
     "doc": "Funds Transfers",
     "title": "Get a Withdrawal by id EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/withdrawals/${id} . curl -X GET \"https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjjY\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"withdrawal\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } . ",
     "url": "/fiat/funds-transfers.html#get-a-withdrawal-by-id-experimental",
     "relUrl": "/fiat/funds-transfers.html#get-a-withdrawal-by-id-experimental"
-  },"53": {
+  },"54": {
     "doc": "Funds Transfers",
     "title": "List withdrawals for an account EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/accounts/${accountId}/withdrawals . curl -X GET \"https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/withdrawals\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"items\": [ { \"id\": \"5thg2RPBZEfYTPJdQ63Cre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"withdrawal\", \"amount\": \"10000\", \"status\": \"created\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" }, { \"id\": \"hg2RfYTQ635tPBZEPJdCre\", \"walletId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"bankAuthorityId\": \"FRhAzzWpTKb5U7pZygQjjY\", \"accountId\": \"aBc932S9182qwCDqwer\", \"type\": \"withdrawal\", \"amount\": \"10000\", \"status\": \"done\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-01T12:30:00.000Z\" } ] } . ",
     "url": "/fiat/funds-transfers.html#list-withdrawals-for-an-account-experimental",
     "relUrl": "/fiat/funds-transfers.html#list-withdrawals-for-an-account-experimental"
-  },"54": {
+  },"55": {
     "doc": "Fiat",
     "title": "Fiat",
     "content": "Fiat currency transactions operate on Wallets. ",
     "url": "/fiat/",
     "relUrl": "/fiat/"
-  },"55": {
+  },"56": {
     "doc": "Assets",
     "title": "Assets",
     "content": "Assets are resources that can be used to satisfy payment requests. Assets are owned by an account and can be sent to other users. ",
     "url": "/assets/",
     "relUrl": "/assets/"
-  },"56": {
+  },"57": {
     "doc": "Assets",
     "title": "Contents",
     "content": ". | Get Asset | List Assets for Account | Archive Asset (EXPERIMENTAL) | . ",
     "url": "/assets/#contents",
     "relUrl": "/assets/#contents"
-  },"57": {
+  },"58": {
     "doc": "Assets",
     "title": "Get Asset",
     "content": "GET https://service.centrapay.com/api/assets/${id} . Get asset by asset id. Returned response can be any supported asset type (wallet or gift card). curl -X GET \"https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"L75M3L56N2PtBSt8g7uXLU\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"giftcard\", \"type\": \"epay.nzd.main\", \"issuer\": \"ezipay\", \"externalId\": \"23403283262\", \"description\": \"$60 Acme Giftcard\", \"initialBalance\": \"6000\", \"balance\": \"6000\", \"balanceUpdatedAt\": \"2021-01-01T00:00:00.000Z\", \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } . ",
     "url": "/assets/#get-asset",
     "relUrl": "/assets/#get-asset"
-  },"58": {
+  },"59": {
     "doc": "Assets",
     "title": "List Assets for Account",
     "content": "GET https://service.centrapay.com/api/accounts/${id}/assets . List asset by account id. Returned response can be an array of any supported asset types (wallet or gift card). curl -X GET \"https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"items\": [ { \"id\": \"L75M3L56N2PtBSt8g7uXLU\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"giftcard\", \"type\": \"epay.nzd.main\", \"issuer\": \"ezipay\", \"externalId\": \"23403283262\", \"description\": \"$60 Acme Giftcard\", \"initialBalance\": \"6000\", \"balance\": \"6000\", \"balanceUpdatedAt\": \"2021-01-01T00:00:00.000Z\", \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" }, { \"id\": \"3aKubx3wr9cUHFecRq5nFL\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"type\": \"centrapay.nzd.main\", \"category\": \"money\", \"currency\": \"NZD\", \"balance\": \"2000\" }, { \"id\": \"Aj7rtHmd7rDeWoJgw9MPHe\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"type\": \"cca.coke.main\", \"description\": \"Coke™ Token\", \"category\": \"token\", \"value\": [ { \"currency\": \"NZD\", \"amount\": \"400\" } ], \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\" } ] } . ",
     "url": "/assets/#list-assets-for-account",
     "relUrl": "/assets/#list-assets-for-account"
-  },"59": {
+  },"60": {
     "doc": "Assets",
     "title": "Archive Asset (EXPERIMENTAL)",
     "content": "POST https://service.centrapay.com/api/assets/${id}/archive . Archive supported asset types by asset id, currently only gift cards may be archived. curl -X POST \"https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"L75M3L56N2PtBSt8g7uXLU\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"giftcard\", \"type\": \"epay.nzd.main\", \"issuer\": \"ezipay\", \"externalId\": \"23403283262\", \"description\": \"$60 Acme Giftcard\", \"initialBalance\": \"6000\", \"balance\": \"0\", \"balanceUpdatedAt\": \"2021-01-01T00:00:00.000Z\", \"expiresAt\": \"2020-12-31T00:00:00.000Z\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"status\": \"archived\" } . Error Responses . | Status | Code | Description | . | 403 | UNSUPPORTED_ASSET_TYPE | Asset type can not be archived | . ",
     "url": "/assets/#archive-asset-experimental",
     "relUrl": "/assets/#archive-asset-experimental"
-  },"60": {
+  },"61": {
     "doc": "Home",
     "title": "Introduction",
     "content": "Welcome to Centrapay! We enable you to transact Fiat currency, Giftcards, Digital Assets and Vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our APIs which allow merchants, customers, terminals, and smart wallets to interact with each other. ",
     "url": "/#introduction",
     "relUrl": "/#introduction"
-  },"61": {
+  },"62": {
     "doc": "Home",
     "title": "Contents",
     "content": ". | Example Payment Flows . | Voucher Redemption | Dynamic QR Code | Static QR Code at a vending machine | Barcode | . | API keys and access tokens | Experimental Features | . ",
     "url": "/#contents",
     "relUrl": "/#contents"
-  },"62": {
+  },"63": {
     "doc": "Home",
     "title": "Example Payment Flows",
     "content": "Voucher Redemption . | Merchant creates a payment request via our API | Consumer is prompted to enter a voucher code on terminal | Consumer enters voucher Code into terminal | The terminal calls our API with the details of the transaction | We redeem the voucher if it is valid or reject it if it isn’t | terminal displays result. | . Dynamic QR Code . | Merchant creates a payment request via our API | We respond with the payment request and a generated QR code | The QR code is displayed by the terminal | Consumer scans the QR code displayed | Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app | We prompt their smart wallet to pay the request | Smart wallet pays the request | We verify payment and notify the terminal | Terminal displays result | . Static QR Code at a vending machine . | Consumer scans QR code and calls the merchants backend | Merchant creates a payment request via our API | Smart wallet displays information to the customer | Customer selects payment options supported by the given merchant | Smart wallet transfers funds to merchant | We verify they have the required credit and notify merchant | Customer picks an item from the machine &gt; Product is vended &gt; Merchant refunds the customer via our API | . Barcode . | Customer generates a one time barcode via our connected app inside of their smart wallet | Merchant scans the barcode and creates a payment request via our API which includes the customers barcode as a parameter | We respond with the payment request and a generated QR code | The QR code is displayed by the terminal | Consumer scans the QR code displayed | Consumer selects payment type from a list of payment options a merchant supports via a Centrapay connected app | We prompt their smart wallet to pay the request | Smart wallet pays the request | We verify payment and notify the terminal | Terminal displays result | . ",
     "url": "/#example-payment-flows",
     "relUrl": "/#example-payment-flows"
-  },"63": {
+  },"64": {
     "doc": "Home",
     "title": "API keys and access tokens",
     "content": "We handle authorization via merchant API keys or user access tokens. See our auth documentation for more details. Our APIs for initiating transactions can be tested using the documented test merchant API keys. User access tokens are issued via our login page using OAuth. For more help getting setup, contact us via email at devsupport@centrapay.com. ",
     "url": "/#api-keys-and-access-tokens",
     "relUrl": "/#api-keys-and-access-tokens"
-  },"64": {
+  },"65": {
     "doc": "Home",
     "title": "Experimental Features",
     "content": "Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. ",
     "url": "/#experimental-features",
     "relUrl": "/#experimental-features"
-  },"65": {
+  },"66": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/",
     "relUrl": "/"
-  },"66": {
+  },"67": {
     "doc": "Merchants",
     "title": "Merchants",
     "content": "A merchant is member of the centrapay account. Merchant can have different configurations with different payment methods. ",
     "url": "/merchants.html",
     "relUrl": "/merchants.html"
-  },"67": {
+  },"68": {
     "doc": "Merchants",
     "title": "Contents",
     "content": ". | Creating merchant | Get information about a merchant | List all merchants | Update a merchant | Creating merchant configuration | Get merchant configuration | List all merchant configurations | Update merchant configuration | Merchant configuration model | . ",
     "url": "/merchants.html#contents",
     "relUrl": "/merchants.html#contents"
-  },"68": {
+  },"69": {
     "doc": "Merchants",
     "title": "Creating merchant",
     "content": "POST https://service.centrapay.com/api/merchants . curl -X POST \"https://service.centrapay.com/api/merchants\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"C4QnjXvj8At6SMsEN4LRi9\", \"name\": \"Centrapay Cafe Auckland\", \"country\": \"NZ\", \"test\": false }' . Required Fields . | Field | Type | Description | . | accountId | String | Owning account reference | . | name | String | Merchant name | . | country | String | Merchants country in alpha 2 standard | . | test | Boolean | Flag configuring if this is test merchant | . Optional Fields . | Field | Type | Description | . | settlementConfig | Object | EXPERIMENTAL Merchant settlement config | . Example response payload . { \"id\": \"5ee0c486308f590260d9a07f\", \"accountId\": \"yqwyya0rzz3vvshqw0474u89xtj5fn\", \"name\": \"Parisian - Brown\", \"country\": \"AD\", \"test\": false } . ",
     "url": "/merchants.html#creating-merchant",
     "relUrl": "/merchants.html#creating-merchant"
-  },"69": {
+  },"70": {
     "doc": "Merchants",
     "title": "Get information about a merchant",
     "content": "GET https://service.centrapay.com/api/merchants/{merchantId} . curl -X GET \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"5ee0c486308f590260d9a07f\", \"accountId\": \"yqwyya0rzz3vvshqw0474u89xtj5fn\", \"name\": \"Parisian - Brown\", \"test\": false, \"country\": \"AD\" } . ",
     "url": "/merchants.html#get-information-about-a-merchant",
     "relUrl": "/merchants.html#get-information-about-a-merchant"
-  },"70": {
+  },"71": {
     "doc": "Merchants",
     "title": "List all merchants",
     "content": "GET https://service.centrapay.com/api/merchants . curl -X GET \"https://service.centrapay.com/api/merchants\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"items\": [ { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"BT\", \"id\": \"5f6bf6ff81552101f8ff6122\", \"name\": \"Adams, Runolfsdottir and Botsford\", \"test\": true }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"GM\", \"id\": \"5f6bf6ff81552101f8ff6123\", \"name\": \"Vandervort Inc\", \"test\": false }, { \"accountId\": \"3xsjxxwmnpkunjbcpekyekc84rzxr4\", \"country\": \"MZ\", \"id\": \"5f6bf6ff81552101f8ff6124\", \"name\": \"West, O'Reilly and Huels\", \"test\": true }, ] } . ",
     "url": "/merchants.html#list-all-merchants",
     "relUrl": "/merchants.html#list-all-merchants"
-  },"71": {
+  },"72": {
     "doc": "Merchants",
     "title": "Update a merchant",
     "content": "PUT https://service.centrapay.com/api/merchants/{merchantId} . curl -X PUT \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{\"name\": \"Parisian - Orange\"}' . Optional Fields . | Field | Type | Description | . | name | String | Merchant name | . | country | String | Merchants country in alpha 2 standard | . | settlementConfig | Object | EXPERIMENTAL Merchant settlement config | . Example response payload . { \"id\": \"5ee0c486308f590260d9a07f\", \"accountId\": \"yqwyya0rzz3vvshqw0474u89xtj5fn\", \"name\": \"Parisian - Orange\", \"test\": false, \"country\": \"AD\" } . ",
     "url": "/merchants.html#update-a-merchant",
     "relUrl": "/merchants.html#update-a-merchant"
-  },"72": {
+  },"73": {
     "doc": "Merchants",
     "title": "Creating merchant configuration",
     "content": "POST https://service.centrapay.com/api/merchants/{merchantId}/configs/ . curl -X POST \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"centrapay.nzd.main\", \"walletId\": \"1234c486308f3f0a23f0f92b\"}, { \"type\": \"epay.nzd.main\", \"terminalId\": \"11000021\"}, { \"type\": \"pocketvouchers\" }, ]}' . See Merchant configuration model for expected request body format. Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ] } . ",
     "url": "/merchants.html#creating-merchant-configuration",
     "relUrl": "/merchants.html#creating-merchant-configuration"
-  },"73": {
+  },"74": {
     "doc": "Merchants",
     "title": "Get merchant configuration",
     "content": "GET https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} . curl -X GET \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454\" \\ -H \"x-api-key: 1234\" . Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" } ] } . ",
     "url": "/merchants.html#get-merchant-configuration",
     "relUrl": "/merchants.html#get-merchant-configuration"
-  },"74": {
+  },"75": {
     "doc": "Merchants",
     "title": "List all merchant configurations",
     "content": "GET https://service.centrapay.com/api/merchants/{merchantId}/configs/ . curl -X GET \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" } ] }, { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"paymentOptions\": [ { \"type\": \"test\" } ] } ] . ",
     "url": "/merchants.html#list-all-merchant-configurations",
     "relUrl": "/merchants.html#list-all-merchant-configurations"
-  },"75": {
+  },"76": {
     "doc": "Merchants",
     "title": "Update merchant configuration",
     "content": "PUT https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} . curl -X PUT \"https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ]}' . See Merchant configuration model for expected request body format. Example response payload . { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ] } . ",
     "url": "/merchants.html#update-merchant-configuration",
     "relUrl": "/merchants.html#update-merchant-configuration"
-  },"76": {
+  },"77": {
     "doc": "Merchants",
     "title": "Merchant configuration model",
     "content": "Required Fields . | Field | Type | Description | . | paymentOptions | Array | Array of paymentOptions objects | . | paymentOptions[*] | Object | Object containing paymentOption properties | . | paymentOptions[*].type | String | Type of payment method. See supported payment types below. | . Optional Fields . | Field | Type | Description | . | paymentOptions[*].walletId | String | Merchant’s Centrapay wallet to receive payments. Required for centrapay.nzd types. | . | paymentOptions[*].terminalId | String | Merchant’s Epay terminal id. | . | paymentOptions[*].wavesPublicAddress | String | Merchant’s public waves address. Required for zap.main types. | . Supported Payment Types . The following table describes the supported payment option types. Warning: Test payment options should never be used for live merchant configurations. | Name | Description | . | centrapay.nzd.main | Centrapay NZD wallet | . | centrapay.nzd.test | Centrapay NZD wallet (test ledger) | . | bitcoin.main | Bitcoin | . | epay.nzd.main | EPay NZ giftcards | . | epay.nzd.test | EPay NZ giftcards (test ledger) | . | cennznet.main | Cennznet | . | pocketvouchers | Pocket Vouchers | . | zap.main | Zap tokens | . | test | No-op test payment (always approved) | . ",
     "url": "/merchants.html#merchant-configuration-model",
     "relUrl": "/merchants.html#merchant-configuration-model"
-  },"77": {
+  },"78": {
     "doc": "Profile",
     "title": "Profile",
     "content": "A profile represents a Centrapay user’s attributes. ",
     "url": "/profile.html",
     "relUrl": "/profile.html"
-  },"78": {
+  },"79": {
     "doc": "Profile",
     "title": "Contents",
     "content": ". | Updating a user’s profile EXPERIMENTAL | . ",
     "url": "/profile.html#contents",
     "relUrl": "/profile.html#contents"
-  },"79": {
+  },"80": {
     "doc": "Profile",
     "title": "Updating a user’s profile EXPERIMENTAL",
     "content": "POST https://service.centrapay.com/api/me/profile/update . curl -X POST \"https://service.centrapay.com/api/me/profile/update\" \\ -H \"authorization: $jwt\" \\ -H \"content-type: application/json\" \\ -d '{ \"givenName\": \"John\", \"familyName\": \"Doe\", \"featureUpdates\": false, \"marketingUpdates\": true, \"email\": \"john.doe@centrapay.com\" }' . Optional Fields (Note at least one field must be provided in the request) . | Field | Type | Description | . | givenName | String | First name | . | familyName | String | Last name | . | featureUpdates | Boolean | Whether a user would like to receive emails for feature updates | . | marketingUpdates | Boolean | Whether a user would like to receive emails for marketing updates | . | email | String | Email address | . Example response payload . { \"givenName\": \"John\", \"familyName\": \"Doe\", \"featureUpdates\": false, \"marketingUpdates\": true, \"email\": \"john.doe@centrapay.com\", } . ",
     "url": "/profile.html#updating-a-users-profile-experimental",
     "relUrl": "/profile.html#updating-a-users-profile-experimental"
-  },"80": {
+  },"81": {
     "doc": "Quotas",
     "title": "Quotas",
     "content": "Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account. ",
     "url": "/quotas.html",
     "relUrl": "/quotas.html"
-  },"81": {
+  },"82": {
     "doc": "Quotas",
     "title": "Contents",
     "content": ". | Getting account quotas EXPERIMENTAL | Quota model | . ",
     "url": "/quotas.html#contents",
     "relUrl": "/quotas.html#contents"
-  },"82": {
+  },"83": {
     "doc": "Quotas",
     "title": "Getting account quotas EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/accounts/{accountId}/quotas . Retrieve quota limits and usages for the current intervals. Ie, all quotas for the current day, current month and current year as well as any quotas that are not associated with a temporal period. curl -X GET \"https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"limit\": \"1000\", \"interval\": \"2021-03\", \"period\": \"monthly\", \"usage\": \"500\", \"type\": \"spend\", \"assetType\": \"centrapay.nzd.main\" }, { \"limit\": \"9999\", \"interval\": \"2021\", \"period\": \"yearly\", \"usage\": \"1555\", \"type\": \"spend\", \"assetType\": \"centrapay.nzd.main\" }, { \"limit\": \"1000\", \"interval\": \"2021-03\", \"period\": \"monthly\", \"usage\": \"500\", \"type\": \"topup\", \"assetType\": \"centrapay.nzd.main\" }, { \"limit\": \"9999\", \"interval\": \"2021\", \"period\": \"yearly\", \"usage\": \"5000\", \"type\": \"topup\", \"assetType\": \"centrapay.nzd.main\" } ] . ",
     "url": "/quotas.html#getting-account-quotas-experimental",
     "relUrl": "/quotas.html#getting-account-quotas-experimental"
-  },"83": {
+  },"84": {
     "doc": "Quotas",
     "title": "Quota model",
     "content": "Required Fields . | Field | Type | Description | . | type | String | The quota’s type. | . | limit | String | The quota’s upper usage limit. | . | usage | String | The quota’s current usage. | . Optional Fields . | Field | Type | Description | . | assetType | String | The type of asset the quota is scoped to, eg centrapay.nzd.main. | . | period | String | The recurring, time-bound quota’s duration: daily, monthly or yearly. | . | interval | String | The specific day, month or year the quota applies to, eg: 2020-01-01, 2020-01, 2020. | . Supported Quota Types . The following table describes the supported quota types and variants. The “Scoped” column indicates whether the quota can have different values for different asset types. The “Periods” column indicates which periods are applicable to the quota. | Type | Description | Scoped | Periods | . | spend | Value of wallet-based payments or asset transfers from the account. | Yes | monthly yearly | . | topup | Value of topups from bank accounts linked to the account. | Yes | monthly yearly | . Error Responses . If a quota limit is exceeded by an action that enforces quota limits, the following error response will be returned. The quotas field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed. { \"message\": \"QUOTA_EXCEEDED\", \"quotas\":[{ \"limit\": \"9999\", \"interval\": \"2021\", \"period\": \"yearly\", \"usage\": \"10000\", \"type\": \"topup\", \"assetType\": \"centrapay.nzd.main\" }] } . ",
     "url": "/quotas.html#quota-model",
     "relUrl": "/quotas.html#quota-model"
-  },"84": {
+  },"85": {
     "doc": "Transacting",
     "title": "Transacting",
     "content": "Throughout our documentation we will talk about payment requests and transactions in several places, and it is important to know the difference. A payment request is generated when the requests.create endpoint has been called. Payment Requests are then used to configure the different payment types a merchant accepts, set the amount of the transaction as well as the fiat currency e.g. NZD, and to set up any webhooks. Transactions are created when a payment request has been paid successfully via the requests.pay endpoint, or when a completed transaction has been refunded via the requests.void or transactions.refund endpoint. Our payments endpoints also have interactive Swagger documentation. ",
     "url": "/transacting.html",
     "relUrl": "/transacting.html"
-  },"85": {
+  },"86": {
     "doc": "Transacting",
     "title": "Contents",
     "content": ". | Creating a payment request | Getting the information about a payment request | Paying a payment request | Cancelling a payment request | Voiding a payment request | Refunding a transaction . | Refunding a transaction can be done two ways: | . | Errors . | Error codes | . | Webhooks . | Life-cycle Events That Trigger Webhooks | Webhook Payload | Webhook JWT Validation | Decoded Webhook JWT Examples | . | . ",
     "url": "/transacting.html#contents",
     "relUrl": "/transacting.html#contents"
-  },"86": {
+  },"87": {
     "doc": "Transacting",
     "title": "Creating a payment request",
     "content": "Swagger Docs . POST https://service.centrapay.com/payments/api/requests.create . curl -X POST \"https://service.centrapay.com/payments/api/requests.create\" \\ -H 'x-api-key: 1234' \\ -d merchantId=\"5efbe17d96c083633e2b9241\" \\ -d clientId=\"5efbe2fb96c08357bb2b9242\" \\ -d amount=300 \\ -d asset=\"NZD\" . Required Parameters . | Parameter | Description | . | amount | The payment amount in cents | . | asset | The currency - NZD or AUD | . | merchantId | The ID of the merchant creating the request | . | clientId | The ID of the merchant specific client configuration | . Optional Parameters . | Parameter | Description | . | description | Description of the payment | . | externalReference | Unique merchant reference for the payment request | . | notifyUrl | The URL that will receive POST requests from the webhook | . | paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 | . | terminalId | The payment system terminal Id. Required for NZ Epay integration. | . | deviceId | Physical payment system device Id | . ",
     "url": "/transacting.html#creating-a-payment-request",
     "relUrl": "/transacting.html#creating-a-payment-request"
-  },"87": {
+  },"88": {
     "doc": "Transacting",
     "title": "Getting the information about a payment request",
     "content": "Swagger Docs . GET https://service.centrapay.com/payments/api/requests.info . curl -G \"https://service.centrapay.com/payments/api/requests.info\" \\ -H 'x-api-key: 1234' \\ -d requestId=\"a95b3b0d-1278-4613-8772-20d146065a2e\" . Required Parameters . | Parameter | Description | . | requestId | The payment requestId that is generated when requests.create is called | . ",
     "url": "/transacting.html#getting-the-information-about-a-payment-request",
     "relUrl": "/transacting.html#getting-the-information-about-a-payment-request"
-  },"88": {
+  },"89": {
     "doc": "Transacting",
     "title": "Paying a payment request",
     "content": "Swagger Docs . POST https://service.centrapay.com/payments/api/requests.pay . curl -X POST \"https://service.centrapay.com/payments/api/requests.pay\" \\ -H 'x-api-key: 1234' \\ -d authorization=\"12345678\" \\ -d ledger=\"g.pocketvouchers.pv\" \\ -d requestId=\"7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9\" . Required Parameters . | Parameter | Description | . | requestId | The id of the payment request to pay. See requests.create. | . | ledger | The selected payment option to use. See below for expected values. | . | authorization | An identifier that can be used to pay or verify payment. See below for expected values. | . Expected Ledger and Authorization Values . The “ledger” parameter indicates which payment option has been selected to pay the payment request. The selected payment option must be one of the options available for the payment request as per the payments array in the requests.create and requests.info responses. The table below lists the possible ledger and authorization param values. The asset type is the value used to configure the merchant. The ledger param value is returned with the payment request info as payments[].ledger. | Asset Type | Ledger Param Value | Authorization Param Value | . | centrapay.nzd.main | centrapay.nzd.main | Centrapay wallet id | . | centrapay.nzd.test | centrapay.nzd.test | Centrapay wallet id | . | epay.nzd.main | epay.nzd.main | Centrapay asset id | . | pocketvouchers | g.pocketvouchers.pv | Pocket Vouchers voucher code | . | bitcoin.main | g.crypto.bitcoin.mainnet | Bitcoin transaction id | . | cennznet.main | cennznet.main | Cennznet transaction id | . | zap.main | zap.main | Waves transaction id | . | test | g.test.testUplink | None | . Centrapay Asset Permissions . To pay with a Centrapay asset or wallet ledger the user (identified by the API Key or identity token) must have permission to redeem the asset or transfer funds from the specified wallet. Testing Pocket Vouchers . To test Pocket Vouchers, generate a test value voucher by texting “CENTRALBONUS” to 393. You will then receive a response text containing an 8 digit voucher code that has $20 of loaded credit. The received code is only valid for two weeks from the issue date. You might get charged your standard text rates from your provider. ",
     "url": "/transacting.html#paying-a-payment-request",
     "relUrl": "/transacting.html#paying-a-payment-request"
-  },"89": {
+  },"90": {
     "doc": "Transacting",
     "title": "Cancelling a payment request",
     "content": "Swagger Docs . POST https://service.centrapay.com/payments/api/requests.cancel . curl -X POST \"https://service.centrapay.com/payments/api/requests.cancel\" \\ -H 'x-api-key: 1234' \\ -d requestId=\"a95b3b0d-1278-4613-8772-20d146065a2e\" . Required Parameters . | Parameter | Description | . | requestId | The payment requestId that is generated when requests.create is called | . ",
     "url": "/transacting.html#cancelling-a-payment-request",
     "relUrl": "/transacting.html#cancelling-a-payment-request"
-  },"90": {
+  },"91": {
     "doc": "Transacting",
     "title": "Voiding a payment request",
     "content": "Swagger Docs . POST https://service.centrapay.com/payments/api/requests.void . curl -X POST \"https://service.centrapay.com/payments/api/requests.void\" \\ -H 'x-api-key: 1234' \\ -d requestId=\"a95b3b0d-1278-4613-8772-20d146065a2e\" . Required Parameters . | Parameter | Description | . | requestId | The payment requestId that is generated when requests.create is called. | . ",
     "url": "/transacting.html#voiding-a-payment-request",
     "relUrl": "/transacting.html#voiding-a-payment-request"
-  },"91": {
+  },"92": {
     "doc": "Transacting",
     "title": "Refunding a transaction",
     "content": "Swagger Docs . POST https://service.centrapay.com/payments/api/transactions.refund . curl -X POST \"https://service.centrapay.com/payments/api/transactions.refund\" \\ -H 'x-api-key: 1234' \\ -d transactionId=\"7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9\" \\ -d amount=100 . Refunding a transaction can be done two ways: . | Refund the full or partial amount once . If you refund a transaction without providing an external reference, you will get a successful response for the first request and then an ALREADY_REFUNDED message for any refund requests that follow for the same transaction, unless an external reference is provided. | Refund a partial amount multiple times up to the transaction amount . If you provide an external reference then a transaction can be refunded multiple times provided that the external reference is unique for each refund request. When a duplicate external reference is provided when attempting to refund the same transaction we return a successful response if the amount of the request is the same both times but do not process another refund, this is because we assume it to be a repeat request. If the amount is different you will get a REPEAT_REFERENCE error message. | . Required Parameters for one time refund . | Parameter | Description | . | transactionId | The transaction to refund. The transaction id for a payment can be obtained from a webhook notification or from requests.info. | . | amount | The amount to refund in cents | . Additional required Parameter for multiple refunds . | Parameter | Description | . | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. | . ",
     "url": "/transacting.html#refunding-a-transaction",
     "relUrl": "/transacting.html#refunding-a-transaction"
-  },"92": {
+  },"93": {
     "doc": "Transacting",
     "title": "Errors",
     "content": "Error codes . | Error code | Http code | Message | Description | . | 1 | 401 | KEY_NOT_AUTHORIZED | The Api Key was not found in the headers or is invalid | . | 2 | 404 | REQUEST_NOT_FOUND | The provided request doesn’t exist | . | 3 | 404 | TRANSACTION_NOT_FOUND | The provided transaction doesn’t exist | . | 4 | 404 | MERCHANT_NOT_FOUND | The provided Merchant doesn’t exist | . | 5 | 400 | INVALID_REQUEST_ID | RequestId must be a valid UUID | . | 6 | 400 | INVALID_AMOUNT | Amount must be a positive integer greater than zero | . | 7 | 400 | INVALID_ASSET | Asset was not a supported currency type | . | 8 | 400 | INVALID_AUTHORIZATION | Authorization must be a non empty string | . | 9 | 400 | INVALID_LEDGER | Ledger must be a non empty string | . | 10 | 400 | INVALID_MERCHANT_ID | MerchantId must be a non empty string | . | 11 | 400 | INVALID_CLIENT_ID | ClientId must be a valid UUID | . | 12 | 400 | INVALID_PATRON_CODE | PatronCode must be a non empty string | . | 13 | 400 | INVALID_DESCRIPTION | Description must be a non empty string | . | 14 | 400 | INVALID_REFERENCE | ExternalReference must be a non empty string | . | 15 | 400 | INVALID_NOTIFY_URL | NotifyUrl must be a non empty string | . | 16 | 400 | INVALID_TRANSACTION_ID | TransactionId must be a non empty string | . | 17 | 400 | REQUEST_CANCELLED | Action cannot be completed because the request has already been cancelled | . | 18 | 400 | REQUEST_EXPIRED | Action cannot be completed because the request has expired | . | 19 | 400 | REQUEST_PAID | Action cannot be completed because the request has been paid | . | 20 | 400 | INVALID_PAYMENT_EXPIRY_SECONDS | PaymentExpirySeconds is either empty, or is not an integer greater than 0 | . | 21 | 403 | FORBIDDEN | The Api Key provided doesn’t have the required permissions or the resource is not found | . | 51 | 500 | INTERNAL_ERROR | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong. | . | 76 | 503 | EXTERNAL_SERVICE | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request. | . | 77 | 500 | INTERNAL_ERROR | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong. | . | 78 | 403 | MERCHANT_CONFIGURATION_NOT_FOUND | There was no merchant configuration found for the supplied merchantId and clientId | . | 126 | 403 | IN_USE | A webSocket channel for this request already exists | . | 151 | 403 | IN_USE | An active WS connection already exists for that patronCode | . | 176 | 400 | LEDGER_NOT_ENABLED | Merchant is not configured with the provided ledger | . | 177 | 400 | INVALID_LEDGER | The ledger provided doesn’t exist | . | 178 | 500 | INTERNAL_SERVER_ERROR | Something went wrong while trying to pay a request, we have received an error message and will figure out what went wrong. | . | 179 | 404 | BITCOIN_TRANSACTION_NOT_FOUND | A transaction for the provided authorization could not be found on the bitcoin block chain | . | 180 | 400 | OLD_TRANSACTION | The provided authorization is for a transaction that was confirmed before the payment request was created | . | 181 | 400 | INSUFFICIENT_PAYMENT | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment | . | 182 | 403 | MERCHANT_TRANSACTION_LIMIT_EXCEEDED | The merchant that the voucher is associated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher. | . | 183 | 403 | INVALID_TRANSACTION_AMOUNT | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher | . | 184 | 403 | INVALID_VOUCHER_AMOUNT | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher | . | 185 | 403 | VOUCHER_EXPIRED | The voucher has expired | . | 186 | 403 | INSUFFICIENT_VOUCHER_BALANCE | The voucher balance is less than the required amount | . | 187 | 404 | VOUCHER_UNKNOWN | The voucher code supplied does not correspond to any valid vouchers | . | 189 | 403 | INSUFFICIENT_WALLET_BALANCE | The wallet balance is less than the required amount | . | 190 | 200 | TRANSACTION_ALREADY_EXISTS | A successful payment transaction already exists for a payment request. | . | 191 | 500 | OPTIMISTIC_LOCK_ERROR | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable. | . | 192 | 403 | INSUFFICIENT_ASSET_BALANCE | The asset has insufficient funds to pay the payment request | . | 193 | 403 | INVALID_MERCHANT_CONFIGURATION | The merchant is not configured properly to satisfy the payment request, could be incorrect information or the merchant’s credentials might be blocked by an external service | . | 194 | 403 | INACTIVE_ASSET | The asset has either expired or been blocked | . | 195 | 400 | INVALID_ASSET_ID | The asset corresponding to the asset id is not supported | . | 196 | 400 | INVALID_WALLET_ADDRESS | The wallet address is not the same as the supported wallet address | . | 197 | 400 | INVALID_TRANSACTION | The transaction has either missing query parameters or is not supported | . | 198 | 403 | UNSUPPORTED_ASSET_TYPE | The type of the asset does not match the ledger supplied | . | 199 | 403 | QUOTA_EXCEEDED | The payment pay request exceeds the allowed spend quota supplied | . | 276 | 400 | ALREADY_REFUNDED | The transaction has already been refunded | . | 277 | 400 | INVALID_AMOUNT | The refund requested is greater than the transaction amount | . | 278 | 500 | INTERNAL_SERVER_ERROR | Something went wrong while trying to refund the request, we have received an error message and will figure out what went wrong. | . | 279 | 403 | INVALID_TRANSACTION_TYPE | The transaction attempted to be refunded is a refund which is not allowed | . | 280 | 403 | REPEAT_REFERENCE | A separate refund request for the same transaction has the same external reference, trying to refund the same transaction twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200 | . | 281 | 403 | PARTIAL_REFUNDS_NOT_ALLOWED | The asset does not support partial refunds. | . | 400 | 400 | BAD_REQUEST | The transaction had invalid parameters not listed above. | . ",
     "url": "/transacting.html#errors",
     "relUrl": "/transacting.html#errors"
-  },"93": {
+  },"94": {
     "doc": "Transacting",
     "title": "Webhooks",
     "content": "Webhook notifications are sent for significant Payment life-cycle events. The Webhook endpoint is notified by sending an HTTP POST request to the notifyUrl defined in the Payment Request. Life-cycle Events That Trigger Webhooks . The supported event types that will be notified to the Payment Requests webhook and the associated “transactionType” value that will be sent in the payload are: . | Event Type | Value of “transactionType” | . | Payment Request Cancelled | CANCELLED | . | Payment Request Expired | EXPIRED | . | Transaction Completed | PURCHASE | . | Transaction Refunded | REFUND | . Payment Request Cancelled . A payment request can be cancelled by either calling the requests.cancel or requests.void endpoint before a request has been paid successfully. When a request has been cancelled we send a JWT that when decoded matches the Payment Request Cancelled example in the Decoded Webhook JWT Examples section below. Payment Request Expired . A payment request expires two minutes after being created if it hasn’t been cancelled, or paid. When a request has expired we send a JWT that when decoded matches the Payment Request Cancelled example in the Decoded Webhook JWT Examples section below with the transactionType set to EXPIRED. Transaction Completed . A transaction is considered complete when requests.pay is called with parameters that satisfy a payment request and the request has been paid successfully. When a transaction has been completed we send a JWT that when decoded matches the Transaction Completed example in the Decoded Webhook JWT Examples section below. Transaction Refunded . A transaction can be refunded one to many times and each time a transaction has been refunded successfully we notify the webhook associated with the original payment request. A transaction can be refunded when transactions.refund has been called for a partial or full refund, or when requests.void is called for a request that has been paid. When a transaction has been refunded we send a JWT that when decoded matches the Transaction Completed example in the Decoded Webhook JWT Examples section below but with transactionType set to REFUND. Webhook Payload . The body of the webhook is a JSON document with the following format: . { \"token\": \"${JWT}\" } . The decoded JWT will contain a “transaction” property with a “transactionType” that indicates the event type. Depending on the type of event, the payload will also contain additional details about the transaction and payment request. For example: . { \"transaction\": { \"transactionType\": \"REFUND\", \"request\": { \"requestId\": \"bec358bf-edb5-4633-a785-a95cc281d3b7\", \"denomination\": { \"asset\": \"NZD\", \"amount\": \"100\" } } } } . Webhook Payload Fields . | Property | Description | . | transactionId | Id of the transaction | . | transactionType | Indicates which event triggered the notification message | . | state | Current state of the transaction | . | ledger | The ledger at which the authorization was processed | . | amount | Transaction amount in the lowest denomination available | . | createdAt | Timestamp at which the request was created | . | updatedAt | Timestamp at which the request was updated | . | type | The payment type used by the issuer to reconcile settlement | . | request | Request object, see details at requests.info | . | authCode | Authorization code used to settle this transaction | . Webhook JWT Validation . A webhook JWT can be validated by checking the signature against the Centrapay Webhook public key: . -----BEGIN PUBLIC KEY----- MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEt+vW2fE0mLLmdzJtYrz7J9q/yEXl gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg== -----END PUBLIC KEY----- . Decoded Webhook JWT Examples . Transaction Completed Successfully . { \"transaction\": { \"transactionId\": \"aba4b07d-fd12-43bc-bbb1-12fda46d9937\", \"transactionType\": \"PURCHASE\", \"ledger\": \"g.crypto.bitcoin.mainnet\", \"state\": \"completed\", \"amount\": 2000, \"request\": { \"requestId\": \"1b23d1f9-8a3e-414d-ac94-f4b331095197\", \"merchantId\": \"0b1100be-6a76-45b0-adb8-bfe7db5ae720\", \"externalReference\": \"12345sixseveneightnineten\", \"denomination\": { \"asset\": \"NZD\", \"amount\": 2000 } }, \"createdAt\": \"2018-10-02T00:29:09.307Z\", \"updatedAt\": \"2018-10-02T00:29:11.383Z\", \"type\": \"BITCOIN\", \"authCode\": \"961241\" } } . Payment Request Cancelled . { \"transaction\": { \"transactionType\": \"CANCELLED\", \"request\": { \"requestId\": \"bec358bf-edb5-4633-a785-a95cc281d3b7\", \"merchantId\": \"c614d516-7fbe-4acc-8a49-ed1ce8c54e77\", \"clientId\": \"ac1cf8f3-3bbb-4286-beb5-70e7efe562c8\", \"denomination\": { \"asset\": \"NZD\", \"amount\": \"1\" } } } } . ",
     "url": "/transacting.html#webhooks",
     "relUrl": "/transacting.html#webhooks"
-  },"94": {
+  },"95": {
     "doc": "Wallets",
     "title": "Wallets",
     "content": "A wallet represents a balance in a certain currency, that a given centrapay account has access to. ",
     "url": "/assets/wallets.html",
     "relUrl": "/assets/wallets.html"
-  },"95": {
+  },"96": {
     "doc": "Wallets",
     "title": "Contents",
     "content": ". | Creating a wallet | Listing authorized wallets | Listing Wallet Transactions EXPERIMENTAL | . ",
     "url": "/assets/wallets.html#contents",
     "relUrl": "/assets/wallets.html#contents"
-  },"96": {
+  },"97": {
     "doc": "Wallets",
     "title": "Creating a wallet",
     "content": "POST https://service.centrapay.com/api/wallets . curl -X POST \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" \\ -H \"content-type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" } . Error Responses . | Status | Code | Description | . | 403 | ACCOUNT_MAX_WALLETS_REACHED | The maximum number of wallets for the given ledger has been reached. | . ",
     "url": "/assets/wallets.html#creating-a-wallet",
     "relUrl": "/assets/wallets.html#creating-a-wallet"
-  },"97": {
+  },"98": {
     "doc": "Wallets",
     "title": "Listing authorized wallets",
     "content": "GET https://service.centrapay.com/api/wallets . curl -X GET \"https://service.centrapay.com/api/wallets\" \\ -H \"x-api-key: 1234\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" }, { \"id\": \"NQ1yeromwnWPD2hY41L2yS\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.test\", \"currency\": \"NZD\", \"balance\": \"20\" } ] . ",
     "url": "/assets/wallets.html#listing-authorized-wallets",
     "relUrl": "/assets/wallets.html#listing-authorized-wallets"
-  },"98": {
+  },"99": {
     "doc": "Wallets",
     "title": "Listing Wallet Transactions EXPERIMENTAL",
     "content": "GET https://service.centrapay.com/api/wallets/${walletId}/transactions . curl -X GET \"https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions\" \\ -H \"x-api-key: 1234\" . Transaction Fields . | Field | Description | . | activityNumber | Unique sequential wallet transaction number | . | amount | Absolute transaction amount in cents. | . | value | Change to the wallet’s balance in cents when the transaction was applied. | . | createdAt | Transaction timestamp as ISO8601 date string. | . | activityType | Hints to the type of transaction: undefined or “returned-asset-transfer” | . | destWalletId | Id of the destination wallet if applicable. | . | srcWalletId | Id of the source wallet if applicable. | . | destParty | Display value for party receiving funds if applicable. See note below. | . | srcParty | Display value for party providing funds if applicable. See note below. | . | paymentRequestId | Id of the related payment request if applicable. | . | topupId | Id of the related topup funds transfer request if applicable. | . | assetTransferId | Id of the related asset transfer request if applicable. | . | withdrawalId | Id of the related withdrawal request if applicable. | . Party Values . The “destParty” and “srcParty” are optionally provided depending on the purpose of the transaction. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account. Example response payload (Payment) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"350\", \"value\": \"-350\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"Centrapay Cafe\", \"destWalletId\": \"GfYJd5tZQ63CrehgTP2RPB\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"paymentRequestId\": \"76961bc8-878b-11eb-bc82-abcc0f5e1f60\" } ] } . Example response payload (Topup) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"5000\", \"value\": \"5000\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"12-4000-100001-00\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"topupId\": \"77hqHDzw6KaaG2P2hoshUB\" } ] } . Example response payload (Sent Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"-2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"+6422*****36\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Received Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Returned Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"activityType\": \"returned-asset-transfer\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Withdraw) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"destParty\": \"12-3546-2544786-00\", \"withdrawalId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . ",
