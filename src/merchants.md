@@ -301,13 +301,15 @@ The following table describes the supported payment option types.
 
 {% warning Test payment options should never be used for live merchant configurations. %}
 
-| Name               | Description                          |
-|:-------------------|:-------------------------------------|
+|        Name        |             Description              |
+| :----------------- | :----------------------------------- |
 | centrapay.nzd.main | Centrapay NZD wallet                 |
 | centrapay.nzd.test | Centrapay NZD wallet (test ledger)   |
 | bitcoin.main       | Bitcoin                              |
 | epay.nzd.main      | EPay NZ giftcards                    |
 | epay.nzd.test      | EPay NZ giftcards (test ledger)      |
+| cca.coke.main      | Coke tokens                          |
+| cca.coke.test      | Coke tokens (test ledger)            |
 | cennznet.main      | Cennznet                             |
 | pocketvouchers     | Pocket Vouchers                      |
 | zap.main           | Zap tokens                           |
