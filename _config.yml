@@ -5,7 +5,7 @@ title: Centrapay Docs
 kramdown:
   toc_levels: '2,3'
 theme: "just-the-docs"
-footer_content: "Copyright &copy; 2020 Centrapay"
+footer_content: "Copyright &copy; 2021 Centrapay"
 
 search_enabled: true
 search:
@@ -17,3 +17,6 @@ back_to_top_text: "Back to top"
 aux_links:
   "Centrapay":
     - "https://centrapay.com"
+
+plugins:
+  - jekyll-redirect-from

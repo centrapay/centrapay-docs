@@ -2,6 +2,9 @@
 layout:  default
 parent:  Fiat
 title: Bank Accounts
+redirect_from:
+  - /fiat/bank-authorities
+  - /fiat/authorities
 ---
 
 # Bank Accounts
