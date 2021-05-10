@@ -96,8 +96,8 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
-  "recipientId": "49105001-384a-40ed-b666-3d56dd1aa2c5",
   "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+  "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
@@ -146,9 +146,9 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   "message": "Happy birthday",
   "senderName": "My Cafe",
   "lastSentTo": "+64212312345",
-  "recipientId": "a2d0bfe8-18b1-11eb-8c75-13468b775817",
   "senderAccountId": "aBc932S9182qwCDqwer",
   "recipientAccountId": "oS3Xom2au3Ooy9aihai",
+  "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
@@ -167,8 +167,8 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
-  "recipientId": "49105001-384a-40ed-b666-3d56dd1aa2c5",
   "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+  "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64*****2345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
@@ -220,8 +220,9 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
       "description": "$60 Giftcard",
       "message": "Happy birthday",
       "senderName": "My Cafe",
-      "recipientId": "49105001-384a-40ed-b666-3d56dd1aa2c5",
+      "senderAccountId": "aBc932S9182qwCDqwer",
       "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+      "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
       "recipientAlias": "+64*****2345",
       "createdAt": "2020-05-01T12:30:00.000Z",
       "updatedAt": "2020-05-02T01:03:37.222Z"
@@ -253,8 +254,8 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
       "description": "$60 Giftcard",
       "message": "Happy birthday",
       "senderName": "My Cafe",
-      "recipientId": "49105001-384a-40ed-b666-3d56dd1aa2c5",
       "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+      "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
       "recipientAlias": "+64*****2345",
       "createdAt": "2020-05-01T12:30:00.000Z",
       "updatedAt": "2020-05-02T01:03:37.222Z"
