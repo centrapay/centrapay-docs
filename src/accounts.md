@@ -2,6 +2,9 @@
 layout: default
 title: Accounts
 nav_order: 4
+permalink: /api/accounts
+redirect_from:
+  - /accounts
 ---
 
 # Accounts

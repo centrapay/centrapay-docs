@@ -1,7 +1,10 @@
 ---
 layout: default
-parent: Fiat
+parent: Bank Accounts
 title: Funds Transfers
+permalink: /api/funds-transfers
+redirect_from:
+  - /fiat/funds-transfers
 ---
 
 # Funds Transfers

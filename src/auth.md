@@ -2,6 +2,9 @@
 layout: default
 title: Auth
 nav_order: 2
+permalink: /api/auth
+redirect_from:
+  - /auth
 ---
 
 # Auth

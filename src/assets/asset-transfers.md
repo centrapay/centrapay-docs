@@ -2,6 +2,9 @@
 layout: default
 parent: Assets
 title: Asset Transfers
+permalink: /api/asset-transfers
+redirect_from:
+  - /assets/asset-transfers
 ---
 
 # Asset Transfers

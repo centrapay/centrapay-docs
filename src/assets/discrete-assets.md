@@ -2,6 +2,9 @@
 layout: default
 parent: Assets
 title: Discrete Assets
+permalink: /api/discrete-assets
+redirect_from:
+  - /assets/discrete-assets
 ---
 
 # Discrete Assets

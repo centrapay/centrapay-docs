@@ -2,6 +2,9 @@
 layout: default
 parent: Assets
 title: Asset Categories
+permalink: /api/asset-categories
+redirect_from:
+  - /assets/asset-categories
 ---
 
 # Asset Categories

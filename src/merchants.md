@@ -2,6 +2,9 @@
 layout: default
 title: Merchants
 nav_order: 5
+permalink: /api/merchants
+redirect_from:
+  - /merchants
 ---
 
 # Merchants

@@ -2,6 +2,9 @@
 layout: default
 parent: Assets
 title: Wallets
+permalink: /api/wallets
+redirect_from:
+  - /assets/wallets
 ---
 
 # Wallets

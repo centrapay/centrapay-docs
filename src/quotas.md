@@ -2,6 +2,9 @@
 layout: default
 title: Quotas
 nav_order: 7
+permalink: /api/quotas
+redirect_from:
+  - /quotas
 ---
 
 # Quotas

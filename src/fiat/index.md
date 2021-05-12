@@ -1,13 +1,7 @@
 ---
 layout: default
-title: Fiat
+title: Bank Accounts
 has_children: true
+permalink: /api/section/bank-accounts
+redirect_to: /api/bank-accounts
 ---
-
-# Fiat
-{:.no_toc}
-
-Fiat currency transactions operate on Wallets.
-
-* TOC
-{:toc}
