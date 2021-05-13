@@ -2,6 +2,9 @@
 layout: default
 title: Transacting
 nav_order: 3
+permalink: /api/transacting
+redirect_from:
+  - /transacting
 ---
 
 # Transacting

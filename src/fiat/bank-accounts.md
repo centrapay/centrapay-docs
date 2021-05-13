@@ -1,8 +1,11 @@
 ---
 layout:  default
-parent:  Fiat
+parent:  Bank Accounts
 title: Bank Accounts
+permalink: /api/bank-accounts
 redirect_from:
+  - /fiat
+  - /fiat/bank-accounts
   - /fiat/bank-authorities
   - /fiat/authorities
 ---

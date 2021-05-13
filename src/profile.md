@@ -1,7 +1,10 @@
 ---
 layout: default
-title: Profile
+title: Profiles
 nav_order: 6
+permalink: /api/profiles
+redirect_from:
+  - /profile
 ---
 
 # Profile
