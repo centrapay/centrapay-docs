@@ -1,5 +1,6 @@
 ---
 layout: default
+parent: API Reference
 title: Assets
 has_children: true
 permalink: /api/section/assets

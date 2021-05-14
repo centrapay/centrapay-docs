@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Assets 
+grand_parent: API Reference
 parent: Assets
+title: Assets
 nav_order: 1
 permalink: /api/assets
 redirect_from:

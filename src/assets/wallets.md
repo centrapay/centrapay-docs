@@ -1,5 +1,6 @@
 ---
 layout: default
+grand_parent: API Reference
 parent: Assets
 title: Wallets
 permalink: /api/wallets

@@ -1,5 +1,6 @@
 ---
 layout: default
+parent: API Reference
 title: Merchants
 nav_order: 5
 permalink: /api/merchants
