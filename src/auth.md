@@ -1,5 +1,6 @@
 ---
 layout: default
+parent: API Reference
 title: Auth
 nav_order: 2
 permalink: /api/auth
@@ -47,7 +48,7 @@ The Centrapay test merchant API key is available to test creating payment reques
 
 ## User Access Tokens
 
-User access tokens provide time-limited access to all Centrapy accounts for
+User access tokens provide time-limited access to all Centrapay accounts for
 which the user is a member. Access tokens are issued using OIDC code flow via
 the Centrapay OAuth authorization server and login page at auth.centrapay.com.
 
@@ -68,7 +69,7 @@ website (such as "https://yourapp.example.com/oidc-callback") or mobile app
 Your application can use any OIDC client to negotiate the authentication flow
 but it must support OIDC authorization code flow with [PKCE][pkce]{:.external}.
 See the [Example Web Browser OIDC Consumer](#oidcjs-example) section below for a
-working example using the "oidc-client" JavaScript library. The Centrapy
+working example using the "oidc-client" JavaScript library. The Centrapay
 authorization server configuration can be interrogated via
 `https://auth.centrapay.com/.well-known/openid-configuration`.
 

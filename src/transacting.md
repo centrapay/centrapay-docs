@@ -1,5 +1,6 @@
 ---
 layout: default
+parent: API Reference
 title: Transacting
 nav_order: 3
 permalink: /api/transacting

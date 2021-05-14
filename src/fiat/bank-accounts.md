@@ -1,6 +1,7 @@
 ---
 layout:  default
-parent:  Bank Accounts
+grand_parent: API Reference
+parent: Bank Accounts
 title: Bank Accounts
 permalink: /api/bank-accounts
 redirect_from:
