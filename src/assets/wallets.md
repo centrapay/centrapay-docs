@@ -11,8 +11,10 @@ redirect_from:
 # Wallets
 {:.no_toc}
 
-A wallet represents a balance in a certain currency, that a given centrapay
-account has access to.
+A wallet is an asset that represents [money][]. The wallet
+maintains a record of all transactions it has participated in. A wallet has a
+single balance and a single currency.
+
 
 ## Contents
 {:.no_toc .text-delta}
@@ -231,3 +233,5 @@ email, masked user phone, or bank account.
   ]
 }
 ```
+
+[money]: {% link assets/assets.md %}#money
