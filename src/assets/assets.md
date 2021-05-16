@@ -7,13 +7,21 @@ nav_order: 1
 permalink: /api/assets
 redirect_from:
   - /assets/
+  - /assets/asset-categories
+  - /api/asset-categories
 ---
 
 # Assets
 {:.no_toc}
 
-Assets are resources that can be used to satisfy payment requests. Assets are
-owned by an account and can be sent to other users.
+Centrapay digital assets are resources that represent the ability for a
+Centrapay account to perform transactions where value is exchanged. Assets can
+be spent to satisfy [Payment Requests][], withdrawn to a bank account via
+[Funds Transfers][] and sent to other Centrapay users via [Asset Transfers][].
+
+Assets are categorized as either Money, Gift Cards or Tokens. Depending on its
+asset category, an asset will have different attributes available and different
+rules governing how it can be obtained, shared or spent.
 
 
 ## Contents
@@ -21,6 +29,98 @@ owned by an account and can be sent to other users.
 
 * TOC
 {:toc}
+
+## Asset Model
+
+All assets have the following fields along with the additional fields that are
+specific to its category.
+
+**Required Fields**
+
+| Field       | Type        | Description                                        |
+|:------------|:------------|:---------------------------------------------------|
+| id          | String      | The asset's unique identifier.                     |
+| accountId   | String      | The asset's owning Centrapay account id.           |
+| category    | String      | Asset category ("money", "giftcard", or "token").  |
+| type        | String      | Asset type id used by payment option asset types.  |
+| liveness    | String      | Either "main" (live payments allowed) or "test".   |
+| description | String      | Displayable asset description.                     |
+| createdAt   | Date String | Date when the asset was created or issued.         |
+| status      | String      | "active" if the asset can be used for payments.    |
+
+
+## Money
+
+Money assets, being backed by real currency, are the most flexible asset types.
+Money is accepted for most payment requests, can be sent in arbitrary amounts
+and does not expire.
+
+Money assets have the following fields along with the base asset fields.
+
+**Required Fields**
+
+| Field    | Type           | Description                                                          |
+|:---------|:---------------|:---------------------------------------------------------------------|
+| currency | String         | Currency code, eg "NZD"                                              |
+| balance  | Numeric String | Current balance in the currency's smallest denomination (ie. cents). |
+
+
+## Gift Cards
+
+Gift cards are similar to money but have greater spending restrictions and are
+not always backed by real currency. Gift cards usually have an expiry date, are
+typically tied to a small number of merchants, and can only be sent in their
+entirety.
+
+Gift cards have the following fields along with the base asset fields.
+
+**Required Fields**
+
+| Field          | Type           | Description                                                          |
+|:---------------|:---------------|:---------------------------------------------------------------------|
+| issuer         | String         | The identifier for the issuer of the gift card.                      |
+| currency       | String         | Currency code, eg "NZD"                                              |
+| balance        | Numeric String | Current balance in the currency's smallest denomination (ie. cents). |
+| initialBalance | Numeric String | The balance when the asset was created.                              |
+
+**Optional Fields**
+
+| Field            | Type        | Description                                                |
+|:-----------------|:------------|:-----------------------------------------------------------|
+| externalId       | String      | The asset identifier from the issuing system.              |
+| expiresAt        | Date String | The date when the asset expires.                           |
+| balanceUpdatedAt | Date String | The date when the balance was last observed to be updated. |
+
+
+
+## Tokens (EXPERIMENTAL)
+
+Tokens are assets which can be spent only once. They are usually tied to a
+small set of merchants and have an expiry date. Token value may be set in
+multiple currencies and is the same for all tokens of the same type.
+
+Tokens have the following fields along with the base asset fields.
+
+**Required Fields**
+
+| Field | Type                  | Description                           |
+|:------|:----------------------|:--------------------------------------|
+| value | Array&lt;Token Value> | Token values in supported currencies. |
+
+**Optional Fields**
+
+| Field     | Type          | Description                                |
+| :-------  | :------------ | :----------------------------------------- |
+| validFrom | Date String   | The date when the asset becomes spendable. |
+| expiresAt | Date String   | The date when the asset expires.           |
+
+**Token Value Object**
+
+| Field    | Type           | Description                                                |
+|:---------|:---------------|:-----------------------------------------------------------|
+| currency | String         | Currency code, eg "NZD".                                   |
+| amount   | Numeric String | Value in the currency's smallest denomination (ie. cents). |
+
 
 ## Get Asset
 
@@ -147,3 +247,8 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
 | Status | Code                    | Description                                         |
 |:-------|:------------------------|:----------------------------------------------------|
 | 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
+
+
+[Payment Requests]: {% link transacting.md %}
+[Funds Transfers]: {% link fiat/funds-transfers.md %}
+[Asset Transfers]: {% link assets/asset-transfers.md %}

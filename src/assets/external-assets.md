@@ -2,19 +2,17 @@
 layout: default
 grand_parent: API Reference
 parent: Assets
-title: Discrete Assets
-permalink: /api/discrete-assets
+title: External Assets
+permalink: /api/external-assets
 redirect_from:
   - /assets/discrete-assets
+  - /api/discrete-assets
 ---
 
-# Discrete Assets
+# External Assets
 {:.no_toc}
 
-Discrete assets are assets which may be spent in whole or in part but can only
-be sent in whole.  Discrete assets may be issued by Centrapay or by a supported
-third-party/external issuer.  Discrete assets can be spent by the owner to
-satisfy payment requests which support the asset type.
+External assets are [Assets][] which are issued by a third-party.
 
 
 ## Contents
@@ -89,3 +87,5 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 | 403    | {% break _ UNSUPPORTED_ASSET_TYPE %}    | Unsupported asset type, origin, or issuer.                  |
 | 403    | {% break _ DENIED_BY_ASSET_PROVIDER %}  | Asset exists, but is not enabled for use through centrapay. |
 | 403    | {% break _ EXPIRED_BY_ASSET_PROVIDER %} | Asset exists, but it's expired.                             |
+
+[Assets]: {% link assets/assets.md %}
