@@ -17,5 +17,9 @@ Most API calls require [authentication]({% link auth.md %}) using an API key or
 JWT. HTTP requests and responses usually have JSON payloads and use
 "application/json" as the content type.
 
+Some API features may be flagged as **EXPERIMENTAL**. These API features may be
+removed or changed without warning and should not be relied on in a production
+setting.
+
 
 [RMM]: https://en.wikipedia.org/wiki/Richardson_Maturity_Model
