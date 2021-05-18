@@ -21,8 +21,8 @@ Guides and examples of how to use Centrapay.
   {%- assign children_list = pages_list | where: "parent", "Guides" -%}
   {%- for child in children_list -%}
     {%- unless child.url == page.url -%}
-      <li class="nav-list-item">
-        <a href="{{ child.url | absolute_url }}" class="nav-list-link">{{ child.title }}</a>
+      <li>
+        <a href="{{ child.url | absolute_url }}">{{ child.title }}</a>
       </li>
     {%- endunless -%}
   {%- endfor -%}
