@@ -19,5 +19,8 @@ Checkout our [Guides][] for hints on where to begin or see the
 For more help getting setup, contact us via email at
 [devsupport@centrapay.com](mailto:devsupport@centrapay.com).
 
+
+[Developer Signup](https://centrapay.com/application-developer/){: .btn .btn-primary }
+
 [Guides]: {% link guides/introduction.md %}
 [API Reference]: {% link api/introduction.md %}

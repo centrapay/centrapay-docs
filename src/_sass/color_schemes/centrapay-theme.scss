@@ -1,0 +1,176 @@
+// Contains branding colours for Centrapay
+
+$cerise-050: #FCF9F8;
+$cerise-100: #FCEFF3;
+$cerise-200: #FAD3E6;
+$cerise-300: #F9ACD1;
+$cerise-400: #F974AD;
+$cerise-500: #FA4986;
+$cerise-600: #F32C60;
+$cerise-700: #D3224D;
+$cerise-800: #A51C3D;
+$cerise-900: #811831;
+
+$chocolate-050: #FAF4E7;
+$chocolate-100: #FBECC9;
+$chocolate-200: #F8DF95;
+$chocolate-300: #F5C752;
+$chocolate-400: #F1A51F;
+$chocolate-500: #F07F0D;
+$chocolate-600: #FF5C00;
+$chocolate-700: #C6440E;
+$chocolate-800: #A43614;
+$chocolate-900: #872D15;
+
+$denim-050: #F3FAFC;
+$denim-100: #DFF7FA;
+$denim-200: #B6EBF6;
+$denim-300: #85DBF3;
+$denim-400: #42BBEF;
+$denim-500: #1B96EA;
+$denim-600: #1473DB;
+$denim-700: #175AB8;
+$denim-800: #164588;
+$denim-900: #143868;
+
+$flamingo-050: #F6F6FA;
+$flamingo-100: #F1EAFA;
+$flamingo-200: #E4CDF8;
+$flamingo-300: #D8ADF6;
+$flamingo-400: #CF7EF5;
+$flamingo-500: #C552F4;
+$flamingo-600: #AA35ED;
+$flamingo-700: #822AD5;
+$flamingo-800: #6223A8;
+$flamingo-900: #4E1F84;
+
+$indigo-050: #F4F7FB;
+$indigo-100: #EAEEFB;
+$indigo-200: #D4D5FA;
+$indigo-300: #BCB8F9;
+$indigo-400: #A18CF9;
+$indigo-500: #825EF9;
+$indigo-600: #673FF5;
+$indigo-700: #5032E2;
+$indigo-800: #3F29B8;
+$indigo-900: #332392;
+
+$lime-050: #F6FAF7;
+$lime-100: #EFF9E9;
+$lime-200: #DBF3C2;
+$lime-300: #B7E88E;
+$lime-400: #6CD44B;
+$lime-500: #33BB22;
+$lime-600: #249C15;
+$lime-700: #257C17;
+$lime-800: #225E1A;
+$lime-900: #1C4A1A;
+
+$neutral-050: #F2F2F2;
+$neutral-100: #E9E9E9;
+$neutral-200: #D3D3D3;
+$neutral-300: #BDBDBD;
+$neutral-400: #A7A7A7;
+$neutral-500: #919191;
+$neutral-600: #656565;
+$neutral-700: #4F4F4F;
+$neutral-800: #363636;
+$neutral-900: #232323;
+
+$olive-050: #FAFAF2;
+$olive-100: #F9F8D5;
+$olive-200: #F3F093;
+$olive-300: #EAE14B;
+$olive-400: #D3C717;
+$olive-500: #B7A907;
+$olive-600: #918504;
+$olive-700: #6F6607;
+$olive-800: #544C0B;
+$olive-900: #413C0D;
+
+$royal-050: #F5FAFD;
+$royal-100: #E5F6FC;
+$royal-200: #C2E6FA;
+$royal-300: #9AD0F9;
+$royal-400: #62A8F8;
+$royal-500: #337CF7;
+$royal-600: #2358F0;
+$royal-700: #2145D7;
+$royal-800: #1C36A5;
+$royal-900: #172C7F;
+
+$tomato-050: #FBF7F3;
+$tomato-100: #FCEFE5;
+$tomato-200: #F9DAC6;
+$tomato-300: #F8BB95;
+$tomato-400: #F78D55;
+$tomato-500: #F7632D;
+$tomato-600: #EE401D;
+$tomato-700: #CE301F;
+$tomato-800: #A52721;
+$tomato-900: #84201F;
+
+$turquoise-050: #EDF9F9;
+$turquoise-100: #D4F7F5;
+$turquoise-200: #A5F0E9;
+$turquoise-300: #68E5DD;
+$turquoise-400: #24D2C9;
+$turquoise-500: #0BB8AF;
+$turquoise-600: #0A9B92;
+$turquoise-700: #107D75;
+$turquoise-800: #12615B;
+$turquoise-900: #114E4A;
+
+$sidebar-color: $neutral-900;
+$link-color: $chocolate-600;
+$nav-child-link-color: $neutral-100;
+
+$body-background-color: $white;
+$search-background-color: $white;
+
+$btn-primary-color: $chocolate-600;
+$base-button-color: #000;
+
+.site-header .site-title {
+  color: $neutral-100;
+  &:hover { background: $neutral-800; }
+  &:active { background: $neutral-700; }
+}
+
+.nav-list-link {
+  &:hover,
+  &.active {
+    background-image: linear-gradient(
+      -90deg,
+      $neutral-900 0%,
+      $neutral-800 80%,
+      $neutral-900 100%
+    ) !important;
+  }
+}
+
+.nav-list .nav-list-item .nav-list-expander:hover {
+  background-image: linear-gradient(-90deg, $neutral-700 0%, $neutral-900 100%) !important;
+}
+
+a:not([class]) {
+  background-image: linear-gradient($chocolate-600 0%, $chocolate-600 100%) !important;
+  &:hover {
+    background-image: linear-gradient($chocolate-300 0%, $chocolate-300 100%) !important;
+  }
+}
+
+// Other things...
+
+
+// $table-background-color: $white !default;
+// $code-background-color: $grey-lt-000 !default;
+// $feedback-color: darken($sidebar-color, 3%) !default;
+// $body-text-color: $grey-dk-100 !default;
+// $body-heading-color: $grey-dk-300 !default;
+// $search-result-preview-color: $grey-dk-000 !default;
+// $nav-child-link-color: $grey-dk-100 !default;
+// $link-color: $purple-000 !default;
+// $btn-primary-color: $purple-100 !default;
+// $base-button-color: #f7f7f7 !default;
+

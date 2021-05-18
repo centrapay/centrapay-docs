@@ -5,6 +5,7 @@ title: Centrapay Docs
 kramdown:
   toc_levels: '2,3'
 theme: "just-the-docs"
+color_scheme: "centrapay-theme"
 footer_content: "Copyright &copy; 2021 Centrapay"
 
 search_enabled: true
