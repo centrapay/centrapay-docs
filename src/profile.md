@@ -20,7 +20,8 @@ A profile represents a Centrapay user's attributes.
 {:toc}
 
 
-## Updating a user's profile **EXPERIMENTAL**
+<a name="updating-a-user-profile">
+## Updating a user profile **EXPERIMENTAL**
 
 {% endpoint POST https://service.centrapay.com/api/me/profile/update %}
 
