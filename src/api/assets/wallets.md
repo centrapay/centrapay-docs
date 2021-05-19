@@ -234,4 +234,4 @@ email, masked user phone, or bank account.
 }
 ```
 
-[money]: {% link assets/assets.md %}#money
+[money]: {% link api/assets/assets.md %}#money

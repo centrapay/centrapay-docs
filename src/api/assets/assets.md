@@ -249,6 +249,6 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
 | 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
 
 
-[Payment Requests]: {% link transacting.md %}
-[Funds Transfers]: {% link fiat/funds-transfers.md %}
-[Asset Transfers]: {% link assets/asset-transfers.md %}
+[Payment Requests]: {% link api/transacting.md %}
+[Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
+[Asset Transfers]: {% link api/assets/asset-transfers.md %}

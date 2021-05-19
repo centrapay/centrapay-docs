@@ -13,7 +13,7 @@ operations in terms of HTTP verbs on resource-oriented URLs. API endpoint
 definitions in these docs are grouped by resource type along with definitions
 for the associated resource types.
 
-Most API calls require [authentication]({% link auth.md %}) using an API key or
+Most API calls require [authentication]({% link api/auth.md %}) using an API key or
 JWT. HTTP requests and responses usually have JSON payloads and use
 "application/json" as the content type.
 

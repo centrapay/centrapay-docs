@@ -40,7 +40,7 @@ curl -X GET "https://service.centrapay.com/api/account-memberships" -H "Authoriz
 
 API keys provide enduring access to a single Centrapay account.
 
-See: [Creating API Keys]({% link accounts.md %}#creating-api-key).
+See: [Creating API Keys]({% link api/accounts.md %}#creating-api-key).
 
 The Centrapay test merchant API key is available to test creating payment requests:
 `f32c5497297084e5354b47c40d5ccacb109ce483`.
