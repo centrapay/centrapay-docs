@@ -8,6 +8,12 @@ permalink: /guides/payment-flows
 
 # Payment Flows
 
+Transacting via Centrapay requires customer and merchant devices to negotiate
+the creation and fulfillment of [Payment Requests][].  There are multiple
+payment "flows" a merchant integration can select from to facilitate this
+negotiation.  Which flow is employed will depend on the capabilities of the
+merchant system.
+
 ## Contents
 {:.no_toc .text-delta}
 
@@ -51,3 +57,5 @@ be used.
 3. Customer device fetches payment request and completes payment as normal.
 4. Merchant vending system optionally initiates refund via Centrapay API.
 
+
+[Payment Requests]: {% link transacting.md %}
