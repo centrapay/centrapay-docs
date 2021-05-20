@@ -7,10 +7,13 @@ module Jekyll
     end
 
     def render(context)
-      "<div style='border: 1px solid #7253ed; border-radius: 4px; padding: 10px; margin-bottom: 25px'>"\
-      "<b>Warning:</b> #{@message}"\
-      "</div>"
+      [
+        '<div class="cp-warning">',
+        "<b>Warning:</b> #{@message}",
+        '</div>',
+      ].join
     end
+
   end
 end
 

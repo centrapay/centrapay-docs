@@ -121,20 +121,53 @@ $turquoise-700: #107D75;
 $turquoise-800: #12615B;
 $turquoise-900: #114E4A;
 
-$sidebar-color: $neutral-900;
+// $sidebar-color: $neutral-900;
+$sidebar-color: $chocolate-050;
 $link-color: $chocolate-600;
-$nav-child-link-color: $neutral-100;
+$nav-child-link-color: $neutral-800;
 
 $body-background-color: $white;
 $search-background-color: $white;
-
+$border-color: $chocolate-200;
 $btn-primary-color: $chocolate-600;
+
 $base-button-color: #000;
 
-.site-header .site-title {
-  color: $neutral-100;
-  &:hover { background: $neutral-800; }
-  &:active { background: $neutral-700; }
+.cp-warning {
+  border: 2px solid $chocolate-300;
+  background-color: $chocolate-050;
+  border-radius: 16px;
+  padding: 8px 16px;
+  margin-bottom: 25px;
+}
+
+.search-icon {
+  color: $chocolate-600 !important;
+}
+
+.search-overlay {
+  background-color: rgba(166, 140, 115, 0.15) !important;
+}
+
+// Adjust shadows
+.table-wrapper, .search-input-wrap, .search-button {
+  box-shadow: 0 1px 2px rgba(248, 223, 149, 0.5), 0 3px 10px rgba(248, 223, 149, 0.25) !important;
+}
+
+.table-wrapper {
+  th { background-color: $chocolate-050 !important; }
+}
+
+@include mq(md) {
+  .search-input-wrap {
+    box-shadow: none !important;
+  }
+}
+
+.site-title, .site-button {
+  color: $neutral-900;
+  &:hover { background: $chocolate-100 !important; }
+  &:active { background: $chocolate-200 !important; }
 }
 
 .nav-list-link {
@@ -142,21 +175,29 @@ $base-button-color: #000;
   &.active {
     background-image: linear-gradient(
       -90deg,
-      $neutral-900 0%,
-      $neutral-800 80%,
-      $neutral-900 100%
+      $chocolate-100 0%,
+      $chocolate-100 80%,
+      $chocolate-050 100%
     ) !important;
   }
 }
 
 .nav-list .nav-list-item .nav-list-expander:hover {
-  background-image: linear-gradient(-90deg, $neutral-700 0%, $neutral-900 100%) !important;
+  background: $chocolate-100 !important;
 }
 
+// Default link styles that don't use a class
 a:not([class]) {
-  background-image: linear-gradient($chocolate-600 0%, $chocolate-600 100%) !important;
+  background-image: linear-gradient(
+    $chocolate-600 0%,
+    $chocolate-600 100%
+  ) !important;
+
   &:hover {
-    background-image: linear-gradient($chocolate-300 0%, $chocolate-300 100%) !important;
+    background-image: linear-gradient(
+      $neutral-900 0%,
+      $neutral-900 100%
+    ) !important;
   }
 }
 
@@ -173,4 +214,3 @@ a:not([class]) {
 // $link-color: $purple-000 !default;
 // $btn-primary-color: $purple-100 !default;
 // $base-button-color: #f7f7f7 !default;
-
