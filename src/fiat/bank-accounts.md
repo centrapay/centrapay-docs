@@ -14,17 +14,15 @@ redirect_from:
 # Bank Accounts
 {:.no_toc}
 
-A Bank Account is a way to get funds in and out of a user's wallet.
+Bank Accounts are used to get money in and out of a Centrapay account. Money is
+moved by creating "Top Up" or "Withdrawal" [Funds Transfers][].
 
-A Bank Authority represents an individual's consent for Centrapay to transfer funds.
+Bank accounts must be "direct debit authorized" before they can be used for a
+Top Up and they must be "verified" before top up funds are released. Bank
+accounts do not require "direct debit authorization" or "verification" in order
+to perform a Withdrawal. A 4-digit code from any recent Centrapay-initiated
+bank transaction can be used to verify a bank account.
 
-In order to move funds from a Centrapay wallet to a bank account (withdrawal), we only need the
-minimum required fields. There's no need to authorize direct debit authority, nor verify the account
-using a code on a bank statement.
-
-In order to move funds between a bank account to a Centrapay wallet (top up), we need explicit
-authorization and verification from the user. Bank account authorization and verification status can
-be observed based on the `directDebitAuthorized` and `verified` flags.
 
 ## Contents
 {:.no_toc .text-delta}
@@ -440,3 +438,4 @@ curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXy
 ```
 
 [dd-terms]: https://centrapay.com/directdebit-termsandconditions/
+[Funds Transfers]: {% link fiat/funds-transfers.md %}
