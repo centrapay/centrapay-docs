@@ -115,7 +115,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 | Status | Code                                      | Description                                                       |
 |:-------|:------------------------------------------|:------------------------------------------------------------------|
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
-| 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits see [ Quota Error Response ]({% link quotas.md %}#quota-error-response)  |
+| 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits. See [Quota Error Response]. |
 
 **Example webhook response**
 
@@ -267,3 +267,5 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
   ]
 }
 ```
+
+[Quota Error Response]: {% link api/quotas.md %}#quota-error-response

@@ -88,4 +88,4 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 | 403    | {% break _ DENIED_BY_ASSET_PROVIDER %}  | Asset exists, but is not enabled for use through centrapay. |
 | 403    | {% break _ EXPIRED_BY_ASSET_PROVIDER %} | Asset exists, but it's expired.                             |
 
-[Assets]: {% link assets/assets.md %}
+[Assets]: {% link api/assets/assets.md %}

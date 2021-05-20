@@ -62,7 +62,7 @@ To create test dollars via the Centrapay app:
    After the bank account is verified, the topup amount will be released into
    your Centrapay account.
 
-[update profile endpoint]: {% link profile.md %}#updating-a-user-profile
-[create bank account endpoint]: {% link fiat/bank-accounts.md %}#bank-account-create
-[topup endpoint]: {% link fiat/funds-transfers.md %}#creating-a-top-up
-[verify bank account endpoint]: {% link fiat/bank-accounts.md %}#verify-a-bank-account
+[update profile endpoint]: {% link api/profiles.md %}#updating-a-user-profile
+[create bank account endpoint]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-create
+[topup endpoint]: {% link api/bank-accounts/funds-transfers.md %}#creating-a-top-up
+[verify bank account endpoint]: {% link api/bank-accounts/bank-accounts.md %}#verify-a-bank-account

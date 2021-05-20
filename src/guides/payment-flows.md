@@ -58,4 +58,4 @@ be used.
 4. Merchant vending system optionally initiates refund via Centrapay API.
 
 
-[Payment Requests]: {% link transacting.md %}
+[Payment Requests]: {% link api/transacting.md %}

@@ -375,7 +375,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 
 |       Field       |  Type  |                    Description                        |
 | :---------------- | :----- | :---------------------------------------------------- |
-| accountId         | String | The [account id]({% link accounts.md %}) of the user |
+| accountId         | String | The [account id]({% link api/accounts.md %}) of the user |
 | fullName          | String | The first and last name of the user                   |
 | phoneNumber       | String | The user's phone number                               |
 | emailAddress      | String | The user's email address                              |
@@ -438,4 +438,4 @@ curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXy
 ```
 
 [dd-terms]: https://centrapay.com/directdebit-termsandconditions/
-[Funds Transfers]: {% link fiat/funds-transfers.md %}
+[Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
