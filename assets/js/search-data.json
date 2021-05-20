@@ -205,7 +205,7 @@
   },"34": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
-    "content": "A Bank Account is a way to get funds in and out of a user’s wallet. A Bank Authority represents an individual’s consent for Centrapay to transfer funds. In order to move funds from a Centrapay wallet to a bank account (withdrawal), we only need the minimum required fields. There’s no need to authorize direct debit authority, nor verify the account using a code on a bank statement. In order to move funds between a bank account to a Centrapay wallet (top up), we need explicit authorization and verification from the user. Bank account authorization and verification status can be observed based on the directDebitAuthorized and verified flags. ",
+    "content": "Bank Accounts are used to get money in and out of a Centrapay account. Money is moved by creating “Top Up” or “Withdrawal” Funds Transfers. Bank accounts must be “direct debit authorized” before they can be used for a Top Up and they must be “verified” before top up funds are released. Bank accounts do not require “direct debit authorization” or “verification” in order to perform a Withdrawal. A 4-digit code from any recent Centrapay-initiated bank transaction can be used to verify a bank account. ",
     "url": "/api/bank-accounts",
     "relUrl": "/api/bank-accounts"
   },"35": {
@@ -439,7 +439,7 @@
   },"73": {
     "doc": "API Introduction",
     "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. ",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Transacting | Accounts | Merchants | Profiles | Quotas | Assets | Bank Accounts | . ",
     "url": "/api/introduction",
     "relUrl": "/api/introduction"
   },"74": {
