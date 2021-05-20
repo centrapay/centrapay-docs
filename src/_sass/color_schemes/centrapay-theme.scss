@@ -1,5 +1,4 @@
-// Contains branding colours for Centrapay
-
+// Branding colours for Centrapay
 $cerise-050: #FCF9F8;
 $cerise-100: #FCEFF3;
 $cerise-200: #FAD3E6;
@@ -121,18 +120,26 @@ $turquoise-700: #107D75;
 $turquoise-800: #12615B;
 $turquoise-900: #114E4A;
 
-// $sidebar-color: $neutral-900;
+// Generic theme overrides. Browse how they're used with:
+// bundle open just-the-docs
 $sidebar-color: $chocolate-050;
 $link-color: $chocolate-600;
 $nav-child-link-color: $neutral-800;
-
 $body-background-color: $white;
 $search-background-color: $white;
-$border-color: $chocolate-200;
+$border-color: $chocolate-100;
 $btn-primary-color: $chocolate-600;
-
 $base-button-color: #000;
 
+// code blocks
+$code-background-color: $indigo-050;
+code {
+  border: none !important;
+  padding: 0.35em !important;
+}
+.highlight { border-radius: 8px !important; }
+
+// custom warning element
 .cp-warning {
   border: 2px solid $chocolate-300;
   background-color: $chocolate-050;
@@ -141,35 +148,24 @@ $base-button-color: #000;
   margin-bottom: 25px;
 }
 
-.search-icon {
-  color: $chocolate-600 !important;
+// search
+.search-icon { color: $chocolate-600 !important; }
+.search-overlay { background-color: rgba(166, 140, 115, 0.15) !important; }
+@include mq(md) {
+  .search-input-wrap { box-shadow: none !important; } // desktop search shadow
 }
 
-.search-overlay {
-  background-color: rgba(166, 140, 115, 0.15) !important;
-}
-
-// Adjust shadows
+// table shadows
 .table-wrapper, .search-input-wrap, .search-button {
   box-shadow: 0 1px 2px rgba(248, 223, 149, 0.5), 0 3px 10px rgba(248, 223, 149, 0.25) !important;
 }
 
-.table-wrapper {
-  th { background-color: $chocolate-050 !important; }
-}
-
-@include mq(md) {
-  .search-input-wrap {
-    box-shadow: none !important;
-  }
-}
-
+// navigation
 .site-title, .site-button {
   color: $neutral-900;
   &:hover { background: $chocolate-100 !important; }
   &:active { background: $chocolate-200 !important; }
 }
-
 .nav-list-link {
   &:hover,
   &.active {
@@ -181,7 +177,6 @@ $base-button-color: #000;
     ) !important;
   }
 }
-
 .nav-list .nav-list-item .nav-list-expander:hover {
   background: $chocolate-100 !important;
 }
@@ -192,7 +187,6 @@ a:not([class]) {
     $chocolate-600 0%,
     $chocolate-600 100%
   ) !important;
-
   &:hover {
     background-image: linear-gradient(
       $neutral-900 0%,
@@ -200,17 +194,3 @@ a:not([class]) {
     ) !important;
   }
 }
-
-// Other things...
-
-
-// $table-background-color: $white !default;
-// $code-background-color: $grey-lt-000 !default;
-// $feedback-color: darken($sidebar-color, 3%) !default;
-// $body-text-color: $grey-dk-100 !default;
-// $body-heading-color: $grey-dk-300 !default;
-// $search-result-preview-color: $grey-dk-000 !default;
-// $nav-child-link-color: $grey-dk-100 !default;
-// $link-color: $purple-000 !default;
-// $btn-primary-color: $purple-100 !default;
-// $base-button-color: #f7f7f7 !default;
