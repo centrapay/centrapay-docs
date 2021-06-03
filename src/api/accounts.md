@@ -309,3 +309,42 @@ curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
   }
 ]
 ```
+
+## List merchants for account
+
+{% endpoint GET https://service.centrapay.com/api/account/{accountId}/merchants %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/merchants" \
+-H "x-api-key: 1234"
+```
+
+**Example response payload**
+
+```json
+{
+  "items": [
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "BT",
+      "id": "5f6bf6ff81552101f8ff6122",
+      "name": "Adams, Runolfsdottir and Botsford",
+      "test": true
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "NZ",
+      "id": "5f6bf6ff81552101f8ff6123",
+      "name": "Vandervort Inc",
+      "test": false
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "MZ",
+      "id": "5f6bf6ff81552101f8ff6124",
+      "name": "West, O'Reilly and Huels",
+      "test": true
+    },
+  ]
+}
+```
