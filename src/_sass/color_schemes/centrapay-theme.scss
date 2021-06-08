@@ -133,10 +133,7 @@ $base-button-color: #000;
 
 // code blocks
 $code-background-color: $indigo-050;
-code {
-  border: none !important;
-  padding: 0.35em !important;
-}
+code { border: none !important; }
 .highlight { border-radius: 8px !important; }
 
 // custom warning element

@@ -25,11 +25,11 @@ merchant system.
 When a merchant terminal has a customer-facing display it can prompt the
 customer to pay by showing a QR code.
 
-1. Merchant terminal creates a payment request via Centrapay API and shows QR
+1. Merchant terminal [creates a payment request][] via Centrapay API and shows QR
    code on customer-facing display.
-2. Customer device scans the QR code, fetches the payment request details, and completes
-   payment as normal.
-3. Merchant terminal displays transaction result.
+2. Customer device scans the QR code, fetches the [payment request details][],
+   and [completes payment][] as normal.
+3. Merchant terminal displays transaction result using the [payment request details][].
 
 
 ## Dynamic Patron Barcode
@@ -38,11 +38,11 @@ When a merchant terminal is not capable of displaying a customer-facing QR code
 then the payment request can be negotiated with the customer by scanning a
 barcode or QR code displayed on the customer's smart device.
 
-1. Customer generates a short-lived patron code via Centrapay API and displays
+1. Customer generates a short-lived [patron code][] via Centrapay API and displays
    it as a barcode on their smart device.
-2. Merchant scans the barcode and creates a payment request via Centrapay API,
+2. Merchant scans the barcode and [creates a Payment Request][] via Centrapay API,
    with the patron code as a parameter.
-3. Customer device uses patron code to fetch the payment request and completes
+3. Customer device uses patron code to [fetch the payment request] and completes
    payment as normal.
 
 ## Static Merchant QR Code
@@ -59,3 +59,8 @@ be used.
 
 
 [Payment Requests]: {% link api/transacting.md %}
+[Creates a Payment Request]: {% link api/transacting.md %}#requests-create
+[Payment Request Details]: {% link api/transacting.md %}#requests-info
+[Completes Payment]: {% link api/transacting.md %}#requests-pay
+[Patron Code]: {% link api/patron-codes.md %}
+[Fetch the Payment Request]: {% link api/transacting.md %}#patron-code

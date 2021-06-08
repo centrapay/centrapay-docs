@@ -43,7 +43,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
   -d merchantId="5efbe17d96c083633e2b9241" \
   -d clientId="5efbe2fb96c08357bb2b9242" \
   -d amount=300 \
-  -d asset="NZD" 
+  -d asset="NZD"
 ```
 
 **Required Parameters**
@@ -58,14 +58,15 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 **Optional Parameters**
 
-| Parameter            | Description                                                                      |
-|:---------------------|:---------------------------------------------------------------------------------|
-| description          | Description of the payment                                                       |
-| externalReference    | Unique merchant reference for the payment request                                |
-| notifyUrl            | The URL that will receive **POST** requests from the webhook                     |
-| paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 |
-| terminalId           | The payment system terminal Id. Required for NZ Epay integration.                |
-| deviceId             | Physical payment system device Id                                                |
+| Parameter            | Description                                                                        |
+|:---------------------|:-----------------------------------------------------------------------------------|
+| description          | Description of the payment                                                         |
+| externalReference    | Unique merchant reference for the payment request                                  |
+| notifyUrl            | The URL that will receive **POST** requests from the webhook                       |
+| paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0   |
+| terminalId           | The payment system terminal Id. Required for NZ Epay integration.                  |
+| deviceId             | Physical payment system device Id                                                  |
+| patronCode           | Associate this payment request with a Patron Code. Must be attached before expiry. |
 
 
 <a name="requests-info">
@@ -86,6 +87,51 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
+
+<a name="patron-code"></a>
+## Get a Payment Request using Patron Code id **EXPERIMENTAL**
+
+This is only available to the account which created the Patron Code for finding the Payment Request
+attached to it. If you didn't create the Patron Code or it doesn't exist, this will return a 403
+response.
+
+{% endpoint GET https://service.centrapay.com/api/patron-codes/{patronCodeId}/payment-request %}
+
+```sh
+curl -X GET "https://service.centrapay.com/api/patron-codes/DiBAKsHCeLNG9ai4LeLrhr/payment-request" \
+  -H "x-api-key: 1234"
+```
+
+**Example response payload when no Payment Request attached**
+
+```json
+{}
+```
+
+**Example response payload when a Payment Request is attached**
+
+```json
+{
+  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "NZD Test Merchant",
+  "merchantConfigurationId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "100" },
+  "paymentOptions": [
+    {
+      "amount": "100",
+      "assetType": "centrapay.nzd.test"
+    }
+  ],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:04:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+```
 
 <a name="requests-pay">
 ## Paying a payment request
