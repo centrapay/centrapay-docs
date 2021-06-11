@@ -2,7 +2,6 @@
 layout: default
 parent: API Reference
 title: Profiles
-nav_order: 6
 permalink: /api/profiles
 redirect_from:
   - /profile
