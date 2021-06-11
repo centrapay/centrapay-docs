@@ -12,8 +12,8 @@ permalink: /api/data-types
 ## Timestamp
 
 A point in time, usually with millisecond precision, represented as an
-[ISO8601][] date string (eg "2021-06-11T02:51:11.000Z"). Timestamps are in the
-UTC timezone as denoted by the "Z" suffix.
+[ISO8601][]{:.external} date string (eg "2021-06-11T02:51:11.000Z"). Timestamps
+are in the UTC timezone as denoted by the "Z" suffix.
 
 
 ## BigNumber

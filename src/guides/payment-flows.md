@@ -58,9 +58,9 @@ be used.
 4. Merchant vending system optionally initiates refund via Centrapay API.
 
 
-[Payment Requests]: {% link api/transacting.md %}
-[Creates a Payment Request]: {% link api/transacting.md %}#requests-create
-[Payment Request Details]: {% link api/transacting.md %}#requests-info
-[Completes Payment]: {% link api/transacting.md %}#requests-pay
+[Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
+[Creates a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-create
+[Payment Request Details]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-info
+[Completes Payment]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Patron Code]: {% link api/patron-codes.md %}
-[Fetch the Payment Request]: {% link api/transacting.md %}#patron-code
+[Fetch the Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#patron-code

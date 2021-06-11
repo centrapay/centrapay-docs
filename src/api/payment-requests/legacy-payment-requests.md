@@ -1,14 +1,15 @@
 ---
 layout: default
-parent: API Reference
-title: Transacting
-nav_order: 3
-permalink: /api/transacting
+grand_parent: API Reference
+parent: Payment Requests
+title: Legacy
+permalink: /api/legacy-payment-requests
 redirect_from:
   - /transacting
+  - /api/transacting
 ---
 
-# Transacting
+# Legacy Payment Requests
 {:.no_toc}
 
 
@@ -46,7 +47,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
   -d asset="NZD"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter  | Description                                          |
 |:-----------|:-----------------------------------------------------|
@@ -56,7 +57,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | clientId   | The ID of the merchant specific client configuration |
 
 
-**Optional Parameters**
+{% h4 Optional Parameters %}
 
 | Parameter            | Description                                                                        |
 |:---------------------|:-----------------------------------------------------------------------------------|
@@ -68,6 +69,14 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | deviceId             | Physical payment system device Id                                                  |
 | patronCode           | Associate this payment request with an active Patron Code. |
 
+
+{% h4 Error Responses %}
+
+| Error code | Http code | Message                                           | Description                                                                                                                                                                                                                                                              |
+|------------|-----------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 76         | 503       | {% break _ EXTERNAL_SERVICE %}                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.                                                                                                                                                   |
+| 77         | 500       | {% break _ INTERNAL_SERVER_ERROR %}               | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
+| 78         | 403       | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %}    | There was no merchant configuration found for the supplied merchantId and clientId                                                                                                                                                                                       |
 
 <a name="requests-info">
 ## Getting the information about a payment request
@@ -82,56 +91,11 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
-
-<a name="patron-code"></a>
-## Get a Payment Request using Patron Code id **EXPERIMENTAL**
-
-This is only available to the account which created the Patron Code for finding the Payment Request
-attached to it. If you didn't create the Patron Code or it doesn't exist, this will return a 403
-response.
-
-{% endpoint GET https://service.centrapay.com/api/patron-codes/{patronCodeId}/payment-request %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/patron-codes/DiBAKsHCeLNG9ai4LeLrhr/payment-request" \
-  -H "x-api-key: 1234"
-```
-
-**Example response payload when no Payment Request attached**
-
-```json
-{}
-```
-
-**Example response payload when a Payment Request is attached**
-
-```json
-{
-  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-  "merchantName": "NZD Test Merchant",
-  "merchantConfigurationId": "5efbe2fb96c08357bb2b9242",
-  "value": { "currency": "NZD", "amount": "100" },
-  "paymentOptions": [
-    {
-      "amount": "100",
-      "assetType": "centrapay.nzd.test"
-    }
-  ],
-  "status": "new",
-  "createdAt": "2021-06-08T04:04:27.426Z",
-  "updatedAt": "2021-06-08T04:04:27.426Z",
-  "expiresAt": "2021-06-08T04:04:27.426Z",
-  "liveness": "test",
-  "expirySeconds": 120
-}
-```
 
 <a name="requests-pay">
 ## Paying a payment request
@@ -148,7 +112,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
   -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter     | Description                                                                             |
 |---------------|-----------------------------------------------------------------------------------------|
@@ -156,12 +120,12 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 | ledger        | The selected payment option to use. See below for expected values.                      |
 | authorization | An identifier that can be used to pay or verify payment. See below for expected values. |
 
-**Expected Ledger and Authorization Values**
+{% h4 Expected Ledger and Authorization Values %}
 
 The "ledger" parameter indicates which payment option has been selected to pay
 the payment request. The selected payment option must be one of the options
 available for the payment request as per the `payments` array in the
-[requests.create][] and [requests.info][] responses. 
+[requests.create][] and [requests.info][] responses.
 
 The table below lists the possible ledger and authorization param values. The
 asset type is the value used to configure the merchant. The ledger param value
@@ -178,13 +142,13 @@ is returned with the payment request info as `payments[].ledger`.
 | zap.main           | zap.main                 | *Waves transaction id*         |
 | test               | g.test.testUplink        | *None*                         |
 
-**Centrapay Asset Permissions**
+{% h4 Centrapay Asset Permissions %}
 
 To pay with a Centrapay asset or wallet ledger the user (identified by the API
 Key or identity token) must have permission to redeem the asset or transfer
 funds from the specified wallet.
 
-**Testing Pocket Vouchers**
+{% h4 Testing Pocket Vouchers %}
 
 To test Pocket Vouchers, generate a test value voucher by texting
 "CENTRALBONUS" to 393.  You will then receive a response text containing an 8
@@ -192,6 +156,17 @@ digit voucher code that has $20 of loaded credit. The received code is only
 valid for two weeks from the issue date. You might get charged your standard
 text rates from your provider.
 
+{% h4 Error Responses %}
+
+| Error code | Http code | Message                                           | Description                                                                                                                                                                                                                                                              |
+|------------|-----------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 176        | 400       | {% break _ LEDGER_NOT_ENABLED %}                  | Merchant is not configured with the provided ledger                                                                                                                                                                                                                      |
+| 195        | 400       | {% break - INVALID_ASSET_ID %}                    | The asset corresponding to the asset id is not supported                                                                                                                                                                                                                 |
+| 196        | 400       | {% break - INVALID_WALLET_ADDRESS %}              | The wallet address is not the same as the supported wallet address                                                                                                                                                                                                       |
+| 197        | 400       | {% break - INVALID_TRANSACTION %}                 | The transaction has either missing query parameters or is not supported                                                                                                                                                                                                  |
+| 198        | 403       | {% break - UNSUPPORTED_ASSET_TYPE %}              | The type of the asset does not match the ledger supplied                                                                                                                                                                                                                 |
+| 199        | 403       | {% break - QUOTA_EXCEEDED %}              | The payment pay request exceeds the allowed spend quota supplied                                                                                                                                                                                                                 |
+| 192        | 403       | {% break _ INSUFFICIENT_ASSET_BALANCE %}          | The asset has insufficient funds to pay the payment request                                                                                                                                                                                                              |
 
 <a name="requests-cancel">
 ## Cancelling a payment request
@@ -206,7 +181,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
@@ -226,7 +201,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                 |
 |:----------|:----------------------------------------------------------------------------|
@@ -266,14 +241,14 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
    refund, this is because we assume it to be a repeat request. If the amount
    is different you will get a REPEAT_REFERENCE error message.
 
-**Required Parameters for one time refund**
+{% h4 Required Parameters for one time refund %}
 
 | Parameter     | Description                                                                                                                        |
 |:--------------|:-----------------------------------------------------------------------------------------------------------------------------------|
 | transactionId | The transaction to refund. The transaction id for a payment can be obtained from a webhook notification or from [requests.info][]. |
 | amount        | The amount to refund in cents                                                                                                      |
 
-**Additional required Parameter for multiple refunds**
+{% h4 Additional required Parameter for multiple refunds %}
 
 | Parameter         | Description                                                                                                                                   |
 |:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -309,9 +284,6 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 20         | 400       | {% break _ INVALID_PAYMENT_EXPIRY_SECONDS %}      | PaymentExpirySeconds is either empty, or is not an integer greater than 0                                                                                                                                                                                                |
 | 21         | 403       | {% break _ FORBIDDEN %}                           | The Api Key provided doesn’t have the required permissions or the resource is not found                                                                                                                                                                                  |
 | 51         | 500       | {% break _ INTERNAL_ERROR %}                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
-| 76         | 503       | {% break _ EXTERNAL_SERVICE %}                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.                                                                                                                                                   |
-| 77         | 500       | {% break _ INTERNAL_ERROR %}                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
-| 78         | 403       | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %}    | There was no merchant configuration found for the supplied merchantId and clientId                                                                                                                                                                                       |
 | 126        | 403       | {% break _ IN_USE %}                              | A webSocket channel for this request already exists                                                                                                                                                                                                                      |
 | 151        | 403       | {% break _ IN_USE %}                              | An active WS connection already exists for that patronCode                                                                                                                                                                                                               |
 | 176        | 400       | {% break _ LEDGER_NOT_ENABLED %}                  | Merchant is not configured with the provided ledger                                                                                                                                                                                                                      |
@@ -329,14 +301,8 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
 | 189        | 403       | {% break _ INSUFFICIENT_WALLET_BALANCE %}         | The wallet balance is less than the required amount                                                                                                                                                                                                                      |
 | 190        | 200       | {% break _ TRANSACTION_ALREADY_EXISTS %}          | A successful payment transaction already exists for a payment request.                                                                                                                                                                                                   |
 | 191        | 500       | {% break _ OPTIMISTIC_LOCK_ERROR %}               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable.                                                                                                                                                              |
-| 192        | 403       | {% break _ INSUFFICIENT_ASSET_BALANCE %}          | The asset has insufficient funds to pay the payment request                                                                                                                                                                                                              |
 | 193        | 403       | {% break _ INVALID_MERCHANT_CONFIGURATION %}      | The merchant is not configured properly to satisfy the payment request, could be incorrect information or the merchant's credentials might be blocked by an external service                                                                                             |
 | 194        | 403       | {% break _ INACTIVE_ASSET %}                      | The asset has either expired or been blocked                                                                                                                                                                                                                             |
-| 195        | 400       | {% break - INVALID_ASSET_ID %}                    | The asset corresponding to the asset id is not supported                                                                                                                                                                                                                 |
-| 196        | 400       | {% break - INVALID_WALLET_ADDRESS %}              | The wallet address is not the same as the supported wallet address                                                                                                                                                                                                       |
-| 197        | 400       | {% break - INVALID_TRANSACTION %}                 | The transaction has either missing query parameters or is not supported                                                                                                                                                                                                  |
-| 198        | 403       | {% break - UNSUPPORTED_ASSET_TYPE %}              | The type of the asset does not match the ledger supplied                                                                                                                                                                                                                 |
-| 199        | 403       | {% break - QUOTA_EXCEEDED %}              | The payment pay request exceeds the allowed spend quota supplied                                                                                                                                                                                                                 |
 | 276        | 400       | {% break _ ALREADY_REFUNDED %}                    | The transaction has already been refunded                                                                                                                                                                                                                                |
 | 277        | 400       | {% break _ INVALID_AMOUNT %}                      | The refund requested is greater than the transaction amount                                                                                                                                                                                                              |
 | 278        | 500       | {% break _ INTERNAL_SERVER_ERROR %}               | Something went wrong while trying to refund the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
