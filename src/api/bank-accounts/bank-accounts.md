@@ -3,6 +3,7 @@ layout:  default
 grand_parent: API Reference
 parent: Bank Accounts
 title: Bank Accounts
+nav_order: 1
 permalink: /api/bank-accounts
 redirect_from:
   - /fiat

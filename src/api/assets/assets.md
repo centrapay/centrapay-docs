@@ -30,12 +30,15 @@ rules governing how it can be obtained, shared or spent.
 * TOC
 {:toc}
 
-## Asset Model
+## Models
+
+### Asset
 
 All assets have the following fields along with the additional fields that are
 specific to its category.
 
-**Required Fields**
+
+{% h4 Required Fields %}
 
 | Field       | Type               | Description                                       |
 |:------------|:-------------------|:--------------------------------------------------|
@@ -49,7 +52,7 @@ specific to its category.
 | status      | String             | "active" if the asset can be used for payments.   |
 
 
-## Money
+### Money
 
 Money assets, being backed by real currency, are the most flexible asset types.
 Money is accepted for most payment requests, can be sent in arbitrary amounts
@@ -67,7 +70,7 @@ Money assets have the following fields along with the base asset fields.
 
 
 
-## Gift Cards
+### Gift Cards
 
 Gift cards are similar to money but have greater spending restrictions and are
 not always backed by real currency. Gift cards usually have an expiry date, are
@@ -95,7 +98,7 @@ Gift cards have the following fields along with the base asset fields.
 
 
 
-## Tokens (EXPERIMENTAL)
+### Tokens (EXPERIMENTAL)
 
 Tokens are assets which can be spent only once. They are usually tied to a
 small set of merchants and have an expiry date. Token value may be set in
@@ -105,9 +108,9 @@ Tokens have the following fields along with the base asset fields.
 
 **Required Fields**
 
-| Field | Type                  | Description                           |
-|:------|:----------------------|:--------------------------------------|
-| value | Array&lt;Token Value> | Token values in supported currencies. |
+| Field | Type  | Description                                                                                  |
+|:------|:------|:---------------------------------------------------------------------------------------------|
+| value | Array | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. |
 
 **Optional Fields**
 
@@ -116,15 +119,10 @@ Tokens have the following fields along with the base asset fields.
 | validFrom | {% dt Timestamp %} | The date when the asset becomes spendable. |
 | expiresAt | {% dt Timestamp %} | The date when the asset expires.           |
 
-**Token Value Object**
 
-| Field    | Type           | Description                                                |
-|:---------|:---------------|:-----------------------------------------------------------|
-| currency | String         | Currency code, eg "NZD".                                   |
-| amount   | {% dt BigNumber %} | Value in the currency's smallest denomination (ie. cents). |
+## Operations
 
-
-## Get Asset
+### Get Asset
 
 {% endpoint GET https://service.centrapay.com/api/assets/${id} %}
 
@@ -154,7 +152,7 @@ curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
 }
 ```
 
-## List Assets for Account
+### List Assets for Account
 
 {% endpoint GET https://service.centrapay.com/api/accounts/${id}/assets %}
 
@@ -213,7 +211,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
 ```
 
 
-## Archive Asset (EXPERIMENTAL)
+### Archive Asset (EXPERIMENTAL)
 
 {% endpoint POST https://service.centrapay.com/api/assets/${id}/archive %}
 
@@ -251,6 +249,7 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
 | 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
 
 
-[Payment Requests]: {% link api/transacting.md %}
+[Monetary Amounts]: {% link api/data-types.md %}#monetary
+[Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
 [Asset Transfers]: {% link api/assets/asset-transfers.md %}
