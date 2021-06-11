@@ -37,11 +37,11 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 
 **Required Fields**
 
-|      Field      |  Type  |               Description                |
-| :-------------- | :----- | :--------------------------------------- |
-| amount          | String | Total amount of the transaction in cents |
-| walletId        | String | The id of the wallet                     |
-| bankAuthorityId | String | The id of the bank account               |
+| Field           | Type               | Description                              |
+| :-------------- | :-----             | :--------------------------------------- |
+| amount          | {% dt BigNumber %} | Total amount of the transaction in cents |
+| walletId        | String             | The id of the wallet                     |
+| bankAuthorityId | String             | The id of the bank account               |
 
 **Example response payload**
 
@@ -187,11 +187,11 @@ curl -X POST "https://service.centrapay.com/api/withdrawals" \
 
 **Required Fields**
 
-|      Field      |  Type  |               Description                |
-| :-------------- | :----- | :--------------------------------------- |
-| amount          | String | Total amount of the transaction in cents |
-| walletId        | String | The id of the wallet                     |
-| bankAuthorityId | String | The id of the bank account               |
+| Field           | Type               | Description                              |
+| :-------------- | :-----             | :--------------------------------------- |
+| amount          | {% dt BigNumber %} | Total amount of the transaction in cents |
+| walletId        | String             | The id of the wallet                     |
+| bankAuthorityId | String             | The id of the bank account               |
 
 **Example response payload**
 
