@@ -2,7 +2,6 @@
 layout: default
 parent: API Reference
 title: Quotas
-nav_order: 7
 permalink: /api/quotas
 redirect_from:
   - /quotas

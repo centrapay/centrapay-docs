@@ -2,7 +2,6 @@
 layout: default
 parent: API Reference
 title: Accounts
-nav_order: 4
 permalink: /api/accounts
 redirect_from:
   - /accounts
