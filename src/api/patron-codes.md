@@ -59,19 +59,19 @@ The Centrapay Prefix may present any of the following prefixes:
 
 ## Creating a Patron Code **EXPERIMENTAL**
 
-{% endpoint POST https://service.centrapay.com/api/patron-codes %}
+{% reqspec %}
+  POST '/api/patron-codes'
+  auth 'jwt'
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/api/patron-codes" \
-  -H "x-api-key: 1234"
-```
+{% h4 Example Response Payload %}
 
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn:user:1234",
+  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
@@ -83,20 +83,22 @@ It is used to apply discounts or restrict payment options for the payment reques
 You can find payment request information attached to a Patron Code by [polling for the Payment
 Request][polling] using the transacting APIs.
 
-## Retrieving a Patron Code by ID
+## Retrieving a Patron Code by id
 
-{% endpoint GET https://service.centrapay.com/api/patron-codes/{id} %}
+{% reqspec %}
+  GET '/api/patron-codes/{patronCodeId}'
+  auth 'jwt'
+  path_param 'patronCodeId', 'V17FByEP9gm1shSG6a1Zzx'
+{% endreqspec %}
 
-```sh
-curl -X GET https://service.centrapay.com/api/patron-codes/V17FByEP9gm1shSG6a1Zzx
-```
+{% h4 Example Response Payload %}
 
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn:user:1234",
+  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
@@ -104,18 +106,20 @@ curl -X GET https://service.centrapay.com/api/patron-codes/V17FByEP9gm1shSG6a1Zz
 
 ## Retrieving a Patron Code by Barcode
 
-{% endpoint GET https://service.centrapay.com/api/patron-codes/barcode/{barcode} %}
+{% reqspec %}
+  GET '/api/patron-codes/barcode/{barcode}'
+  auth 'api-key'
+  path_param 'barcode', '9990001234567895'
+{% endreqspec %}
 
-```sh
-curl -X GET https://service.centrapay.com/api/patron-codes/barcode/9990001234567895
-```
+{% h4 Example Response Payload %}
 
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn:user:1234",
+  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }

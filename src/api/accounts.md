@@ -24,14 +24,14 @@ resources owned by the account.
 
 ## Creating an account
 
-{% endpoint POST https://service.centrapay.com/api/accounts %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/accounts" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "name": "Centrapay Cafe", "type": "org" }'
-```
+{% reqspec %}
+  POST '/api/accounts'
+  auth 'api-key'
+  body ({
+    name: 'Centrapay Cafe',
+    type: 'org',
+  })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -65,12 +65,11 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 
 ## Get information about an account
 
-{% endpoint GET https://service.centrapay.com/api/accounts/{accountId} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -89,15 +88,12 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 
 ## Update an account
 
-
-{% endpoint PUT https://service.centrapay.com/api/accounts/{accountId} %}
-
-```sh
-curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "name": "Shortland St Cafe" }'
-```
+{% reqspec %}
+  PUT '/api/accounts/{accountId}'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  body ({ name: 'Shortland St Cafe' })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -123,13 +119,15 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
 <span id="creating-api-key"></span>
 ## Creating an API key
 
-{% endpoint POST https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
+{% reqspec %}
+  POST '/api/accounts/{accountId}/api-keys'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  body ({ name: 'MyAPIkey', role: 'merchant-terminal' })
+{% endreqspec %}
 
 ```sh
 curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{"name": "MyAPIkey", "role": "merchant-terminal"}'
 ```
 
 {% h4 Required Fields %}
@@ -154,12 +152,11 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 ## List account API keys
 
-{% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/api-keys %}
-
-```sh
-curl "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/api-keys'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -184,14 +181,16 @@ curl "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys
 
 ## Update account API key
 
-{% endpoint PUT https://service.centrapay.com/api/accounts/{accountId}/api-keys/{apikey-name} %}
+{% reqspec %}
+  PUT '/api/accounts/{accountId}/api-keys/{apiKeyName}'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  path_param 'apiKeyName', 'MyAPIkey'
+  auth 'api-key'
+  body ({
+    enabled: false
+  })
+{% endreqspec %}
 
-```sh
-curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "enabled": false }'
-```
 
 {% h4 Required Fields %}
 
@@ -213,14 +212,12 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
 
 ## Add account member **EXPERIMENTAL**
 
-{% endpoint POST https://service.centrapay.com/api/accounts/${accountId}/members %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc", "role": "account-owner" }'
-```
+{% reqspec %}
+  POST '/api/accounts/{accountId}/members'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  body ({ userId: 'da75ad90-9a5b-4df0-8374-f48b3a8fbfcc', role: 'account-owner' })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -247,12 +244,11 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 
 ## List members for account
 
-{% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/members %}
-
-```sh
-curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/members'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  auth 'api-key'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -273,24 +269,33 @@ curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/me
 ]
 ```
 
-## List account memberships for subject
+## List account memberships for authenticated subject
 
-List memberships for authorized user or API key:
+{% reqspec %}
+  GET '/api/account-memberships'
+  auth 'api-key'
+{% endreqspec %}
 
-{% endpoint GET https://service.centrapay.com/api/account-memberships %}
+{% h4 Example response payload %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/account-memberships" \
-  -H "x-api-key: 1234"
+```json
+[
+  {
+    "accountId": "5uooxSens6ykJaim1Cu1Q5",
+    "accountType": "org",
+    "role": "account-owner"
+  }
+]
 ```
-List memberships for specific user:
 
-{% endpoint GET https://service.centrapay.com/api/users/{userId}/account-memberships %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
-  -H "x-api-key: 1234"
-```
+## List memberships for specific user
+
+{% reqspec %}
+  GET '/api/users/{userId}/account-memberships'
+  auth 'api-key'
+  path_param 'userId', '1234'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -311,12 +316,11 @@ curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
 
 ## List merchants for account
 
-{% endpoint GET https://service.centrapay.com/api/account/{accountId}/merchants %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/merchants" \
--H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/account/{accountId}/merchants'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
