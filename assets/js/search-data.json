@@ -451,7 +451,7 @@
   },"75": {
     "doc": "Getting Started",
     "title": "Getting Started",
-    "content": "Welcome to Centrapay! We enable you to transact fiat currency, giftcards, digital assets and vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our APIs which allow merchants, customers, terminals, and smart wallets to interact with each other. Checkout our Guides for hints on where to begin or see the API Reference for a deeper dive. For more help getting setup, contact us via email at devsupport@centrapay.com. Developer Signup . ",
+    "content": "Welcome to Centrapay! We enable you to transact fiat currency, giftcards, digital assets and vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our APIs which allow merchants, customers, terminals, and smart wallets to interact with each other. Checkout our Guides for hints on where to begin or see the API Reference for a deeper dive. For more help getting setup, contact us via email at devsupport@centrapay.com. ",
     "url": "/",
     "relUrl": "/"
   },"76": {
