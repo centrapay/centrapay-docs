@@ -66,7 +66,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0   |
 | terminalId           | The payment system terminal Id. Required for NZ Epay integration.                  |
 | deviceId             | Physical payment system device Id                                                  |
-| patronCode           | Associate this payment request with a Patron Code. Must be attached before expiry. |
+| patronCode           | Associate this payment request with an active Patron Code. |
 
 
 <a name="requests-info">
