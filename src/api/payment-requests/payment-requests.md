@@ -99,26 +99,29 @@ A line item price can be negative to represents a discount.
 ## Operations
 
 <a name="patron-code"></a>
-### Get a Payment Request using Patron Code id **EXPERIMENTAL**
+### Get a Payment Request linked to a Patron Code **EXPERIMENTAL**
 
-This is only available to the account which created the Patron Code for finding the Payment Request
-attached to it. If you didn't create the Patron Code or it doesn't exist, this will return a 403
-response.
+Returns the latest Payment Request with status "new" that has been attached to a [Patron Code][].
+The Payment Request may have been created with a reference to any Patron Code owned by the user's
+account.
 
-{% endpoint GET https://service.centrapay.com/api/patron-codes/{patronCodeId}/payment-request %}
+This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
+them to find the Payment Request and proceed to pay.
+
+{% endpoint GET https://service.centrapay.com/api/me/patron-code-payment-request %}
 
 ```sh
-curl -X GET "https://service.centrapay.com/api/patron-codes/DiBAKsHCeLNG9ai4LeLrhr/payment-request" \
+curl -X GET "https://service.centrapay.com/api/me/patron-code-payment-request" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload when no Payment Request attached**
+**Example response payload when no new Payment Request found**
 
 ```json
 {}
 ```
 
-**Example response payload when a Payment Request is attached**
+**Example response payload with a Payment Request**
 
 ```json
 {
@@ -151,3 +154,4 @@ curl -X GET "https://service.centrapay.com/api/patron-codes/DiBAKsHCeLNG9ai4LeLr
 [LineItem]: #line-item
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
+[Patron Code]: {% link api/patron-codes.md %}
