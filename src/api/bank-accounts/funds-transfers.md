@@ -35,7 +35,7 @@ curl -X POST "https://service.centrapay.com/api/topups" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field           | Type               | Description                              |
 | :-------------- | :-----             | :--------------------------------------- |
@@ -43,7 +43,7 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 | walletId        | String             | The id of the wallet                     |
 | bankAuthorityId | String             | The id of the bank account               |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -59,7 +59,7 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status |                       Code                       |                                                                                                             Description                                                                                                      |
 | :----- | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,7 +78,7 @@ curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -103,7 +103,7 @@ curl -X GET "https://service.centrapay.com/api/topups" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -141,7 +141,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topu
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -185,7 +185,7 @@ curl -X POST "https://service.centrapay.com/api/withdrawals" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field           | Type               | Description                              |
 | :-------------- | :-----             | :--------------------------------------- |
@@ -193,7 +193,7 @@ curl -X POST "https://service.centrapay.com/api/withdrawals" \
 | walletId        | String             | The id of the wallet                     |
 | bankAuthorityId | String             | The id of the bank account               |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -209,7 +209,7 @@ curl -X POST "https://service.centrapay.com/api/withdrawals" \
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status |                     Code                      |                                         Description                                           |
 | :----- | :-------------------------------------------- | :-------------------------------------------------------------------------------------------- |
@@ -225,7 +225,7 @@ curl -X GET "https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjj
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -250,7 +250,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/with
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {

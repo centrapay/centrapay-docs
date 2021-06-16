@@ -17,7 +17,7 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 
 ## Patron Code Model **EXPERIMENTAL**
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field       | Type               | Description                                          |
 |:------------|:-------------------|:-----------------------------------------------------|

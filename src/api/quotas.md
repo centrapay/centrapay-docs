@@ -33,7 +33,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -74,7 +74,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
 
 ## Quota model
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field                                 | Type   | Description                    |
 | :------------------------------------ | :----- | :----------------------------- |
@@ -82,7 +82,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
 | limit                                 | String | The quota's upper usage limit. |
 | usage                                 | String | The quota's current usage.     |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 | Field       | Type     | Description                                                                                |
 | :---------- | :------- | :--------------------------------------------------------------------------                |
@@ -90,7 +90,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/q
 | period      | String   | The recurring, time-bound quota's duration: `daily`, `monthly` or `yearly`.                |
 | interval    | String   | The specific day, month or year the quota applies to, eg: `2020-01-01`, `2020-01`, `2020`. |
 
-**Supported Quota Types**
+{% h4 Supported Quota Types %}
 
 The following table describes the supported quota types and variants. The
 "Scoped" column indicates whether the quota can have different values for
@@ -103,7 +103,7 @@ applicable to the quota.
 | topup | Value of topups from bank accounts linked to the account.           |   Yes  | `monthly` `yearly` |
 
 <span id="quota-error-response"></span>
-**Error Responses**
+{% h4 Error Responses %}
 
 If a quota limit is exceeded by an action that enforces quota limits, the following error response will be returned. The `quotas` field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
 

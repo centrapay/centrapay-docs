@@ -36,7 +36,7 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |   Field   |  Type   |                Description                |
 | :-------- | :------ | :---------------------------------------- |
@@ -45,13 +45,13 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
 | country   | String  | Merchants country in alpha 2 standard     |
 | test      | Boolean | Flag configuring if this is test merchant |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 |      Field       |  Type  |                 Description                 |
 | :--------------- | :----- | :------------------------------------------ |
 | settlementConfig | Object | **EXPERIMENTAL** Merchant settlement config |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -72,7 +72,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -93,7 +93,7 @@ curl -X GET "https://service.centrapay.com/api/merchants" \
 -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -134,7 +134,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
   -d '{"name": "Parisian - Orange"}'
 ```
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 |      Field       |  Type  |                 Description                 |
 | :--------------- | :----- | :------------------------------------------ |
@@ -142,7 +142,7 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 | country          | String | Merchants country in alpha 2 standard       |
 | settlementConfig | Object | **EXPERIMENTAL** Merchant settlement config |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -171,7 +171,7 @@ curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a0
 
 See [Merchant configuration model](#config-model) for expected request body format.
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -198,7 +198,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -221,7 +221,7 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -262,7 +262,8 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 See [Merchant configuration model](#config-model) for expected request body format.
 
-**Example response payload**
+{% h4 Example response payload %}
+
 ```json
 {
   "id": "5ee168e8597be5002af7baed",
@@ -282,7 +283,7 @@ See [Merchant configuration model](#config-model) for expected request body form
 <span id="config-model"></span>
 ## Merchant configuration model
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field                                 | Type   | Description                                                |
 | :------------------------------------ | :----- | :--------------------------------------------------------  |
@@ -290,7 +291,7 @@ See [Merchant configuration model](#config-model) for expected request body form
 | paymentOptions[\*]                    | Object | Object containing paymentOption properties                 |
 | {% break . paymentOptions[\*].type %} | String | Type of payment method. See supported payment types below. |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 | Field                                               | Type   | Description                                                                          |
 |:----------------------------------------------------|:-------|:-------------------------------------------------------------------------------------|
@@ -298,7 +299,7 @@ See [Merchant configuration model](#config-model) for expected request body form
 | {% break . paymentOptions[\*].terminalId %}         | String | Merchant's Epay terminal id.                                                         |
 | {% break . paymentOptions[\*].wavesPublicAddress %} | String | Merchant's public waves address. Required for `zap.main` types.                      |
 
-**Supported Payment Types**
+{% h4 Supported Payment Types %}
 
 The following table describes the supported payment option types.
 

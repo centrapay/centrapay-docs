@@ -70,14 +70,14 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |       Field       |  Type  |                    Description                    |
 | :---------------- | :----- | :------------------------------------------------ |
 | bankAccountNumber | String | The user's bank account number                    |
 | bankAccountName   | String | The name on the bank account provided by the user |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 Note, fields which have a star (✩) create a direct-debit authority and are required for Top Up. All
 fields below when specified are required together.
@@ -89,7 +89,7 @@ fields below when specified are required together.
 | emailAddress | String  | ✩ The user's email address.            |
 
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -107,7 +107,7 @@ fields below when specified are required together.
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status |                      Code                        |                                     Description                                         |
 | :----- | :----------------------------------------------- | :-------------------------------------------------------------------------------------- |
@@ -134,7 +134,7 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyx
   }'
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -152,7 +152,7 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyx
 }
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 Note, fields which have a star (✩) are required for Top Up. All fields below when specified are
 required together.
@@ -164,7 +164,7 @@ required together.
 | emailAddress | String  | ✩ The user's email address.            |
 
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status |                           Code                |                          Description                               |
 | :----- | :-------------------------------------------- | :----------------------------------------------------------------- |
@@ -195,13 +195,13 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyx
   -d '{ "verificationCode": "1111" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |      Field       |  Type  |              Description              |
 | :--------------- | :----- | :------------------------------------ |
 | verificationCode | String | The code on the user's bank statement |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -209,7 +209,7 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyx
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status | Code                                                      | Description                                                                     |
 | :----- | :-------------------------------------------------------- | :------------------------------------------------------------------------------ |
@@ -235,13 +235,13 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
   -d '{ "verificationCode": "1111" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |      Field       |  Type  |              Description              |
 | :--------------- | :----- | :------------------------------------ |
 | verificationCode | String | The code on the user's bank statement |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -249,7 +249,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 }
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -278,7 +278,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/b
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -317,7 +317,7 @@ curl -X GET "https://service.centrapay.com/api/bank-authorities" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -372,7 +372,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |       Field       |  Type  |                    Description                        |
 | :---------------- | :----- | :---------------------------------------------------- |
@@ -383,7 +383,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 | bankAccountNumber | String | The user's bank account number                        |
 | bankAccountName   | String | The name on the bank account provided by the user     |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -401,7 +401,7 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status |             Code                                         |                         Description                                                                     |
 | :----- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
@@ -420,7 +420,7 @@ curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXy
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {

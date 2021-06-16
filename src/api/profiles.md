@@ -37,7 +37,9 @@ curl -X POST "https://service.centrapay.com/api/me/profile/update" \
   }'
 ```
 
-**Optional Fields** (Note at least one field must be provided in the request)
+{% h4 Optional Fields %}
+
+(Note at least one field must be provided in the request)
 
 |      Field       |  Type   |                 Description                                                                        |
 | :--------------- | :------ | :------------------------------------------------------------------------------------------------- |
@@ -47,7 +49,7 @@ curl -X POST "https://service.centrapay.com/api/me/profile/update" \
 | marketingUpdates | Boolean | Whether a user would like to receive emails for marketing updates                                  |
 | email            | String  | Email address                                                                                      |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
