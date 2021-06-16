@@ -1,28 +1,24 @@
 ---
 layout: default
-parent: API Reference
-title: Transacting
-nav_order: 3
-permalink: /api/transacting
+grand_parent: API Reference
+parent: Payment Requests
+title: Legacy
+permalink: /api/legacy-payment-requests
 redirect_from:
   - /transacting
+  - /api/transacting
 ---
 
-# Transacting
+# Legacy Payment Requests
 {:.no_toc}
 
+Centrapay Payment Requests are serviced via two sets of endpoints; the "next"
+version (documented [Payment Requests][]) and the "legacy" version
+(documented on this page). Use of legacy endpoints for new integrations is
+discouraged where alternative endpoints have been provided.
 
-Throughout our documentation we will talk about payment requests and
-transactions in several places, and it is important to know the difference. A
-payment request is generated when the [requests.create][] endpoint has been
-called. Payment Requests are then used to configure the different payment types
-a merchant accepts, set the amount of the transaction as well as the fiat
-currency e.g. NZD, and to set up any webhooks. Transactions are created when a
-payment request has been paid successfully via the [requests.pay][] endpoint, or
-when a completed transaction has been refunded via the [requests.void][] or
-[transactions.refund][] endpoint.
-
-Our payments endpoints also have [interactive Swagger documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
+Legacy Payment Request endpoints also have
+[interactive Swagger documentation](https://service.centrapay.com/payments/api/documentation){:target="\_blank"}{:.external}.
 
 ## Contents
 {:.no_toc .text-delta}
@@ -88,51 +84,6 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 |:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
 
-<a name="patron-code"></a>
-## Get a Payment Request using Patron Code id **EXPERIMENTAL**
-
-This is only available to the account which created the Patron Code for finding the Payment Request
-attached to it. If you didn't create the Patron Code or it doesn't exist, this will return a 403
-response.
-
-{% endpoint GET https://service.centrapay.com/api/patron-codes/{patronCodeId}/payment-request %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/patron-codes/DiBAKsHCeLNG9ai4LeLrhr/payment-request" \
-  -H "x-api-key: 1234"
-```
-
-**Example response payload when no Payment Request attached**
-
-```json
-{}
-```
-
-**Example response payload when a Payment Request is attached**
-
-```json
-{
-  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-  "merchantName": "NZD Test Merchant",
-  "merchantConfigurationId": "5efbe2fb96c08357bb2b9242",
-  "value": { "currency": "NZD", "amount": "100" },
-  "paymentOptions": [
-    {
-      "amount": "100",
-      "assetType": "centrapay.nzd.test"
-    }
-  ],
-  "status": "new",
-  "createdAt": "2021-06-08T04:04:27.426Z",
-  "updatedAt": "2021-06-08T04:04:27.426Z",
-  "expiresAt": "2021-06-08T04:04:27.426Z",
-  "liveness": "test",
-  "expirySeconds": 120
-}
-```
-
 <a name="requests-pay">
 ## Paying a payment request
 
@@ -161,7 +112,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 The "ledger" parameter indicates which payment option has been selected to pay
 the payment request. The selected payment option must be one of the options
 available for the payment request as per the `payments` array in the
-[requests.create][] and [requests.info][] responses. 
+[requests.create][] and [requests.info][] responses.
 
 The table below lists the possible ledger and authorization param values. The
 asset type is the value used to configure the merchant. The ledger param value
@@ -509,3 +460,4 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 [requests.void]: #requests-void
 [requests.cancel]: #requests-cancel
 [transactions.refund]: #transactions-refund
+[Payment Requests]: {% link api/payment-requests/payment-requests.md %}

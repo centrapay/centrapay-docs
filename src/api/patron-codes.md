@@ -117,4 +117,4 @@ curl -X GET https://service.centrapay.com/api/patron-codes/barcode/9990001234567
 }
 ```
 
-[polling]: {% link api/transacting.md %}#patron-code
+[polling]: {% link api/payment-requests/payment-requests.md %}#patron-code
