@@ -41,7 +41,7 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Parameter  | Type   | Description                                                                                      |
 |:-----------|:-------|:-------------------------------------------------------------------------------------------------|
@@ -51,14 +51,14 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 | issuer     | String | The asset issuer. Valid values: "ezipay".                                                        |
 | externalId | String | The issuer's asset id such as card number.                                                       |
 
-**Optional Parameters**
+{% h4 Optional Parameters %}
 
 | Parameter      | Type   | Description                                                                  |
 |:---------------|:-------|:-----------------------------------------------------------------------------|
 | pin            | String | Additional secret required by the issuer for loading or redeeming the asset. |
 | description    | String | Description of the asset, eg: "$60 Acme Giftcard".                           |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -78,7 +78,7 @@ curl -X POST "https://service.centrapay.com/api/external-assets" \
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status | Code                                   | Description                                                 |
 |:-------|:-------------------------------------- |:------------------------------------------------------------|

@@ -60,7 +60,7 @@ and does not expire.
 
 Money assets have the following fields along with the base asset fields.
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field    | Type               | Description                                                          |
 |:---------|:-------------------|:---------------------------------------------------------------------|
@@ -79,7 +79,7 @@ entirety.
 
 Gift cards have the following fields along with the base asset fields.
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field          | Type           | Description                                                          |
 |:---------------|:---------------|:---------------------------------------------------------------------|
@@ -88,7 +88,7 @@ Gift cards have the following fields along with the base asset fields.
 | balance        | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents). |
 | initialBalance | {% dt BigNumber %} | The balance when the asset was created.                              |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 | Field            | Type               | Description                                                |
 |:-----------------|:-------------------|:-----------------------------------------------------------|
@@ -106,20 +106,20 @@ multiple currencies and is the same for all tokens of the same type.
 
 Tokens have the following fields along with the base asset fields.
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field | Type                  | Description                           |
 |:------|:----------------------|:--------------------------------------|
 | value | Array&lt;Token Value> | Token values in supported currencies. |
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 | Field     | Type               | Description                                |
 | :-------  | :------------      | :----------------------------------------- |
 | validFrom | {% dt Timestamp %} | The date when the asset becomes spendable. |
 | expiresAt | {% dt Timestamp %} | The date when the asset expires.           |
 
-**Token Value Object**
+{% h4 Token Value Object %}
 
 | Field    | Type           | Description                                                |
 |:---------|:---------------|:-----------------------------------------------------------|
@@ -140,7 +140,7 @@ curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -170,7 +170,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -229,7 +229,7 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -249,7 +249,7 @@ curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/ar
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status | Code                    | Description                                         |
 |:-------|:------------------------|:----------------------------------------------------|

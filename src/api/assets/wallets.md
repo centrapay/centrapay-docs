@@ -34,14 +34,14 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
   -d '{ "accountId": "Te2uDM7xhDLWGVJU3nzwnh", "ledgerId": "centrapay.nzd.main" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field     | Type   | Description                                                      |
 |:----------|:-------|:-----------------------------------------------------------------|
 | accountId | String | The id of the account                                            |
 | ledgerId  | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -53,7 +53,7 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 }
 ```
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status | Code                                      | Description                                                          |
 |--------|-------------------------------------------|----------------------------------------------------------------------|
@@ -69,7 +69,7 @@ curl -X GET "https://service.centrapay.com/api/wallets" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -99,7 +99,7 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
   -H "x-api-key: 1234"
 ```
 
-**Transaction Fields**
+{% h4 Transaction Fields %}
 
 | Field            | Description                                                               |
 |:-----------------|:--------------------------------------------------------------------------|
@@ -117,14 +117,14 @@ curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/tr
 | assetTransferId  | Id of the related asset transfer request if applicable.                   |
 | withdrawalId     | Id of the related withdrawal request if applicable.                       |
 
-**Party Values**
+{% h4 Party Values %}
 
 The "destParty" and "srcParty" are optionally provided depending on the purpose
 of the transaction. Values may include a merchant name, user handle, masked user
 email, masked user phone, or bank account.
 
 
-**Example response payload (Payment)**
+{% h4 Example response payload (Payment) %}
 
 ```json
 {
@@ -143,7 +143,7 @@ email, masked user phone, or bank account.
 }
 ```
 
-**Example response payload (Topup)**
+{% h4 Example response payload (Topup) %}
 
 ```json
 {
@@ -161,7 +161,7 @@ email, masked user phone, or bank account.
 }
 ```
 
-**Example response payload (Sent Asset)**
+{% h4 Example response payload (Sent Asset) %}
 
 ```json
 {
@@ -179,7 +179,7 @@ email, masked user phone, or bank account.
 }
 ```
 
-**Example response payload (Received Asset)**
+{% h4 Example response payload (Received Asset) %}
 
 ```json
 {
@@ -197,7 +197,7 @@ email, masked user phone, or bank account.
 }
 ```
 
-**Example response payload (Returned Asset)**
+{% h4 Example response payload (Returned Asset) %}
 
 ```json
 {
@@ -216,7 +216,7 @@ email, masked user phone, or bank account.
 }
 ```
 
-**Example response payload (Withdraw)**
+{% h4 Example response payload (Withdraw) %}
 
 ```json
 {

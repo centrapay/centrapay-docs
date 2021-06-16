@@ -68,7 +68,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
   }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Parameter      | Type   | Description                                                |
 |:---------------|:-------|:-----------------------------------------------------------|
@@ -76,7 +76,7 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 | recipientAlias | String | Phone number, email or handle of receiver.                 |
 
 
-**Optional Parameters**
+{% h4 Optional Parameters %}
 
 | Parameter   | Type               | Description                                                                                |
 | :---------- | :-----             | :---------                                                                                 |
@@ -93,7 +93,7 @@ asset. If asset cannot be returned to a sender it will be returned to asset
 owner.
 
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -115,14 +115,14 @@ owner.
 
 The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 
-**Error Responses**
+{% h4 Error Responses %}
 
 | Status | Code                                      | Description                                                       |
 |:-------|:------------------------------------------|:------------------------------------------------------------------|
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
 | 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits. See [Quota Error Response]. |
 
-**Example webhook response**
+{% h4 Example webhook response %}
 
 TBD
 ```json
@@ -142,7 +142,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   -H "content-type: application/json"
 ```
 
-**Example response payload (ledger asset)**
+{% h4 Example response payload (ledger asset) %}
 
 ```json
 {
@@ -164,7 +164,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
 }
 ```
 
-**Example response payload (discrete asset)**
+{% h4 Example response payload (discrete asset) %}
 
 ```json
 {
@@ -200,7 +200,7 @@ curl -X POST "https://service.centrapay.com/api/me/resolve-claimable-assets" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {}
@@ -216,7 +216,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
   -H "content-type: application/json"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -250,7 +250,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountI
   -H "content-type: application/json"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
