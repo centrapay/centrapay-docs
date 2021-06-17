@@ -126,6 +126,7 @@ curl -X GET "https://service.centrapay.com/api/me/patron-code-payment-request" \
 ```json
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74"
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
