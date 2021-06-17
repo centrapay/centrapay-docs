@@ -401,11 +401,11 @@
     "url": "/api/funds-transfers#list-withdrawals-for-an-account-experimental",
     "relUrl": "/api/funds-transfers#list-withdrawals-for-an-account-experimental"
   },"67": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
+    "doc": "Guides",
+    "title": "Guides",
     "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
+    "url": "/guides",
+    "relUrl": "/guides"
   },"68": {
     "doc": "Assets",
     "title": "Assets",
@@ -419,17 +419,17 @@
     "url": "/api/section/payment-requests",
     "relUrl": "/api/section/payment-requests"
   },"70": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
+  },"71": {
     "doc": "API Reference",
     "title": "API Reference",
     "content": " ",
     "url": "/api",
     "relUrl": "/api"
-  },"71": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": " ",
-    "url": "/guides",
-    "relUrl": "/guides"
   },"72": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -437,17 +437,17 @@
     "url": "/",
     "relUrl": "/"
   },"73": {
-    "doc": "API Introduction",
-    "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Data Types | Accounts | Assets | Bank Accounts | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
-    "url": "/api/introduction",
-    "relUrl": "/api/introduction"
-  },"74": {
     "doc": "Guides Introduction",
     "title": "Guides Introduction",
     "content": "Guides and examples of how to use Centrapay. | Payment Flows | Creating Test Money | Example OIDC Consumer | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
+  },"74": {
+    "doc": "API Introduction",
+    "title": "API Introduction",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Data Types | Accounts | Assets | Bank Accounts | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
+    "url": "/api/introduction",
+    "relUrl": "/api/introduction"
   },"75": {
     "doc": "Legacy",
     "title": "Legacy Payment Requests",
@@ -595,7 +595,7 @@
   },"99": {
     "doc": "Patron Codes",
     "title": "Patron Code Model EXPERIMENTAL",
-    "content": "Required Fields . | Field | Type | Description | . | id | String | The Patron Code’s unique identifier. | . | barcode | String | ✩ Field to display in barcode format. | . | createdAt | Timestamp | Date when the Patron Code was created. | . | createdBy | String | Identifier for the account that created the barcode. | . | expiresAt | Timestamp | Date when the Patron Code will expire. | . | appName | String | The app used to create the Patron Code. | . ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit code, then a luhn checksum digit. 9 9 9 0 0 0 1 2 3 4 5 6 7 8 9 5 ❖ complete barcode 9 9 9 0 0 0 - - - - - - - - - - ❖ centrapay prefix - - - - - - 1 2 3 4 5 6 7 8 9 - ❖ code - - - - - - - - - - - - - - - 5 ❖ luhn checksum . The Centrapay Prefix may present any of the following prefixes: . | 999000 | 777000 | 123000 | 321000 | 321123 | 765432 | 282828 | 888444 | 636863 | 929394 | 839234 | 848484 | . ",
+    "content": "Required Fields . | Field | Type | Description | . | id | String | The Patron Code’s unique identifier. | . | barcode | String | ✩ Field to display in barcode format. | . | createdAt | Timestamp | Date when the Patron Code was created. | . | createdBy | String | Identifier for the account that created the barcode. | . | expiresAt | Timestamp | Date when the Patron Code will expire. | . | appName | String | The app used to create the Patron Code. | . ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit code, then a luhn checksum digit. 9 9 9 0 0 0 1 2 3 4 5 6 7 8 9 5 ❖ complete barcode 9 9 9 0 0 0 - - - - - - - - - - ❖ centrapay prefix - - - - - - 1 2 3 4 5 6 7 8 9 - ❖ code - - - - - - - - - - - - - - - 5 ❖ luhn checksum . The Centrapay Prefix may present any of the following prefixes: . | 121921 | 123000 | 282828 | 293000 | 321000 | 321123 | 636863 | 713131 | 765432 | 777000 | 839234 | 848484 | 888444 | 929394 | 987600 | 999000 | . ",
     "url": "/api/patron-codes#patron-code-model-experimental",
     "relUrl": "/api/patron-codes#patron-code-model-experimental"
   },"100": {
