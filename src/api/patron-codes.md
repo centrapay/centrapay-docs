@@ -40,18 +40,22 @@ code, then a luhn checksum digit.
 
 The Centrapay Prefix may present any of the following prefixes:
 
-* 999000
-* 777000
+* 121921
 * 123000
+* 282828
+* 293000
 * 321000
 * 321123
-* 765432
-* 282828
-* 888444
 * 636863
-* 929394
+* 713131
+* 765432
+* 777000
 * 839234
 * 848484
+* 888444
+* 929394
+* 987600
+* 999000
 
 ## Creating a Patron Code **EXPERIMENTAL**
 
