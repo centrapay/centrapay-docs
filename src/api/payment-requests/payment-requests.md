@@ -115,13 +115,13 @@ curl -X GET "https://service.centrapay.com/api/me/patron-code-payment-request" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload when no new Payment Request found**
+{% h4 Example response payload when no new Payment Request found %}
 
 ```json
 {}
 ```
 
-**Example response payload with a Payment Request**
+{% h4 Example response payload with a Payment Request %}
 
 ```json
 {

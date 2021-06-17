@@ -42,7 +42,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
   -d asset="NZD"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter  | Description                                          |
 |:-----------|:-----------------------------------------------------|
@@ -52,7 +52,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 | clientId   | The ID of the merchant specific client configuration |
 
 
-**Optional Parameters**
+{% h4 Optional Parameters %}
 
 | Parameter            | Description                                                                        |
 |:---------------------|:-----------------------------------------------------------------------------------|
@@ -78,7 +78,7 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
@@ -99,7 +99,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
   -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter     | Description                                                                             |
 |---------------|-----------------------------------------------------------------------------------------|
@@ -107,7 +107,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
 | ledger        | The selected payment option to use. See below for expected values.                      |
 | authorization | An identifier that can be used to pay or verify payment. See below for expected values. |
 
-**Expected Ledger and Authorization Values**
+{% h4 Expected Ledger and Authorization Values %}
 
 The "ledger" parameter indicates which payment option has been selected to pay
 the payment request. The selected payment option must be one of the options
@@ -129,13 +129,13 @@ is returned with the payment request info as `payments[].ledger`.
 | zap.main           | zap.main                 | *Waves transaction id*         |
 | test               | g.test.testUplink        | *None*                         |
 
-**Centrapay Asset Permissions**
+{% h4 Centrapay Asset Permissions %}
 
 To pay with a Centrapay asset or wallet ledger the user (identified by the API
 Key or identity token) must have permission to redeem the asset or transfer
 funds from the specified wallet.
 
-**Testing Pocket Vouchers**
+{% h4 Testing Pocket Vouchers %}
 
 To test Pocket Vouchers, generate a test value voucher by texting
 "CENTRALBONUS" to 393.  You will then receive a response text containing an 8
@@ -157,7 +157,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
@@ -177,7 +177,7 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
   -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
 ```
 
-**Required Parameters**
+{% h4 Required Parameters %}
 
 | Parameter | Description                                                                 |
 |:----------|:----------------------------------------------------------------------------|
@@ -217,14 +217,14 @@ curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
    refund, this is because we assume it to be a repeat request. If the amount
    is different you will get a REPEAT_REFERENCE error message.
 
-**Required Parameters for one time refund**
+{% h4 Required Parameters for one time refund %}
 
 | Parameter     | Description                                                                                                                        |
 |:--------------|:-----------------------------------------------------------------------------------------------------------------------------------|
 | transactionId | The transaction to refund. The transaction id for a payment can be obtained from a webhook notification or from [requests.info][]. |
 | amount        | The amount to refund in cents                                                                                                      |
 
-**Additional required Parameter for multiple refunds**
+{% h4 Additional required Parameter for multiple refunds %}
 
 | Parameter         | Description                                                                                                                                   |
 |:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|

@@ -33,7 +33,7 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
   -d '{ "name": "Centrapay Cafe", "type": "org" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field |  Type  |                    Description                     |
 | :---- | :----- | :------------------------------------------------- |
@@ -41,14 +41,14 @@ curl -X POST "https://service.centrapay.com/api/accounts" \
 | type  | String | Account type, must be either 'org' or 'individual' |
 
 
-**Optional Fields**
+{% h4 Optional Fields %}
 
 | Field |  Type  |                      Description                       |
 | :---- | :----- | :----------------------------------------------------- |
 | owner | String | Id of user to add as member with "account-owner" role. |
 
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -72,7 +72,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -99,13 +99,13 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk" 
   -d '{ "name": "Shortland St Cafe" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field |  Type  |       Description       |
 | :---- | :----- | :---------------------- |
 | name  | String | The name of the account |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -132,14 +132,14 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
   -d '{"name": "MyAPIkey", "role": "merchant-terminal"}'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field |  Type  |                                    Description                                      |
 | :---- | :----- | :---------------------------------------------------------------------------------- |
 | name  | String | The alphanumeric name of the API key, must be unique within account                 |
 | role  | String | API key role. Currently, only supported are "merchant-terminal" and "account-owner" |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -161,7 +161,7 @@ curl "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -193,13 +193,13 @@ curl -X PUT "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/a
   -d '{ "enabled": false }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 |  Field  |  Type   |      Description       |
 | :------ | :------ | :--------------------- |
 | enabled | Boolean | Enable/Disable API key |
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -222,7 +222,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
   -d '{ "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc", "role": "account-owner" }'
 ```
 
-**Required Fields**
+{% h4 Required Fields %}
 
 | Field  |  Type  |                            Description                            |
 | :----- | :----- | :---------------------------------------------------------------- |
@@ -230,7 +230,7 @@ curl -X POST "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/
 | role   | String | Account member role. Currently only "account-owner" is supported. |
 
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
@@ -254,7 +254,7 @@ curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/me
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -292,7 +292,7 @@ curl -X GET "https://service.centrapay.com/api/users/1234/account-memberships" \
   -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 [
@@ -318,7 +318,7 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/m
 -H "x-api-key: 1234"
 ```
 
-**Example response payload**
+{% h4 Example response payload %}
 
 ```json
 {
