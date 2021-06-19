@@ -34,33 +34,34 @@ bank transaction can be used to verify a bank account.
 <span id="bank-account-create"></span>
 ## Creating a bank account
 
-{% reqspec %}
-  POST '/api/bank-accounts'
-  auth 'api-key'
-  body ({
-    accountId: 'Jaim1Cu1Q55uooxSens6yk',
-    bankAccountNumber: '12-1234-1234567-123',
-    bankAccountName: 'John Doe',
-  })
-{% endreqspec %}
-
-A bank account can also be created with direct debit authorized.  By including
+A bank account can be created with or without direct debit authorized.  By including
 directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
 and has authority to operate this account.
 
-{% reqspec nosummary %}
+{% reqspec %}
   POST '/api/bank-accounts'
   auth 'api-key'
-  body ({
-    accountId: 'Jaim1Cu1Q55uooxSens6yk',
-    bankAccountNumber: '12-1234-1234567-123',
-    bankAccountName: 'John Doe',
-    directDebitAuthority: {
-      phoneNumber: '+64212345678',
-      fullName: 'John Doe',
-      emailAddress: 'john.doe@gmail.com',
-    }
-  })
+  example {
+    title 'Create without direct debit authorized'
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      bankAccountNumber: '12-1234-1234567-123',
+      bankAccountName: 'John Doe',
+    })
+  }
+  example {
+    title 'Create with direct debit authorized'
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      bankAccountNumber: '12-1234-1234567-123',
+      bankAccountName: 'John Doe',
+      directDebitAuthority: {
+        phoneNumber: '+64212345678',
+        fullName: 'John Doe',
+        emailAddress: 'john.doe@gmail.com',
+      }
+    })
+  }
 {% endreqspec %}
 
 {% h4 Required Fields %}

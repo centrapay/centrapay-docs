@@ -2,27 +2,16 @@ require 'json'
 
 class RequestSpec
 
-  attr_accessor :_name
-  attr_accessor :_description
+  attr_accessor :base_url
   attr_accessor :_path
   attr_accessor :_method
-  attr_accessor :headers
-  attr_accessor :path_params
-  attr_accessor :query_params
+  attr_accessor :examples
+  attr_accessor :default_example
 
   def initialize
     @base_url = 'https://service.centrapay.com'
-    @headers = {}
-    @path_params = {}
-    @query_params = []
-  end
-
-  def name(s)
-    @_name = s
-  end
-
-  def description(s)
-    @_description = s
+    @examples = []
+    @default_example = RequestExample.new(self)
   end
 
   def GET(s)
@@ -46,6 +35,56 @@ class RequestSpec
 
   def path(s)
     @_path = s
+  end
+
+  def example(&block)
+    example = RequestExample.new(self)
+    example.instance_eval &block if block_given?
+    @examples.append(example)
+  end
+
+  def name(s)
+    @default_example.title(s)
+  end
+
+  def auth(s)
+    @default_example.auth(s)
+  end
+
+  def query_param(name, value)
+    @default_example.query_param(name, value)
+  end
+
+  def path_param(name, value)
+    @default_example.path_param(name, value)
+  end
+
+  def header(name, value)
+    @default_example.header(name, value)
+  end
+
+  def body(data)
+    @default_example.body(data)
+  end
+
+end
+
+class RequestExample
+
+  attr_accessor :_title
+  attr_accessor :headers
+  attr_accessor :path_params
+  attr_accessor :query_params
+
+  def initialize(reqspec)
+    @reqspec = reqspec
+    @headers = {}
+    @path_params = {}
+    @query_params = []
+  end
+
+  def title(s)
+    @_title = s
   end
 
   def auth(s)
@@ -78,16 +117,24 @@ class RequestSpec
   end
 
   def substituted_path
-    s = @_path
-    @path_params.each do |k,v|
+    s = @reqspec._path
+    all_path_params.each do |k,v|
       s = s.sub("{#{k}}", v)
     end
     s
   end
 
+  def all_path_params
+    @reqspec.default_example.path_params.merge(@path_params)
+  end
+
+  def all_headers
+    @reqspec.default_example.headers.merge(@headers)
+  end
+
   def curl_method
-    if @_method != 'GET'
-      "-X #{@_method}"
+    if @reqspec._method != 'GET'
+      "-X #{@reqspec._method}"
     elsif !@query_params.empty?
       "-G"
     else
@@ -96,11 +143,11 @@ class RequestSpec
   end
 
   def curl_line_one
-    [ 'curl', curl_method, "#{@base_url}#{substituted_path}" ].filter{ |s| !s.empty? }.join(' ')
+    [ 'curl', curl_method, "#{@reqspec.base_url}#{substituted_path}" ].filter{ |s| !s.empty? }.join(' ')
   end
 
   def curl_header_lines
-    @headers.map { |k,v| %<  -H "#{k}: #{v}"> }
+    all_headers.map { |k,v| %<  -H "#{k}: #{v}"> }
   end
 
   def curl_query_lines
@@ -148,12 +195,30 @@ module Jekyll
       %{#{reqspec._method} <code>#{reqspec._path.gsub('/', "/<wbr>")}</code>} unless @no_summary
     end
 
-    def render_name(reqspec)
-      "<h4>#{reqspec._name}</h4>" unless reqspec._name.nil?
+    def render_example_title(example)
+      %{
+        <h4>#{example._title}</h4>
+      }
     end
 
-    def render_description(reqspec)
-      "<p>#{reqspec._description}</p>" unless reqspec._description.nil?
+    def render_example_code(example)
+      %{
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>#{render_shell_code(example.to_curl)}</code></pre>
+        </div>
+      }
+    end
+
+    def render_example(example)
+      %{
+        #{render_example_title(example)}
+        #{render_example_code(example)}
+      }
+    end
+
+    def render_default_example(reqspec)
+      return nil if !reqspec.examples.empty?
+      render_example(reqspec.default_example)
     end
 
     def render(context)
@@ -161,11 +226,8 @@ module Jekyll
       r.instance_eval super
       %{<p>
         #{render_summary(r)}
-        #{render_name(r)}
-        #{render_description(r)}
-        <div class="highlighter-rouge">
-          <pre class="highlight"><code>#{render_shell_code(r.to_curl)}</code></pre>
-        </div>
+        #{render_default_example(r)}
+        #{r.examples.map{ |e| render_example(e) }.join("\n")}
       </p>}
     end
   end

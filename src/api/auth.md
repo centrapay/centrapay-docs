@@ -22,19 +22,16 @@ API calls can be authenticated by either providing an API key in the
 "X-Api-Key" header or by providing a user access token in the "Authorization"
 header.
 
-
-Example call with API key:
-
 {% reqspec nosummary %}
   GET '/api/account-memberships'
-  auth 'api-key'
-{% endreqspec %}
-
-Example call with user access token:
-
-{% reqspec nosummary %}
-  GET '/api/account-memberships'
-  auth 'jwt'
+  example {
+    title 'Authenticate with API key'
+    auth 'api-key'
+  }
+  example {
+    title 'Authenticate with user access token'
+    auth 'jwt'
+  }
 {% endreqspec %}
 
 ## API Keys

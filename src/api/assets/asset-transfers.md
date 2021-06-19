@@ -47,24 +47,24 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 
 {% reqspec %}
   POST '/api/asset-transfers'
-  name 'Whole asset transfer'
   auth 'api-key'
-  body ({
-    assetId: 'YGRo6TYYSxH3js7',
-    recipientAlias: '+642212312'
-  })
+  example {
+    title 'Whole asset transfer'
+    body ({
+      assetId: 'YGRo6TYYSxH3js7',
+      recipientAlias: '+642212312'
+    })
+  }
+  example {
+    title 'Partial asset transfer'
+    body ({
+      assetId: 'sai2Pai7ohgongo',
+      value: '6000',
+      recipientAlias: '+642212312'
+    })
+  }
 {% endreqspec %}
 
-{% reqspec nosummary %}
-  POST '/api/asset-transfers'
-  name 'Partial asset transfer'
-  auth 'api-key'
-  body ({
-    assetId: 'sai2Pai7ohgongo',
-    value: '6000',
-    recipientAlias: '+642212312'
-  })
-{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -194,16 +194,15 @@ New accounts should call this endpoint to allocate assets that you've been sent.
 
 {% reqspec %}
   GET '/api/asset-transfers'
-  name 'List asset transfers sent'
   auth 'api-key'
-  query_param 'senderAccountId', 'aBc932S9182qwCDqwer'
-{% endreqspec %}
-
-{% reqspec nosummary %}
-  GET '/api/asset-transfers'
-  name 'List asset transfers received'
-  auth 'api-key'
-  query_param 'recipientAccountId', 'oS3Xom2au3Ooy9aihai'
+  example {
+    title 'List asset transfers received'
+    query_param 'recipientAccountId', 'oS3Xom2au3Ooy9aihai'
+  }
+  example {
+    title 'List asset transfers sent'
+    query_param 'senderAccountId', 'aBc932S9182qwCDqwer'
+  }
 {% endreqspec %}
 
 {% h4 Example response payload %}
