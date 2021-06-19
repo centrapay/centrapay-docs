@@ -8,10 +8,10 @@ class RequestSpec
   attr_accessor :examples
   attr_accessor :default_example
 
-  def initialize
-    @base_url = 'https://service.centrapay.com'
+  def initialize(base_url)
     @examples = []
     @default_example = RequestExample.new(self)
+    @base_url = base_url
   end
 
   def GET(s)
@@ -175,8 +175,8 @@ module Jekyll
       super
       params = text.split(' ')
       @no_summary = params.include? 'nosummary'
+      @base_url = 'https://service.centrapay.com'
     end
-
 
     # https://github.com/jekyll/jekyll/blob/6855200ebda6c0e33f487da69e4e02ec3d8286b7/lib/jekyll/tags/highlight.rb#L81
     def render_shell_code(code)
@@ -222,7 +222,7 @@ module Jekyll
     end
 
     def render(context)
-      r = RequestSpec.new
+      r = RequestSpec.new @base_url
       r.instance_eval super
       %{<p>
         #{render_summary(r)}
