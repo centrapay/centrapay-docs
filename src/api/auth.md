@@ -22,19 +22,17 @@ API calls can be authenticated by either providing an API key in the
 "X-Api-Key" header or by providing a user access token in the "Authorization"
 header.
 
-
-Example call with API key:
-
-```
-curl -X GET "https://service.centrapay.com/api/account-memberships" \
-    -H "X-Api-Key: ${my_api_key}"
-```
-
-Example call with user access token:
-
-```
-curl -X GET "https://service.centrapay.com/api/account-memberships" -H "Authorization: ${my_access_token}"
-```
+{% reqspec nosummary %}
+  GET '/api/account-memberships'
+  example {
+    title 'Authenticate with API key'
+    auth 'api-key'
+  }
+  example {
+    title 'Authenticate with user access token'
+    auth 'jwt'
+  }
+{% endreqspec %}
 
 ## API Keys
 

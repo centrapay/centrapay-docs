@@ -108,12 +108,11 @@ account.
 This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
 them to find the Payment Request and proceed to pay.
 
-{% endpoint GET https://service.centrapay.com/api/me/patron-code-payment-request %}
+{% reqspec %}
+  GET '/api/me/patron-code-payment-request'
+  auth 'jwt'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/me/patron-code-payment-request" \
-  -H "x-api-key: 1234"
-```
 
 {% h4 Example response payload when no new Payment Request found %}
 

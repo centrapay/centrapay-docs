@@ -22,16 +22,16 @@ period (daily, monthly, yearly). Account quotas may be affected by the verificat
 
 ## Getting account quotas **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/accounts/{accountId}/quotas %}
-
 Retrieve quota limits and usages for the current intervals. Ie, all quotas for
 the current day, current month and current year as well as any quotas that are
 not associated with a temporal period.
 
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/quotas'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  auth 'api-key'
+{% endreqspec %}
+
 
 {% h4 Example response payload %}
 

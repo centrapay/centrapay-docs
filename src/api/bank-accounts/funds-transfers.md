@@ -22,18 +22,15 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 ## Creating a top up
 
-{% endpoint POST https://service.centrapay.com/api/topups %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/topups" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "amount": "10000",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY"
-  }'
-```
+{% reqspec %}
+  POST '/api/topups'
+  auth 'api-key'
+  body ({
+    amount: '10000',
+    walletId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    bankAuthorityId: 'FRhAzzWpTKb5U7pZygQjjY',
+  })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -71,12 +68,11 @@ curl -X POST "https://service.centrapay.com/api/topups" \
 
 ## Get a top up by id
 
-{% endpoint GET https://service.centrapay.com/api/topups/${id} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/topups/{topupId}'
+  auth 'api-key'
+  path_param 'topupId', 'WRhAxxWpTKb5U7pXyxQjjY'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -96,12 +92,10 @@ curl -X GET "https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY" \
 
 ## List top ups for authorized accounts
 
-{% endpoint GET https://service.centrapay.com/api/topups %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/topups" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/topups'
+  auth 'api-key'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -134,12 +128,11 @@ curl -X GET "https://service.centrapay.com/api/topups" \
 
 ## List top ups for an account **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/topups %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topups" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/topups'
+  auth 'api-key'
+  path_param 'accountId', 'aBc932S9182qwCDqwer'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -172,18 +165,15 @@ curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topu
 
 ## Creating a Withdrawal **EXPERIMENTAL**
 
-{% endpoint POST https://service.centrapay.com/api/withdrawals %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/withdrawals" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "amount": "10000",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY"
-  }'
-```
+{% reqspec %}
+  POST '/api/withdrawals'
+  auth 'api-key'
+  body ({
+    amount: '10000',
+    walletId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    bankAuthorityId: 'FRhAzzWpTKb5U7pZygQjjY',
+  })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -218,12 +208,11 @@ curl -X POST "https://service.centrapay.com/api/withdrawals" \
 
 ## Get a Withdrawal by id **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/withdrawals/${id} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjjY" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/withdrawals/{withdrawalId}'
+  auth 'api-key'
+  path_param 'withdrawalId', 'WRhAxxWpTKb5U7pXyxQjjY'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -243,12 +232,11 @@ curl -X GET "https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjj
 
 ## List withdrawals for an account **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/withdrawals %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/withdrawals" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/withdrawals'
+  auth 'api-key'
+  path_param 'accountId', 'aBc932S9182qwCDqwer'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 

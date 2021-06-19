@@ -22,19 +22,17 @@ configurations with different payment methods.
 
 ## Creating merchant
 
-{% endpoint POST https://service.centrapay.com/api/merchants %}
+{% reqspec %}
+  POST '/api/merchants'
+  auth 'api-key'
+  body ({
+    accountId: 'C4QnjXvj8At6SMsEN4LRi9',
+    name: 'Centrapay Cafe Auckland',
+    country: 'NZ',
+    test: false,
+  })
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/api/merchants" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "accountId": "C4QnjXvj8At6SMsEN4LRi9",
-    "name": "Centrapay Cafe Auckland",
-    "country": "NZ",
-    "test": false
-  }'
-```
 
 {% h4 Required Fields %}
 
@@ -65,12 +63,12 @@ curl -X POST "https://service.centrapay.com/api/merchants" \
 
 ## Get information about a merchant
 
-{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId} %}
+{% reqspec %}
+  GET '/api/merchants/{merchantId}'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
-  -H "x-api-key: 1234"
-```
 
 {% h4 Example response payload %}
 
@@ -86,12 +84,11 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## List all merchants
 
-{% endpoint GET https://service.centrapay.com/api/merchants %}
+{% reqspec %}
+  GET '/api/merchants'
+  auth 'api-key'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/merchants" \
--H "x-api-key: 1234"
-```
 
 {% h4 Example response payload %}
 
@@ -125,14 +122,15 @@ curl -X GET "https://service.centrapay.com/api/merchants" \
 
 ## Update a merchant
 
-{% endpoint PUT https://service.centrapay.com/api/merchants/{merchantId} %}
+{% reqspec %}
+  PUT '/api/merchants/{merchantId}'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+  body ({
+    name: 'Centrapay Café'
+  })
+{% endreqspec %}
 
-```sh
-curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{"name": "Parisian - Orange"}'
-```
 
 {% h4 Optional Fields %}
 
@@ -148,26 +146,26 @@ curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
-  "name": "Parisian - Orange",
+  "name": "Centrapay Café",
   "test": false,
-  "country": "AD"
+  "country": "NZ"
 }
 ```
 
 ## Creating merchant configuration
 
-{% endpoint POST https://service.centrapay.com/api/merchants/{merchantId}/configs/ %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "paymentOptions": [
-    { "type": "centrapay.nzd.main", "walletId": "1234c486308f3f0a23f0f92b"},
-    { "type": "epay.nzd.main", "terminalId": "11000021"},
-    { "type": "pocketvouchers" },
-  ]}'
-```
+{% reqspec %}
+  POST '/api/merchants/{merchantId}/configs/'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+  body ({
+    paymentOptions: [
+      { type: 'centrapay.nzd.main', 'walletId': '1234c486308f3f0a23f0f92b' },
+      { type: 'epay.nzd.main', 'terminalId': '11000021' },
+      { type: 'pocketvouchers' },
+    ]
+  })
+{% endreqspec %}
 
 See [Merchant configuration model](#config-model) for expected request body format.
 
@@ -191,12 +189,13 @@ See [Merchant configuration model](#config-model) for expected request body form
 
 ## Get merchant configuration
 
-{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} %}
+{% reqspec %}
+  GET '/api/merchants/{merchantId}/configs/{configId}'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+  path_param 'configId', '5ee168e8597be5002af7b454'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454" \
-  -H "x-api-key: 1234"
-```
 
 {% h4 Example response payload %}
 
@@ -212,14 +211,14 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 }
 ```
 
-## List all merchant configurations
+## List merchant configurations
 
-{% endpoint GET https://service.centrapay.com/api/merchants/{merchantId}/configs/ %}
+{% reqspec %}
+  GET '/api/merchants/{merchantId}/configs/'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/" \
-  -H "x-api-key: 1234"
-```
 
 {% h4 Example response payload %}
 
@@ -248,17 +247,18 @@ curl -X GET "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07
 
 ## Update merchant configuration
 
-{% endpoint PUT https://service.centrapay.com/api/merchants/{merchantId}/configs/{id} %}
-
-```sh
-curl -X PUT "https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "paymentOptions": [
-    { "type": "bitcoin.main" },
-    { "type": "centrapay.nzd.test", "walletId": "1234c486308f3f0a23f0f92b" }
-  ]}'
-```
+{% reqspec %}
+  PUT '/api/merchants/{merchantId}/configs/{configId}'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+  path_param 'configId', '5ee168e8597be5002af7baed'
+  body ({
+    paymentOptions: [
+      { type: 'bitcoin.main' },
+      { type: 'centrapay.nzd.test', walletId: '1234c486308f3f0a23f0f92b' }
+    ]
+  })
+{% endreqspec %}
 
 See [Merchant configuration model](#config-model) for expected request body format.
 

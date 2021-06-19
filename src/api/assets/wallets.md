@@ -25,14 +25,14 @@ single balance and a single currency.
 
 ## Creating a wallet
 
-{% endpoint POST https://service.centrapay.com/api/wallets %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/wallets" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "accountId": "Te2uDM7xhDLWGVJU3nzwnh", "ledgerId": "centrapay.nzd.main" }'
-```
+{% reqspec %}
+  POST '/api/wallets'
+  auth 'api-key'
+  body ({
+    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    ledgerId: 'centrapay.nzd.main',
+  })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -62,12 +62,10 @@ curl -X POST "https://service.centrapay.com/api/wallets" \
 
 ## Listing authorized wallets
 
-{% endpoint GET https://service.centrapay.com/api/wallets %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/wallets" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/wallets'
+  auth 'api-key'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -92,12 +90,12 @@ curl -X GET "https://service.centrapay.com/api/wallets" \
 
 ## Listing Wallet Transactions **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/wallets/${walletId}/transactions %}
+{% reqspec %}
+  GET '/api/wallets/{walletId}/transactions'
+  path_param 'walletId', 'WRhAxxWpTKb5U7pXyxQjjY'
+  auth 'api-key'
+{% endreqspec %}
 
-```sh
-curl -X GET "https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions" \
-  -H "x-api-key: 1234"
-```
 
 {% h4 Transaction Fields %}
 

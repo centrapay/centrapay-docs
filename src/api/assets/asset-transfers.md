@@ -16,6 +16,10 @@ An asset transfer is an asynchronous exchange of an asset or an amount to a reci
 A recipient is an existing Centrapay user or someone who can create an account to claim the asset transfer by verifying
 their phone number.
 
+After an asset transfer is completed the recipientAlias, lastSentTo and
+message fields are scrubbed to avoid storing PII.
+
+
 ## Contents
 {:.no_toc .text-delta}
 
@@ -38,35 +42,29 @@ Asset Transfer goes through different lifecycle stages.
 
 ## Create an Asset Transfer
 
-{% endpoint POST https://service.centrapay.com/api/asset-transfers %}
+Transfer an asset to a recipient. Some assets can be transfered only in whole
+(eg giftcards or tokens) while others can be transfered only in part (eg money).
 
-You can transfer a discrete asset or an amount from a wallet to a recipient.
+{% reqspec %}
+  POST '/api/asset-transfers'
+  auth 'api-key'
+  example {
+    title 'Whole asset transfer'
+    body ({
+      assetId: 'YGRo6TYYSxH3js7',
+      recipientAlias: '+642212312'
+    })
+  }
+  example {
+    title 'Partial asset transfer'
+    body ({
+      assetId: 'sai2Pai7ohgongo',
+      value: '6000',
+      recipientAlias: '+642212312'
+    })
+  }
+{% endreqspec %}
 
-Here's an example of a $60 transfer from a wallet:
-
-```sh
-curl -X POST "https://service.centrapay.com/api/asset-transfers" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "assetId": "sai2Pai7ohgongo",
-    "value": "6000",
-    "recipientAlias": "+64221231234"
-  }'
-```
-
-For discrete assets, you transfer the entire value to the recipient as balances can't be transferred
-between accounts. Here's an example:
-
-```sh
-curl -X POST "https://service.centrapay.com/api/asset-transfers" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "assetId": "YGRo6TYYSxH3js7",
-    "recipientAlias": "+64221231234"
-  }'
-```
 
 {% h4 Required Fields %}
 
@@ -78,13 +76,13 @@ curl -X POST "https://service.centrapay.com/api/asset-transfers" \
 
 {% h4 Optional Parameters %}
 
-| Parameter   | Type               | Description                                                                                |
-| :---------- | :-----             | :---------                                                                                 |
-| description | String             | Shows up in transaction history against the transfer                                       |
-| message     | String             | A message which shows up in the SMS of the receiver. 100 character limit                   |
-| value       | {% dt BigNumber %} | Amount to send. Required for wallet transfers, and units depend on the wallet ledger type. |
-| senderName  | String             | Human readable name for the sender                                                         |
-| senderAlias | String             | Phone number, email or handle of sender to return asset to. See (★) note below.            |
+| Parameter   | Type               | Description                                                                     |
+| :---------- | :-----             | :---------                                                                      |
+| description | String             | Shows up in transaction history against the transfer.                           |
+| message     | String             | A message which shows up in the SMS of the receiver. 100 character limit        |
+| value       | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type.   |
+| senderName  | String             | Human readable name for the sender.                                             |
+| senderAlias | String             | Phone number, email or handle of sender to return asset to. See (★) note below. |
 
 ★ Only provide a senderAlias value if you are invoking asset transfer with api
 key. In case that recipient doesn't claim asset in 2 weeks or asset was sent to
@@ -122,27 +120,16 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet |
 | 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits. See [Quota Error Response]. |
 
-{% h4 Example webhook response %}
 
-TBD
-```json
-{}
-```
+## Get an Asset Transfer by id
 
-## Look up an Asset Transfer
+{% reqspec %}
+  GET '/api/asset-transfers/{assetTransferId}'
+  auth 'api-key'
+  path_param 'assetTransferId', 'M7Kn2stAxNa6ri7h'
+{% endreqspec %}
 
-After an asset transfer is resolved we scrub the recipientAlias, lastSentTo and message fields to avoid storing PII against
-our model.
-
-{% endpoint GET https://service.centrapay.com/api/asset-transfers/${id} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json"
-```
-
-{% h4 Example response payload (ledger asset) %}
+{% h4 Example response payload (In-progress money transfer) %}
 
 ```json
 {
@@ -151,7 +138,6 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
   "value": "6000",
   "assetId": "sai2Pai7ohgongo",
   "assetType": "centrapay.nzd.main",
-  "description": "$60 Giftcard",
   "message": "Happy birthday",
   "senderName": "My Cafe",
   "lastSentTo": "+64212312345",
@@ -164,7 +150,7 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h"
 }
 ```
 
-{% h4 Example response payload (discrete asset) %}
+{% h4 Example response payload (completed giftcard transfer) %}
 
 ```json
 {
@@ -193,12 +179,10 @@ If unclaimed, asset transfers are returned after 2 weeks.
 
 New accounts should call this endpoint to allocate assets that you've been sent.
 
-{% endpoint POST https://service.centrapay.com/api/me/resolve-claimable-assets %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/me/resolve-claimable-assets" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  POST '/api/me/resolve-claimable-assets'
+  auth 'api-key'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -206,15 +190,20 @@ curl -X POST "https://service.centrapay.com/api/me/resolve-claimable-assets" \
 {}
 ```
 
-## List Sent Asset Transfers **EXPERIMENTAL**
+## List Asset Transfers **EXPERIMENTAL**
 
-{% endpoint GET https://service.centrapay.com/api/asset-transfers?senderAccountId=${id} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=aBc932S9182qwCDqwer" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json"
-```
+{% reqspec %}
+  GET '/api/asset-transfers'
+  auth 'api-key'
+  example {
+    title 'List asset transfers received'
+    query_param 'recipientAccountId', 'oS3Xom2au3Ooy9aihai'
+  }
+  example {
+    title 'List asset transfers sent'
+    query_param 'senderAccountId', 'aBc932S9182qwCDqwer'
+  }
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -240,37 +229,5 @@ curl -X GET "https://service.centrapay.com/api/asset-transfers?senderAccountId=a
 }
 ```
 
-## List Received Asset Transfers **EXPERIMENTAL**
-
-{% endpoint GET https://service.centrapay.com/api/asset-transfers?recipientAccountId=${id} %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/asset-transfers?recipientAccountId=oS3Xom2au3Ooy9aihai" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json"
-```
-
-{% h4 Example response payload %}
-
-```json
-{
-  "items": [
-    {
-      "id": "M7Kn2stAxNa6ri7h",
-      "status": "created",
-      "value": "6000",
-      "assetId": "YGRo6TYYSxH3js7",
-      "description": "$60 Giftcard",
-      "message": "Happy birthday",
-      "senderName": "My Cafe",
-      "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-      "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-      "recipientAlias": "+64*****2345",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-02T01:03:37.222Z"
-    }
-  ]
-}
-```
 
 [Quota Error Response]: {% link api/quotas.md %}#quota-error-response

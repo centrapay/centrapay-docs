@@ -122,16 +122,13 @@ Tokens have the following fields along with the base asset fields.
 
 ## Operations
 
-### Get Asset
+### Get Asset by id
 
-{% endpoint GET https://service.centrapay.com/api/assets/${id} %}
-
-Get asset by asset id. Returned response can be any supported asset type (wallet or gift card).
-
-```sh
-curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/assets/{assetId}'
+  auth 'api-key'
+  path_param 'assetId', 'L75M3L56N2PtBSt8g7uXLU'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -154,14 +151,11 @@ curl -X GET "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU" \
 
 ### List Assets for Account
 
-{% endpoint GET https://service.centrapay.com/api/accounts/${id}/assets %}
-
-List asset by account id. Returned response can be an array of any supported asset types (wallet or gift card).
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/assets'
+  auth 'api-key'
+  path_param 'accountId', 'Te2uDM7xhDLWGVJU3nzwnh'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -213,14 +207,13 @@ curl -X GET "https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/a
 
 ### Archive Asset (EXPERIMENTAL)
 
-{% endpoint POST https://service.centrapay.com/api/assets/${id}/archive %}
+Archive supported asset types by asset id. Currently only gift cards may be archived.
 
-Archive supported asset types by asset id, currently only gift cards may be archived.
-
-```sh
-curl -X POST "https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  POST '/api/assets/{assetId}/archive'
+  auth 'api-key'
+  path_param 'assetId', 'L75M3L56N2PtBSt8g7uXLU'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 

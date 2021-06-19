@@ -22,20 +22,18 @@ A profile represents a Centrapay user's attributes.
 <a name="updating-a-user-profile">
 ## Updating a user profile **EXPERIMENTAL**
 
-{% endpoint POST https://service.centrapay.com/api/me/profile/update %}
+{% reqspec %}
+  POST '/api/me/profile/update'
+  auth 'jwt'
+  body ({
+    givenName: 'John',
+    familyName: 'Doe',
+    featureUpdates: false,
+    marketingUpdates: true,
+    email: 'john.doe@centrapay.com'
+  })
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/api/me/profile/update" \
-  -H "authorization: $jwt" \
-  -H "content-type: application/json" \
-  -d '{
-    "givenName": "John",
-    "familyName": "Doe",
-    "featureUpdates": false,
-    "marketingUpdates": true,
-    "email": "john.doe@centrapay.com"
-  }'
-```
 
 {% h4 Optional Fields %}
 

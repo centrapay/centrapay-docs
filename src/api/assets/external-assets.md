@@ -23,23 +23,21 @@ External assets are [Assets][] which are issued by a third-party.
 
 ## Load an External Asset
 
-{% endpoint POST https://service.centrapay.com/api/external-assets %}
-
 Load an asset from a supported third-party issuer. Asset details will be obtained from the issuer.
 
-```sh
-curl -X POST "https://service.centrapay.com/api/external-assets" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "category": "giftcard",
-    "type": "epay.nzd.main",
-    "issuer": "ezipay",
-    "externalId": "23403283262",
-    "pin": "1234"
-  }'
-```
+{% reqspec %}
+  POST '/api/external-assets'
+  auth 'api-key'
+  body ({
+    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    category: 'giftcard',
+    type: 'epay.nzd.main',
+    issuer: 'ezipay',
+    externalId: '23403283262',
+    pin: '1234'
+  })
+{% endreqspec %}
+
 
 {% h4 Required Fields %}
 

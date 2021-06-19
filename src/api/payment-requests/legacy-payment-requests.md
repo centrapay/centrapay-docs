@@ -31,16 +31,15 @@ Legacy Payment Request endpoints also have
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
 
-{% endpoint POST https://service.centrapay.com/payments/api/requests.create %}
+{% reqspec %}
+  POST '/payments/api/requests.create'
+  auth 'api-key'
+  query_param 'merchantId', '5efbe17d96c083633e2b9241'
+  query_param 'clientId', '5efbe2fb96c08357bb2b9242'
+  query_param 'amount', '300'
+  query_param 'asset', 'NZD'
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
-  -H 'x-api-key: 1234' \
-  -d merchantId="5efbe17d96c083633e2b9241" \
-  -d clientId="5efbe2fb96c08357bb2b9242" \
-  -d amount=300 \
-  -d asset="NZD"
-```
 
 {% h4 Required Parameters %}
 
@@ -70,13 +69,12 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.create" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
-{% endpoint GET https://service.centrapay.com/payments/api/requests.info %}
+{% reqspec %}
+  GET '/payments/api/requests.info'
+  query_param 'requestId', 'a95b3b0d-1278-4613-8772-20d146065a2e'
+  auth 'api-key'
+{% endreqspec %}
 
-```sh
-curl -G "https://service.centrapay.com/payments/api/requests.info" \
-  -H 'x-api-key: 1234' \
-  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
-```
 
 {% h4 Required Parameters %}
 
@@ -89,15 +87,14 @@ curl -G "https://service.centrapay.com/payments/api/requests.info" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestspay){:target="\_blank"}{:.external}
 
-{% endpoint POST https://service.centrapay.com/payments/api/requests.pay %}
+{% reqspec %}
+  POST '/payments/api/requests.pay'
+  auth 'api-key'
+  query_param 'authorization', '12345678'
+  query_param 'ledger', 'g.pocketvouchers.pv'
+  query_param 'requestId', '7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9'
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/payments/api/requests.pay" \
-  -H 'x-api-key: 1234' \
-  -d authorization="12345678" \
-  -d ledger="g.pocketvouchers.pv" \
-  -d requestId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9"
-```
 
 {% h4 Required Parameters %}
 
@@ -149,13 +146,11 @@ text rates from your provider.
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
-{% endpoint POST https://service.centrapay.com/payments/api/requests.cancel %}
-
-```sh
-curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
-  -H 'x-api-key: 1234' \
-  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
-```
+{% reqspec %}
+  POST '/payments/api/requests.cancel'
+  auth 'api-key'
+  query_param 'requestId', 'a95b3b0d-1278-4613-8772-20d146065a2e'
+{% endreqspec %}
 
 {% h4 Required Parameters %}
 
@@ -169,13 +164,12 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.cancel" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
-{% endpoint POST https://service.centrapay.com/payments/api/requests.void %}
+{% reqspec %}
+  POST '/payments/api/requests.void'
+  auth 'api-key'
+  query_param 'requestId', 'a95b3b0d-1278-4613-8772-20d146065a2e'
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
-  -H 'x-api-key: 1234' \
-  -d requestId="a95b3b0d-1278-4613-8772-20d146065a2e"
-```
 
 {% h4 Required Parameters %}
 
@@ -189,14 +183,13 @@ curl -X POST "https://service.centrapay.com/payments/api/requests.void" \
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
-{% endpoint POST https://service.centrapay.com/payments/api/transactions.refund %}
+{% reqspec %}
+  POST '/payments/api/requests.void'
+  auth 'api-key'
+  query_param 'transactionId', '7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9'
+  query_param 'amount', '100'
+{% endreqspec %}
 
-```sh
-curl -X POST "https://service.centrapay.com/payments/api/transactions.refund" \
-  -H 'x-api-key: 1234' \
-  -d transactionId="7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9" \
-  -d amount=100
-```
 
 ### Refunding a transaction can be done two ways:
 

@@ -34,41 +34,35 @@ bank transaction can be used to verify a bank account.
 <span id="bank-account-create"></span>
 ## Creating a bank account
 
-{% endpoint POST https://service.centrapay.com/api/bank-accounts %}
-
-An example of a minimal POST to create a bank account.
-
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-accounts" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "bankAccountNumber": "12-1234-1234567-123",
-    "bankAccountName": "John Doe"
-  }'
-```
-
-An example of a minimal POST to create a bank account and a direct debit authority.
-
-By including directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
+A bank account can be created with or without direct debit authorized.  By including
+directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
 and has authority to operate this account.
 
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-accounts" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "bankAccountNumber": "12-1234-1234567-123",
-    "bankAccountName": "John Doe",
-    "directDebitAuthority": {
-      "phoneNumber": "+64212345678",
-      "fullName": "John Doe",
-      "emailAddress": "john.doe@gmail.com"
-    }
-  }'
-```
+{% reqspec %}
+  POST '/api/bank-accounts'
+  auth 'api-key'
+  example {
+    title 'Create without direct debit authorized'
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      bankAccountNumber: '12-1234-1234567-123',
+      bankAccountName: 'John Doe',
+    })
+  }
+  example {
+    title 'Create with direct debit authorized'
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      bankAccountNumber: '12-1234-1234567-123',
+      bankAccountName: 'John Doe',
+      directDebitAuthority: {
+        phoneNumber: '+64212345678',
+        fullName: 'John Doe',
+        emailAddress: 'john.doe@gmail.com',
+      }
+    })
+  }
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -121,18 +115,16 @@ fields below when specified are required together.
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
 authority to operate this account.
 
-{% endpoint POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/direct-debit-authorities %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "phoneNumber": "+64212345678",
-    "fullName": "John Doe",
-    "emailAddress": "john@doe.org"
-  }'
-```
+{% reqspec %}
+  POST '/api/bank-accounts/{bankAccountId}/direct-debit-authorities'
+  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+  auth 'api-key'
+  body ({
+    phoneNumber: '+64212345678',
+    fullName: 'John Doe',
+    emailAddress: 'john@doe.org',
+  })
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -173,12 +165,11 @@ required together.
 <span id="bank-authority-get"></span>
 ## Get information about a bank account
 
-{% endpoint GET https://service.centrapay.com/api/bank-accounts/${id} %}
-
-```sh
-curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/bank-accounts/{bankAccountId}'
+  auth 'api-key'
+  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+{% endreqspec %}
 
 <span id="verify-bank-account"></span>
 ## Verify a bank account
@@ -186,20 +177,18 @@ curl -X GET https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQj
 Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
 account, you need to direct the user to make a topup/withdrawal and then check their statement.
 
-{% endpoint POST https://service.centrapay.com/api/bank-accounts/${bankAccountId}/verify %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "verificationCode": "1111" }'
-```
+{% reqspec %}
+  POST '/api/bank-accounts/{bankAccountId}/verify'
+  auth 'api-key'
+  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+  body ({ verificationCode: '1111' })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
-|      Field       |  Type  |              Description              |
-| :--------------- | :----- | :------------------------------------ |
-| verificationCode | String | The code on the user's bank statement |
+|      Field       |  Type  |              Description               |
+| :--------------- | :----- | :------------------------------------  |
+| verificationCode | String | The code on the user's bank statement. |
 
 {% h4 Example response payload %}
 
@@ -223,17 +212,12 @@ curl -X POST "https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyx
 If you're creating new interfaces, please work with our [verify endpoint](#verify-bank-account)
 for bank accounts.
 
-Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
-account, you need to direct the user to make a topup/withdrawal and then check their statement.
-
-{% endpoint POST https://service.centrapay.com/api/bank-authorities/${bankAccountId}/verify %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{ "verificationCode": "1111" }'
-```
+{% reqspec %}
+  POST '/api/bank-authorities/{bankAccountId}/verify'
+  auth 'api-key'
+  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+  body ({ verificationCode: '1111' })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -271,12 +255,11 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7p
 <span id="bank-account-list"></span>
 ## List bank accounts
 
-{% endpoint GET https://service.centrapay.com/api/accounts/${accountId}/bank-accounts %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/accounts/{accountId}/bank-accounts'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -310,12 +293,10 @@ curl -X GET "https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/b
 If you're creating new interfaces, please work with our [list endpoint](#bank-account-list)
 for bank accounts.
 
-{% endpoint GET https://service.centrapay.com/api/bank-authorities %}
-
-```sh
-curl -X GET "https://service.centrapay.com/api/bank-authorities" \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/bank-authorities'
+  auth 'api-key'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
@@ -355,22 +336,19 @@ authority.
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
 authority to operate this account.
 
-{% endpoint POST https://service.centrapay.com/api/bank-authorities %}
-
-```sh
-curl -X POST "https://service.centrapay.com/api/bank-authorities" \
-  -H "x-api-key: 1234" \
-  -H "content-type: application/json" \
-  -d '{
-    "fullName": "John Doe",
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "phoneNumber": "+64212345678",
-    "directDebitAuthorized": true,
-    "emailAddress": "John.doe@email.com",
-    "bankAccountNumber": "12-1234-1234567-123",
-    "bankAccountName": "John Doe"
-  }'
-```
+{% reqspec %}
+  POST '/api/bank-authorities'
+  auth 'api-key'
+  body ({
+    fullName: 'John Doe',
+    accountId: 'Jaim1Cu1Q55uooxSens6yk',
+    phoneNumber: '+64212345',
+    directDebitAuthorized: true,
+    emailAddress: 'John.doe@email.com',
+    bankAccountNumber: '12-1234-1234567-123',
+    bankAccountName: 'John Doe'
+  })
+{% endreqspec %}
 
 {% h4 Required Fields %}
 
@@ -413,12 +391,11 @@ curl -X POST "https://service.centrapay.com/api/bank-authorities" \
 If you're creating new interfaces, please work with our [get endpoint](#bank-authority-get)
 for bank accounts.
 
-{% endpoint GET https://service.centrapay.com/api/bank-authorities/${id} %}
-
-```sh
-curl -X GET https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
-  -H "x-api-key: 1234"
-```
+{% reqspec %}
+  GET '/api/bank-authorities/{bankAccountId}'
+  auth 'api-key'
+  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+{% endreqspec %}
 
 {% h4 Example response payload %}
 
