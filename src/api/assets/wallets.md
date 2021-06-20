@@ -99,21 +99,21 @@ single balance and a single currency.
 
 {% h4 Transaction Fields %}
 
-| Field            | Description                                                               |
-|:-----------------|:--------------------------------------------------------------------------|
-| activityNumber   | Unique sequential wallet transaction number                               |
-| amount           | Absolute transaction amount in cents.                                     |
-| value            | Change to the wallet's balance in cents when the transaction was applied. |
-| createdAt        | Transaction timestamp as ISO8601 date string.                             |
-| activityType     | Hints to the type of transaction: undefined or "returned-asset-transfer"  |
-| destWalletId     | Id of the destination wallet if applicable.                               |
-| srcWalletId      | Id of the source wallet if applicable.                                    |
-| destParty        | Display value for party receiving funds if applicable. See note below.    |
-| srcParty         | Display value for party providing funds if applicable. See note below.    |
-| paymentRequestId | Id of the related payment request if applicable.                          |
-| topupId          | Id of the related topup funds transfer request if applicable.             |
-| assetTransferId  | Id of the related asset transfer request if applicable.                   |
-| withdrawalId     | Id of the related withdrawal request if applicable.                       |
+| Field              | Type               | Description                                                                 |
+| :----------------- | :---               | :-------------------------------------------------------------------------- |
+| activityNumber     | {% dt BigNumber %} | Unique sequential wallet transaction number                                 |
+| amount             | {% dt BigNumber %} | Absolute transaction amount in cents.                                       |
+| value              | {% dt BigNumber %} | Change to the wallet's balance in cents when the transaction was applied.   |
+| createdAt          | {% dt Timestamp %} | Transaction timestamp as ISO 8601 date string.                              |
+| activityType       | String             | Hints to the type of transaction: undefined or "returned-asset-transfer"    |
+| destWalletId       | String             | Id of the destination wallet if applicable.                                 |
+| srcWalletId        | String             | Id of the source wallet if applicable.                                      |
+| destParty          | String             | Display value for party receiving funds if applicable. See note below.      |
+| srcParty           | String             | Display value for party providing funds if applicable. See note below.      |
+| paymentRequestId   | String             | Id of the related payment request if applicable.                            |
+| topupId            | String             | Id of the related topup funds transfer request if applicable.               |
+| assetTransferId    | String             | Id of the related asset transfer request if applicable.                     |
+| withdrawalId       | String             | Id of the related withdrawal request if applicable.                         |
 
 {% h4 Party Values %}
 
