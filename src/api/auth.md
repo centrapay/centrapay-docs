@@ -36,9 +36,7 @@ header.
 
 ## API Keys
 
-API keys provide enduring access to a single Centrapay account.
-
-See: [Creating API Keys]({% link api/accounts.md %}#creating-api-key).
+[API Keys][] provide enduring access to a single Centrapay account.
 
 The Centrapay test merchant API key is available to test creating payment requests:
 `f32c5497297084e5354b47c40d5ccacb109ce483`.
@@ -143,3 +141,4 @@ indicated below with a star (✸).
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
+[API Keys]: {% link api/api-keys.md %}

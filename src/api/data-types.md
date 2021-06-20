@@ -39,5 +39,20 @@ typically represented as an [ISO 4217][]{:.external} code.
 | currency | String             | Currency code (eg. "NZD").                                 |
 
 
+## CRN
+
+A Centrapay Resource Name (CRN) is a colon-delimited String that uniquely
+identifies any Centrapay resource.
+
+The format is `crn:{account}:{type}:{id}` where "account" is the optional
+Centrapay account that owns the resource, "type" is the resource type, and "id"
+is the resource identifier.
+
+CRN is often used to refer to Users and API keys. For example:
+* **User:** crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878
+* **API Key:** crn:1234abc:api-key:MyAccountOwner
+
+
+
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
