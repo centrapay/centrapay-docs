@@ -26,8 +26,10 @@ Legacy Payment Request endpoints also have
 * TOC
 {:toc}
 
+## Operations
+
 <a name="requests-create">
-## Creating a payment request
+### Creating a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscreate){:target="\_blank"}{:.external}
 
@@ -65,7 +67,7 @@ Legacy Payment Request endpoints also have
 
 
 <a name="requests-info">
-## Getting the information about a payment request
+### Getting the information about a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/getRequestsinfo){:target="\_blank"}{:.external}
 
@@ -83,7 +85,7 @@ Legacy Payment Request endpoints also have
 | requestId | The payment requestId that is generated when [requests.create][] is called |
 
 <a name="requests-pay">
-## Paying a payment request
+### Paying a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestspay){:target="\_blank"}{:.external}
 
@@ -142,7 +144,7 @@ text rates from your provider.
 
 
 <a name="requests-cancel">
-## Cancelling a payment request
+### Cancelling a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestscancel){:target="\_blank"}{:.external}
 
@@ -160,7 +162,7 @@ text rates from your provider.
 
 
 <a name="requests-void">
-## Voiding a payment request
+### Voiding a payment request
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Requests/postRequestsvoid){:target="\_blank"}{:.external}
 
@@ -179,7 +181,7 @@ text rates from your provider.
 
 
 <a name="transactions-refund">
-## Refunding a transaction
+### Refunding a transaction
 
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
@@ -191,24 +193,24 @@ text rates from your provider.
 {% endreqspec %}
 
 
-### Refunding a transaction can be done two ways:
+Refunding a transaction can be done with or without an external reference.
 
-1. Refund the full or partial amount once
+{% h4 Refund without external reference %}
 
-   If you refund a transaction without providing an external reference, you
-   will get a successful response for the first request and then an
-   ALREADY_REFUNDED message for any refund requests that follow for the same
-   transaction, unless an external reference is provided.
+If you refund a transaction without providing an external reference, you
+will get a successful response for the first request and then an
+ALREADY_REFUNDED message for any refund requests that follow for the same
+transaction, unless an external reference is provided.
 
-2. Refund a partial amount multiple times up to the transaction amount
+{% h4 Refund with external reference %}
 
-   If you provide an external reference then a transaction can be refunded
-   multiple times provided that the external reference is unique for each
-   refund request. When a duplicate external reference is provided when
-   attempting to refund the same transaction we return a successful response if
-   the amount of the request is the same both times but do not process another
-   refund, this is because we assume it to be a repeat request. If the amount
-   is different you will get a REPEAT_REFERENCE error message.
+If you provide an external reference then a transaction can be refunded
+multiple times provided that the external reference is unique for each
+refund request. When a duplicate external reference is provided when
+attempting to refund the same transaction we return a successful response if
+the amount of the request is the same both times but do not process another
+refund, this is because we assume it to be a repeat request. If the amount
+is different you will get a REPEAT_REFERENCE error message.
 
 {% h4 Required Parameters for one time refund %}
 
