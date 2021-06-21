@@ -12,7 +12,7 @@ permalink: /api/data-types
 ## Timestamp
 
 A point in time, usually with millisecond precision, represented as an
-[ISO8601][]{:.external} date string (eg "2021-06-11T02:51:11.000Z"). Timestamps
+[ISO 8601][]{:.external} date string (eg "2021-06-11T02:51:11.000Z"). Timestamps
 are in the UTC timezone as denoted by the "Z" suffix.
 
 
@@ -29,7 +29,7 @@ may be used to represent an integer or a decimal amount.
 A monetary amount in a currency, represented as an Object. The amount is
 usually an integer in the smallest denomination for the currency (ie cents) but
 may be a decimal value for some currencies (eg Bitcoin). The currency is
-typically represented as an [ISO4217][]{:.external} code.
+typically represented as an [ISO 4217][]{:.external} code.
 
 {% h4 Fields %}
 
@@ -39,5 +39,5 @@ typically represented as an [ISO4217][]{:.external} code.
 | currency | String             | Currency code (eg. "NZD").                                 |
 
 
-[ISO8601]: https://en.wikipedia.org/wiki/ISO_8601
-[ISO4217]: https://en.wikipedia.org/wiki/ISO_4217
+[ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
+[ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
