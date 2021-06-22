@@ -90,11 +90,16 @@ Gift cards have the following fields along with the base asset fields.
 
 {% h4 Optional Fields %}
 
-| Field            | Type               | Description                                                |
-|:-----------------|:-------------------|:-----------------------------------------------------------|
-| externalId       | String             | The asset identifier from the issuing system.              |
-| expiresAt        | {% dt Timestamp %} | The date when the asset expires.                           |
-| balanceUpdatedAt | {% dt Timestamp %} | The date when the balance was last observed to be updated. |
+| Field            | Type               | Description                                                              |
+|:-----------------|:-------------------|:-------------------------------------------------------------------------|
+| externalId       | String             | The asset identifier from the issuing system.                            |
+| expiresAt        | {% dt Timestamp %} | The date when the asset expires.                                         |
+| balanceUpdatedAt | {% dt Timestamp %} | The date when the balance was last observed to be updated.               |
+| img              | String             | **EXPERIMENTAL** The img URL of the gift card.                           |
+| brandName        | String             | **EXPERIMENTAL** The name of the brand that the gift card belongs to.    |
+| brandImg         | String             | **EXPERIMENTAL** The img URL of the brand that the gift card belongs to. |
+| brandWebsite     | String             | **EXPERIMENTAL** The URL of the brand that the gift card belongs to.     |
+| issuerWebsite    | String             | **EXPERIMENTAL** The URL of the issuer of the gift card.                 |
 
 
 
