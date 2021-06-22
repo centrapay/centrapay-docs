@@ -99,7 +99,7 @@ A line item price can be negative to represents a discount.
 
 | Field    | Type               | Description               |
 |----------|--------------------|---------------------------|
-| tax      | {% dt BigNumber %} | Tax amount in cents.      |
+| tax      | {% dt BigNumber %} | Tax rate (percentage).    |
 | discount | {% dt BigNumber %} | Discount amount in cents. |
 
 
@@ -119,6 +119,15 @@ A line item price can be negative to represents a discount.
         sku: 'GH1234',
         qty: '1',
         price: '4195',
+        tax: '15.00',
+      },
+      {
+        name: 'Silver Bullets',
+        sku: 'SB456',
+        qty: '25',
+        price: '1995',
+        tax: '15.00',
+        discount: '199',
       },
     ],
   })
