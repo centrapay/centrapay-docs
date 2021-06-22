@@ -88,15 +88,42 @@ A line item price can be negative to represents a discount.
 
 {% h4 Mandatory Fields %}
 
-| Field | Type               | Description                                                |
-|-------|--------------------|------------------------------------------------------------|
-| name  | String             | The product description.                                   |
-| sku   | String             | The product (stock keeping unit) code.                     |
-| qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc). |
-| price | {% dt BigNumber %} | The line price (eg. product price * qty).                  |
+| Field | Type               | Description                                                           |
+|-------|--------------------|-----------------------------------------------------------------------|
+| name  | String             | The product description.                                              |
+| sku   | String             | The product (stock keeping unit) code.                                |
+| qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc).            |
+| price | {% dt BigNumber %} | The final price in cents (eg. product price * qty - discounts + tax). |
+
+{% h4 Optional Fields %}
+
+| Field    | Type               | Description               |
+|----------|--------------------|---------------------------|
+| tax      | {% dt BigNumber %} | Tax amount in cents.      |
+| discount | {% dt BigNumber %} | Discount amount in cents. |
 
 
 ## Operations
+
+### Create a Payment Request with Line Items **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/payment-requests'
+  auth 'api-key'
+  body ({
+    merchantConfigId: '5efbe2fb96c08357bb2b9242',
+    value: { currency: 'NZD', amount: '4195' },
+    lineItems: [
+      {
+        name: 'Golden Hammer',
+        sku: 'GH1234',
+        qty: '1',
+        price: '4195',
+      },
+    ],
+  })
+{% endreqspec %}
+
 
 <a name="patron-code"></a>
 ### Get a Payment Request linked to a Patron Code **EXPERIMENTAL**
