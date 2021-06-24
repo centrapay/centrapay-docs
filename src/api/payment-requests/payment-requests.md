@@ -97,10 +97,11 @@ A line item price can be negative to represents a discount.
 
 {% h4 Optional Fields %}
 
-| Field    | Type               | Description               |
-|----------|--------------------|---------------------------|
-| tax      | {% dt BigNumber %} | Tax rate (percentage).    |
-| discount | {% dt BigNumber %} | Discount amount in cents. |
+| Field     | Type               | Description                           |
+|-----------|--------------------|---------------------------------------|
+| tax       | {% dt BigNumber %} | Tax rate (percentage).                |
+| discount  | {% dt BigNumber %} | Discount amount in cents.             |
+| productId | String             | Manufacturer's product identifier (eg GTIN/EAN). |
 
 
 ## Operations
