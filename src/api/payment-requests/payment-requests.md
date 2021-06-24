@@ -94,12 +94,12 @@ A line item price can be negative to represents a discount.
 | sku   | String             | The product (stock keeping unit) code.                                |
 | qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc).            |
 | price | {% dt BigNumber %} | The final price in cents (eg. product price * qty - discounts + tax). |
+| tax   | {% dt BigNumber %} | Tax rate (percentage).                                                |
 
 {% h4 Optional Fields %}
 
 | Field     | Type               | Description                           |
 |-----------|--------------------|---------------------------------------|
-| tax       | {% dt BigNumber %} | Tax rate (percentage).                |
 | discount  | {% dt BigNumber %} | Discount amount in cents.             |
 | productId | String             | Manufacturer's product identifier (eg GTIN/EAN). |
 
