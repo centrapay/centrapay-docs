@@ -354,7 +354,7 @@ authority to operate this account.
 
 |       Field       |  Type  |                    Description                        |
 | :---------------- | :----- | :---------------------------------------------------- |
-| accountId         | String | The [account id]({% link api/accounts.md %}) of the user |
+| accountId         | String | The id of the owning Centrapay [Account][]. |
 | fullName          | String | The first and last name of the user                   |
 | phoneNumber       | String | The user's phone number                               |
 | emailAddress      | String | The user's email address                              |
@@ -417,3 +417,4 @@ for bank accounts.
 
 [dd-terms]: https://centrapay.com/directdebit-termsandconditions/
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
+[Account]: {% link api/accounts/accounts.md %}

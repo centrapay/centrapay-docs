@@ -130,6 +130,45 @@ which define the payment methods available for a Payment Request.
 }
 ```
 
+### List Merchants for Account
+
+{% reqspec %}
+  GET '/api/account/{accountId}/merchants'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "items": [
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "BT",
+      "id": "5f6bf6ff81552101f8ff6122",
+      "name": "Adams, Runolfsdottir and Botsford",
+      "test": true
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "NZ",
+      "id": "5f6bf6ff81552101f8ff6123",
+      "name": "Vandervort Inc",
+      "test": false
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "MZ",
+      "id": "5f6bf6ff81552101f8ff6124",
+      "name": "West, O'Reilly and Huels",
+      "test": true
+    },
+  ]
+}
+```
+
+
 ### Update a Merchant
 
 {% reqspec %}
