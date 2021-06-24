@@ -46,12 +46,13 @@ Don't try again, this is never going to work.
 * Make sure you set "content-type: application/json"
 * The response body should indicate where the error is
 * Make sure your HTTP body fields are set correctly
+* Check your HTTP verb is correct (POST, PUT, GET etc.)
 * Check query parameters are set correctly
 * Check path parameters are set correctly
 
 ## 401 Unauthorized
 
-API key or JWT is missing. Go look at our [Auth][] documentation.
+API key or JWT is missing or expired. Go look at our [Auth][] documentation.
 
 {% h4 Example response body %}
 
