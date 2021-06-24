@@ -65,6 +65,13 @@ Legacy Payment Request endpoints also have
 | deviceId             | Physical payment system device Id                                                  |
 | patronCode           | Associate this payment request with an active Patron Code. |
 
+{% h4 Error Responses %}
+
+| Status |          Code                     |             Description                      |
+| :----- | :---------------------------------| :--------------------------------------------|
+| 400    | {% break _ CHECKSUM_FAILED %}     | patronCode luhn checksum digit doesn't pass. |
+| 403    | {% break _ PATRON_CODE_INVALID %} | patronCode doesn't exist or has expired.     |
+
 
 <a name="requests-info">
 ### Getting the information about a payment request
