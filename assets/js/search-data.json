@@ -451,7 +451,7 @@
   },"75": {
     "doc": "API Introduction",
     "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Data Types | Accounts | Assets | Bank Accounts | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Accounts | Assets | Bank Accounts | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
     "url": "/api/introduction",
     "relUrl": "/api/introduction"
   },"76": {
@@ -677,30 +677,90 @@
     "url": "/api/quotas#quota-model",
     "relUrl": "/api/quotas#quota-model"
   },"113": {
+    "doc": "Status Codes",
+    "title": "HTTP Status Codes",
+    "content": "Centrapay APIs respond with 200, 400, 401, 403, 404, or 429 HTTP status codes. In rare cases endpoints may respond with 5xx status codes. Some legacy or deprecated endpoints may have exceptions to the guidelines documented here. Any such exceptions will be documented on the endpoints. ",
+    "url": "/api/status-codes#http-status-codes",
+    "relUrl": "/api/status-codes#http-status-codes"
+  },"114": {
+    "doc": "Status Codes",
+    "title": "Contents",
+    "content": ". | 200 Ok | 400 Malformed Request | 401 Unauthorized | 403 Permission Denied . | Resource missing or permission denied | Business rule violated | . | 404 Route Not Found | 429 Too Many Requests | 5xx Server Error | . ",
+    "url": "/api/status-codes#contents",
+    "relUrl": "/api/status-codes#contents"
+  },"115": {
+    "doc": "Status Codes",
+    "title": "200 Ok",
+    "content": "Everything’s ok. Enjoy your well formed response! . ",
+    "url": "/api/status-codes#200-ok",
+    "relUrl": "/api/status-codes#200-ok"
+  },"116": {
+    "doc": "Status Codes",
+    "title": "400 Malformed Request",
+    "content": "This is a syntax failure. When you get these back, your application needs to change the way it behaves in order to get back the resource that you’re after. Don’t try again, this is never going to work. Example response body . { \"statusCode\": 400, \"message\": \"\\\"amount\\\" is required\" } . Debugging . | Make sure you set “content-type: application/json” | The response body should indicate where the error is | Make sure your HTTP body fields are set correctly | Check query parameters are set correctly | Check path parameters are set correctly | . ",
+    "url": "/api/status-codes#400-malformed-request",
+    "relUrl": "/api/status-codes#400-malformed-request"
+  },"117": {
+    "doc": "Status Codes",
+    "title": "401 Unauthorized",
+    "content": "API key or JWT is missing. Go look at our Auth documentation. Example response body . { \"statusCode\": 401, \"error\": \"Unauthorized\", \"message\": \"Missing authentication\" } . ",
+    "url": "/api/status-codes#401-unauthorized",
+    "relUrl": "/api/status-codes#401-unauthorized"
+  },"118": {
+    "doc": "Status Codes",
+    "title": "403 Permission Denied",
+    "content": "A 403 status indicates resource missing, permission denied or business rule violation. Resource missing or permission denied . Example response body . { \"statusCode\": 403, \"error\": \"Forbidden\", \"message\": \"Forbidden\" } . Debugging . | Check the resource id is correct | Check your user or API key has membership for the account that owns the resource you are accessing. | Check the role of your user or API key has permission (See Auth Permissions). | . Business rule violated . When the resource exists and access is authorized but some other business rule is violated then a 403 is returned. Additional information will be included in the “message” field of the response body. The possible values for the “message” field will be documented on each endpoint. Example response body . { \"statusCode\": 403, \"error\": \"Forbidden\", \"message\": \"INSUFFICIENT_BALANCE\" } . ",
+    "url": "/api/status-codes#403-permission-denied",
+    "relUrl": "/api/status-codes#403-permission-denied"
+  },"119": {
+    "doc": "Status Codes",
+    "title": "404 Route Not Found",
+    "content": "Variant on a 400, there’s a bug in your code that means you’ve got a typo in the URL. Please check against examples in our documentation. Example response body . { \"statusCode\": 404, \"error\": \"Not Found\", \"message\": \"Not Found\" } . ",
+    "url": "/api/status-codes#404-route-not-found",
+    "relUrl": "/api/status-codes#404-route-not-found"
+  },"120": {
+    "doc": "Status Codes",
+    "title": "429 Too Many Requests",
+    "content": "Centrapay API rate limits have been exceeded. Example response body . { \"statusCode\": 429, \"error\": \"Too Many Requests\", \"message\": \"RATE_LIMIT_EXCEEDED\" } . Debugging . | Check the Retry-After HTTP response header for the number of seconds before the next request will be accepted. | Contact devsupport@centrapay.com to increase your limits. | . ",
+    "url": "/api/status-codes#429-too-many-requests",
+    "relUrl": "/api/status-codes#429-too-many-requests"
+  },"121": {
+    "doc": "Status Codes",
+    "title": "5xx Server Error",
+    "content": "If you get a 500 level error, something has gone wrong on our end. Our goal is to never have these codes. Usually a Centrapay Engineer will investigate but bug reports are also welcome at devsupport@centrapay.com. ",
+    "url": "/api/status-codes#5xx-server-error",
+    "relUrl": "/api/status-codes#5xx-server-error"
+  },"122": {
+    "doc": "Status Codes",
+    "title": "Status Codes",
+    "content": " ",
+    "url": "/api/status-codes",
+    "relUrl": "/api/status-codes"
+  },"123": {
     "doc": "Wallets",
     "title": "Wallets",
     "content": "A wallet is an asset that represents money. The wallet maintains a record of all transactions it has participated in. A wallet has a single balance and a single currency. ",
     "url": "/api/wallets",
     "relUrl": "/api/wallets"
-  },"114": {
+  },"124": {
     "doc": "Wallets",
     "title": "Contents",
     "content": ". | Creating a wallet | Listing authorized wallets | Listing Wallet Transactions EXPERIMENTAL | . ",
     "url": "/api/wallets#contents",
     "relUrl": "/api/wallets#contents"
-  },"115": {
+  },"125": {
     "doc": "Wallets",
     "title": "Creating a wallet",
     "content": "POST /api/wallets . curl -X POST https://service.centrapay.com/api/wallets \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" } . Error Responses . | Status | Code | Description | . | 403 | ACCOUNT_MAX_WALLETS_REACHED | The maximum number of wallets for the given ledger has been reached. | . ",
     "url": "/api/wallets#creating-a-wallet",
     "relUrl": "/api/wallets#creating-a-wallet"
-  },"116": {
+  },"126": {
     "doc": "Wallets",
     "title": "Listing authorized wallets",
     "content": "GET /api/wallets . curl https://service.centrapay.com/api/wallets \\ -H \"X-Api-Key: $api_key\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\" }, { \"id\": \"NQ1yeromwnWPD2hY41L2yS\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.test\", \"currency\": \"NZD\", \"balance\": \"20\" } ] . ",
     "url": "/api/wallets#listing-authorized-wallets",
     "relUrl": "/api/wallets#listing-authorized-wallets"
-  },"117": {
+  },"127": {
     "doc": "Wallets",
     "title": "Listing Wallet Transactions EXPERIMENTAL",
     "content": "GET /api/wallets/{walletId}/transactions . curl https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions \\ -H \"X-Api-Key: $api_key\" . Transaction Fields . | Field | Type | Description | . | activityNumber | BigNumber | Unique sequential wallet transaction number | . | amount | BigNumber | Absolute transaction amount in cents. | . | value | BigNumber | Change to the wallet’s balance in cents when the transaction was applied. | . | createdAt | Timestamp | Transaction timestamp as ISO 8601 date string. | . | activityType | String | Hints to the type of transaction: undefined or “returned-asset-transfer” | . | destWalletId | String | Id of the destination wallet if applicable. | . | srcWalletId | String | Id of the source wallet if applicable. | . | destParty | String | Display value for party receiving funds if applicable. See note below. | . | srcParty | String | Display value for party providing funds if applicable. See note below. | . | paymentRequestId | String | Id of the related payment request if applicable. | . | topupId | String | Id of the related topup funds transfer request if applicable. | . | assetTransferId | String | Id of the related asset transfer request if applicable. | . | withdrawalId | String | Id of the related withdrawal request if applicable. | . Party Values . The “destParty” and “srcParty” are optionally provided depending on the purpose of the transaction. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account. Example response payload (Payment) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"350\", \"value\": \"-350\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"Centrapay Cafe\", \"destWalletId\": \"GfYJd5tZQ63CrehgTP2RPB\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"paymentRequestId\": \"76961bc8-878b-11eb-bc82-abcc0f5e1f60\" } ] } . Example response payload (Topup) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"5000\", \"value\": \"5000\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"12-4000-100001-00\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"topupId\": \"77hqHDzw6KaaG2P2hoshUB\" } ] } . Example response payload (Sent Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"-2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"+6422*****36\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Received Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Returned Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"activityType\": \"returned-asset-transfer\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Withdraw) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"destParty\": \"12-3546-2544786-00\", \"withdrawalId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . ",
