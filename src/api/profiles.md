@@ -19,8 +19,29 @@ A profile represents a Centrapay user's attributes.
 {:toc}
 
 
+## Models
+
+### Profile
+
+{% h4 Optional Fields %}
+
+| Field            | Type    | Description                                                        |
+| :--------------- | :------ | :---------------------------------------------------------------   |
+| givenName        | String  | First name.                                                        |
+| familyName       | String  | Last name.                                                         |
+| featureUpdates   | Boolean | Whether a user would like to receive emails for feature updates.   |
+| marketingUpdates | Boolean | Whether a user would like to receive emails for marketing updates. |
+| email            | String  | Email address.                                                     |
+
+
+## Operations
+
 <a name="updating-a-user-profile">
-## Updating a user profile **EXPERIMENTAL**
+### Updating a user profile **EXPERIMENTAL**
+
+Update a user's mutable attributes. At least one field must be provided in the
+request.
+
 
 {% reqspec %}
   POST '/api/me/profile/update'
@@ -34,18 +55,6 @@ A profile represents a Centrapay user's attributes.
   })
 {% endreqspec %}
 
-
-{% h4 Optional Fields %}
-
-(Note at least one field must be provided in the request)
-
-|      Field       |  Type   |                 Description                                                                        |
-| :--------------- | :------ | :------------------------------------------------------------------------------------------------- |
-| givenName        | String  | First name                                                                                         |
-| familyName       | String  | Last name                                                                                          |
-| featureUpdates   | Boolean | Whether a user would like to receive emails for feature updates                                    |
-| marketingUpdates | Boolean | Whether a user would like to receive emails for marketing updates                                  |
-| email            | String  | Email address                                                                                      |
 
 {% h4 Example response payload %}
 

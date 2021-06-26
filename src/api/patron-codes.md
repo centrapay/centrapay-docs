@@ -15,7 +15,9 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 * TOC
 {:toc}
 
-## Patron Code Model **EXPERIMENTAL**
+## Models
+
+### Patron Code **EXPERIMENTAL**
 
 {% h4 Required Fields %}
 
@@ -57,7 +59,10 @@ The Centrapay Prefix may present any of the following prefixes:
 * 987600
 * 999000
 
-## Creating a Patron Code **EXPERIMENTAL**
+
+## Operations
+
+### Creating a Patron Code **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/patron-codes'
@@ -83,7 +88,7 @@ It is used to apply discounts or restrict payment options for the payment reques
 You can find payment request information attached to a Patron Code by [polling for the Payment
 Request][polling] using the transacting APIs.
 
-## Retrieving a Patron Code by id
+### Retrieving a Patron Code by id
 
 {% reqspec %}
   GET '/api/patron-codes/{patronCodeId}'
@@ -104,7 +109,7 @@ Request][polling] using the transacting APIs.
 }
 ```
 
-## Retrieving a Patron Code by Barcode
+### Retrieving a Patron Code by Barcode
 
 {% reqspec %}
   GET '/api/patron-codes/barcode/{barcode}'
