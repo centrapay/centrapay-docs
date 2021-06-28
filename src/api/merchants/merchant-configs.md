@@ -29,7 +29,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 | paymentOptions | Array  | Array of [Payment Options][]. |
 
 
-### Payment Option
+### Payment Option Config
 
 {% h4 Required Fields %}
 
@@ -46,26 +46,9 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 | wavesPublicAddress | String | Merchant's public waves address. Required for `zap.main` types.                                                   |
 | productCodes       | Array  | **EXPERIMENTAL** The product codes for specific gift cards acceptable for payment. Required for `epay.nzd` types. |
 
-{% h4 Supported Payment Types %}
-
-The following table describes the supported payment option types.
+See [Asset Types][] for values that may be present in the `type` field.
 
 {% warning Test payment options should never be used for live merchant configurations. %}
-
-|        Name        |             Description              |
-| :----------------- | :----------------------------------- |
-| centrapay.nzd.main | Centrapay NZD wallet                 |
-| centrapay.nzd.test | Centrapay NZD wallet (test ledger)   |
-| bitcoin.main       | Bitcoin                              |
-| epay.nzd.main      | EPay NZ giftcards                    |
-| epay.nzd.test      | EPay NZ giftcards (test ledger)      |
-| cca.coke.main      | Coke tokens                          |
-| cca.coke.test      | Coke tokens (test ledger)            |
-| cennznet.main      | Cennznet                             |
-| pocketvouchers     | Pocket Vouchers                      |
-| zap.main           | Zap tokens                           |
-| test               | No-op test payment (always approved) |
-
 
 ## Operations
 
@@ -195,3 +178,4 @@ The following table describes the supported payment option types.
 
 [Payment Request]: {% link api/payment-requests/payment-requests.md %}
 [Payment Options]: #payment-option
+[Asset Types]: {% link api/assets/asset-types.md %}
