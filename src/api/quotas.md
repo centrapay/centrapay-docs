@@ -28,8 +28,8 @@ period (daily, monthly, yearly). Account quotas may be affected by the verificat
 | Field | Type   | Description                    |
 | :---  | :----- | :----------------------------- |
 | type  | String | The quota's type.              |
-| limit | String | The quota's upper usage limit. |
-| usage | String | The quota's current usage.     |
+| limit | {% dt BigNumber %} | The quota's upper usage limit. |
+| usage | {% dt BigNumber %} | The quota's current usage.     |
 
 {% h4 Optional Fields %}
 
