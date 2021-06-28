@@ -38,6 +38,7 @@ Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissi
 
 ## Operations
 
+<span id="create-api-key"></span>
 ### Create an API Key
 
 {% reqspec %}
@@ -89,6 +90,7 @@ Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissi
 ]
 ```
 
+<span id="update-api-key"></span>
 ### Update an API Key
 
 {% reqspec %}
