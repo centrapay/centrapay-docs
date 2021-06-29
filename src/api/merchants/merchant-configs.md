@@ -44,7 +44,6 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 | walletId           | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types.                              |
 | terminalId         | String | Merchant's Epay terminal id.                                                                                      |
 | wavesPublicAddress | String | Merchant's public waves address. Required for `zap.main` types.                                                   |
-| productCodes       | Array  | **EXPERIMENTAL** The product codes for specific gift cards acceptable for payment. Required for `epay.nzd` types. |
 
 See [Asset Types][] for values that may be present in the `type` field.
 
