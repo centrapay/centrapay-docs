@@ -44,7 +44,7 @@ specific to its category.
 |:------------|:-------------------|:--------------------------------------------------|
 | id          | String             | The asset's unique identifier.                    |
 | accountId   | String             | The asset's owning Centrapay account id.          |
-| category    | String             | Asset category ("money", "giftcard", or "token"). |
+| category    | String             | Asset category ("Money", "Giftcard", or "Token"). |
 | type        | String             | Asset type id used by payment option asset types. |
 | liveness    | String             | Either "main" (live payments allowed) or "test".  |
 | description | String             | Displayable asset description.                    |
@@ -52,6 +52,7 @@ specific to its category.
 | status      | String             | "active" if the asset can be used for payments.   |
 
 
+<a name="money">
 ### Money
 
 Money assets, being backed by real currency, are the most flexible asset types.
@@ -70,6 +71,7 @@ Money assets have the following fields along with the base asset fields.
 
 
 
+<a name="giftcards">
 ### Gift Cards
 
 Gift cards are similar to money but have greater spending restrictions and are
@@ -104,6 +106,7 @@ Gift cards have the following fields along with the base asset fields.
 
 
 
+<a name="tokens">
 ### Tokens (EXPERIMENTAL)
 
 Tokens are assets which can be spent only once. They are usually tied to a

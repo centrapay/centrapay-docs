@@ -74,8 +74,20 @@ version (documented on this page) and the "legacy" version (documented at
 
 | Field     | Type               | Description                                                             |
 |-----------|--------------------|-------------------------------------------------------------------------|
-| assetType | String             | An [Asset][] type reference.                                            |
+| assetType | String             | An [Asset Type][] reference.                                            |
 | amount    | {% dt BigNumber %} | The value required to pay using the canonical units for the asset type. |
+
+{% h4 Optional Fields %}
+
+| Field          | Type   | Description                                                                 |
+|----------------|--------|-----------------------------------------------------------------------------|
+| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`      |
+| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`        |
+| wavesAddress   | String | ★  Waves address to send Zap tokens, when if the "assetType" is `zap.*` |
+
+★  For payment options which specify an address, there's a requirement to make a transaction on an
+external ledger. Once you have made that payment, you can use the transaction id for
+[Paying a Payment Request][].
 
 
 ### Line Item
@@ -186,9 +198,8 @@ them to find the Payment Request and proceed to pay.
 
 
 [Patron Code]: {% link api/patron-codes.md %}
-[Asset]: {% link api/assets/assets.md %}
-[PaymentOption]: #payment-option
-[LineItem]: #line-item
+[Asset Type]: {% link api/assets/asset-types.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Patron Code]: {% link api/patron-codes.md %}
+[Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
