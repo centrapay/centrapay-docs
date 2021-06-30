@@ -29,6 +29,7 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 | createdBy   | String             | Identifier for the account that created the barcode. |
 | expiresAt   | {% dt Timestamp %} | Date when the Patron Code will expire.               |
 | appName     | String             | The app used to create the Patron Code.              |
+| accountId   | String             | The account id of the creator of the patron code     |
 
 ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
 code, then a luhn checksum digit.
@@ -74,6 +75,7 @@ The Centrapay Prefix may present any of the following prefixes:
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
+  "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
   "createdBy": "crn::user:1234",
@@ -101,6 +103,7 @@ Request][polling] using the transacting APIs.
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
+  "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
   "createdBy": "crn::user:1234",
@@ -122,6 +125,7 @@ Request][polling] using the transacting APIs.
 ```json
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
+  "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
   "createdBy": "crn::user:1234",
