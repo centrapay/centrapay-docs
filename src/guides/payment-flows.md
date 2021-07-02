@@ -39,10 +39,11 @@ then the payment request can be negotiated with the customer by scanning a
 barcode or QR code displayed on the customer's smart device.
 
 1. Customer generates a short-lived [patron code][] via Centrapay API and displays
-   it as a barcode on their smart device.
-2. Merchant scans the barcode and [creates a Payment Request][] via Centrapay API,
+   it as a barcode on their smart device
+2. Merchant scans the barcode, optionally [retrieves the patron code][] for additional
+   information on the customer and then [creates a Payment Request][] via Centrapay API,
    with the patron code as a parameter.
-3. Customer device uses patron code to [fetch the payment request] and completes
+3. Customer device [fetches the payment request] created with the patron code and completes
    payment as normal.
 
 ## Static Merchant QR Code
@@ -63,4 +64,5 @@ be used.
 [Payment Request Details]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-info
 [Completes Payment]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Patron Code]: {% link api/patron-codes.md %}
-[Fetch the Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#patron-code
+[Retrieves the Patron Code]: {% link api/patron-codes.md %}#retrieving-a-patron-code-by-barcode
+[Fetches the Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#patron-code
