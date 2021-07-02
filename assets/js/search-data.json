@@ -419,17 +419,17 @@
     "url": "/guides",
     "relUrl": "/guides"
   },"70": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
   },"71": {
-    "doc": "Accounts",
-    "title": "Accounts",
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
     "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"72": {
     "doc": "Payment Requests",
     "title": "Payment Requests",
@@ -437,17 +437,17 @@
     "url": "/api/section/payment-requests",
     "relUrl": "/api/section/payment-requests"
   },"73": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
+    "doc": "Accounts",
+    "title": "Accounts",
     "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"74": {
-    "doc": "Merchants",
-    "title": "Merchants",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"75": {
     "doc": "API Reference",
     "title": "API Reference",
@@ -613,7 +613,7 @@
   },"102": {
     "doc": "Payment Flows",
     "title": "Dynamic Patron Barcode",
-    "content": "When a merchant terminal is not capable of displaying a customer-facing QR code then the payment request can be negotiated with the customer by scanning a barcode or QR code displayed on the customer’s smart device. | Customer generates a short-lived patron code via Centrapay API and displays it as a barcode on their smart device. | Merchant scans the barcode and creates a Payment Request via Centrapay API, with the patron code as a parameter. | Customer device uses patron code to fetch the payment request and completes payment as normal. | . ",
+    "content": "When a merchant terminal is not capable of displaying a customer-facing QR code then the payment request can be negotiated with the customer by scanning a barcode or QR code displayed on the customer’s smart device. | Customer generates a short-lived patron code via Centrapay API and displays it as a barcode on their smart device | Merchant scans the barcode, optionally retrieves the patron code for additional information on the customer and then creates a Payment Request via Centrapay API, with the patron code as a parameter. | Customer device fetches the payment request created with the patron code and completes payment as normal. | . ",
     "url": "/guides/payment-flows#dynamic-patron-barcode",
     "relUrl": "/guides/payment-flows#dynamic-patron-barcode"
   },"103": {
