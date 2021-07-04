@@ -10,26 +10,35 @@ permalink: /api/asset-types
 
 The following table describes the Asset Types supported for payments.
 
-The Category column describes an Asset's representation in Centrapay. When blank, the Asset is not
-tracked by a Centrapay Account.
+The Category column refers to the Centrapay asset type representation if
+applicable. When blank, the Asset is not managed by a Centrapay Account.
 
-| Asset Type         | Category     |             Description              |
-| :----------------- |:-------------| :----------------------------------- |
-| centrapay.nzd.main | [Money][]    | Centrapay NZD wallet                 |
-| centrapay.nzd.test | [Money][]    | Centrapay NZD wallet (test ledger)   |
-| epay.nzd.main      | [Giftcard][] | EPay NZ giftcards                    |
-| epay.nzd.test      | [Giftcard][] | EPay NZ giftcards (test ledger)      |
-| cca.coke.main      | [Token][]    | Coke tokens                          |
-| cca.coke.test      | [Token][]    | Coke tokens (test ledger)            |
-| bitcoin.main       |              | [Bitcoin][]{:.external}              |
-| cennznet.main      |              | [CENNZnet][]{:.external}             |
-| zap.main           |              | [Zap tokens][]{:.external}           |
-| pocketvouchers     |              | [Pocket Vouchers][]{:.external}      |
-| test               |              | No-op test payment (always approved) |
+| Asset Type         | Description                          | Category     | Flags |
+| :----------------- | :-------------                       | :-           | :--   |
+| centrapay.nzd.main | Centrapay NZD wallet                 | [Money][]    |       |
+| centrapay.nzd.test | Centrapay NZD wallet                 | [Money][]    | 🅃     |
+| epay.nzd.main      | EPay NZ giftcards                    | [Giftcard][] |       |
+| epay.nzd.test      | EPay NZ giftcards                    | [Giftcard][] | 🅃     |
+| cca.coke.main      | Coke tokens                          | [Token][]    | 🚫    |
+| cca.coke.test      | Coke tokens                          | [Token][]    | 🅃 🚫  |
+| bitcoin.main       | [Bitcoin][]{:.external}              |              |       |
+| cennznet.main      | [CENNZnet][]{:.external}             |              |       |
+| zap.main           | [Zap tokens][]{:.external}           |              |       |
+| pocketvouchers     | [Pocket Vouchers][]{:.external}      |              |       |
+| test               | No-op test payment (always approved) |              | 🅃     |
+
+
+{% h4 Flags %}
+
+ * 🅃  : **Test Asset** -- Cannot be mixed with live merchant [Payment Option Configs][].
+ * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items][].
+
 
 [Money]: {% link api/assets/assets.md %}#money
 [Giftcard]: {% link api/assets/assets.md %}#giftcards
 [Token]: {% link api/assets/assets.md %}#tokens
+[Payment Option Configs]: {% link api/merchants/merchant-configs.md %}#payment-option-config
+[Line Items]: {% link api/payment-requests/payment-requests.md %}#line-item
 [Bitcoin]: https://bitcoin.org/en/
 [CENNZnet]: https://cennznet.io
 [Zap tokens]: https://www.zap.org/

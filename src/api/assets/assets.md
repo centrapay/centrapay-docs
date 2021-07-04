@@ -40,16 +40,16 @@ specific to its category.
 
 {% h4 Required Fields %}
 
-| Field       | Type               | Description                                       |
-|:------------|:-------------------|:--------------------------------------------------|
-| id          | String             | The asset's unique identifier.                    |
-| accountId   | String             | The asset's owning Centrapay account id.          |
-| category    | String             | Asset category ("Money", "Giftcard", or "Token"). |
-| type        | String             | Asset type id used by payment option asset types. |
-| liveness    | String             | Either "main" (live payments allowed) or "test".  |
-| description | String             | Displayable asset description.                    |
-| createdAt   | {% dt Timestamp %} | Date when the asset was created or issued.        |
-| status      | String             | "active" if the asset can be used for payments.   |
+| Field       | Type               | Description                                           |
+|:------------|:-------------------|:------------------------------------------------------|
+| id          | String             | The Asset's unique identifier.                        |
+| accountId   | String             | The Asset's owning Centrapay Account id.              |
+| category    | String             | Asset category ("Money", "Giftcard", or "Token").     |
+| type        | String             | [Asset Type][] id used by payment option asset types. |
+| liveness    | String             | Either "main" (live payments allowed) or "test".      |
+| description | String             | Displayable asset description.                        |
+| createdAt   | {% dt Timestamp %} | Date when the asset was created or issued.            |
+| status      | String             | "active" if the asset can be used for payments.       |
 
 
 <a name="money">
@@ -251,6 +251,7 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 | 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
 
 
+[Asset Type]: {% link api/assets/asset-types.md %}
 [Monetary Amounts]: {% link api/data-types.md %}#monetary
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}

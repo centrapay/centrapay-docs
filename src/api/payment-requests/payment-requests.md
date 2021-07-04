@@ -97,7 +97,9 @@ An order item for which payment is requested. The currency and units for a line
 item price will be consistent with the payment request value and the sum of
 line item prices should equal the payment request value.
 
-A line item price can be negative to represents a discount.
+Line items can include a discount amount. A discount that applies to multiple
+line items may be represented as a separate line item with a negative amount.
+
 
 {% h4 Mandatory Fields %}
 
@@ -110,11 +112,12 @@ A line item price can be negative to represents a discount.
 
 {% h4 Optional Fields %}
 
-| Field     | Type               | Description                           |
-|-----------|--------------------|---------------------------------------|
-| tax       | {% dt BigNumber %} | Tax rate (percentage).                |
-| discount  | {% dt BigNumber %} | Discount amount in cents.             |
-| productId | String             | Manufacturer's product identifier (eg GTIN/EAN). |
+| Field        | Type                 | Description                                          |
+| ------------ | -------------------- | --------------------------------------               |
+| tax          | {% dt BigNumber %}   | Tax rate (percentage).                               |
+| discount     | {% dt BigNumber %}   | Discount amount in cents (tax exclusive).            |
+| productId    | String               | Manufacturer's product identifier (eg GTIN/EAN).     |
+| restricted   | Boolean              | Disallow payment with a "restricted" [Asset Type][]. |
 
 
 ## Operations
@@ -195,7 +198,6 @@ them to find the Payment Request and proceed to pay.
   "expirySeconds": 120
 }
 ```
-
 
 
 [Patron Code]: {% link api/patron-codes.md %}
