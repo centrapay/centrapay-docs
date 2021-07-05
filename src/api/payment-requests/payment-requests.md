@@ -129,17 +129,17 @@ line items may be represented as a separate line item with a negative amount.
   auth 'api-key'
   body ({
     merchantConfigId: '5efbe2fb96c08357bb2b9242',
-    value: { currency: 'NZD', amount: '4195' },
+    value: { amount: 8991, currency: 'NZD' },
     lineItems: [
       {
-        name: 'Golden Hammer',
+        name: 'Coffee Grounds',
         sku: 'GH1234',
         qty: '1',
         price: '4195',
         tax: '15.00',
       },
       {
-        name: 'Silver Bullets',
+        name: 'Centrapay Cafe Mug',
         sku: 'SB456',
         qty: '25',
         price: '1995',
@@ -149,6 +149,105 @@ line items may be represented as a separate line item with a negative amount.
     ],
   })
 {% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "8991" },
+  "paymentOptions": [
+    {
+      "amount": "8991",
+      "assetType": "centrapay.nzd.test"
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+```
+
+### Get a Payment Request by Id **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/payment-requests/{id}'
+  auth 'jwt'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "8991" },
+  "paymentOptions": [
+    {
+      "amount": "8991",
+      "assetType": "centrapay.nzd.test"
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+```
 
 
 <a name="patron-code"></a>
@@ -179,7 +278,10 @@ them to find the Payment Request and proceed to pay.
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
   "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "merchantConfigId": "5efbe2fb96c08357bb2b9242",
