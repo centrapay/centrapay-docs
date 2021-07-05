@@ -60,12 +60,12 @@ version (documented on this page) and the "legacy" version (documented at
 
 | Field            | Type   | Description                                                          |
 |------------------|--------|----------------------------------------------------------------------|
-| patronCodeId     | String | The id of the [Patron Code][] the payment request is attached to.        |
+| patronCode       | Object | The [Patron Code Ref][] the payment request is attached to.          |
 | merchantId       | String | The id of the merchant the payment request is on behalf of.          |
 | merchantName     | String | The name of the merchant the payment request is on behalf of.        |
 | merchantConfigId | String | The merchant configuration id used to configure the payment options. |
 | expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.     |
-| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.       |
+| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
 
 
 ### Payment Option
@@ -89,6 +89,23 @@ version (documented on this page) and the "legacy" version (documented at
 ★  For payment options which specify an address, there's a requirement to make a transaction on an
 external ledger. Once you have made that payment, you can use the transaction id for
 [Paying a Payment Request][].
+
+
+### Patron Code Ref
+
+A reference to a [Patron Code][].
+
+{% h4 Mandatory Fields %}
+
+| Field   | Type   | Description                          |
+| :------ | :----- | :----------------------------------  |
+| id      | String | The Patron Code's unique identifier. |
+
+{% h4 Optional Fields %}
+
+| Field   | Type   | Description                                                |
+| :------ | :----- | :----------------------------------                        |
+| barcode | String | Scanned patron barcode used to create the payment request. |
 
 
 ### Line Item
@@ -129,17 +146,17 @@ line items may be represented as a separate line item with a negative amount.
   auth 'api-key'
   body ({
     merchantConfigId: '5efbe2fb96c08357bb2b9242',
-    value: { currency: 'NZD', amount: '4195' },
+    value: { amount: 8991, currency: 'NZD' },
     lineItems: [
       {
-        name: 'Golden Hammer',
+        name: 'Coffee Grounds',
         sku: 'GH1234',
         qty: '1',
         price: '4195',
         tax: '15.00',
       },
       {
-        name: 'Silver Bullets',
+        name: 'Centrapay Cafe Mug',
         sku: 'SB456',
         qty: '25',
         price: '1995',
@@ -149,6 +166,105 @@ line items may be represented as a separate line item with a negative amount.
     ],
   })
 {% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "8991" },
+  "paymentOptions": [
+    {
+      "amount": "8991",
+      "assetType": "centrapay.nzd.test"
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+```
+
+### Get a Payment Request by Id **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/payment-requests/{id}'
+  auth 'jwt'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "8991" },
+  "paymentOptions": [
+    {
+      "amount": "8991",
+      "assetType": "centrapay.nzd.test"
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+```
 
 
 <a name="patron-code"></a>
@@ -179,7 +295,10 @@ them to find the Payment Request and proceed to pay.
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
   "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "patronCode": {
+    "id": "V17FByEP9gm1shSG6a1Zzx",
+    "barcode": "9990001234567895",
+  },
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "merchantConfigId": "5efbe2fb96c08357bb2b9242",
@@ -201,8 +320,8 @@ them to find the Payment Request and proceed to pay.
 
 
 [Patron Code]: {% link api/patron-codes.md %}
+[Patron Code Ref]: #patron-code-ref
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
-[Patron Code]: {% link api/patron-codes.md %}
 [Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
