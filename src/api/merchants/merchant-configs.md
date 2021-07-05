@@ -26,7 +26,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 | Field          | Type   | Description                   |
 | :------------  | :----- | :---------------------------  |
-| paymentOptions | Array  | Array of [Payment Options][]. |
+| paymentOptions | Array  | Array of [Payment Option Configs][]. |
 
 
 ### Payment Option Config
@@ -176,5 +176,5 @@ See [Asset Types][] for values that may be present in the `type` field.
 ```
 
 [Payment Request]: {% link api/payment-requests/payment-requests.md %}
-[Payment Options]: #payment-option
+[Payment Option Configs]: #payment-option-config
 [Asset Types]: {% link api/assets/asset-types.md %}
