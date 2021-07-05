@@ -60,12 +60,12 @@ version (documented on this page) and the "legacy" version (documented at
 
 | Field            | Type   | Description                                                          |
 |------------------|--------|----------------------------------------------------------------------|
-| patronCodeId     | String | The id of the [Patron Code][] the payment request is attached to.        |
+| patronCode       | Object | The [Patron Code Ref][] the payment request is attached to.          |
 | merchantId       | String | The id of the merchant the payment request is on behalf of.          |
 | merchantName     | String | The name of the merchant the payment request is on behalf of.        |
 | merchantConfigId | String | The merchant configuration id used to configure the payment options. |
 | expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.     |
-| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.       |
+| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
 
 
 ### Payment Option
@@ -89,6 +89,23 @@ version (documented on this page) and the "legacy" version (documented at
 ★  For payment options which specify an address, there's a requirement to make a transaction on an
 external ledger. Once you have made that payment, you can use the transaction id for
 [Paying a Payment Request][].
+
+
+### Patron Code Ref
+
+A reference to a [Patron Code][].
+
+{% h4 Mandatory Fields %}
+
+| Field   | Type   | Description                          |
+| :------ | :----- | :----------------------------------  |
+| id      | String | The Patron Code's unique identifier. |
+
+{% h4 Optional Fields %}
+
+| Field   | Type   | Description                                                |
+| :------ | :----- | :----------------------------------                        |
+| barcode | String | Scanned patron barcode used to create the payment request. |
 
 
 ### Line Item
@@ -303,8 +320,8 @@ them to find the Payment Request and proceed to pay.
 
 
 [Patron Code]: {% link api/patron-codes.md %}
+[Patron Code Ref]: #patron-code-ref
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
-[Patron Code]: {% link api/patron-codes.md %}
 [Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
