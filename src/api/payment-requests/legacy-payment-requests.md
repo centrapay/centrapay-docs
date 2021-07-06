@@ -193,7 +193,7 @@ text rates from your provider.
 [Swagger Docs](https://service.centrapay.com/payments/api/documentation#/Transactions/postTransactionsrefund){:target="\_blank"}{:.external}
 
 {% reqspec %}
-  POST '/payments/api/requests.void'
+  POST '/payments/api/transactions.refund'
   auth 'api-key'
   query_param 'transactionId', '7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9'
   query_param 'amount', '100'
