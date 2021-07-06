@@ -52,10 +52,25 @@ merchants through APIs using integrator API keys.
 See [Payment Flows][] for an overview of the API calls required for different payment flows.
 
 
-## Displaying QR Codes
+## Terminal Interface Guidelines
 
-Centrapay QR codes should be displayed with a Centrapay logo in the Center.
-See [Centrapay Brand Assets][]{:.external}.
+When configuring a terminal with Centrapay there are a few common touch points
+that require branded assets. Please use the [Centrapay Brand Assets][]{:.external}
+when building the UI for these screens.
+
+### Displaying a Button
+
+Touch displays should show a button that loads the QR Code screen when pressed.
+
+### Displaying an Icon
+
+Displays that don't support touch should show an icon above the button used to
+load the QR Code screen.
+
+### Displaying QR Codes
+
+Centrapay QR codes should be displayed with a Centrapay logo in the centre.
+
 
 
 ## Integration Architecture
