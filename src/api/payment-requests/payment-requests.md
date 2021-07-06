@@ -127,14 +127,47 @@ line items may be represented as a separate line item with a negative amount.
 | qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc).            |
 | price | {% dt BigNumber %} | The final price in cents (eg. product price * qty - discounts + tax). |
 
+
 {% h4 Optional Fields %}
 
-| Field        | Type                 | Description                                          |
-| ------------ | -------------------- | --------------------------------------               |
-| tax          | {% dt BigNumber %}   | Tax rate (percentage).                               |
-| discount     | {% dt BigNumber %}   | Discount amount in cents (tax exclusive).            |
-| productId    | String               | Manufacturer's product identifier (eg GTIN/EAN).     |
-| restricted   | Boolean              | Disallow payment with a "restricted" [Asset Type][]. |
+| Field          | Type               | Description                                          |
+| ------------   | ------------------ | --------------------------------------               |
+| tax            | {% dt BigNumber %} | Tax rate (percentage).                               |
+| discount       | {% dt BigNumber %} | Discount amount in cents (tax exclusive).            |
+| productId      | String             | Manufacturer's product identifier (eg GTIN/EAN).     |
+| restricted     | Boolean            | Disallow payment with a "restricted" [Asset Type][]. |
+| classification | Object             | [Product Classification][].                          |
+
+
+### Product Classification
+
+{% h4 Mandatory Fields %}
+
+| Field | Type   | Description                          |
+| ---   | ----   | ------------------                   |
+| type  | String | The classification type (see below). |
+| code  | String | The classification code.             |
+| name  | String | The classification description.      |
+
+{% h4 Optional Fields %}
+
+| Field | Type | Description                                        |
+| ---   | ---- | ------------------                                 |
+| props | Map  | The product classification properties (see below). |
+
+
+{% h4 Classification Types %}
+
+Currently only "GS1" is supported. See [GS1 Global Product
+Classification][]{:.external}. When "GS1" is used as the product classification
+type then the product code should be the GPC product brick identifier.
+
+
+{% h4 Classification Properties %}
+
+Classification properties allow optional additional product characterizing
+attrubutes to be supplied. In the case of GS1 product classifications this
+corresponds to the GPC brick attributes.
 
 
 ## Operations
@@ -162,6 +195,15 @@ line items may be represented as a separate line item with a negative amount.
         price: '1995',
         tax: '15.00',
         discount: '199',
+        restricted: true,
+        productId: '19412345123459',
+        classification: {
+          type: 'GS1',
+          code: '10001874',
+          props: {
+            '20001479': '30008960'
+          }
+        }
       },
     ],
   })
@@ -319,9 +361,11 @@ them to find the Payment Request and proceed to pay.
 ```
 
 
+[Product Classification]: #product-classification
 [Patron Code]: {% link api/patron-codes.md %}
 [Patron Code Ref]: #patron-code-ref
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
+[GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
