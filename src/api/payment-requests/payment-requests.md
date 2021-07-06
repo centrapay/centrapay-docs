@@ -172,41 +172,51 @@ corresponds to the GPC brick attributes.
 
 ## Operations
 
-### Create a Payment Request with Line Items **EXPERIMENTAL**
+### Create a Payment Request **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/payment-requests'
   auth 'api-key'
-  body ({
-    merchantConfigId: '5efbe2fb96c08357bb2b9242',
-    value: { amount: 8991, currency: 'NZD' },
-    lineItems: [
-      {
-        name: 'Coffee Grounds',
-        sku: 'GH1234',
-        qty: '1',
-        price: '4195',
-        tax: '15.00',
-      },
-      {
-        name: 'Centrapay Cafe Mug',
-        sku: 'SB456',
-        qty: '25',
-        price: '1995',
-        tax: '15.00',
-        discount: '199',
-        restricted: true,
-        productId: '19412345123459',
-        classification: {
-          type: 'GS1',
-          code: '10001874',
-          props: {
-            '20001479': '30008960'
+  example {
+    title 'Create a Payment Request'
+    body ({
+      merchantConfigId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: 8991, currency: 'NZD' },
+    })
+  }
+  example {
+    title 'Create a Payment Request with Line Items'
+    body ({
+      merchantConfigId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: 8991, currency: 'NZD' },
+      lineItems: [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            props: {
+              '20001479': '30008960'
+            }
           }
-        }
-      },
-    ],
-  })
+        },
+      ],
+    })
+  }
 {% endreqspec %}
 
 {% h4 Example response payload %}
@@ -258,8 +268,9 @@ corresponds to the GPC brick attributes.
 ### Get a Payment Request by Id **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/payment-requests/{id}'
+  GET '/api/payment-requests/{paymentRequestId}'
   auth 'jwt'
+  path_param 'paymentRequestId', '207b5fb5-621e-4282-86c3-42ee47f87e74'
 {% endreqspec %}
 
 {% h4 Example response payload %}
