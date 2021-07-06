@@ -541,7 +541,7 @@
   },"90": {
     "doc": "Merchant Terminals",
     "title": "Contents",
-    "content": ". | API Keys | Merchant Configs | Example Flows | Displaying QR Codes | Integration Architecture | Mitigating Network Issues | Polling vs Webhooks | . ",
+    "content": ". | API Keys | Merchant Configs | Example Flows | Terminal Interface Guidelines . | Displaying a Button | Displaying an Icon | Displaying QR Codes | . | Integration Architecture | Mitigating Network Issues | Polling vs Webhooks | . ",
     "url": "/guides/merchant-terminals#contents",
     "relUrl": "/guides/merchant-terminals#contents"
   },"91": {
@@ -564,10 +564,10 @@
     "relUrl": "/guides/merchant-terminals#example-flows"
   },"94": {
     "doc": "Merchant Terminals",
-    "title": "Displaying QR Codes",
-    "content": "Centrapay QR codes should be displayed with a Centrapay logo in the Center. See Centrapay Brand Assets. ",
-    "url": "/guides/merchant-terminals#displaying-qr-codes",
-    "relUrl": "/guides/merchant-terminals#displaying-qr-codes"
+    "title": "Terminal Interface Guidelines",
+    "content": "When configuring a terminal with Centrapay there are a few common touch points that require branded assets. Please use the Centrapay Brand Assets when building the UI for these screens. Displaying a Button . Touch displays should show a button that loads the QR Code screen when pressed. Displaying an Icon . Displays that don’t support touch should show an icon above the button used to load the QR Code screen. Displaying QR Codes . Centrapay QR codes should be displayed with a Centrapay logo in the centre. ",
+    "url": "/guides/merchant-terminals#terminal-interface-guidelines",
+    "relUrl": "/guides/merchant-terminals#terminal-interface-guidelines"
   },"95": {
     "doc": "Merchant Terminals",
     "title": "Integration Architecture",
