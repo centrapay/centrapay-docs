@@ -58,19 +58,24 @@ When configuring a terminal with Centrapay there are a few common touch points
 that require branded assets. Please use the [Centrapay Brand Assets][]{:.external}
 when building the UI for these screens.
 
+<img src="{{site.url}}/images/terminal-centrapay-button.png" />
+
 ### Displaying a Button
 
 Touch displays should show a button that loads the QR Code screen when pressed.
+
+<img src="{{site.url}}/images/terminal-centrapay-icon.png" />
 
 ### Displaying an Icon
 
 Displays that don't support touch should show an icon above the button used to
 load the QR Code screen.
 
+<img src="{{site.url}}/images/terminal-centrapay-qrcode.png" />
+
 ### Displaying QR Codes
 
 Centrapay QR codes should be displayed with a Centrapay logo in the centre.
-
 
 
 ## Integration Architecture
