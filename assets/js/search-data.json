@@ -757,7 +757,7 @@
   },"126": {
     "doc": "Status Codes",
     "title": "Contents",
-    "content": ". | 200 Ok | 400 Malformed Request | 401 Unauthorized | 403 Permission Denied . | Resource missing or permission denied | Business rule violated | . | 404 Route Not Found | 429 Too Many Requests | 5xx Server Error | . ",
+    "content": ". | 200 Ok | 400 Malformed Request | 401 Unauthorized | 403 Forbidden . | Resource missing or permission denied | Business rule violated | . | 404 Route Not Found | 429 Too Many Requests | 5xx Server Error | . ",
     "url": "/api/status-codes#contents",
     "relUrl": "/api/status-codes#contents"
   },"127": {
@@ -780,10 +780,10 @@
     "relUrl": "/api/status-codes#401-unauthorized"
   },"130": {
     "doc": "Status Codes",
-    "title": "403 Permission Denied",
+    "title": "403 Forbidden",
     "content": "A 403 status indicates resource missing, permission denied or business rule violation. Resource missing or permission denied . Example response body . { \"statusCode\": 403, \"error\": \"Forbidden\", \"message\": \"Forbidden\" } . Debugging . | Check the resource id is correct | Check your user or API key has membership for the account that owns the resource you are accessing. | Check the role of your user or API key has permission (See Auth Permissions). | . Business rule violated . When the resource exists and access is authorized but some other business rule is violated then a 403 is returned. Additional information will be included in the “message” field of the response body. The possible values for the “message” field will be documented on each endpoint. Example response body . { \"statusCode\": 403, \"error\": \"Forbidden\", \"message\": \"INSUFFICIENT_BALANCE\" } . ",
-    "url": "/api/status-codes#403-permission-denied",
-    "relUrl": "/api/status-codes#403-permission-denied"
+    "url": "/api/status-codes#403-forbidden",
+    "relUrl": "/api/status-codes#403-forbidden"
   },"131": {
     "doc": "Status Codes",
     "title": "404 Route Not Found",
