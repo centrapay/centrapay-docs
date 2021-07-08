@@ -65,7 +65,7 @@ API key or JWT is missing or expired. Go look at our [Auth][] documentation.
 ```
 
 
-## 403 Permission Denied
+## 403 Forbidden
 
 A 403 status indicates resource missing, permission denied or
 business rule violation.
