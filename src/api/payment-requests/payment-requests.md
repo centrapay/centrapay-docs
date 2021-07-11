@@ -49,6 +49,9 @@ version (documented on this page) and the "legacy" version (documented at
 | id             | String             | The payment request id.                                                     |
 | value          | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.               |
 | paymentOptions | Array              | The [Payment Options](#payment-option), indicating valid asset for payment. |
+| merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.             |
+| merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.               |
+| configId       | String             | The [Merchant Config][] id used to configure the payment options.           |
 | status         | String             | "new", "paid", "cancelled", "expired"                                       |
 | liveness       | String             | Indicates test assets are accepted. Values are "main" or "test".            |
 | createdAt      | {% dt Timestamp %} | When the payment request was created.                                       |
@@ -62,9 +65,6 @@ version (documented on this page) and the "legacy" version (documented at
 |---------------|--------|----------------------------------------------------------------------|
 | patronCodeId  | String | The id of a [Patron Code][] the payment request is attached to.      |
 | barcode       | String | Scanned patron barcode used to create the payment request.           |
-| merchantId    | String | The id of the merchant the payment request is on behalf of.          |
-| merchantName  | String | The name of the merchant the payment request is on behalf of.        |
-| configId      | String | The merchant configuration id used to configure the payment options. |
 | expirySeconds | Number | The expiry seconds used to configure the payment request expiry.     |
 | lineItems     | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
 
@@ -359,6 +359,8 @@ them to find the Payment Request and proceed to pay.
 ```
 
 
+[Merchant]: {% link api/merchants/merchants.md %}
+[Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
 [Patron Code]: {% link api/patron-codes.md %}
 [Patron Code Ref]: #patron-code-ref
