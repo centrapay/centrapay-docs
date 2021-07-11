@@ -58,14 +58,15 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field            | Type   | Description                                                          |
-|------------------|--------|----------------------------------------------------------------------|
-| patronCode       | Object | The [Patron Code Ref][] the payment request is attached to.          |
-| merchantId       | String | The id of the merchant the payment request is on behalf of.          |
-| merchantName     | String | The name of the merchant the payment request is on behalf of.        |
-| merchantConfigId | String | The merchant configuration id used to configure the payment options. |
-| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.     |
-| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
+| Field         | Type   | Description                                                          |
+|---------------|--------|----------------------------------------------------------------------|
+| patronCodeId  | String | The id of a [Patron Code][] the payment request is attached to.      |
+| barcode       | String | Scanned patron barcode used to create the payment request.           |
+| merchantId    | String | The id of the merchant the payment request is on behalf of.          |
+| merchantName  | String | The name of the merchant the payment request is on behalf of.        |
+| configId      | String | The merchant configuration id used to configure the payment options. |
+| expirySeconds | Number | The expiry seconds used to configure the payment request expiry.     |
+| lineItems     | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
 
 
 ### Payment Option
@@ -90,22 +91,6 @@ version (documented on this page) and the "legacy" version (documented at
 external ledger. Once you have made that payment, you can use the transaction id for
 [Paying a Payment Request][].
 
-
-### Patron Code Ref
-
-A reference to a [Patron Code][].
-
-{% h4 Mandatory Fields %}
-
-| Field   | Type   | Description                          |
-| :------ | :----- | :----------------------------------  |
-| id      | String | The Patron Code's unique identifier. |
-
-{% h4 Optional Fields %}
-
-| Field   | Type   | Description                                                |
-| :------ | :----- | :----------------------------------                        |
-| barcode | String | Scanned patron barcode used to create the payment request. |
 
 
 ### Line Item
@@ -180,14 +165,22 @@ corresponds to the GPC brick attributes.
   example {
     title 'Create a Payment Request'
     body ({
-      merchantConfigId: '5efbe2fb96c08357bb2b9242',
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: 8991, currency: 'NZD' },
+    })
+  }
+  example {
+    title 'Create a Payment Request with a Patron Code'
+    body ({
+      barcode: '1219210961929460',
+      configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: 8991, currency: 'NZD' },
     })
   }
   example {
     title 'Create a Payment Request with Line Items'
     body ({
-      merchantConfigId: '5efbe2fb96c08357bb2b9242',
+      configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: 8991, currency: 'NZD' },
       lineItems: [
         {
@@ -225,13 +218,11 @@ corresponds to the GPC brick attributes.
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
   "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCode": {
-    "id": "V17FByEP9gm1shSG6a1Zzx",
-    "barcode": "9990001234567895",
-  },
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
-  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "configId": "5efbe2fb96c08357bb2b9242",
   "value": { "currency": "NZD", "amount": "8991" },
   "paymentOptions": [
     {
@@ -279,13 +270,11 @@ corresponds to the GPC brick attributes.
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
   "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCode": {
-    "id": "V17FByEP9gm1shSG6a1Zzx",
-    "barcode": "9990001234567895",
-  },
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
-  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "configId": "5efbe2fb96c08357bb2b9242",
   "value": { "currency": "NZD", "amount": "8991" },
   "paymentOptions": [
     {
@@ -348,13 +337,11 @@ them to find the Payment Request and proceed to pay.
 {
   "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
   "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "patronCode": {
-    "id": "V17FByEP9gm1shSG6a1Zzx",
-    "barcode": "9990001234567895",
-  },
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
-  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "configId": "5efbe2fb96c08357bb2b9242",
   "value": { "currency": "NZD", "amount": "100" },
   "paymentOptions": [
     {
