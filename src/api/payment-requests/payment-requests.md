@@ -181,7 +181,7 @@ corresponds to the GPC brick attributes.
     title 'Create a Payment Request with Line Items'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
-      value: { amount: 8991, currency: 'NZD' },
+      value: { amount: 6190, currency: 'NZD' },
       lineItems: [
         {
           name: 'Coffee Grounds',
@@ -223,10 +223,10 @@ corresponds to the GPC brick attributes.
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
-  "value": { "currency": "NZD", "amount": "8991" },
+  "value": { "currency": "NZD", "amount": "6190" },
   "paymentOptions": [
     {
-      "amount": "8991",
+      "amount": "6190",
       "assetType": "centrapay.nzd.test"
     }
   ],
