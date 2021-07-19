@@ -61,12 +61,14 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field         | Type   | Description                                                          |
-|---------------|--------|----------------------------------------------------------------------|
-| patronCodeId  | String | The id of a [Patron Code][] the payment request is attached to.      |
-| barcode       | String | Scanned patron barcode used to create the payment request.           |
-| expirySeconds | Number | The expiry seconds used to configure the payment request expiry.     |
-| lineItems     | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.        |
+| Field            | Type   | Description                                                      |
+|------------------|--------|------------------------------------------------------------------|
+| patronCodeId     | String | The id of a [Patron Code][] the payment request is attached to.  |
+| barcode          | String | Scanned patron barcode used to create the payment request.       |
+| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry. |
+| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.    |
+| purchaseOrderRef | String | A reference to a purchase order for this payment request.        |
+| invoiceRef       | String | A reference to an invoice for this payment request.              |
 
 
 ### Payment Option
@@ -116,7 +118,7 @@ line items may be represented as a separate line item with a negative amount.
 {% h4 Optional Fields %}
 
 | Field          | Type               | Description                                          |
-| ------------   | ------------------ | --------------------------------------               |
+|----------------|--------------------|------------------------------------------------------|
 | tax            | {% dt BigNumber %} | Tax rate (percentage).                               |
 | discount       | {% dt BigNumber %} | Discount amount in cents (tax exclusive).            |
 | productId      | String             | Manufacturer's product identifier (eg GTIN/EAN).     |
@@ -129,7 +131,7 @@ line items may be represented as a separate line item with a negative amount.
 {% h4 Mandatory Fields %}
 
 | Field | Type   | Description                          |
-| ---   | ----   | ------------------                   |
+|-------|--------|--------------------------------------|
 | type  | String | The classification type (see below). |
 | code  | String | The classification code.             |
 | name  | String | The classification description.      |
@@ -137,7 +139,7 @@ line items may be represented as a separate line item with a negative amount.
 {% h4 Optional Fields %}
 
 | Field | Type | Description                                        |
-| ---   | ---- | ------------------                                 |
+|-------|------|----------------------------------------------------|
 | props | Map  | The product classification properties (see below). |
 
 
@@ -175,6 +177,15 @@ corresponds to the GPC brick attributes.
       barcode: '1219210961929460',
       configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: 8991, currency: 'NZD' },
+    })
+  }
+  example {
+    title 'Create a Payment Request with purchase order and invoice'
+    body ({
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: 8991, currency: 'NZD' },
+      purchaseOrderRef: 'oF6kj1QlH5gK0y9rjRHFh2',
+      invoiceRef: 'sy8CRmo3sp3ArOpnfmb423'
     })
   }
   example {
@@ -223,6 +234,8 @@ corresponds to the GPC brick attributes.
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
+  "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+  "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
   "value": { "currency": "NZD", "amount": "6190" },
   "paymentOptions": [
     {
@@ -275,6 +288,8 @@ corresponds to the GPC brick attributes.
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
+  "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+  "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
   "value": { "currency": "NZD", "amount": "8991" },
   "paymentOptions": [
     {
