@@ -4,7 +4,7 @@
   <span class="nt">-d</span> <span class="s1">'{
     "configId": "5efbe2fb96c08357bb2b9242",
     "value": {
-      "amount": 8991,
+      "amount": "8991",
       "currency": "NZD"
     }
   }'</span></code></pre></div> <h4> Create a Payment Request with a Patron Code </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests <span class="se">\</span>
@@ -14,7 +14,7 @@
     "barcode": "1219210961929460",
     "configId": "5efbe2fb96c08357bb2b9242",
     "value": {
-      "amount": 8991,
+      "amount": "8991",
       "currency": "NZD"
     }
   }'</span></code></pre></div> <h4> Create a Payment Request with purchase order and invoice </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests <span class="se">\</span>
@@ -23,7 +23,7 @@
   <span class="nt">-d</span> <span class="s1">'{
     "configId": "5efbe2fb96c08357bb2b9242",
     "value": {
-      "amount": 8991,
+      "amount": "8991",
       "currency": "NZD"
     },
     "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
@@ -34,7 +34,7 @@
   <span class="nt">-d</span> <span class="s1">'{
     "configId": "5efbe2fb96c08357bb2b9242",
     "value": {
-      "amount": 6190,
+      "amount": "6190",
       "currency": "NZD"
     },
     "lineItems": [
