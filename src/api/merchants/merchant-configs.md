@@ -24,9 +24,16 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 {% h4 Required Fields %}
 
-| Field          | Type   | Description                   |
-| :------------  | :----- | :---------------------------  |
+| Field          | Type   | Description                          |
+| :------------  | :----- | :----------------------------------- |
 | paymentOptions | Array  | Array of [Payment Option Configs][]. |
+
+
+{% h4 Optional Fields %}
+
+|    Field            | Type  |                                               Description                                                           |
+| :------------------ | :---- | :------------------------------------------------------------------------------------------------------------------ |
+| allowedRedirectUrls | Array | **Experimental** List of allowed url prefixes that the user can go to after paying or cancelling a payment request. |
 
 
 ### Payment Option Config
@@ -39,11 +46,11 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 {% h4 Optional Fields %}
 
-|       Field        |  Type  |                                                    Description                                                    |
-| :----------------- | :----- | :---------------------------------------------------------------------------------------------------------------- |
-| walletId           | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types.                              |
-| terminalId         | String | Merchant's Epay terminal id.                                                                                      |
-| wavesPublicAddress | String | Merchant's public waves address. Required for `zap.main` types.                                                   |
+|       Field        |  Type  |                                                    Description                                          |
+| :----------------- | :----- | :------------------------------------------------------------------------------------------------------ |
+| walletId           | String | Merchant's Centrapay wallet to receive payments. Required for `centrapay.nzd` types.                    |
+| terminalId         | String | Merchant's Epay terminal id.                                                                            |
+| wavesPublicAddress | String | Merchant's public waves address. Required for `zap.main` types.                                         |
 
 See [Asset Types][] for values that may be present in the `type` field.
 
