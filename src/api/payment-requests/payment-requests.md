@@ -168,7 +168,7 @@ corresponds to the GPC brick attributes.
     title 'Create a Payment Request'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
-      value: { amount: 8991, currency: 'NZD' },
+      value: { amount: '8991', currency: 'NZD' },
     })
   }
   example {
@@ -176,14 +176,14 @@ corresponds to the GPC brick attributes.
     body ({
       barcode: '1219210961929460',
       configId: '5efbe2fb96c08357bb2b9242',
-      value: { amount: 8991, currency: 'NZD' },
+      value: { amount: '8991', currency: 'NZD' },
     })
   }
   example {
     title 'Create a Payment Request with purchase order and invoice'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
-      value: { amount: 8991, currency: 'NZD' },
+      value: { amount: '8991', currency: 'NZD' },
       purchaseOrderRef: 'oF6kj1QlH5gK0y9rjRHFh2',
       invoiceRef: 'sy8CRmo3sp3ArOpnfmb423'
     })
@@ -192,7 +192,7 @@ corresponds to the GPC brick attributes.
     title 'Create a Payment Request with Line Items'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
-      value: { amount: 6190, currency: 'NZD' },
+      value: { amount: '6190', currency: 'NZD' },
       lineItems: [
         {
           name: 'Coffee Grounds',
