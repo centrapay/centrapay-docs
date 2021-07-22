@@ -241,6 +241,11 @@ corresponds to the GPC brick attributes.
     {
       "amount": "6190",
       "assetType": "centrapay.nzd.test"
+    },
+    {
+      "amount": "6190",
+      "assetType": "epay.nzd.test",
+      "productCodes": [ "23403" ]
     }
   ],
   "lineItems": [
