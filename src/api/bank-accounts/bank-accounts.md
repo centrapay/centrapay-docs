@@ -203,6 +203,7 @@ account, you need to direct the user to make a topup/withdrawal and then check t
 | Status | Code                                                      | Description                                                                     |
 | :----- | :-------------------------------------------------------- | :------------------------------------------------------------------------------ |
 | 403    | {% break _ BANK_ACCOUNT_ALREADY_VERIFIED %}               | The bank account is already verified.                                           |
+| 403    | {% break _ VERIFICATION_CODE_INVALID %}                   | The verification code is incorrect.                                             |
 | 403    | {% break _ BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED %} | The bank account's maximum failed verification attempts has been reached.       |
 | 403    | {% break _ ACCOUNT_MISMATCH %}                            | The top up / withdrawal and the bank account do not belong to the same account. |
 
