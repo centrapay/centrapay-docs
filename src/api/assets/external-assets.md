@@ -67,6 +67,7 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
   "issuer": "ezipay",
   "externalId": "***********60119",
   "description": "$60 Acme Giftcard",
+  "productCode": "23403",
   "currency": "NZD",
   "initialBalance": "7000",
   "balance": "6000",
