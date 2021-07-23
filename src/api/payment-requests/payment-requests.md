@@ -61,14 +61,16 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field            | Type   | Description                                                      |
-|------------------|--------|------------------------------------------------------------------|
-| patronCodeId     | String | The id of a [Patron Code][] the payment request is attached to.  |
-| barcode          | String | Scanned patron barcode used to create the payment request.       |
-| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry. |
-| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.    |
-| purchaseOrderRef | String | A reference to a purchase order for this payment request.        |
-| invoiceRef       | String | A reference to an invoice for this payment request.              |
+| Field            | Type   | Description                                                                                                                                                                   |
+|------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| patronCodeId     | String | The id of a [Patron Code][] the payment request is attached to.                                                                                                               |
+| barcode          | String | Scanned patron barcode used to create the payment request.                                                                                                                    |
+| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.                                                                                                              |
+| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                                 |
+| purchaseOrderRef | String | A reference to a purchase order for this payment request.                                                                                                                     |
+| invoiceRef       | String | A reference to an invoice for this payment request.                                                                                                                           |
+| redirectUrl      | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+
 
 
 ### Payment Option
@@ -82,12 +84,12 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field          | Type   | Description                                                                           |
-|----------------|--------|---------------------------------------------------------------------------------------|
-| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                       |
-| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                         |
-| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                  |
-| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*` |
+| Field          | Type   | Description                                                                                                                                                            |
+|----------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                                                                                                        |
+| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                                                                                          |
+| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                                                                                                   |
+| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`                                                                                  |
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an
 external ledger. Once you have made that payment, you can use the transaction id for
@@ -169,6 +171,14 @@ corresponds to the GPC brick attributes.
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: '8991', currency: 'NZD' },
+    })
+  }
+  example {
+    title 'Create a Payment Request with redirect url'
+    body ({
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: '8991', currency: 'NZD' },
+      redirectUrl: 'https://example.com/store/checkout?cartId=1234',
     })
   }
   example {
