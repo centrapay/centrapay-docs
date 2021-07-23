@@ -69,7 +69,7 @@ version (documented on this page) and the "legacy" version (documented at
 | lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                                 |
 | purchaseOrderRef | String | A reference to a purchase order for this payment request.                                                                                                                     |
 | invoiceRef       | String | A reference to an invoice for this payment request.                                                                                                                           |
-| redirectUrl      | String | **Experimental** Url to redirect to after paying or cancelling a payment request. The redirectUrl prefix must be from one of allowedRedirectUrls for the [Merchant Config][]. |
+| redirectUrl      | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
 
 
 
