@@ -33,7 +33,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 |    Field            | Type  |                                               Description                                                           |
 | :------------------ | :---- | :------------------------------------------------------------------------------------------------------------------ |
-| allowedRedirectUrls | Array | **Experimental** List of allowed url prefixes that the user can go to after paying or cancelling a payment request. |
+| allowedRedirectUrls | Array | **Experimental** Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config. |
 
 
 ### Payment Option Config
