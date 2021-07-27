@@ -2,7 +2,21 @@
 
 ## Dependencies
 
-Install Ruby and Bundler then install Ruby gems:
+Install Ruby:
+
+```
+brew install rbenv  # install Ruby version manager
+cd path-to/centrapay.github.io # cd into centrapay.github.io directory
+rbenv install $(cat .ruby-version)  # install version of Ruby defined in .ruby-version
+```
+
+Install Bundler:
+
+```
+sudo gem install bundler
+```
+
+Install Ruby gems:
 
 ```
 bundle install
