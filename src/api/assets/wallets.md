@@ -11,10 +11,17 @@ redirect_from:
 # Wallets
 {:.no_toc}
 
-A wallet is an asset that represents [money][]. The wallet
-maintains a record of all transactions it has participated in. A wallet has a
+A Wallet is an asset that represents [money][]. The Wallet
+maintains a record of all transactions it has participated in. A Wallet has a
 single balance and a single currency.
 
+## Settlement Wallets **EXPERIMENTAL**
+{:.no_toc}
+
+A Settlement Wallet is a special type of Wallet that can only receive or refund
+money related to a payment request. This means you cannot topup, withdraw, or
+send money from this Wallet.
+<br><br>
 
 ## Contents
 {:.no_toc .text-delta}
@@ -23,7 +30,7 @@ single balance and a single currency.
 {:toc}
 
 
-## Creating a wallet
+## Creating a Wallet
 
 {% reqspec %}
   POST '/api/wallets'
@@ -41,6 +48,12 @@ single balance and a single currency.
 | accountId | String | The id of the account                                            |
 | ledgerId  | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test |
 
+{% h4 Optional Fields %}
+
+| Field      | Type    | Description                                                                            |
+|:-----------|:--------|:---------------------------------------------------------------------------------------|
+| settlement | Boolean | **EXPERIMENTAL** Configure the Wallet to be a [Settlement Wallet](#settlement-wallets).|
+
 {% h4 Example response payload %}
 
 ```json
@@ -50,6 +63,19 @@ single balance and a single currency.
   "ledgerId": "centrapay.nzd.main",
   "currency": "NZD",
   "balance": "2000"
+}
+```
+
+{% h4 Example response payload for Settlement Wallet %}
+
+```json
+{
+  "id": "WRhAxxWpTKb5U7pXyxQjjY",
+  "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "ledgerId": "centrapay.nzd.main",
+  "currency": "NZD",
+  "balance": "2000",
+  "settlement": true
 }
 ```
 
@@ -101,13 +127,13 @@ single balance and a single currency.
 
 | Field              | Type               | Description                                                                 |
 | :----------------- | :---               | :-------------------------------------------------------------------------- |
-| activityNumber     | {% dt BigNumber %} | Unique sequential wallet transaction number                                 |
+| activityNumber     | {% dt BigNumber %} | Unique sequential Wallet transaction number                                 |
 | amount             | {% dt BigNumber %} | Absolute transaction amount in cents.                                       |
-| value              | {% dt BigNumber %} | Change to the wallet's balance in cents when the transaction was applied.   |
+| value              | {% dt BigNumber %} | Change to the Wallet's balance in cents when the transaction was applied.   |
 | createdAt          | {% dt Timestamp %} | Transaction timestamp as ISO 8601 date string.                              |
 | activityType       | String             | Hints to the type of transaction: undefined or "returned-asset-transfer"    |
-| destWalletId       | String             | Id of the destination wallet if applicable.                                 |
-| srcWalletId        | String             | Id of the source wallet if applicable.                                      |
+| destWalletId       | String             | Id of the destination Wallet if applicable.                                 |
+| srcWalletId        | String             | Id of the source Wallet if applicable.                                      |
 | destParty          | String             | Display value for party receiving funds if applicable. See note below.      |
 | srcParty           | String             | Display value for party providing funds if applicable. See note below.      |
 | paymentRequestId   | String             | Id of the related payment request if applicable.                            |
