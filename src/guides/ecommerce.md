@@ -8,7 +8,7 @@ permalink: /guides/ecommerce
 
 # eCommerce Website
 
-eCommerce websites accepting payments via Centrapay may want to redirect their uesrs back to their website after they pay/cancel the payment request. In order to do this, the eCommerce website must add `allowedRedirectUrls` to it's [Merchant Config][].
+eCommerce websites accepting payments via Centrapay may want to redirect their users back to their website after they pay/cancel the payment request. In order to do this, the eCommerce website must add `allowedRedirectUrls` to it's [Merchant Config][].
 
 After `allowedRedirectUrls` have been added to the Merchant Config, the eCommerce website can simply pass in their `redirectUrl` when creating a [Payment Request][].
 
