@@ -53,10 +53,10 @@ To create test dollars via the Centrapay app:
    request (`https://app.centrapay.com/pay/{id}`) and, when prompted, enable
    test assets.
 
-2. **Link Test Bank Account:** Visit [https://app.centrapay.com/bank-accounts]()
+2. **Link Test Bank Account:** Visit [bank accounts]()
    and link a bank account using "00-" as the bank account number prefix.
 
-3. **Topup and Verify:** Topup via [https://app.centrapay.com/topup]() by
+3. **Topup and Verify:** Topup via [topup page]() by
    choosing the test bank account. You will receive a test transaction
    confirmation email with a 4-digit code to "verify" the test bank account.
    After the bank account is verified, the topup amount will be released into
@@ -66,3 +66,6 @@ To create test dollars via the Centrapay app:
 [create bank account endpoint]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-create
 [topup endpoint]: {% link api/bank-accounts/funds-transfers.md %}#creating-a-top-up
 [verify bank account endpoint]: {% link api/bank-accounts/bank-accounts.md %}#verify-a-bank-account
+[bank accounts]: https://app.centrapay.com/bank-accounts
+[https://app.centrapay.com/test]: https://app.centrapay.com/test
+[topup page]: https://app.centrapay.com/topup
