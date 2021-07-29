@@ -133,7 +133,7 @@ which define the payment methods available for a Payment Request.
 ### List Merchants for Account
 
 {% reqspec %}
-  GET '/api/account/{accountId}/merchants'
+  GET '/api/accounts/{accountId}/merchants'
   auth 'api-key'
   path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
 {% endreqspec %}
