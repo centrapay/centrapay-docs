@@ -473,8 +473,8 @@
     "url": "/",
     "relUrl": "/"
   },"79": {
-    "doc": "Guides Introduction",
-    "title": "Guides Introduction",
+    "doc": "Guides",
+    "title": "Guides",
     "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
