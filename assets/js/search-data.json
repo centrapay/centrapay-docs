@@ -265,7 +265,7 @@
   },"44": {
     "doc": "Creating Test Money",
     "title": "Via Centrapay App",
-    "content": "To create test dollars via the Centrapay app: . | Enable Test Assets: Create a test payment request at https://app.centrapay.com/test. Follow the link to pay the payment request (https://app.centrapay.com/pay/{id}) and, when prompted, enable test assets. | Link Test Bank Account: Visit bank accounts and link a bank account using “00-“ as the bank account number prefix. | Topup and Verify: Topup via topup page by choosing the test bank account. You will receive a test transaction confirmation email with a 4-digit code to “verify” the test bank account. After the bank account is verified, the topup amount will be released into your Centrapay account. | . ",
+    "content": "To create test dollars via the Centrapay app: . | Enable Test Assets: Create a test payment request at https://app.centrapay.com/test . Follow the link to pay the payment request (https://app.centrapay.com/pay/{id}) and, when prompted, enable test assets. | Link Test Bank Account: Visit https://app.centrapay.com/bank-accounts and link a bank account using “00-“ as the bank account number prefix. | Topup and Verify: Topup via https://app.centrapay.com/topup by choosing the test bank account. You will receive a test transaction confirmation email with a 4-digit code to “verify” the test bank account. After the bank account is verified, the topup amount will be released into your Centrapay account. | . ",
     "url": "/guides/creating-test-money#via-centrapay-app",
     "relUrl": "/guides/creating-test-money#via-centrapay-app"
   },"45": {
