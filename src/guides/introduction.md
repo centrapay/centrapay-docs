@@ -2,11 +2,11 @@
 layout: default
 nav_order: 1
 parent: Guides
-title: Guides Introduction
+title: Guides
 permalink: /guides/introduction
 ---
 
-# Guides Introduction
+# Guides
 
 Guides and examples of how to use Centrapay.
 
