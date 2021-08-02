@@ -799,7 +799,7 @@
   },"133": {
     "doc": "Status Codes",
     "title": "404 Route Not Found",
-    "content": "Variant on a 400, there’s a bug in your code that means you’ve got a typo in the URL. Please check against examples in our documentation. Example response body . { \"statusCode\": 404, \"error\": \"Not Found\", \"message\": \"Not Found\" } . ",
+    "content": "Variant on a 400, there’s a bug in your code that means you’ve got a typo in the URL or HTTP method. Please check against examples in our documentation. Example response body . { \"statusCode\": 404, \"error\": \"Not Found\", \"message\": \"Not Found\" } . ",
     "url": "/api/status-codes#404-route-not-found",
     "relUrl": "/api/status-codes#404-route-not-found"
   },"134": {
