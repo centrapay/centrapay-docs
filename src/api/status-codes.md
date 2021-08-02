@@ -108,8 +108,8 @@ field will be documented on each endpoint.
 
 ## 404 Route Not Found
 
-Variant on a 400, there's a bug in your code that means you've got a typo in the URL. Please check
-against examples in our documentation.
+Variant on a 400, there's a bug in your code that means you've got a typo in
+the URL or HTTP method. Please check against examples in our documentation.
 
 {% h4 Example response body %}
 
