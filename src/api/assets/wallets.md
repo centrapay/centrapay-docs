@@ -15,6 +15,7 @@ A Wallet is an asset that represents [money][]. The Wallet
 maintains a record of all transactions it has participated in. A Wallet has a
 single balance and a single currency.
 
+<a name="settlement-wallets">
 ## Settlement Wallets **EXPERIMENTAL**
 {:.no_toc}
 
