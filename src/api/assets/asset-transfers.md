@@ -40,6 +40,7 @@ Asset Transfer goes through different lifecycle stages.
 | returned | Asset transfer expired and was returned to original owner                                                          |
 | claimed  | Asset transfer was successfully completed                                                                          |
 
+<a name="asset-transfer-create">
 ## Create an Asset Transfer
 
 Transfer an asset to a recipient. Some assets can be transfered only in whole
