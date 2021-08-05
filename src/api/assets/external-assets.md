@@ -29,12 +29,12 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
   POST '/api/external-assets'
   auth 'api-key'
   body ({
-    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    category: 'giftcard',
-    type: 'epay.nzd.main',
-    issuer: 'ezipay',
-    externalId: '23403283262',
-    pin: '1234'
+    accountId: "Jaim1Cu1Q55uooxSens6yk",
+    category: "giftcard",
+    type: "epay.nzd.test",
+    issuer: "ezipay",
+    externalId: "23403321042",
+    pin: "3771"
   })
 {% endreqspec %}
 
