@@ -91,6 +91,12 @@ See [Asset Types][] for values that may be present in the `type` field.
 }
 ```
 
+{% h4 Error Responses %}
+
+| Status |          Code                     |          Description                                  |
+| :----- | :---------------------------------| :-----------------------------------------------------|
+| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].|
+
 ### Get a Merchant Config
 
 {% reqspec %}
@@ -182,6 +188,14 @@ See [Asset Types][] for values that may be present in the `type` field.
 }
 ```
 
+{% h4 Error Responses %}
+
+| Status |          Code                     |          Description                                  |
+| :----- | :---------------------------------| :-----------------------------------------------------|
+| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].|
+
+
 [Payment Request]: {% link api/payment-requests/payment-requests.md %}
 [Payment Option Configs]: #payment-option-config
 [Asset Types]: {% link api/assets/asset-types.md %}
+[Settlement Wallet]: {% link api/assets/wallets.md %}#settlement-wallets
