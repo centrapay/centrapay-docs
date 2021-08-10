@@ -37,7 +37,7 @@ A Business is associated with a single [Account][].
 
 ## Operations
 
-### Create a Business
+### Create a Business **EXPERIMENTAL**
 
 If `accountId` is not provided when creating a business, then a new
 org account will be created and associated to the business.
@@ -85,7 +85,7 @@ org account will be created and associated to the business.
 | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, or is of the wrong type. |
 | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                   |
 
-### Get a Business by Account ID
+### Get a Business by Account ID **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/business'
@@ -109,7 +109,7 @@ org account will be created and associated to the business.
 }
 ```
 
-### Search NZ Company Register
+### Search NZ Company Register **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/nzbn-search'
