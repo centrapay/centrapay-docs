@@ -26,7 +26,7 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 | id          | String             | The Patron Code's unique identifier.                 |
 | barcode     | String             | ✩ Field to display in barcode format.                |
 | createdAt   | {% dt Timestamp %} | Date when the Patron Code was created.               |
-| createdBy   | String             | Identifier for the account that created the barcode. |
+| createdBy   | {% dt CRN %}       | Identifier for the account that created the barcode. |
 | expiresAt   | {% dt Timestamp %} | Date when the Patron Code will expire.               |
 | appName     | String             | The app used to create the Patron Code.              |
 | accountId   | String             | The account id of the creator of the patron code     |
