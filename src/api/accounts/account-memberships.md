@@ -80,9 +80,9 @@ some or all of the operations and resources within the account.
     "role": "account-owner"
   },
   {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "accountId": "0f9nvqdcn5eaaDLefkg1Xt",
     "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
-    "createdAt": "2020-06-01T22:34:31.308Z",
+    "createdAt": "2020-06-02T10:l4:33.021Z",
     "role": "account-owner"
   }
 ]
