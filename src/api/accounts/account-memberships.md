@@ -28,23 +28,24 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Required Fields %}
 
-| Field       | Type               | Description                                            |
-| :-----      | :-----             | :------------------------------------------------------|
-| accountId   | String             | The id of the [Account][] the Membership is scoped to. |
-| accountType | String           | The type of the [Account][] the Membership is scoped to.          |
-| accountName | String           | The name of the [Account][] the Membership is scoped to.          |
-| userId      | String             | The id of the user the Membership belongs to.          |
-| role        | String             | The role governing Membership permissions.             |
+| Field       | Type   | Description                                              |
+| :-----      | :----- | :------------------------------------------------------  |
+| accountId   | String | The id of the [Account][] the Membership is scoped to.   |
+| accountType | String | The type of the [Account][] the Membership is scoped to. |
+| accountName | String | The name of the [Account][] the Membership is scoped to. |
+| userId      | String | The id of the user the Membership belongs to.            |
+| role        | String | The role governing Membership permissions.               |
 
 {% h4 Optional Fields %}
 
-| Field       | Type             | Description                                                       |
-| :-----------| :----------------| :---------------------------------------------------------------- |
-| createdAt  | {% dt Timestamp %} | When the Membership was created.                       |
-| createdBy  | {% dt CRN %}       | Resource that created the  member.                     |
-| modifiedAt | {% dt Timestamp %} | When the Membership was last modified.                 |
-| modifiedBy | {% dt CRN %}       | Resource that last modified the account member.        |
-| version    | {% dt BigNumber %} | Number of times the document has been modified.        |
+| Field        | Type               | Description                                        |
+| :----------- | :----------------  | :------------------------------------------------- |
+| subject      | {% dt CRN %}       | User or API key resource name for the membership.  |
+| createdAt    | {% dt Timestamp %} | When the Membership was created.                   |
+| createdBy    | {% dt CRN %}       | Resource that created the  member.                 |
+| modifiedAt   | {% dt Timestamp %} | When the Membership was last modified.             |
+| modifiedBy   | {% dt CRN %}       | Resource that last modified the account member.    |
+| version      | {% dt BigNumber %} | Number of times the document has been modified.    |
 
 ## Operations
 
