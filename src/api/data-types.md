@@ -52,7 +52,28 @@ CRN is often used to refer to Users and API keys. For example:
 * **User:** crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878
 * **API Key:** crn:1234abc:api-key:MyAccountOwner
 
+## Location
 
+A location's represented as an Object with properties to denote the location both absolute and
+by locality.
+
+{% h4 Required Fields %}
+
+|   Name   |  Type  |                     Description                      |
+| -------- | ------ | ---------------------------------------------------- |
+| lat      | String | Absolute latitude coordinate                         |
+| lng      | String | Absolute longitude coordinate                        |
+| city     | String | City of location                                     |
+| postCode | String | Post code of location                                |
+| country  | String | [ISO 3166]{:.external} Country code. (eg. "NZ")      |
+
+{% h4 Optional Fields %}
+
+|   Name   |  Type  |                     Description                      |
+| -------- | ------ | ---------------------------------------------------- |
+| street   | String | Unit, number, and name of street address             |
+| suburb   | String | Suburb of location                                   |
+| state    | String | The state or region of the location (eg. "Auckland") |
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
