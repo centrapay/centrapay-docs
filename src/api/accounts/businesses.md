@@ -27,6 +27,7 @@ A Business is associated with a single [Account][].
 | :------------ | :----------------- | :------------------------------------------------- |
 | id            | String             | The unique identifier.                             |
 | accountId     | String             | The Centrapay accountId for an org account.        |
+| accountName   | String             | The Centrapay account name for an org account.     |
 | nzbn          | String             | The unique NZBN identifier.                        |
 | name          | String             | Trading name recorded in the Companies Register.   |
 | companyNumber | String             | Company number recorded in the Companies Register. |
@@ -68,6 +69,7 @@ org account will be created and associated to the business.
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "accountName": "Centrapay",
   "nzbn": "9429046246448",
   "name": "CENTRAPAY LIMITED",
   "companyNumber": "6340244",
@@ -99,6 +101,7 @@ org account will be created and associated to the business.
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "accountName": "Centrapay",
   "nzbn": "9429046246448",
   "name": "CENTRAPAY LIMITED",
   "companyNumber": "6340244",
