@@ -70,6 +70,9 @@ version (documented on this page) and the "legacy" version (documented at
 | purchaseOrderRef | String | A reference to a purchase order for this payment request.                                                                                                                     |
 | invoiceRef       | String | A reference to an invoice for this payment request.                                                                                                                           |
 | redirectUrl      | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| terminalId | String | **Experimental** The payment system terminal Id. |
+| deviceId | String | **Experimental** Physical payment system device Id |
+| operatorId | String | **Experimental** POS operator Id |
 
 
 
