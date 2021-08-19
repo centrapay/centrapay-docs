@@ -54,7 +54,6 @@ Integration Requests enable terminal integrations and acceptance of asset types 
   body ({
     accountId: 'Jaim1Cu1Q55uooxSens6yk',
     merchantId: '5ee0c486308f590260d9a07f',
-    status: 'available',
     type: 'epay',
     terminalId: '11000021'
   })
