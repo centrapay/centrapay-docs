@@ -196,7 +196,14 @@ which define the payment methods available for a Payment Request.
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
   "name": "Centrapay Café",
   "test": false,
-  "country": "NZ"
+  "country": "NZ",
+  "location": {
+    "lat": "-36.8483579",
+    "lng": "174.7725834",
+    "city": "Auckland",
+    "postCode": "1010",
+    "country": "NZ"
+  }
 }
 ```
 
