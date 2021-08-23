@@ -144,7 +144,7 @@ Supply parameter values for the Integration Request.
 
 |   Field    |  Type  |                                           Description                                           |
 | :--------- | :----- | :---------------------------------------------------------------------------------------------- |
-| terminalId | String | ePay terminalId for the Integration Request. Required if Integration Request if of type `epay`. |
+| terminalId | String | ePay terminalId for the Integration Request. Required if type is `epay`. |
 
 {% h4 Example response payload %}
 
