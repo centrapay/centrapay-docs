@@ -141,6 +141,7 @@ indicated below with a star (✸).
 | {% break : patron-codes:read %}           | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |
 | {% break : integration-requests:read %}   | &nbsp;&nbsp; ✅ |               |                      |
 | {% break : integration-requests:create %} | &nbsp;&nbsp; ✅ |               |                      |
+| {% break : integration-requests:update %} | &nbsp;&nbsp; ✅ |               |                      |
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
