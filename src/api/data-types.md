@@ -75,6 +75,7 @@ by locality.
 | lat      | Number | Absolute latitude coordinate                         |
 | lng      | Number | Absolute longitude coordinate                        |
 
+
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
 [ISO 3166]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

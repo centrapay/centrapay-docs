@@ -38,11 +38,18 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Optional Fields %}
 
-| Field            | Type    | Description                                               |
-| :--------------- | :-----  | :------------------------------------------               |
-| test             | Boolean | **EXPERIMENTAL** Flag indicating merchant is for testing. |
-| settlementConfig | Object  | **EXPERIMENTAL** Merchant settlement config               |
-| location | {% dt Location %} | **EXPERIMENTAL** Physical Location of Merchant |
+|      Field       |                  Type                   |                        Description                        |
+| :--------------- | :-------------------------------------- | :-------------------------------------------------------- |
+| test             | Boolean                                 | **EXPERIMENTAL** Flag indicating merchant is for testing. |
+| settlementConfig | [Settlement Config](#settlement-config) | **EXPERIMENTAL** Merchant settlement config               |
+| location         | {% dt Location %}                       | **EXPERIMENTAL** Physical Location of Merchant            |
+
+### Settlement Config
+{% h4 Optional Fields %}
+
+|     Field     |  Type  |                                       Description                                        |
+| :------------ | :----- | :--------------------------------------------------------------------------------------- |
+| bankAccountId | String | The id of the bank account funds should be settled into. This must belong to the account |
 
 
 ## Operations
@@ -71,6 +78,12 @@ which define the payment methods available for a Payment Request.
   "test": false
 }
 ```
+
+{% h4 Error Responses %}
+
+| Status |                Code                 |                                  Description                                   |
+| :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
 
 ### Get a Merchant
 
@@ -169,7 +182,6 @@ which define the payment methods available for a Payment Request.
 }
 ```
 
-
 ### Update a Merchant
 
 {% reqspec %}
@@ -184,6 +196,9 @@ which define the payment methods available for a Payment Request.
       city: 'Auckland',
       postCode: '1010',
       country: 'NZ'
+    },
+    settlementConfig: {
+      bankAccountId: 'WRhAxxWpTKb5U7pXyxQjjY'
     }
   })
 {% endreqspec %}
@@ -203,9 +218,18 @@ which define the payment methods available for a Payment Request.
     "city": "Auckland",
     "postCode": "1010",
     "country": "NZ"
+  },
+  "settlementConfig": {
+    "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
   }
 }
 ```
+
+{% h4 Error Responses %}
+
+| Status |                Code                 |                                  Description                                   |
+| :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
 
 [Merchant Configs]: {% link api/merchants/merchant-configs.md %}
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
