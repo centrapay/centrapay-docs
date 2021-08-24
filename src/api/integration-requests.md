@@ -127,12 +127,12 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 }
 ```
 
-### Update Integration Request **EXPERIMENTAL**
+### Configure Integration Request **EXPERIMENTAL**
 
-Supply parameter values for the Integration Request.
+Supply configuration values for the Integration Request.
 
 {% reqspec %}
-  POST '/api/integration-requests/{integrationRequestId}/update'
+  PUT '/api/integration-requests/{integrationRequestId}/configs'
   auth 'api-key'
   path_param 'integrationRequestId', 'DKTs3U38hdhfEqwF1JKoT2'
   body ({
@@ -142,9 +142,9 @@ Supply parameter values for the Integration Request.
 
 {% h4 Optional Fields %}
 
-|   Field    |  Type  |                                           Description                                           |
-| :--------- | :----- | :---------------------------------------------------------------------------------------------- |
-| terminalId | String | ePay terminalId for the Integration Request. Required if type is `epay`. |
+|   Field    |  Type  |                               Description                                |
+| :--------- | :----- | :----------------------------------------------------------------------- |
+| terminalId | String | Epay terminalId for the Integration Request. Required if type is `epay`. |
 
 {% h4 Example response payload %}
 
@@ -160,6 +160,22 @@ Supply parameter values for the Integration Request.
   "updatedAt": "2020-06-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+}
+```
+
+### Get Integration Request Configuration **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/integration-requests/{integrationRequestId}/configs'
+  auth 'api-key'
+  path_param 'integrationRequestId', 'DKTs3U38hdhfEqwF1JKoT2'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "terminalId": "11000021",
 }
 ```
 
