@@ -43,6 +43,10 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 | verifone | Terminal vendor [Verifone][verifone]{:.external} |
 | windcave | Terminal vendor [Windcave][windcave]{:.external} |
 | epay     | Asset provider [ePay][epay]{:.external}          |
+| smartpay | Terminal vendor [smartpay][smartpay]{:.external} |
+| invenco  | Terminal vendor [invenco][invenco]{:.external}   |
+| skyzer   | Terminal vendor [skyzer][skyzer]{:.external}     |
+| vista    | Terminal vendor [vista][vista]{:.external}       |
 
 ## Operations
 
@@ -214,4 +218,8 @@ Supply configuration values for the Integration Request.
 [verifone]: https://www.verifone.com/en/us
 [windcave]: https://www.windcave.com/
 [epay]: https://www.epay.com/
+[vista]: https://www.vista.co
+[smartpay]: https://www.smartpay.co.nz
+[invenco]: https://www.invenco.com/
+[skyzer]: https://www.skyzer.co.nz
 [Merchant]: {% link api/merchants/merchants.md %}
