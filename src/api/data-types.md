@@ -62,7 +62,6 @@ by locality.
 |   Name   |  Type  |                     Description                      |
 | -------- | ------ | ---------------------------------------------------- |
 | street   | String | Unit, number, and name of street address             |
-| state    | String | The state or region of the location (eg. "Auckland") |
 | city     | String | City of location                                     |
 | country  | String | [ISO 3166][]{:.external} Country code. (eg. "NZ")    |
 
@@ -70,10 +69,11 @@ by locality.
 
 |   Name   |  Type  |                     Description                      |
 | -------- | ------ | ---------------------------------------------------- |
-| suburb   | String | Suburb of location                                   |
-| postCode | String | Post or Zip code of location                         |
 | lat      | Number | Absolute latitude coordinate                         |
 | lng      | Number | Absolute longitude coordinate                        |
+| suburb   | String | Suburb of location                                   |
+| postCode | String | Post or Zip code of location                         |
+| state    | String | The state or region of the location (eg. "Auckland") |
 
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
