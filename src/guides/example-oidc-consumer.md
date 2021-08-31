@@ -11,6 +11,8 @@ This guide demonstrates how to integrate a browser based application with the
 Centrapay OAuth server using the [oidc-client-js][oidcjs]{:.external}
 JavaScript library.
 
+A good starting point for learning more about OIDC is Okta's [OAuth OIDC Illustrated Guide][okta-oidc]{:.external}.
+
 ## Contents
 {:.no_toc .text-delta}
 
@@ -140,3 +142,4 @@ async function handleLogoutOidcCallback() {
 
 
 [oidcjs]: https://github.com/IdentityModel/oidc-client-js
+[okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
