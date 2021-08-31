@@ -343,7 +343,7 @@
   },"57": {
     "doc": "Example OIDC Consumer",
     "title": "Example OIDC Consumer",
-    "content": "This guide demonstrates how to integrate a browser based application with the Centrapay OAuth server using the oidc-client-js JavaScript library. ",
+    "content": "This guide demonstrates how to integrate a browser based application with the Centrapay OAuth server using the oidc-client-js JavaScript library. A good starting point for learning more about OIDC is Okta’s OAuth OIDC Illustrated Guide. ",
     "url": "/guides/example-oidc-consumer",
     "relUrl": "/guides/example-oidc-consumer"
   },"58": {
