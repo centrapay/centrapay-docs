@@ -140,4 +140,32 @@ org account will be created and associated to the business.
 }
 ```
 
+### Get Business Details from NZ Company Register **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/nzbn/{nzbn}'
+  auth 'api-key'
+  path_param 'nzbn', '9429046246448'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+```json
+{
+  "nzbn": "9429046246448",
+  "companyName": "CENTRAPAY LIMITED",
+  "companyNumber": "6340244",
+  "directors": [
+    {
+      "firstName": "John",
+      "lastName": "DOE"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "DOE"
+    }
+  ]
+}
+```
+
 [Account]: {% link api/accounts/accounts.md %}
