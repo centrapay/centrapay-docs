@@ -158,11 +158,13 @@ org account will be created and associated to the business.
   "directors": [
     {
       "firstName": "John",
-      "lastName": "DOE"
+      "lastName": "DOE",
+      "addressLines": ["7 Tara Street", "Downmore", "Auckland", "6120", "NZ"]
     },
     {
       "firstName": "Jane",
-      "lastName": "DOE"
+      "lastName": "DOE",
+      "addressLines": ["82 Greatwood Road", "Northclover", "Auckland", "7260", "NZ"]
     }
   ]
 }
