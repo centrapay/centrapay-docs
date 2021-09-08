@@ -162,7 +162,7 @@ email, masked user phone, or bank account.
       "destParty": "Centrapay Cafe",
       "destWalletId": "GfYJd5tZQ63CrehgTP2RPB",
       "srcWalletId": "EBVSreNmpsE2Pazw3SipXC",
-      "paymentRequestId": "76961bc8-878b-11eb-bc82-abcc0f5e1f60"
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw"
     }
   ]
 }

@@ -240,8 +240,8 @@ corresponds to the GPC brick attributes.
 
 ```json
 {
-  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
@@ -292,15 +292,15 @@ corresponds to the GPC brick attributes.
 {% reqspec %}
   GET '/api/payment-requests/{paymentRequestId}'
   auth 'jwt'
-  path_param 'paymentRequestId', '207b5fb5-621e-4282-86c3-42ee47f87e74'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
 {% h4 Example response payload %}
 
 ```json
 {
-  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
@@ -368,8 +368,8 @@ them to find the Payment Request and proceed to pay.
 
 ```json
 {
-  "id": "207b5fb5-621e-4282-86c3-42ee47f87e74",
-  "url": "https://app.centrapay.com/pay/207b5fb5-621e-4282-86c3-42ee47f87e74",
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
