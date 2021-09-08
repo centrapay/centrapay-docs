@@ -417,14 +417,14 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 ```json
 {
   "transaction": {
-    "transactionId": "aba4b07d-fd12-43bc-bbb1-12fda46d9937",
+    "transactionId": "E6ctbmgmkgZ3xnPk3BkGvb",
     "transactionType": "PURCHASE",
     "ledger": "g.crypto.bitcoin.mainnet",
     "state": "completed",
     "amount": 2000,
     "request": {
-      "requestId": "1b23d1f9-8a3e-414d-ac94-f4b331095197",
-      "merchantId": "0b1100be-6a76-45b0-adb8-bfe7db5ae720",
+      "requestId": "0FmbuirpQG4iuy6xAV9R1p",
+      "merchantId": "613919a417bea000290e97e3",
       "externalReference": "12345sixseveneightnineten",
       "denomination": { "asset": "NZD", "amount": 2000 }
     },
@@ -443,9 +443,9 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
   "transaction": {
     "transactionType": "CANCELLED",
     "request": {
-      "requestId": "bec358bf-edb5-4633-a785-a95cc281d3b7",
-      "merchantId": "c614d516-7fbe-4acc-8a49-ed1ce8c54e77",
-      "clientId": "ac1cf8f3-3bbb-4286-beb5-70e7efe562c8",
+      "requestId": "0FmbuirpQG4iuy6xAV9R1p",
+      "merchantId": "613919a417bea000290e97e3",
+      "clientId": "613919a417bea000290e97e4",
       "denomination": {
         "asset": "NZD",
         "amount": "1"
