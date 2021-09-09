@@ -14,6 +14,7 @@ A Payment Activity records a transaction that has happened on a [Payment Request
 
 Payment Activities are created when a Payment Request has been **created**, **paid**, or **refunded**.
 
+
 ## Contents
 {:.no_toc .text-delta}
 
@@ -26,30 +27,43 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Mandatory Fields %}
 
-|       Field       |        Type        |                                       Description                                        |
-| ----------------- | ------------------ | ---------------------------------------------------------------------------------------- |
-| type              | String             | The type of Payment Activity. Can be created, paid or refunded.                          |
-| paymentRequestId  | String             | The payment request id.                                                                  |
-| value             | {% dt Monetary %}  | The value of the payment activity. Must be positive.                                     |
-| shortCode         | String             | The short code for the payment activity.                                                 |
-| merchantConfigId  | String             | The [Merchant Config][] id used to configure the payment options.                        |
-| merchantId        | String             | The id of the [Merchant][] the Payment Request is on behalf of.                          |
-| merchantAccountId | String             | The id of the Centrapay [Account][] of the Merchant the Payment Request is on behalf of. |
-| merchantName      | String             | The name of the Merchant the Payment Request is on behalf of.                            |
-| createdAt         | {% dt Timestamp %} | When the payment activity was created.                                                   |
-| updatedAt         | {% dt Timestamp %} | When the payment activity was updated.                                                   |
+| Field                   | Type               | Description                                          |
+| -----------------       | ------------------ | ---------------------------------------------------- |
+| type                    | String             | See Activity Types below.                            |
+| value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
+| paymentRequestId        | String             | The Payment Request's id.                            |
+| shortCode               | String             | The Payment Request's short code.                    |
+| merchantId              | String             | The Payment Request's [Merchant][] id.               |
+| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.        |
+| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.       |
+| merchantName            | String             | The Payment Request's Merchant name.                 |
+| createdAt               | {% dt Timestamp %} | When the activity was created.                       |
+| createdBy               | {% dt CRN %}       | The identity that created the activity.              |
+| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
 
 {% h4 Optional Fields %}
 
-| Field           | Type   | Description                                                         |
-|-----------------|--------|---------------------------------------------------------------------|
-| createdByUserId | String | The id of the user that created the Payment Request.                |
-| assetType       | String | An [Asset Type][] that was used to transact on the Payment Request. |
+| Field     | Type   | Description                                                |
+|-----------|--------|------------------------------------------------------------|
+| assetType | String | The [Asset Type][] for the "payment" or "refund" activity. |
+
+
+{% h4 Activity Types %}
+
+| Name    | Description                   |
+|---------|-------------------------------|
+| request | Payment Request was created.  |
+| payment | Payment Request was paid.     |
+| refund  | Payment Request was refunded. |
 
 
 ## Operations
 
 ### List Payment Activities **EXPERIMENTAL**
+
+List payment activities for a merchant. Results are paginated and ordered by
+descending activity created date.
+
 {% reqspec %}
   GET '/api/payment-activities'
   auth 'jwt'
@@ -68,45 +82,46 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 ```json
 [
   {
-    "type": "request",
+    "type": "refund",
+    "value": { "currency": "NZD", "amount": "600" },
+    "assetType": "centrapay.nzd.main",
     "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-    "value": { "currency": "NZD", "amount": "6190" },
     "shortCode": "123abc",
     "merchantName": "Centrapay Café",
     "merchantId": "5ee0c486308f590260d9a07f",
     "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
     "merchantConfigId": "5ee168e8597be5002af7b454",
-    "createdAt": "2021-06-12T01:17:46.499Z",
-    "updatedAt": "2021-06-12T01:17:46.499Z",
-    "createdByUserId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+    "createdAt": "2021-06-12T01:17:00.000Z",
+    "createdBy": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+    "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+    "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
   },
   {
     "type": "payment",
-    "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
     "value": { "currency": "NZD", "amount": "6190" },
+    "assetType": "centrapay.nzd.main",
+    "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
     "shortCode": "123abc",
     "merchantName": "Centrapay Café",
     "merchantId": "5ee0c486308f590260d9a07f",
     "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
     "merchantConfigId": "5ee168e8597be5002af7b454",
-    "createdAt": "2021-06-12T01:17:46.499Z",
-    "updatedAt": "2021-06-12T01:17:46.499Z",
-    "createdByUserId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-    "assetType": "centrapay.nzd.main",
+    "createdAt": "2021-06-12T01:16:00.000Z",
+    "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+    "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
   },
   {
-    "type": "refund",
-    "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+    "type": "request",
     "value": { "currency": "NZD", "amount": "6190" },
+    "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
     "shortCode": "123abc",
     "merchantName": "Centrapay Café",
     "merchantId": "5ee0c486308f590260d9a07f",
     "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
     "merchantConfigId": "5ee168e8597be5002af7b454",
-    "createdAt": "2021-06-12T01:17:46.499Z",
-    "updatedAt": "2021-06-12T01:17:46.499Z",
-    "createdByUserId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-    "assetType": "centrapay.nzd.main",
+    "createdAt": "2021-06-12T01:15:46.000Z",
+    "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+    "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
   }
 ]
 ```
