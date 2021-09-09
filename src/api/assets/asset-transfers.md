@@ -193,6 +193,8 @@ New accounts should call this endpoint to allocate assets that you've been sent.
 
 ## List Asset Transfers **EXPERIMENTAL**
 
+Returns a [paginated][] list of Asset Transfers.
+
 {% reqspec %}
   GET '/api/asset-transfers'
   auth 'api-key'
@@ -230,5 +232,5 @@ New accounts should call this endpoint to allocate assets that you've been sent.
 }
 ```
 
-
 [Quota Error Response]: {% link api/quotas.md %}#quota-error-response
+[paginated]: {% link api/pagination.md %}

@@ -60,7 +60,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 ### List Payment Activities **EXPERIMENTAL**
 
-List payment activities for a merchant. Results are paginated and ordered by
+List payment activities for a merchant. Results are [paginated][] and ordered by
 descending activity created date.
 
 {% reqspec %}
@@ -139,3 +139,4 @@ descending activity created date.
 [Merchant]: {% link api/merchants/merchants.md %}
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Account]: {% link api/accounts/accounts.md %}
+[paginated]: {% link api/pagination.md  %}

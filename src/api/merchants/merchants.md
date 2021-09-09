@@ -108,11 +108,12 @@ which define the payment methods available for a Payment Request.
 
 ### List all Merchants
 
+Returns a [paginated][] list of Merchants which belong to the authenticated subject.
+
 {% reqspec %}
   GET '/api/merchants'
   auth 'api-key'
 {% endreqspec %}
-
 
 {% h4 Example response payload %}
 
@@ -145,6 +146,8 @@ which define the payment methods available for a Payment Request.
 ```
 
 ### List Merchants for Account
+
+Returns a [paginated][] list of Merchants attached to an Account.
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/merchants'
@@ -235,3 +238,4 @@ which define the payment methods available for a Payment Request.
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [ISO 3166]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 [Location]: {% link api/data-types.md %}#Location
+[paginated]: {% link api/pagination.md %}

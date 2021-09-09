@@ -114,6 +114,9 @@ org account will be created and associated to the business.
 
 ### Search NZ Company Register **EXPERIMENTAL**
 
+Returns a list of companies that match the queried param on company name, nzbn number or company
+number. Results are [paginated][] and ordered by relevance.
+
 {% reqspec %}
   GET '/api/nzbn-search'
   auth 'api-key'
@@ -171,3 +174,4 @@ org account will be created and associated to the business.
 ```
 
 [Account]: {% link api/accounts/accounts.md %}
+[paginated]: {% link api/pagination.md %}

@@ -161,6 +161,8 @@ Tokens have the following fields along with the base asset fields.
 
 ### List Assets for Account
 
+Returns a [paginated][] list of Assets for an account.
+
 {% reqspec %}
   GET '/api/accounts/{accountId}/assets'
   auth 'api-key'
@@ -258,3 +260,4 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
 [Asset Transfers]: {% link api/assets/asset-transfers.md %}
+[paginated]: {% link api/pagination.md %}
