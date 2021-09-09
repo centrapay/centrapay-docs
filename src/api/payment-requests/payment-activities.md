@@ -78,9 +78,10 @@ descending activity created date.
 
 {% h4 Optional Fields %}
 
-|   Field    |  Type  |                           Description                           |
-| ---------- | ------ | --------------------------------------------------------------- |
-| pageKey    | String | Used to retrieve the next page of items.                        |
+|   Field   |  Type  |               Description                |
+| --------- | ------ | ---------------------------------------- |
+| pageKey   | String | Used to retrieve the next page of items. |
+| shortCode | String | The [Payment Request][]’s short code.    |
 
 
 {% h4 Example response payload %}
