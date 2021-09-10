@@ -117,6 +117,8 @@ send money from this Wallet.
 
 ## Listing Wallet Transactions **EXPERIMENTAL**
 
+Returns a [paginated][] list of Wallet Transactions.
+
 {% reqspec %}
   GET '/api/wallets/{walletId}/transactions'
   path_param 'walletId', 'WRhAxxWpTKb5U7pXyxQjjY'
@@ -260,3 +262,4 @@ email, masked user phone, or bank account.
 ```
 
 [money]: {% link api/assets/assets.md %}#money
+[paginated]: {% link api/pagination.md %}

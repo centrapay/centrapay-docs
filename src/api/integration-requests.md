@@ -94,6 +94,8 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 
 ### Search Integration Requests **EXPERIMENTAL**
 
+Returns a [paginated][] list of Integration Requests.
+
 {% reqspec %}
   GET '/api/integration-requests'
   auth 'api-key'
@@ -223,3 +225,4 @@ Supply configuration values for the Integration Request.
 [invenco]: https://www.invenco.com/
 [skyzer]: https://www.skyzer.co.nz
 [Merchant]: {% link api/merchants/merchants.md %}
+[paginated]: {% link api/pagination.md %}

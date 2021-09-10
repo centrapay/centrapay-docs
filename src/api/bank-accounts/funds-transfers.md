@@ -232,7 +232,9 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 }
 ```
 
-## List withdrawals for an account **EXPERIMENTAL**
+## List Withdrawals for an account **EXPERIMENTAL**
+
+Returns a [paginated][] list of Withdrawals for an account.
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/withdrawals'
@@ -274,3 +276,4 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 [direct debit endpoint]: {% link api/bank-accounts/bank-accounts.md %}#direct-debit-authority
 [settlement wallets]: {% link api/assets/wallets.md %}#settlement-wallets
 [Quota Error Response]: {% link api/quotas.md %}#quota-error-response
+[paginated]: {% link api/pagination.md %}
