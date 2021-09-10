@@ -50,16 +50,14 @@ Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissi
 
 {% h4 Example response payload %}
 
-```json
-{
-  "name": "MyAPIkey",
-  "createdAt": "2020-06-01T22:32:56.631Z",
-  "enabled":true,
-  "role": "merchant-terminal",
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "secret": "EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
-}
-```
+{% json %}
+  name: MyAPIkey
+  createdAt: "2020-06-01T22:32:56.631Z"
+  enabled: true
+  role: "merchant-terminal"
+  accountId: "Jaim1Cu1Q55uooxSens6yk"
+  secret: "EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
+{% endjson %}
 
 ### List API Keys
 
@@ -71,24 +69,21 @@ Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissi
 
 {% h4 Example response payload %}
 
-```json
-[
-  {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "name": "MyOtherAPIkey",
-    "createdAt": "2020-06-01T21:57:25.888Z",
-    "enabled":false,
-    "role": "merchant-terminal"
-  },
-  {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "name": "MyAPIkey",
-    "createdAt": "2020-06-01T22:34:31.308Z",
-    "enabled":true,
-    "role": "merchant-terminal"
-  }
-]
-```
+{% json %}
+
+- accountId: "Jaim1Cu1Q55uooxSens6yk"
+  name: "MyOtherAPIkey"
+  createdAt: "2020-06-01T21:57:25.888Z"
+  enabled: false
+  role: "merchant-terminal"
+
+- accountId: "Jaim1Cu1Q55uooxSens6yk"
+  name: "MyAPIkey"
+  createdAt: "2020-06-01T22:34:31.308Z"
+  enabled: true
+  role: "merchant-terminal"
+
+{% endjson %}
 
 <span id="update-api-key"></span>
 ### Update an API Key
@@ -112,15 +107,13 @@ Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissi
 
 {% h4 Example response payload %}
 
-```json
-{
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "name": "MyAPIkey",
-  "createdAt": "2020-06-01T22:34:31.308Z",
-  "enabled":false,
-  "role": "merchant-terminal"
-}
-```
+{% json %}
+  accountId: "Jaim1Cu1Q55uooxSens6yk"
+  name: "MyAPIkey"
+  createdAt: "2020-06-01T22:34:31.308Z"
+  enabled: false
+  role: "merchant-terminal"
+{% endjson %}
 
 [Account]: {% link api/accounts/accounts.md %}
 [Auth Permissions]: {% link api/auth.md %}#permissions

@@ -34,12 +34,10 @@ Don't try again, this is never going to work.
 
 {% h4 Example response body %}
 
-```json
-{
-  "statusCode": 400,
-  "message": "\"amount\" is required"
-}
-```
+{% json %}
+  statusCode: 400
+  message: amount is required
+{% endjson %}
 
 {% h4 Debugging %}
 
@@ -56,13 +54,11 @@ API key or JWT is missing or expired. Go look at our [Auth][] documentation.
 
 {% h4 Example response body %}
 
-```json
-{
-  "statusCode": 401,
-  "error": "Unauthorized",
-  "message": "Missing authentication"
-}
-```
+{% json %}
+  statusCode: 401
+  error: Unauthorized
+  message: Missing authentication
+{% endjson %}
 
 
 ## 403 Forbidden
@@ -74,13 +70,11 @@ business rule violation.
 
 {% h4 Example response body %}
 
-```json
-{
-  "statusCode": 403,
-  "error": "Forbidden",
-  "message": "Forbidden"
-}
-```
+{% json %}
+  statusCode: 403
+  error: Forbidden
+  message: Forbidden
+{% endjson %}
 
 {% h4 Debugging %}
 
@@ -97,13 +91,11 @@ field will be documented on each endpoint.
 
 {% h4 Example response body %}
 
-```json
-{
-  "statusCode": 403,
-  "error": "Forbidden",
-  "message": "INSUFFICIENT_BALANCE"
-}
-```
+{% json %}
+  statusCode: 403
+  error: Forbidden
+  message: INSUFFICIENT_BALANCE
+{% endjson %}
 
 
 ## 404 Route Not Found
@@ -113,13 +105,13 @@ the URL or HTTP method. Please check against examples in our documentation.
 
 {% h4 Example response body %}
 
-```json
+{% json %}
 {
   "statusCode": 404,
   "error": "Not Found",
   "message": "Not Found"
 }
-```
+{% endjson %}
 
 ## 429 Too Many Requests
 
@@ -127,13 +119,11 @@ Centrapay API rate limits have been exceeded.
 
 {% h4 Example response body %}
 
-```json
-{
-  "statusCode": 429,
-  "error": "Too Many Requests",
-  "message": "RATE_LIMIT_EXCEEDED"
-}
-```
+{% json %}
+  statusCode: 429
+  error: "Too Many Requests"
+  message: "RATE_LIMIT_EXCEEDED"
+{% endjson %}
 
 {% h4 Debugging %}
 

@@ -65,7 +65,7 @@ org account will be created and associated to the business.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -78,7 +78,7 @@ org account will be created and associated to the business.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -97,7 +97,7 @@ org account will be created and associated to the business.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -110,7 +110,7 @@ org account will be created and associated to the business.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 ### Search NZ Company Register **EXPERIMENTAL**
 
@@ -131,7 +131,7 @@ number. Results are [paginated][] and ordered by relevance.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -141,7 +141,7 @@ number. Results are [paginated][] and ordered by relevance.
     }
   ]
 }
-```
+{% endjson %}
 
 ### Get Business Details from NZ Company Register **EXPERIMENTAL**
 
@@ -153,7 +153,7 @@ number. Results are [paginated][] and ordered by relevance.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "nzbn": "9429046246448",
   "companyName": "CENTRAPAY LIMITED",
@@ -162,16 +162,16 @@ number. Results are [paginated][] and ordered by relevance.
     {
       "firstName": "John",
       "lastName": "DOE",
-      "addressLines": ["7 Tara Street", "Downmore", "Auckland", "6120", "NZ"]
+      "addressLines": ["7 Tara Street", "Downmore", "Auckland"]
     },
     {
       "firstName": "Jane",
       "lastName": "DOE",
-      "addressLines": ["82 Greatwood Road", "Northclover", "Auckland", "7260", "NZ"]
+      "addressLines": ["82 Greatwood Road", "Northclover", "Auckland"]
     }
   ]
 }
-```
+{% endjson %}
 
 [Account]: {% link api/accounts/accounts.md %}
 [paginated]: {% link api/pagination.md %}

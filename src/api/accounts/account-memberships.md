@@ -61,7 +61,7 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
   "accountType": "org",
@@ -73,7 +73,7 @@ A Member contains extended information about an user's access to an account.
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "version": "1"
 }
-```
+{% endjson %}
 
 ### List Members
 
@@ -85,7 +85,7 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "accountName": "Centrapay Cafe",
@@ -104,7 +104,7 @@ A Member contains extended information about an user's access to an account.
     "role": "account-owner"
   }
 ]
-```
+{% endjson %}
 
 ### List Account Memberships for authenticated subject
 
@@ -115,7 +115,7 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "accountName": "Centrapay Tea Warehouse",
@@ -124,7 +124,7 @@ A Member contains extended information about an user's access to an account.
     "role": "account-owner"
   }
 ]
-```
+{% endjson %}
 
 
 ### List Account Memberships for specific user
@@ -137,7 +137,7 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "accountName": "Centrapay Cafe",
@@ -152,6 +152,6 @@ A Member contains extended information about an user's access to an account.
     "role": "account-owner"
   }
 ]
-```
+{% endjson %}
 
 [Account]: {% link api/accounts/accounts.md %}

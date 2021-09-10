@@ -72,7 +72,7 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -84,7 +84,7 @@ Integration Requests enable terminal integrations and acceptance of asset types 
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -114,7 +114,7 @@ Returns a [paginated][] list of Integration Requests.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -131,7 +131,7 @@ Returns a [paginated][] list of Integration Requests.
     }
   ]
 }
-```
+{% endjson %}
 
 ### Configure Integration Request **EXPERIMENTAL**
 
@@ -154,7 +154,7 @@ Supply configuration values for the Integration Request.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -167,7 +167,7 @@ Supply configuration values for the Integration Request.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 ### Get Integration Request Configuration **EXPERIMENTAL**
 
@@ -179,11 +179,11 @@ Supply configuration values for the Integration Request.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "terminalId": "11000021",
 }
-```
+{% endjson %}
 
 ### Activate Integration Request **EXPERIMENTAL**
 
@@ -195,7 +195,7 @@ Supply configuration values for the Integration Request.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -208,7 +208,7 @@ Supply configuration values for the Integration Request.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

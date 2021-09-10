@@ -58,14 +58,14 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
   "category": "giftcard",
   "type": "epay.nzd.main",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
   "issuer": "ezipay",
-  "externalId": "***********60119",
+  "externalId": "************60119",
   "description": "$60 Acme Giftcard",
   "productCode": "23403",
   "currency": "NZD",
@@ -75,7 +75,7 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

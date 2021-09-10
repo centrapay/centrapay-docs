@@ -238,7 +238,7 @@ corresponds to the GPC brick attributes.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
@@ -285,7 +285,7 @@ corresponds to the GPC brick attributes.
   "liveness": "test",
   "expirySeconds": 120
 }
-```
+{% endjson %}
 
 ### Get a Payment Request by Id **EXPERIMENTAL**
 
@@ -297,7 +297,7 @@ corresponds to the GPC brick attributes.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
@@ -339,7 +339,7 @@ corresponds to the GPC brick attributes.
   "liveness": "test",
   "expirySeconds": 120
 }
-```
+{% endjson %}
 
 
 <a name="patron-code"></a>
@@ -360,13 +360,13 @@ them to find the Payment Request and proceed to pay.
 
 {% h4 Example response payload when no new Payment Request found %}
 
-```json
+{% json %}
 {}
-```
+{% endjson %}
 
 {% h4 Example response payload with a Payment Request %}
 
-```json
+{% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
@@ -389,7 +389,7 @@ them to find the Payment Request and proceed to pay.
   "liveness": "test",
   "expirySeconds": 120
 }
-```
+{% endjson %}
 
 
 [Merchant]: {% link api/merchants/merchants.md %}

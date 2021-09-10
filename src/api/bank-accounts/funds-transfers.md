@@ -42,7 +42,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
   "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -54,7 +54,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -77,7 +77,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
   "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -89,7 +89,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 ## List top ups for authorized accounts
 
@@ -100,7 +100,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "5thg2RPBZEfYTPJdQ63Cre",
@@ -125,7 +125,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     "updatedAt": "2020-05-01T12:30:00.000Z"
   }
 ]
-```
+{% endjson %}
 
 ## List top ups for an account **EXPERIMENTAL**
 
@@ -137,7 +137,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "5thg2RPBZEfYTPJdQ63Cre",
@@ -162,7 +162,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     "updatedAt": "2020-05-01T12:30:00.000Z"
   }
 ]
-```
+{% endjson %}
 
 ## Creating a Withdrawal **EXPERIMENTAL**
 
@@ -186,7 +186,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
   "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -198,7 +198,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -218,7 +218,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
   "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -230,7 +230,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 ## List Withdrawals for an account **EXPERIMENTAL**
 
@@ -244,7 +244,7 @@ Returns a [paginated][] list of Withdrawals for an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -271,7 +271,7 @@ Returns a [paginated][] list of Withdrawals for an account.
     }
   ]
 }
-```
+{% endjson %}
 
 [direct debit endpoint]: {% link api/bank-accounts/bank-accounts.md %}#direct-debit-authority
 [settlement wallets]: {% link api/assets/wallets.md %}#settlement-wallets

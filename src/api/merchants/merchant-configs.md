@@ -75,7 +75,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee168e8597be5002af7b454",
   "merchantId": "5ee0c486308f590260d9a07f",
@@ -89,7 +89,7 @@ See [Asset Types][] for values that may be present in the `type` field.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -109,7 +109,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee168e8597be5002af7b454",
   "merchantId": "5ee0c486308f590260d9a07f",
@@ -119,7 +119,7 @@ See [Asset Types][] for values that may be present in the `type` field.
     }
   ]
 }
-```
+{% endjson %}
 
 ### List Merchant Configs
 
@@ -132,7 +132,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "5ee168e8597be5002af7b454",
@@ -153,7 +153,7 @@ See [Asset Types][] for values that may be present in the `type` field.
     ]
   }
 ]
-```
+{% endjson %}
 
 ### Update a Merchant Config
 
@@ -172,7 +172,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee168e8597be5002af7baed",
   "merchantId": "5ee0c486308f590260d9a07f",
@@ -186,7 +186,7 @@ See [Asset Types][] for values that may be present in the `type` field.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

@@ -74,7 +74,7 @@ individual account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Centrapay Cafe",
@@ -85,7 +85,7 @@ individual account.
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "version": "1"
 }
-```
+{% endjson %}
 
 ### Get an Account
 
@@ -97,7 +97,7 @@ individual account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Centrapay Cafe",
@@ -108,7 +108,7 @@ individual account.
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "version": "1"
 }
-```
+{% endjson %}
 
 ### Update an Account
 
@@ -127,7 +127,7 @@ individual account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "Jaim1Cu1Q55uooxSens6yk",
   "name": "Shortland St Cafe",
@@ -138,7 +138,7 @@ individual account.
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "version": "2"
 }
-```
+{% endjson %}
 
 [API Keys]: {% link api/api-keys.md %}
 [Account Memberships]: {% link api/accounts/account-memberships.md %}

@@ -85,7 +85,7 @@ fields below when specified are required together.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -99,7 +99,7 @@ fields below when specified are required together.
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -128,7 +128,7 @@ authority to operate this account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -142,7 +142,7 @@ authority to operate this account.
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Required Fields %}
 
@@ -192,11 +192,11 @@ account, you need to direct the user to make a topup/withdrawal and then check t
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "verificationCode": "1111"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -228,15 +228,15 @@ for bank accounts.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "verificationCode": "1111"
 }
-```
+{% endjson %}
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -250,7 +250,7 @@ for bank accounts.
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 
 <span id="bank-account-list"></span>
@@ -264,7 +264,7 @@ for bank accounts.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
@@ -287,7 +287,7 @@ for bank accounts.
     "createdAt": "2020-06-12T01:17:46.499Z",
   }
 ]
-```
+{% endjson %}
 
 ## List bank authorities **DEPRECATED**
 
@@ -301,7 +301,7 @@ for bank accounts.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
@@ -324,7 +324,7 @@ for bank accounts.
     "createdAt": "2020-06-12T01:17:46.499Z",
   }
 ]
-```
+{% endjson %}
 
 ## Creating a bank authority **DEPRECATED**
 
@@ -364,7 +364,7 @@ authority to operate this account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -378,7 +378,7 @@ authority to operate this account.
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -400,7 +400,7 @@ for bank accounts.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -414,7 +414,7 @@ for bank accounts.
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
 }
-```
+{% endjson %}
 
 [dd-terms]: https://centrapay.com/directdebit-termsandconditions/
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}

@@ -94,7 +94,7 @@ owner.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "created",
@@ -110,7 +110,7 @@ owner.
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
 }
-```
+{% endjson %}
 
 The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 
@@ -132,7 +132,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 
 {% h4 Example response payload (In-progress money transfer) %}
 
-```json
+{% json %}
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "sent",
@@ -149,11 +149,11 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (completed giftcard transfer) %}
 
-```json
+{% json %}
 {
   "id": "M7Kn2stAxNa6ri7h",
   "status": "claimed",
@@ -165,11 +165,11 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "senderName": "My Cafe",
   "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-  "recipientAlias": "+64*****2345",
+  "recipientAlias": "+64******2345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z"
 }
-```
+{% endjson %}
 
 ## Resolve claimable assets **EXPERIMENTAL**
 
@@ -187,9 +187,9 @@ New accounts should call this endpoint to allocate assets that you've been sent.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {}
-```
+{% endjson %}
 
 ## List Asset Transfers **EXPERIMENTAL**
 
@@ -210,7 +210,7 @@ Returns a [paginated][] list of Asset Transfers.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -230,7 +230,7 @@ Returns a [paginated][] list of Asset Transfers.
     }
   ]
 }
-```
+{% endjson %}
 
 [Quota Error Response]: {% link api/quotas.md %}#quota-error-response
 [paginated]: {% link api/pagination.md %}
