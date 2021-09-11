@@ -69,7 +69,7 @@ not associated with a temporal period.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "limit": "1000",
@@ -104,17 +104,17 @@ not associated with a temporal period.
     "assetType": "centrapay.nzd.main"
   }
 ]
-```
+{% endjson %}
 
 <span id="quota-error-response"></span>
 {% h4 Error Responses %}
 
 If a quota limit is exceeded by an action that enforces quota limits, the following error response will be returned. The `quotas` field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
 
-```json
+{% json %}
 {
   "message": "QUOTA_EXCEEDED",
-  "quotas":[{
+  "quotas": [{
     "limit": "9999",
     "interval": "2021",
     "period": "yearly",
@@ -123,4 +123,4 @@ If a quota limit is exceeded by an action that enforces quota limits, the follow
     "assetType": "centrapay.nzd.main"
   }]
 }
-```
+{% endjson %}

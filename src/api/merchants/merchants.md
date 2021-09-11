@@ -69,7 +69,7 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -77,7 +77,7 @@ which define the payment methods available for a Payment Request.
   "country": "NZ",
   "test": false
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -96,7 +96,7 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -104,7 +104,7 @@ which define the payment methods available for a Payment Request.
   "test": false,
   "country": "AD"
 }
-```
+{% endjson %}
 
 ### List all Merchants
 
@@ -117,7 +117,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -143,7 +143,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
     },
   ]
 }
-```
+{% endjson %}
 
 ### List Merchants for Account
 
@@ -157,7 +157,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -183,7 +183,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
     },
   ]
 }
-```
+{% endjson %}
 
 ### Update a Merchant
 
@@ -208,7 +208,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "5ee0c486308f590260d9a07f",
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
@@ -226,7 +226,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
     "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
   }
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

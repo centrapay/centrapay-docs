@@ -141,7 +141,7 @@ Tokens have the following fields along with the base asset fields.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -157,7 +157,7 @@ Tokens have the following fields along with the base asset fields.
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z"
 }
-```
+{% endjson %}
 
 ### List Assets for Account
 
@@ -171,7 +171,7 @@ Returns a [paginated][] list of Assets for an account.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -215,7 +215,7 @@ Returns a [paginated][] list of Assets for an account.
     }
   ]
 }
-```
+{% endjson %}
 
 
 ### Archive Asset (EXPERIMENTAL)
@@ -230,7 +230,7 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -246,7 +246,7 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
   "createdAt": "2020-05-01T12:30:00.000Z",
   "status": "archived"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

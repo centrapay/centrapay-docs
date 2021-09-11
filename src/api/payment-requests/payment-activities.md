@@ -85,7 +85,7 @@ descending activity created date.
 
 
 {% h4 Example response payload %}
-```json
+{% json %}
 {
   "nextPageKey": "5ee0c486308f590260d9a07f#2021-06-12T01:15:46.000Z",
   "items": [
@@ -133,7 +133,7 @@ descending activity created date.
     }
   ]
 }
-```
+{% endjson %}
 
 [Payment Request]: {% link api/payment-requests/payment-requests.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}

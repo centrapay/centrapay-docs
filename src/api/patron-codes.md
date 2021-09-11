@@ -72,7 +72,7 @@ The Centrapay Prefix may present any of the following prefixes:
 
 {% h4 Example Response Payload %}
 
-```json
+{% json %}
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
@@ -82,7 +82,7 @@ The Centrapay Prefix may present any of the following prefixes:
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
-```
+{% endjson %}
 
 The `appName` field in the Patron Code represents information about the app that generated the code.
 It is used to apply discounts or restrict payment options for the payment request created.
@@ -100,7 +100,7 @@ Request][polling] using the transacting APIs.
 
 {% h4 Example Response Payload %}
 
-```json
+{% json %}
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
@@ -110,7 +110,7 @@ Request][polling] using the transacting APIs.
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
-```
+{% endjson %}
 
 ### Retrieving a Patron Code by Barcode
 
@@ -122,7 +122,7 @@ Request][polling] using the transacting APIs.
 
 {% h4 Example Response Payload %}
 
-```json
+{% json %}
 {
   "id": "V17FByEP9gm1shSG6a1Zzx",
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
@@ -132,7 +132,7 @@ Request][polling] using the transacting APIs.
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 

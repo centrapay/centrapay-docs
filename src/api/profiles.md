@@ -58,12 +58,10 @@ request.
 
 {% h4 Example response payload %}
 
-```json
-{
-  "givenName": "John",
-  "familyName": "Doe",
-  "featureUpdates": false,
-  "marketingUpdates": true,
-  "email": "john.doe@centrapay.com",
-}
-```
+{% json %}
+  givenName: "John"
+  familyName: "Doe"
+  featureUpdates: false
+  marketingUpdates: true
+  email: "john.doe@centrapay.com"
+{% endjson %}

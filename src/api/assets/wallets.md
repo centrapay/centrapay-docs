@@ -57,7 +57,7 @@ send money from this Wallet.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -65,11 +65,11 @@ send money from this Wallet.
   "currency": "NZD",
   "balance": "2000"
 }
-```
+{% endjson %}
 
 {% h4 Example response payload for Settlement Wallet %}
 
-```json
+{% json %}
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
@@ -78,7 +78,7 @@ send money from this Wallet.
   "balance": "2000",
   "settlement": true
 }
-```
+{% endjson %}
 
 {% h4 Error Responses %}
 
@@ -96,7 +96,7 @@ send money from this Wallet.
 
 {% h4 Example response payload %}
 
-```json
+{% json %}
 [
   {
     "id": "WRhAxxWpTKb5U7pXyxQjjY",
@@ -113,7 +113,7 @@ send money from this Wallet.
     "balance": "20"
   }
 ]
-```
+{% endjson %}
 
 ## Listing Wallet Transactions **EXPERIMENTAL**
 
@@ -153,7 +153,7 @@ email, masked user phone, or bank account.
 
 {% h4 Example response payload (Payment) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -168,11 +168,11 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (Topup) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -186,11 +186,11 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (Sent Asset) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -204,11 +204,11 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (Received Asset) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -222,11 +222,11 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (Returned Asset) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -241,11 +241,11 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 {% h4 Example response payload (Withdraw) %}
 
-```json
+{% json %}
 {
   "items": [
     {
@@ -259,7 +259,7 @@ email, masked user phone, or bank account.
     }
   ]
 }
-```
+{% endjson %}
 
 [money]: {% link api/assets/assets.md %}#money
 [paginated]: {% link api/pagination.md %}

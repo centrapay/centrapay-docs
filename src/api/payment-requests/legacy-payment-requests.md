@@ -358,18 +358,18 @@ below but with `transactionType` set to REFUND.
 
 The body of the webhook is a JSON document with the following format:
 
-```json
+{% json %}
 {
   "token": "${JWT}"
 }
-```
+{% endjson %}
 
 The decoded JWT will contain a "transaction" property with a "transactionType"
 that indicates the event type. Depending on the type of event, the payload will
 also contain additional details about the transaction and payment request. For
 example:
 
-```json
+{% json %}
 {
   "transaction": {
     "transactionType": "REFUND",
@@ -382,7 +382,8 @@ example:
     }
   }
 }
-```
+{% endjson %}
+
 #### Webhook Payload Fields
 
 | Property        | Description                                                 |
@@ -414,7 +415,7 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 
 #### Transaction Completed Successfully
 
-```json
+{% json %}
 {
   "transaction": {
     "transactionId": "E6ctbmgmkgZ3xnPk3BkGvb",
@@ -434,11 +435,11 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
     "authCode": "961241"
   }
 }
-```
+{% endjson %}
 
 #### Payment Request Cancelled
 
-```json
+{% json %}
 {
   "transaction": {
     "transactionType": "CANCELLED",
@@ -453,7 +454,7 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
     }
   }
 }
-```
+{% endjson %}
 
 
 [requests.create]: #requests-create
