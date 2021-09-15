@@ -124,6 +124,7 @@ indicated below with a star (✸).
 | {% break : payment-requests:cancel %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
 | {% break : payment-requests:refund %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
 | {% break : payment-requests:void   %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
+| {% break : payment-activities:read %}        | &nbsp;&nbsp; ✅ |               |                      |
 | {% break : assets:read             %}        | &nbsp;&nbsp; ✅ |               |                      |
 | {% break : assets:spend            %}        | &nbsp;&nbsp; ✅ |               |                      |
 | {% break : wallets:transfer        %}        | &nbsp;&nbsp; ✅ |               |                      |
