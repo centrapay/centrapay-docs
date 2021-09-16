@@ -11,6 +11,12 @@ permalink: /api/pagination
 Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory
 usage and speed up page rendering.
 
+To retrieve the next page, a `pageKey` can be supplied. Typically this will be the `nextPageKey`
+returned from your previous query.
+
+Some of our endpoints have been designed to be forwards compatible with pagination. When we do
+bring support to GET endpoints for listing, these conventions will be followed.
+
 ### Models
 
 {% h4 Mandatory Fields %}
