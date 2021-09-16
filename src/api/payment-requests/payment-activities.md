@@ -67,6 +67,7 @@ descending activity created date.
   GET '/api/payment-activities'
   auth 'jwt'
   query_param 'merchantId', '5ee0c486308f590260d9a07f'
+  query_param 'pageKey', 'PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z'
   query_param 'shortCode', '123abc'
 {% endreqspec %}
 
@@ -87,7 +88,7 @@ descending activity created date.
 {% h4 Example response payload %}
 {% json %}
 {
-  "nextPageKey": "5ee0c486308f590260d9a07f#2021-06-12T01:15:46.000Z",
+  "nextPageKey": "PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z",
   "items": [
     {
       "type": "refund",

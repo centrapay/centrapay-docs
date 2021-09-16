@@ -30,7 +30,7 @@ usage and speed up page rendering.
 A page with more content
 
 {% json %}
-  nextPageKey: 5ee0c486308f590260d9a07f#ded3f328-1123-11ec-bf1a-5ba46eb12a7d
+  nextPageKey: 5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d
   items:
     - value: "16"
       assetType: centrapay.nzd.main
