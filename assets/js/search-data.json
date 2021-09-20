@@ -157,7 +157,7 @@
   },"26": {
     "doc": "Auth",
     "title": "Contents",
-    "content": ". | Authenticating API Calls | API Keys | User Access Tokens . | Claims | . | Permissions | . ",
+    "content": ". | Authenticating API Calls | API Keys | User Access Tokens . | Claims | . | Roles and Permissions . | Account Flags | Permissions | . | . ",
     "url": "/api/auth#contents",
     "relUrl": "/api/auth#contents"
   },"27": {
@@ -180,10 +180,10 @@
     "relUrl": "/api/auth#user-access-tokens"
   },"30": {
     "doc": "Auth",
-    "title": "Permissions",
-    "content": "Users and API keys are assigned a role for their associated Centrapay account(s). The permissions granted to the roles are shown in the table below. Most permissions apply only to resources owned by the associated account. Some permissions, such as payment-requests:pay, apply globally to all resources regardless of the account the resource belongs to. The global permissions are indicated below with a star (✸). | Permission | Account Owner | Anon Consumer | Merchant Terminal | . | accounts:create |    ✅ |   |   | . | accounts:read |    ✅ |   |   | . | accounts:update |    ✅ |   |   | . | business:create |    ✅ |   |   | . | business:read |    ✅ |   |   | . | quotas:read |    ✅ |   |   | . | api-keys:create |    ✅ |   |   | . | api-keys:update |    ✅ |   |   | . | api-keys:list |    ✅ |   |   | . | merchants:create |    ✅ |   |   | . | merchants:read |    ✅ |   |   | . | merchants:update |    ✅ |   |   | . | merchants:list |    ✅ |   |   | . | payment-requests:create |   |   |     ✅ | . | payment-requests:read | ✸ ✅ | ✸ ✅ | ✸ ✅ | . | payment-requests:pay | ✸ ✅ | ✸ ✅ |     ✅ | . | payment-requests:cancel |   |   |     ✅ | . | payment-requests:refund |   |   |     ✅ | . | payment-requests:void |   |   |     ✅ | . | payment-activities:read |    ✅ |   |   | . | assets:read |    ✅ |   |   | . | assets:spend |    ✅ |   |   | . | wallets:transfer |    ✅ |   |   | . | wallets:withdraw |    ✅ |   |   | . | wallets:deposit |    ✅ |   |   | . | wallets:create |    ✅ |   |   | . | wallets:read |    ✅ |   |   | . | asset-transfers:create |    ✅ |   |   | . | asset-transfers:read |    ✅ |   |   | . | asset-transfers:claim |    ✅ |   |   | . | bank-accounts:create |    ✅ |   |   | . | bank-accounts:read |    ✅ |   |   | . | quotas:read |    ✅ |   |   | . | patron-codes:create |    ✅ |   |   | . | patron-codes:read |    ✅ |   |     ✅ | . | integration-requests:read |    ✅ |   |   | . | integration-requests:create |    ✅ |   |   | . | integration-requests:configure |    ✅ |   |   | . ",
-    "url": "/api/auth#permissions",
-    "relUrl": "/api/auth#permissions"
+    "title": "Roles and Permissions",
+    "content": "Users and API keys are assigned a role for their associated Centrapay account(s). The permissions granted to the roles are shown in the table below. Most permissions apply only to resources owned by the associated account. Some permissions, such as payment-requests:pay, apply globally to all resources regardless of the account the resource belongs to. The global permissions are indicated below with a star (✸). Account Flags . Some permissions require an additional flag associated to their individual account or the targeted account that owns the resource (they may be the same account). For each permission, if there is a flag associated to it then at least one of them must be met. | Symbol | Description | . | 👤 | A trusted user flag on the individual account, obtained by verifying a NZ phone number. | . | 🧀 | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. | . Permissions . | Permission | Account Owner | Anon Consumer | Merchant Terminal | External Asset Provider | . | accounts:create |    ✅ |   |   |   | . | accounts:read |    ✅ |   |   |     ✅ | . | accounts:update |    ✅ |   |   |   | . | business:create |    ✅ |   |   |   | . | business:read |    ✅ |   |   |   | . | quotas:read |    ✅ |   |   |   | . | api-keys:create |    ✅ |   |   |   | . | api-keys:update |    ✅ |   |   |   | . | api-keys:list |    ✅ |   |   |   | . | merchants:create |    ✅ |   |   |   | . | merchants:read |    ✅ |   |   |   | . | merchants:update |    ✅ |   |   |   | . | merchants:list |    ✅ |   |   |   | . | payment-requests:create |   |   |     ✅ |   | . | payment-requests:read | ✸ ✅ | ✸ ✅ | ✸ ✅ |   | . | payment-requests:pay | ✸ ✅ | ✸ ✅ |     ✅ |   | . | payment-requests:cancel |   |   |     ✅ |   | . | payment-requests:refund |   |   |     ✅ |   | . | payment-requests:void |   |   |     ✅ |   | . | payment-activities:read |    ✅ |   |   |   | . | assets:read |    ✅ |   |   |     ✅ | . | assets:spend 👤 |    ✅ |   |   |   | . | wallets:transfer 👤 |    ✅ |   |   |   | . | wallets:withdraw |    ✅ |   |   |   | . | wallets:deposit |    ✅ |   |   |   | . | wallets:create |    ✅ |   |   |   | . | wallets:read |    ✅ |   |   |   | . | asset-transfers:create👤 🧀 |    ✅ |   |   |     ✅ | . | asset-transfers:read |    ✅ |   |   |     ✅ | . | asset-transfers:claim |    ✅ |   |   |     ✅ | . | bank-accounts:create |    ✅ |   |   |   | . | bank-accounts:read |    ✅ |   |   |   | . | quotas:read |    ✅ |   |   |   | . | patron-codes:create |    ✅ |   |   |   | . | patron-codes:read |    ✅ |   |     ✅ |   | . | integration-requests:read |    ✅ |   |   |   | . | integration-requests:create |    ✅ |   |   |   | . | integration-requests:configure |    ✅ |   |   |   | . | external-assets:create 👤 🧀 |    ✅ |   |   |     ✅ | . | external-assets:update |    ✅ |   |   |     ✅ | . | topups:create 👤 |    ✅ |   |   |   | . | topups:read |    ✅ |   |   |   | . ",
+    "url": "/api/auth#roles-and-permissions",
+    "relUrl": "/api/auth#roles-and-permissions"
   },"31": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
@@ -491,47 +491,47 @@
     "url": "/guides/loading-and-sending-assets",
     "relUrl": "/guides/loading-and-sending-assets"
   },"82": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"83": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"84": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"85": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"86": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"87": {
-    "doc": "API Reference",
-    "title": "API Reference",
-    "content": " ",
-    "url": "/api",
-    "relUrl": "/api"
-  },"88": {
     "doc": "Guides",
     "title": "Guides",
     "content": " ",
     "url": "/guides",
     "relUrl": "/guides"
+  },"83": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"84": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"85": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
+  },"86": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"87": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
+  },"88": {
+    "doc": "API Reference",
+    "title": "API Reference",
+    "content": " ",
+    "url": "/api",
+    "relUrl": "/api"
   },"89": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -563,17 +563,17 @@
     "url": "/api/integration-requests#operations",
     "relUrl": "/api/integration-requests#operations"
   },"94": {
-    "doc": "API Introduction",
-    "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Integration Requests | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
-    "url": "/api/introduction",
-    "relUrl": "/api/introduction"
-  },"95": {
     "doc": "Guides",
     "title": "Guides",
     "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
+  },"95": {
+    "doc": "API Introduction",
+    "title": "API Introduction",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Integration Requests | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
+    "url": "/api/introduction",
+    "relUrl": "/api/introduction"
   },"96": {
     "doc": "Legacy",
     "title": "Legacy Payment Requests",
