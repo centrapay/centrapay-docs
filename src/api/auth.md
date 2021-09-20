@@ -93,7 +93,7 @@ At minimum, the "sub" claim and one of "phone_number" or "email" will be present
 | email_verified        | email has been verified (can be used for account recovery)        |
 
 
-## Permissions
+## Roles and Permissions
 
 Users and API keys are assigned a role for their associated Centrapay
 account(s). The permissions granted to the roles are shown in the table below.
@@ -103,46 +103,62 @@ permissions, such as payment-requests:pay, apply globally to all resources
 regardless of the account the resource belongs to. The global permissions are
 indicated below with a star (✸).
 
-|                  Permission                  | Account Owner  | Anon Consumer |  Merchant Terminal   |
-| :------------------------------------------- | :------------: | :-----------: | :------------------: |
-| {% break : accounts:create         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : accounts:read           %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : accounts:update         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : business:create         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : business:read         %}          | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : api-keys:create         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : api-keys:update         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : api-keys:list           %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : merchants:create        %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : merchants:read          %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : merchants:update        %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : merchants:list          %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : payment-requests:create %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : payment-requests:read   %}        |      ✸ ✅       |      ✸ ✅      |         ✸ ✅          |
-| {% break : payment-requests:pay    %}        |      ✸ ✅       |      ✸ ✅      | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : payment-requests:cancel %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : payment-requests:refund %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : payment-requests:void   %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : payment-activities:read %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : assets:read             %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : assets:spend            %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : wallets:transfer        %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : wallets:withdraw        %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : wallets:deposit         %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : wallets:create          %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : wallets:read            %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : asset-transfers:create  %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : asset-transfers:read    %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : asset-transfers:claim   %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : bank-accounts:create %}           | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : bank-accounts:read   %}           | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : patron-codes:read %}              | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |
-| {% break : integration-requests:read %}      | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : integration-requests:create %}    | &nbsp;&nbsp; ✅ |               |                      |
-| {% break : integration-requests:configure %} | &nbsp;&nbsp; ✅ |               |                      |
+### Account Flags
+Some permissions require an additional flag associated to their individual account or the
+targeted account that owns the resource (they may be the same account). For each permission,
+if there is a flag associated to it then at least one of them must be met.
+
+| Symbol |                                           Description                                            |
+| :----- | :----------------------------------------------------------------------------------------------- |
+| 👤      | A trusted user flag on the individual account, obtained by verifying a NZ phone number.          |
+| 🧀      | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. |
+
+### Permissions
+
+|                  Permission                  | Account Owner  | Anon Consumer |  Merchant Terminal   | External Asset Provider |
+| :------------------------------------------- | :------------: | :-----------: | :------------------: | :---------------------: |
+| {% break : accounts:create         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : accounts:read           %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : accounts:update         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : business:create         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : business:read         %}          | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : api-keys:create         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : api-keys:update         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : api-keys:list           %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:create        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:read          %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:update        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:list          %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : payment-requests:create %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-requests:read   %}        |      ✸ ✅       |      ✸ ✅      |         ✸ ✅          |                         |
+| {% break : payment-requests:pay    %}        |      ✸ ✅       |      ✸ ✅      | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-requests:cancel %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-requests:refund %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-requests:void   %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-activities:read %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : assets:read             %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : assets:spend            %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : wallets:transfer        %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : wallets:withdraw        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : wallets:deposit         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : wallets:create          %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : wallets:read            %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : asset-transfers:create  %}👤 🧀     | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : asset-transfers:read    %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : asset-transfers:claim   %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : bank-accounts:create %}           | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : bank-accounts:read   %}           | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : patron-codes:read %}              | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : integration-requests:read %}      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:create %}    | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:configure %} | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : external-assets:create %} 👤 🧀     | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : external-assets:update %}         | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : topups:create %}  👤               | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : topups:read %}                    | &nbsp;&nbsp; ✅ |               |                      |                         |
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
