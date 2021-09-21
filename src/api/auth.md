@@ -137,8 +137,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : requests:cancel %} 🗄              |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
 | {% break : transactions:refund %} 🗄          |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
 | {% break : requests:void   %} 🗄              |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-activities:read %}         | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : assets:read             %}         | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : payment-activities:read %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : assets:read             %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
 | {% break : assets:spend            %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : wallets:transfer        %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : wallets:withdraw        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
@@ -153,9 +153,9 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : patron-codes:read %}              | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : integration-requests:read %} 🗄   | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : integration-requests:create %} 🗄 | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : integration-requests:configure %} | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:read %} 🗄    | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:create %} 🗄  | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:configure %} |                |               |                      |                         |
 | {% break : external-assets:create %} 👤 🧀     | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
 | {% break : external-assets:update %}         | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
 | {% break : topups:create %}  👤               | &nbsp;&nbsp; ✅ |               |                      |                         |
