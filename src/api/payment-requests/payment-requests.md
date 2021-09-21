@@ -61,18 +61,18 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field            | Type   | Description                                                                                                                                                                   |
-|------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| patronCodeId     | String | The id of a [Patron Code][] the payment request is attached to.                                                                                                               |
-| barcode          | String | Scanned patron barcode used to create the payment request.                                                                                                                    |
-| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.                                                                                                              |
-| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                                 |
-| purchaseOrderRef | String | A reference to a purchase order for this payment request.                                                                                                                     |
-| invoiceRef       | String | A reference to an invoice for this payment request.                                                                                                                           |
+| Field            | Type   | Description                                                                                                                                                              |
+|------------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| patronCodeId     | String | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
+| barcode          | String | Scanned patron barcode used to create the payment request.                                                                                                               |
+| expirySeconds    | Number | The expiry seconds used to configure the payment request expiry.                                                                                                         |
+| lineItems        | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
+| purchaseOrderRef | String | A reference to a purchase order for this payment request.                                                                                                                |
+| invoiceRef       | String | A reference to an invoice for this payment request.                                                                                                                      |
 | redirectUrl      | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| terminalId | String | **Experimental** The payment system terminal Id. |
-| deviceId | String | **Experimental** Physical payment system device Id |
-| operatorId | String | **Experimental** POS operator Id |
+| terminalId       | String | The payment system terminal Id.                                                                                                                                          |
+| deviceId         | String | Physical payment system device Id                                                                                                                                        |
+| operatorId       | String | POS operator Id                                                                                                                                                          |
 
 
 
@@ -164,7 +164,7 @@ corresponds to the GPC brick attributes.
 
 ## Operations
 
-### Create a Payment Request **EXPERIMENTAL**
+### Create a Payment Request
 
 {% reqspec %}
   POST '/api/payment-requests'
@@ -287,7 +287,7 @@ corresponds to the GPC brick attributes.
 }
 {% endjson %}
 
-### Get a Payment Request by Id **EXPERIMENTAL**
+### Get a Payment Request by Id
 
 {% reqspec %}
   GET '/api/payment-requests/{paymentRequestId}'
@@ -343,7 +343,7 @@ corresponds to the GPC brick attributes.
 
 
 <a name="patron-code"></a>
-### Get a Payment Request linked to a Patron Code **EXPERIMENTAL**
+### Get a Payment Request linked to a Patron Code
 
 Returns the latest Payment Request with status "new" that has been attached to a [Patron Code][].
 The Payment Request may have been created with a reference to any Patron Code owned by the user's
