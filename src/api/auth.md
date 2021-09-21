@@ -112,6 +112,7 @@ if there is a flag associated to it then at least one of them must be met.
 | :----- | :----------------------------------------------------------------------------------------------- |
 | 👤      | A trusted user flag on the individual account, obtained by verifying a NZ phone number.          |
 | 🧀      | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. |
+| 🗄      | The targeted account must be of type org.                                                        |
 
 ### Permissions
 
@@ -126,18 +127,18 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : api-keys:create         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : api-keys:update         %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : api-keys:list           %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : merchants:create        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : merchants:read          %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : merchants:update        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : merchants:list          %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : payment-requests:create %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-requests:read   %}        |      ✸ ✅       |      ✸ ✅      |         ✸ ✅          |                         |
-| {% break : payment-requests:pay    %}        |      ✸ ✅       |      ✸ ✅      | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-requests:cancel %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-requests:refund %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-requests:void   %}        |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : payment-activities:read %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : assets:read             %}        | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
+| {% break : merchants:create        %} 🗄      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:read          %} 🗄      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:update        %} 🗄      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : merchants:list          %} 🗄      | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : requests:create %} 🗄              |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : requests:read   %}                |      ✸ ✅       |      ✸ ✅      |         ✸ ✅          |                         |
+| {% break : requests:pay    %} 🗄              |      ✸ ✅       |      ✸ ✅      | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : requests:cancel %} 🗄              |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : transactions:refund %} 🗄          |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : requests:void   %} 🗄              |                |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
+| {% break : payment-activities:read %}         | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : assets:read             %}         | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
 | {% break : assets:spend            %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : wallets:transfer        %} 👤      | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : wallets:withdraw        %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
@@ -152,8 +153,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : patron-codes:read %}              | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
-| {% break : integration-requests:read %}      | &nbsp;&nbsp; ✅ |               |                      |                         |
-| {% break : integration-requests:create %}    | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:read %} 🗄   | &nbsp;&nbsp; ✅ |               |                      |                         |
+| {% break : integration-requests:create %} 🗄 | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : integration-requests:configure %} | &nbsp;&nbsp; ✅ |               |                      |                         |
 | {% break : external-assets:create %} 👤 🧀     | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
 | {% break : external-assets:update %}         | &nbsp;&nbsp; ✅ |               |                      |  &nbsp;&nbsp;&nbsp; ✅   |
