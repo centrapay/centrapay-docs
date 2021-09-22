@@ -15,7 +15,7 @@ module Jekyll
       super
       params = text.split(" ")
       @break_on = params[0]
-      @value = params[1]
+      @value = params[1...].join('&nbsp;')
     end
 
     def render(context)
