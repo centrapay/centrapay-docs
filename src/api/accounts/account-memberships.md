@@ -38,14 +38,16 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Optional Fields %}
 
-| Field        | Type               | Description                                        |
-| :----------- | :----------------  | :------------------------------------------------- |
-| subject      | {% dt CRN %}       | User or API key resource name for the membership.  |
-| createdAt    | {% dt Timestamp %} | When the Membership was created.                   |
-| createdBy    | {% dt CRN %}       | Resource that created the  member.                 |
-| modifiedAt   | {% dt Timestamp %} | When the Membership was last modified.             |
-| modifiedBy   | {% dt CRN %}       | Resource that last modified the account member.    |
-| version      | {% dt BigNumber %} | Number of times the document has been modified.    |
+|    Field    |        Type        |                        Description                         |
+| :---------- | :----------------- | :--------------------------------------------------------- |
+| subject     | {% dt CRN %}       | User or API key resource name for the membership.          |
+| createdAt   | {% dt Timestamp %} | When the Membership was created.                           |
+| createdBy   | {% dt CRN %}       | Resource that created the  member.                         |
+| modifiedAt  | {% dt Timestamp %} | When the Membership was last modified.                     |
+| modifiedBy  | {% dt CRN %}       | Resource that last modified the account member.            |
+| version     | {% dt BigNumber %} | Number of times the document has been modified.            |
+| testAccount | Boolean            | A flag which is present if the [Account][] is test         |
+
 
 ## Operations
 
