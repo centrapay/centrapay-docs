@@ -28,6 +28,7 @@ A Business is associated with a single [Account][].
 | id            | String             | The unique identifier.                             |
 | accountId     | String             | The Centrapay accountId for an org account.        |
 | accountName   | String             | The Centrapay account name for an org account.     |
+| test          | Boolean            | A flag which is present if the [Account][] is test |
 | nzbn          | String             | The unique NZBN identifier.                        |
 | name          | String             | Trading name recorded in the Companies Register.   |
 | companyNumber | String             | Company number recorded in the Companies Register. |
@@ -59,9 +60,10 @@ org account will be created and associated to the business.
 
 {% h4 Optional Fields %}
 
-|   Field   |  Type  |       Description        |
-| :-------- | :----- | :----------------------- |
-| accountId | String | The Centrapay accountId. |
+|   Field   |  Type  |                        Description                        |
+| :-------- | :----- | :-------------------------------------------------------- |
+| accountId | String | The Centrapay accountId.                                  |
+| test      | String | The created Centrapay org account will have the test flag |
 
 {% h4 Example response payload %}
 
