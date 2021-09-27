@@ -28,7 +28,7 @@ A Business is associated with a single [Account][].
 | id            | String             | The unique identifier.                             |
 | accountId     | String             | The Centrapay accountId for an org account.        |
 | accountName   | String             | The Centrapay account name for an org account.     |
-| testAccount   | Boolean            | A flag which is present if the [Account][] is test |
+| test          | Boolean            | A flag which is present if the [Account][] is test |
 | nzbn          | String             | The unique NZBN identifier.                        |
 | name          | String             | Trading name recorded in the Companies Register.   |
 | companyNumber | String             | Company number recorded in the Companies Register. |
