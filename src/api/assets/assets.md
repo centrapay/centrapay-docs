@@ -190,11 +190,14 @@ Returns a [paginated][] list of Assets for an account.
       "createdAt": "2020-05-01T12:30:00.000Z"
     },
     {
-      "id": "3aKubx3wr9cUHFecRq5nFL",
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
       "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "ledgerId": "centrapay.nzd.main",
-      "type": "centrapay.nzd.main",
       "category": "money",
+      "type": "centrapay.nzd.main",
+      "liveness": "main",
+      "description": "NZD",
+      "createdAt": "2021-01-01T00:00:00.000Z",
+      "status": "active",
       "currency": "NZD",
       "balance": "2000"
     },
