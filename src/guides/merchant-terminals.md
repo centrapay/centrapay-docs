@@ -113,6 +113,18 @@ a 90 second payment timeout then the Payment Request could be created with an
 85 second timeout to prevent the payment terminal expiring at the same time as
 the payment request is paid.
 
+{% h4 Retry Before Giving Up %}
+
+When faced with an unknown error while checking the status of a payment
+request, terminal integrations should retry at least once before voiding the
+transaction.
+
+{% h4 Void When Status Unknown %}
+
+If the status of a transaction cannot be determined to be successful after
+retrying then the payment request should be voided. Voiding a payment request
+will cancel the request and trigger any refunds if necessary.
+See [Void Payment Request][].
 
 
 ## Polling vs Webhooks
@@ -128,6 +140,7 @@ Request is paid.
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Merchant Configs]: {% link api/merchants/merchant-configs.md %}
 [Get Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-info
+[Void Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-void
 [Payment Request Webhooks]: {% link api/payment-requests/legacy-payment-requests.md %}#webhooks
 [Payment Flows]: {% link guides/payment-flows.md %}
 [Centrapay Brand Assets]: https://centrapay.com/brand-assets/
