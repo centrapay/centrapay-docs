@@ -61,9 +61,14 @@ send money from this Wallet.
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.main",
+  "category": "money",
+  "type": "centrapay.nzd.main",
+  "liveness": "main",
+  "description": "NZD",
+  "createdAt": "2021-01-01T00:00:00.000Z",
+  "status": "active",
   "currency": "NZD",
-  "balance": "2000"
+  "balance": "0"
 }
 {% endjson %}
 
@@ -73,9 +78,14 @@ send money from this Wallet.
 {
   "id": "WRhAxxWpTKb5U7pXyxQjjY",
   "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "ledgerId": "centrapay.nzd.main",
+  "category": "money",
+  "type": "centrapay.nzd.main",
+  "liveness": "main",
+  "description": "NZD",
+  "createdAt": "2021-01-01T00:00:00.000Z",
+  "status": "active",
   "currency": "NZD",
-  "balance": "2000",
+  "balance": "0",
   "settlement": true
 }
 {% endjson %}
