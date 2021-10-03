@@ -67,10 +67,11 @@ Legacy Payment Request endpoints also have
 
 {% h4 Error Responses %}
 
-| Status |          Code                     |             Description                      |
-| :----- | :---------------------------------| :--------------------------------------------|
-| 400    | {% break _ CHECKSUM_FAILED %}     | patronCode luhn checksum digit doesn't pass. |
-| 403    | {% break _ PATRON_CODE_INVALID %} | patronCode doesn't exist or has expired.     |
+| Status |                      Code                      |                                     Description                                     |
+| :----- | :--------------------------------------------- | :---------------------------------------------------------------------------------- |
+| 400    | {% break _ CHECKSUM_FAILED %}                  | patronCode luhn checksum digit doesn't pass.                                        |
+| 403    | {% break _ PATRON_CODE_INVALID %}              | patronCode doesn't exist or has expired.                                            |
+| 403    | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %} | There was no merchant configuration found for the supplied merchantId and clientId. |
 
 
 <a name="requests-info">
@@ -90,6 +91,12 @@ Legacy Payment Request endpoints also have
 | Parameter | Description                                                                |
 |:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
+
+{% h4 Error Responses %}
+
+| Http code | Error code |             Message             |             Description             |
+| :-------- | :--------- | :------------------------------ | :---------------------------------- |
+| 404       | 2          | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn’t exist. |
 
 <a name="requests-pay">
 ### Paying a payment request
@@ -149,6 +156,19 @@ digit voucher code that has $20 of loaded credit. The received code is only
 valid for two weeks from the issue date. You might get charged your standard
 text rates from your provider.
 
+{% h4 Error Responses %}
+
+| Http code | Message    | Description          |
+| :-------- | :---------- | :------------|
+| 403 | {% break _ REQUEST_EXPIRED %} | Action cannot be completed because the request has expired. |
+| 403 | {% break _ REQUEST_PAID %}    | Action cannot be completed because the request has been paid. |
+| 403 | {% break _ REQUEST_CANCELLED %} | Action cannot be completed because the request has already been cancelled. |
+| 403 | {% break _ INVALID_ASSET_TYPE %}  | The merchant is not configured with the provided asset type. |
+| 403 | {% break _ INACTIVE_ASSET %}  | The asset is not spendable. It may have been disabled, expired, or already spent. |
+| 403 | {% break _ INVALID_MERCHANT_CONFIG %}  | The merchant is not configured properly to satisfy the payment request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service. |
+| 403 | {% break _ QUOTA_EXCEEDED %}  | The payment pay request exceeds the allowed spend quota supplied. |
+| 403 | {% break _ INSUFFICIENT_ASSET_VALUE %}  | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.  |
+| 403 | {% break _ ASSET_REDEMPTION_DENIED %}  | The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset. |
 
 <a name="requests-cancel">
 ### Cancelling a payment request
@@ -167,6 +187,13 @@ text rates from your provider.
 |:----------|:---------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called |
 
+{% h4 Error Responses %}
+
+| Http code | Error code |             Message             |                          Description                          |
+| :-------- | :--------- | :------------------------------ | :------------------------------------------------------------ |
+| 404       | 2          | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn’t exist.                           |
+| 400       | 18         | {% break _ REQUEST_EXPIRED %}   | Action cannot be completed because the request has expired.   |
+| 400       | 19         | {% break _ REQUEST_PAID %}      | Action cannot be completed because the request has been paid. |
 
 <a name="requests-void">
 ### Voiding a payment request
@@ -186,6 +213,13 @@ text rates from your provider.
 |:----------|:----------------------------------------------------------------------------|
 | requestId | The payment requestId that is generated when [requests.create][] is called. |
 
+{% h4 Error Responses %}
+
+| Http code | Error code |             Message             |             Description             |
+| :-------- | :--------- | :------------------------------ | :---------------------------------- |
+| 404       | 2          | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn’t exist. |
+
+Voiding a payment request can cause it to be cancelled or refunded. Therefore, this endpoint can give the same error responses as [requests.cancel][] and [transactions.refund][].
 
 <a name="transactions-refund">
 ### Refunding a transaction
@@ -232,71 +266,46 @@ is different you will get a REPEAT_REFERENCE error message.
 |:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
 | externalReference | A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique. |
 
+{% h4 Error Responses %}
+
+| Http code | Error code |                  Message                  |                                                                                                                                Description                                                                                                                                |
+| :-------- | :--------- | :---------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 404       | 3          | {% break _ TRANSACTION_NOT_FOUND %}       | The provided transaction doesn’t exist.                                                                                                                                                                                                                                   |
+| 400       | 276        | {% break _ ALREADY_REFUNDED %}            | The transaction has already been refunded.                                                                                                                                                                                                                                |
+| 400       | 277        | {% break _ INVALID_AMOUNT %}              | The refund requested is greater than the transaction amount.                                                                                                                                                                                                              |
+| 400       | 280        | {% break _ REPEAT_REFERENCE %}            | A separate refund request for the same transaction has the same external reference, trying to refund the same transaction twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
+| 403       | 281        | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %} | The asset does not support partial refunds.                                                                                                                                                                                                                               |
+| 403       | 283        | {% break _ INACTIVE_ASSET %}              | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                                                     |
+| 403       |            | {% break _ REFUND_NOT_SUPPORTED %}        | The asset type does not support refunds.                                                                                                                                                                                                                                  |
+| 403       |            | {% break _ QUOTA_EXCEEDED %}              | The payment refund request exceeds the allowed spend quota supplied.                                                                                                                                                                                                      |
+| 403       |            | {% break _ ASSET_REFUND_DENIED %}         | The asset refund has been unsuccessful due to an error with provided payment parameters, the asset, or the merchant.                                                                                                                                                      |
+
+
 ## Errors
 
 ### Error codes
 
 <div class="payments-errors" markdown="1">
 
-| Error code | Http code | Message                                           | Description                                                                                                                                                                                                                                                              |
-|------------|-----------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1          | 401       | {% break _ KEY_NOT_AUTHORIZED %}                  | The Api Key was not found in the headers or is invalid                                                                                                                                                                                                                   |
-| 2          | 404       | {% break _ REQUEST_NOT_FOUND %}                   | The provided request doesn’t exist                                                                                                                                                                                                                                       |
-| 3          | 404       | {% break _ TRANSACTION_NOT_FOUND %}               | The provided transaction doesn’t exist                                                                                                                                                                                                                                   |
-| 4          | 404       | {% break _ MERCHANT_NOT_FOUND %}                  | The provided Merchant doesn’t exist                                                                                                                                                                                                                                      |
-| 5          | 400       | {% break _ INVALID_REQUEST_ID %}                  | RequestId must be a valid UUID                                                                                                                                                                                                                                           |
-| 6          | 400       | {% break _ INVALID_AMOUNT %}                      | Amount must be a positive integer greater than zero                                                                                                                                                                                                                      |
-| 7          | 400       | {% break _ INVALID_ASSET %}                       | Asset was not a supported currency type                                                                                                                                                                                                                                  |
-| 8          | 400       | {% break _ INVALID_AUTHORIZATION %}               | Authorization must be a non empty string                                                                                                                                                                                                                                 |
-| 9          | 400       | {% break _ INVALID_LEDGER %}                      | Ledger must be a non empty string                                                                                                                                                                                                                                        |
-| 10         | 400       | {% break _ INVALID_MERCHANT_ID %}                 | MerchantId must be a non empty string                                                                                                                                                                                                                                    |
-| 11         | 400       | {% break _ INVALID_CLIENT_ID %}                   | ClientId must be a valid UUID                                                                                                                                                                                                                                            |
-| 12         | 400       | {% break _ INVALID_PATRON_CODE %}                 | PatronCode must be a non empty string                                                                                                                                                                                                                                    |
-| 13         | 400       | {% break _ INVALID_DESCRIPTION %}                 | Description must be a non empty string                                                                                                                                                                                                                                   |
-| 14         | 400       | {% break _ INVALID_REFERENCE %}                   | ExternalReference must be a non empty string                                                                                                                                                                                                                             |
-| 15         | 400       | {% break _ INVALID_NOTIFY_URL %}                  | NotifyUrl must be a non empty string                                                                                                                                                                                                                                     |
-| 16         | 400       | {% break _ INVALID_TRANSACTION_ID %}              | TransactionId must be a non empty string                                                                                                                                                                                                                                 |
-| 17         | 400       | {% break _ REQUEST_CANCELLED %}                   | Action cannot be completed because the request has already been cancelled                                                                                                                                                                                                |
-| 18         | 400       | {% break _ REQUEST_EXPIRED %}                     | Action cannot be completed because the request has expired                                                                                                                                                                                                               |
-| 19         | 400       | {% break _ REQUEST_PAID %}                        | Action cannot be completed because the request has been paid                                                                                                                                                                                                             |
-| 20         | 400       | {% break _ INVALID_PAYMENT_EXPIRY_SECONDS %}      | PaymentExpirySeconds is either empty, or is not an integer greater than 0                                                                                                                                                                                                |
-| 21         | 403       | {% break _ FORBIDDEN %}                           | The Api Key provided doesn’t have the required permissions or the resource is not found                                                                                                                                                                                  |
-| 51         | 500       | {% break _ INTERNAL_ERROR %}                      | Something went wrong while trying to cancel the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
-| 76         | 503       | {% break _ EXTERNAL_SERVICE %}                    | Failed to get a quote for the exchange rate for one or more of the payment types needed to create the payment request.                                                                                                                                                   |
-| 77         | 500       | {% break _ INTERNAL_ERROR %}                      | Something went wrong while trying to create the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
-| 78         | 403       | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %}    | There was no merchant configuration found for the supplied merchantId and clientId                                                                                                                                                                                       |
-| 126        | 403       | {% break _ IN_USE %}                              | A webSocket channel for this request already exists                                                                                                                                                                                                                      |
-| 151        | 403       | {% break _ IN_USE %}                              | An active WS connection already exists for that patronCode                                                                                                                                                                                                               |
-| 176        | 400       | {% break _ LEDGER_NOT_ENABLED %}                  | Merchant is not configured with the provided ledger                                                                                                                                                                                                                      |
-| 177        | 400       | {% break _ INVALID_LEDGER %}                      | The ledger provided doesn’t exist                                                                                                                                                                                                                                        |
-| 178        | 500       | {% break _ INTERNAL_SERVER_ERROR %}               | Something went wrong while trying to pay a request, we have received an error message and will figure out what went wrong.                                                                                                                                               |
-| 179        | 404       | {% break _ BITCOIN_TRANSACTION_NOT_FOUND %}       | A transaction for the provided authorization could not be found on the bitcoin block chain                                                                                                                                                                               |
-| 180        | 400       | {% break _ OLD_TRANSACTION %}                     | The provided authorization is for a transaction that was confirmed before the payment request was created                                                                                                                                                                |
-| 181        | 400       | {% break _ INSUFFICIENT_PAYMENT %}                | The transaction was found on the bitcoin blockchain but the amount received by Centrapay is less than the total of the payment                                                                                                                                           |
-| 182        | 403       | {% break _ MERCHANT_TRANSACTION_LIMIT_EXCEEDED %} | The merchant that the voucher is associated with has reached the limit that they are configured to transact, e.g. If merchant has $500 worth of vouchers to give out, this error comes when $500 has been redeemed and someone tries to redeem a voucher.                |
-| 183        | 403       | {% break _ INVALID_TRANSACTION_AMOUNT %}          | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher                                                                                                                                                         |
-| 184        | 403       | {% break _ INVALID_VOUCHER_AMOUNT %}              | The transaction amount provided was less than the redemption amount or larger than the amount on a value voucher                                                                                                                                                         |
-| 185        | 403       | {% break _ VOUCHER_EXPIRED %}                     | The voucher has expired                                                                                                                                                                                                                                                  |
-| 186        | 403       | {% break _ INSUFFICIENT_VOUCHER_BALANCE %}        | The voucher balance is less than the required amount                                                                                                                                                                                                                     |
-| 187        | 404       | {% break _ VOUCHER_UNKNOWN %}                     | The voucher code supplied does not correspond to any valid vouchers                                                                                                                                                                                                      |
-| 189        | 403       | {% break _ INSUFFICIENT_WALLET_BALANCE %}         | The wallet balance is less than the required amount                                                                                                                                                                                                                      |
-| 190        | 200       | {% break _ TRANSACTION_ALREADY_EXISTS %}          | A successful payment transaction already exists for a payment request.                                                                                                                                                                                                   |
-| 191        | 500       | {% break _ OPTIMISTIC_LOCK_ERROR %}               | A resource was updated concurrently. Request should be retried after refreshing latest state if applicable.                                                                                                                                                              |
-| 192        | 403       | {% break _ INSUFFICIENT_ASSET_BALANCE %}          | The asset has insufficient funds to pay the payment request                                                                                                                                                                                                              |
-| 193        | 403       | {% break _ INVALID_MERCHANT_CONFIGURATION %}      | The merchant is not configured properly to satisfy the payment request, could be incorrect information or the merchant's credentials might be blocked by an external service                                                                                             |
-| 194        | 403       | {% break _ INACTIVE_ASSET %}                      | The asset has either expired or been blocked                                                                                                                                                                                                                             |
-| 195        | 400       | {% break - INVALID_ASSET_ID %}                    | The asset corresponding to the asset id is not supported                                                                                                                                                                                                                 |
-| 196        | 400       | {% break - INVALID_WALLET_ADDRESS %}              | The wallet address is not the same as the supported wallet address                                                                                                                                                                                                       |
-| 197        | 400       | {% break - INVALID_TRANSACTION %}                 | The transaction has either missing query parameters or is not supported                                                                                                                                                                                                  |
-| 198        | 403       | {% break - UNSUPPORTED_ASSET_TYPE %}              | The type of the asset does not match the ledger supplied                                                                                                                                                                                                                 |
-| 199        | 403       | {% break - QUOTA_EXCEEDED %}              | The payment pay request exceeds the allowed spend quota supplied                                                                                                                                                                                                                 |
-| 276        | 400       | {% break _ ALREADY_REFUNDED %}                    | The transaction has already been refunded                                                                                                                                                                                                                                |
-| 277        | 400       | {% break _ INVALID_AMOUNT %}                      | The refund requested is greater than the transaction amount                                                                                                                                                                                                              |
-| 278        | 500       | {% break _ INTERNAL_SERVER_ERROR %}               | Something went wrong while trying to refund the request, we have received an error message and will figure out what went wrong.                                                                                                                                          |
-| 279        | 403       | {% break _ INVALID_TRANSACTION_TYPE %}            | The transaction attempted to be refunded is a refund which is not allowed                                                                                                                                                                                                |
-| 280        | 403       | {% break _ REPEAT_REFERENCE %}                    | A separate refund request for the same transaction has the same external reference, trying to refund the same transaction twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200 |
-| 281        | 403       | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}         | The asset does not support partial refunds.                                                                                                                                                                                                                              |
-| 400        | 400       | {% break _ BAD_REQUEST %}                         | The transaction had invalid parameters not listed above.                                                                                                                                                                                                                                                                     |
+| Http code | Error code |                    Message                     |                                    Description                                     |
+| --------- | ---------- | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 401       | 1          | {% break _ KEY_NOT_AUTHORIZED %}               | The Api Key was not found in the headers or is invalid.                             |
+| 404       | 2          | {% break _ REQUEST_NOT_FOUND %}                | The provided request doesn’t exist.                                                 |
+| 404       | 3          | {% break _ TRANSACTION_NOT_FOUND %}            | The provided transaction doesn’t exist.                                            |
+| 404       | 4          | {% break _ MERCHANT_NOT_FOUND %}               | The provided Merchant doesn’t exist.                                                |
+| 400       | 5          | {% break _ INVALID_REQUEST_ID %}               | RequestId must be a valid UUID.                                                     |
+| 400       | 6          | {% break _ INVALID_AMOUNT %}                   | Amount must be a positive integer greater than zero.                                |
+| 400       | 7          | {% break _ INVALID_ASSET %}                    | Asset was not a supported currency type.                                            |
+| 400       | 8          | {% break _ INVALID_AUTHORIZATION %}            | Authorization must be a non empty string.                                           |
+| 400       | 9          | {% break _ INVALID_LEDGER %}                   | Ledger must be a non empty string.                                                  |
+| 400       | 10         | {% break _ INVALID_MERCHANT_ID %}              | MerchantId must be a non empty string.                                              |
+| 400       | 11         | {% break _ INVALID_CLIENT_ID %}                | ClientId must be a valid UUID.                                                      |
+| 400       | 12         | {% break _ INVALID_PATRON_CODE %}              | PatronCode must be a non empty string.                                              |
+| 400       | 13         | {% break _ INVALID_DESCRIPTION %}              | Description must be a non empty string.                                             |
+| 400       | 14         | {% break _ INVALID_REFERENCE %}                | ExternalReference must be a non empty string.                                       |
+| 400       | 15         | {% break _ INVALID_NOTIFY_URL %}               | NotifyUrl must be a non empty string.                                               |
+| 400       | 16         | {% break _ INVALID_TRANSACTION_ID %}           | TransactionId must be a non empty string.                                           |
+| 400       | 20         | {% break _ INVALID_PAYMENT_EXPIRY_SECONDS %}   | PaymentExpirySeconds is either empty, or is not an integer greater than 0.          |
 
 </div>
 
