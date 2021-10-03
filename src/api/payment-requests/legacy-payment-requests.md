@@ -280,35 +280,6 @@ is different you will get a REPEAT_REFERENCE error message.
 | 403       |            | {% break _ QUOTA_EXCEEDED %}              | The payment refund request exceeds the allowed spend quota supplied.                                                                                                                                                                                                      |
 | 403       |            | {% break _ ASSET_REFUND_DENIED %}         | The asset refund has been unsuccessful due to an error with provided payment parameters, the asset, or the merchant.                                                                                                                                                      |
 
-
-## Errors
-
-### Error codes
-
-<div class="payments-errors" markdown="1">
-
-| Http code | Error code |                    Message                     |                                    Description                                     |
-| --------- | ---------- | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
-| 401       | 1          | {% break _ KEY_NOT_AUTHORIZED %}               | The Api Key was not found in the headers or is invalid.                             |
-| 404       | 2          | {% break _ REQUEST_NOT_FOUND %}                | The provided request doesn’t exist.                                                 |
-| 404       | 3          | {% break _ TRANSACTION_NOT_FOUND %}            | The provided transaction doesn’t exist.                                            |
-| 404       | 4          | {% break _ MERCHANT_NOT_FOUND %}               | The provided Merchant doesn’t exist.                                                |
-| 400       | 5          | {% break _ INVALID_REQUEST_ID %}               | RequestId must be a valid UUID.                                                     |
-| 400       | 6          | {% break _ INVALID_AMOUNT %}                   | Amount must be a positive integer greater than zero.                                |
-| 400       | 7          | {% break _ INVALID_ASSET %}                    | Asset was not a supported currency type.                                            |
-| 400       | 8          | {% break _ INVALID_AUTHORIZATION %}            | Authorization must be a non empty string.                                           |
-| 400       | 9          | {% break _ INVALID_LEDGER %}                   | Ledger must be a non empty string.                                                  |
-| 400       | 10         | {% break _ INVALID_MERCHANT_ID %}              | MerchantId must be a non empty string.                                              |
-| 400       | 11         | {% break _ INVALID_CLIENT_ID %}                | ClientId must be a valid UUID.                                                      |
-| 400       | 12         | {% break _ INVALID_PATRON_CODE %}              | PatronCode must be a non empty string.                                              |
-| 400       | 13         | {% break _ INVALID_DESCRIPTION %}              | Description must be a non empty string.                                             |
-| 400       | 14         | {% break _ INVALID_REFERENCE %}                | ExternalReference must be a non empty string.                                       |
-| 400       | 15         | {% break _ INVALID_NOTIFY_URL %}               | NotifyUrl must be a non empty string.                                               |
-| 400       | 16         | {% break _ INVALID_TRANSACTION_ID %}           | TransactionId must be a non empty string.                                           |
-| 400       | 20         | {% break _ INVALID_PAYMENT_EXPIRY_SECONDS %}   | PaymentExpirySeconds is either empty, or is not an integer greater than 0.          |
-
-</div>
-
 ## Webhooks
 
 Webhook notifications are sent for significant Payment life-cycle
