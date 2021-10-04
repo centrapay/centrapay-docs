@@ -30,7 +30,7 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 
 {% h4 Flags %}
 
- * 🅃  : **Test Asset** -- Cannot be mixed with live merchant [Payment Option Configs][].
+ * 🅃  : **Test Asset** -- Cannot be assigned to [Merchants] without the test flag.
  * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items][].
 
 
@@ -38,6 +38,7 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 [Giftcard]: {% link api/assets/assets.md %}#giftcards
 [Token]: {% link api/assets/assets.md %}#tokens
 [Payment Option Configs]: {% link api/merchants/merchant-configs.md %}#payment-option-config
+[Merchants]: {% link api/merchants/merchants.md %}
 [Line Items]: {% link api/payment-requests/payment-requests.md %}#line-item
 [Bitcoin]: https://bitcoin.org/en/
 [CENNZnet]: https://cennznet.io

@@ -93,9 +93,10 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Error Responses %}
 
-| Status |          Code                     |          Description                                  |
-| :----- | :---------------------------------| :-----------------------------------------------------|
-| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].|
+| Status |               Code                |                                         Description                                          |
+| :----- | :-------------------------------- | :------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].                                       |
+| 403    | {% break _ LIVENESS_MISMATCH %}   | Only [Merchants] with the `test` flag can have merchant configs with test assets, vice versa |
 
 ### Get a Merchant Config
 
@@ -190,12 +191,14 @@ See [Asset Types][] for values that may be present in the `type` field.
 
 {% h4 Error Responses %}
 
-| Status |          Code                     |          Description                                  |
-| :----- | :---------------------------------| :-----------------------------------------------------|
-| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].|
+| Status |               Code                |                                         Description                                          |
+| :----- | :-------------------------------- | :------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_WALLET_TYPE %} | `walletId` does not belong to a [Settlement Wallet][].                                       |
+| 403    | {% break _ LIVENESS_MISMATCH %}   | Only [Merchants] with the `test` flag can have merchant configs with test assets, vice versa |
 
 
 [Payment Request]: {% link api/payment-requests/payment-requests.md %}
 [Payment Option Configs]: #payment-option-config
 [Asset Types]: {% link api/assets/asset-types.md %}
 [Settlement Wallet]: {% link api/assets/wallets.md %}#settlement-wallets
+[Merchants]: {% link api/merchants/merchants.md %}
