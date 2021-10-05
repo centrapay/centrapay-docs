@@ -121,6 +121,32 @@ See [Asset Types][] for values that may be present in the `type` field.
 }
 {% endjson %}
 
+### Get the default Merchant Config **EXPERIMENTAL**
+
+If a merchant config does not already exist for the merchant, one is created.
+
+{% reqspec %}
+  GET '/api/merchants/{merchantId}/default-configs'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+{% endreqspec %}
+
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "5ee168e8597be5002af7b454",
+  "merchantId": "5ee0c486308f590260d9a07f",
+  "paymentOptions": [
+    {
+      "type": "centrapay.nzd.main",
+      "walletId": "1234c486308f3f0a23f0f92b"
+    }
+  ]
+}
+{% endjson %}
+
 ### List Merchant Configs
 
 {% reqspec %}
@@ -165,7 +191,7 @@ See [Asset Types][] for values that may be present in the `type` field.
   body ({
     paymentOptions: [
       { type: 'bitcoin.main' },
-      { type: 'centrapay.nzd.test', walletId: '1234c486308f3f0a23f0f92b' }
+      { type: 'centrapay.nzd.main', walletId: '1234c486308f3f0a23f0f92b' }
     ]
   })
 {% endreqspec %}
@@ -181,7 +207,7 @@ See [Asset Types][] for values that may be present in the `type` field.
       "type": "bitcoin.main"
     },
     {
-      "type": "centrapay.nzd.test",
+      "type": "centrapay.nzd.main",
       "walletId": "1234c486308f3f0a23f0f92b"
     }
   ]
