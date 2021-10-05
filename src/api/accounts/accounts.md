@@ -31,19 +31,24 @@ individual account.
 
 ### Account
 
+{% h4 Mandatory Fields %}
 
-|   Field    |        Type        |                         Description                         |
-| :--------- | :----------------- | :---------------------------------------------------------- |
-| id         | String             | The unique identifier.                                      |
-| type       | String             | Account type, must be either 'org' or 'individual'.         |
-| name       | String             | The display name of the Account.                            |
-| test       | Boolean            | A flag which is only present if the account is for testing. |
-| createdAt  | {% dt Timestamp %} | When the Account was created.                               |
-| modifiedAt | {% dt Timestamp %} | When the Account was updated.                               |
-| createdBy  | {% dt CRN %}       | The User or API Key that created the Account.               |
-| modifiedBy | {% dt CRN %}       | The User or API Key that updated the Account.               |
+| Field      | Type               | Description                                         |
+|:-----------|:-------------------|:----------------------------------------------------|
+| id         | String             | The unique identifier.                              |
+| type       | String             | Account type, must be either 'org' or 'individual'. |
+| name       | String             | The display name of the Account.                    |
+| createdAt  | {% dt Timestamp %} | When the Account was created.                       |
+| modifiedAt | {% dt Timestamp %} | When the Account was updated.                       |
+| createdBy  | {% dt CRN %}       | The User or API Key that created the Account.       |
+| modifiedBy | {% dt CRN %}       | The User or API Key that updated the Account.       |
 
+{% h4 Optional Fields %}
 
+| Field       | Type               | Description                                                         |
+|:------------|:-------------------|:--------------------------------------------------------------------|
+| test        | Boolean            | A flag which is only present if the account is for testing.         |
+| externalId  | String             | Id of an external account that this Centrapay Account is mapped to. |
 
 ## Operations
 
@@ -60,18 +65,19 @@ individual account.
 
 {% h4 Required Fields %}
 
-| Field |  Type  |                    Description                     |
-| :---- | :----- | :------------------------------------------------- |
+| Field | Type   | Description                                        |
+|:------|:-------|:---------------------------------------------------|
 | name  | String | The name of the account                            |
 | type  | String | Account type, must be either 'org' or 'individual' |
 
 
 {% h4 Optional Fields %}
 
-| Field |  Type   |                      Description                       |
-| :---- | :------ | :----------------------------------------------------- |
-| owner | String  | Id of user to add as member with "account-owner" role. |
-| test  | Boolean | A flag indicating if the account is for testing.       |
+| Field      | Type    | Description                                                         |
+|:-----------|:--------|:--------------------------------------------------------------------|
+| owner      | String  | Id of user to add as member with "account-owner" role.              |
+| test       | Boolean | A flag indicating if the account is for testing.                    |
+| externalId | String  | Id of an external account that this Centrapay Account is mapped to. |
 
 
 {% h4 Example response payload %}
@@ -123,8 +129,8 @@ individual account.
 
 {% h4 Required Fields %}
 
-| Field |  Type  |       Description       |
-| :---- | :----- | :---------------------- |
+| Field | Type   | Description             |
+|:------|:-------|:------------------------|
 | name  | String | The name of the account |
 
 {% h4 Example response payload %}
