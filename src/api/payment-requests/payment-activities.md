@@ -49,11 +49,13 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Activity Types %}
 
-| Name    | Description                   |
-|---------|-------------------------------|
-| request | Payment Request was created.  |
-| payment | Payment Request was paid.     |
-| refund  | Payment Request was refunded. |
+| Name         | Description                                        |
+|--------------|----------------------------------------------------|
+| request      | [Payment Request][] was created.                   |
+| payment      | [Payment Request][] was paid.                      |
+| refund       | Funds were returned to the shopper.                |
+| cancellation | [Payment Request][] was cancelled by the merchant. |
+| expiry       | [Payment Request][] wasn't paid before time out.   |
 
 
 ## Operations
