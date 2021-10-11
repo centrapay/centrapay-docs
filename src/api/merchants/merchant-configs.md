@@ -61,7 +61,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 ### Create a Merchant Config
 
 {% reqspec %}
-  POST '/api/merchants/{merchantId}/configs/'
+  POST '/api/merchants/{merchantId}/configs'
   auth 'api-key'
   path_param 'merchantId', '5ee0c486308f590260d9a07f'
   body ({
@@ -125,7 +125,7 @@ See [Asset Types][] for values that may be present in the `type` field.
 ### List Merchant Configs
 
 {% reqspec %}
-  GET '/api/merchants/{merchantId}/configs/'
+  GET '/api/merchants/{merchantId}/configs'
   auth 'api-key'
   path_param 'merchantId', '5ee0c486308f590260d9a07f'
 {% endreqspec %}
