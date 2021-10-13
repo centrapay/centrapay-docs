@@ -44,9 +44,9 @@ Here's an example of the CSV named `input.csv`:
 
 ```
 recipientAlias,cardNumber,pin,message
-+64221231234,23403321042,1111,Hello Bob! Here's your giftcard 🎸✨✨✨
-+64221231235,23403321042,1111,Hello Alice! Here's your giftcard 🏎💨💨💨
-+64221231236,23403321042,1111,Hello Eve! Here's your giftcard 🎉
++64221231234,23403321042,1111,Hello Bob! Here's your giftcard
++64221231235,23403321042,1111,Hello Alice! Here's your giftcard
++64221231236,23403321042,1111,Hello Eve! Here's your giftcard
 ```
 
 {% warning Phone numbers must start with +64 %}
