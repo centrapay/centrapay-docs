@@ -25,8 +25,8 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 |   Field    |  Type  |                                                           Description                                                            |
 | :--------- | :----- | :------------------------------------------------------------------------------------------------------------------------------- |
 | id         | String | The Integration Request's unique identifier.                                                                                     |
-| accountId  | String | The Integration Request's owning Centrapay Account ID.                                                                           |
-| merchantId | String | The Merchant ID for the Integration Request.                                                                                     |
+| accountId  | String | The Integration Request's owning Centrapay Account id.                                                                           |
+| merchantId | String | The Merchant id for the Integration Request.                                                                                     |
 | type       | String | The type of the Integration Request. Refer to [Integration Types](#integration-types).                                           |
 | status     | String | The current status of the Integration Request. Supported values are `active`, `available`, `pending`, `rejected` and `disabled`. |
 
@@ -34,7 +34,7 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 
 |   Field    |  Type  |                            Description                            |
 | :--------- | :----- | :---------------------------------------------------------------- |
-| terminalId | String | The payment system terminal ID. Required for NZ Epay integration. |
+| terminalId | String | The payment system terminal id. Required for NZ Epay integration. |
 
 ### Integration Types
 
@@ -67,7 +67,7 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 |   Field    |  Type  |                      Description                       |
 | :--------- | :----- | :----------------------------------------------------- |
 | accountId  | String | The Integration Request's owning Centrapay Account id. |
-| merchantId | String | The Merchant ID for the Integration Request.           |
+| merchantId | String | The Merchant id for the Integration Request.           |
 | type       | String | The type of the Integration Request.                   |
 
 {% h4 Example response payload %}
@@ -108,7 +108,7 @@ Returns a [paginated][] list of Integration Requests.
 
 | Parameter |                                                   Description                                                    |
 | :-------- | :--------------------------------------------------------------------------------------------------------------- |
-| accountId | The Integration Request's owning Centrapay Account ID. Required unless caller has global read access permission. |
+| accountId | The Integration Request's owning Centrapay Account id. Required unless caller has global read access permission. |
 | type      | The type of Integration Request.                                                                                 |
 | pending   | When set to `true`, only include Integration Requests with pending status.                                       |
 

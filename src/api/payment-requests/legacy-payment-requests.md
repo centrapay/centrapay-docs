@@ -49,8 +49,8 @@ Legacy Payment Request endpoints also have
 |:-----------|:-----------------------------------------------------|
 | amount     | The payment amount in cents                          |
 | asset      | The currency - NZD or AUD                            |
-| merchantId | The ID of the merchant creating the request          |
-| clientId   | The ID of the merchant specific client configuration |
+| merchantId | The id of the merchant creating the request          |
+| clientId   | The id of the merchant specific client configuration |
 
 
 {% h4 Optional Parameters %}
