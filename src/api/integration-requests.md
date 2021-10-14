@@ -32,9 +32,39 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 
 {% h4 Optional Fields %}
 
-|   Field    |  Type  |                            Description                            |
-| :--------- | :----- | :---------------------------------------------------------------- |
-| terminalId | String | The payment system terminal id. Required for NZ Epay integration. |
+|   Field    |         Type          |                                 Description                                 |
+| :--------- | :-------------------- | :-------------------------------------------------------------------------- |
+| terminalId | String                | The payment system terminal id. Required for NZ Epay integration.           |
+| terminal   | [Terminal](#terminal) | The terminal configuration. Required for Verifone and Windcave integration. |
+| product    | [Product](#product)   | The requested Epay gift card types to support.                              |
+
+### Terminal
+{% h4 Required Fields %}
+
+|   Field    |  Type  |                     Description                     |
+| :--------- | :----- | :-------------------------------------------------- |
+| terminalId | String | The software or logical id of the payment terminal. |
+
+{% h4 Optional Fields %}
+
+|  Field   |  Type  |                        Description                        |
+| :------- | :----- | :-------------------------------------------------------- |
+| deviceId | String | The hardware id or serial number of the payment terminal. |
+
+### Product
+{% h4 Required Fields %}
+
+| Field |  Type  |               Description               |
+| :---- | :----- | :-------------------------------------- |
+| name  | String | The name of the requested Epay product. |
+
+{% h4 Optional Fields %}
+
+|    Field    |  Type  |                  Description                   |
+| :---------- | :----- | :--------------------------------------------- |
+| description | String | The description of the requested Epay product. |
+
+
 
 ### Integration Types
 
@@ -55,11 +85,28 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 {% reqspec %}
   POST '/api/integration-requests'
   auth 'api-key'
-  body ({
-    accountId: 'Jaim1Cu1Q55uooxSens6yk',
-    merchantId: '5ee0c486308f590260d9a07f',
-    type: 'epay'
-  })
+  example {
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      merchantId: '5ee0c486308f590260d9a07f',
+      type: 'verifone',
+      terminal: {
+        terminalId: '002039390093939',
+        deviceId: '002-039-390'
+      }
+    })
+  }
+  example {
+    body ({
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      merchantId: '5ee0c486308f590260d9a07f',
+      type: 'epay',
+      product: {
+        name: 'other',
+        description: 'Centrapay Café'
+      }
+    })
+  }
 {% endreqspec %}
 
 {% h4 Required Fields %}
@@ -70,19 +117,44 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 | merchantId | String | The Merchant id for the Integration Request.           |
 | type       | String | The type of the Integration Request.                   |
 
+{% h4 Optional Fields %}
+
+|   Field    |  Type  |                      Description                       |
+| :--------- | :----- | :----------------------------------------------------- |
+| terminal   | [Terminal](#terminal) | The terminal configuration. Required for Verifone and Windcave integration. |
+| product    | [Product](#product)   | The requested Epay gift card types to support.                              |
+
 {% h4 Example response payload %}
 
 {% json %}
-{
-  "id": "DKTs3U38hdhfEqwF1JKoT2",
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "merchantId": "5ee0c486308f590260d9a07f",
-  "type": "verifone",
-  "status": "pending",
-  "createdAt": "2020-06-12T01:17:46.499Z",
-  "updatedAt": "2020-06-12T01:17:46.499Z",
-  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+id: DKTs3U38hdhfEqwF1JKoT2
+accountId: Jaim1Cu1Q55uooxSens6yk
+merchantId: 5ee0c486308f590260d9a07f
+type: verifone
+status: pending
+createdAt: 2020-06-12T01:17:46.499Z
+updatedAt: 2020-06-12T01:17:46.499Z
+createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+terminal: {
+  terminalId: '002039390093939',
+  deviceId: '002-039-390'
+}
+{% endjson %}
+
+{% json %}
+id: DKTs3U38hdhfEqwF1JKoT2
+accountId: Jaim1Cu1Q55uooxSens6yk
+merchantId: 5ee0c486308f590260d9a07f
+type: epay
+status: pending
+createdAt: 2020-06-12T01:17:46.499Z
+updatedAt: 2020-06-12T01:17:46.499Z
+createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+product: {
+  name: 'other',
+  description: 'Centrapay Café'
 }
 {% endjson %}
 
@@ -216,6 +288,20 @@ Supply configuration values for the Integration Request.
 | :----- | :---------------------------- | :--------------------------------------------------------------------------------- |
 | 403    | INTEGRATION_PARAM_MISSING     | Integration Request needs updating with the required parameters before activating. |
 | 403    | INTEGRATION_ALREADY_ACTIVATED | Integration Request is already activated.                                          |
+
+### Delete Integration Request **EXPERIMENTAL**
+
+{% reqspec %}
+  DELETE '/api/integration-requests/{integrationRequestId}'
+  auth 'api-key'
+  path_param 'integrationRequestId', 'DKTs3U38hdhfEqwF1JKoT2'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{}
+{% endjson %}
 
 [verifone]: https://www.verifone.com/en/us
 [windcave]: https://www.windcave.com/

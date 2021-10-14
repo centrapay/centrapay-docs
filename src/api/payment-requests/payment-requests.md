@@ -70,9 +70,9 @@ version (documented on this page) and the "legacy" version (documented at
 | purchaseOrderRef     | String | A reference to a purchase order for this payment request.                                                                                                                |
 | invoiceRef           | String | A reference to an invoice for this payment request.                                                                                                                      |
 | redirectUrl          | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| terminalId           | String | The payment system terminal Id.                                                                                                                                          |
-| deviceId             | String | Physical payment system device Id                                                                                                                                        |
-| operatorId           | String | POS operator Id                                                                                                                                                          |
+| terminalId           | String | The software or logical id of the payment terminal.                                                                                                                                          |
+| deviceId             | String | The hardware id or serial number of the payment terminal.                                                                                                                                        |
+| operatorId           | String | POS operator Id.                                                                                                                                                          |
 | createdByAccountId   | String | Id of the Centrapay account creating the Payment Request.                                                                                                                |
 | createdByAccountName | String | Name of the Centrapay account creating the Payment Request.                                                                                                              |
 
