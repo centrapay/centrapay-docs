@@ -81,7 +81,7 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
 
 | Status | Code                                   | Description                                                 |
 |:-------|:-------------------------------------- |:------------------------------------------------------------|
-| 403    | {% break _ UNKNOWN_ASSET %}             | Asset ID or PIN is incorrect.                               |
+| 403    | {% break _ UNKNOWN_ASSET %}             | Asset id or PIN is incorrect.                               |
 | 403    | {% break _ DUPLICATE_ASSET %}           | Asset already claimed by another account.                   |
 | 403    | {% break _ UNSUPPORTED_ASSET_TYPE %}    | Unsupported asset type, origin, or issuer.                  |
 | 403    | {% break _ DENIED_BY_ASSET_PROVIDER %}  | Asset exists, but is not enabled for use through centrapay. |

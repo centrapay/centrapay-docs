@@ -56,7 +56,7 @@ Here's an example of the script to parse the CSV and send Giftcards. To run this
 * Node JS in your environment
 * A copy of [Axios][]{:.external} for HTTP requests
 * An [API Key][] to call our APIs
-* Your [Account ID][] for the initial load of each Giftcard
+* Your [Account id][] for the initial load of each Giftcard
 
 ```javascript
 #!/usr/bin/env node
@@ -149,6 +149,6 @@ run()
 [External Assets]: {% link api/assets/external-assets.md %}
 [Asset Transfers]: {% link api/assets/asset-transfers.md %}#asset-transfer-create
 [API Key]: {% link api/api-keys.md %}#asset-transfer-create
-[Account ID]: {% link api/accounts/accounts.md %}
+[Account id]: {% link api/accounts/accounts.md %}
 [Account Memberships]: {% link api/accounts/account-memberships.md %}
 [Axios]: https://www.npmjs.com/package/axios

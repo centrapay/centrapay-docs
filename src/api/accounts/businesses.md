@@ -89,7 +89,7 @@ org account will be created and associated to the business.
 | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, or is of the wrong type. |
 | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                   |
 
-### Get a Business by Account ID **EXPERIMENTAL**
+### Get a Business by Account id **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/business'
