@@ -29,6 +29,11 @@ class RequestSpec
     path(s)
   end
 
+  def DELETE(s)
+    method('DELETE')
+    path(s)
+  end
+
   def method(s)
     @_method = s
   end
