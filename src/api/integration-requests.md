@@ -58,13 +58,6 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 | :---- | :----- | :-------------------------------------- |
 | name  | String | The name of the requested Epay product. |
 
-{% h4 Optional Fields %}
-
-|    Field    |  Type  |                  Description                   |
-| :---------- | :----- | :--------------------------------------------- |
-| description | String | The description of the requested Epay product. |
-
-
 
 ### Integration Types
 
@@ -87,7 +80,6 @@ Integration Requests enable terminal integrations and acceptance of asset types 
   auth 'api-key'
   example {
     body ({
-      accountId: 'Jaim1Cu1Q55uooxSens6yk',
       merchantId: '5ee0c486308f590260d9a07f',
       type: 'verifone',
       terminal: {
@@ -98,12 +90,10 @@ Integration Requests enable terminal integrations and acceptance of asset types 
   }
   example {
     body ({
-      accountId: 'Jaim1Cu1Q55uooxSens6yk',
       merchantId: '5ee0c486308f590260d9a07f',
       type: 'epay',
       product: {
-        name: 'other',
-        description: 'Centrapay Café'
+        name: 'koha-card',
       }
     })
   }
@@ -113,7 +103,6 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 
 |   Field    |  Type  |                      Description                       |
 | :--------- | :----- | :----------------------------------------------------- |
-| accountId  | String | The Integration Request's owning Centrapay Account id. |
 | merchantId | String | The Merchant id for the Integration Request.           |
 | type       | String | The type of the Integration Request.                   |
 
@@ -153,16 +142,9 @@ updatedAt: 2020-06-12T01:17:46.499Z
 createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
 updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
 product: {
-  name: 'other',
-  description: 'Centrapay Café'
+  name: 'koha-card',
 }
 {% endjson %}
-
-{% h4 Error Responses %}
-
-| Status |             Code              |                               Description                                |
-| :----- | :---------------------------- | :----------------------------------------------------------------------- |
-| 403    | INTEGRATION_ALREADY_REQUESTED | An Integration Request with the same merchantId and type already exists. |
 
 ### Search Integration Requests **EXPERIMENTAL**
 
@@ -200,6 +182,9 @@ Returns a [paginated][] list of Integration Requests.
       "updatedAt": "2020-06-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
       "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "product": {
+        "name": "koha-card"
+      }
     }
   ]
 }
@@ -238,6 +223,9 @@ Supply configuration values for the Integration Request.
   "updatedAt": "2020-06-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "product": {
+    "name": "koha-card"
+  }
 }
 {% endjson %}
 
@@ -279,6 +267,9 @@ Supply configuration values for the Integration Request.
   "updatedAt": "2020-06-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "product": {
+    "name": "koha-card"
+  }
 }
 {% endjson %}
 
