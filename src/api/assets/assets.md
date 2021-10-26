@@ -40,8 +40,8 @@ specific to its category.
 
 {% h4 Required Fields %}
 
-| Field       | Type               | Description                                           |
-|:------------|:-------------------|:------------------------------------------------------|
+|    Field    |        Type        |                      Description                      |
+| :---------- | :----------------- | :---------------------------------------------------- |
 | id          | String             | The Asset's unique identifier.                        |
 | accountId   | String             | The Asset's owning Centrapay Account id.              |
 | category    | String             | Asset category ("Money", "Giftcard", or "Token").     |
@@ -63,13 +63,16 @@ Money assets have the following fields along with the base asset fields.
 
 {% h4 Required Fields %}
 
-| Field    | Type               | Description                                                          |
-|:---------|:-------------------|:---------------------------------------------------------------------|
+|  Field   |        Type        |                             Description                              |
+| :------- | :----------------- | :------------------------------------------------------------------- |
 | currency | String             | Currency code, eg "NZD"                                              |
 | balance  | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents). |
 
+{% h4 Optional Fields %}
 
-
+| Field |  Type  |                                       Description                                       |
+| :---- | :----- | :-------------------------------------------------------------------------------------- |
+| limit | String | Maximum overdrawn balance. Defaults to 0, and if 0; there is no maximum on the balance. |
 
 <a name="giftcards">
 ### Gift Cards
@@ -103,6 +106,7 @@ Gift cards have the following fields along with the base asset fields.
 | brandImg         | String             | **EXPERIMENTAL** The img URL of the brand that the gift card belongs to.                      |
 | brandWebsite     | String             | **EXPERIMENTAL** The URL of the brand that the gift card belongs to.                          |
 | issuerWebsite    | String             | **EXPERIMENTAL** The URL of the issuer of the gift card.                                      |
+| limit            | String             | Maximum overdrawn balance. Defaults to 0, and if 0; there is no maximum on the balance.       |
 
 
 
@@ -117,14 +121,14 @@ Tokens have the following fields along with the base asset fields.
 
 {% h4 Required Fields %}
 
-| Field | Type  | Description                                                                                  |
-|:------|:------|:---------------------------------------------------------------------------------------------|
+| Field | Type  |                                         Description                                          |
+| :---- | :---- | :------------------------------------------------------------------------------------------- |
 | value | Array | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. |
 
 {% h4 Optional Fields %}
 
-| Field     | Type               | Description                                |
-| :-------  | :------------      | :----------------------------------------- |
+|   Field   |        Type        |                Description                 |
+| :-------- | :----------------- | :----------------------------------------- |
 | validFrom | {% dt Timestamp %} | The date when the asset becomes spendable. |
 | expiresAt | {% dt Timestamp %} | The date when the asset expires.           |
 
@@ -253,9 +257,9 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 
 {% h4 Error Responses %}
 
-| Status | Code                    | Description                                         |
-|:-------|:------------------------|:----------------------------------------------------|
-| 403    | UNSUPPORTED_ASSET_TYPE  | Asset type can not be archived                      |
+| Status |          Code          |          Description           |
+| :----- | :--------------------- | :----------------------------- |
+| 403    | UNSUPPORTED_ASSET_TYPE | Asset type can not be archived |
 
 
 [Asset Type]: {% link api/assets/asset-types.md %}
