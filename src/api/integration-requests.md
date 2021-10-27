@@ -35,7 +35,7 @@ Integration Requests enable terminal integrations and acceptance of asset types 
 |   Field    |         Type          |                                 Description                                 |
 | :--------- | :-------------------- | :-------------------------------------------------------------------------- |
 | terminalId | String                | The payment system terminal id. Required for NZ Epay integration.           |
-| terminal   | [Terminal](#terminal) | The terminal configuration. Required for Verifone and Windcave integration. |
+| terminal   | [Terminal](#terminal) | The terminal configuration. Required for all terminal vendors except Vista. |
 | product    | [Product](#product)   | The requested Epay gift card types to support.                              |
 
 ### Terminal
