@@ -276,7 +276,7 @@ Supply configuration values for the Integration Request.
 ### Activate Integration Request **EXPERIMENTAL**
 
 {% reqspec %}
-  PUT '/api/integration-requests/{integrationRequestId}/activate'
+  POST '/api/integration-requests/{integrationRequestId}/activate'
   auth 'api-key'
   path_param 'integrationRequestId', 'DKTs3U38hdhfEqwF1JKoT2'
 {% endreqspec %}
