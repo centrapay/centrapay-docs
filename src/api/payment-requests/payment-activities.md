@@ -12,7 +12,7 @@ permalink: /api/payment-activities
 
 A Payment Activity records a transaction that has happened on a [Payment Request][].
 
-Payment Activities are created when a Payment Request has been **created**, **paid**, or **refunded**.
+Payment Activities are created when a Payment Request has been **created**, **paid**, **refunded**, **cancelled**, or **expired**.
 
 
 ## Contents
