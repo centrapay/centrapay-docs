@@ -12,7 +12,7 @@ permalink: /api/payment-activities
 
 A Payment Activity records a transaction that has happened on a [Payment Request][].
 
-Payment Activities are created when a Payment Request has been **created**, **paid**, or **refunded**.
+Payment Activities are created when a Payment Request has been **created**, **paid**, **refunded**, **cancelled**, or **expired**.
 
 
 ## Contents
@@ -32,7 +32,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | type                    | String             | See Activity Types below.                            |
 | value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
 | paymentRequestId        | String             | The Payment Request's id.                            |
-| shortCode               | String             | The Payment Request's short code.                    |
 | merchantId              | String             | The Payment Request's [Merchant][] id.               |
 | merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.        |
 | merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.       |
@@ -70,7 +69,6 @@ descending activity created date.
   auth 'jwt'
   query_param 'merchantId', '5ee0c486308f590260d9a07f'
   query_param 'pageKey', 'PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z'
-  query_param 'shortCode', '123abc'
 {% endreqspec %}
 
 {% h4 Required Fields %}
@@ -84,7 +82,6 @@ descending activity created date.
 |   Field   |  Type  |               Description                |
 | --------- | ------ | ---------------------------------------- |
 | pageKey   | String | Used to retrieve the next page of items. |
-| shortCode | String | The [Payment Request][]’s short code.    |
 
 
 {% h4 Example response payload %}
@@ -97,7 +94,6 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "600" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "123abc",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -112,7 +108,6 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "6190" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "123abc",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -125,7 +120,6 @@ descending activity created date.
       "type": "request",
       "value": { "currency": "NZD", "amount": "6190" },
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "123abc",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
