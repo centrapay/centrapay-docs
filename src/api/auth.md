@@ -121,6 +121,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : accounts:create         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : accounts:read           %}        | &nbsp;&nbsp; ✅ |               |                       | ✅                      |
 | {% break : accounts:update         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : accounts:media-upload   %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : business:create         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : business:read         %}          | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
