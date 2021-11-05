@@ -228,7 +228,7 @@ is returned with the payment request info as `payments[].ledger`.
 | bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
 | cennznet.main      | cennznet.main            | *Cennznet transaction id*      |
 | zap.main           | zap.main                 | *Waves transaction id*         |
-| test               | g.test.testUplink        | *None*                         |
+| test               | g.test.testUplink        | *Any*                          |
 
 {% h4 Centrapay Asset Permissions %}
 
