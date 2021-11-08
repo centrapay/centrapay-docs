@@ -15,12 +15,12 @@ redirect_from:
 # Bank Accounts
 {:.no_toc}
 
-Bank Accounts are used to get money in and out of a Centrapay account. Money is
+Bank Accounts are used to get money in and out of a Centrapay Account. Money is
 moved by creating "Top Up" or "Withdrawal" [Funds Transfers][].
 
-Bank accounts must be "direct debit authorized" before they can be used for a
+Bank Accounts must be "direct debit authorized" before they can be used for a
 Top Up and they must be "verified" before top up funds are released. Bank
-accounts do not require "direct debit authorization" or "verification" in order
+Accounts do not require "direct debit authorization" or "verification" in order
 to perform a Withdrawal. A 4-digit code from any recent Centrapay-initiated
 bank transaction can be used to verify a bank account.
 
@@ -36,19 +36,20 @@ bank transaction can be used to verify a bank account.
 ### Bank Account
 {% h4 Mandatory Fields %}
 
-|         Field         |        Type        |                                                        Description                                                         |
-| :-------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| id                    | String             | The Bank Account's unique identifier.                                                                                      |
-| bankAccountNumber     | String             | The user's Bank Account number.                                                                                            |
-| bankAccountName       | String             | The name on the Bank Account provided by the user.                                                                         |
-| accountId             | String             | The id of the owning Centrapay [Account][].                                                                                |
-| status                | String             | The current status of the Bank Account. Supported values are `created` and `active`.                                       |
-| verified              | Boolean            | Flag indicating the Bank Account is verified, allowing it to be used to Top Up.                                            |
-| directDebitAuthorized | Boolean            | Flag indicating the user accepts our [Direct Debit terms][dd-terms]{:.external} and has authority to operate this account. |
-| createdAt             | {% dt Timestamp %} | When the Bank Account was created.                                                                                         |
-| createdBy             | {% dt CRN %}       | The User or API Key that created the Bank Account.                                                                         |
-| modifiedAt            | {% dt Timestamp %} | When the Bank Account was updated.                                                                                         |
-| modifiedBy            | {% dt CRN %}       | The User or API Key that updated the Bank Account.                                                                         |
+|         Field         |                  Type                   |                                                        Description                                                         |
+| :-------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| id                    | String                                  | The Bank Account's unique identifier.                                                                                      |
+| bankAccountNumber     | String                                  | The user's Bank Account number.                                                                                            |
+| bankAccountName       | String                                  | The name on the Bank Account provided by the user.                                                                         |
+| accountId             | String                                  | The id of the owning Centrapay [Account][].                                                                                |
+| status                | String                                  | The current status of the Bank Account.                                                                                    |
+| verified              | Boolean                                 | Flag indicating the Bank Account is verified, allowing it to be used to Top Up.                                            |
+| directDebitAuthorized | Boolean                                 | Flag indicating the user accepts our [Direct Debit terms][dd-terms]{:.external} and has authority to operate this account. |
+| approvals             | [Bank Account Approval Type Summary](#bank-account-approval-type-summary) | A summary of the [Bank Account Approvals][] for the Bank Account.                        |
+| createdAt             | {% dt Timestamp %}                      | When the Bank Account was created.                                                                                         |
+| createdBy             | {% dt CRN %}                            | The User or API Key that created the Bank Account.                                                                         |
+| modifiedAt            | {% dt Timestamp %}                      | When the Bank Account was updated.                                                                                         |
+| modifiedBy            | {% dt CRN %}                            | The User or API Key that updated the Bank Account.                                                                         |
 
 {% h4 Optional Fields %}
 
@@ -58,6 +59,19 @@ bank transaction can be used to verify a bank account.
 | fullName     | String | The first and last name of the user. |
 | emailAddress | String | The user's email address.            |
 
+<a name="bank-account-approval-type-summary">
+## Bank Account Approval Type Summary **EXPERIMENTAL**
+
+A summary of the [Bank Account Approvals][] for a Bank Account.
+There is one object per type of Bank Account Approval, which provides a summary of the approval status.
+
+{% h4 Fields %}
+
+|    Name    |        Type        |                                                        Description                                                         |
+| ---------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| type       | String             | The type of Bank Account Approval summary.                                                                                 |
+| status     | String             | The summarized status of the Bank Account Approvals. Supported values are `created`, `pending`, `approved` and `declined`. |
+| updatedAt  | {% dt Timestamp %} | When the Bank Account Approval summary was updated.                                                                        |
 
 
 ## Operations
@@ -129,6 +143,7 @@ fields below when specified are required together.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "approvals": []
 }
 {% endjson %}
 
@@ -172,6 +187,7 @@ authority to operate this account.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "approvals": []
 }
 {% endjson %}
 
@@ -280,6 +296,7 @@ for Bank Accounts.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "approvals": []
 }
 {% endjson %}
 
@@ -305,7 +322,8 @@ for Bank Accounts.
     "status": "created",
     "verified": false,
     "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z"
+    "createdAt": "2020-06-12T01:17:46.499Z",
+    "approvals": []
   },
   {
     "id": "b5URhAxxWpTKyxQjjY7pXW",
@@ -315,7 +333,14 @@ for Bank Accounts.
     "status": "active",
     "verified": true,
     "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z"
+    "createdAt": "2020-06-12T01:17:46.499Z",
+    "approvals": [
+      {
+        "type": "settlement",
+        "status": "pending",
+        "updatedAt": "2021-11-08T21:52:39.915Z"
+      }
+    ]
   }
 ]
 {% endjson %}
@@ -343,6 +368,7 @@ for Bank Accounts.
     "verified": false,
     "directDebitAuthorized": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
+    "approvals": []
   },
   {
     "id": "b5URhAxxWpTKyxQjjY7pXW",
@@ -353,6 +379,13 @@ for Bank Accounts.
     "verified": true,
     "directDebitAuthorized": true,
     "createdAt": "2020-06-12T01:17:46.499Z",
+    "approvals": [
+      {
+        "type": "settlement",
+        "status": "pending",
+        "updatedAt": "2021-11-08T21:52:39.915Z"
+      }
+    ]
   }
 ]
 {% endjson %}
@@ -408,6 +441,7 @@ authority to operate this account.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "approvals": []
 }
 {% endjson %}
 
@@ -444,9 +478,11 @@ for Bank Accounts.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "approvals": []
 }
 {% endjson %}
 
 [dd-terms]: https://centrapay.com/directdebit-termsandconditions/
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
 [Account]: {% link api/accounts/accounts.md %}
+[Bank Account Approvals]: {% link api/bank-accounts/bank-account-approvals.md %}
