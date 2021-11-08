@@ -31,11 +31,42 @@ bank transaction can be used to verify a bank account.
 * TOC
 {:toc}
 
-<span id="bank-account-create"></span>
-## Creating a bank account
+## Models
 
-A bank account can be created with or without direct debit authorized.  By including
-directDebitAuthority, the user accepts our [Direct Debit terms][dd-terms]{:.external}
+### Bank Account
+{% h4 Mandatory Fields %}
+
+|         Field         |        Type        |                                                        Description                                                         |
+| :-------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| id                    | String             | The Bank Account's unique identifier.                                                                                      |
+| bankAccountNumber     | String             | The user's Bank Account number.                                                                                            |
+| bankAccountName       | String             | The name on the Bank Account provided by the user.                                                                         |
+| accountId             | String             | The id of the owning Centrapay [Account][].                                                                                |
+| status                | String             | The current status of the Bank Account. Supported values are `created` and `active`.                                       |
+| verified              | Boolean            | Flag indicating the Bank Account is verified, allowing it to be used to Top Up.                                            |
+| directDebitAuthorized | Boolean            | Flag indicating the user accepts our [Direct Debit terms][dd-terms]{:.external} and has authority to operate this account. |
+| createdAt             | {% dt Timestamp %} | When the Bank Account was created.                                                                                         |
+| createdBy             | {% dt CRN %}       | The User or API Key that created the Bank Account.                                                                         |
+| modifiedAt            | {% dt Timestamp %} | When the Bank Account was updated.                                                                                         |
+| modifiedBy            | {% dt CRN %}       | The User or API Key that updated the Bank Account.                                                                         |
+
+{% h4 Optional Fields %}
+
+|    Field     |  Type  |             Description              |
+| :----------- | :----- | :----------------------------------- |
+| phoneNumber  | String | The user's phone number.             |
+| fullName     | String | The first and last name of the user. |
+| emailAddress | String | The user's email address.            |
+
+
+
+## Operations
+
+<span id="bank-account-create"></span>
+### Creating a Bank Account
+
+A Bank Account can be created with or without direct debit authorized.  By including
+`directDebitAuthority`, the user accepts our [Direct Debit terms][dd-terms]{:.external}
 and has authority to operate this account.
 
 {% reqspec %}
@@ -66,10 +97,10 @@ and has authority to operate this account.
 
 {% h4 Required Fields %}
 
-|       Field       |  Type  |                    Description                    |
-| :---------------- | :----- | :------------------------------------------------ |
-| bankAccountNumber | String | The user's bank account number                    |
-| bankAccountName   | String | The name on the bank account provided by the user |
+|       Field       |  Type  |                    Description                     |
+| :---------------- | :----- | :------------------------------------------------- |
+| bankAccountNumber | String | The user's Bank Account number.                    |
+| bankAccountName   | String | The name on the Bank Account provided by the user. |
 
 {% h4 Optional Fields %}
 
@@ -105,12 +136,12 @@ fields below when specified are required together.
 
 | Status |                      Code                        |                                     Description                                         |
 | :----- | :----------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_ACCOUNT_LIMIT_EXCEEDED %}        | The Centrapay account already has the max amount of bank accounts.                      |
-| 403    | {% break _ BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED %} | The global maximum bank accounts for the provided bank account number has been reached. |
-| 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this bank account.                                  |
+| 403    | {% break _ BANK_ACCOUNT_LIMIT_EXCEEDED %}        | The Centrapay account already has the max amount of Bank Accounts.                      |
+| 403    | {% break _ BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED %} | The global maximum Bank Accounts for the provided Bank Account number has been reached. |
+| 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this Bank Account.                                  |
 
 <span id="direct-debit-authority"></span>
-## Adding a direct debit authority to a bank account
+### Adding a direct debit authority to a Bank Account
 
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
 authority to operate this account.
@@ -163,7 +194,7 @@ required together.
 | 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set. |
 
 <span id="bank-authority-get"></span>
-## Get information about a bank account
+### Get information about a Bank Account
 
 {% reqspec %}
   GET '/api/bank-accounts/{bankAccountId}'
@@ -172,10 +203,10 @@ required together.
 {% endreqspec %}
 
 <span id="verify-bank-account"></span>
-## Verify a bank account
+### Verify a Bank Account
 
 Verification codes show up on statements when a user makes withdrawals and deposits. To verify an
-account, you need to direct the user to make a topup/withdrawal and then check their statement.
+account, you need to direct the user to make a Top Up or Withdrawal and then check their statement.
 
 {% reqspec %}
   POST '/api/bank-accounts/{bankAccountId}/verify'
@@ -208,10 +239,10 @@ account, you need to direct the user to make a topup/withdrawal and then check t
 | 403    | {% break _ ACCOUNT_MISMATCH %}                            | The top up / withdrawal and the bank account do not belong to the same account. |
 
 
-## Verify a bank authority **DEPRECATED**
+### Verify a Bank Authority **DEPRECATED**
 
 If you're creating new interfaces, please work with our [verify endpoint](#verify-bank-account)
-for bank accounts.
+for Bank Accounts.
 
 {% reqspec %}
   POST '/api/bank-authorities/{bankAccountId}/verify'
@@ -254,7 +285,7 @@ for bank accounts.
 
 
 <span id="bank-account-list"></span>
-## List bank accounts
+### List Bank Accounts
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/bank-accounts'
@@ -274,7 +305,7 @@ for bank accounts.
     "status": "created",
     "verified": false,
     "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z",
+    "createdAt": "2020-06-12T01:17:46.499Z"
   },
   {
     "id": "b5URhAxxWpTKyxQjjY7pXW",
@@ -284,15 +315,15 @@ for bank accounts.
     "status": "active",
     "verified": true,
     "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z",
+    "createdAt": "2020-06-12T01:17:46.499Z"
   }
 ]
 {% endjson %}
 
-## List bank authorities **DEPRECATED**
+### List Bank Authorities **DEPRECATED**
 
 If you're creating new interfaces, please work with our [list endpoint](#bank-account-list)
-for bank accounts.
+for Bank Accounts.
 
 {% reqspec %}
   GET '/api/bank-authorities'
@@ -326,12 +357,12 @@ for bank accounts.
 ]
 {% endjson %}
 
-## Creating a bank authority **DEPRECATED**
+### Creating a Bank Authority **DEPRECATED**
 
 If you're creating new interfaces, please work with our [create endpoint](#bank-account-create)
-for bank accounts.
+for Bank Accounts.
 
-Creating a bank authority both creates a new bank account and a direct debit
+Creating a Bank Authority both creates a new Bank Account and a direct debit
 authority.
 
 By using this endpoint, the user accepts our [Direct Debit terms][dd-terms]{:.external} and has
@@ -387,10 +418,10 @@ authority to operate this account.
 | 403    | {% break _ BANK_AUTHORITY_LIMIT_EXCEEDED %}              | The account already has the max amount of bank accounts.                                                |
 | 403    | {% break _ BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED %} | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
 
-## Get information about a bank authority **DEPRECATED**
+### Get information about a Bank Authority **DEPRECATED**
 
 If you're creating new interfaces, please work with our [get endpoint](#bank-authority-get)
-for bank accounts.
+for Bank Accounts.
 
 {% reqspec %}
   GET '/api/bank-authorities/{bankAccountId}'
