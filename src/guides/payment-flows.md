@@ -38,13 +38,30 @@ When a merchant terminal is not capable of displaying a customer-facing QR code
 then the payment request can be negotiated with the customer by scanning a
 barcode or QR code displayed on the customer's smart device.
 
-1. Customer generates a short-lived [patron code][] via Centrapay API and displays
+1. Customer generates a short-lived [Patron Code][] via Centrapay API and displays
    it as a barcode on their smart device
-2. Merchant scans the barcode, optionally [retrieves the patron code][] for additional
+2. Merchant scans the barcode, optionally [retrieves the Patron Code][] for additional
    information on the customer and then [creates a Payment Request][] via Centrapay API,
-   with the patron code as a parameter.
-3. Customer device [fetches the payment request] created with the patron code and completes
+   with the Patron Code as a parameter.
+3. Customer device [fetches the payment request] created with the Patron Code and completes
    payment as normal.
+
+## Static Patron Barcode
+
+Variant on Dynamic Patron Code, if you've setup long lived static Patron Codes by integrating with
+Centrapay, then you can use these to pay on behalf of a Customer. The customer may be asked for
+approval before this goes through.
+
+1. The Customer presents their [Patron Code][] barcode.
+2. Merchant scans the barcode, optionally [retrieves the Patron Code][] for additional
+   information on the Customer and then [creates a Payment Request][] via Centrapay API,
+   with the Patron Code as a parameter.
+3. Conditionally, the Customer is sent a text message to confirm payment.
+4. The Customer is sent an email with a summary of the payment.
+5. Merchant polls [Polls for the Payment Request][] created with the Patron Code checking the status
+   changes to "paid". Merchant completes payment as normal.
+
+<img src="{{site.url}}/images/static-patron-code-flow.svg" style="display: block; margin: auto;" />
 
 ## Static Merchant QR Code
 
@@ -60,9 +77,10 @@ be used.
 
 
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
-[Creates a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-create
-[Payment Request Details]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-info
+[Creates a Payment Request]: {% link api/payment-requests/payment-requests.md %}#create-a-payment-request
+[Payment Request Details]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
 [Completes Payment]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Patron Code]: {% link api/patron-codes.md %}
 [Retrieves the Patron Code]: {% link api/patron-codes.md %}#retrieving-a-patron-code-by-barcode
-[Fetches the Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#patron-code
+[Fetches the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
+[Polls for the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
