@@ -71,6 +71,28 @@ modifiedAt: "2021-11-08T21:52:39.915Z"
 modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 {% endjson %}
 
+### Get Bank Account Approval by id **EXPERIMENTAL**
+{% reqspec %}
+  POST '/api/bank-account-approvals/{bankAccountApprovalId}'
+  auth 'api-key'
+  path_param 'bankAccountApprovalId', 'DcTs3U38HdhfEqwF1GKoT3'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+id: DcTs3U38HdhfEqwF1GKoT3
+mediaUploadId: uooxSens6ykJaim1Cu1Q55
+bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+accountId: Jaim1Cu1Q55uooxSens6yk
+type: settlement
+status: pending
+createdAt: "2021-11-08T21:52:39.915Z"
+createdBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+modifiedAt: "2021-11-08T21:52:39.915Z"
+modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+{% endjson %}
+
 [Account]: {% link api/accounts/accounts.md %}
 [Bank Account]: {% link api/bank-accounts/bank-accounts.md %}
 [Settlement Wallet]: {% link api/assets/wallets.md %}#settlement-wallets
