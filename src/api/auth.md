@@ -121,7 +121,6 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : accounts:create         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : accounts:read           %}        | &nbsp;&nbsp; ✅ |               |                       | ✅                      |
 | {% break : accounts:update         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
-| {% break : accounts:media-upload   %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : business:create         %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : business:read         %}          | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
@@ -151,6 +150,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : asset-transfers:claim   %}        | &nbsp;&nbsp; ✅ |               |                       | ✅                      |
 | {% break : bank-accounts:create    %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : bank-accounts:read      %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : bank-account-approvals:create%}   | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : media-uploads:create   %}         | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : patron-codes:read %}              | &nbsp;&nbsp; ✅ |               | &nbsp;&nbsp;&nbsp; ✅ |                         |
