@@ -6,7 +6,7 @@ Install Ruby:
 
 ```
 brew install rbenv  # install Ruby version manager
-cd path-to/centrapay.github.io # cd into centrapay.github.io directory
+cd path-to/centrapay-docs # cd into centrapay-docs directory
 rbenv install $(cat .ruby-version)  # install version of Ruby defined in .ruby-version
 ```
 

@@ -75,6 +75,7 @@ version (documented on this page) and the "legacy" version (documented at
 | operatorId           | String | POS operator Id.                                                                                                                                                          |
 | createdByAccountId   | String | Id of the Centrapay account creating the Payment Request.                                                                                                                |
 | createdByAccountName | String | Name of the Centrapay account creating the Payment Request.                                                                                                              |
+| externalRef          | String | Unique merchant reference for the Payment Request.                                                                                                              |
 
 
 
@@ -195,12 +196,13 @@ corresponds to the GPC brick attributes.
     })
   }
   example {
-    title 'Create a Payment Request with purchase order and invoice'
+    title 'Create a Payment Request with purchase order, invoice, and external reference'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: '8991', currency: 'NZD' },
       purchaseOrderRef: 'oF6kj1QlH5gK0y9rjRHFh2',
-      invoiceRef: 'sy8CRmo3sp3ArOpnfmb423'
+      invoiceRef: 'sy8CRmo3sp3ArOpnfmb423',
+      externalRef: 'dYTC266s4DFdsgGd909f',
     })
   }
   example {
