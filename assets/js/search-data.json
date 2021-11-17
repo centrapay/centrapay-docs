@@ -596,26 +596,26 @@
     "doc": "Media Uploads",
     "title": "Media Uploads",
     "content": " ",
-    "url": "/api/media-upload",
-    "relUrl": "/api/media-upload"
+    "url": "/api/media-uploads",
+    "relUrl": "/api/media-uploads"
   },"100": {
     "doc": "Media Uploads",
     "title": "Contents",
-    "content": ". | Models . | Media Upload | . | Operations . | Create a presigned URL for Media Upload EXPERIMENTAL | . | . ",
-    "url": "/api/media-upload#contents",
-    "relUrl": "/api/media-upload#contents"
+    "content": ". | Models . | Media Upload | . | Operations . | Create a presigned URL for Media Upload EXPERIMENTAL | Get Media Upload Content by id EXPERIMENTAL | . | . ",
+    "url": "/api/media-uploads#contents",
+    "relUrl": "/api/media-uploads#contents"
   },"101": {
     "doc": "Media Uploads",
     "title": "Models",
     "content": "Media Upload . Mandatory Fields . | Field | Type | Description | . | id | String | The Media Upload’s unique identifier. | . | accountId | String | The Media Upload’s owning Centrapay Account id. | . | mimeType | String | The media (MIME) type of the upload. | . | fileName | String | The file name of the upload. | . | createdAt | Timestamp | When the Media Upload was created. | . | updatedAt | Timestamp | When the Media Upload was updated. | . | createdBy | CRN | The User or API Key that created the Media Upload. | . | updatedBy | CRN | The User or API Key that updated the Media Upload. | . Optional Fields . | Field | Type | Description | . | uploadUrl | String | A presigned URL that gives users time-limited permission to upload media. | . ",
-    "url": "/api/media-upload#models",
-    "relUrl": "/api/media-upload#models"
+    "url": "/api/media-uploads#models",
+    "relUrl": "/api/media-uploads#models"
   },"102": {
     "doc": "Media Uploads",
     "title": "Operations",
-    "content": "Create a presigned URL for Media Upload EXPERIMENTAL . POST /api/media-upload . curl -X POST https://service.centrapay.com/api/media-upload \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"mimeType\": \"image/png\", \"fileName\": \"image.png\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The Media Upload’s owning Centrapay Account id. | . | mimeType | String | The media (MIME) type of the upload. | . | fileName | String | The file name of the upload. | . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"uploadUrl\": \"https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743\" } . ",
-    "url": "/api/media-upload#operations",
-    "relUrl": "/api/media-upload#operations"
+    "content": "Create a presigned URL for Media Upload EXPERIMENTAL . POST /api/media-uploads . curl -X POST https://service.centrapay.com/api/media-uploads \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"mimeType\": \"image/png\", \"fileName\": \"image.png\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The Media Upload’s owning Centrapay Account id. | . | mimeType | String | The media (MIME) type of the upload. | . | fileName | String | The file name of the upload. | . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"uploadUrl\": \"https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743\" } . Get Media Upload Content by id EXPERIMENTAL . GET /api/media-uploads/{mediaUploadId}/content . curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/content \\ -H \"X-Api-Key: $api_key\" . Response . A successful response will return a 302 Found status code with a Location header. ",
+    "url": "/api/media-uploads#operations",
+    "relUrl": "/api/media-uploads#operations"
   },"103": {
     "doc": "Merchant Configs",
     "title": "Merchant Configs",
