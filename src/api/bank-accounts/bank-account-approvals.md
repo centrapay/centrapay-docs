@@ -96,4 +96,4 @@ modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 [Account]: {% link api/accounts/accounts.md %}
 [Bank Account]: {% link api/bank-accounts/bank-accounts.md %}
 [Settlement Wallet]: {% link api/assets/wallets.md %}#settlement-wallets
-[Media Upload]: {% link api/media-upload.md %}
+[Media Upload]: {% link api/media-uploads.md %}

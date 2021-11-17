@@ -2,7 +2,7 @@
 layout: default
 parent: API Reference
 title: Media Uploads
-permalink: /api/media-upload
+permalink: /api/media-uploads
 ---
 
 # Media Uploads
@@ -42,7 +42,7 @@ permalink: /api/media-upload
 ### Create a presigned URL for Media Upload **EXPERIMENTAL**
 
 {% reqspec %}
-  POST '/api/media-upload'
+  POST '/api/media-uploads'
   auth 'api-key'
   example {
     body ({
@@ -67,3 +67,15 @@ permalink: /api/media-upload
 id: DKTs3U38hdhfEqwF1JKoT2
 uploadUrl: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
 {% endjson %}
+
+### Get Media Upload Content by id **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/media-uploads/{mediaUploadId}/content'
+  path_param 'mediaUploadId', 'DKTs3U38hdhfEqwF1JKoT2'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Response %}
+
+A successful response will return a `302 Found` status code with a `Location` header.
