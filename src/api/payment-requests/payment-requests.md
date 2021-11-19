@@ -44,8 +44,8 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Mandatory Fields %}
 
-| Field          | Type               | Description                                                                 |
-|----------------|--------------------|-----------------------------------------------------------------------------|
+|     Field      |        Type        |                                 Description                                 |
+| -------------- | ------------------ | --------------------------------------------------------------------------- |
 | id             | String             | The payment request id.                                                     |
 | value          | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.               |
 | paymentOptions | Array              | The [Payment Options](#payment-option), indicating valid asset for payment. |
@@ -61,7 +61,7 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-| Field                | Type   | Description                                                                                                                                                              |
+|        Field         |  Type  |                                                                               Description                                                                                |
 | -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | patronCodeId         | String | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
 | barcode              | String | Scanned patron barcode used to create the payment request.                                                                                                               |
@@ -70,12 +70,12 @@ version (documented on this page) and the "legacy" version (documented at
 | purchaseOrderRef     | String | A reference to a purchase order for this payment request.                                                                                                                |
 | invoiceRef           | String | A reference to an invoice for this payment request.                                                                                                                      |
 | redirectUrl          | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| terminalId           | String | The software or logical id of the payment terminal.                                                                                                                                          |
-| deviceId             | String | The hardware id or serial number of the payment terminal.                                                                                                                                        |
-| operatorId           | String | POS operator Id.                                                                                                                                                          |
+| terminalId           | String | The software or logical id of the payment terminal.                                                                                                                      |
+| deviceId             | String | The hardware id or serial number of the payment terminal.                                                                                                                |
+| operatorId           | String | POS operator Id.                                                                                                                                                         |
 | createdByAccountId   | String | Id of the Centrapay account creating the Payment Request.                                                                                                                |
 | createdByAccountName | String | Name of the Centrapay account creating the Payment Request.                                                                                                              |
-| externalRef          | String | Unique merchant reference for the Payment Request.                                                                                                              |
+| externalRef          | String | Unique merchant reference for the Payment Request.                                                                                                                       |
 
 
 
@@ -83,19 +83,19 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Mandatory Fields %}
 
-| Field     | Type               | Description                                                             |
-|-----------|--------------------|-------------------------------------------------------------------------|
+|   Field   |        Type        |                               Description                               |
+| --------- | ------------------ | ----------------------------------------------------------------------- |
 | assetType | String             | An [Asset Type][] reference.                                            |
 | amount    | {% dt BigNumber %} | The value required to pay using the canonical units for the asset type. |
 
 {% h4 Optional Fields %}
 
-| Field          | Type   | Description                                                                                                                                                            |
-|----------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                                                                                                        |
-| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                                                                                          |
-| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                                                                                                   |
-| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`                                                                                  |
+|     Field      |  Type  |                                      Description                                      |
+| -------------- | ------ | ------------------------------------------------------------------------------------- |
+| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                       |
+| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                         |
+| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                  |
+| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*` |
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an
 external ledger. Once you have made that payment, you can use the transaction id for
@@ -115,8 +115,8 @@ line items may be represented as a separate line item with a negative amount.
 
 {% h4 Mandatory Fields %}
 
-| Field | Type               | Description                                                           |
-|-------|--------------------|-----------------------------------------------------------------------|
+| Field |        Type        |                              Description                              |
+| ----- | ------------------ | --------------------------------------------------------------------- |
 | name  | String             | The product description.                                              |
 | sku   | String             | The product (stock keeping unit) code.                                |
 | qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc).            |
@@ -125,8 +125,8 @@ line items may be represented as a separate line item with a negative amount.
 
 {% h4 Optional Fields %}
 
-| Field          | Type               | Description                                          |
-|----------------|--------------------|------------------------------------------------------|
+|     Field      |        Type        |                     Description                      |
+| -------------- | ------------------ | ---------------------------------------------------- |
 | tax            | {% dt BigNumber %} | Tax rate (percentage).                               |
 | discount       | {% dt BigNumber %} | Discount amount in cents (tax exclusive).            |
 | productId      | String             | Manufacturer's product identifier (eg GTIN/EAN).     |
@@ -138,16 +138,16 @@ line items may be represented as a separate line item with a negative amount.
 
 {% h4 Mandatory Fields %}
 
-| Field | Type   | Description                          |
-|-------|--------|--------------------------------------|
+| Field |  Type  |             Description              |
+| ----- | ------ | ------------------------------------ |
 | type  | String | The classification type (see below). |
 | code  | String | The classification code.             |
 | name  | String | The classification description.      |
 
 {% h4 Optional Fields %}
 
-| Field | Type | Description                                        |
-|-------|------|----------------------------------------------------|
+| Field | Type |                    Description                     |
+| ----- | ---- | -------------------------------------------------- |
 | props | Map  | The product classification properties (see below). |
 
 
@@ -164,6 +164,26 @@ Classification properties allow optional additional product characterizing
 attrubutes to be supplied. In the case of GS1 product classifications this
 corresponds to the GPC brick attributes.
 
+### Paid By
+
+The Paid By provides a summary of the aggregated transactions by asset type for the Payment Request.
+
+{% h4 Mandatory Fields %}
+
+|     Field      |        Type        |                           Description                            |
+| -------------- | ------------------ | ---------------------------------------------------------------- |
+| assetTotals    | Array              | The [Asset Totals](#asset-total) indicating a transaction on the payment request. |
+
+### Asset Total
+
+{% h4 Mandatory Fields %}
+
+|     Field      |        Type        |                               Description                                |
+| -------------- | ------------------ | ------------------------------------------------------------------------ |
+| type           | String             | The primary asset type used for the payment.                             |
+| description    | String             | A human readable description of the primary asset type used.             |
+| settlementDate | {% dt Timestamp %} | The date that the merchant can expect settlement of funds.               |
+| total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
 ## Operations
 
@@ -342,6 +362,57 @@ corresponds to the GPC brick attributes.
   "expiresAt": "2021-06-08T04:06:27.426Z",
   "liveness": "test",
   "expirySeconds": 120
+}
+{% endjson %}
+
+{% h4 Example response payload paid by multiple asset types %}
+
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "1000" },
+  "paymentOptions": [
+    {
+      "amount": "1000",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "amount": "1000",
+      "assetType": "cca.coke.main"
+    }
+  ],
+  "status": "paid",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "main",
+  "expirySeconds": 120,
+  "paidBy": {
+    "assetTotals": [
+      {
+        "type": "centrapay.nzd.main",
+        "description": "Centrapay NZD",
+        "settlementDate": "2021-06-28T04:04:27.426Z",
+        "total": {
+          "amount": "550",
+          "currency": "NZD"
+        }
+      },
+      {
+        "type": "cca.coke.main",
+        "description": "Coke Token",
+        "settlementDate": "2021-06-28T04:04:27.426Z",
+        "total": {
+          "amount": "450",
+          "currency": "NZD"
+        }
+      }
+    ]
+  }
 }
 {% endjson %}
 
