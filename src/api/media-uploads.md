@@ -68,14 +68,16 @@ id: DKTs3U38hdhfEqwF1JKoT2
 uploadUrl: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
 {% endjson %}
 
-### Get Media Upload Content by id **EXPERIMENTAL**
+### Get Media Upload Location by id **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/media-uploads/{mediaUploadId}/content'
+  GET '/api/media-uploads/{mediaUploadId}/location'
   path_param 'mediaUploadId', 'DKTs3U38hdhfEqwF1JKoT2'
   auth 'api-key'
 {% endreqspec %}
 
-{% h4 Response %}
+{% h4 Example response payload %}
 
-A successful response will return a `302 Found` status code with a `Location` header.
+{% json %}
+url: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+{% endjson %}
