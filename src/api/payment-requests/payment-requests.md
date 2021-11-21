@@ -172,7 +172,7 @@ The Paid By provides a summary of the aggregated transactions by asset type for 
 
 |     Field      |        Type        |                           Description                            |
 | -------------- | ------------------ | ---------------------------------------------------------------- |
-| assetTotals    | Array              | The [Asset Totals](#asset-total) indicating a transaction on the payment request. |
+| assetTotals    | Array              | The sum of paid amounts [Asset Totals](#asset-total) for each transacted asset type. |
 
 ### Asset Total
 
