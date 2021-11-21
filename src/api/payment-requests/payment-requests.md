@@ -166,7 +166,7 @@ corresponds to the GPC brick attributes.
 
 ### Paid By
 
-The Paid By provides a summary of the aggregated transactions by asset type for the Payment Request.
+The Paid By provides a summary of the transactions after the Payment Request was paid.
 
 {% h4 Mandatory Fields %}
 
