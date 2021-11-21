@@ -180,8 +180,8 @@ The Paid By provides a summary of the transactions after the Payment Request was
 
 |     Field      |        Type        |                               Description                                |
 | -------------- | ------------------ | ------------------------------------------------------------------------ |
-| type           | String             | The primary asset type used for the payment.                             |
-| description    | String             | A human readable description of the primary asset type used.             |
+| type           | String             | The asset type used for the payment.                             |
+| description    | String             | A human readable description of the asset type used.             |
 | settlementDate | {% dt Timestamp %} | The date that the merchant can expect settlement of funds.               |
 | total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
