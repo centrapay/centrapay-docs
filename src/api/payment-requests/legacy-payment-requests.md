@@ -218,8 +218,10 @@ text rates from your provider.
 | Http code | Error code |             Message             |             Description             |
 | :-------- | :--------- | :------------------------------ | :---------------------------------- |
 | 404       | 2          | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn’t exist. |
+| 403       |            | {% break _ VOID_WINDOW_EXCEEDED %} | The amount of time since the payment request was created exceeds the window of time a payment request can be voided (24 hours). |
 
 Voiding a payment request can cause it to be cancelled or refunded. Therefore, this endpoint can give the same error responses as [requests.cancel][] and [transactions.refund][].
+After 24 hours voiding a payment request will be disallowed, however a refund can still be made against the payment request if it has been paid successfully.
 
 <a name="transactions-refund">
 ### Refunding a transaction
@@ -279,6 +281,7 @@ is different you will get a REPEAT_REFERENCE error message.
 | 403       |            | {% break _ REFUND_NOT_SUPPORTED %}        | The asset type does not support refunds.                                                                                                                                                                                                                                  |
 | 403       |            | {% break _ QUOTA_EXCEEDED %}              | The payment refund request exceeds the allowed spend quota supplied.                                                                                                                                                                                                      |
 | 403       |            | {% break _ ASSET_REFUND_DENIED %}         | The asset refund has been unsuccessful due to an error with provided payment parameters, the asset, or the merchant.                                                                                                                                                      |
+| 403       |            | {% break _ REFUND_WINDOW_EXCEEDED %}  | The time since the payment exceeds the window of time a transaction can be refunded in (1 month). |
 
 ## Webhooks
 
