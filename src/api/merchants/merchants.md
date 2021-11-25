@@ -29,12 +29,16 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Mandatory Fields %}
 
-| Field            | Type   | Description                                   |
-| :--------------- | :----- | :------------------------------------------   |
-| id               | String | Merchant's unique identifier.                 |
-| accountId        | String | Id of Merchant's owning Centrapay account.    |
-| name             | String | Merchant name.                                |
-| country          | String | Merchant [ISO 3166]{:.external} country code. |
+|   Field   |        Type        |                  Description                   |
+| :-------- | :----------------- | :--------------------------------------------- |
+| id        | String             | Merchant's unique identifier.                  |
+| accountId | String             | Id of Merchant's owning Centrapay account.     |
+| name      | String             | Merchant name.                                 |
+| country   | String             | Merchant [ISO 3166]{:.external} country code.  |
+| createdAt | {% dt Timestamp %} | When the Merchant was created.                 |
+| createdBy | {% dt CRN %}       | The User or API Key that created the Merchant. |
+| updatedAt | {% dt Timestamp %} | When the Merchant was updated.                 |
+| updatedBy | {% dt CRN %}       | The User or API Key that updated the Merchant. |
 
 {% h4 Optional Fields %}
 
@@ -75,7 +79,11 @@ which define the payment methods available for a Payment Request.
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
   "name": "Centrapay Cafe Auckland",
   "country": "NZ",
-  "test": false
+  "test": false,
+  "createdAt": "2021-11-12T01:17:46.499Z",
+  "updatedAt": "2021-11-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
 
@@ -102,7 +110,11 @@ which define the payment methods available for a Payment Request.
   "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
   "name": "Parisian - Brown",
   "test": false,
-  "country": "AD"
+  "country": "AD",
+  "createdAt": "2021-11-12T01:17:46.499Z",
+  "updatedAt": "2021-11-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
 
@@ -125,21 +137,33 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "country": "BT",
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
-      "test": true
+      "test": true,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
     },
     {
       "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
       "country": "GM",
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
-      "test": false
+      "test": false,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
     },
     {
       "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
       "country": "MZ",
       "id": "5f6bf6ff81552101f8ff6124",
       "name": "West, O'Reilly and Huels",
-      "test": true
+      "test": true,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
     },
   ]
 }
@@ -161,25 +185,26 @@ Returns a [paginated][] list of Merchants attached to an Account.
 {
   "items": [
     {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
       "country": "BT",
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
-      "test": true
+      "test": true,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
     },
     {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-      "country": "NZ",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "country": "GM",
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
-      "test": false
-    },
-    {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-      "country": "MZ",
-      "id": "5f6bf6ff81552101f8ff6124",
-      "name": "West, O'Reilly and Huels",
-      "test": true
+      "test": false,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
     },
   ]
 }
@@ -224,7 +249,11 @@ Returns a [paginated][] list of Merchants attached to an Account.
   },
   "settlementConfig": {
     "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
-  }
+  },
+  "createdAt": "2021-09-12T01:11:22.491Z",
+  "updatedAt": "2021-11-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
 
