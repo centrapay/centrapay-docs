@@ -81,7 +81,7 @@ Legacy Payment Request endpoints also have
 
 {% reqspec %}
   GET '/payments/api/requests.info'
-  query_param 'requestId', 'a95b3b0d-1278-4613-8772-20d146065a2e'
+  query_param 'requestId', 'TyqV56mEkNLUeiY2QskHNR'
   auth 'api-key'
 {% endreqspec %}
 
@@ -97,6 +97,94 @@ Legacy Payment Request endpoints also have
 | Http code | Error code |             Message             |             Description             |
 | :-------- | :--------- | :------------------------------ | :---------------------------------- |
 | 404       | 2          | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn’t exist. |
+
+{% h4 Example response payload of a new request %}
+{% json %}
+{
+  "requestId": "TyqV56mEkNLUeiY2QskHNR",
+  "merchantId": "5efbe17d96c083633e2b9241",
+  "merchantName": "NZD Test Merchant",
+  "clientId": "5efbe2fb96c08357bb2b9242",
+  "denomination": {
+    "asset": "NZD",
+    "amount": 100
+  },
+  "payments": [
+    {
+      "ledger": "centrapay.nzd.test",
+      "amount": 100,
+      "methods": [
+        "qr_code"
+      ]
+    }
+  ],
+  "qrCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
+  "requestCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
+  "status": "new",
+  "createdAt": "2021-11-29T23:04:54.253Z",
+  "updatedAt": "2021-11-29T23:04:54.253Z",
+  "liveness": "test",
+  "paymentExpirySeconds": 120
+}
+{% endjson %}
+
+{% h4 Example response payload of a paid request %}
+
+{% json %}
+
+{
+  "requestId": "TyqV56mEkNLUeiY2QskHNR",
+  "merchantId": "5efbe17d96c083633e2b9241",
+  "merchantName": "NZD Test Merchant",
+  "clientId": "5efbe2fb96c08357bb2b9242",
+  "denomination": {
+    "asset": "NZD",
+    "amount": 100
+  },
+  "payments": [
+    {
+      "ledger": "centrapay.nzd.test",
+      "amount": 100,
+      "methods": [
+        "qr_code"
+      ]
+    }
+  ],
+  "qrCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
+  "requestCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
+  "status": "paid",
+  "createdAt": "2021-11-29T23:04:54.253Z",
+  "updatedAt": "2021-11-29T23:05:38.254Z",
+  "liveness": "test",
+  "paymentExpirySeconds": 120,
+  "paidBy": {
+    "ledger": "centrapay.nzd.test",
+    "type": "centrapay.nzd.test",
+    "authCode": "3MhaANvdS79qhvAj6nYFNT",
+    "responseCode": "1234",
+    "receipt": "",
+    "v2": true,
+    "paidAt": "2021-11-29T23:05:38.000Z",
+    "amount": 100,
+    "account": "3MhaANvdS79qhvAj6nYFNT",
+    "transactionId": "TyqV56mEkNLUeiY2QskHNR",
+    "description": "Centrapay Test NZD",
+    "settlementDate": "2021-11-29T23:05:38.000Z",
+    "assetTotals": [
+      {
+        "type": "centrapay.nzd.test",
+        "description": "Centrapay Test NZD",
+        "settlementDate": "2021-11-29T23:05:38.000Z",
+        "total": {
+          "amount": "100",
+          "currency": "NZD"
+        }
+      }
+    ]
+  }
+}
+{% endjson %}
+
 
 <a name="requests-pay">
 ### Paying a payment request
