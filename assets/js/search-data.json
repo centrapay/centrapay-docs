@@ -229,7 +229,7 @@
   },"38": {
     "doc": "Bank Accounts",
     "title": "Bank Account Approval Type Summary EXPERIMENTAL",
-    "content": "A summary of the Bank Account Approvals for a Bank Account. There is one object per type of Bank Account Approval, which provides a summary of the approval status. Fields . | Name | Type | Description | . | type | String | The type of Bank Account Approval summary. | . | status | String | The summarized status of the Bank Account Approvals. Supported values are created, pending, approved and declined. | . | updatedAt | Timestamp | When the Bank Account Approval summary was updated. | . ",
+    "content": "A summary of the Bank Account Approvals for a Bank Account. There is one object per type of Bank Account Approval, which provides a summary of the approval status. Fields . | Name | Type | Description | . | type | String | The type of Bank Account Approval summary. | . | status | String | The summarized status of the Bank Account Approvals. Supported values are pending, approved and declined. | . | updatedAt | Timestamp | When the Bank Account Approval summary was updated. | . ",
     "url": "/api/bank-accounts#bank-account-approval-type-summary-experimental",
     "relUrl": "/api/bank-accounts#bank-account-approval-type-summary-experimental"
   },"39": {
