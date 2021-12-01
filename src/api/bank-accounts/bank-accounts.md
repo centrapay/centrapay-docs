@@ -67,11 +67,11 @@ There is one object per type of Bank Account Approval, which provides a summary 
 
 {% h4 Fields %}
 
-|    Name    |        Type        |                                                        Description                                                         |
-| ---------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| type       | String             | The type of Bank Account Approval summary.                                                                                 |
-| status     | String             | The summarized status of the Bank Account Approvals. Supported values are `created`, `pending`, `approved` and `declined`. |
-| updatedAt  | {% dt Timestamp %} | When the Bank Account Approval summary was updated.                                                                        |
+|   Name    |        Type        |                                                   Description                                                   |
+| --------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| type      | String             | The type of Bank Account Approval summary.                                                                      |
+| status    | String             | The summarized status of the Bank Account Approvals. Supported values are `pending`, `approved` and `declined`. |
+| updatedAt | {% dt Timestamp %} | When the Bank Account Approval summary was updated.                                                             |
 
 
 ## Operations
