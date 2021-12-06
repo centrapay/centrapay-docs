@@ -467,12 +467,148 @@ them to find the Payment Request and proceed to pay.
 {% endjson %}
 
 
+### Pay a Payment Request by Id **EXPERIMENTAL**
+
+There are two methods of paying a payment request.
+The first uses Centrapay [Assets] and requires you to provide the Id and the type of the asset.
+Alternatively you can provide an external transaction Id and the Centrapay [Asset Type][] for any payments that we support. An example of an external transaction would be a Bitcoin payment.
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/pay'
+  auth 'jwt'
+  example {
+    title 'Pay a Payment Request with a Centrapay asset'
+    body ({
+      "assetType": "centrapay.nzd.main",
+      "assetId": "WRhAxxWpTKb5U7pXyxQjjY"
+    })
+  }
+
+  example {
+    title 'Pay a Payment Request using external transaction'
+    body ({
+      "assetType": "bitcoin.main",
+      "transactionId": "VMXMkUttDGTVz4ESv5ND56",
+    })
+  }
+
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000"
+  },
+  "paymentOptions": [
+    {
+      "amount": "1000",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "amount": "1000",
+      "assetType": "cca.coke.main"
+    }
+  ],
+  "status": "paid",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "main",
+  "expirySeconds": 120,
+  "paidBy": {
+    "assetTotals": [
+      {
+        "type": "centrapay.nzd.main",
+        "description": "Centrapay NZD",
+        "settlementDate": "2021-06-28T04:04:27.426Z",
+        "total": {
+          "amount": "1000",
+          "currency": "NZD"
+        }
+      }
+    ]
+  }
+}
+{% endjson %}
+
+### Refund a Payment Request by Id **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/refund'
+  auth 'jwt'
+  example {
+    title 'Refund a Payment Request'
+    body ({
+      "value": {
+        "amount": "100",
+        "currency": "NZD",
+      },
+      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+    })
+  }
+
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000"
+  },
+  "paymentOptions": [
+    {
+      "amount": "1000",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "amount": "1000",
+      "assetType": "cca.coke.main"
+    }
+  ],
+  "status": "paid",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "main",
+  "expirySeconds": 120,
+  "paidBy": {
+    "assetTotals": [
+      {
+        "type": "centrapay.nzd.main",
+        "description": "Centrapay NZD",
+        "settlementDate": "2021-06-28T04:04:27.426Z",
+        "total": {
+          "amount": "1000",
+          "currency": "NZD"
+        }
+      }
+    ],
+  }
+}
+{% endjson %}
+
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
 [Patron Code]: {% link api/patron-codes.md %}
 [Patron Code Ref]: #patron-code-ref
 [Asset Type]: {% link api/assets/asset-types.md %}
+[Assets]: {% link api/assets/assets.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
