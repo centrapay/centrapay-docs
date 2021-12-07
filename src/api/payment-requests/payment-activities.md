@@ -27,8 +27,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Mandatory Fields %}
 
-| Field                   | Type               | Description                                          |
-| -----------------       | ------------------ | ---------------------------------------------------- |
+|          Field          |        Type        |                     Description                      |
+| ----------------------- | ------------------ | ---------------------------------------------------- |
 | type                    | String             | See Activity Types below.                            |
 | value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
 | paymentRequestId        | String             | The Payment Request's id.                            |
@@ -39,17 +39,18 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdAt               | {% dt Timestamp %} | When the activity was created.                       |
 | createdBy               | {% dt CRN %}       | The identity that created the activity.              |
 | paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
+| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.           |
 
 {% h4 Optional Fields %}
 
-| Field     | Type   | Description                                                |
-|-----------|--------|------------------------------------------------------------|
+|   Field   |  Type  |                        Description                         |
+| --------- | ------ | ---------------------------------------------------------- |
 | assetType | String | The [Asset Type][] for the "payment" or "refund" activity. |
 
 {% h4 Activity Types %}
 
-| Name         | Description                                        |
-|--------------|----------------------------------------------------|
+|     Name     |                    Description                     |
+| ------------ | -------------------------------------------------- |
 | request      | [Payment Request][] was created.                   |
 | payment      | [Payment Request][] was paid.                      |
 | refund       | Funds were returned to the shopper.                |
@@ -100,7 +101,8 @@ descending activity created date.
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "createdAt": "2021-06-12T01:17:00.000Z",
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3",
     },
     {
       "type": "payment",
@@ -113,7 +115,8 @@ descending activity created date.
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "createdAt": "2021-06-12T01:16:00.000Z",
       "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
     },
     {
       "type": "request",
@@ -125,7 +128,8 @@ descending activity created date.
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "createdAt": "2021-06-12T01:15:46.000Z",
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "1",
     }
   ]
 }
@@ -158,7 +162,8 @@ descending activity created date.
       "createdAt": "2021-06-12T01:17:00.000Z",
       "createdBy": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3",
     },
     {
       "type": "payment",
@@ -171,7 +176,8 @@ descending activity created date.
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "createdAt": "2021-06-12T01:16:00.000Z",
       "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
     },
     {
       "type": "request",
@@ -183,7 +189,8 @@ descending activity created date.
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "createdAt": "2021-06-12T01:15:46.000Z",
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "1",
     }
   ]
 }
