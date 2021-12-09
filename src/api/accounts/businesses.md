@@ -30,7 +30,8 @@ A Business is associated with a single [Account][].
 | accountName   | String             | The Centrapay account name for an org account.     |
 | test          | Boolean            | A flag which is present if the [Account][] is test |
 | nzbn          | String             | The unique NZBN identifier.                        |
-| name          | String             | Trading name recorded in the Companies Register.   |
+| name          | String             | Legal name recorded in the Companies Register.     |
+| tradingName   | String             | Trading name recorded in the Companies Register.   |
 | companyNumber | String             | Company number recorded in the Companies Register. |
 | createdAt     | {% dt Timestamp %} | When the Business was created.                     |
 | updatedAt     | {% dt Timestamp %} | When the Business was updated.                     |
@@ -74,6 +75,7 @@ org account will be created and associated to the business.
   "accountName": "Centrapay",
   "nzbn": "9429046246448",
   "name": "CENTRAPAY LIMITED",
+  "tradingName": "CentraPay",
   "companyNumber": "6340244",
   "createdAt": "2020-06-12T01:17:46.499Z",
   "updatedAt": "2020-06-12T01:17:46.499Z",
@@ -106,6 +108,7 @@ org account will be created and associated to the business.
   "accountName": "Centrapay",
   "nzbn": "9429046246448",
   "name": "CENTRAPAY LIMITED",
+  "tradingName": "CentraPay",
   "companyNumber": "6340244",
   "createdAt": "2020-06-12T01:17:46.499Z",
   "updatedAt": "2020-06-12T01:17:46.499Z",
@@ -159,6 +162,7 @@ number. Results are [paginated][] and ordered by relevance.
 {
   "nzbn": "9429046246448",
   "companyName": "CENTRAPAY LIMITED",
+  "tradingName": "CentraPay",
   "companyNumber": "6340244",
   "directors": [
     {
