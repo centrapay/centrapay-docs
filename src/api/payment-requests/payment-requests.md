@@ -539,6 +539,12 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 }
 {% endjson %}
 
+{% h4 Error Responses %}
+
+| Status | Code                    | Description                                                                                                                                                                                 |
+|:-------|:------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 403    | INVALID_ASSET_TYPE      | Either the merchant is not configured with the provided asset type, the asset type does not exist, or the asset type can not be used as it is only supported by our [Legacy Payment API][]. |
+
 ### Refund a Payment Request by Id **EXPERIMENTAL**
 
 {% reqspec %}
@@ -613,3 +619,4 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
+[Legacy Payment API]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
