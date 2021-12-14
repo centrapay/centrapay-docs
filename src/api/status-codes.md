@@ -129,14 +129,14 @@ Centrapay API rate limits have been exceeded.
 
  * Check the `Retry-After` HTTP response header for the number of seconds
    before the next request will be accepted.
- * Contact [devsupport@centrapay.com]() to increase your limits.
+ * Contact [integrations@centrapay.com]() to increase your limits.
 
 
 ## 5xx Server Error
 
 If you get a 500 level error, something has gone wrong on our end. Our goal is
 to never have these codes. Usually a Centrapay Engineer will investigate but
-bug reports are also welcome at [devsupport@centrapay.com]().
+bug reports are also welcome at [integrations@centrapay.com]().
 
 
 [Auth]: {% link api/auth.md %}

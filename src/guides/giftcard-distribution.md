@@ -21,7 +21,7 @@ another Centrapay user's phone number via SMS.
 You can load Giftcards by calling our [External Assets] endpoint. You will need to use the giftcard
 number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
 
-If your asset type is not included on the list, contact [devsupport@centrapay.com]().
+If your asset type is not included on the list, contact [integrations@centrapay.com]().
 
 ## Sending Assets
 
