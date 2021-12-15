@@ -457,7 +457,7 @@
   },"76": {
     "doc": "Loading & Sending Assets",
     "title": "Loading Giftcards",
-    "content": "You can load Giftcards by calling our External Assets endpoint. You will need to use the giftcard number for the externalId field. The pin, the issuer and the type need to be on hand too. If your asset type is not included on the list, contact devsupport@centrapay.com. ",
+    "content": "You can load Giftcards by calling our External Assets endpoint. You will need to use the giftcard number for the externalId field. The pin, the issuer and the type need to be on hand too. If your asset type is not included on the list, contact integrations@centrapay.com. ",
     "url": "/guides/loading-and-sending-assets#loading-giftcards",
     "relUrl": "/guides/loading-and-sending-assets#loading-giftcards"
   },"77": {
@@ -503,17 +503,17 @@
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
   },"84": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"85": {
     "doc": "Assets",
     "title": "Assets",
     "content": " ",
     "url": "/api/section/assets",
     "relUrl": "/api/section/assets"
+  },"85": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"86": {
     "doc": "API Reference",
     "title": "API Reference",
@@ -523,7 +523,7 @@
   },"87": {
     "doc": "Getting Started",
     "title": "Getting Started",
-    "content": "Welcome to Centrapay! We enable you to transact fiat currency, giftcards, digital assets and vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our APIs which allow merchants, customers, terminals, and smart wallets to interact with each other. Checkout our Guides for hints on where to begin or see the API Reference for a deeper dive. For more help getting setup, contact us via email at devsupport@centrapay.com. ",
+    "content": "Welcome to Centrapay! We enable you to transact fiat currency, giftcards, digital assets and vouchers via your point of sale, payment terminal, shopping cart or unattended device. We accomplish this via our APIs which allow merchants, customers, terminals, and smart wallets to interact with each other. Checkout our Guides for hints on where to begin or see the API Reference for a deeper dive. For more help getting setup, contact us via email at integrations@centrapay.com. ",
     "url": "/",
     "relUrl": "/"
   },"88": {
@@ -937,13 +937,13 @@
   },"156": {
     "doc": "Status Codes",
     "title": "429 Too Many Requests",
-    "content": "Centrapay API rate limits have been exceeded. Example response body . { \"statusCode\": 429, \"error\": \"Too Many Requests\", \"message\": \"RATE_LIMIT_EXCEEDED\" } . Debugging . | Check the Retry-After HTTP response header for the number of seconds before the next request will be accepted. | Contact devsupport@centrapay.com to increase your limits. | . ",
+    "content": "Centrapay API rate limits have been exceeded. Example response body . { \"statusCode\": 429, \"error\": \"Too Many Requests\", \"message\": \"RATE_LIMIT_EXCEEDED\" } . Debugging . | Check the Retry-After HTTP response header for the number of seconds before the next request will be accepted. | Contact integrations@centrapay.com to increase your limits. | . ",
     "url": "/api/status-codes#429-too-many-requests",
     "relUrl": "/api/status-codes#429-too-many-requests"
   },"157": {
     "doc": "Status Codes",
     "title": "5xx Server Error",
-    "content": "If you get a 500 level error, something has gone wrong on our end. Our goal is to never have these codes. Usually a Centrapay Engineer will investigate but bug reports are also welcome at devsupport@centrapay.com. ",
+    "content": "If you get a 500 level error, something has gone wrong on our end. Our goal is to never have these codes. Usually a Centrapay Engineer will investigate but bug reports are also welcome at integrations@centrapay.com. ",
     "url": "/api/status-codes#5xx-server-error",
     "relUrl": "/api/status-codes#5xx-server-error"
   },"158": {
