@@ -79,10 +79,10 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 
 | Parameter   | Type               | Description                                                                     |
 | :---------- | :-----             | :---------                                                                      |
-| description | String             | Shows up in transaction history against the transfer.                           |
-| message     | String             | A message which shows up in the SMS of the receiver. 100 character limit.       |
+| description | String             | Shows up in transaction history against the transfer. {% maxlen 200 %}          |
+| message     | String             | A message which shows up in the SMS of the receiver. {% maxlen 100 %}           |
 | value       | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type.   |
-| senderName  | String             | Human readable name for the sender. 30 character limit.                         |
+| senderName  | String             | Human readable name for the sender. {% maxlen 30 %}                             |
 | senderAlias | String             | Phone number, email or handle of sender to return asset to. See (★) note below. |
 
 ★ Only provide a senderAlias value if you are invoking asset transfer with api
