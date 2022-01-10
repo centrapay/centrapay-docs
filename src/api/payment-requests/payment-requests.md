@@ -311,7 +311,7 @@ The Paid By provides a summary of the transactions after the Payment Request was
 }
 {% endjson %}
 
-### Get a Payment Request by Id
+### Get a Payment Request
 
 {% reqspec %}
   GET '/api/payment-requests/{paymentRequestId}'
@@ -467,7 +467,7 @@ them to find the Payment Request and proceed to pay.
 {% endjson %}
 
 
-### Pay a Payment Request by Id **EXPERIMENTAL**
+### Pay a Payment Request **EXPERIMENTAL**
 
 There are two methods of paying a payment request.
 The first uses Centrapay [Assets] and requires you to provide the Id and the type of the asset.
@@ -545,7 +545,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 |:-------|:------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 403    | INVALID_ASSET_TYPE      | Either the merchant is not configured with the provided asset type, the asset type does not exist, or the asset type can not be used as it is only supported by our [Legacy Payment API][]. |
 
-### Refund a Payment Request by Id **EXPERIMENTAL**
+### Refund a Payment Request **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/refund'

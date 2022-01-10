@@ -90,7 +90,7 @@ It is used to apply discounts or restrict payment options for the payment reques
 You can find payment request information attached to a Patron Code by [polling for the Payment
 Request][polling] using the transacting APIs.
 
-### Retrieving a Patron Code by id
+### Retrieving a Patron Code
 
 {% reqspec %}
   GET '/api/patron-codes/{patronCodeId}'

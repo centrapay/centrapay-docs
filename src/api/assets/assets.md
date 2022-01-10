@@ -131,7 +131,7 @@ Tokens have the following fields along with the base asset fields.
 
 ## Operations
 
-### Get Asset by id
+### Get Asset
 
 {% reqspec %}
   GET '/api/assets/{assetId}'

@@ -83,7 +83,7 @@ modifiedAt: "2021-11-08T21:52:39.915Z"
 modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 {% endjson %}
 
-### Get Bank Account Approval by id **EXPERIMENTAL**
+### Get Bank Account Approval **EXPERIMENTAL**
 {% reqspec %}
   POST '/api/bank-account-approvals/{bankAccountApprovalId}'
   auth 'api-key'

@@ -74,7 +74,7 @@ request.
   email: "john.doe@centrapay.com"
 {% endjson %}
 
-### Get Profile by user id **EXPERIMENTAL**
+### Get Profile **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/users/{userId}/profile'
