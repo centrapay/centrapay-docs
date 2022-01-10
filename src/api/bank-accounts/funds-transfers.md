@@ -67,7 +67,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 | 403    | {% break _ DIRECT_DEBIT_NOT_AUTHORIZED        %} | Bank account requires authorization for top up. See bank accounts [direct debit endpoint][].                                                                           |
 | 403    | {% break _ INVALID_WALLET_TYPE        %} | The wallet type does not support top ups. See [settlement wallets][].                                                                           |
 
-## Get a top up by id
+## Get a top up
 
 {% reqspec %}
   GET '/api/topups/{topupId}'
@@ -208,7 +208,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %}     | The wallet balance is less than the required amount.                                          |
 | 403    | {% break _ INVALID_WALLET_TYPE        %}      | The wallet type does not support withdrawals. See [settlement wallets][].                     |
 
-## Get a Withdrawal by id **EXPERIMENTAL**
+## Get a Withdrawal **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/withdrawals/{withdrawalId}'

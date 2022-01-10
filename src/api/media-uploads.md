@@ -68,7 +68,7 @@ id: DKTs3U38hdhfEqwF1JKoT2
 uploadUrl: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
 {% endjson %}
 
-### Get Media Upload Location by id **EXPERIMENTAL**
+### Get Media Upload Location **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/media-uploads/{mediaUploadId}/location'

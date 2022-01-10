@@ -122,7 +122,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 | 403    | {% break _ QUOTA_EXCEEDED %} | The transfer exceeds one or more spend quota limits. See [Quota Error Response]. |
 
 
-## Get an Asset Transfer by id
+## Get an Asset Transfer
 
 {% reqspec %}
   GET '/api/asset-transfers/{assetTransferId}'
