@@ -221,7 +221,7 @@ Returns a [paginated][] list of Assets for an account.
 {% endjson %}
 
 
-### Archive Asset (EXPERIMENTAL)
+### Archive Asset
 
 Archive supported asset types by asset id. Currently only gift cards may be archived.
 
