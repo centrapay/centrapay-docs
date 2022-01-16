@@ -22,19 +22,19 @@ An `approved` Bank Account Approval is required for the funds in a [Settlement W
 ### Bank Account Approval
 {% h4 Mandatory Fields %}
 
-|       Field        |        Type        |                                                      Description                                                       |
-| :----------------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| id                 | String             | The Bank Account Approval's unique identifier.                                                                         |
-| bankAccountId      | String             | The id of the associated [Bank Account][].                                                                             |
-| mediaUploadId      | String             | The id of the associated [Media Upload][].                                                                             |
-| accountId          | String             | The id of the owning Centrapay [Account][].                                                                            |
-| type               | String             | The type of Bank Account Approval.                                                                                     |
-| status             | String             | The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved` and `declined`. |
-| createdAt          | {% dt Timestamp %} | When the Bank Account Approval was created.                                                                            |
-| createdBy          | {% dt CRN %}       | The User or API Key that created the Bank Account Approval.                                                            |
-| modifiedAt         | {% dt Timestamp %} | When the Bank Account Approval was updated.                                                                            |
-| modifiedBy         | {% dt CRN %}       | The User or API Key that updated the Bank Account Approval.                                                            |
-| approvalActivities | Array              | An array of [Bank Account Approval Activity] associated with the Bank Account Approval.                                |
+|       Field        |        Type        |                                                          Description                                                           |
+| :----------------- | :----------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| id                 | String             | The Bank Account Approval's unique identifier.                                                                                 |
+| bankAccountId      | String             | The id of the associated [Bank Account][].                                                                                     |
+| mediaUploadId      | String             | The id of the associated [Media Upload][].                                                                                     |
+| accountId          | String             | The id of the owning Centrapay [Account][].                                                                                    |
+| type               | String             | The type of Bank Account Approval.                                                                                             |
+| status             | String             | The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`. |
+| createdAt          | {% dt Timestamp %} | When the Bank Account Approval was created.                                                                                    |
+| createdBy          | {% dt CRN %}       | The User or API Key that created the Bank Account Approval.                                                                    |
+| modifiedAt         | {% dt Timestamp %} | When the Bank Account Approval was updated.                                                                                    |
+| modifiedBy         | {% dt CRN %}       | The User or API Key that updated the Bank Account Approval.                                                                    |
+| approvalActivities | Array              | An array of [Bank Account Approval Activity] associated with the Bank Account Approval.                                        |
 
 ### Bank Account Approval Activity
 {% h4 Mandatory Fields %}
