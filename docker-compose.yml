@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  app:
+    image: ruby:2.7
+    working_dir: /work
+    volumes: [ ".:/work" ]
+    command: "bundle exec jekyll serve --livereload --host=0.0.0.0"
+    ports: [ "4000:4000" ]
+  script:
+    image: ruby:2.7
+    working_dir: /work
+    volumes: [ ".:/work" ]
+    stop_signal: SIGKILL
+    command:
+      - bash
+      - -c
+      - |
+        echo "
+        To execute a script, run:
+        docker-compose run script {command}"
