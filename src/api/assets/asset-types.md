@@ -27,6 +27,8 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | pocketvouchers     | [Pocket Vouchers][]{:.external}      |              |       |
 | paypal.usd.main    | [PayPal][]{:.external}               |              |       |
 | paypal.usd.test    | [PayPal][]{:.external}               |              | 🅃     |
+| venmo.usd.main    | [Venmo][]{:.external}               |              |       |
+| venmo.usd.test    | [Venmo][]{:.external}               |              | 🅃     |
 | test               | No-op test payment (always approved) |              | 🅃     |
 
 
@@ -47,3 +49,4 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 [Zap tokens]: https://www.zap.org/
 [Pocket Vouchers]: https://centrapay.com/pocket-vouchers/
 [PayPal]: https://www.paypal.com/
+[Venmo]: https://venmo.com/
