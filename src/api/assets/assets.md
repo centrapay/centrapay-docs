@@ -161,7 +161,7 @@ Tokens have the following fields along with the base asset fields.
 
 ### List Assets for Account
 
-Returns a [paginated][] list of Assets for an account.
+Returns a [paginated][] list of Assets for an account. This will only return active assets.
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/assets'
