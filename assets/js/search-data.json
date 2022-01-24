@@ -247,13 +247,13 @@
   },"41": {
     "doc": "Businesses",
     "title": "Models",
-    "content": "Business . | Field | Type | Description | . | id | String | The unique identifier. | . | accountId | String | The Centrapay accountId for an org account. | . | accountName | String | The Centrapay account name for an org account. | . | test | Boolean | A flag which is present if the Account is test | . | nzbn | String | The unique NZBN identifier. | . | name | String | Trading name recorded in the Companies Register. | . | companyNumber | String | Company number recorded in the Companies Register. | . | createdAt | Timestamp | When the Business was created. | . | updatedAt | Timestamp | When the Business was updated. | . | createdBy | CRN | The User or API Key that created the Business. | . | updatedBy | CRN | The User or API Key that updated the Business. | . ",
+    "content": "Business . | Field | Type | Description | . | id | String | The unique identifier. | . | accountId | String | The Centrapay accountId for an org account. | . | accountName | String | The Centrapay account name for an org account. | . | test | Boolean | A flag which is present if the Account is test | . | nzbn | String | The unique NZBN identifier. | . | name | String | Legal name recorded in the Companies Register. | . | tradingName | String | Trading name recorded in the Companies Register. | . | companyNumber | String | Company number recorded in the Companies Register. | . | createdAt | Timestamp | When the Business was created. | . | updatedAt | Timestamp | When the Business was updated. | . | createdBy | CRN | The User or API Key that created the Business. | . | updatedBy | CRN | The User or API Key that updated the Business. | . ",
     "url": "/api/businesses#models",
     "relUrl": "/api/businesses#models"
   },"42": {
     "doc": "Businesses",
     "title": "Operations",
-    "content": "Create a Business EXPERIMENTAL . If accountId is not provided when creating a business, then a new org account will be created and associated to the business. POST /api/businesses . curl -X POST https://service.centrapay.com/api/businesses \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"nzbn\": \"9429046246448\" }' . Required Fields . | Field | Type | Description | . | nzbn | String | The unique NZBN identifier. | . Optional Fields . | Field | Type | Description | . | accountId | String | The Centrapay accountId. | . | test | String | The created Centrapay org account will have the test flag | . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountName\": \"Centrapay\", \"nzbn\": \"9429046246448\", \"name\": \"CENTRAPAY LIMITED\", \"companyNumber\": \"6340244\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"updatedAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\" } . Error Responses . | Status | Code | Description | . | 403 | INVALID_ACCOUNT | Account does not exist, is not authorized, or is of the wrong type. | . | 403 | INVALID_NZBN | The NZBN provided does not match any NZ business. | . Get a Business by Account id EXPERIMENTAL . GET /api/accounts/{accountId}/business . curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountName\": \"Centrapay\", \"nzbn\": \"9429046246448\", \"name\": \"CENTRAPAY LIMITED\", \"companyNumber\": \"6340244\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"updatedAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\" } . Search NZ Company Register EXPERIMENTAL . Returns a list of companies that match the queried param on company name, nzbn number or company number. Results are paginated and ordered by relevance. GET /api/nzbn-search . curl -G https://service.centrapay.com/api/nzbn-search \\ -H \"X-Api-Key: $api_key\" \\ -d q=centrapay . Query Parameters . | Parameter | Description | . | q | Company name, number or NZBN to search for. | . Example response payload . { \"items\": [ { \"nzbn\": \"9429046246448\", \"companyName\": \"CENTRAPAY LIMITED\", \"companyNumber\": \"6340244\" } ] } . Get Business Details from NZ Company Register EXPERIMENTAL . GET /api/nzbn/{nzbn} . curl https://service.centrapay.com/api/nzbn/9429046246448 \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"nzbn\": \"9429046246448\", \"companyName\": \"CENTRAPAY LIMITED\", \"companyNumber\": \"6340244\", \"directors\": [ { \"firstName\": \"John\", \"lastName\": \"DOE\", \"addressLines\": [ \"7 Tara Street\", \"Downmore\", \"Auckland\" ] }, { \"firstName\": \"Jane\", \"lastName\": \"DOE\", \"addressLines\": [ \"82 Greatwood Road\", \"Northclover\", \"Auckland\" ] } ] } . ",
+    "content": "Create a Business EXPERIMENTAL . If accountId is not provided when creating a business, then a new org account will be created and associated to the business. POST /api/businesses . curl -X POST https://service.centrapay.com/api/businesses \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"nzbn\": \"9429046246448\" }' . Required Fields . | Field | Type | Description | . | nzbn | String | The unique NZBN identifier. | . Optional Fields . | Field | Type | Description | . | accountId | String | The Centrapay accountId. | . | test | String | The created Centrapay org account will have the test flag | . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountName\": \"Centrapay\", \"nzbn\": \"9429046246448\", \"name\": \"CENTRAPAY LIMITED\", \"tradingName\": \"CentraPay\", \"companyNumber\": \"6340244\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"updatedAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\" } . Error Responses . | Status | Code | Description | . | 403 | INVALID_ACCOUNT | Account does not exist, is not authorized, or is of the wrong type. | . | 403 | INVALID_NZBN | The NZBN provided does not match any NZ business. | . Get a Business by Account id EXPERIMENTAL . GET /api/accounts/{accountId}/business . curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"accountId\": \"Jaim1Cu1Q55uooxSens6yk\", \"accountName\": \"Centrapay\", \"nzbn\": \"9429046246448\", \"name\": \"CENTRAPAY LIMITED\", \"tradingName\": \"CentraPay\", \"companyNumber\": \"6340244\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"updatedAt\": \"2020-06-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\" } . Search NZ Company Register EXPERIMENTAL . Returns a list of companies that match the queried param on company name, nzbn number or company number. Results are paginated and ordered by relevance. GET /api/nzbn-search . curl -G https://service.centrapay.com/api/nzbn-search \\ -H \"X-Api-Key: $api_key\" \\ -d q=centrapay . Query Parameters . | Parameter | Description | . | q | Company name, number or NZBN to search for. | . Example response payload . { \"items\": [ { \"nzbn\": \"9429046246448\", \"companyName\": \"CENTRAPAY LIMITED\", \"companyNumber\": \"6340244\" } ] } . Get Business Details from NZ Company Register EXPERIMENTAL . GET /api/nzbn/{nzbn} . curl https://service.centrapay.com/api/nzbn/9429046246448 \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"nzbn\": \"9429046246448\", \"companyName\": \"CENTRAPAY LIMITED\", \"tradingName\": \"CentraPay\", \"companyNumber\": \"6340244\", \"directors\": [ { \"firstName\": \"John\", \"lastName\": \"DOE\", \"addressLines\": [ \"7 Tara Street\", \"Downmore\", \"Auckland\" ] }, { \"firstName\": \"Jane\", \"lastName\": \"DOE\", \"addressLines\": [ \"82 Greatwood Road\", \"Northclover\", \"Auckland\" ] } ] } . ",
     "url": "/api/businesses#operations",
     "relUrl": "/api/businesses#operations"
   },"43": {
@@ -473,23 +473,23 @@
     "url": "/guides/loading-and-sending-assets",
     "relUrl": "/guides/loading-and-sending-assets"
   },"79": {
-    "doc": "Accounts",
-    "title": "Accounts",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"80": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"81": {
     "doc": "Merchants",
     "title": "Merchants",
     "content": " ",
     "url": "/api/section/merchants",
     "relUrl": "/api/section/merchants"
+  },"81": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"82": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
@@ -497,11 +497,11 @@
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
   },"83": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"84": {
     "doc": "API Reference",
     "title": "API Reference",
