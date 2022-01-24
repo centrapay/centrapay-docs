@@ -60,7 +60,7 @@ bank transaction can be used to verify a bank account.
 | emailAddress | String | The user's email address.            |
 
 <a name="bank-account-approval-type-summary">
-## Bank Account Approval Type Summary **EXPERIMENTAL**
+### Bank Account Approval Type Summary **EXPERIMENTAL**
 
 A summary of the [Bank Account Approvals][] for a Bank Account.
 There is one object per type of Bank Account Approval, which provides a summary of the approval status.
