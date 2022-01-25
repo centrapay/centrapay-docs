@@ -567,45 +567,19 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% json %}
 {
-  "id": "MhocUmpxxmgdHjr7DgKoKw",
-  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "type": "refund",
+  "value": { "currency": "NZD", "amount": "100" },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
   "merchantName": "Centrapay Café",
-  "configId": "5efbe2fb96c08357bb2b9242",
-  "value": {
-    "currency": "NZD",
-    "amount": "1000"
-  },
-  "paymentOptions": [
-    {
-      "amount": "1000",
-      "assetType": "centrapay.nzd.main"
-    },
-    {
-      "amount": "1000",
-      "assetType": "cca.coke.main"
-    }
-  ],
-  "status": "paid",
-  "createdAt": "2021-06-08T04:04:27.426Z",
-  "updatedAt": "2021-06-08T04:04:27.426Z",
-  "expiresAt": "2021-06-08T04:06:27.426Z",
-  "liveness": "main",
-  "expirySeconds": 120,
-  "paidBy": {
-    "assetTotals": [
-      {
-        "type": "centrapay.nzd.main",
-        "description": "Centrapay NZD",
-        "settlementDate": "2021-06-28T04:04:27.426Z",
-        "total": {
-          "amount": "1000",
-          "currency": "NZD"
-        }
-      }
-    ],
-  }
-}
+  "merchantId": "5ee0c486308f590260d9a07f",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5ee168e8597be5002af7b454",
+  "createdAt": "2021-06-12T01:17:00.000Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "3",
+},
 {% endjson %}
 
 [Merchant]: {% link api/merchants/merchants.md %}
