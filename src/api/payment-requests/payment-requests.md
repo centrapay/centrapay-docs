@@ -541,9 +541,18 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% h4 Error Responses %}
 
-| Status | Code                    | Description                                                                                                                                                                                 |
-|:-------|:------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 403    | INVALID_ASSET_TYPE      | Either the merchant is not configured with the provided asset type, the asset type does not exist, or the asset type can not be used as it is only supported by our [Legacy Payment API][]. |
+| Status | Code                                   | Description                                                                                                                                                                                |
+|:-------|:---------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 403    | {% break _ INVALID_ASSET_TYPE %}       | Either the merchant is not configured with the provided asset type or the asset type does not exist.                                                                                       |
+| 403    | {% break _ REQUEST_EXPIRED %}          | Action cannot be completed because the request has expired.                                                                                                                                |
+| 403    | {% break _ REQUEST_PAID %}             | Action cannot be completed because the request has been paid.                                                                                                                              |
+| 403    | {% break _ REQUEST_CANCELLED %}        | Action cannot be completed because the request has already been cancelled.                                                                                                                 |
+| 403    | {% break _ INVALID_ASSET_TYPE %}       | The merchant is not configured with the provided asset type.                                                                                                                               |
+| 403    | {% break _ INACTIVE_ASSET %}           | The asset is not spendable. It may have been disabled, expired, or already spent.                                                                                                          |
+| 403    | {% break _ INVALID_MERCHANT_CONFIG %}  | The merchant is not configured properly to satisfy the payment request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service. |
+| 403    | {% break _ QUOTA_EXCEEDED %}           | The payment pay request exceeds the allowed spend quota supplied.                                                                                                                          |
+| 403    | {% break _ INSUFFICIENT_ASSET_VALUE %} | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.                                         |
+| 403    | {% break _ ASSET_REDEMPTION_DENIED %}  | The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset.                                                                   |
 
 ### Refund a Payment Request **EXPERIMENTAL**
 
