@@ -68,7 +68,8 @@ send money from this Wallet.
   "createdAt": "2021-01-01T00:00:00.000Z",
   "status": "active",
   "currency": "NZD",
-  "balance": "0"
+  "balance": "0",
+  "availableBalance": "6000"
 }
 {% endjson %}
 
@@ -86,6 +87,7 @@ send money from this Wallet.
   "status": "active",
   "currency": "NZD",
   "balance": "0",
+  "availableBalance": "6000",
   "settlement": true
 }
 {% endjson %}
@@ -113,14 +115,16 @@ send money from this Wallet.
     "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
     "ledgerId": "centrapay.nzd.main",
     "currency": "NZD",
-    "balance": "2000"
+    "balance": "2000",
+    "availableBalance": "6000"
   },
   {
     "id": "NQ1yeromwnWPD2hY41L2yS",
     "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
     "ledgerId": "centrapay.nzd.test",
     "currency": "NZD",
-    "balance": "20"
+    "balance": "20",
+    "availableBalance": "6000"
   }
 ]
 {% endjson %}
