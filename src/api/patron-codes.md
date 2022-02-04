@@ -139,6 +139,6 @@ Request][polling] using the transacting APIs.
 | Status |          Code                     |          Description                          |
 | :----- | :---------------------------------| :---------------------------------------------|
 | 400    | {% break _ CHECKSUM_FAILED %}     | Luhn checksum digit doesn't pass.             |
-| 403    | {% break _ PATRON_CODE_INVALID %} | Patron Code doesn't exist or has has expired. |
+| 403    | {% break _ PATRON_CODE_INVALID %} | Patron Code doesn't exist or it has expired. |
 
 [polling]: {% link api/payment-requests/payment-requests.md %}#patron-code
