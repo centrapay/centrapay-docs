@@ -36,11 +36,13 @@ permalink: /api/managed-integrations
 | updatedBy          | {% dt CRN %}       | The User or API Key that updated the Managed Integration.                                                      |
 
 {% h4 Optional Fields %}
-|       Field        |        Type        |                                                  Description                                                   |
-| :----------------- | :----------------- | :------------------------------------------------------------------------------------------------------------- |
-| claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration.                                                    |
-| claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.                                                      |
-| claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                                                                      |
+
+|       Field        |        Type        |                         Description                         |
+| :----------------- | :----------------- | :---------------------------------------------------------- |
+| claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration. |
+| claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.   |
+| claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                   |
+
 ## Params
 
 ### kete-enrolment
