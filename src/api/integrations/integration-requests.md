@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: API Reference
+grand_parent: API Reference
+parent: Integrations
 title: Integration Requests
 permalink: /api/integration-requests
 ---
