@@ -28,7 +28,6 @@ permalink: /api/managed-integrations
 | active     | Boolean            | Flag indicating whether the Managed Integration is active.                                                     |
 | status      | String             | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
 | externalId | String             | Field used to reference an id from an external system.                                                         |
-| invitation | Object             | The associated [Invitation][].                                                                                 |
 | params     | Object             | [Params](#params) depending on the Managed Integration type.                                                   |
 | createdAt  | {% dt Timestamp %} | When the Managed Integration was created.                                                                      |
 | createdBy  | {% dt CRN %}       | The User or API Key that created the Managed Integration.                                                      |
@@ -39,6 +38,7 @@ permalink: /api/managed-integrations
 
 |       Field        |        Type        |                         Description                         |
 | :----------------- | :----------------- | :---------------------------------------------------------- |
+| invitation         | Object             | The associated [Invitation][].                              |
 | claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration. |
 | claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.   |
 | claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                   |
