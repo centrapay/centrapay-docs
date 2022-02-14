@@ -40,16 +40,17 @@ specific to its category.
 
 {% h4 Required Fields %}
 
-| Field       | Type               | Description                                           |
-|:------------|:-------------------|:------------------------------------------------------|
-| id          | String             | The Asset's unique identifier.                        |
-| accountId   | String             | The Asset's owning Centrapay Account id.              |
-| category    | String             | Asset category ("Money", "Giftcard", or "Token").     |
-| type        | String             | [Asset Type][] id used by payment option asset types. |
-| liveness    | String             | Either "main" (live payments allowed) or "test".      |
-| description | String             | Displayable asset description.                        |
-| createdAt   | {% dt Timestamp %} | Date when the asset was created or issued.            |
-| status      | String             | "active" if the asset can be used for payments.       |
+| Field             | Type               | Description                                                            |
+|:------------------|:-------------------|:-----------------------------------------------------------------------|
+| id                | String             | The Asset's unique identifier.                                         |
+| accountId         | String             | The Asset's owning Centrapay Account id.                               |
+| category          | String             | Asset category ("Money", "Giftcard", or "Token").                      |
+| type              | String             | [Asset Type][] id used by payment option asset types.                  |
+| liveness          | String             | Either "main" (live payments allowed) or "test".                       |
+| description       | String             | Displayable asset description.                                         |
+| createdAt         | {% dt Timestamp %} | Date when the asset was created or issued.                             |
+| status            | String             | "active" if the asset can be used for payments.                        |
+| availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases. |
 
 
 <a name="money">
@@ -153,6 +154,7 @@ Tokens have the following fields along with the base asset fields.
   "productCode": "23403",
   "initialBalance": "6000",
   "balance": "6000",
+  "availableBalance": "6000",
   "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z"
@@ -185,6 +187,7 @@ Returns a [paginated][] list of Assets for an account. This will only return act
       "productCode": "23403",
       "initialBalance": "6000",
       "balance": "6000",
+      "availableBalance": "6000",
       "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
       "expiresAt": "2020-12-31T00:00:00.000Z",
       "createdAt": "2020-05-01T12:30:00.000Z"

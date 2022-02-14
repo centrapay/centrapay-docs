@@ -71,6 +71,7 @@ Load an asset from a supported third-party issuer. Asset details will be obtaine
   "currency": "NZD",
   "initialBalance": "7000",
   "balance": "6000",
+  "availableBalance": "6000",
   "balanceUpdatedAt": "2020-06-10T15:30:00.000Z",
   "expiresAt": "2020-12-31T00:00:00.000Z",
   "createdAt": "2020-05-01T12:30:00.000Z"
