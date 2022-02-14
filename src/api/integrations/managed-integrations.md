@@ -21,19 +21,19 @@ permalink: /api/managed-integrations
 
 {% h4 Mandatory Fields %}
 
-|   Field    |        Type        |                                                  Description                                                   |
-| :--------- | :----------------- | :------------------------------------------------------------------------------------------------------------- |
-| id         | String             | The Managed Integration's unique identifier.                                                                   |
-| type       | String             | The type of Managed Integration. Supported types are `kete-enrolment`.                                         |
-| active     | Boolean            | Flag indicating whether the Managed Integration is active.                                                     |
-| status      | String             | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
-| externalId | String             | Field used to reference an id from an external system.                                                         |
-| invitation | Object             | The associated [Invitation][].                                                                                 |
-| params     | Object             | [Params](#params) depending on the Managed Integration type.                                                   |
-| createdAt  | {% dt Timestamp %} | When the Managed Integration was created.                                                                      |
-| createdBy  | {% dt CRN %}       | The User or API Key that created the Managed Integration.                                                      |
-| updatedAt  | {% dt Timestamp %} | When the Managed Integration was updated.                                                                      |
-| updatedBy  | {% dt CRN %}       | The User or API Key that updated the Managed Integration.                                                      |
+|   Field    |          Type          |                                                   Description                                                   |
+| :--------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| id         | String                 | The Managed Integration's unique identifier.                                                                    |
+| type       | String                 | The type of Managed Integration. Supported types are `kete-enrolment`.                                          |
+| active     | Boolean                | Flag indicating whether the Managed Integration is active.                                                      |
+| status     | String                 | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
+| externalId | String                 | Field used to reference an id from an external system.                                                          |
+| invitation | [Invitation Summary][] | A summary of the associated [Invitation][].                                                                     |
+| params     | Object                 | [Params](#params) depending on the Managed Integration type.                                                    |
+| createdAt  | {% dt Timestamp %}     | When the Managed Integration was created.                                                                       |
+| createdBy  | {% dt CRN %}           | The User or API Key that created the Managed Integration.                                                       |
+| updatedAt  | {% dt Timestamp %}     | When the Managed Integration was updated.                                                                       |
+| updatedBy  | {% dt CRN %}           | The User or API Key that updated the Managed Integration.                                                       |
 
 {% h4 Optional Fields %}
 
@@ -42,6 +42,19 @@ permalink: /api/managed-integrations
 | claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration. |
 | claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.   |
 | claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                   |
+
+<a name="invitation-summary">
+### Invitation Summary **EXPERIMENTAL**
+
+A summary of the [Invitation][] for a Managed Integration.
+
+{% h4 Fields %}
+
+|   Name    |        Type        |             Description             |
+| --------- | ------------------ | ----------------------------------- |
+| id        | String             | The Invitation's unique identifier. |
+| code      | String             | The Invitation code.                |
+| expiresAt | {% dt Timestamp %} | When the Invitation expires.        |
 
 ## Params
 
@@ -125,3 +138,4 @@ permalink: /api/managed-integrations
 | 400    | {% break _ INVALID_PARAMS %} | Invalid [Params](#params) provided for Managed Integration type. |
 
 [Invitation]: {% link api/invitations.md %}
+[Invitation Summary]: #invitation-summary
