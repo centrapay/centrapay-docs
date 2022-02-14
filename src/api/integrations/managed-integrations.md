@@ -104,7 +104,7 @@ permalink: /api/managed-integrations
   },
   "invitation": {
     "id": "dadfaTs3U38hdhfEqwF1JKoT2",
-    "url": "https://centrapay.com/kete-enrolment/DKTs3U38hdhfEqwF1JKoT2/5ee0c486308f590260d9a07f",
+    "code": "eg44tetbfsJHFJHFsfhbgds23",
     "expiresAt": "2020-06-13T01:17:46.499Z",
   },
   "status": "active",
@@ -123,5 +123,44 @@ permalink: /api/managed-integrations
 | Status |             Code             |                           Description                            |
 | :----- | :--------------------------- | :--------------------------------------------------------------- |
 | 400    | {% break _ INVALID_PARAMS %} | Invalid [Params](#params) provided for Managed Integration type. |
+
+### Get a Managed Integration **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/managed-integrations/{id}'
+  auth 'api-key'
+  path_param 'id', 'dh375hdh08f590260d9a07f'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "dh375hdh08f590260d9a07f",
+  "type": "kete-enrolment",
+  "externalId": "DKTs3U38hdhfEqwF1JKoT2",
+  "active": "false",
+  "params": {
+    "bankAccounts": [
+      { "number": '06-0384-947723945-00' }
+    ],
+    "givenName": "John",
+    "familyName": "Doe",
+    "email": "john@doe.com",
+    "phoneNumber": "+642803809319"
+  },
+  "invitation": {
+    "id": "dadfaTs3U38hdhfEqwF1JKoT2",
+    "code": "eg44tetbfsJHFJHFsfhbgds23",
+    "expiresAt": "2020-06-13T01:17:46.499Z",
+  },
+  "status": "pending",
+  "createdAt": "2020-06-11T01:17:46.499Z",
+  "createdBy": "crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedAt": "2020-06-12T01:17:46.499Z",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+}
+{% endjson %}
+
 
 [Invitation]: {% link api/invitations.md %}
