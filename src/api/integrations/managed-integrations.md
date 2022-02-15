@@ -113,6 +113,12 @@ A summary of the [Invitation][] for a Managed Integration.
 | managedByAccountId | String  | The id of the account managing the Managed Integration       |
 | params             | Object  | [Params](#params) depending on the Managed Integration type. |
 
+{% h4 Optional Fields %}
+
+| Field |  Type   |                                                    Description                                                     |
+| :---- | :------ | :----------------------------------------------------------------------------------------------------------------- |
+| test  | Boolean | Flag indicating the Managed Integration is for testing, this cannot be changed once the resource has been created. |
+
 {% h4 Example response payload %}
 
 {% json %}
