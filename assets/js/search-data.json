@@ -565,7 +565,7 @@
   },"94": {
     "doc": "Invitations",
     "title": "Invitations",
-    "content": "An Invitation can be used to invite a user to the Centrapay platform. ",
+    "content": "An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform. ",
     "url": "/api/invitations.html",
     "relUrl": "/api/invitations.html"
   },"95": {
@@ -577,7 +577,7 @@
   },"96": {
     "doc": "Invitations",
     "title": "Models",
-    "content": "Invitation . Mandatory Fields . | Field | Type | Description | . | id | String | The Invitation’s unique identifier. | . | url | String | The Invitation URL. | . | expiresAt | Timestamp | When the Invitation expires. | . | createdAt | Timestamp | When the Invitation was created. | . | createdBy | CRN | The User or API Key that created the Invitation. | . ",
+    "content": "Invitation . Mandatory Fields . | Field | Type | Description | . | id | String | The Invitation’s unique identifier. | . | code | String | The Invitation code. | . | type | String | The type of the related resource. Supported values are kete-enrolment. | . | resourceId | String | The id of the related resource. | . | resourceType | String | The type of the related resource. Supported values are integration. | . | expiresAt | Timestamp | When the Invitation expires. | . | createdAt | Timestamp | When the Invitation was created. | . | createdBy | CRN | The User or API Key that created the Invitation. | . ",
     "url": "/api/invitations.html#models",
     "relUrl": "/api/invitations.html#models"
   },"97": {
@@ -619,13 +619,13 @@
   },"103": {
     "doc": "Managed Integrations",
     "title": "Contents",
-    "content": ". | Models . | Managed Integration | . | Params . | kete-enrolment | . | Operations . | Create or Update a Managed Integration EXPERIMENTAL | . | . ",
+    "content": ". | Models . | Managed Integration | Invitation Summary EXPERIMENTAL | . | Params . | kete-enrolment | . | Operations . | Create or Update a Managed Integration EXPERIMENTAL | . | . ",
     "url": "/api/managed-integrations#contents",
     "relUrl": "/api/managed-integrations#contents"
   },"104": {
     "doc": "Managed Integrations",
     "title": "Models",
-    "content": "Managed Integration . Mandatory Fields . | Field | Type | Description | . | id | String | The Managed Integration’s unique identifier. | . | type | String | The type of Managed Integration. Supported types are kete-enrolment. | . | active | Boolean | Flag indicating whether the Managed Integration is active. | . | status | String | Current status of the Managed Integration. Supported values are pending, active, inactive and archived. | . | externalId | String | Field used to reference an id from an external system. | . | invitation | Object | The associated Invitation. | . | params | Object | Params depending on the Managed Integration type. | . | createdAt | Timestamp | When the Managed Integration was created. | . | createdBy | CRN | The User or API Key that created the Managed Integration. | . | updatedAt | Timestamp | When the Managed Integration was updated. | . | updatedBy | CRN | The User or API Key that updated the Managed Integration. | . Optional Fields . | Field | Type | Description | . | claimedByAccountId | String | Centrapay account id used to claim the Managed Integration. | . | claimedBy | CRN | The User or API Key that claimed the Managed Integration. | . | claimedAt | Timestamp | When the Managed Integration was claimed. | . ",
+    "content": "Managed Integration . Mandatory Fields . | Field | Type | Description | . | id | String | The Managed Integration’s unique identifier. | . | type | String | The type of Managed Integration. Supported types are kete-enrolment. | . | active | Boolean | Flag indicating whether the Managed Integration is active. | . | status | String | Current status of the Managed Integration. Supported values are pending, active, inactive and archived. | . | externalId | String | Field used to reference an id from an external system. | . | invitation | Invitation Summary | A summary of the associated Invitation. | . | params | Object | Params depending on the Managed Integration type. | . | createdAt | Timestamp | When the Managed Integration was created. | . | createdBy | CRN | The User or API Key that created the Managed Integration. | . | updatedAt | Timestamp | When the Managed Integration was updated. | . | updatedBy | CRN | The User or API Key that updated the Managed Integration. | . Optional Fields . | Field | Type | Description | . | claimedByAccountId | String | Centrapay account id used to claim the Managed Integration. | . | claimedBy | CRN | The User or API Key that claimed the Managed Integration. | . | claimedAt | Timestamp | When the Managed Integration was claimed. | . Invitation Summary EXPERIMENTAL . A summary of the Invitation for a Managed Integration. Fields . | Name | Type | Description | . | id | String | The Invitation’s unique identifier. | . | code | String | The Invitation code. | . | expiresAt | Timestamp | When the Invitation expires. | . ",
     "url": "/api/managed-integrations#models",
     "relUrl": "/api/managed-integrations#models"
   },"105": {
