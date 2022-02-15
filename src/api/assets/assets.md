@@ -50,8 +50,6 @@ specific to its category.
 | description       | String             | Displayable asset description.                                         |
 | createdAt         | {% dt Timestamp %} | Date when the asset was created or issued.                             |
 | status            | String             | "active" if the asset can be used for payments.                        |
-| availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases. |
-
 
 <a name="money">
 ### Money
@@ -64,10 +62,11 @@ Money assets have the following fields along with the base asset fields.
 
 {% h4 Required Fields %}
 
-| Field    | Type               | Description                                                          |
-|:---------|:-------------------|:---------------------------------------------------------------------|
-| currency | String             | Currency code, eg "NZD"                                              |
-| balance  | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents). |
+| Field             | Type               | Description                                                           |
+|:------------------|:-------------------|:----------------------------------------------------------------------|
+| currency          | String             | Currency code, eg "NZD"                                               |
+| balance           | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents).  |
+| availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases.|
 
 
 
@@ -84,12 +83,13 @@ Gift cards have the following fields along with the base asset fields.
 
 {% h4 Required Fields %}
 
-|     Field      |        Type        |                             Description                              |
-| :------------- | :----------------- | :------------------------------------------------------------------- |
-| issuer         | String             | The identifier for the issuer of the gift card.                      |
-| currency       | String             | Currency code, eg "NZD"                                              |
-| balance        | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents). |
-| initialBalance | {% dt BigNumber %} | The balance when the asset was created.                              |
+|     Field         |        Type        |                             Description                               |
+| :---------------- | :----------------- | :-------------------------------------------------------------------- |
+| issuer            | String             | The identifier for the issuer of the gift card.                       |
+| currency          | String             | Currency code, eg "NZD"                                               |
+| balance           | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents).  |
+| availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases.|
+| initialBalance    | {% dt BigNumber %} | The balance when the asset was created.                               |
 
 {% h4 Optional Fields %}
 
