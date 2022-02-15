@@ -32,4 +32,30 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | createdAt    | {% dt Timestamp %} | When the Invitation was created.                                         |
 | createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                         |
 
+## Operations
+
+### Get an Invitation
+
+{% reqspec %}
+  GET '/api/invitations/{invitationId}/{invitationCode}'
+  auth 'api-key'
+  path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
+  path_param 'invitationCode', 'Kdbnvs3U38hdhfEqwdjvvLLs'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "code": "WIj211vFs9cNACwBb04vQw",
+  "type": "kete-enrollement",
+  "resourceId": "5ee0c486308f590260d9a07f",
+  "resourceType": "intergration",
+  "exipresAt": "'2021-08-26T00:02:49.488Z'",
+  "createdAt": "'2021-08-25T00:02:49.488Z'",
+  "createdBy": "crn::user:1234"
+}
+{% endjson %}
+
 [Managed Integrations]: {% link api/integrations/managed-integrations.md %}
