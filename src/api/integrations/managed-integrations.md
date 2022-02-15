@@ -21,27 +21,29 @@ permalink: /api/managed-integrations
 
 {% h4 Mandatory Fields %}
 
-|   Field    |          Type          |                                                   Description                                                   |
-| :--------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| id         | String                 | The Managed Integration's unique identifier.                                                                    |
-| type       | String                 | The type of Managed Integration. Supported types are `kete-enrolment`.                                          |
-| active     | Boolean                | Flag indicating whether the Managed Integration is active.                                                      |
-| status     | String                 | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
-| externalId | String                 | Field used to reference an id from an external system.                                                          |
-| invitation | [Invitation Summary][] | A summary of the associated [Invitation][].                                                                     |
-| params     | Object                 | [Params](#params) depending on the Managed Integration type.                                                    |
-| createdAt  | {% dt Timestamp %}     | When the Managed Integration was created.                                                                       |
-| createdBy  | {% dt CRN %}           | The User or API Key that created the Managed Integration.                                                       |
-| updatedAt  | {% dt Timestamp %}     | When the Managed Integration was updated.                                                                       |
-| updatedBy  | {% dt CRN %}           | The User or API Key that updated the Managed Integration.                                                       |
+|       Field        |          Type          |                                                   Description                                                   |
+| :----------------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| id                 | String                 | The Managed Integration's unique identifier.                                                                    |
+| type               | String                 | The type of Managed Integration. Supported types are `kete-enrolment`.                                          |
+| managedByAccountId | String                 | The id of the account managing the Managed Integration                                                          |
+| active             | Boolean                | Flag indicating whether the Managed Integration is active.                                                      |
+| status             | String                 | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
+| externalId         | String                 | Field used to reference an id from an external system.                                                          |
+| invitation         | [Invitation Summary][] | A summary of the associated [Invitation][].                                                                     |
+| params             | Object                 | [Params](#params) depending on the Managed Integration type.                                                    |
+| createdAt          | {% dt Timestamp %}     | When the Managed Integration was created.                                                                       |
+| createdBy          | {% dt CRN %}           | The User or API Key that created the Managed Integration.                                                       |
+| updatedAt          | {% dt Timestamp %}     | When the Managed Integration was updated.                                                                       |
+| updatedBy          | {% dt CRN %}           | The User or API Key that updated the Managed Integration.                                                       |
 
 {% h4 Optional Fields %}
 
-|       Field        |        Type        |                         Description                         |
-| :----------------- | :----------------- | :---------------------------------------------------------- |
-| claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration. |
-| claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.   |
-| claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                   |
+|       Field        |        Type        |                            Description                            |
+| :----------------- | :----------------- | :---------------------------------------------------------------- |
+| claimedByAccountId | String             | Centrapay account id used to claim the Managed Integration.       |
+| claimedBy          | {% dt CRN %}       | The User or API Key that claimed the Managed Integration.         |
+| claimedAt          | {% dt Timestamp %} | When the Managed Integration was claimed.                         |
+| test               | Boolean            | A flag which is present if the Managed Integration is for testing |
 
 <a name="invitation-summary">
 ### Invitation Summary **EXPERIMENTAL**
@@ -56,34 +58,44 @@ A summary of the [Invitation][] for a Managed Integration.
 | code      | String             | The Invitation code.                |
 | expiresAt | {% dt Timestamp %} | When the Invitation expires.        |
 
+### Bank Account
+{% h4 Mandatory Fields %}
+
+| Field  |  Type  |       Description       |
+| :----- | :----- | :---------------------- |
+| number | String | The bank account number |
+
 ## Params
 
 ### kete-enrolment
 
 {% h4 Mandatory Fields %}
 
-|    Field     |  Type  |           Description           |
-| :----------- | :----- | :------------------------------ |
-| bankAccounts | Array  | A list of bank account numbers. |
-| givenName    | String | First name.                     |
-| familyName   | String | Last name.                      |
-| email        | String | Email address.                  |
-| phoneNumber  | String | The user's NZ phone number.     |
+|    Field     |  Type  |                   Description                    |
+| :----------- | :----- | :----------------------------------------------- |
+| bankAccounts | Array  | A list of [Bank Account](#bank-account) objects. |
+| givenName    | String | First name.                                      |
+| familyName   | String | Last name.                                       |
+| email        | String | Email address.                                   |
+| phoneNumber  | String | The user's NZ phone number.                      |
 
 ## Operations
 
 ### Create or Update a Managed Integration **EXPERIMENTAL**
 
 {% reqspec %}
-  POST '/api/managed-integrations/{type}/{externalId}'
+  PUT '/api/managed-integrations/{type}/{externalId}'
   auth 'api-key'
   path_param 'type', 'kete-enrolment'
   path_param 'externalId', 'DKTs3U38hdhfEqwF1JKoT2'
   example {
     body ({
       active: 'true',
+      managedByAccountId: 'B4u4WZCu3joZFVWT3XjWW3',
       params: {
-        bankAccounts: ['06-0384-947723945-00'],
+        bankAccounts: [
+          { number: '06-0384-947723945-00' },
+        ],
         givenName: 'John',
         familyName: 'Doe',
         email: 'john@doe.com',
@@ -95,21 +107,25 @@ A summary of the [Invitation][] for a Managed Integration.
 
 {% h4 Required Fields %}
 
-| Field  |  Type   |                         Description                          |
-| :----- | :------ | :----------------------------------------------------------- |
-| active | Boolean | Flag indicating whether the Managed Integration is active.   |
-| params | Object  | [Params](#params) depending on the Managed Integration type. |
+|       Field        |  Type   |                         Description                          |
+| :----------------- | :------ | :----------------------------------------------------------- |
+| active             | Boolean | Flag indicating whether the Managed Integration is active.   |
+| managedByAccountId | String  | The id of the account managing the Managed Integration       |
+| params             | Object  | [Params](#params) depending on the Managed Integration type. |
 
 {% h4 Example response payload %}
 
 {% json %}
 {
   "id": "5ee0c486308f590260d9a07f",
+  "managedByAccountId": "B4u4WZCu3joZFVWT3XjWW3",
   "type": "kete-enrolment",
   "externalId": "DKTs3U38hdhfEqwF1JKoT2",
   "active": "true",
   "params": {
-    "bankAccounts": ['06-0384-947723945-00'],
+    "bankAccounts": [
+      { "number": "06-0384-947723945-00" },
+    ],
     "givenName": "John",
     "familyName": "Doe",
     "email": "john@doe.com",
