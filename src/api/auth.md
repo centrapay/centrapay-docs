@@ -162,6 +162,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : external-assets:update %}         | &nbsp;&nbsp; ✅ |               |                       | ✅                      |
 | {% break : topups:create 👤 %}               | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : topups:read %}                    | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : invitations:read %}               | &nbsp;&nbsp; ✅ |               |                      |                         |
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
