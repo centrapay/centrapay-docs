@@ -49,11 +49,11 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "code": "WIj211vFs9cNACwBb04vQw",
-  "type": "kete-enrollement",
+  "type": "kete-enrolment",
   "resourceId": "5ee0c486308f590260d9a07f",
-  "resourceType": "intergration",
-  "exipresAt": "'2021-08-26T00:02:49.488Z'",
-  "createdAt": "'2021-08-25T00:02:49.488Z'",
+  "resourceType": "integration",
+  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "createdAt": "2021-08-25T00:02:49.488Z",
   "createdBy": "crn::user:1234"
 }
 {% endjson %}
