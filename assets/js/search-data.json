@@ -583,7 +583,7 @@
   },"97": {
     "doc": "Invitations",
     "title": "Operations",
-    "content": "Get an Invitation . GET /api/invitations/{invitationId}/{invitationCode} . curl https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/Kdbnvs3U38hdhfEqwdjvvLLs \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrollement\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"intergration\", \"exipresAt\": \"'2021-08-26T00:02:49.488Z'\", \"createdAt\": \"'2021-08-25T00:02:49.488Z'\", \"createdBy\": \"crn::user:1234\" } . ",
+    "content": "Get an Invitation . GET /api/invitations/{invitationId}/{invitationCode} . curl https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/Kdbnvs3U38hdhfEqwdjvvLLs \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrolment\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"integration\", \"exipresAt\": \"2021-08-26T00:02:49.488Z\", \"createdAt\": \"2021-08-25T00:02:49.488Z\", \"createdBy\": \"crn::user:1234\" } . ",
     "url": "/api/invitations.html#operations",
     "relUrl": "/api/invitations.html#operations"
   },"98": {
