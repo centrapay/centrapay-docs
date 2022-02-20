@@ -9,7 +9,7 @@ permalink: /api/integration-requests
 # Integration Requests
 {:.no_toc}
 
-Integration Requests enable terminal integrations and acceptance of asset types for a [Merchant][].
+An Integration Request allows Centrapay users to request the creation of an [Integration][] on a Centrapay account.
 
 ## Contents
 {:.no_toc .text-delta}
@@ -332,3 +332,4 @@ Supply configuration values for the Integration Request.
 [skyzer]: https://www.skyzer.co.nz
 [Merchant]: {% link api/merchants/merchants.md %}
 [paginated]: {% link api/pagination.md %}
+[Integration]: {% link api/integrations/integrations.md %}

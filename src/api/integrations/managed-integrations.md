@@ -9,6 +9,8 @@ permalink: /api/managed-integrations
 # Managed Integration
 {:.no_toc}
 
+A Managed Integration is an [Integration][]  which a third party can control.
+
 ## Contents
 {:.no_toc .text-delta}
 
@@ -200,3 +202,4 @@ A summary of the [Invitation][] for a Managed Integration.
 
 [Invitation]: {% link api/invitations.md %}
 [Invitation Summary]: #invitation-summary
+[Integration]: {% link api/integrations/integrations.md %}
