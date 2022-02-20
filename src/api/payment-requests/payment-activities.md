@@ -43,10 +43,10 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Optional Fields %}
 
-|   Field    |  Type  |                                         Description                                         |
-| ---------- | ------ | ------------------------------------------------------------------------------------------- |
-| assetType  | String | The [Asset Type][] for the "payment" or "refund" activity.                                  |
-| isExternal | String | The payment activity is recording a transaction that occurred outside the Centrapay system. |
+|   Field   |  Type   |                                         Description                                         |
+| --------- | ------- | ------------------------------------------------------------------------------------------- |
+| assetType | String  | The [Asset Type][] for the "payment" or "refund" activity.                                  |
+| external  | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system. |
 
 {% h4 Activity Types %}
 
