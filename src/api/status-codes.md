@@ -134,8 +134,8 @@ Centrapay API rate limits have been exceeded.
 
 ## 5xx Server Error
 
-If you get a 500 level error, something has gone wrong on our end. Our goal is
-to never have these codes. Usually a Centrapay Engineer will investigate but
+If you get a 500 level error, something has gone wrong on our end. Retrying
+should solve the issue. Usually a Centrapay Engineer will investigate but
 bug reports are also welcome at [integrations@centrapay.com]().
 
 
