@@ -600,6 +600,19 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 },
 {% endjson %}
 
+{% h4 Error Responses %}
+
+| Status |                    Code                     |                                                                                                                                 Description                                                                                                                                 |
+| :----- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ NOT_PAID %}                      | The payment request has not been paid.                                                                                                                                                                                                                                      |
+| 403    | {% break _ ALREADY_REFUNDED %}              | The payment request has already been refunded.                                                                                                                                                                                                                              |
+| 403    | {% break _ INVALID_AMOUNT %}                | The refund requested is greater than the refundable amount.                                                                                                                                                                                                                 |
+| 403    | {% break _ REPEAT_REFERENCE %}              | A separate refund request for the payment request has the same external reference. Attempting to refund the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
+| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}   | The asset does not support partial refunds.                                                                                                                                                                                                                                 |
+| 403    | {% break _ INACTIVE_ASSET %}                | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                                                       |
+| 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
+| 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
+
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
