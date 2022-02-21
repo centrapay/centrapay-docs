@@ -10,8 +10,14 @@ description: |
   Load Farmlands card data
 ---
 
-# Farmlands Batch File
-This page details the expected file format for Farmlands [Batch Loading][].
+# Farmlands External Asset Batch
+
+Loads Farmlands card data into Centrapay as external assets.
+
+| Type Name   | farmlands-external-asset |
+| File Format | JSON |
+| File Schema | Array of [Account] |
+
 
 ## Contents
 {:.no_toc .text-delta}
@@ -20,7 +26,6 @@ This page details the expected file format for Farmlands [Batch Loading][].
 {:toc}
 
 ## Models
-A batch file will consist of a list of [Accounts][].
 
 <a name="account">
 ### Account
@@ -38,7 +43,7 @@ A batch file will consist of a list of [Accounts][].
 |      Field       |                                 Description                                  |
 | :--------------- | :--------------------------------------------------------------------------- |
 | availableBalance | Current spendable balance of account in cents                                |
-| contacts         | List of account [Contacts][]                                                 |
+| contacts         | List of [Contact][]                                                 |
 
 <a name="contact">
 ### Contact
@@ -58,7 +63,7 @@ A batch file will consist of a list of [Accounts][].
 | mobile    | String  | Mobile number of contact                                                                  |
 | email     | String  | Email address of contact                                                                  |
 | isPrimary | Boolean | 'true' if the contact is the primary contact of the containing account, 'false' otherwise |
-| cards     | List    | List of contact's [Cards][]                                                               |
+| cards     | List    | List of [Card][]                                                               |
 
 <a name="card">
 ### Card
@@ -190,8 +195,6 @@ A batch file will consist of a list of [Accounts][].
 ]
 {% endjson %}
 
-[Batch Loading]: {% link api/batch/batches.md %}
-[Accounts]: #account
-[Contacts]: #contact
-[Cards]: #card
-[here]: #example
+[Account]: #account
+[Contact]: #contact
+[Card]: #card

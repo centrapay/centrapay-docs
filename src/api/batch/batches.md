@@ -10,7 +10,8 @@ permalink: /api/batches
 # Batches
 {:.no_toc}
 
-Batch loading enables bulk loading of assets onto the Centrapay platform.
+Batches enable bulk loading of resource onto the Centrapay platform.
+
 
 ## Contents
 {:.no_toc .text-delta}
@@ -18,7 +19,9 @@ Batch loading enables bulk loading of assets onto the Centrapay platform.
 * TOC
 {:toc}
 
-## Batch lifecycle
+## Models
+
+### Batch lifecycle
 
 <img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />
 
@@ -30,7 +33,35 @@ Batch loading enables bulk loading of assets onto the Centrapay platform.
 | complete | The batch processing has been completed.     |
 | error    | There is an error with the batch file.       |
 
-## Create a Batch **EXPERIMENTAL**
+<a name="batch-types">
+### Batch Types
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- assign batch_types = site.html_pages | where_exp:"item", "item.permalink contains '/api/batch-types/'" -%}
+    {%- for batch_type in batch_types -%}
+    <tr>
+      <td>
+        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.title }}</a>
+      </td>
+      <td>
+       {{ batch_type.description }}
+      </td>
+    </tr>
+    {%- endfor -%}
+  </tbody>
+</table>
+
+
+## Operations
+
+### Create a Batch **EXPERIMENTAL**
 
 
 
@@ -70,7 +101,7 @@ Initialize loading of assets from a batch file.
 }
 {% endjson %}
 
-## Get batch progress **EXPERIMENTAL**
+### Get batch progress **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/external-asset-batches/{batchId}'
@@ -97,4 +128,4 @@ Initialize loading of assets from a batch file.
 }
 {% endjson %}
 
-[Batch Type]: {% link api/batch/batch-types.md %}
+[Batch Type]: #batch-types
