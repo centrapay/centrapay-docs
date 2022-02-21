@@ -1,8 +1,8 @@
 ---
 layout: default
 parent: API Reference
-title: Batch
+title: Batches
 has_children: true
-permalink: /api/section/batch
-redirect_to: /api/batch-loading
+permalink: /api/section/batches
+redirect_to: /api/batches
 ---

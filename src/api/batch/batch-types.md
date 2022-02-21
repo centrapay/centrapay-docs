@@ -1,7 +1,7 @@
 ---
 layout: default
 grand_parent: API Reference
-parent: Batch
+parent: Batches
 title: Batch Types
 permalink: /api/batch-types
 ---

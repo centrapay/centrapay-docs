@@ -1,8 +1,10 @@
 ---
 layout: default
-grand_parent: API Reference
-parent: Batch
 title: Farmlands Batch Type
+parent: Batches
+grand_parent: Api Reference
+has_children: false
+nav_exclude: true
 permalink: /api/batch-types/farmlands
 ---
 

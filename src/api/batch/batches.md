@@ -1,13 +1,13 @@
 ---
 layout: default
 grand_parent: API Reference
-parent: Batch
-title: Batch Loading
+parent: Batches
+title: Batches
 nav_order: 1
-permalink: /api/batch-loading
+permalink: /api/batches
 ---
 
-# Batch Loading
+# Batches
 {:.no_toc}
 
 Batch loading enables bulk loading of assets onto the Centrapay platform.
