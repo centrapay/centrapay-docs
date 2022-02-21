@@ -367,7 +367,7 @@ is different you will get a REPEAT_REFERENCE error message.
 | 403       | 281        | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}   | The asset does not support partial refunds.                                                                                                                                                                                                                               |
 | 403       | 283        | {% break _ INACTIVE_ASSET %}                | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                                                     |
 | 403       |            | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                  |
-| 403       |            | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a transaction can be refunded in (1 month).                                                                                                                                                                         |
+| 403       |            | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a transaction can be refunded in.                                                                                                                                                                         |
 
 ## Webhooks
 
