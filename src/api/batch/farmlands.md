@@ -188,7 +188,7 @@ A batch file will consist of a list of [Accounts][].
 ]
 {% endjson %}
 
-[Batch Loading]: {% link api/batch/batch-loading.md %}
+[Batch Loading]: {% link api/batch/batches.md %}
 [Accounts]: #account
 [Contacts]: #contact
 [Cards]: #card
