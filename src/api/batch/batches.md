@@ -52,15 +52,10 @@ Initialize loading of assets from a batch file.
 
 |   Field   |  Type  |               Description                |
 | :-------- | :----- | :--------------------------------------- |
-| type      | String | The batch's type.                        |
+| type      | String | The [Batch Type].                        |
 | url       | String | The url where the batch file is located. |
 | accountId | String | The Batch’s owning Centrapay Account id. |
 
-{% h4 Supported Batch Types %}
-
-|           Type           |           Description           |
-| :----------------------- | :------------------------------ |
-| farmlands-external-asset | [Asset loading for Farmlands][] |
 
 {% h4 Example Response Payload %}
 
@@ -102,4 +97,4 @@ Initialize loading of assets from a batch file.
 }
 {% endjson %}
 
-[Asset loading for Farmlands]: {% link api/batch/farmlands.md %}
+[Batch Type]: {% link api/batch/batch-types.md %}

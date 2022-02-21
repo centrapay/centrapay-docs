@@ -1,11 +1,13 @@
 ---
 layout: default
-title: Farmlands Batch Type
+title: farmlands-external-asset
 parent: Batches
 grand_parent: Api Reference
 has_children: false
 nav_exclude: true
-permalink: /api/batch-types/farmlands
+permalink: /api/batch-types/farmlands-external-asset
+description: |
+  Load Farmlands card data
 ---
 
 # Farmlands Batch File
