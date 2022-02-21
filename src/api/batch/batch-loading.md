@@ -58,9 +58,9 @@ Initialize loading of assets from a batch file.
 
 {% h4 Supported Batch Types %}
 
-|           Type           |             Description              |
-| :----------------------- | :----------------------------------- |
-| farmlands-external-asset | External asset loading for Farmlands |
+|           Type           |           Description           |
+| :----------------------- | :------------------------------ |
+| farmlands-external-asset | [Asset loading for Farmlands][] |
 
 {% h4 Example Response Payload %}
 
@@ -101,3 +101,5 @@ Initialize loading of assets from a batch file.
 	]
 }
 {% endjson %}
+
+[Asset loading for Farmlands]: {% link api/batch/farmlands.md %}

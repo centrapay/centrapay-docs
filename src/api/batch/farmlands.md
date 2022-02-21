@@ -2,12 +2,12 @@
 layout: default
 grand_parent: API Reference
 parent: Batch
-title: Batch File
-permalink: /api/batch-file
+title: Farmlands Batch Type
+permalink: /api/batch-types/farmlands
 ---
 
-# Batch File
-This page details the expected file format for [Batch Loading][].
+# Farmlands Batch File
+This page details the expected file format for Farmlands [Batch Loading][].
 
 ## Contents
 {:.no_toc .text-delta}
