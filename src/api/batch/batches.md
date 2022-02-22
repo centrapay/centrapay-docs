@@ -12,7 +12,6 @@ permalink: /api/batches
 
 Batches enable bulk loading of resource onto the Centrapay platform.
 
-
 ## Contents
 {:.no_toc .text-delta}
 
@@ -21,20 +20,35 @@ Batches enable bulk loading of resource onto the Centrapay platform.
 
 ## Models
 
-### Batch lifecycle
+<a name="batch">
+### Batch
 
-<img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />
+{% h4 Required Fields %}
 
-|  Status  |                 Description                  |
-| :------- | :------------------------------------------- |
-| created  | The batch has successfully been initiated.   |
-| copied   | The file has been transferred to Centrapay.  |
-| chunked  | The batch has been broken up for processing. |
-| complete | The batch processing has been completed.     |
-| error    | There is an error with the batch file.       |
+|   Field    |        Type        |                   Description                   |
+| :--------- | :----------------- | :---------------------------------------------- |
+| id         | String             | The Batch's unique identifier                   |
+| status     | String             | The current [Lifecycle Status][] of the batch   |
+| type       | String             | The [Batch Type][]                              |
+| count      | {% dt BigNumber %} | The number of objects in the batch              |
+| errorCount | {% dt BigNumber %} | The number of [Errors][] found within the batch |
+| errors     | List               | List of [Error][]                               |
+
+<a name="batch-statuses">
+#### Batch Lifecycle and Statuses
+
+|  Status  |                 Description                 |
+| :------- | :------------------------------------------ |
+| created  | The batch has successfully been initiated   |
+| copied   | The file has been transferred to Centrapay  |
+| chunked  | The batch has been broken up for processing |
+| complete | The batch processing has been completed     |
+| error    | There is an error with the batch file       |
+
+<img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />1-2
 
 <a name="batch-types">
-### Batch Types
+#### Batch Types
 
 <table>
   <thead>
@@ -58,12 +72,26 @@ Batches enable bulk loading of resource onto the Centrapay platform.
   </tbody>
 </table>
 
+<a name="error">
+### Error
+
+{% h4 Required Fields %}
+
+|  Field  |  Type  |           Description            |
+| :------ | :----- | :------------------------------- |
+| message | String | Description of the error's cause |
+
+
+{% h4 Optional Fields %}
+
+|   Field    |        Type        |             Description              |
+| :--------- | :----------------- | :----------------------------------- |
+| externalId | String             | External unique identifier           |
+| index      | {% dt BigNumber %} | Index of the error in the batch file |
 
 ## Operations
 
 ### Create a Batch **EXPERIMENTAL**
-
-
 
 Initialize loading of assets from a batch file.
 
@@ -83,7 +111,7 @@ Initialize loading of assets from a batch file.
 
 |   Field   |  Type  |               Description                |
 | :-------- | :----- | :--------------------------------------- |
-| type      | String | The [Batch Type].                        |
+| type      | String | The [Batch Type][].                      |
 | url       | String | The url where the batch file is located. |
 | accountId | String | The Batch’s owning Centrapay Account id. |
 
@@ -104,8 +132,8 @@ Initialize loading of assets from a batch file.
 ### Get batch progress **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/external-asset-batches/{batchId}'
-  path_param 'batchId', 'abc1234'
+  GET '/api/external-asset-batches/{id}'
+  path_param 'id', 'abc1234'
   auth 'api-key'
 {% endreqspec %}
 
@@ -115,17 +143,20 @@ Initialize loading of assets from a batch file.
 {
 	"id": "abc1234",
 	"status": "complete",
-	"type": "farmlands",
-	"count": "10",
-	"errorCount": "2",
+	"type": "farmlands-external-asset",
+	"count": 0,
+	"errorCount": 2,
 	"errors": [
 		{
-			"ref": "1234",
-			"index": "5",
-			"message": "no dice",
+			"externalId": "1234",
+			"index": 5,
+			"message": "No closing bracket found",
 		}
 	]
 }
 {% endjson %}
 
 [Batch Type]: #batch-types
+[Lifecycle Status]: #batch-statuses
+[Error]: #error
+[Errors]: #error
