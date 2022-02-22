@@ -32,10 +32,10 @@ Batches enable bulk loading of resource onto the Centrapay platform.
 | type       | String             | The [Batch Type][]                              |
 | count      | {% dt BigNumber %} | The number of objects in the batch              |
 | errorCount | {% dt BigNumber %} | The number of [Errors][] found within the batch |
-| errors     | List               | List of [Error][]                               |
+| errors     | Array              | Array of [Error][]                              |
 
 <a name="batch-statuses">
-#### Batch Lifecycle and Statuses
+### Batch Lifecycle and Statuses
 
 |  Status  |                 Description                 |
 | :------- | :------------------------------------------ |
@@ -45,10 +45,10 @@ Batches enable bulk loading of resource onto the Centrapay platform.
 | complete | The batch processing has been completed     |
 | error    | There is an error with the batch file       |
 
-<img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />1-2
+<img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />
 
 <a name="batch-types">
-#### Batch Types
+### Batch Types
 
 <table>
   <thead>
@@ -96,7 +96,7 @@ Batches enable bulk loading of resource onto the Centrapay platform.
 Initialize loading of assets from a batch file.
 
 {% reqspec %}
-  POST '/api/external-asset-batches'
+  POST '/api/batches'
   auth 'api-key'
   example {
     body ({
@@ -123,8 +123,8 @@ Initialize loading of assets from a batch file.
 	id: "abc1234",
 	status: "created",
 	type: "farmlands-external-asset",
-	count: 0,
-	errorCount: 0,
+	count: "0",
+	errorCount: "0",
 	errors: []
 }
 {% endjson %}
@@ -132,7 +132,7 @@ Initialize loading of assets from a batch file.
 ### Get batch progress **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/external-asset-batches/{id}'
+  GET '/api/batches/{id}'
   path_param 'id', 'abc1234'
   auth 'api-key'
 {% endreqspec %}
@@ -144,12 +144,12 @@ Initialize loading of assets from a batch file.
 	"id": "abc1234",
 	"status": "complete",
 	"type": "farmlands-external-asset",
-	"count": 0,
-	"errorCount": 2,
+	"count": "0",
+	"errorCount": "1",
 	"errors": [
 		{
 			"externalId": "1234",
-			"index": 5,
+			"index": "5",
 			"message": "No closing bracket found",
 		}
 	]

@@ -29,50 +29,57 @@ Loads Farmlands card data into Centrapay as external assets.
 <a name="account">
 ### Account
 
+Exported Farmlands Account used for importing and updating of a [Centrapay Account][]
+
+
 {% h4 Required Fields %}
 
-|     Field     |        Type        |                   Description                    |
-| :------------ | :----------------- | :----------------------------------------------- |
-| externalId    | String             | External unique identifier for Farmlands account |
-| accountNumber | {% dt BigNumber %} | Farmlands account number                         |
+|     Field     |        Type        |                        Description                        |
+| :------------ | :----------------- | :-------------------------------------------------------- |
+| externalId    | String             | Id used for keeping imported Centrapay Account up to date |
+| accountNumber | {% dt BigNumber %} | Farmlands identifier attached to the Centrapay Account    |
 
 
 {% h4 Optional Fields %}
 
-|      Field       |        Type        |                  Description                  |
-| :--------------- | :----------------- | :-------------------------------------------- |
-| availableBalance | {% dt BigNumber %} | Current spendable balance of account in cents |
-| contacts         | List               | List of [Contact][]                           |
+|      Field       |        Type        |                      Description                       |
+| :--------------- | :----------------- | :----------------------------------------------------- |
+| availableBalance | {% dt BigNumber %} | Current spendable balance of Farmlands Ledger in cents |
+| contacts         | Array              | [Contact][] List for the imported Centrapay Account    |
 
 <a name="contact">
 ### Contact
 
+Exported Farmlands Contact and [Card][] information used for authentication, correspondence and payment.
+
 {% h4 Required Fields %}
 
-|   Field    |  Type  |              Description               |
-| :--------- | :----- | :------------------------------------- |
-| externalId | String | External unique identifier for contact |
+|   Field    |  Type  |                            Description                            |
+| :--------- | :----- | :---------------------------------------------------------------- |
+| externalId | String | Id used for keeping imported Centrapay Contact details up to date |
 
 
 {% h4 Optional Fields %}
 
-|  Field  |  Type   |                              Description                               |
-| :------ | :------ | :--------------------------------------------------------------------- |
-| name    | String  | Name of contact                                                        |
-| mobile  | String  | Mobile number of contact                                               |
-| email   | String  | Email address of contact                                               |
-| primary | Boolean | `true` if the contact is the primary contact of the containing account |
-| cards   | List    | List of [Card][]                                                       |
+|  Field  |  Type   |                         Description                          |
+| :------ | :------ | :----------------------------------------------------------- |
+| name    | String  | The full name used to address the individual                 |
+| mobile  | String  | Mobile number used for authentication and correspondence     |
+| email   | String  | Email address used for authentication and correspondence     |
+| primary | Boolean | `true` if the Contact is the owner of the Farmlands Account  |
+| cards   | Array   | [Card][] list used for payment for the authenticated subject |
 
 <a name="card">
 ### Card
+
+Exported Farmlands Contact and [Card][] information used for authentication, correspondence and payment.
 
 {% h4 Required Fields %}
 
 |      Field      |        Type        |                                  Description                                  |
 | :-------------- | :----------------- | :---------------------------------------------------------------------------- |
 | externalId      | String             | External unique identifier for card                                           |
-| status          | String             | Current status of the card, must be either 'active', 'inactive' or 'archived' |
+| status          | String             | Current status of the card, must be either "active", "inactive" or "archived" |
 | expiry          | {% dt Timestamp %} | Expiry date of the card                                                       |
 
 
@@ -196,3 +203,4 @@ Loads Farmlands card data into Centrapay as external assets.
 [Account]: #account
 [Contact]: #contact
 [Card]: #card
+[Centrapay Account]: {% link api/accounts/accounts.md %}
