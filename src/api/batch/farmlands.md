@@ -72,23 +72,23 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 <a name="card">
 ### Card
 
-Exported Farmlands Contact and [Card][] information used for authentication, correspondence and payment.
+Exported Farmlands Card information used for payment.
 
 {% h4 Required Fields %}
 
 |      Field      |        Type        |                                  Description                                  |
 | :-------------- | :----------------- | :---------------------------------------------------------------------------- |
-| externalId      | String             | External unique identifier for card                                           |
+| externalId      | String             | Id used for keeping imported Patron Code details up to date                                         |
 | status          | String             | Current status of the card, must be either "active", "inactive" or "archived" |
 | expiry          | {% dt Timestamp %} | Expiry date of the card                                                       |
 
 
 {% h4 Optional Fields %}
 
-|      Field      |  Type  |          Description           |
-| :-------------- | :----- | :----------------------------- |
-| cardNumber      | String | The card number                |
-| farmlandsStatus | String | Reason for status              |
+|      Field      |  Type  |            Description             |
+| :-------------- | :----- | :--------------------------------- |
+| barcode         | String | Field to display in barcode format |
+| farmlandsStatus | String | Reason for status                  |
 
 
 <a name="example">
@@ -110,13 +110,13 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
         cards: [
           {
             externalId: "F&O guid",
-            cardNumber: "722702456",
+            barcode: "722702456",
             status: "active",
             expiry: "2025-09-01",
           },
           {
             externalId: "F&O guid",
-            cardNumber: "722702456",
+            barcode: "722702456",
             status: "inactive",
             farmlandsStatus: "Suspended by customer",
             expiry: "2025-09-01",
@@ -132,7 +132,7 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
         cards: [
           {
             externalId: "F&O guid",
-            cardNumber: "722798756",
+            barcode: "722798756",
             status: "active",
             expiry: "2025-11-01",
           }
@@ -147,7 +147,7 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
         cards: [
           {
             externalId: "F&O guid",
-            cardNumber: "722798445",
+            barcode: "722798445",
             status: "active",
             expiry: "2026-02-01",
           }
@@ -183,13 +183,13 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
         cards: [
           {
             externalId: "F&O guid",
-            cardNumber: "722702456",
+            barcode: "722702456",
             status: "active",
             expiry: "2025-09-01",
           },
           {
             externalId: "F&O guid",
-            cardNumber: "722702456",
+            barcode: "722702456",
             status: "inactive",
             expiry: "2025-09-01",
           }
