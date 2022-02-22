@@ -82,7 +82,7 @@ async function requestWithRetry(args) {
     if (err.response.status != 429) {
       throw(err);
     }
-    const retrySeconds = err.response.headers['retry-after'] + 1;
+    const retrySeconds = Number(err.response.headers['retry-after']) + 1;
     await sleep(retrySeconds * 1000);
     response = await axios.request(args);
   }
