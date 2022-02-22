@@ -81,7 +81,6 @@ Loads Farmlands card data into Centrapay as external assets.
 |      Field      |  Type  |          Description           |
 | :-------------- | :----- | :----------------------------- |
 | cardNumber      | String | The card number                |
-| barcode         | String | The barcode number of the card |
 | farmlandsStatus | String | Reason for status              |
 
 
@@ -110,7 +109,7 @@ Loads Farmlands card data into Centrapay as external assets.
           },
           {
             externalId: "F&O guid",
-            barcode: "722702456",
+            cardNumber: "722702456",
             status: "inactive",
             farmlandsStatus: "Suspended by customer",
             expiry: "2025-09-01",
@@ -182,8 +181,8 @@ Loads Farmlands card data into Centrapay as external assets.
             expiry: "2025-09-01",
           },
           {
-            externalId: "F&O guid //TODO we should not be repeating the same example, what are some more?",
-            barcode: "722702456",
+            externalId: "F&O guid",
+            cardNumber: "722702456",
             status: "inactive",
             expiry: "2025-09-01",
           }
