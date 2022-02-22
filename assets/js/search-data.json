@@ -1009,7 +1009,7 @@
   },"168": {
     "doc": "Status Codes",
     "title": "5xx Server Error",
-    "content": "If you get a 500 level error, something has gone wrong on our end. Our goal is to never have these codes. Usually a Centrapay Engineer will investigate but bug reports are also welcome at integrations@centrapay.com. ",
+    "content": "If you get a 500 level error, something has gone wrong on our end. Retrying should solve the issue. Usually a Centrapay Engineer will investigate but bug reports are also welcome at integrations@centrapay.com. ",
     "url": "/api/status-codes#5xx-server-error",
     "relUrl": "/api/status-codes#5xx-server-error"
   },"169": {
