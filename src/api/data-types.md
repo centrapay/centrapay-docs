@@ -76,6 +76,11 @@ by locality.
 | state    | String | The state or region of the location (eg. "Auckland") |
 
 
+## PhoneNumber
+
+must start with +64
+
+
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
 [ISO 3166]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
