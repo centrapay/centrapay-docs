@@ -72,23 +72,23 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 <a name="card">
 ### Card
 
-Exported Farmlands Card information used for payment.
+Exported Farmlands Credit Card information used for importing and updating of a [Patron Code][]
 
 {% h4 Required Fields %}
 
-|      Field      |        Type        |                                  Description                                  |
-| :-------------- | :----------------- | :---------------------------------------------------------------------------- |
-| externalId      | String             | Id used for keeping imported Patron Code details up to date                                         |
-| status          | String             | Current status of the card, must be either "active", "inactive" or "archived" |
-| expiry          | {% dt Timestamp %} | Expiry date of the card                                                       |
+|   Field    |        Type        |                                   Description                                   |
+| :--------- | :----------------- | :------------------------------------------------------------------------------ |
+| externalId | String             | Id used for keeping imported [Patron Code][] details up to date                 |
+| status     | String             | Current state of the Card. Valid values are "active", "inactive" and "archived" |
+| expiry     | {% dt Timestamp %} | Date at which payments made using the Card will no longer be accepted           |
 
 
 {% h4 Optional Fields %}
 
-|      Field      |  Type  |            Description             |
-| :-------------- | :----- | :--------------------------------- |
-| barcode         | String | Field to display in barcode format |
-| farmlandsStatus | String | Reason for status                  |
+|      Field      |  Type  |                   Description                    |
+| :-------------- | :----- | :----------------------------------------------- |
+| barcode         | String | 9 digit field to display in barcode format       |
+| farmlandsStatus | String | Message to provide context for the Card's status |
 
 
 <a name="example">
@@ -97,101 +97,101 @@ Exported Farmlands Card information used for payment.
 {% json %}
 [
   {
-    externalId: "F&O guid",
-    accountNumber: 012345678,
-    availableBalance: 1000,
+    externalId: "b5fde0e0-357c-4fda-a90f-fd857f2be999",
+    accountNumber: "830578479",
+    availableBalance: "12000",
     contacts: [
       {
-        externalId: "F&O guid",
+        externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
         name: "Road Runner",
-        mobile: "+6421102598",
+        mobile: "0221102598",
         email: "road@runner.net",
         primary: true,
         cards: [
           {
-            externalId: "F&O guid",
-            barcode: "722702456",
+            externalId: "65e701c3-6973-4322-8fa6-4560a489417f",
+            barcode: "458028560",
             status: "active",
-            expiry: "2025-09-01",
+            expiry: "2023-06-01T22:32:56.631Z",
           },
           {
-            externalId: "F&O guid",
-            barcode: "722702456",
+            externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+            barcode: "635570865",
             status: "inactive",
             farmlandsStatus: "Suspended by customer",
-            expiry: "2025-09-01",
+            expiry: "2022-04-01T22:32:56.631Z",
           }
         ]
       },
       {
-        externalId: "F&O guid",
-        name: "Yosemite Same",
-        mobile: "+6420002598",
+        externalId: "6e4813e6-7a18-47ea-b92e-add36c8815ca",
+        name: "Yosemite Sam",
+        mobile: "0220002598",
         email: "yosemite@runner.net",
         primary: false,
         cards: [
           {
-            externalId: "F&O guid",
-            barcode: "722798756",
+            externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
+            barcode: "137628567",
             status: "active",
-            expiry: "2025-11-01",
+            expiry: "2025-06-01T22:32:56.631Z",
           }
         ]
       },
       {
-        externalId: "F&O guid",
+        externalId: "82bdb041-ea79-448c-816f-77af8b6750b2",
         name: "Wile E. Coyote",
-        mobile: "+6421102598",
+        mobile: "0221102598",
         email: "while@e-cyote.net",
         primary: false,
         cards: [
           {
-            externalId: "F&O guid",
+            externalId: "62904b86-b4cc-45a9-b3c9-287a00ae9ef5",
             barcode: "722798445",
             status: "active",
-            expiry: "2026-02-01",
+            expiry: "2025-05-07T22:32:56.631Z",
           }
         ]
       }
     ]
   },
   {
-    externalId: "F&O guid",
-    accountNumber: 012345678,
-    availableBalance: 1000,
+    externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
+    accountNumber: "012345678",
+    availableBalance: "1000",
 		contacts: [],
   },
   {
-    externalId: "F&O guid",
-    accountNumber: 012345678,
-    availableBalance: 1000,
+    externalId: "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
+    accountNumber: "012345678",
+    availableBalance: "1000",
   },
   {
-    externalId: "F&O guid",
-    accountNumber: 012345678,
+    externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
+    accountNumber: "012345678",
   },
   {
-    externalId: "F&O guid",
-    accountNumber: 012345678,
+    externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+    accountNumber: "012345678",
     contacts: [
       {
-        externalId: "F&O guid",
+        externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
         name: "Road Runner",
-        mobile: "+6421102598",
+        mobile: "0221105598",
         email: "road@runner.net",
         primary: true,
         cards: [
           {
-            externalId: "F&O guid",
-            barcode: "722702456",
+            externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
+            barcode: "976238759",
             status: "active",
-            expiry: "2025-09-01",
+            expiry: "2022-10-01T22:32:56.631Z",
           },
           {
-            externalId: "F&O guid",
-            barcode: "722702456",
+            externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
+            barcode: "957813964",
             status: "inactive",
-            expiry: "2025-09-01",
+            expiry: "2022-08-01T22:32:56.631Z",
           }
         ]
       }
@@ -204,3 +204,4 @@ Exported Farmlands Card information used for payment.
 [Contact]: #contact
 [Card]: #card
 [Centrapay Account]: {% link api/accounts/accounts.md %}
+[Patron Code]: {% link api/patron-codes.md %}
