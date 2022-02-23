@@ -42,10 +42,10 @@ Exported Farmlands Account used for importing and updating of a [Centrapay Accou
 
 {% h4 Optional Fields %}
 
-|      Field       |        Type        |                      Description                       |
-| :--------------- | :----------------- | :----------------------------------------------------- |
-| availableBalance | {% dt BigNumber %} | Current spendable balance of Farmlands Ledger in cents |
-| contacts         | Array              | [Contact][] List for the imported Centrapay Account    |
+|      Field       |        Type        |                                         Description                                          |
+| :--------------- | :----------------- | :------------------------------------------------------------------------------------------- |
+| availableBalance | {% dt BigNumber %} | Current spendable balance of Farmlands Ledger in cents                                       |
+| contacts         | Array              | [Contact][] List for the imported Centrapay Account. When empty all Contacts will be removed |
 
 <a name="contact">
 ### Contact
@@ -61,13 +61,13 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 
 {% h4 Optional Fields %}
 
-|  Field  |  Type   |                         Description                          |
-| :------ | :------ | :----------------------------------------------------------- |
-| name    | String  | The full name used to address the individual                 |
-| mobile  | String  | Mobile number used for authentication and correspondence     |
-| email   | String  | Email address used for authentication and correspondence     |
-| primary | Boolean | `true` if the Contact is the owner of the Farmlands Account  |
-| cards   | Array   | [Card][] list used for payment for the authenticated subject |
+|  Field  |  Type   |                                            Description                                             |
+| :------ | :------ | :------------------------------------------------------------------------------------------------- |
+| name    | String  | The full name used to address the individual                                                       |
+| mobile  | {% dt PhoneNumber %}  | Mobile number used for authentication and correspondence                                           |
+| email   | String  | Email address used for authentication and correspondence                                           |
+| primary | Boolean | `true` if the Contact is the owner of the Farmlands Account                                        |
+| cards   | Array   | [Card][] list used for payment for the authenticated subject. When empty all Cards will be removed |
 
 <a name="card">
 ### Card
@@ -76,23 +76,26 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 {% h4 Required Fields %}
 
-|   Field    |        Type        |                                   Description                                   |
-| :--------- | :----------------- | :------------------------------------------------------------------------------ |
-| externalId | String             | Id used for keeping imported [Patron Code][] details up to date                 |
-| status     | String             | Current state of the Card. Valid values are "active", "inactive" and "archived" |
-| expiry     | {% dt Timestamp %} | Date at which payments made using the Card will no longer be accepted           |
-
+|   Field    |        Type        |                                                      Description                                                      |
+| :--------- | :----------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| externalId | String             | Id used for keeping imported [Patron Code][] details up to date                                                       |
+| status     | String             | Current state of the Card. Valid values are "active", "inactive" and "archived"                                       |
+| expiry     | {% dt Timestamp %} | Payments will be accepted until this time. When expressed as `YYYY-MM-DD` the Card will be valid up to 23:59:59 NZST. |
 
 {% h4 Optional Fields %}
 
-|      Field      |  Type  |                   Description                    |
-| :-------------- | :----- | :----------------------------------------------- |
-| barcode         | String | 9 digit field to display in barcode format       |
-| farmlandsStatus | String | Message to provide context for the Card's status |
+|      Field      |  Type  |                              Description                              |
+| :-------------- | :----- | :-------------------------------------------------------------------- |
+| barcode         | String | 9 digit field to display in barcode format                            |
+| farmlandsStatus | String | Private field used in all Farmlands payment transaction notifications |
 
 
 <a name="example">
-## Example File
+## Examples
+here have individual examples TODO make sure to have the example of removing all contacts
+
+
+Full example with all batch types
 
 {% json %}
 [
@@ -134,7 +137,7 @@ Exported Farmlands Credit Card information used for importing and updating of a 
             externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
             barcode: "137628567",
             status: "active",
-            expiry: "2025-06-01T22:32:56.631Z",
+            expiry: "2025-06-01",
           }
         ]
       },
@@ -149,7 +152,7 @@ Exported Farmlands Credit Card information used for importing and updating of a 
             externalId: "62904b86-b4cc-45a9-b3c9-287a00ae9ef5",
             barcode: "722798445",
             status: "active",
-            expiry: "2025-05-07T22:32:56.631Z",
+            expiry: "2025-05-07",
           }
         ]
       }
