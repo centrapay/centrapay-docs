@@ -78,9 +78,10 @@ by locality.
 
 ## PhoneNumber
 
-must start with +64
+A phone number, represented in [E.123][]{:.external} international notation (eg "+6421537663").
+We currently only support +64 prefixes. We usually use this for recieving text messages.
 
-
+[E.123]: https://en.wikipedia.org/wiki/E.123
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [ISO 4217]: https://en.wikipedia.org/wiki/ISO_4217
 [ISO 3166]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2

@@ -61,13 +61,13 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 
 {% h4 Optional Fields %}
 
-|  Field  |  Type   |                                            Description                                             |
-| :------ | :------ | :------------------------------------------------------------------------------------------------- |
-| name    | String  | The full name used to address the individual                                                       |
-| mobile  | {% dt PhoneNumber %}  | Mobile number used for authentication and correspondence                                           |
-| email   | String  | Email address used for authentication and correspondence                                           |
-| primary | Boolean | `true` if the Contact is the owner of the Farmlands Account                                        |
-| cards   | Array   | [Card][] list used for payment for the authenticated subject. When empty all Cards will be removed |
+|  Field  |         Type         |                                            Description                                             |
+| :------ | :------------------- | :------------------------------------------------------------------------------------------------- |
+| name    | String               | The full name used to address the individual                                                       |
+| mobile  | {% dt PhoneNumber %} | Mobile number used for authentication and correspondence                                           |
+| email   | String               | Email address used for authentication and correspondence                                           |
+| primary | Boolean              | `true` if the Contact is the owner of the Farmlands Account                                        |
+| cards   | Array                | [Card][] list used for payment for the authenticated subject. When empty all Cards will be removed |
 
 <a name="card">
 ### Card
@@ -107,7 +107,7 @@ Full example with all batch types
       {
         externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
         name: "Road Runner",
-        mobile: "0221102598",
+        mobile: "+64221102598",
         email: "road@runner.net",
         primary: true,
         cards: [
@@ -129,7 +129,7 @@ Full example with all batch types
       {
         externalId: "6e4813e6-7a18-47ea-b92e-add36c8815ca",
         name: "Yosemite Sam",
-        mobile: "0220002598",
+        mobile: "+64220002598",
         email: "yosemite@runner.net",
         primary: false,
         cards: [
@@ -144,7 +144,7 @@ Full example with all batch types
       {
         externalId: "82bdb041-ea79-448c-816f-77af8b6750b2",
         name: "Wile E. Coyote",
-        mobile: "0221102598",
+        mobile: "+64221102598",
         email: "while@e-cyote.net",
         primary: false,
         cards: [
@@ -180,7 +180,7 @@ Full example with all batch types
       {
         externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
         name: "Road Runner",
-        mobile: "0221105598",
+        mobile: "+64221105598",
         email: "road@runner.net",
         primary: true,
         cards: [
