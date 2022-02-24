@@ -92,11 +92,121 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 <a name="example">
 ## Examples
-here have individual examples TODO make sure to have the example of removing all contacts
 
+Full Account, Contact and Card Update
+{% json %}
+{
+  externalId: "b5fde0e0-357c-4fda-a90f-fd857f2be999",
+  accountNumber: "830578479",
+  availableBalance: "12000",
+  contacts: [
+    {
+      externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
+      name: "Road Runner",
+      mobile: "+64221102598",
+      email: "road@runner.net",
+      primary: true,
+      cards: [
+        {
+          externalId: "65e701c3-6973-4322-8fa6-4560a489417f",
+          barcode: "458028560",
+          status: "active",
+          expiry: "2023-06-01T22:32:56.631Z",
+        },
+        {
+          externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+          barcode: "635570865",
+          status: "inactive",
+          farmlandsStatus: "Suspended by customer",
+          expiry: "2022-04-01T22:32:56.631Z",
+        }
+      ]
+    },
+    {
+      externalId: "6e4813e6-7a18-47ea-b92e-add36c8815ca",
+      name: "Yosemite Sam",
+      mobile: "+64220002598",
+      email: "yosemite@runner.net",
+      primary: false,
+      cards: [
+        {
+          externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
+          barcode: "137628567",
+          status: "active",
+          expiry: "2025-06-01",
+        }
+      ]
+    },
+    {
+      externalId: "82bdb041-ea79-448c-816f-77af8b6750b2",
+      name: "Wile E. Coyote",
+      mobile: "+64221102598",
+      email: "while@e-cyote.net",
+      primary: false,
+      cards: [
+        {
+          externalId: "62904b86-b4cc-45a9-b3c9-287a00ae9ef5",
+          barcode: "722798445",
+          status: "active",
+          expiry: "2025-05-07",
+        }
+      ]
+    }
+  ]
+}
+{% endjson %}
 
-Full example with all batch types
+Balance Update and Deleting Contacts
+{% json %}
+{
+  externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
+  accountNumber: "012345678",
+  availableBalance: "1000",
+  contacts: [],
+}
+{% endjson %}
 
+Balance Update
+{% json %}
+{
+  externalId: "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
+  accountNumber: "012345678",
+  availableBalance: "1000",
+}
+{% endjson %}
+
+Contact Update
+{% json %}
+{
+  externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+  accountNumber: "012345678",
+  contacts: [
+    {
+      externalId: "6e496c2a-1dae-4036-847d-c53bf6c6d410",
+      name: "Road Runner",
+      mobile: "+64221105598",
+      email: "road@runner.net",
+      primary: true,
+      cards: [
+        {
+          externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
+          barcode: "976238759",
+          status: "active",
+          expiry: "2022-10-01T22:32:56.631Z",
+        },
+        {
+          externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
+          barcode: "957813964",
+          status: "inactive",
+          expiry: "2022-08-01T22:32:56.631Z",
+        }
+      ]
+    }
+  ]
+}
+{% endjson %}
+
+Full Batch File Example
 {% json %}
 [
   {
@@ -168,10 +278,6 @@ Full example with all batch types
     externalId: "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
     accountNumber: "012345678",
     availableBalance: "1000",
-  },
-  {
-    externalId: "74e4f94c-8316-42e7-9aa1-eb1539528894",
-    accountNumber: "012345678",
   },
   {
     externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
