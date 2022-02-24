@@ -92,7 +92,7 @@ A summary of the [Invitation][] for a Managed Integration.
   path_param 'externalId', 'DKTs3U38hdhfEqwF1JKoT2'
   example {
     body ({
-      active: 'true',
+      active: true,
       managedByAccountId: 'B4u4WZCu3joZFVWT3XjWW3',
       params: {
         bankAccounts: [
@@ -129,7 +129,7 @@ A summary of the [Invitation][] for a Managed Integration.
   "managedByAccountId": "B4u4WZCu3joZFVWT3XjWW3",
   "type": "kete-enrolment",
   "externalId": "DKTs3U38hdhfEqwF1JKoT2",
-  "active": "true",
+  "active": true,
   "params": {
     "bankAccounts": [
       { "number": "06-0384-947723945-00" },
@@ -176,7 +176,7 @@ A summary of the [Invitation][] for a Managed Integration.
   "id": "dh375hdh08f590260d9a07f",
   "type": "kete-enrolment",
   "externalId": "DKTs3U38hdhfEqwF1JKoT2",
-  "active": "false",
+  "active": false,
   "params": {
     "bankAccounts": [
       { "number": '06-0384-947723945-00' }
