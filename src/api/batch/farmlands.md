@@ -93,7 +93,9 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 <a name="example">
 ## Examples
 
-Full Account, Contact and Card Update
+We match perviously created resources using `externalId`. Records are created or updated based on these IDs and we update details to match. In some cases, fields can be left out to update included fields without specifying the whole set.
+
+An example of a Farmlands Asset complete with balance, contacts and card details.
 {% json %}
 {
   externalId: "b5fde0e0-357c-4fda-a90f-fd857f2be999",
@@ -156,7 +158,7 @@ Full Account, Contact and Card Update
 }
 {% endjson %}
 
-Balance Update and Deleting Contacts
+Update the balance on an account and remove all contacts associated with it. Note, this renders the balance un-spendable.
 {% json %}
 {
   externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
@@ -166,7 +168,7 @@ Balance Update and Deleting Contacts
 }
 {% endjson %}
 
-Balance Update
+Update the balance on an account.
 {% json %}
 {
   externalId: "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
@@ -175,7 +177,7 @@ Balance Update
 }
 {% endjson %}
 
-Contact Update
+Update the contact list for an account. Use this where you want to exclude the balance.
 {% json %}
 {
   externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
@@ -206,7 +208,7 @@ Contact Update
 }
 {% endjson %}
 
-Full Batch File Example
+A complete batch example with all batch types included.
 {% json %}
 [
   {
