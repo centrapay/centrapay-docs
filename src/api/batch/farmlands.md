@@ -64,7 +64,7 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 |  Field  |         Type         |                                            Description                                             |
 | :------ | :------------------- | :------------------------------------------------------------------------------------------------- |
 | name    | String               | The full name used to address the individual                                                       |
-| mobile  | {% dt PhoneNumber %} | Mobile number used for authentication and correspondence                                           |
+| mobile  | {% dt PhoneNumber %} | Mobile number used for authentication and correspondence, must start with +64                      |
 | email   | String               | Email address used for authentication and correspondence                                           |
 | primary | Boolean              | `true` if the Contact is the owner of the Farmlands Account                                        |
 | cards   | Array                | [Card][] list used for payment for the authenticated subject. When empty all Cards will be removed |
