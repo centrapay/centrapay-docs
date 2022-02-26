@@ -643,7 +643,7 @@
   },"107": {
     "doc": "Invitations",
     "title": "Contents",
-    "content": ". | Models . | Invitation | . | Operations . | Get an Invitation | Accept an Invitation | . | . ",
+    "content": ". | Models . | Invitation | . | Operations . | Get an Invitation EXPERIMENTAL | Accept an Invitation EXPERIMENTAL | . | . ",
     "url": "/api/invitations.html#contents",
     "relUrl": "/api/invitations.html#contents"
   },"108": {
@@ -655,7 +655,7 @@
   },"109": {
     "doc": "Invitations",
     "title": "Operations",
-    "content": "Get an Invitation . GET /api/invitations/{invitationId}/{invitationCode} . curl https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/Kdbnvs3U38hdhfEqwdjvvLLs \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrolment\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"integration\", \"exipresAt\": \"2021-08-26T00:02:49.488Z\", \"createdAt\": \"2021-08-25T00:02:49.488Z\", \"createdBy\": \"crn::user:1234\" } . Accept an Invitation . POST /api/invitations/{invitationId}/accept . curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/accept \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"code\": \"WIj211vFs9cNACwBb04vQw\" }' . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrolment\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"integration\", \"exipresAt\": \"2021-08-26T00:02:49.488Z\", \"createdAt\": \"2021-08-25T00:02:49.488Z\", \"createdBy\": \"crn::user:1234\" } . Error Responses . | Status | Code | Description | . | 403 | INVITATION_EXPIRED | The Invitation is expired. | . | 403 | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted. | . ",
+    "content": "Get an Invitation EXPERIMENTAL . GET /api/invitations/{invitationId}/{invitationCode} . curl https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/Kdbnvs3U38hdhfEqwdjvvLLs \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrolment\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"integration\", \"exipresAt\": \"2021-08-26T00:02:49.488Z\", \"createdAt\": \"2021-08-25T00:02:49.488Z\", \"createdBy\": \"crn::user:1234\" } . Accept an Invitation EXPERIMENTAL . POST /api/invitations/{invitationId}/accept . curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/accept \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"code\": \"WIj211vFs9cNACwBb04vQw\" }' . Example response payload . { \"id\": \"DKTs3U38hdhfEqwF1JKoT2\", \"code\": \"WIj211vFs9cNACwBb04vQw\", \"type\": \"kete-enrolment\", \"resourceId\": \"5ee0c486308f590260d9a07f\", \"resourceType\": \"integration\", \"exipresAt\": \"2021-08-26T00:02:49.488Z\", \"createdAt\": \"2021-08-25T00:02:49.488Z\", \"createdBy\": \"crn::user:1234\" } . Error Responses . | Status | Code | Description | . | 403 | INVITATION_EXPIRED | The Invitation is expired. | . | 403 | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted. | . ",
     "url": "/api/invitations.html#operations",
     "relUrl": "/api/invitations.html#operations"
   },"110": {
