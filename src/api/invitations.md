@@ -34,7 +34,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ## Operations
 
-### Get an Invitation
+### Get an Invitation **EXPERIMENTAL**
 
 {% reqspec %}
   GET '/api/invitations/{invitationId}/{invitationCode}'
@@ -58,7 +58,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 }
 {% endjson %}
 
-### Accept an Invitation
+### Accept an Invitation **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/invitations/{invitationId}/accept'
