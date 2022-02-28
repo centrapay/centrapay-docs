@@ -23,18 +23,15 @@ API keys provide enduring access to a single Centrapay [Account][].
 
 {% h4 Mandatory Fields %}
 
-| Field     | Type               | Description                                                              |
-| :----     | :-----             | :-----------------------------------------------------------------       |
-| accountId | String             | The id of the Centrapay [Account][] the API Key is scoped to.            |
-| name      | String             | The alphanumeric name of the API key, must be unique within the account. |
-| role      | String             | The role governing API key permissions.                                  |
-| enabled   | Boolean            | Flag indicating the API Key is usable for authentication.                |
-| createdAt | {% dt Timestamp %} | When the API Key was created.                                            |
+| Field     | Type               | Description                                                                                              |
+| :----     | :-----             | :-----------------------------------------------------------------------------------------------------   |
+| accountId | String             | The id of the Centrapay [Account][] the API Key is scoped to.                                            |
+| name      | String             | The alphanumeric name of the API key, must be unique within the account.                                 |
+| role      | String             | Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions][] for role details. |
+| enabled   | Boolean            | Flag indicating the API Key is usable for authentication.                                                |
+| createdAt | {% dt Timestamp %} | When the API Key was created.                                                                            |
 
 {% h4 Roles and Permissions %}
-
-Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions][] for role details.
-
 
 ## Operations
 
