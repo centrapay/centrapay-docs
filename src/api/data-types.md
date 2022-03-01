@@ -33,8 +33,8 @@ typically represented as an [ISO 4217][]{:.external} code.
 
 {% h4 Fields %}
 
-| Name     | Type               | Description                                                |
-|----------|--------------------|------------------------------------------------------------|
+|   Name   |        Type        |                        Description                         |
+| -------- | ------------------ | ---------------------------------------------------------- |
 | amount   | {% dt BigNumber %} | Value in the currency's smallest denomination (eg. cents). |
 | currency | String             | Currency code (eg. "NZD").                                 |
 

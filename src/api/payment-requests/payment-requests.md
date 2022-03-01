@@ -58,7 +58,6 @@ version (documented on this page) and the "legacy" version (documented at
 | updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                       |
 | expiresAt      | {% dt Timestamp %} | When the payment request expires.                                           |
 
-
 {% h4 Optional Fields %}
 
 |        Field         |  Type  |                                                                               Description                                                                                |
@@ -319,7 +318,7 @@ The Paid By provides a summary of the transactions after the Payment Request was
 | 403    | {% break _ RedirectUrl not supported %}    | The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config][]. |
 | 400    | {% break _ CHECKSUM_FAILED %}              | Luhn checksum digit doesn't pass.                                                                         |
 | 403    | {% break _ PATRON_CODE_INVALID %}          | Patron Code doesn't exist or has expired.                                                                 |
-| 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | The payment request could not be initialized with any [Payment Options](#payment-option).                 |
+| 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | The currency is not supported by any of the [Asset Types][] that the [Merchant][] is configured with.     |
 
 ### Get a Payment Request
 
@@ -619,6 +618,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 [Patron Code]: {% link api/patron-codes.md %}
 [Patron Code Ref]: #patron-code-ref
 [Asset Type]: {% link api/assets/asset-types.md %}
+[Asset Types]: {% link api/assets/asset-types.md %}
 [Assets]: {% link api/assets/assets.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
