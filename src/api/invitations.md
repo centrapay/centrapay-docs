@@ -31,16 +31,21 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | expiresAt    | {% dt Timestamp %} | When the Invitation expires.                                             |
 | createdAt    | {% dt Timestamp %} | When the Invitation was created.                                         |
 | createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                         |
+| accepted     | Boolean            | A flag indicating whether the Invitation has been accepted.              |
+| acceptedAt   | {% dt Timestamp %} | When the Invitation was accepted.                                        |
+| acceptedBy   | {% dt CRN %}       | The User or API Key that accepted the Invitation.                        |
+| updatedAt    | {% dt Timestamp %} | When the Invitation was updated.                                         |
+| updatedBy    | {% dt CRN %}       | The User or API Key that updated the Invitation.                         |
 
 ## Operations
 
 ### Get an Invitation **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/invitations/{invitationId}/{invitationCode}'
+  GET '/api/invitations/{invitationId}/{code}'
   auth 'api-key'
   path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
-  path_param 'invitationCode', 'Kdbnvs3U38hdhfEqwdjvvLLs'
+  path_param 'code', 'Kdbnvs3U38hdhfEqwdjvvLLs'
 {% endreqspec %}
 
 {% h4 Example response payload %}
@@ -54,7 +59,9 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "resourceType": "integration",
   "exipresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
-  "createdBy": "crn::user:1234"
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedAt": "2021-08-25T00:02:49.488Z",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
 
@@ -65,9 +72,17 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   auth 'api-key'
   path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
   body ({
-    code: 'WIj211vFs9cNACwBb04vQw'
+    code: 'WIj211vFs9cNACwBb04vQw',
+    accountId: 'Jaim1Cu1Q55uooxSens6yk'
   })
 {% endreqspec %}
+
+{% h4 Required Fields %}
+
+|   Field   |  Type  |                      Description                       |
+| :-------- | :----- | :----------------------------------------------------- |
+| code      | String | The Invitation code.                                   |
+| accountId | String | The [Account] id of the user accepting the Invitation. |
 
 {% h4 Example response payload %}
 
@@ -80,7 +95,12 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "resourceType": "integration",
   "exipresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
-  "createdBy": "crn::user:1234"
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "accepted": true,
+  "acceptedAt": "2021-08-25T10:12:22.122Z",
+  "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
+  "updatedAt": "2021-08-25T10:12:22.122Z",
+  "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
 }
 {% endjson %}
 
@@ -92,3 +112,4 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | 403    | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted. |
 
 [Managed Integrations]: {% link api/integrations/managed-integrations.md %}
+[Account]: {% link api/accounts/accounts.md %}
