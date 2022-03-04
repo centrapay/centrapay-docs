@@ -13,23 +13,23 @@ The following table describes the Asset Types supported for payments.
 The Category column refers to the Centrapay asset type representation if
 applicable. When blank, the Asset is not managed by a Centrapay Account.
 
-|     Asset Type     |             Description              |   Category   | Flags |
-| :----------------- | :----------------------------------- | :----------- | :---- |
-| centrapay.nzd.main | Centrapay NZD wallet                 | [Money][]    |       |
-| centrapay.nzd.test | Centrapay NZD wallet                 | [Money][]    | 🅃     |
-| epay.nzd.main      | EPay NZ giftcards                    | [Giftcard][] |       |
-| epay.nzd.test      | EPay NZ giftcards                    | [Giftcard][] | 🅃     |
-| cca.coke.main      | Coke tokens                          | [Token][]    | 🚫     |
-| cca.coke.test      | Coke tokens                          | [Token][]    | 🅃 🚫   |
-| bitcoin.main       | [Bitcoin][]{:.external}              |              |       |
-| cennznet.main      | [CENNZnet][]{:.external}             |              |       |
-| zap.main           | [Zap tokens][]{:.external}           |              |       |
-| pocketvouchers     | [Pocket Vouchers][]{:.external}      |              |       |
-| paypal.usd.main    | [PayPal][]{:.external}               |              |       |
-| paypal.usd.test    | [PayPal][]{:.external}               |              | 🅃     |
-| venmo.usd.main    | [Venmo][]{:.external}               |              |       |
-| venmo.usd.test    | [Venmo][]{:.external}               |              | 🅃     |
-| test               | No-op test payment (always approved) |              | 🅃     |
+|     Asset Type     |             Description              |   Category   | Currencies | Flags |
+| :----------------- | :----------------------------------- | :----------- | :--------- | :---- |
+| centrapay.nzd.main | Centrapay NZD wallet                 | [Money][]    | NZD        |       |
+| centrapay.nzd.test | Centrapay NZD wallet                 | [Money][]    | NZD        | 🅃     |
+| epay.nzd.main      | EPay NZ giftcards                    | [Giftcard][] | NZD        |       |
+| epay.nzd.test      | EPay NZ giftcards                    | [Giftcard][] | NZD        | 🅃     |
+| cca.coke.main      | Coke tokens                          | [Token][]    | NZD        | 🚫     |
+| cca.coke.test      | Coke tokens                          | [Token][]    | NZD        | 🅃 🚫   |
+| bitcoin.main       | [Bitcoin][]{:.external}              |              | NZD, AUD   |       |
+| cennznet.main      | [CENNZnet][]{:.external}             |              | NZD        |       |
+| zap.main           | [Zap tokens][]{:.external}           |              | NZD        |       |
+| pocketvouchers     | [Pocket Vouchers][]{:.external}      |              | NZD        |       |
+| paypal.main        | [PayPal][]{:.external}               |              | USD        |       |
+| paypal.test        | [PayPal][]{:.external}               |              | USD        | 🅃     |
+| venmo.main         | [Venmo][]{:.external}                |              | USD        |       |
+| venmo.test         | [Venmo][]{:.external}                |              | USD        | 🅃     |
+| test               | No-op test payment (always approved) |              | NZD        | 🅃     |
 
 
 {% h4 Flags %}

@@ -48,9 +48,11 @@ Legacy Payment Request endpoints also have
 | Parameter  |                     Description                      |
 | :--------- | :--------------------------------------------------- |
 | amount     | The payment amount in cents                          |
-| asset      | The currency - NZD, AUD, or USD                      |
+| asset      | The currency code (e.g. 'NZD')                       |
 | merchantId | The id of the merchant creating the request          |
 | clientId   | The id of the merchant specific client configuration |
+
+See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 
 
 {% h4 Optional Parameters %}
@@ -67,11 +69,12 @@ Legacy Payment Request endpoints also have
 
 {% h4 Error Responses %}
 
-| Status |                      Code                      |                                     Description                                     |
-| :----- | :--------------------------------------------- | :---------------------------------------------------------------------------------- |
-| 400    | {% break _ CHECKSUM_FAILED %}                  | patronCode luhn checksum digit doesn't pass.                                        |
-| 403    | {% break _ PATRON_CODE_INVALID %}              | patronCode doesn't exist or has expired.                                            |
-| 403    | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %} | There was no merchant configuration found for the supplied merchantId and clientId. |
+| Status |                      Code                      |                                          Description                                           |
+| :----- | :--------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| 400    | {% break _ CHECKSUM_FAILED %}                  | `patronCode` luhn checksum digit doesn't pass.                                                   |
+| 403    | {% break _ PATRON_CODE_INVALID %}              | `patronCode` doesn't exist or has expired.                                                       |
+| 403    | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %} | There was no merchant configuration found for the supplied merchantId and clientId.            |
+| 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %}     | `asset` is not supported by any of the [Asset Types][] that the [Merchant][] is configured with. |
 
 
 <a name="requests-info">
@@ -533,3 +536,4 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 [requests.cancel]: #requests-cancel
 [transactions.refund]: #transactions-refund
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
+[Asset Types]: {% link api/assets/asset-types.md %}
