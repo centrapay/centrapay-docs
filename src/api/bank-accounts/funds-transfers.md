@@ -58,14 +58,16 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Error Responses %}
 
-| Status |                       Code                       |                                                                                                             Description                                                                                                      |
-| :----- | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_AUTHORITY_WALLET_MISMATCH %}     | The wallet and the bank account for the top up request do not belong to the same account.                                                                                                                                    |
-| 403    | {% break _ MAX_INFLIGHT_TOPUPS_EXCEEDED %}       | The bank account already has ten pending top ups, which is the maximum a bank authority can have at any one time.                                                                                                            |
-| 403    | {% break _ MAX_INFLIGHT_TOPUP_AMOUNT_EXCEEDED %} | The top up can not be created because it is above the max amount of funds a bank account can have pending at any one time. The max amount is $1000.00 for verified bank accounts and $100.00 for non-verified bank accounts. |
-| 403    | {% break _ QUOTA_EXCEEDED %}                     | The topup exceeds one or more top up quota limits. See [Quota Error Response][].                                                                                                     |
-| 403    | {% break _ DIRECT_DEBIT_NOT_AUTHORIZED        %} | Bank account requires authorization for top up. See bank accounts [direct debit endpoint][].                                                                           |
-| 403    | {% break _ INVALID_WALLET_TYPE        %} | The wallet type does not support top ups. See [settlement wallets][].                                                                           |
+| Status |                              Code                               |                                                                                                         Description                                                                                                          |
+| :----- | :-------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_AUTHORITY_WALLET_MISMATCH %}                    | The wallet and the bank account for the top up request do not belong to the same account.                                                                                                                                    |
+| 403    | {% break _ MAX_INFLIGHT_TOPUPS_EXCEEDED %}                      | The bank account already has ten pending top ups, which is the maximum a bank authority can have at any one time.                                                                                                            |
+| 403    | {% break _ MAX_INFLIGHT_TOPUP_AMOUNT_EXCEEDED %}                | The top up can not be created because it is above the max amount of funds a bank account can have pending at any one time. The max amount is $1000.00 for verified bank accounts and $100.00 for non-verified bank accounts. |
+| 403    | {% break _ QUOTA_EXCEEDED %}                                    | The topup exceeds one or more top up quota limits. See [Quota Error Response][].                                                                                                                                             |
+| 403    | {% break _ DIRECT_DEBIT_NOT_AUTHORIZED        %}                | Bank account requires authorization for top up. See bank accounts [direct debit endpoint][].                                                                                                                                 |
+| 403    | {% break _ INVALID_WALLET_TYPE        %}                        | The wallet type does not support top ups. See [settlement wallets][].                                                                                                                                                        |
+| 403    | {% break _ INVALID_WALLET_TYPE        %}                        | The wallet type does not support top ups. See [settlement wallets][].                                                                                                                                                        |
+| 403    | {% break _ BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_TOPUP        %} | The bank account type is not configured for topups. Only `centrapay` type bank accounts are configured.                                                                                                                      |
 
 ## Get a top up
 
@@ -202,11 +204,12 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
 {% h4 Error Responses %}
 
-| Status |                     Code                      |                                         Description                                           |
-| :----- | :-------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_AUTHORITY_WALLET_MISMATCH %}  | The wallet and the bank account for the withdrawal request do not belong to the same account. |
-| 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %}     | The wallet balance is less than the required amount.                                          |
-| 403    | {% break _ INVALID_WALLET_TYPE        %}      | The wallet type does not support withdrawals. See [settlement wallets][].                     |
+| Status |                                 Code                                 |                                                 Description                                                  |
+| :----- | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_AUTHORITY_WALLET_MISMATCH %}                         | The wallet and the bank account for the withdrawal request do not belong to the same account.                |
+| 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %}                            | The wallet balance is less than the required amount.                                                         |
+| 403    | {% break _ INVALID_WALLET_TYPE        %}                             | The wallet type does not support withdrawals. See [settlement wallets][].                                    |
+| 403    | {% break _ BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL        %} | The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured. |
 
 ## Get a Withdrawal **EXPERIMENTAL**
 
