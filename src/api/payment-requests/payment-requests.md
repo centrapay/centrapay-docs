@@ -98,7 +98,7 @@ version (documented on this page) and the "legacy" version (documented at
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an
 external ledger. Once you have made that payment, you can use the transaction id for
-[Paying a Payment Request][].
+[Paying a Legacy Payment Request][].
 
 
 
@@ -478,139 +478,11 @@ them to find the Payment Request and proceed to pay.
 
 ### Pay a Payment Request **EXPERIMENTAL**
 
-There are two methods of paying a payment request.
-The first uses Centrapay [Assets] and requires you to provide the Id and the type of the asset.
-Alternatively you can provide an external transaction Id and the Centrapay [Asset Type][] for any payments that we support. An example of an external transaction would be a Bitcoin payment.
-
-{% reqspec %}
-  POST '/api/payment-requests/{paymentRequestId}/pay'
-  auth 'jwt'
-  example {
-    title 'Pay a Payment Request with a Centrapay asset'
-    body ({
-      "assetType": "centrapay.nzd.main",
-      "assetId": "WRhAxxWpTKb5U7pXyxQjjY"
-    })
-  }
-
-  example {
-    title 'Pay a Payment Request using external transaction'
-    body ({
-      "assetType": "bitcoin.main",
-      "transactionId": "VMXMkUttDGTVz4ESv5ND56",
-    })
-  }
-
-{% endreqspec %}
-
-{% h4 Example response payload %}
-
-{% json %}
-{
-  "id": "MhocUmpxxmgdHjr7DgKoKw",
-  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-  "merchantName": "Centrapay Café",
-  "configId": "5efbe2fb96c08357bb2b9242",
-  "value": {
-    "currency": "NZD",
-    "amount": "1000"
-  },
-  "paymentOptions": [
-    {
-      "amount": "1000",
-      "assetType": "centrapay.nzd.main"
-    },
-    {
-      "amount": "1000",
-      "assetType": "cca.coke.main"
-    }
-  ],
-  "status": "paid",
-  "createdAt": "2021-06-08T04:04:27.426Z",
-  "updatedAt": "2021-06-08T04:04:27.426Z",
-  "expiresAt": "2021-06-08T04:06:27.426Z",
-  "liveness": "main",
-  "expirySeconds": 120,
-  "paidBy": {
-    "assetTotals": [
-      {
-        "type": "centrapay.nzd.main",
-        "description": "Centrapay NZD",
-        "settlementDate": "2021-06-28T04:04:27.426Z",
-        "total": {
-          "amount": "1000",
-          "currency": "NZD"
-        }
-      }
-    ]
-  }
-}
-{% endjson %}
-
-{% h4 Error Responses %}
-
-| Status |                  Code                  |                                                                                        Description                                                                                         |
-| :----- | :------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_ASSET_TYPE %}       | Either the merchant is not configured with the provided asset type or the asset type does not exist.                                                                                       |
-| 403    | {% break _ REQUEST_EXPIRED %}          | Action cannot be completed because the request has expired.                                                                                                                                |
-| 403    | {% break _ REQUEST_PAID %}             | Action cannot be completed because the request has been paid.                                                                                                                              |
-| 403    | {% break _ REQUEST_CANCELLED %}        | Action cannot be completed because the request has already been cancelled.                                                                                                                 |
-| 403    | {% break _ INACTIVE_ASSET %}           | The asset is not spendable. It may have been disabled, expired, or already spent.                                                                                                          |
-| 403    | {% break _ INVALID_MERCHANT_CONFIG %}  | The merchant is not configured properly to satisfy the payment request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service. |
-| 403    | {% break _ QUOTA_EXCEEDED %}           | The payment pay request exceeds the allowed spend quota supplied.                                                                                                                          |
-| 403    | {% break _ INSUFFICIENT_ASSET_VALUE %} | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.                                         |
-| 403    | {% break _ ASSET_REDEMPTION_DENIED %}  | The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset.                                                                   |
+To pay a payment request refer to the [Pay Payment Request][] section on the [Payment Activities][] page
 
 ### Refund a Payment Request **EXPERIMENTAL**
 
-{% reqspec %}
-  POST '/api/payment-requests/{paymentRequestId}/refund'
-  auth 'jwt'
-  example {
-    title 'Refund a Payment Request'
-    body ({
-      "value": {
-        "amount": "100",
-        "currency": "NZD",
-      },
-      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
-    })
-  }
-
-{% endreqspec %}
-
-{% h4 Example response payload %}
-
-{% json %}
-{
-  "type": "refund",
-  "value": { "currency": "NZD", "amount": "100" },
-  "assetType": "centrapay.nzd.main",
-  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-  "merchantName": "Centrapay Café",
-  "merchantId": "5ee0c486308f590260d9a07f",
-  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-  "merchantConfigId": "5ee168e8597be5002af7b454",
-  "createdAt": "2021-06-12T01:17:00.000Z",
-  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-  "activityNumber": "3",
-},
-{% endjson %}
-
-{% h4 Error Responses %}
-
-| Status |                    Code                     |                                                                                                                                 Description                                                                                                                                 |
-| :----- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ NOT_PAID %}                      | The payment request has not been paid.                                                                                                                                                                                                                                      |
-| 403    | {% break _ ALREADY_REFUNDED %}              | The payment request has already been refunded.                                                                                                                                                                                                                              |
-| 403    | {% break _ INVALID_AMOUNT %}                | The refund requested is greater than the refundable amount.                                                                                                                                                                                                                 |
-| 403    | {% break _ REPEAT_REFERENCE %}              | A separate refund request for the payment request has the same external reference. Attempting to refund the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
-| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}   | The asset does not support partial refunds.                                                                                                                                                                                                                                 |
-| 403    | {% break _ INACTIVE_ASSET %}                | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                                                       |
-| 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
-| 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
+To refund a payment request refer to the [Refund Payment Request][] section on the [Payment Activities][] page.
 
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
@@ -622,6 +494,9 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 [Assets]: {% link api/assets/assets.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
-[Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
+[Paying a Legacy Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
 [Legacy Payment API]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
+[Refund Payment Request]: {% link api/payment-requests/payment-activities.md %}#refund-request
+[Pay Payment Request]: {% link api/payment-requests/payment-activities.md %}#pay-request
+[Payment Activities]: {% link api/payment-requests/payment-activities.md %}
