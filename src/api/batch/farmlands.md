@@ -7,12 +7,12 @@ has_children: false
 nav_exclude: true
 permalink: /api/batch-types/farmlands-external-asset
 description: |
-  Load Farmlands card data
+  Load Farmlands Card data
 ---
 
 # Farmlands External Asset Batch
 
-Loads Farmlands card data into Centrapay as external assets.
+Loads Farmlands Card data into Centrapay as external assets.
 
 | Type Name   | farmlands-external-asset |
 | File Format | JSON                     |
@@ -95,7 +95,7 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 We match perviously created resources using `externalId`. Records are created or updated based on these IDs and we update details to match. In some cases, fields can be left out to update included fields without specifying the whole set.
 
-An example of a Farmlands Asset complete with balance, contacts and card details.
+An example of a Farmlands Asset complete with balance, contacts and Card details.
 {% json %}
 {
   externalId: "b5fde0e0-357c-4fda-a90f-fd857f2be999",
