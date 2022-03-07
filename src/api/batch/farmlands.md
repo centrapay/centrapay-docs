@@ -1,6 +1,6 @@
 ---
 layout: default
-title: farmlands-external-asset
+title: Farmlands External Asset Batch
 parent: Batches
 grand_parent: Api Reference
 has_children: false
