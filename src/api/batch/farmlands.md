@@ -1,18 +1,18 @@
 ---
 layout: default
-title: farmlands-external-asset
+title: Farmlands External Asset Batch
 parent: Batches
 grand_parent: Api Reference
 has_children: false
 nav_exclude: true
 permalink: /api/batch-types/farmlands-external-asset
 description: |
-  Load Farmlands card data
+  Load Farmlands Card data
 ---
 
 # Farmlands External Asset Batch
 
-Loads Farmlands card data into Centrapay as external assets.
+Loads Farmlands Card data into Centrapay as external assets.
 
 | Type Name   | farmlands-external-asset |
 | File Format | JSON                     |
@@ -95,7 +95,8 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 We match perviously created resources using `externalId`. Records are created or updated based on these IDs and we update details to match. In some cases, fields can be left out to update included fields without specifying the whole set.
 
-An example of a Farmlands Asset complete with balance, contacts and card details.
+An example of a Farmlands Asset complete with availableBalance, contacts and cards.
+
 {% json %}
 {
   externalId: "b5fde0e0-357c-4fda-a90f-fd857f2be999",
@@ -158,7 +159,9 @@ An example of a Farmlands Asset complete with balance, contacts and card details
 }
 {% endjson %}
 
-Update the balance on an account and remove all contacts associated with it. Note, this renders the balance un-spendable.
+Update the availableBalance on an account and remove all contacts associated
+with it. Note, this renders the availableBalance un-spendable.
+
 {% json %}
 {
   externalId: "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
@@ -168,7 +171,8 @@ Update the balance on an account and remove all contacts associated with it. Not
 }
 {% endjson %}
 
-Update the balance on an account.
+Update the availableBalance on an account.
+
 {% json %}
 {
   externalId: "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
@@ -177,7 +181,7 @@ Update the balance on an account.
 }
 {% endjson %}
 
-Update the contact list for an account. Use this where you want to exclude the balance.
+Update the contact list for an account. Use this where you want to exclude availableBalance.
 {% json %}
 {
   externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
