@@ -1,0 +1,16 @@
+{
+	"name": "Centrapay docs",
+
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose-local.yml"
+	],
+
+	"service": "app",
+
+	"workspaceFolder": "/work",
+
+	"extensions": [],
+
+	"postCreateCommand": "gem install bundler && bundle install"
+}
