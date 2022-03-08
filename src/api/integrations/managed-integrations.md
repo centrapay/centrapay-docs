@@ -28,7 +28,7 @@ A Managed Integration is an [Integration][]  which a third party can control.
 | id                 | String                 | The Managed Integration's unique identifier.                                                                    |
 | type               | String                 | The type of Managed Integration. Supported types are `kete-enrolment`.                                          |
 | managedByAccountId | String                 | The id of the account managing the Managed Integration                                                          |
-| active             | Boolean                | Flag indicating whether the Managed Integration is active.                                                      |
+| enabled            | Boolean                | Flag indicating whether the Managed Integration is active.                                                      |
 | status             | String                 | Current status of the Managed Integration. Supported values are `pending`, `active`, `inactive` and `archived`. |
 | externalId         | String                 | Field used to reference an id from an external system.                                                          |
 | invitation         | [Invitation Summary][] | A summary of the associated [Invitation][].                                                                     |
