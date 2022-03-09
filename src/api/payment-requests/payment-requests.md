@@ -96,9 +96,8 @@ version (documented on this page) and the "legacy" version (documented at
 | wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                  |
 | productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*` |
 
-★  For payment options which specify an address, there's a requirement to make a transaction on an
-external ledger. Once you have made that payment, you can use the transaction id for
-[Paying a Legacy Payment Request][].
+★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
+Once you have made that payment, you can use the transaction id to [Pay a Payment Request][] using the legacy payment API.
 
 
 
@@ -478,11 +477,11 @@ them to find the Payment Request and proceed to pay.
 
 ### Pay a Payment Request **EXPERIMENTAL**
 
-To pay a payment request refer to the [Pay Payment Request][] section on the [Payment Activities][] page
+You can pay a Payment Request by creating a Payment Activity against the Payment Request. Please refer to the the [Pay Payment Request][] section on the [Payment Activities][] page.
 
 ### Refund a Payment Request **EXPERIMENTAL**
 
-To refund a payment request refer to the [Refund Payment Request][] section on the [Payment Activities][] page.
+You can refund a Payment Request by creating a Payment Activity against the Payment Request. Please refer to the the [Refund Payment Request][] section on the [Payment Activities][] page.
 
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
