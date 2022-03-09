@@ -5,6 +5,7 @@ parent: Payment Requests
 title: Payment Requests
 nav_order: 1
 permalink: /api/payment-requests
+redirect_from: /api/payment-activities
 ---
 
 # Payment Requests
@@ -96,9 +97,8 @@ version (documented on this page) and the "legacy" version (documented at
 | wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                  |
 | productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*` |
 
-★  For payment options which specify an address, there's a requirement to make a transaction on an
-external ledger. Once you have made that payment, you can use the transaction id for
-[Paying a Payment Request][].
+★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
+Once you have made that payment, you can use the transaction id to [Pay a Payment Request][] using the legacy payment API.
 
 
 
@@ -183,6 +183,44 @@ The Paid By provides a summary of the transactions after the Payment Request was
 | description    | String             | A human readable description of the asset type used.                     |
 | settlementDate | {% dt Timestamp %} | The estimated date that the merchant can expect settlement of funds.     |
 | total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
+
+### Payment Activity **EXPERIMENTAL**
+
+A Payment Activity records a transaction that has happened on a [Payment Request][].
+Payment Activities are created when a Payment Request has been **created**, **paid**, **refunded**, **cancelled**, or **expired**.
+
+{% h4 Mandatory Fields %}
+
+|          Field          |        Type        |                     Description                      |
+| ----------------------- | ------------------ | ---------------------------------------------------- |
+| type                    | String             | See Activity Types below.                            |
+| value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
+| paymentRequestId        | String             | The Payment Request's id.                            |
+| merchantId              | String             | The Payment Request's [Merchant][] id.               |
+| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.        |
+| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.       |
+| merchantName            | String             | The Payment Request's Merchant name.                 |
+| createdAt               | {% dt Timestamp %} | When the activity was created.                       |
+| createdBy               | {% dt CRN %}       | The identity that created the activity.              |
+| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
+| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.           |
+
+{% h4 Optional Fields %}
+
+|   Field   |  Type   |                                         Description                                         |
+| --------- | ------- | ------------------------------------------------------------------------------------------- |
+| assetType | String  | The [Asset Type][] for the "payment" or "refund" activity.                                  |
+| external  | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system. |
+
+{% h4 Activity Types %}
+
+|     Name     |                    Description                     |
+| ------------ | -------------------------------------------------- |
+| request      | [Payment Request][] was created.                   |
+| payment      | [Payment Request][] was paid.                      |
+| refund       | Funds were returned to the shopper.                |
+| cancellation | [Payment Request][] was cancelled by the merchant. |
+| expiry       | [Payment Request][] wasn't paid before time out.   |
 
 ## Operations
 
@@ -507,46 +545,21 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% json %}
 {
-  "id": "MhocUmpxxmgdHjr7DgKoKw",
-  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "type": "payment",
+  "value": { "currency": "NZD", "amount": "1000" },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
   "merchantName": "Centrapay Café",
-  "configId": "5efbe2fb96c08357bb2b9242",
-  "value": {
-    "currency": "NZD",
-    "amount": "1000"
-  },
-  "paymentOptions": [
-    {
-      "amount": "1000",
-      "assetType": "centrapay.nzd.main"
-    },
-    {
-      "amount": "1000",
-      "assetType": "cca.coke.main"
-    }
-  ],
-  "status": "paid",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
   "createdAt": "2021-06-08T04:04:27.426Z",
-  "updatedAt": "2021-06-08T04:04:27.426Z",
-  "expiresAt": "2021-06-08T04:06:27.426Z",
-  "liveness": "main",
-  "expirySeconds": 120,
-  "paidBy": {
-    "assetTotals": [
-      {
-        "type": "centrapay.nzd.main",
-        "description": "Centrapay NZD",
-        "settlementDate": "2021-06-28T04:04:27.426Z",
-        "total": {
-          "amount": "1000",
-          "currency": "NZD"
-        }
-      }
-    ]
-  }
-}
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "2",
+},
 {% endjson %}
+
 
 {% h4 Error Responses %}
 
@@ -612,6 +625,142 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
+### List Payment Activities For Merchant **EXPERIMENTAL**
+
+List payment activities for a merchant. Results are [paginated][] and ordered by
+descending activity created date.
+
+{% reqspec %}
+  GET '/api/payment-activities'
+  auth 'jwt'
+  query_param 'merchantId', '5ee0c486308f590260d9a07f'
+  query_param 'pageKey', 'PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z'
+{% endreqspec %}
+
+{% h4 Required Fields %}
+
+|   Field    |  Type  |                           Description                           |
+| ---------- | ------ | --------------------------------------------------------------- |
+| merchantId | String | The id of the [Merchant][] the Payment Request is on behalf of. |
+
+{% h4 Optional Fields %}
+
+|   Field   |  Type  |               Description                |
+| --------- | ------ | ---------------------------------------- |
+| pageKey   | String | Used to retrieve the next page of items. |
+
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "nextPageKey": "PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z",
+  "items": [
+    {
+      "type": "refund",
+      "value": { "currency": "NZD", "amount": "600" },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3",
+    },
+    {
+      "type": "payment",
+      "value": { "currency": "NZD", "amount": "6190" },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:16:00.000Z",
+      "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+    },
+    {
+      "type": "request",
+      "value": { "currency": "NZD", "amount": "6190" },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:15:46.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "1",
+    }
+  ]
+}
+{% endjson %}
+
+### List Payment Activities For Payment Request **EXPERIMENTAL**
+
+List payment activities for a payment request. Results are ordered by
+descending activity created date.
+
+{% reqspec %}
+  GET '/api/payment-requests/{paymentRequestId}/activities'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "items": [
+    {
+      "type": "refund",
+      "value": { "currency": "NZD", "amount": "600" },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3",
+    },
+    {
+      "type": "payment",
+      "value": { "currency": "NZD", "amount": "6190" },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:16:00.000Z",
+      "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+    },
+    {
+      "type": "request",
+      "value": { "currency": "NZD", "amount": "6190" },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:15:46.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "1",
+    }
+  ]
+}
+{% endjson %}
+
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
@@ -622,6 +771,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 [Assets]: {% link api/assets/assets.md %}
 [Payment Flows Guide]: {% link guides/payment-flows.md %}
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
-[Paying a Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
+[Paying a Legacy Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
 [Legacy Payment API]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
+[Account]: {% link api/accounts/accounts.md %}
