@@ -775,3 +775,4 @@ descending activity created date.
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
 [Legacy Payment API]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Account]: {% link api/accounts/accounts.md %}
+[Payment Request]: #payment-request
