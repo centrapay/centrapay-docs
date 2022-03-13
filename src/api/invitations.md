@@ -31,11 +31,17 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | expiresAt    | {% dt Timestamp %} | When the Invitation expires.                                             |
 | createdAt    | {% dt Timestamp %} | When the Invitation was created.                                         |
 | createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                         |
-| accepted     | Boolean            | A flag indicating whether the Invitation has been accepted.              |
-| acceptedAt   | {% dt Timestamp %} | When the Invitation was accepted.                                        |
-| acceptedBy   | {% dt CRN %}       | The User or API Key that accepted the Invitation.                        |
 | updatedAt    | {% dt Timestamp %} | When the Invitation was updated.                                         |
 | updatedBy    | {% dt CRN %}       | The User or API Key that updated the Invitation.                         |
+
+{% h4 Optional Fields %}
+
+|        Field        |        Type        |                         Description                         |
+| :------------------ | :----------------- | :---------------------------------------------------------- |
+| accepted            | Boolean            | A flag indicating whether the Invitation has been accepted. |
+| acceptedAt          | {% dt Timestamp %} | When the Invitation was accepted.                           |
+| acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.           |
+| acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.      |
 
 ## Operations
 
@@ -99,6 +105,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "accepted": true,
   "acceptedAt": "2021-08-25T10:12:22.122Z",
   "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
+  "acceptedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
   "updatedAt": "2021-08-25T10:12:22.122Z",
   "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
 }
