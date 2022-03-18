@@ -68,12 +68,13 @@ See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 
 {% h4 Error Responses %}
 
-| Status |                      Code                      |                                          Description                                           |
-| :----- | :--------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| Status |                      Code                      |                                           Description                                            |
+| :----- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------- |
 | 400    | {% break _ CHECKSUM_FAILED %}                  | `patronCode` luhn checksum digit doesn't pass.                                                   |
 | 403    | {% break _ PATRON_CODE_INVALID %}              | `patronCode` doesn't exist or has expired.                                                       |
-| 403    | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %} | There was no merchant configuration found for the supplied merchantId and clientId.            |
+| 403    | {% break _ MERCHANT_CONFIGURATION_NOT_FOUND %} | There was no merchant configuration found for the supplied merchantId and clientId.              |
 | 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %}     | `asset` is not supported by any of the [Asset Types][] that the [Merchant][] is configured with. |
+| 403    | {% break _ INSUFFICIENT_ASSET_VALUE %}         | The patron does not have enough funds to quick pay the payment request.                          |
 
 <a name="requests-info">
 ### Getting the information about a payment request
