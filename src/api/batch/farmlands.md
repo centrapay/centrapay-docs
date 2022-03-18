@@ -5,7 +5,7 @@ parent: Batches
 grand_parent: Api Reference
 has_children: false
 nav_exclude: true
-permalink: /api/batch-types/farmlands-external-asset
+permalink: /api/batch-types/farmlands
 description: |
   Load Farmlands Card data
 ---
@@ -14,9 +14,9 @@ description: |
 
 Loads Farmlands Card data into Centrapay as external assets.
 
-| Type Name   | farmlands-external-asset |
-| File Format | JSON                     |
-| File Schema | Array of [Account]       |
+| Type Name   | farmlands          |
+| File Format | JSON               |
+| File Schema | Array of [Account] |
 
 ## Contents
 {:.no_toc .text-delta}
