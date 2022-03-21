@@ -59,7 +59,7 @@ The following table describes the Batch Types supported for loading.
 <table>
   <thead>
     <tr style="text-align: left">
-      <th>Name</th>
+      <th>Type</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -68,10 +68,10 @@ The following table describes the Batch Types supported for loading.
     {%- for batch_type in batch_types -%}
     <tr>
       <td>
-        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.title }}</a>
+        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.type }}</a>
       </td>
       <td>
-       {{ batch_type.description }}
+       {{ batch_type.title }}
       </td>
     </tr>
     {%- endfor -%}

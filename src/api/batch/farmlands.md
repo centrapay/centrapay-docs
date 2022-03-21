@@ -6,8 +6,7 @@ grand_parent: Api Reference
 has_children: false
 nav_exclude: true
 permalink: /api/batch-types/farmlands
-description: |
-  Load Farmlands Card data
+type: farmlands-external-asset
 ---
 
 # Farmlands External Asset Batch
