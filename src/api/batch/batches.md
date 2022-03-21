@@ -108,7 +108,7 @@ Initialize loading of entities from a batch file.
   auth 'api-key'
   example {
     body ({
-      type: 'farmlands',
+      type: 'farmlands-external-asset',
       url: 'https://azurebuckets.com/1234',
       accountId: 'C4QnjXvj8At6SMsEN4LRi9'
     })
@@ -151,7 +151,7 @@ Initialize loading of entities from a batch file.
 {
 	"id": "AVH5uG4gRLYK6YR8JyrViN",
 	"status": "complete",
-	"type": "farmlands",
+	"type": "farmlands-external-asset",
 	"count": "160000",
 	"errorCount": "1",
 	"errors": [
