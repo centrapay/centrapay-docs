@@ -130,7 +130,7 @@ Initialize loading of entities from a batch file.
 {
 	id: "AVH5uG4gRLYK6YR8JyrViN",
 	status: "created",
-	type: "farmlands",
+	type: "farmlands-external-asset",
 	count: "0",
 	errorCount: "0",
 	errors: []
