@@ -59,7 +59,7 @@ The following table describes the Batch Types supported for loading.
 <table>
   <thead>
     <tr style="text-align: left">
-      <th>Name</th>
+      <th>Type</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -68,10 +68,10 @@ The following table describes the Batch Types supported for loading.
     {%- for batch_type in batch_types -%}
     <tr>
       <td>
-        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.title }}</a>
+        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.type }}</a>
       </td>
       <td>
-       {{ batch_type.description }}
+       {{ batch_type.title }}
       </td>
     </tr>
     {%- endfor -%}
@@ -108,7 +108,7 @@ Initialize loading of entities from a batch file.
   auth 'api-key'
   example {
     body ({
-      type: 'farmlands',
+      type: 'farmlands-external-asset',
       url: 'https://azurebuckets.com/1234',
       accountId: 'C4QnjXvj8At6SMsEN4LRi9'
     })
@@ -130,7 +130,7 @@ Initialize loading of entities from a batch file.
 {
 	id: "AVH5uG4gRLYK6YR8JyrViN",
 	status: "created",
-	type: "farmlands",
+	type: "farmlands-external-asset",
 	count: "0",
 	errorCount: "0",
 	errors: []
@@ -151,7 +151,7 @@ Initialize loading of entities from a batch file.
 {
 	"id": "AVH5uG4gRLYK6YR8JyrViN",
 	"status": "complete",
-	"type": "farmlands",
+	"type": "farmlands-external-asset",
 	"count": "160000",
 	"errorCount": "1",
 	"errors": [
