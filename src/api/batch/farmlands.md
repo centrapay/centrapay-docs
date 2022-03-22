@@ -105,7 +105,7 @@ examples please refer to [Example Models][].
 <a name="example">
 ## Example Models
 
-Centrapay matches perviously created resources using `externalId` and records
+Centrapay matches previously created resources using `externalId` and records
 get created or updated based on these IDs. In some cases, fields may be omitted
 to only update some fields.
 
