@@ -17,7 +17,7 @@ Loads Farmlands Card data into Centrapay as external assets.
 
 | Type Name   | farmlands-external-asset |
 | File Format | [JSONL][]{:.external}    |
-| File Schema | Array of [Account]       |
+| Record Type | [Account]       |
 
 ## Contents
 {:.no_toc .text-delta}
