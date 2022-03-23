@@ -145,6 +145,15 @@ code { border: none !important; }
   margin-bottom: 25px;
 }
 
+.cp-badge {
+  border-radius: 9999px;
+  background-color: $royal-050;
+  padding: 0.2rem 0.4rem;
+  font-weight: 500;
+  font-size: smaller;
+  float: right;
+}
+
 // search
 .search-icon { color: $chocolate-600 !important; }
 .search-overlay { background-color: rgba(166, 140, 115, 0.15) !important; }
