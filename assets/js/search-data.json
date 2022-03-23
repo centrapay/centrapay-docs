@@ -247,7 +247,7 @@
   },"41": {
     "doc": "Batches",
     "title": "Models",
-    "content": ". Batch . The batch model represents the progression for loading of a file. Required Fields . | Field | Type | Description | . | id | String | The Batch’s unique identifier | . | status | String | The current Lifecycle Stage of the batch | . | type | String | Batch Type id used to describe the batch content | . | totalCount | BigNumber | The number of items processed | . | errorCount | BigNumber | Total Error counted | . | errors | Array | Error list for the batch | . Batch Lifecycle . Different stages of a Batch’s lifecycle . | Status | Description | . | created | The batch has successfully been submitted | . | copied | The file has been transferred to Centrapay | . | chunked | The batch has been broken up for processing | . | complete | The batch has been processed and may include errors | . | error | There is an error accessing or reading the file, preventing processing | . Batch Types . The following table describes the Batch Types supported for loading. | Type | Description | . | farmlands-external-asset | Farmlands External Asset Batch | . | | . Error . An Error represents the complete or partial failure of the batch. This could be caused by the contents, access or file format. Required Fields . | Field | Type | Description | . | message | String | A description of what caused the Error | . Optional Fields . | Field | Type | Description | . | externalId | String | Field used in debugging in reference to an id from the file | . | index | BigNumber | Item offset where the Error was identified in the file | . ",
+    "content": ". Batch . The batch model represents the progression for loading of a file. Required Fields . | Field | Type | Description | . | id | String | The Batch’s unique identifier | . | status | String | The current Lifecycle Stage of the batch | . | type | String | Batch Type id used to describe the batch content | . | totalCount | BigNumber | The number of items processed | . | errorCount | BigNumber | Total Error counted | . | errors | Array | Error list for the batch | . Batch Lifecycle . Different stages of a Batch’s lifecycle . | Status | Description | . | created | The batch has successfully been submitted | . | copied | The file has been transferred to Centrapay | . | chunked | The batch has been broken up for processing | . | complete | The batch has been processed and may include errors | . | error | There is an error accessing or reading the file, preventing processing | . Batch Types . The following table describes the Batch Types supported for loading. | Type | Description | . | farmlands-external-asset | Farmlands External Asset Batch | . | verifone-terminal-status | Verifone Terminal Status Batch | . Error . An Error represents the complete or partial failure of the batch. This could be caused by the contents, access or file format. Required Fields . | Field | Type | Description | . | message | String | A description of what caused the Error | . Optional Fields . | Field | Type | Description | . | externalId | String | Field used in debugging in reference to an id from the file | . | index | BigNumber | Item offset where the Error was identified in the file | . ",
     "url": "/api/batches#models",
     "relUrl": "/api/batches#models"
   },"42": {
@@ -1049,36 +1049,66 @@
     "url": "/api/status-codes",
     "relUrl": "/api/status-codes"
   },"175": {
+    "doc": "Verifone Terminal Status Batch",
+    "title": "Verifone Terminal Status Batch",
+    "content": "Performs a bulk update to the current status for connected Verifone NZ payment terminals. See the Batch resource for how to submit an instance of this batch. | Type Name | verifone-terminal-status | . | File Format | JSONL | . | Record Type | Terminal Status | . ",
+    "url": "/api/batch-types/verifone-terminal-status",
+    "relUrl": "/api/batch-types/verifone-terminal-status"
+  },"176": {
+    "doc": "Verifone Terminal Status Batch",
+    "title": "Contents",
+    "content": ". | Models . | Terminal Status | . | Example JSONL File | Pretty Printed Example | . ",
+    "url": "/api/batch-types/verifone-terminal-status#contents",
+    "relUrl": "/api/batch-types/verifone-terminal-status#contents"
+  },"177": {
+    "doc": "Verifone Terminal Status Batch",
+    "title": "Models",
+    "content": ". Terminal Status . Fields . | Field | Type | Description | . | status | String | Current terminal status: “active” or “inactive”. | . | statusMessage | String | Reason for status. Eg: “config update required”. | . | terminalId | String | Logical terminal id. Eg: “325-136-329”. | . | deviceId | String Optional | Hardware serial number. Eg: “T404395000002”. | . | merchantId | String Optional | Centrapay Merchant id. | . | merchantConfigId | String Optional | Centrapay Merchant Config id. | . | merchantName | String Optional | Name of merchant. Eg: “Centra Café”. | . | description | String Optional | Description of the device. Eg “Front Till” | . | model | String Optional | Hardware model. Eg: “VX820”. | . | firstSeen | Timestamp Optional | Date when terminal status was first observed. | . | lastSeen | Timestamp Optional | Date when terminal status was last observed. | . | configVersion | String Optional | Version of loaded terminal configuration. Eg: “20220214.1”. | . | configUpdatedAt | Timestamp Optional | Date when terminal configuration was loaded. | . | softwareVersion | String Optional | Version of terminal software. Eg: “1.7.134”. | . | softwareUpdatedAt | Timestamp Optional | Date when terminal software was updated. | . ",
+    "url": "/api/batch-types/verifone-terminal-status#models",
+    "relUrl": "/api/batch-types/verifone-terminal-status#models"
+  },"178": {
+    "doc": "Verifone Terminal Status Batch",
+    "title": "Example JSONL File",
+    "content": "A complete JSONL batch file example. For more legible examples refer to the pretty printed example below. {\"merchantId\":\"06baa0708ee0e000696\",\"merchantConfigId\":\"baa09e8158300063fc\",\"merchantName\":\"Centra Café\",\"description\":\"Till #1\",\"model\":\"VX820\",\"terminalId\":\"325-136-331\",\"deviceId\":\"T404395000004\",\"status\":\"inactive\",\"statusMessage\":\"update required\",\"firstSeen\":\"2020-01-14T09:00:00Z\",\"lastSeen\":\"2022-03-14T09:00:00Z\",\"configVersion\": 20210914.1,\"configUpdatedAt\":\"2021-09-15 09:00:00 UTC\",\"softwareVersion\":\"1.7.134\",\"softwareUpdatedAt\":\"2021-11-14 09:00:00 UTC\"} {\"merchantId\":\"06baa0708ee0e000696\",\"merchantConfigId\":\"baa09e8158300063fc\",\"merchantName\":\"Centra Café\",\"description\":\"Till #2\",\"model\":\"VX820\",\"terminalId\":\"325-136-329\",\"deviceId\":\"T404395000002\",\"status\":\"active\",\"statusMessage\":\"ok\",\"firstSeen\":\"2020-01-14T09:00:00Z\",\"lastSeen\":\"2022-03-14T09:00:00Z\",\"configVersion\": 20220214.1,\"configUpdatedAt\":\"2022-02-14 09:00:00 UTC\",\"softwareVersion\":\"1.7.134\",\"softwareUpdatedAt\":\"2021-11-14 09:00:00 UTC\"} . ",
+    "url": "/api/batch-types/verifone-terminal-status#example-jsonl-file",
+    "relUrl": "/api/batch-types/verifone-terminal-status#example-jsonl-file"
+  },"179": {
+    "doc": "Verifone Terminal Status Batch",
+    "title": "Pretty Printed Example",
+    "content": "Warning: Below our records have newlines for legibility. When submitting a batch file you must only use newlines to separate records. { \"merchantId\": \"06baa0708ee0e000696\", \"merchantConfigId\": \"baa09e8158300063fc\", \"merchantName\": \"Centra Café\", \"description\": \"Till #2\", \"model\": \"VX820\", \"terminalId\": \"325-136-329\", \"deviceId\": \"T404395000002\", \"status\": \"active\", \"statusMessage\": \"incompatible hardware\", \"firstSeen\": \"2020-01-14T09:00:00Z\", \"lastSeen\": \"2022-03-14T09:00:00Z\", \"configVersion\": 20220214.1, \"configUpdatedAt\": \"2022-02-14 09:00:00 UTC\", \"softwareVersion\": \"1.7.134\", \"softwareUpdatedAt\": \"2021-11-14 09:00:00 UTC\" } . ",
+    "url": "/api/batch-types/verifone-terminal-status#pretty-printed-example",
+    "relUrl": "/api/batch-types/verifone-terminal-status#pretty-printed-example"
+  },"180": {
     "doc": "Wallets",
     "title": "Wallets",
     "content": "A Wallet is an asset that represents money. The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency. ",
     "url": "/api/wallets",
     "relUrl": "/api/wallets"
-  },"176": {
+  },"181": {
     "doc": "Wallets",
     "title": "Settlement Wallets EXPERIMENTAL",
     "content": "A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a payment request. This means you cannot topup, withdraw, or send money from this Wallet. ",
     "url": "/api/wallets#settlement-wallets-experimental",
     "relUrl": "/api/wallets#settlement-wallets-experimental"
-  },"177": {
+  },"182": {
     "doc": "Wallets",
     "title": "Contents",
     "content": ". | Creating a Wallet | Listing authorized wallets | Listing Wallet Transactions EXPERIMENTAL | . ",
     "url": "/api/wallets#contents",
     "relUrl": "/api/wallets#contents"
-  },"178": {
+  },"183": {
     "doc": "Wallets",
     "title": "Creating a Wallet",
     "content": "POST /api/wallets . curl -X POST https://service.centrapay.com/api/wallets \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\" }' . Required Fields . | Field | Type | Description | . | accountId | String | The id of the account | . | ledgerId | String | The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test | . Optional Fields . | Field | Type | Description | . | settlement | Boolean | EXPERIMENTAL Configure the Wallet to be a Settlement Wallet. | . Example response payload . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"money\", \"type\": \"centrapay.nzd.main\", \"liveness\": \"main\", \"description\": \"NZD\", \"createdAt\": \"2021-01-01T00:00:00.000Z\", \"status\": \"active\", \"currency\": \"NZD\", \"balance\": \"0\", \"availableBalance\": \"6000\" } . Example response payload for Settlement Wallet . { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"category\": \"money\", \"type\": \"centrapay.nzd.main\", \"liveness\": \"main\", \"description\": \"NZD\", \"createdAt\": \"2021-01-01T00:00:00.000Z\", \"status\": \"active\", \"currency\": \"NZD\", \"balance\": \"0\", \"availableBalance\": \"6000\", \"settlement\": true } . Error Responses . | Status | Code | Description | . | 403 | ACCOUNT_MAX_WALLETS_REACHED | The maximum number of wallets for the given ledger has been reached. | . ",
     "url": "/api/wallets#creating-a-wallet",
     "relUrl": "/api/wallets#creating-a-wallet"
-  },"179": {
+  },"184": {
     "doc": "Wallets",
     "title": "Listing authorized wallets",
     "content": "GET /api/wallets . curl https://service.centrapay.com/api/wallets \\ -H \"X-Api-Key: $api_key\" . Example response payload . [ { \"id\": \"WRhAxxWpTKb5U7pXyxQjjY\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.main\", \"currency\": \"NZD\", \"balance\": \"2000\", \"availableBalance\": \"6000\" }, { \"id\": \"NQ1yeromwnWPD2hY41L2yS\", \"accountId\": \"Te2uDM7xhDLWGVJU3nzwnh\", \"ledgerId\": \"centrapay.nzd.test\", \"currency\": \"NZD\", \"balance\": \"20\", \"availableBalance\": \"6000\" } ] . ",
     "url": "/api/wallets#listing-authorized-wallets",
     "relUrl": "/api/wallets#listing-authorized-wallets"
-  },"180": {
+  },"185": {
     "doc": "Wallets",
     "title": "Listing Wallet Transactions EXPERIMENTAL",
     "content": "Returns a paginated list of Wallet Transactions. GET /api/wallets/{walletId}/transactions . curl https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions \\ -H \"X-Api-Key: $api_key\" . Transaction Fields . | Field | Type | Description | . | activityNumber | BigNumber | Unique sequential Wallet transaction number | . | amount | BigNumber | Absolute transaction amount in cents. | . | value | BigNumber | Change to the Wallet’s balance in cents when the transaction was applied. | . | createdAt | Timestamp | Transaction timestamp as ISO 8601 date string. | . | activityType | String | Hints to the type of transaction: undefined or “returned-asset-transfer” | . | destWalletId | String | Id of the destination Wallet if applicable. | . | srcWalletId | String | Id of the source Wallet if applicable. | . | destParty | String | Display value for party receiving funds if applicable. See note below. | . | srcParty | String | Display value for party providing funds if applicable. See note below. | . | paymentRequestId | String | Id of the related payment request if applicable. | . | topupId | String | Id of the related topup funds transfer request if applicable. | . | assetTransferId | String | Id of the related asset transfer request if applicable. | . | withdrawalId | String | Id of the related withdrawal request if applicable. | . Party Values . The “destParty” and “srcParty” are optionally provided depending on the purpose of the transaction. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account. Example response payload (Payment) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"350\", \"value\": \"-350\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"Centrapay Cafe\", \"destWalletId\": \"GfYJd5tZQ63CrehgTP2RPB\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"paymentRequestId\": \"MhocUmpxxmgdHjr7DgKoKw\" } ] } . Example response payload (Topup) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"5000\", \"value\": \"5000\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"12-4000-100001-00\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"topupId\": \"77hqHDzw6KaaG2P2hoshUB\" } ] } . Example response payload (Sent Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"-2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"destParty\": \"+6422*****36\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Received Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Returned Asset) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"activityType\": \"returned-asset-transfer\", \"srcParty\": \"+6421*****18\", \"destWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"assetTransferId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . Example response payload (Withdraw) . { \"items\": [ { \"activityNumber\": \"1\", \"amount\": \"2500\", \"value\": \"2500\", \"createdAt\": \"2020-06-17T18:00:23.000Z\", \"srcWalletId\": \"EBVSreNmpsE2Pazw3SipXC\", \"destParty\": \"12-3546-2544786-00\", \"withdrawalId\": \"TtQHufC4LGBY2eiPRopRm3\" } ] } . ",
