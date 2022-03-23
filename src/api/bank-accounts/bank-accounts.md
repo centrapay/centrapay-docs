@@ -54,11 +54,12 @@ bank transaction can be used to verify a bank account.
 
 {% h4 Optional Fields %}
 
-|    Field     |  Type  |             Description              |
-| :----------- | :----- | :----------------------------------- |
-| phoneNumber  | String | The user's phone number.             |
-| fullName     | String | The first and last name of the user. |
-| emailAddress | String | The user's email address.            |
+|    Field     |  Type   |                         Description                         |
+| :----------- | :------ | :---------------------------------------------------------- |
+| phoneNumber  | String  | The user's phone number.                                    |
+| fullName     | String  | The first and last name of the user.                        |
+| emailAddress | String  | The user's email address.                                   |
+| test         | Boolean | A flag which is present if the Bank Account is for testing. |
 
 <a name="bank-account-approval-type-summary">
 ### Bank Account Approval Type Summary **EXPERIMENTAL**
@@ -77,12 +78,13 @@ There is one object per type of Bank Account Approval, which provides a summary 
 <a name="bank-account-type">
 ### Bank Account Type **EXPERIMENTAL**
 
-Types of bank accounts to allow topup and withdrawal of different asset types.
+Types of bank accounts to allow access to different [Asset Types][].
 
-|   type    |                           description                           |
-| --------- | --------------------------------------------------------------- |
-| centrapay | Allows topup and withdrawal of `centrapay.nzd` [Asset Types][]. |
-| kete      | Allows topup and withdrawal of `kete.nzd` [Asset Types][].      |
+|   type    |                          description                           |
+| --------- | -------------------------------------------------------------- |
+| centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
+| kete      | Allows topup and withdrawal of the `kete.nzd` asset type.      |
+| quartz    | Allows usage of the `quartz.nzd` asset type.                   |
 
 ## Operations
 
@@ -123,6 +125,7 @@ and has authority to operate this account.
 
 |       Field       |  Type  |                    Description                     |
 | :---------------- | :----- | :------------------------------------------------- |
+| accountId         | String | The id of the owning Centrapay [Account][].        |
 | bankAccountNumber | String | The user's Bank Account number.                    |
 | bankAccountName   | String | The name on the Bank Account provided by the user. |
 
@@ -131,12 +134,13 @@ and has authority to operate this account.
 Note, fields which have a star (✩) create a direct-debit authority and are required for Top Up. All
 fields below when specified are required together.
 
-|    Field     |  Type  |               Description                |
-| :----------- | :----- | :--------------------------------------- |
-| phoneNumber  | String | ✩ The user's phone number.               |
-| fullName     | String | ✩ The first and last name of the user.   |
-| emailAddress | String | ✩ The user's email address.              |
-| type         | String | The [Bank Account Type][] to be created. |
+|    Field     |  Type   |                         Description                         |
+| :----------- | :------ | :---------------------------------------------------------- |
+| phoneNumber  | String  | ✩ The user's phone number.                                  |
+| fullName     | String  | ✩ The first and last name of the user.                      |
+| emailAddress | String  | ✩ The user's email address.                                 |
+| type         | String  | The [Bank Account Type][] to be created.                    |
+| test         | Boolean | A flag which is present if the Bank Account is for testing. |
 
 
 {% h4 Example response payload %}
