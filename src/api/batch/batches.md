@@ -64,11 +64,11 @@ The following table describes the Batch Types supported for loading.
     </tr>
   </thead>
   <tbody>
-    {%- assign batch_types = site.html_pages | where_exp:"item", "item.permalink contains '/api/batch-types/'" -%}
+    {%- assign batch_types = site.html_pages | where_exp:"item", "item.batch_type != nil" -%}
     {%- for batch_type in batch_types -%}
     <tr>
       <td>
-        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.type }}</a>
+        <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.batch_type }}</a>
       </td>
       <td>
        {{ batch_type.title }}

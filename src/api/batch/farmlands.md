@@ -5,7 +5,7 @@ parent: Batches
 grand_parent: Api Reference
 has_children: false
 nav_exclude: true
-type: farmlands-external-asset
+batch_type: farmlands-external-asset
 permalink: /api/batch-types/farmlands-external-asset
 redirect_from:
   - /api/batch-types/farmlands
