@@ -5,7 +5,7 @@ parent: Batches
 grand_parent: Api Reference
 has_children: false
 nav_exclude: true
-type: verifone-terminal-status
+batch_type: verifone-terminal-status
 permalink: /api/batch-types/verifone-terminal-status
 ---
 
