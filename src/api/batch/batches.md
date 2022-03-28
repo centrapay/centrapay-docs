@@ -25,7 +25,7 @@ Batches enable bulk loading of resource onto the Centrapay platform.
 
 The batch model represents the progression for loading of a file.
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
 |   Field    |        Type        |                     Description                      |
 | :--------- | :----------------- | :--------------------------------------------------- |
@@ -35,6 +35,8 @@ The batch model represents the progression for loading of a file.
 | totalCount | {% dt BigNumber %} | The number of items processed                        |
 | errorCount | {% dt BigNumber %} | Total [Error][] counted                              |
 | errors     | Array              | [Error][] list for the batch                         |
+| test       | Boolean {% opt %}  | true if the batch is for testing purposes only       |
+
 
 <a name="batch-lifecycle">
 ### Batch Lifecycle
@@ -83,19 +85,13 @@ The following table describes the Batch Types supported for loading.
 
 An Error represents the complete or partial failure of the batch. This could be caused by the contents, access or file format.
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-|  Field  |  Type  |              Description               |
-| :------ | :----- | :------------------------------------- |
-| message | String | A description of what caused the Error |
-
-
-{% h4 Optional Fields %}
-
-|   Field    |        Type        |                         Description                         |
-| :--------- | :----------------- | :---------------------------------------------------------- |
-| externalId | String             | Field used in debugging in reference to an id from the file |
-| index      | {% dt BigNumber %} | Item offset where the Error was identified in the file      |
+|  Field     |  Type                        |              Description                                    |
+| :--------- | :--------------------------- | :---------------------------------------------------------- |
+| message    | String                       | A description of what caused the Error                      |
+| externalId | String {% opt %}             | Field used in debugging in reference to an id from the file |
+| index      | {% dt BigNumber %} {% opt %} | Item offset where the Error was identified in the file      |
 
 ## Operations
 
@@ -115,13 +111,14 @@ Initialize loading of entities from a batch file.
   }
 {% endreqspec %}
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-|   Field   |  Type  |                    Description                    |
-| :-------- | :----- | :------------------------------------------------ |
-| type      | String | [Batch Type][] used to describe the batch content |
-| url       | String | The url where the file is located                 |
-| accountId | String | Centrapay Account Id that submitted the Batch     |
+|   Field   |  Type              |                    Description                        |
+| :-------- | :----------------- | :---------------------------------------------------- |
+| type      | String             | [Batch Type][] used to describe the batch content     |
+| url       | String             | The url where the file is located                     |
+| accountId | String             | Centrapay Account Id that submitted the Batch         |
+| test      | Boolean {% opt %}  | true if the batch is for testing purposes only        |
 
 
 {% h4 Example Response Payload %}
@@ -159,7 +156,7 @@ Initialize loading of entities from a batch file.
 			"externalId": "69d64d80-f9bd-4057-bc5b-1c55685d995b",
 			"index": "1954",
 			"message": "INVALID_BARCODE_LENGTH",
-		}
+		},
 	]
 }
 {% endjson %}
