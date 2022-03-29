@@ -5,7 +5,7 @@ code { border: none !important; }
 
 .cp-warning { border: 2px solid #F5C752; background-color: #FAF4E7; border-radius: 16px; padding: 8px 16px; margin-bottom: 25px; }
 
-.cp-badge { border-radius: 9999px; background-color: #F5FAFD; padding: 0.2rem 0.4rem; font-weight: 500; font-size: smaller; float: right; }
+.cp-badge { border-radius: 9999px; background-color: #F5FAFD; padding: 0.2rem; font-weight: 500; font-size: x-small; }
 
 .search-icon { color: #FF5C00 !important; }
 
