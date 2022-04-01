@@ -34,7 +34,7 @@ bank transaction can be used to verify a bank account.
 ## Models
 
 ### Bank Account
-{% h4 Mandatory Fields %}
+{% h4 Fields %}
 
 |         Field         |        Type        |                                                        Description                                                         |
 | :-------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------- |
@@ -50,16 +50,12 @@ bank transaction can be used to verify a bank account.
 | createdAt             | {% dt Timestamp %} | When the Bank Account was created.                                                                                         |
 | createdBy             | {% dt CRN %}       | The User or API Key that created the Bank Account.                                                                         |
 | modifiedAt            | {% dt Timestamp %} | When the Bank Account was updated.                                                                                         |
-| modifiedBy            | {% dt CRN %}       | The User or API Key that updated the Bank Account.                                                                         |
-
-{% h4 Optional Fields %}
-
-|    Field     |  Type   |                         Description                         |
-| :----------- | :------ | :---------------------------------------------------------- |
-| phoneNumber  | String  | The user's phone number.                                    |
-| fullName     | String  | The first and last name of the user.                        |
-| emailAddress | String  | The user's email address.                                   |
-| test         | Boolean | A flag which is present if the Bank Account is for testing. |
+| modifiedBy            | {% dt CRN %}      | The User or API Key that updated the Bank Account.                                                                          |
+| phoneNumber           | String {% opt %}  | The user's phone number.                                                                                                    |
+| fullName              | String {% opt %}  | The first and last name of the user.                                                                                        |
+| emailAddress          | String {% opt %}  | The user's email address.                                                                                                   |
+| test                  | Boolean {% opt %} | A flag which is present if the Bank Account is for testing.                                                                 |
+| accountDetailsRefreshToken | String {% opt %}  | A token used for authorization when accessing account details of third party bank accounts.                            |
 
 <a name="bank-account-approval-type-summary">
 ### Bank Account Approval Type Summary **EXPERIMENTAL**
