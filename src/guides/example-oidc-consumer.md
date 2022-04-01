@@ -41,6 +41,7 @@ const userManager = new Oidc.UserManager({
   redirect_uri: yourAppOidcLoginRedirectUri,
   loadUserInfo: false, // "/oauth2/userInfo" call unsupported by Centrapay OAuth server
   post_logout_redirect_uri: yourAppOidcLogoutRedirectUri,
+  revokeAccessTokenOnSignout: true,
   metadata: {
     end_session_endpoint: 'https://auth.centrapay.com/logout'
   }
