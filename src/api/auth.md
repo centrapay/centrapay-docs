@@ -151,6 +151,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : bank-accounts:create    %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : bank-accounts:read      %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : bank-account-approvals:create%}   | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : bank-account-requests:create%}    | &nbsp;&nbsp; ✅ |               |                       |                         |
+| {% break : bank-account-requests:authorize%} | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : media-uploads:create   %}         | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : quotas:read             %}        | &nbsp;&nbsp; ✅ |               |                       |                         |
 | {% break : patron-codes:create %}            | &nbsp;&nbsp; ✅ |               |                       |                         |
