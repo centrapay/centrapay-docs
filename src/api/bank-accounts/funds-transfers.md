@@ -27,26 +27,26 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   auth 'api-key'
   body ({
     amount: '10000',
-    walletId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    bankAuthorityId: 'FRhAzzWpTKb5U7pZygQjjY',
+    assetId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    bankAccountId: 'FRhAzzWpTKb5U7pZygQjjY',
   })
 {% endreqspec %}
 
 {% h4 Required Fields %}
 
-| Field           | Type               | Description                              |
-| :-------------- | :-----             | :--------------------------------------- |
-| amount          | {% dt BigNumber %} | Total amount of the transaction in cents |
-| walletId        | String             | The id of the wallet                     |
-| bankAuthorityId | String             | The id of the bank account               |
+|     Field     |        Type        |               Description                |
+| :------------ | :----------------- | :--------------------------------------- |
+| amount        | {% dt BigNumber %} | Total amount of the transaction in cents |
+| assetId       | String             | The id of the asset                      |
+| bankAccountId | String             | The id of the bank account               |
 
 {% h4 Example response payload %}
 
 {% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
-  "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+  "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
   "accountId": "aBc932S9182qwCDqwer",
   "type": "topup",
   "amount": "10000",
@@ -66,7 +66,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 | 403    | {% break _ QUOTA_EXCEEDED %}                                    | The topup exceeds one or more top up quota limits. See [Quota Error Response][].                                                                                                                                             |
 | 403    | {% break _ DIRECT_DEBIT_NOT_AUTHORIZED        %}                | Bank account requires authorization for top up. See bank accounts [direct debit endpoint][].                                                                                                                                 |
 | 403    | {% break _ INVALID_WALLET_TYPE        %}                        | The wallet type does not support top ups. See [settlement wallets][].                                                                                                                                                        |
-| 403    | {% break _ INVALID_WALLET_TYPE        %}                        | The wallet type does not support top ups. See [settlement wallets][].                                                                                                                                                        |
 | 403    | {% break _ BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_TOPUP        %} | The bank account type is not configured for topups. Only `centrapay` type bank accounts are configured.                                                                                                                      |
 
 ## Get a top up
@@ -82,8 +81,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 {% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
-  "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+  "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
   "accountId": "aBc932S9182qwCDqwer",
   "type": "topup",
   "amount": "10000",
@@ -106,8 +105,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 [
   {
     "id": "5thg2RPBZEfYTPJdQ63Cre",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
@@ -117,8 +116,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   },
   {
     "id": "hg2RfYTQ635tPBZEPJdCre",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
@@ -143,8 +142,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 [
   {
     "id": "5thg2RPBZEfYTPJdQ63Cre",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
@@ -154,8 +153,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   },
   {
     "id": "hg2RfYTQ635tPBZEPJdCre",
-    "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+    "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
     "accountId": "aBc932S9182qwCDqwer",
     "type": "topup",
     "amount": "10000",
