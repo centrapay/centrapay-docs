@@ -29,8 +29,8 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | paypal.test        | [PayPal][]{:.external}               |              | USD        | 🅃 💸   |
 | venmo.main         | [Venmo][]{:.external}                |              | USD        | 💸     |
 | venmo.test         | [Venmo][]{:.external}                |              | USD        | 🅃 💸   |
-| kete.nzd.main      | Kete NZD wallet                      |              | NZD        |       |
-| kete.nzd.test      | Kete NZD wallet                      |              | NZD        | 🅃     |
+| kete.nzd.main      | Kete NZD asset                       |              | NZD        |       |
+| kete.nzd.test      | Kete NZD asset                       |              | NZD        | 🅃     |
 | test               | No-op test payment (always approved) |              | NZD        | 🅃     |
 
 
