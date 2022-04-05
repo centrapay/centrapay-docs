@@ -223,7 +223,7 @@ Returns a [paginated][] list of Assets for an account. This will only return act
 }
 {% endjson %}
 
-## Listing Asset Transactions **EXPERIMENTAL**
+### Listing Asset Transactions **EXPERIMENTAL**
 
 Returns a [paginated][] list of Asset Transactions. This endpoint is currently only supported for `kete` asset types.
 
