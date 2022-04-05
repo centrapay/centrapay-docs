@@ -63,7 +63,6 @@ by locality.
 | -------- | ------ | ---------------------------------------------------- |
 | street   | String | Unit, number, and name of street address             |
 | city     | String | City of location                                     |
-| country  | String | [ISO 3166][]{:.external} Country code. (eg. "NZ")    |
 
 {% h4 Optional Fields %}
 
@@ -78,7 +77,7 @@ by locality.
 
 ## PhoneNumber
 
-A phone number, represented in [E.123][]{:.external} international notation (eg "+6421537663"). We usually use this for recieving text messages.
+A phone number, represented in [E.123][]{:.external} international notation (eg "+6421537663"). We usually use this for receiving text messages.
 
 [E.123]: https://en.wikipedia.org/wiki/E.123
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
