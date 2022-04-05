@@ -37,7 +37,8 @@ individual account.
 | id         | String             | The unique identifier.                                      |
 | type       | String             | Account type, must be either 'org' or 'individual'.         |
 | name       | String             | The display name of the Account.                            |
-| test       | Boolean            | A flag which is only present if the account is for testing. |
+| region     | String             | The region that the Account will operate in.                |
+| test       | Boolean            | A flag which is only present if the Account is for testing. |
 | createdAt  | {% dt Timestamp %} | When the Account was created.                               |
 | modifiedAt | {% dt Timestamp %} | When the Account was updated.                               |
 | createdBy  | {% dt CRN %}       | The User or API Key that created the Account.               |
@@ -60,10 +61,11 @@ individual account.
 
 {% h4 Required Fields %}
 
-| Field |  Type  |                    Description                     |
-| :---- | :----- | :------------------------------------------------- |
-| name  | String | The name of the account                            |
-| type  | String | Account type, must be either 'org' or 'individual' |
+| Field  |  Type  |                               Description                                |
+| :----- | :----- | :----------------------------------------------------------------------- |
+| name   | String | The name of the account.                                                 |
+| type   | String | Account type, must be either "org" or "individual".                      |
+| region | String | The region that the account will operate in. Can be "NZ", "AU", or "US". |
 
 
 {% h4 Optional Fields %}

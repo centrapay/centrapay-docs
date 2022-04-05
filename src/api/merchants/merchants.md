@@ -29,16 +29,16 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Mandatory Fields %}
 
-|   Field   |        Type        |                  Description                   |
-| :-------- | :----------------- | :--------------------------------------------- |
-| id        | String             | Merchant's unique identifier.                  |
-| accountId | String             | Id of Merchant's owning Centrapay account.     |
-| name      | String             | Merchant name.                                 |
-| country   | String             | Merchant [ISO 3166]{:.external} country code.  |
-| createdAt | {% dt Timestamp %} | When the Merchant was created.                 |
-| createdBy | {% dt CRN %}       | The User or API Key that created the Merchant. |
-| updatedAt | {% dt Timestamp %} | When the Merchant was updated.                 |
-| updatedBy | {% dt CRN %}       | The User or API Key that updated the Merchant. |
+|   Field   |        Type        |                                        Description                                        |
+| :-------- | :----------------- | :---------------------------------------------------------------------------------------- |
+| id        | String             | Merchant's unique identifier.                                                             |
+| accountId | String             | Id of Merchant's owning Centrapay account.                                                |
+| name      | String             | Merchant name.                                                                            |
+| country   | String             | Merchant [ISO 3166]{:.external} country code. Must match the "region" on the [Account][]. |
+| createdAt | {% dt Timestamp %} | When the Merchant was created.                                                            |
+| createdBy | {% dt CRN %}       | The User or API Key that created the Merchant.                                            |
+| updatedAt | {% dt Timestamp %} | When the Merchant was updated.                                                            |
+| updatedBy | {% dt CRN %}       | The User or API Key that updated the Merchant.                                            |
 
 {% h4 Optional Fields %}
 
@@ -268,3 +268,4 @@ Returns a [paginated][] list of Merchants attached to an Account.
 [ISO 3166]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 [Location]: {% link api/data-types.md %}#Location
 [paginated]: {% link api/pagination.md %}
+[Account]: {% link api/accounts/accounts.md %}
