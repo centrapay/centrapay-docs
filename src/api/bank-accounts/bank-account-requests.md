@@ -80,7 +80,7 @@ may be stored against those Bank Accounts.
   createdBy: crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey
   updatedAt: 2022-03-31T02:56:29.713Z
   updatedBy: crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey
-  authorizationUrl: https://example.com/authorization-redirect-url
+  authorizationUrl: https://example.com/authorization-url
 {% endjson %}
 
 ### Authorize Bank Account Request **EXPERIMENTAL**
@@ -98,9 +98,9 @@ may be stored against those Bank Accounts.
 
 {% h4 Fields %}
 
-| Field |  Type  |                      Description                       |
-| :---- | :----- | :----------------------------------------------------- |
-| code  | String | Authorization code returned returned from third party. |
+| Field |  Type  |                  Description                  |
+| :---- | :----- | :-------------------------------------------- |
+| code  | String | Authorization code returned from third-party. |
 
 {% h4 Example response payload %}
 
