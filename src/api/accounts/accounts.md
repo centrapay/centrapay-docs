@@ -32,17 +32,24 @@ individual account.
 ### Account
 
 
-|   Field    |        Type        |                         Description                         |
-| :--------- | :----------------- | :---------------------------------------------------------- |
-| id         | String             | The unique identifier.                                      |
-| type       | String             | Account type, must be either 'org' or 'individual'.         |
-| name       | String             | The display name of the Account.                            |
-| region     | String             | The region that the Account will operate in.                |
-| test       | Boolean            | A flag which is only present if the Account is for testing. |
-| createdAt  | {% dt Timestamp %} | When the Account was created.                               |
-| modifiedAt | {% dt Timestamp %} | When the Account was updated.                               |
-| createdBy  | {% dt CRN %}       | The User or API Key that created the Account.               |
-| modifiedBy | {% dt CRN %}       | The User or API Key that updated the Account.               |
+|     Field     |        Type        |                         Description                         |
+| :------------ | :----------------- | :---------------------------------------------------------- |
+| id            | String             | The unique identifier.                                      |
+| type          | String             | Account type, must be either 'org' or 'individual'.         |
+| name          | String             | The display name of the Account.                            |
+| region        | String             | The region that the Account will operate in.                |
+| test          | Boolean            | A flag which is only present if the Account is for testing. |
+| createdAt     | {% dt Timestamp %} | When the Account was created.                               |
+| modifiedAt    | {% dt Timestamp %} | When the Account was updated.                               |
+| createdBy     | {% dt CRN %}       | The User or API Key that created the Account.               |
+| modifiedBy    | {% dt CRN %}       | The User or API Key that updated the Account.               |
+| subscriptions | Array              | A list of [Subscriptions](#subscription) on the Account.    |
+
+### Subscription
+
+| Field |  Type  |          Description          |
+| :---- | :----- | :---------------------------- |
+| name  | String | The name of the Subscription. |
 
 ## Operations
 
@@ -86,7 +93,8 @@ individual account.
   "createdAt": "2020-06-12T01:17:46.499Z",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "version": "1"
+  "version": "1",
+  "subscriptions": [],
 }
 {% endjson %}
 
@@ -110,7 +118,8 @@ individual account.
   "createdAt": "2020-06-12T01:17:46.499Z",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "version": "1"
+  "version": "1",
+  "subscriptions": [],
 }
 {% endjson %}
 
@@ -141,7 +150,8 @@ individual account.
   "createdAt": "2020-06-12T01:17:46.499Z",
   "modifiedAt": "2020-06-12T02:35:12.112Z",
   "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "version": "2"
+  "version": "2",
+  "subscriptions": [],
 }
 {% endjson %}
 
