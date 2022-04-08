@@ -37,13 +37,13 @@
   },"6": {
     "doc": "Accounts",
     "title": "Models",
-    "content": "Account . | Field | Type | Description | . | id | String | The unique identifier. | . | type | String | Account type, must be either ‘org’ or ‘individual’. | . | name | String | The display name of the Account. | . | region | String | The region that the Account will operate in. | . | test | Boolean | A flag which is only present if the Account is for testing. | . | createdAt | Timestamp | When the Account was created. | . | modifiedAt | Timestamp | When the Account was updated. | . | createdBy | CRN | The User or API Key that created the Account. | . | modifiedBy | CRN | The User or API Key that updated the Account. | . | subscriptions | Array | A list of Subscriptions on the Account. | . Subscription . | Field | Type | Description | . | name | String | The name of the Subscription. | . ",
+    "content": "Account . | Field | Type | Description | . | id | String | The unique identifier. | . | type | String | Account type, must be either ‘org’ or ‘individual’. | . | name | String | The display name of the Account. | . | region | String | The region that the Account will operate in. Only defined for ‘org’ Accounts. | . | test | Boolean | A flag which is only present if the Account is for testing. | . | createdAt | Timestamp | When the Account was created. | . | modifiedAt | Timestamp | When the Account was updated. | . | createdBy | CRN | The User or API Key that created the Account. | . | modifiedBy | CRN | The User or API Key that updated the Account. | . | subscriptions | Array | A list of Subscriptions on the Account. | . Subscription . | Field | Type | Description | . | name | String | The name of the Subscription. | . ",
     "url": "/api/accounts#models",
     "relUrl": "/api/accounts#models"
   },"7": {
     "doc": "Accounts",
     "title": "Operations",
-    "content": "Create an Account . POST /api/accounts . curl -X POST https://service.centrapay.com/api/accounts \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Centrapay Cafe\", \"type\": \"org\" }' . Required Fields . | Field | Type | Description | . | name | String | The name of the account. | . | type | String | Account type, must be either “org” or “individual”. | . | region | String | The region that the account will operate in. Can be “NZ”, “AU”, or “US”. | . Optional Fields . | Field | Type | Description | . | owner | String | Id of user to add as member with “account-owner” role. | . | test | Boolean | A flag indicating if the account is for testing. | . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Centrapay Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"1\", \"subscriptions\": [ ] } . Get an Account . GET /api/accounts/{accountId} . curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Centrapay Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"1\", \"subscriptions\": [ ] } . Update an Account . PUT /api/accounts/{accountId} . curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Shortland St Cafe\" }' . Required Fields . | Field | Type | Description | . | name | String | The name of the account | . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Shortland St Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T02:35:12.112Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"2\", \"subscriptions\": [ ] } . ",
+    "content": "Create an Account . POST /api/accounts . curl -X POST https://service.centrapay.com/api/accounts \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Centrapay Cafe\", \"type\": \"org\" }' . Required Fields . | Field | Type | Description | . | name | String | The name of the Account. | . | type | String | Account type, must be either “org” or “individual”. | . Optional Fields . | Field | Type | Description | . | owner | String | Id of user to add as member with “account-owner” role. | . | test | Boolean | A flag indicating if the Account is for testing. | . | region | String | The region that the Account will operate in. Required for ‘org’ Accounts, not allowed for ‘individual’ Accounts. Can be “NZ”, “AU”, or “US”. | . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Centrapay Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"1\", \"subscriptions\": [ ] } . Get an Account . GET /api/accounts/{accountId} . curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Centrapay Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"1\", \"subscriptions\": [ ] } . Update an Account . PUT /api/accounts/{accountId} . curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Shortland St Cafe\" }' . Required Fields . | Field | Type | Description | . | name | String | The name of the account | . Example response payload . { \"id\": \"Jaim1Cu1Q55uooxSens6yk\", \"name\": \"Shortland St Cafe\", \"type\": \"org\", \"region\": \"NZ\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"createdAt\": \"2020-06-12T01:17:46.499Z\", \"modifiedAt\": \"2020-06-12T02:35:12.112Z\", \"modifiedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"version\": \"2\", \"subscriptions\": [ ] } . ",
     "url": "/api/accounts#operations",
     "relUrl": "/api/accounts#operations"
   },"8": {
@@ -557,17 +557,17 @@
     "url": "/guides/loading-and-sending-assets",
     "relUrl": "/guides/loading-and-sending-assets"
   },"93": {
-    "doc": "Guides",
-    "title": "Guides",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/guides",
-    "relUrl": "/guides"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"94": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Accounts",
+    "title": "Accounts",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"95": {
     "doc": "Integrations",
     "title": "Integrations",
@@ -575,23 +575,23 @@
     "url": "/api/section/integrations",
     "relUrl": "/api/section/integrations"
   },"96": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"97": {
     "doc": "Merchants",
     "title": "Merchants",
     "content": " ",
     "url": "/api/section/merchants",
     "relUrl": "/api/section/merchants"
-  },"98": {
+  },"97": {
     "doc": "Batches",
     "title": "Batches",
     "content": " ",
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
+  },"98": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"99": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
@@ -599,17 +599,17 @@
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
   },"100": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"101": {
     "doc": "API Reference",
     "title": "API Reference",
     "content": " ",
     "url": "/api",
     "relUrl": "/api"
+  },"101": {
+    "doc": "Guides",
+    "title": "Guides",
+    "content": " ",
+    "url": "/guides",
+    "relUrl": "/guides"
   },"102": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -647,17 +647,17 @@
     "url": "/api/integrations",
     "relUrl": "/api/integrations"
   },"108": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
-    "url": "/guides/introduction",
-    "relUrl": "/guides/introduction"
-  },"109": {
     "doc": "API Introduction",
     "title": "API Introduction",
     "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
     "url": "/api/introduction",
     "relUrl": "/api/introduction"
+  },"109": {
+    "doc": "Guides",
+    "title": "Guides",
+    "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
+    "url": "/guides/introduction",
+    "relUrl": "/guides/introduction"
   },"110": {
     "doc": "Invitations",
     "title": "Invitations",
