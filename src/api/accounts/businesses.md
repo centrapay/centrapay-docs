@@ -86,10 +86,10 @@ org account will be created and associated to the business.
 
 {% h4 Error Responses %}
 
-| Status |      Code       |                             Description                             |
-| :----- | :-------------- | :------------------------------------------------------------------ |
-| 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, or is of the wrong type. |
-| 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                   |
+| Status |      Code       |                                         Description                                          |
+| :----- | :-------------- | :------------------------------------------------------------------------------------------- |
+| 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
+| 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
 
 ### Get a Business by Account id **EXPERIMENTAL**
 
