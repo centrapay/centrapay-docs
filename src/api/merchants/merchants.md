@@ -89,9 +89,10 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Error Responses %}
 
-| Status |                Code                 |                                  Description                                   |
-| :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
+| Status |                 Code                  |                                  Description                                   |
+| :----- | :------------------------------------ | :----------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_MISMATCH %}   | The bank account in the settlement config does not belong to the same account. |
+| 403    | {% break _ ACCOUNT_REGION_MISMATCH %} | The merchant's "country" does not match the "region" on the Account.           |
 
 ### Get a Merchant
 
