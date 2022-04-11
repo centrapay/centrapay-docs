@@ -24,6 +24,7 @@ Payment Requests have the following statuses:
  * **paid**: after being paid with one or more transactions.
  * **cancelled**: after being cancelled or voided by the merchant.
  * **expired**: after expiry time is reached without being paid or cancelled.
+ * **refunded**: after being partially or fully refunded.
 
 Payment requests can also be refunded for a short period of time after being paid.
 
@@ -53,7 +54,7 @@ version (documented on this page) and the "legacy" version (documented at
 | merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.             |
 | merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.               |
 | configId       | String             | The [Merchant Config][] id used to configure the payment options.           |
-| status         | String             | "new", "paid", "cancelled", "expired"                                       |
+| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                                       |
 | liveness       | String             | Indicates test assets are accepted. Values are "main" or "test".            |
 | createdAt      | {% dt Timestamp %} | When the payment request was created.                                       |
 | updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                       |
