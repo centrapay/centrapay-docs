@@ -37,7 +37,7 @@ Exported Farmlands Account used for importing and updating of a [Centrapay Accou
 |     Field        |        Type                  |                        Description                        |
 | :--------------- | :--------------------------- | :-------------------------------------------------------- |
 | externalId       | String                       | Id used for keeping imported Centrapay Account up to date |
-| accountNumber    | {% dt BigNumber %}           | Farmlands identifier attached to the Centrapay Account    |
+| accountNumber    | String                       | Farmlands identifier attached to the Centrapay Account    |
 | availableBalance | {% dt BigNumber %} {% opt %} | Current spendable balance of Farmlands Ledger in cents                                    |
 | contacts         | Array {% opt %}              | [Contact][] List for the imported Centrapay Account. When empty all Contacts are removed. |
 
@@ -68,9 +68,9 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 | :---------      | :----------------- | :-------------------------------------------------------------------------------------------------------------------- |
 | externalId      | String             | Id used for keeping imported [Patron Code][] details up to date                                                       |
 | status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived"                                       |
-| expiry          | {% dt Timestamp %} | Payments will be accepted until this time. When expressed as `YYYY-MM-DD` the Card will be valid up to 23:59:59 NZST. |
-| barcode         | String {% opt %}   | 9 digit field to display in barcode format                            |
-| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications |
+| expiry          | {% dt Timestamp %} | Payments will be accepted until this time                                                                             |
+| barcode         | String {% opt %}   | 9 digit field to display in barcode format                                                                            |
+| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications                                                 |
 
 <a name="jsonl-example">
 ## Example JSONL File
