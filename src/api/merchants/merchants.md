@@ -260,9 +260,10 @@ Returns a [paginated][] list of Merchants attached to an Account.
 
 {% h4 Error Responses %}
 
-| Status |                Code                 |                                  Description                                   |
-| :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
+| Status |                 Code                  |                                  Description                                   |
+| :----- | :------------------------------------ | :----------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_MISMATCH %}   | The bank account in the settlement config does not belong to the same account. |
+| 403    | {% break _ ACCOUNT_REGION_MISMATCH %} | The merchant's "country" does not match the "region" on the Account.           |
 
 [Merchant Configs]: {% link api/merchants/merchant-configs.md %}
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
