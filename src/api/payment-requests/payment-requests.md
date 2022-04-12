@@ -354,7 +354,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | Status |                    Code                    |                                                Description                                                |
 | :----- | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
 | 400    | {% break _ LINE_ITEMS_SUM_CHECK_FAILED %}  | The sum value of the line items did not equal the value of the payment request.                           |
-| 403    | {% break _ RedirectUrl not supported %}    | The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config][]. |
+| 403    | {% break _ REDIRECT_URL_INVALID %}         | The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config][]. |
 | 400    | {% break _ CHECKSUM_FAILED %}              | Luhn checksum digit doesn't pass.                                                                         |
 | 403    | {% break _ PATRON_CODE_INVALID %}          | Patron Code doesn't exist or has expired.                                                                 |
 | 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | The currency is not supported by any of the [Asset Types][] that the [Merchant][] is configured with.     |
