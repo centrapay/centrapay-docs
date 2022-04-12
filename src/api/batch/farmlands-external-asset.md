@@ -38,7 +38,7 @@ Exported Farmlands Account used for importing and updating of a [Centrapay Accou
 | :--------------- | :--------------------------- | :-------------------------------------------------------- |
 | externalId       | String                       | Id used for keeping imported Centrapay Account up to date |
 | accountNumber    | String                       | Farmlands identifier attached to the Centrapay Account    |
-| availableBalance | {% dt BigNumber %} {% opt %} | Current spendable balance of Farmlands Ledger in cents                                    |
+| availableBalance | {% dt BigNumber %} {% opt %} | Current spendable balance of Farmlands Ledger in cents. When not specified, defaults to 0.|
 | contacts         | Array {% opt %}              | [Contact][] List for the imported Centrapay Account. When empty all Contacts are removed. |
 
 <a name="contact">
