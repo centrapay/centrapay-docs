@@ -59,10 +59,11 @@ by locality.
 
 {% h4 Required Fields %}
 
-|   Name   |  Type  |                     Description                      |
-| -------- | ------ | ---------------------------------------------------- |
-| street   | String | Unit, number, and name of street address             |
-| city     | String | City of location                                     |
+|  Name   |  Type  |                    Description                    |
+| ------- | ------ | ------------------------------------------------- |
+| street  | String | Unit, number, and name of street address          |
+| city    | String | City of location                                  |
+| country | String | [ISO 3166][]{:.external} Country code. (eg. "NZ") |
 
 {% h4 Optional Fields %}
 
