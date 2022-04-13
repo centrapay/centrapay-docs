@@ -358,7 +358,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | 400    | {% break _ CHECKSUM_FAILED %}              | Luhn checksum digit doesn't pass.                                                                         |
 | 403    | {% break _ PATRON_CODE_INVALID %}          | Patron Code doesn't exist or has expired.                                                                 |
 | 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | The currency is not supported by any of the [Asset Types][] that the [Merchant][] is configured with.     |
-| 403    | {% break _ INSUFFICIENT_ASSET_VALUE %}     | The patron does not have enough funds to quick pay the payment request.                                   |
 
 ### Get a Payment Request
 

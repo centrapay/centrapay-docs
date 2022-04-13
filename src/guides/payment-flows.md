@@ -80,8 +80,8 @@ approval before this goes through.
 
 ### Quick Pay
 
-Quick pay is used to pay the payment request immediately after it's created, without requiring patron approval.
-Quick pay can only be triggered using the patron-presented flows, and the patron barcode must be linked to an
+Quick Pay is used to pay the payment request after it is polled for the first time, without requiring patron approval.
+Quick Pay can only be triggered using the patron-presented flows, and the patron barcode must be linked to an
 asset type that allows quick pay. See [Asset Types][] for the list of asset types that support Quick Pay.
 
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
