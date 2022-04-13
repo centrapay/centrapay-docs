@@ -64,13 +64,13 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 {% h4 Fields %}
 
-|   Field         |        Type        |                                    Description                                     |
-| :---------      | :----------------- | :--------------------------------------------------------------------------------- |
-| externalId      | String {% opt %}   | Placeholder field reserved future use, expected to be unique                       |
-| barcode         | String             | Unique 9 digit field to display in barcode format to pay by [Patron Code][]        |
-| status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived"    |
-| expiry          | {% dt Timestamp %} | Payments will be accepted until this time                                          |
-| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications              |
+|   Field         |        Type        |                                  Description                                    |
+| :---------      | :----------------- | :------------------------------------------------------------------------------ |
+| externalId      | String {% opt %}   | Placeholder field reserved future use, expected to be unique                    |
+| barcode         | {% dt BigNumber %} | Unique 9 digit field to display in barcode format to pay by [Patron Code][]     |
+| status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived" |
+| expiry          | {% dt Timestamp %} | Payments will be accepted until this time                                       |
+| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications           |
 
 <a name="jsonl-example">
 ## Example JSONL File
