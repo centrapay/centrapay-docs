@@ -66,7 +66,7 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 |   Field         |        Type        |                                  Description                                    |
 | :---------      | :----------------- | :------------------------------------------------------------------------------ |
-| externalId      | String {% opt %}   | Placeholder field reserved future use, expected to be unique                    |
+| externalId      | String {% opt %}   | Farmlands unique identifier for the card.                     |
 | barcode         | {% dt BigNumber %} | Unique 9 digit field to display in barcode format to pay by [Patron Code][]     |
 | status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived" |
 | expiry          | {% dt Timestamp %} | Payments will be accepted until this time                                       |
