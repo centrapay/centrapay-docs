@@ -26,7 +26,7 @@ A Managed Integration is an [Integration][]  which a third party can control.
 |   Field    |        Type        |                                                                Description                                                                 |
 | :--------- | :----------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
 | id         | String             | The Managed Integration's unique identifier.                                                                                               |
-| type       | String             | The type of Managed Integration. Supported types are `kete-enrolment`.                                                                     |
+| type       | String             | The type of Managed Integration. Supported types are `kete-enrolment`, `paypal-referral`.                                                  |
 | enabled    | Boolean            | Flag indicating whether the Managed Integration should become active or inactive.                                                          |
 | status     | String             | Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`. |
 | externalId | String             | Field used to reference an id from an external system.                                                                                     |
@@ -80,6 +80,21 @@ A summary of the [Invitation][] for a Managed Integration.
 | familyName   | String | Last name.                                       |
 | email        | String | Email address.                                   |
 | phoneNumber  | String | The user's NZ phone number.                      |
+
+### paypal-referral
+
+{% h4 Mandatory Fields %}
+
+|        Field        |  Type  |                       Description                        |
+| :------------------ | :----- | :------------------------------------------------------- |
+| centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. |
+
+{% h4 Optional Fields %}
+
+|      Field       |  Type  |                         Description                          |
+| :--------------- | :----- | :----------------------------------------------------------- |
+| referralLink     | String | The URL that directs to the PayPal merchant onboarding flow. |
+| paypalMerchantId | String | The ID of the PayPal merchant that is being referred.        |
 
 ## Operations
 
