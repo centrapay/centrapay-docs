@@ -35,21 +35,24 @@ rules governing how it can be obtained, shared or spent.
 ### Asset
 
 All assets have the following fields along with the additional fields that are
-specific to its category.
+specific to its category. Assets which don't have a category are considered
+**EXPERIMENTAL** and the model may change.
 
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-| Field             | Type               | Description                                                            |
-|:------------------|:-------------------|:-----------------------------------------------------------------------|
-| id                | String             | The Asset's unique identifier.                                         |
-| accountId         | String             | The Asset's owning Centrapay Account id.                               |
-| category          | String             | Asset category ("Money", "Giftcard", or "Token").                      |
-| type              | String             | [Asset Type][] id used by payment option asset types.                  |
-| liveness          | String             | Either "main" (live payments allowed) or "test".                       |
-| description       | String             | Displayable asset description.                                         |
-| createdAt         | {% dt Timestamp %} | Date when the asset was created or issued.                             |
-| status            | String             | "active" if the asset can be used for payments.                        |
+|    Field    |        Type        |                                           Description                                           |
+| :---------- | :----------------- | :---------------------------------------------------------------------------------------------- |
+| id          | String             | The Asset's unique identifier.                                                                  |
+| accountId   | String             | The Asset's owning Centrapay Account id.                                                        |
+| category    | String {% opt %}   | Asset category ("money", "giftcard", "token").                                                  |
+| type        | String             | [Asset Type][] id used by payment option asset types.                                           |
+| liveness    | String             | Either "main" (live payments allowed) or "test".                                                |
+| description | String             | Displayable asset description.                                                                  |
+| createdAt   | {% dt Timestamp %} | Date when the asset was created or issued.                                                      |
+| status      | String             | "active" if the asset can be used for payments.                                                 |
+| status      | String             | "active" if the asset can be used for payments.                                                 |
+| meta        | Object {% opt %}   | **EXPERIMENTAL** Additional data that may only appear in the [Get Asset](#get-asset) response. |
 
 <a name="money">
 ### Money
@@ -60,15 +63,14 @@ and does not expire.
 
 Money assets have the following fields along with the base asset fields.
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
 | Field             | Type               | Description                                                           |
 |:------------------|:-------------------|:----------------------------------------------------------------------|
 | currency          | String             | Currency code, eg "NZD"                                               |
 | balance           | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents).  |
 | availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases.|
-
-
+| settlement | Boolean {% opt %} | **EXPERIMENTAL** The asset is configured for [Settlements][].|
 
 
 <a name="giftcards">
@@ -81,29 +83,24 @@ entirety.
 
 Gift cards have the following fields along with the base asset fields.
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-|     Field         |        Type        |                             Description                               |
-| :---------------- | :----------------- | :-------------------------------------------------------------------- |
-| issuer            | String             | The identifier for the issuer of the gift card.                       |
-| currency          | String             | Currency code, eg "NZD"                                               |
-| balance           | {% dt BigNumber %} | Current balance in the currency's smallest denomination (ie. cents).  |
-| availableBalance  | {% dt BigNumber %} | The balance of the asset that is available for transfers or purchases.|
-| initialBalance    | {% dt BigNumber %} | The balance when the asset was created.                               |
-
-{% h4 Optional Fields %}
-
-|      Field       |        Type        |                                          Description                                          |
-| :--------------- | :----------------- | :-------------------------------------------------------------------------------------------- |
-| externalId       | String             | The asset identifier from the issuing system.                                                 |
-| expiresAt        | {% dt Timestamp %} | The date when the asset expires.                                                              |
-| balanceUpdatedAt | {% dt Timestamp %} | The date when the balance was last observed to be updated.                                    |
-| productCode      | String             | **EXPERIMENTAL** The unique code which must match a merchant's payment option for redemption. |
-| img              | String             | **EXPERIMENTAL** The img URL of the gift card.                                                |
-| brandName        | String             | **EXPERIMENTAL** The name of the brand that the gift card belongs to.                         |
-| brandImg         | String             | **EXPERIMENTAL** The img URL of the brand that the gift card belongs to.                      |
-| brandWebsite     | String             | **EXPERIMENTAL** The URL of the brand that the gift card belongs to.                          |
-| issuerWebsite    | String             | **EXPERIMENTAL** The URL of the issuer of the gift card.                                      |
+|      Field       |             Type             |                                          Description                                          |
+| :--------------- | :--------------------------- | :-------------------------------------------------------------------------------------------- |
+| issuer           | String                       | The identifier for the issuer of the gift card.                                               |
+| currency         | String                       | Currency code, eg "NZD"                                                                       |
+| balance          | {% dt BigNumber %}           | Current balance in the currency's smallest denomination (ie. cents).                          |
+| availableBalance | {% dt BigNumber %}           | The balance of the asset that is available for transfers or purchases.                        |
+| initialBalance   | {% dt BigNumber %}           | The balance when the asset was created.                                                       |
+| externalId       | String {% opt %}             | The asset identifier from the issuing system.                                                 |
+| expiresAt        | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                              |
+| balanceUpdatedAt | {% dt Timestamp %} {% opt %} | The date when the balance was last observed to be updated.                                    |
+| productCode      | String {% opt %}             | **EXPERIMENTAL** The unique code which must match a merchant's payment option for redemption. |
+| img              | String {% opt %}             | **EXPERIMENTAL** The img URL of the gift card.                                                |
+| brandName        | String {% opt %}             | **EXPERIMENTAL** The name of the brand that the gift card belongs to.                         |
+| brandImg         | String {% opt %}             | **EXPERIMENTAL** The img URL of the brand that the gift card belongs to.                      |
+| brandWebsite     | String {% opt %}             | **EXPERIMENTAL** The URL of the brand that the gift card belongs to.                          |
+| issuerWebsite    | String {% opt %}             | **EXPERIMENTAL** The URL of the issuer of the gift card.                                      |
 
 
 
@@ -116,18 +113,13 @@ multiple currencies and is the same for all tokens of the same type.
 
 Tokens have the following fields along with the base asset fields.
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-| Field | Type  | Description                                                                                  |
-|:------|:------|:---------------------------------------------------------------------------------------------|
-| value | Array | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. |
-
-{% h4 Optional Fields %}
-
-| Field     | Type               | Description                                |
-| :-------  | :------------      | :----------------------------------------- |
-| validFrom | {% dt Timestamp %} | The date when the asset becomes spendable. |
-| expiresAt | {% dt Timestamp %} | The date when the asset expires.           |
+|   Field   |             Type             |                                         Description                                          |
+| :-------- | :--------------------------- | :------------------------------------------------------------------------------------------- |
+| value     | Array                        | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. |
+| validFrom | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                   |
+| expiresAt | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                             |
 
 
 ## Operations
@@ -358,3 +350,4 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 [Funds Transfers]: {% link api/bank-accounts/funds-transfers.md %}
 [Asset Transfers]: {% link api/assets/asset-transfers.md %}
 [paginated]: {% link api/pagination.md %}
+[Settlements]: {% link api/assets/wallets.md %}#settlement-wallets
