@@ -97,7 +97,7 @@ to only update some fields.
   When submitting a batch file you must only use newlines to separate records.
 %} 
 
-An example of a Farmlands Asset complete with availableBalance, contacts and cards.
+An example of a [Centrapay Asset][] complete with availableBalance, contacts and cards.
 
 {% json %}
 {
