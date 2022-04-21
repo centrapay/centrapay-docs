@@ -60,6 +60,7 @@ bank transaction can be used to verify a bank account.
 | fullName     | String  | The first and last name of the user.                        |
 | emailAddress | String  | The user's email address.                                   |
 | test         | Boolean | A flag which is present if the Bank Account is for testing. |
+| assetId      | String  | The id of an [Asset][] which is associated to the bank account. |
 
 <a name="bank-account-approval-type-summary">
 ### Bank Account Approval Type Summary **EXPERIMENTAL**
@@ -332,34 +333,44 @@ for Bank Accounts.
 {% json %}
 [
   {
-    "id": "WRhAxxWpTKb5U7pXyxQjjY",
+    "id": "XZbPLViMzekVBbF7QMqgaY",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "bankAccountNumber": "12-1234-1234567-123",
-    "bankAccountName": "John Doe",
     "status": "created",
+    "bankAccountNumber": "02-0500-0568903-097",
+    "bankAccountName": "Pocket Money",
+    "directDebitAuthorized": false,
+    "bankRegion": "nz",
+    "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+    "createdAt": "2022-04-19T05:43:40.425Z",
     "verified": false,
-    "type": "centrapay",
-    "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z",
-    "approvals": []
+    "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+    "modifiedAt": "2022-04-19T05:43:40.425Z",
+    "approvals": [],
+    "type": "quartz",
+    "test": true,
+    "assetId": "FXh3dRhxo8JmBkMHc5qcNa"
   },
   {
-    "id": "b5URhAxxWpTKyxQjjY7pXW",
+    "id": "3Kfdm8cuW1W6f8AoWJREs4",
     "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "bankAccountNumber": "12-1234-1234567-123",
-    "bankAccountName": "Jane Doe",
-    "status": "active",
-    "verified": true,
-    "type": "centrapay",
-    "directDebitAuthorized": true,
-    "createdAt": "2020-06-12T01:17:46.499Z",
+    "status": "created",
+    "bankAccountNumber": "00-1213-1231299-999",
+    "bankAccountName": "Jean",
+    "directDebitAuthorized": false,
+    "bankRegion": "nz",
+    "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+    "createdAt": "2022-02-22T03:27:57.138Z",
+    "verified": false,
+    "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+    "modifiedAt": "2022-02-22T03:27:57.138Z",
     "approvals": [
       {
         "type": "settlement",
         "status": "pending",
         "updatedAt": "2021-11-08T21:52:39.915Z"
       }
-    ]
+    ],
+    "type": "centrapay",
   }
 ]
 {% endjson %}
@@ -508,3 +519,4 @@ for Bank Accounts.
 [Bank Account Type]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-type
 [Bank Account Approval Type Summaries]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-approval-type-summary
 [Asset Types]: {% link api/assets/asset-types.md %}#supported-asset-types
+[Asset]: {% link api/assets/assets.md %}
