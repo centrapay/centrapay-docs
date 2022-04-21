@@ -89,13 +89,6 @@ A summary of the [Invitation][] for a Managed Integration.
 | :------------------ | :----- | :------------------------------------------------------- |
 | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. |
 
-{% h4 Optional Fields %}
-
-|      Field       |  Type  |                         Description                          |
-| :--------------- | :----- | :----------------------------------------------------------- |
-| referralLink     | String | The URL that directs to the PayPal merchant onboarding flow. |
-| paypalMerchantId | String | The ID of the PayPal merchant that is being referred.        |
-
 ## Operations
 
 ### Create or Update a Managed Integration **EXPERIMENTAL**
