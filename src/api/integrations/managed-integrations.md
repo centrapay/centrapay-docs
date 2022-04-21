@@ -163,9 +163,10 @@ A summary of the [Invitation][] for a Managed Integration.
 
 {% h4 Error Responses %}
 
-| Status |             Code             |                           Description                            |
-| :----- | :--------------------------- | :--------------------------------------------------------------- |
-| 400    | {% break _ INVALID_PARAMS %} | Invalid [Params](#params) provided for Managed Integration type. |
+| Status |                   Code                   |                                                 Description                                                 |
+| :----- | :--------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| 400    | {% break _ INVALID_PARAMS %}             | Invalid [Params](#params) provided for Managed Integration type.                                            |
+| 403    | {% break _ MERCHANT_LIVENESS_MISMATCH %} | The `test` flag on the merchant doesn't match the `test` flag on the `paypal-referral` managed integration. |
 
 ### Get a Managed Integration **EXPERIMENTAL**
 
