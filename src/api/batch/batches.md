@@ -106,7 +106,8 @@ Initialize loading of entities from a batch file.
     body ({
       type: 'farmlands-external-asset',
       url: 'https://azurebuckets.com/1234',
-      accountId: 'C4QnjXvj8At6SMsEN4LRi9'
+      accountId: 'C4QnjXvj8At6SMsEN4LRi9',
+      test: true,
     })
   }
 {% endreqspec %}

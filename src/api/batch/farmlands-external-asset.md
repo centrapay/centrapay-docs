@@ -30,16 +30,16 @@ Loads Farmlands Card data into Centrapay as external assets.
 <a name="account">
 ### Account
 
-Exported Farmlands Account used for importing and updating of a [Centrapay Account][]
+Exported Farmlands Account used for importing and updating of a [Centrapay Asset][]
 
 {% h4 Fields %}
 
-|     Field        |        Type                  |                        Description                        |
-| :--------------- | :--------------------------- | :-------------------------------------------------------- |
-| externalId       | String                       | Id used for keeping imported Centrapay Account up to date |
-| accountNumber    | String                       | Farmlands identifier attached to the Centrapay Account    |
-| availableBalance | {% dt BigNumber %} {% opt %} | Current spendable balance of Farmlands Ledger in cents. When not specified, defaults to 0.|
-| contacts         | Array {% opt %}              | [Contact][] List for the imported Centrapay Account. When empty all Contacts are removed. |
+|     Field        |            Type              |                                        Description                                        |
+| :--------------- | :--------------------------- | :---------------------------------------------------------------------------------------- |
+| externalId       | String                       | Id used for keeping imported Centrapay Asset up to date.                                  |
+| accountNumber    | String                       | Farmlands account identifier attached to the Centrapay Asset.                             |
+| availableBalance | {% dt BigNumber %} {% opt %} | Current spendable balance of Centrapay Asset in cents. When not specified, defaults to 0. |
+| contacts         | Array {% opt %}              | [Contact][] List for the imported Centrapay Asset. When empty all Contacts are removed.   |
 
 <a name="contact">
 ### Contact
@@ -97,7 +97,7 @@ to only update some fields.
   When submitting a batch file you must only use newlines to separate records.
 %} 
 
-An example of a Farmlands Asset complete with availableBalance, contacts and cards.
+An example of a [Centrapay Asset][] complete with availableBalance, contacts and cards.
 
 {% json %}
 {
@@ -217,7 +217,7 @@ Update the contact list for an account. Use this where you want to exclude avail
 [Account]: #account
 [Contact]: #contact
 [Card]: #card
-[Centrapay Account]: {% link api/accounts/accounts.md %}
+[Centrapay Asset]: {% link api/assets/assets.md %}
 [Patron Code]: {% link api/patron-codes.md %}
 [JSONL]: https://jsonlines.org/
 [Example Models]: #example
