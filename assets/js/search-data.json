@@ -733,7 +733,7 @@
   },"122": {
     "doc": "Managed Integrations",
     "title": "Params",
-    "content": "kete-enrolment . Mandatory Fields . | Field | Type | Description | . | bankAccounts | Array | A list of Bank Account objects. | . | givenName | String | First name. | . | familyName | String | Last name. | . | email | String | Email address. | . | phoneNumber | String | The user’s NZ phone number. | . paypal-referral . Mandatory Fields . | Field | Type | Description | . | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. | . Optional Fields . | Field | Type | Description | . | referralLink | String | The URL that directs to the PayPal merchant onboarding flow. | . | paypalMerchantId | String | The ID of the PayPal merchant that is being referred. | . ",
+    "content": "kete-enrolment . Mandatory Fields . | Field | Type | Description | . | bankAccounts | Array | A list of Bank Account objects. | . | givenName | String | First name. | . | familyName | String | Last name. | . | email | String | Email address. | . | phoneNumber | String | The user’s NZ phone number. | . paypal-referral . Mandatory Fields . | Field | Type | Description | . | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. | . ",
     "url": "/api/managed-integrations#params",
     "relUrl": "/api/managed-integrations#params"
   },"123": {
