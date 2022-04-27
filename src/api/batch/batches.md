@@ -127,8 +127,11 @@ Initialize loading of entities from a batch file.
 {% json %}
 {
 	id: "AVH5uG4gRLYK6YR8JyrViN",
+  accountId: "1mdj7bj95gjo92r0ux6wfy69gj3h77",
 	status: "created",
 	type: "farmlands-external-asset",
+  url: "https://azurebuckets.com/1234",
+  test: true,
 	count: "0",
 	errorCount: "0",
 	errors: []
@@ -147,16 +150,19 @@ Initialize loading of entities from a batch file.
 
 {% json %}
 {
-	"id": "AVH5uG4gRLYK6YR8JyrViN",
-	"status": "complete",
-	"type": "farmlands-external-asset",
-	"count": "160000",
-	"errorCount": "1",
-	"errors": [
+	id: "AVH5uG4gRLYK6YR8JyrViN",
+  accountId: "1mdj7bj95gjo92r0ux6wfy69gj3h77",
+	status: "complete",
+	type: "farmlands-external-asset",
+  url: "https://azurebuckets.com/1234",
+  test: true,
+	count: "160000",
+	errorCount: "1",
+	errors: [
 		{
-			"externalId": "69d64d80-f9bd-4057-bc5b-1c55685d995b",
-			"index": "1954",
-			"message": "INVALID_BARCODE_LENGTH",
+			externalId: "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+			index: "1954",
+			message: "INVALID_BARCODE_LENGTH",
 		},
 	]
 }
