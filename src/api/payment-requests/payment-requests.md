@@ -185,6 +185,7 @@ The Paid By provides a summary of the transactions after the Payment Request was
 | settlementDate | {% dt Timestamp %} | The estimated date that the merchant can expect settlement of funds.     |
 | total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
+<a name="payment-activity"></a>
 ### Payment Activity **EXPERIMENTAL**
 
 A Payment Activity records a transaction that has happened on a [Payment Request][].
@@ -515,6 +516,7 @@ them to find the Payment Request and proceed to pay.
 {% endjson %}
 
 
+<a name="pay"></a>
 ### Pay a Payment Request **EXPERIMENTAL**
 
 There are two methods of paying a payment request.
@@ -576,6 +578,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ INSUFFICIENT_ASSET_VALUE %} | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.                                         |
 | 403    | {% break _ ASSET_REDEMPTION_DENIED %}  | The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset.                                                                   |
 
+<a name="refund"></a>
 ### Refund a Payment Request **EXPERIMENTAL**
 
 {% reqspec %}
@@ -626,6 +629,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
+<a name="list-activities-for-merchant"></a>
 ### List Payment Activities For Merchant **EXPERIMENTAL**
 
 List payment activities for a merchant. Results are [paginated][] and ordered by
@@ -701,6 +705,7 @@ descending activity created date.
 }
 {% endjson %}
 
+<a name="list-activities"></a>
 ### List Payment Activities For Payment Request **EXPERIMENTAL**
 
 List payment activities for a payment request. Results are ordered by
