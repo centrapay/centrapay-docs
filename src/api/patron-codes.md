@@ -19,16 +19,16 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 
 ### Patron Code **EXPERIMENTAL**
 
-{% h4 Required Fields %}
+{% h4 Fields %}
 
-| Field       | Type               | Description                                          |
-|:------------|:-------------------|:-----------------------------------------------------|
-| id          | String             | The Patron Code's unique identifier.                 |
-| barcode     | String             | ✩ Field to display in barcode format.                |
-| createdAt   | {% dt Timestamp %} | Date when the Patron Code was created.               |
-| expiresAt   | {% dt Timestamp %} | Date when the Patron Code will expire.               |
-| appName     | String             | The app used to create the Patron Code.              |
-| accountId   | String             | The account id of the creator of the patron code     |
+|   Field   |        Type        |                      Description                       |
+| :-------- | :----------------- | :----------------------------------------------------- |
+| id        | String             | The Patron Code's unique identifier.                   |
+| barcode   | String             | ✩ Field to display in barcode format.                  |
+| createdAt | {% dt Timestamp %} | Date when the Patron Code was created.                 |
+| expiresAt | {% dt Timestamp %} | Date when the Patron Code will expire.                 |
+| appName   | String {% opt %}   | The app used to create the Patron Code. **DEPRECATED** |
+| accountId | String             | The account id of the creator of the patron code.      |
 
 ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
 code, then a luhn checksum digit.
@@ -81,9 +81,6 @@ The Centrapay Prefix may present any of the following prefixes:
   "appName": "centrapay"
 }
 {% endjson %}
-
-The `appName` field in the Patron Code represents information about the app that generated the code.
-It is used to apply discounts or restrict payment options for the payment request created.
 
 You can find payment request information attached to a Patron Code by [polling for the Payment
 Request][polling] using the transacting APIs.
