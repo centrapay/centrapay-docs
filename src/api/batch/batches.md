@@ -27,31 +27,31 @@ The batch model represents the progression for loading of a file.
 
 {% h4 Fields %}
 
-|   Field    |        Type        |                     Description                      |
-| :--------- | :----------------- | :--------------------------------------------------- |
-| id         | String             | The Batch's unique identifier                        |
-| status     | String             | The current [Lifecycle Stage][] of the batch         |
-| type       | String             | [Batch Type][] id used to describe the batch content |
-| totalCount | {% dt BigNumber %} | The number of items processed                        |
-| errorCount | {% dt BigNumber %} | Total [Error][] counted                              |
-| errors     | Array              | [Error][] list for the batch                         |
-| test       | Boolean {% opt %}  | true if the batch is for testing purposes only       |
+|   Field    |        Type        |                     Description                       |
+| :--------- | :----------------- | :---------------------------------------------------- |
+| id         | String             | The Batch's unique identifier.                        |
+| status     | String             | The current [Lifecycle Stage][] of the batch.         |
+| type       | String             | [Batch Type][] id used to describe the batch content. |
+| totalCount | {% dt BigNumber %} | The number of items processed.                        |
+| errorCount | {% dt BigNumber %} | Total [Error][] counted.                              |
+| errors     | Array              | [Error][] list for the batch.                         |
+| test       | Boolean {% opt %}  | true if the batch is for testing purposes only.       |
 
 
 <a name="batch-lifecycle">
 ### Batch Lifecycle
 
-Different stages of a Batch's lifecycle
+Different stages of a Batch's lifecycle.
 
 <img src="{{site.url}}/images/batch-lifecycle.png" style="display: block; margin: auto;" />
 
-|  Status  |                              Description                               |
-| :------- | :--------------------------------------------------------------------- |
-| created  | The batch has successfully been submitted                              |
-| copied   | The file has been transferred to Centrapay                             |
-| chunked  | The batch has been broken up for processing                            |
-| complete | The batch has been processed and may include errors                    |
-| error    | There is an error accessing or reading the file, preventing processing |
+|  Status  |                              Description                                |
+| :------- | :---------------------------------------------------------------------- |
+| created  | The batch has successfully been submitted.                              |
+| copied   | The file has been transferred to Centrapay.                             |
+| chunked  | The batch has been broken up for processing.                            |
+| complete | The batch has been processed and may include errors.                    |
+| error    | There is an error accessing or reading the file, preventing processing. |
 
 <a name="batch-types">
 ### Batch Types
@@ -73,7 +73,7 @@ The following table describes the Batch Types supported for loading.
         <a href="{{ batch_type.url | absolute_url }}">{{ batch_type.batch_type }}</a>
       </td>
       <td>
-       {{ batch_type.title }}
+       {{ batch_type.title }}.
       </td>
     </tr>
     {%- endfor -%}
@@ -87,11 +87,11 @@ An Error represents the complete or partial failure of the batch. This could be 
 
 {% h4 Fields %}
 
-|  Field     |  Type                        |              Description                                    |
-| :--------- | :--------------------------- | :---------------------------------------------------------- |
-| message    | String                       | A description of what caused the Error                      |
-| externalId | String {% opt %}             | Field used in debugging in reference to an id from the file |
-| index      | {% dt BigNumber %} {% opt %} | Item offset where the Error was identified in the file      |
+|  Field     |  Type                        |              Description                                     |
+| :--------- | :--------------------------- | :----------------------------------------------------------- |
+| message    | String                       | A description of what caused the Error.                      |
+| externalId | String {% opt %}             | Field used in debugging in reference to an id from the file. |
+| index      | {% dt BigNumber %} {% opt %} | Item offset where the Error was identified in the file.      |
 
 ## Operations
 
@@ -114,12 +114,12 @@ Initialize loading of entities from a batch file.
 
 {% h4 Fields %}
 
-|   Field   |  Type              |                    Description                        |
-| :-------- | :----------------- | :---------------------------------------------------- |
-| type      | String             | [Batch Type][] used to describe the batch content     |
-| url       | String             | The url where the file is located                     |
-| accountId | String             | Centrapay Account Id that submitted the Batch         |
-| test      | Boolean {% opt %}  | true if the batch is for testing purposes only        |
+|   Field   |  Type              |                    Description                         |
+| :-------- | :----------------- | :----------------------------------------------------- |
+| type      | String             | [Batch Type][] used to describe the batch content.     |
+| url       | String             | The url where the file is located.                     |
+| accountId | String             | Centrapay Account Id that submitted the Batch.         |
+| test      | Boolean {% opt %}  | true if the batch is for testing purposes only.        |
 
 
 {% h4 Example Response Payload %}

@@ -30,7 +30,7 @@ Loads Farmlands Card data into Centrapay as external assets.
 <a name="account">
 ### Account
 
-Exported Farmlands Account used for importing and updating of a [Centrapay Asset][]
+Exported Farmlands Account used for importing and updating of a [Centrapay Asset][].
 
 {% h4 Fields %}
 
@@ -48,29 +48,29 @@ Exported Farmlands Contact and [Card][] information used for authentication, cor
 
 {% h4 Fields %}
 
-|   Field    |  Type                          |                            Description                            |
-| :--------- | :----------------------------- | :---------------------------------------------------------------- |
-| externalId | String                         | Id used for keeping imported Centrapay Contact details up to date |
-| name       | String               {% opt %} | The full name used to address the individual                                                   |
-| mobile     | {% dt PhoneNumber %} {% opt %} | Mobile number used for authentication and correspondence, must start with +64                  |
-| email      | String               {% opt %} | Email address used for authentication and correspondence                                       |
-| primary    | Boolean              {% opt %} | `true` if the Contact is the owner of the Farmlands Account                                    |
-| cards      | Array                {% opt %} | [Card][] list used for payment for the authenticated subject. When empty all Cards are removed |
+|   Field    |  Type                          |                                         Description                                             |
+| :--------- | :----------------------------- | :---------------------------------------------------------------------------------------------- |
+| externalId | String                         | Id used for keeping imported Centrapay Contact details up to date.                              |
+| name       | String               {% opt %} | The full name used to address the individual.                                                   |
+| mobile     | {% dt PhoneNumber %} {% opt %} | Mobile number used for authentication and correspondence, must start with +64.                  |
+| email      | String               {% opt %} | Email address used for authentication and correspondence.                                       |
+| primary    | Boolean              {% opt %} | `true` if the Contact is the owner of the Farmlands Account.                                    |
+| cards      | Array                {% opt %} | [Card][] list used for payment for the authenticated subject. When empty all Cards are removed. |
 
 <a name="card">
 ### Card
 
-Exported Farmlands Credit Card information used for importing and updating of a [Patron Code][]
+Exported Farmlands Credit Card information used for importing and updating of a [Patron Code][].
 
 {% h4 Fields %}
 
-|   Field         |        Type        |                                  Description                                    |
-| :---------      | :----------------- | :------------------------------------------------------------------------------ |
-| externalId      | String {% opt %}   | Farmlands unique identifier for the card.                     |
-| barcode         | {% dt BigNumber %} | Unique 9 digit field to display in barcode format to pay by [Patron Code][]     |
-| status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived" |
-| expiry          | {% dt Timestamp %} | Payments will be accepted until this time                                       |
-| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications           |
+|   Field         |        Type        |                                  Description                                     |
+| :---------      | :----------------- | :------------------------------------------------------------------------------- |
+| externalId      | String {% opt %}   | Farmlands unique identifier for the card.                                        |
+| barcode         | {% dt BigNumber %} | Unique 9 digit field to display in barcode format to pay by [Patron Code][].     |
+| status          | String             | Current state of the Card. Valid values are "active", "inactive" and "archived". |
+| expiry          | {% dt Timestamp %} | Payments will be accepted until this time.                                       |
+| farmlandsStatus | String {% opt %}   | Private field used in all Farmlands payment transaction notifications.           |
 
 <a name="jsonl-example">
 ## Example JSONL File
