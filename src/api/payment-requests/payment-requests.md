@@ -62,21 +62,23 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-|        Field         |  Type  |                                                                               Description                                                                                |
-| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| patronCodeId         | String | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
-| barcode              | String | Scanned patron barcode used to create the payment request.                                                                                                               |
-| expirySeconds        | Number | The expiry seconds used to configure the payment request expiry.                                                                                                         |
-| lineItems            | Array  | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
-| purchaseOrderRef     | String | A reference to a purchase order for this payment request.                                                                                                                |
-| invoiceRef           | String | A reference to an invoice for this payment request.                                                                                                                      |
-| redirectUrl          | String | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| terminalId           | String | The software or logical id of the payment terminal.                                                                                                                      |
-| deviceId             | String | The hardware id or serial number of the payment terminal.                                                                                                                |
-| operatorId           | String | POS operator Id.                                                                                                                                                         |
-| createdByAccountId   | String | Id of the Centrapay account creating the Payment Request.                                                                                                                |
-| createdByAccountName | String | Name of the Centrapay account creating the Payment Request.                                                                                                              |
-| externalRef          | String | Unique merchant reference for the Payment Request.                                                                                                                       |
+|        Field         |  Type   |                                                                               Description                                                                                |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| patronCodeId         | String  | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
+| barcode              | String  | Scanned patron barcode used to create the payment request.                                                                                                               |
+| expirySeconds        | Number  | The expiry seconds used to configure the payment request expiry.                                                                                                         |
+| lineItems            | Array   | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
+| purchaseOrderRef     | String  | A reference to a purchase order for this payment request.                                                                                                                |
+| invoiceRef           | String  | A reference to an invoice for this payment request.                                                                                                                      |
+| redirectUrl          | String  | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| externalRef          | String  | An external reference to the payment request                                                                                                                             |
+| terminalId           | String  | The software or logical id of the payment terminal.                                                                                                                      |
+| deviceId             | String  | The hardware id or serial number of the payment terminal.                                                                                                                |
+| operatorId           | String  | POS operator Id.                                                                                                                                                         |
+| createdByAccountId   | String  | Id of the [Centrapay Account]() creating the Payment Request.                                                                                                            |
+| createdByAccountName | String  | Name of the [Centrapay Account]() creating the Payment Request.                                                                                                          |
+| conditionsEnabled    | Boolean | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
+| patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
 
 
 
@@ -298,6 +300,27 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
 {% endreqspec %}
+
+{% h4 Fields %}
+
+|        Field         |       Type        |                                                                               Description                                                                                |
+| :------------------- | :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
+| value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
+| barcode              | String {% opt %}  | The patron's barcode to identify the account to attach the payment request to                                                                                            |
+| expirySeconds        | String {% opt %}  | How long the payment request will be payable for.                                                                                                                        |
+| lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
+| purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
+| invoiceRef           | String {% opt %}  | A reference to an invoice for this payment request.                                                                                                                      |
+| externalRef          | String {% opt %}  | An external reference to the payment request                                                                                                                             |
+| redirectUrl          | String {% opt %}  | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| terminalId           | String {% opt %}  | The software or logical id of the payment terminal.                                                                                                                      |
+| deviceId             | String {% opt %}  | The hardware id or serial number of the payment terminal.                                                                                                                |
+| operatorId           | String {% opt %}  | The POS operator Id.                                                                                                                                                     |
+| createdByAccountId   | String {% opt %}  | The id of the [Centrapay Account]() creating the Payment Request.                                                                                                        |
+| createdByAccountName | String {% opt %}  | The name of the [Centrapay Account]() creating the Payment Request.                                                                                                      |
+| conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
+| patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
 
 {% h4 Example response payload %}
 
@@ -781,5 +804,7 @@ descending activity created date.
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
 [Legacy Payment API]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Account]: {% link api/accounts/accounts.md %}
+[Centrapay Account]: {% link api/accounts/accounts.md %}
 [Payment Request]: #payment-request
+[Payment Options]: #payment-option
 [paginated]: {% link api/pagination.md %}
