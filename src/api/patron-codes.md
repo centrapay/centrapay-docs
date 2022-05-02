@@ -82,9 +82,6 @@ The Centrapay Prefix may present any of the following prefixes:
 }
 {% endjson %}
 
-The `appName` field represents information about the app that generated the code.
-It is used to apply discounts or restrict payment options for the payment request created.
-
 You can find payment request information attached to a Patron Code by [polling for the Payment
 Request][polling] using the transacting APIs.
 
