@@ -26,7 +26,6 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 | id          | String             | The Patron Code's unique identifier.                 |
 | barcode     | String             | ✩ Field to display in barcode format.                |
 | createdAt   | {% dt Timestamp %} | Date when the Patron Code was created.               |
-| createdBy   | {% dt CRN %}       | Identifier for the account that created the barcode. |
 | expiresAt   | {% dt Timestamp %} | Date when the Patron Code will expire.               |
 | appName     | String             | The app used to create the Patron Code.              |
 | accountId   | String             | The account id of the creator of the patron code     |
@@ -78,7 +77,6 @@ The Centrapay Prefix may present any of the following prefixes:
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
@@ -106,7 +104,6 @@ Request][polling] using the transacting APIs.
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
@@ -128,7 +125,6 @@ Request][polling] using the transacting APIs.
   "accountId" : "Jaim1Cu1Q55uooxSens6yk",
   "barcode": "9990001234567895",
   "createdAt": "2021-06-08T22:55:00.000Z",
-  "createdBy": "crn::user:1234",
   "expiresAt": "2021-06-08T23:00:00.000Z",
   "appName": "centrapay"
 }
