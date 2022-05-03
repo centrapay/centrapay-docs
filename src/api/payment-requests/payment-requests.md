@@ -54,7 +54,7 @@ version (documented on this page) and the "legacy" version (documented at
 | merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.             |
 | merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.               |
 | configId       | String             | The [Merchant Config][] id used to configure the payment options.           |
-| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                                       |
+| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                           |
 | liveness       | String             | Indicates test assets are accepted. Values are "main" or "test".            |
 | createdAt      | {% dt Timestamp %} | When the payment request was created.                                       |
 | updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                       |
@@ -251,7 +251,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   example {
     title 'Create a Payment Request with a Patron Code'
     body ({
-      barcode: '1219210961929460',
+      barcode: '458028560',
+      barcodeHint: 'farmlands',
       configId: '5efbe2fb96c08357bb2b9242',
       value: { amount: '8991', currency: 'NZD' },
     })
@@ -301,13 +302,14 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   }
 {% endreqspec %}
 
-{% h4 Fields %}
+{% h4 Post Request Fields %}
 
 |        Field         |       Type        |                                                                               Description                                                                                |
 | :------------------- | :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The patron's barcode to identify the account to attach the payment request to                                                                                            |
+| barcodeHint          | String {% opt %}  | **EXPERIMENTAL** Type of barcode provided. Required when barcode is present. Values are "farmlands" or "centrapay".                                                      |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for.                                                                                                                        |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
