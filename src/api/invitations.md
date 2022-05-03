@@ -45,12 +45,11 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ## Operations
 
-### Get an Invitation **EXPERIMENTAL**
+### Get an Invitation by code **EXPERIMENTAL**
 
 {% reqspec %}
-  GET '/api/invitations/{invitationId}/{code}'
+  GET '/api/invitations/code/{code}'
   auth 'api-key'
-  path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
   path_param 'code', 'Kdbnvs3U38hdhfEqwdjvvLLs'
 {% endreqspec %}
 
