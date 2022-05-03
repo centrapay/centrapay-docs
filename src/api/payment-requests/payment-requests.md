@@ -46,19 +46,19 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Mandatory Fields %}
 
-|     Field      |        Type        |                                 Description                                 |
-| -------------- | ------------------ | --------------------------------------------------------------------------- |
-| id             | String             | The payment request id.                                                     |
-| value          | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.               |
-| paymentOptions | Array              | The [Payment Options](#payment-option), indicating valid asset for payment. |
-| merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.             |
-| merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.               |
-| configId       | String             | The [Merchant Config][] id used to configure the payment options.           |
-| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                                       |
-| liveness       | String             | Indicates test assets are accepted. Values are "main" or "test".            |
-| createdAt      | {% dt Timestamp %} | When the payment request was created.                                       |
-| updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                       |
-| expiresAt      | {% dt Timestamp %} | When the payment request expires.                                           |
+|     Field      |        Type        |                                                   Description                                                   |
+| -------------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| id             | String             | The payment request id.                                                                                         |
+| value          | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
+| paymentOptions | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
+| merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
+| merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
+| configId       | String             | The [Merchant Config][] id used to configure the payment options.                                               |
+| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                                                               |
+| liveness       | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
+| createdAt      | {% dt Timestamp %} | When the payment request was created.                                                                           |
+| updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                                                           |
+| expiresAt      | {% dt Timestamp %} | When the payment request expires.                                                                               |
 
 {% h4 Optional Fields %}
 
