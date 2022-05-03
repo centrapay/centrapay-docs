@@ -21,14 +21,16 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 
 {% h4 Fields %}
 
-|   Field   |        Type        |                      Description                       |
-| :-------- | :----------------- | :----------------------------------------------------- |
-| id        | String             | The Patron Code's unique identifier.                   |
-| barcode   | String             | ✩ Field to display in barcode format.                  |
-| createdAt | {% dt Timestamp %} | Date when the Patron Code was created.                 |
-| expiresAt | {% dt Timestamp %} | Date when the Patron Code will expire.                 |
-| appName   | String {% opt %}   | The app used to create the Patron Code. **DEPRECATED** |
-| accountId | String             | The account id of the creator of the patron code.      |
+|      Field       |        Type        |                            Description                            |
+| :--------------- | :----------------- | :---------------------------------------------------------------- |
+| id               | String             | The Patron Code's unique identifier.                              |
+| barcode          | String             | ✩ Field to display in barcode format.                             |
+| createdAt        | {% dt Timestamp %} | Date when the Patron Code was created.                            |
+| expiresAt        | {% dt Timestamp %} | Date when the Patron Code will expire.                            |
+| appName          | String {% opt %}   | The app used to create the Patron Code. **DEPRECATED**            |
+| accountId        | String             | The account id of the creator of the patron code.                 |
+| testScenarioName | String {% opt %}   | The [Test Scenario Name](#test-scenario-name) of the Patron Code. |
+
 
 ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
 code, then a luhn checksum digit.
@@ -59,6 +61,16 @@ The Centrapay Prefix may present any of the following prefixes:
 * 987600
 * 999000
 
+### Test Scenario Name
+
+This field is used to inject behavior into a [Payment Request]() when the
+generated barcode is supplied on creation. If a Test Scenario Name is
+defined on a Patron Code, it is considered a test resource and can only
+be used with Payment Requests that will have a liveness of 'test'.
+
+|              name              |                                  description                                   |
+| :----------------------------- | :----------------------------------------------------------------------------- |
+| force-condition-check-photo-id | The payment request will have a required Merchant Condition to check photo id. |
 
 ## Operations
 
@@ -135,3 +147,4 @@ Request][polling] using the transacting APIs.
 | 403    | {% break _ PATRON_CODE_INVALID %} | Patron Code doesn't exist or it has expired. |
 
 [polling]: {% link api/payment-requests/payment-requests.md %}#patron-code
+[Payment Request]: {% link api/payment-requests/payment-requests.md %}#payment-request
