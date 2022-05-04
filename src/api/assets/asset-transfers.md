@@ -84,6 +84,7 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 | value       | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type.   |
 | senderName  | String             | Human readable name for the sender. {% maxlen 30 %}                             |
 | senderAlias | String             | Phone number, email or handle of sender to return asset to. See (★) note below. |
+| suppressNotifications | Boolean  | Suppress notifications from Centrapay (SMS/Email).                              |
 
 ★ Only provide a senderAlias value if you are invoking asset transfer with api
 key. In case that recipient doesn't claim asset in 2 weeks or asset was sent to
@@ -108,7 +109,8 @@ owner.
   "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
-  "updatedAt": "2020-05-02T01:03:37.222Z"
+  "updatedAt": "2020-05-02T01:03:37.222Z",
+  "suppressNotifications": "false"
 }
 {% endjson %}
 
@@ -147,7 +149,8 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
-  "updatedAt": "2020-05-02T01:03:37.222Z"
+  "updatedAt": "2020-05-02T01:03:37.222Z",
+  "suppressNotifications": "false"
 }
 {% endjson %}
 
@@ -167,7 +170,8 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
   "recipientAlias": "+64******2345",
   "createdAt": "2020-05-01T12:30:00.000Z",
-  "updatedAt": "2020-05-02T01:03:37.222Z"
+  "updatedAt": "2020-05-02T01:03:37.222Z",
+  "suppressNotifications": "false"
 }
 {% endjson %}
 
@@ -226,7 +230,8 @@ Returns a [paginated][] list of Asset Transfers.
       "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
       "recipientAlias": "+64*****2345",
       "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-02T01:03:37.222Z"
+      "updatedAt": "2020-05-02T01:03:37.222Z",
+      "suppressNotifications": "false"
     }
   ]
 }
