@@ -50,7 +50,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 {% reqspec %}
   GET '/api/invitations/code/{code}'
   auth 'api-key'
-  path_param 'code', 'Kdbnvs3U38hdhfEqwdjvvLLs'
+  path_param 'code', 'WIj211vFs9cNACwBb04vQw'
 {% endreqspec %}
 
 {% h4 Example response payload %}
