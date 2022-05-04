@@ -110,7 +110,7 @@ owner.
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z",
-  "suppressNotifications": "false"
+  "suppressNotifications": false
 }
 {% endjson %}
 
@@ -150,7 +150,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z",
-  "suppressNotifications": "false"
+  "suppressNotifications": false
 }
 {% endjson %}
 
@@ -171,7 +171,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
   "recipientAlias": "+64******2345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z",
-  "suppressNotifications": "false"
+  "suppressNotifications": false
 }
 {% endjson %}
 
@@ -231,7 +231,7 @@ Returns a [paginated][] list of Asset Transfers.
       "recipientAlias": "+64*****2345",
       "createdAt": "2020-05-01T12:30:00.000Z",
       "updatedAt": "2020-05-02T01:03:37.222Z",
-      "suppressNotifications": "false"
+      "suppressNotifications": false
     }
   ]
 }
