@@ -54,7 +54,7 @@ version (documented on this page) and the "legacy" version (documented at
 | merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
 | merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
 | configId       | String             | The [Merchant Config][] id used to configure the payment options.                                               |
-| status         | String             | "new", "paid", "cancelled", "expired", "refunded"                                                               |
+| status         | String             | "new", "paid", "cancelled", "expired", "refunded".                                                              |
 | liveness       | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
 | createdAt      | {% dt Timestamp %} | When the payment request was created.                                                                           |
 | updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                                                           |
@@ -79,7 +79,7 @@ version (documented on this page) and the "legacy" version (documented at
 | createdByAccountName | String  | Name of the [Centrapay Account]() creating the Payment Request.                                                                                                          |
 | conditionsEnabled    | Boolean | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
-
+| cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
 
 
 ### Payment Option
@@ -211,10 +211,11 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Optional Fields %}
 
-|   Field   |  Type   |                                         Description                                         |
-| --------- | ------- | ------------------------------------------------------------------------------------------- |
-| assetType | String  | The [Asset Type][] for the "payment" or "refund" activity.                                  |
-| external  | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system. |
+|       Field        |  Type   |                                                        Description                                                        |
+| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| assetType          | String  | The [Asset Type][] for the "payment" or "refund" activity.                                                                |
+| external           | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system.                               |
+| cancellationReason | String  | The reason that the [Payment Request](#payment-request) was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values. |
 
 {% h4 Activity Types %}
 
@@ -225,6 +226,18 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | refund       | Funds were returned to the shopper.                                |
 | cancellation | [Payment Request][] was cancelled by the merchant or the shopper.  |
 | expiry       | [Payment Request][] wasn't paid before time out.                   |
+
+<a name="cancellation-reasons">
+{% h4 Cancellation Reasons %}
+
+|            Reason            |                                                                    Description                                                                     |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CANCELLED_BY_MERCHANT        | The merchant cancelled the payment request by calling the cancel or void endpoint.                                                                 |
+| CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                              |
+| PATRON_CODE_INVALID          | The patron code on the payment request was invalid.                                                                                                |
+| INSUFFICIENT_ASSET_VALUE     | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment. |
+| PAYMENT_FAILED               | The payment request failed for an unknown reason.                                                                                                  |
+| FAILED_TO_GET_PAYMENT_STATUS | The status of the payment request could not be retrieved.                                                                                          |
 
 ## Operations
 
