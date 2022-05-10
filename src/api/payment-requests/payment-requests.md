@@ -101,7 +101,7 @@ version (documented on this page) and the "legacy" version (documented at
 | productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*` |
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
-Once you have made that payment, you can use the transaction id to [Pay a Payment Request][] using the legacy payment API.
+Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
 
 
