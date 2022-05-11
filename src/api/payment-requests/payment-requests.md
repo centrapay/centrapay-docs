@@ -237,7 +237,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PATRON_CODE_INVALID          | The patron code on the payment request was invalid.                                                                                                |
 | INSUFFICIENT_ASSET_VALUE     | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment. |
 | PAYMENT_FAILED               | The payment request failed for an unknown reason.                                                                                                  |
-| FAILED_TO_GET_PAYMENT_STATUS | The status of the payment request could not be retrieved.                                                                                          |
 
 ## Operations
 
