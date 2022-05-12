@@ -46,19 +46,20 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Mandatory Fields %}
 
-|     Field      |        Type        |                                                   Description                                                   |
-| -------------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| id             | String             | The payment request id.                                                                                         |
-| value          | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
-| paymentOptions | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
-| merchantId     | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
-| merchantName   | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
-| configId       | String             | The [Merchant Config][] id used to configure the payment options.                                               |
-| status         | String             | "new", "paid", "cancelled", "expired", "refunded".                                                              |
-| liveness       | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
-| createdAt      | {% dt Timestamp %} | When the payment request was created.                                                                           |
-| updatedAt      | {% dt Timestamp %} | When the payment request was updated.                                                                           |
-| expiresAt      | {% dt Timestamp %} | When the payment request expires.                                                                               |
+|       Field        |        Type        |                                                   Description                                                   |
+| ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| id                 | String             | The payment request id.                                                                                         |
+| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
+| paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
+| merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
+| merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
+| configId           | String             | The [Merchant Config][] id used to configure the payment options.                                               |
+| status             | String             | "new", "paid", "cancelled", "expired", "refunded".                                                              |
+| liveness           | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
+| createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                           |
+| updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
+| expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                               |
+| merchantConditions | Array              | The [Merchant Conditions](#merchant-condition) that require operator approval to complete a payment.            |
 
 {% h4 Optional Fields %}
 
@@ -103,6 +104,19 @@ version (documented on this page) and the "legacy" version (documented at
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
+### Merchant Condition
+Some asset types may require conditional operator approval. Requires `conditionsEnabled` to be set to true or the asset type may not be a [Payment Option](#payment-option).
+
+Conditions always require a yes/no answer from the terminal operator. Possible merchant conditions include, among others, confirming proof of ID or confirming a promotional item was purchased. Conditions must be approved for a Payment Request to be `paid` with the asset type.
+
+{% h4 Fields %}
+
+|  Name   |  Type  |                                               Description                                                |
+| ------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| id      | String | An enumerated identifier for the Merchant Condition.                                                     |
+| name    | String | The name of the condition.                                                                               |
+| message | String | The message that can be displayed to the merchant.                                                       |
+| status  | String | The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`. |
 
 
 ### Line Item
@@ -376,6 +390,14 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "discount": "199",
       },
   ],
+  "merchantConditions": [
+    {
+      "id": "1",
+      "name": "photo-id-check",
+      "message": "Please check ID",
+      "status": "awaiting-merchant"
+    }
+  ],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -440,6 +462,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "discount": "199",
       },
   ],
+  "merchantConditions": [],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -469,6 +492,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       "assetType": "cca.coke.main"
     }
   ],
+  "merchantConditions": [],
   "status": "paid",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -541,6 +565,7 @@ them to find the Payment Request and proceed to pay.
       "assetType": "centrapay.nzd.test"
     }
   ],
+  "merchantConditions": [],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
