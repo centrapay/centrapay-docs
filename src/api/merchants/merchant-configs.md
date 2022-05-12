@@ -58,6 +58,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 | wavesPublicAddress      | String | Merchant's public waves address. Required for `zap.main` types.                                                                                                            |
 | paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.                                                                                       |
 | paypalStoreId           | String | Id of the PayPal merchants store. Required for `paypal.usd` and `venmo.usd`  types.                                                                                        |
+| farmlandsMerchantNumber           | String | Id of the Farmlands merchant that funds will be transferred to.                                                                                        |
 
 See [Asset Types][] for values that may be present in the `type` field.
 
@@ -76,6 +77,10 @@ See [Asset Types][] for values that may be present in the `type` field.
       { type: 'centrapay.nzd.main', 'walletId': '1234c486308f3f0a23f0f92b' },
       { type: 'epay.nzd.main', 'terminalId': '11000021' },
       { type: 'pocketvouchers' },
+      {
+        type: 'farmlands.nzd.main',
+        farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+      }
     ]
   })
 {% endreqspec %}
@@ -97,6 +102,10 @@ See [Asset Types][] for values that may be present in the `type` field.
     {
       "type": "centrapay.nzd.test",
       "walletId": "1234c486308f3f0a23f0f92b"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
@@ -132,6 +141,10 @@ See [Asset Types][] for values that may be present in the `type` field.
   "paymentOptions": [
     {
       "type": "pocketvouchers"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
@@ -160,6 +173,10 @@ See [Asset Types][] for values that may be present in the `type` field.
     "paymentOptions": [
       {
         "type": "pocketvouchers"
+      },
+      {
+        "type": "farmlands.nzd.main",
+        "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
       }
     ]
   },
@@ -189,7 +206,11 @@ See [Asset Types][] for values that may be present in the `type` field.
   body ({
     paymentOptions: [
       { type: 'bitcoin.main' },
-      { type: 'centrapay.nzd.test', walletId: '1234c486308f3f0a23f0f92b' }
+      { type: 'centrapay.nzd.test', walletId: '1234c486308f3f0a23f0f92b' },
+      {
+        type: 'farmlands.nzd.main',
+        farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+      }
     ]
   })
 {% endreqspec %}
@@ -211,6 +232,10 @@ See [Asset Types][] for values that may be present in the `type` field.
     {
       "type": "centrapay.nzd.test",
       "walletId": "1234c486308f3f0a23f0f92b"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
