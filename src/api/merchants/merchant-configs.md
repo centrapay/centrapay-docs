@@ -50,14 +50,15 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 {% h4 Optional Fields %}
 
-|          Field          |  Type  |                                                                                Description                                                                                 |
-| :---------------------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| walletId                | String | Merchant's Centrapay Settlement Wallet to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet may be created and then assigned. |
-| assetId                 | String | Merchant's Centrapay Settlement Asset to receive payments. Optional for `kete.nzd` and `quartz.nzd` types, if not supplied then a settlement asset may be created and then assigned.        |
-| terminalId              | String | Merchant's Epay terminal id.                                                                                                                                               |
-| wavesPublicAddress      | String | Merchant's public waves address. Required for `zap.main` types.                                                                                                            |
-| paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.                                                                                       |
-| paypalStoreId           | String | Id of the PayPal merchants store. Required for `paypal.usd` and `venmo.usd`  types.                                                                                        |
+|          Field          |  Type  |                                                                                     Description                                                                                      |
+| :---------------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| walletId                | String | Merchant's Centrapay Settlement Wallet to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet may be created and then assigned.           |
+| assetId                 | String | Merchant's Centrapay Settlement Asset to receive payments. Optional for `kete.nzd` and `quartz.nzd` types, if not supplied then a settlement asset may be created and then assigned. |
+| terminalId              | String | Merchant's Epay terminal id.                                                                                                                                                         |
+| wavesPublicAddress      | String | Merchant's public waves address. Required for `zap.main` types.                                                                                                                      |
+| paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.                                                                                                 |
+| paypalStoreId           | String | Id of the PayPal merchants store. Required for `paypal.usd` and `venmo.usd`  types.                                                                                                  |
+| farmlandsMerchantNumber | String | Id of the Farmlands merchant that funds will be transferred to.                                                                                                                      |
 
 See [Asset Types][] for values that may be present in the `type` field.
 
@@ -73,9 +74,21 @@ See [Asset Types][] for values that may be present in the `type` field.
   path_param 'merchantId', '5ee0c486308f590260d9a07f'
   body ({
     paymentOptions: [
-      { type: 'centrapay.nzd.main', 'walletId': '1234c486308f3f0a23f0f92b' },
-      { type: 'epay.nzd.main', 'terminalId': '11000021' },
-      { type: 'pocketvouchers' },
+      {
+        type: 'centrapay.nzd.main',
+        'walletId': '1234c486308f3f0a23f0f92b'
+      },
+      {
+        type: 'epay.nzd.main',
+        'terminalId': '11000021'
+      },
+      {
+        type: 'pocketvouchers'
+      },
+      {
+        type: 'farmlands.nzd.main',
+        farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+      }
     ]
   })
 {% endreqspec %}
@@ -92,11 +105,15 @@ See [Asset Types][] for values that may be present in the `type` field.
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "paymentOptions": [
     {
-        "type": "pocketvouchers"
+      "type": "pocketvouchers"
     },
     {
       "type": "centrapay.nzd.test",
       "walletId": "1234c486308f3f0a23f0f92b"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
@@ -132,6 +149,10 @@ See [Asset Types][] for values that may be present in the `type` field.
   "paymentOptions": [
     {
       "type": "pocketvouchers"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
@@ -160,6 +181,10 @@ See [Asset Types][] for values that may be present in the `type` field.
     "paymentOptions": [
       {
         "type": "pocketvouchers"
+      },
+      {
+        "type": "farmlands.nzd.main",
+        "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
       }
     ]
   },
@@ -188,8 +213,17 @@ See [Asset Types][] for values that may be present in the `type` field.
   path_param 'configId', '5ee168e8597be5002af7baed'
   body ({
     paymentOptions: [
-      { type: 'bitcoin.main' },
-      { type: 'centrapay.nzd.test', walletId: '1234c486308f3f0a23f0f92b' }
+      {
+        type: 'bitcoin.main'
+      },
+      {
+        type: 'centrapay.nzd.test',
+        walletId: '1234c486308f3f0a23f0f92b'
+      },
+      {
+        type: 'farmlands.nzd.main',
+        farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+      }
     ]
   })
 {% endreqspec %}
@@ -211,6 +245,10 @@ See [Asset Types][] for values that may be present in the `type` field.
     {
       "type": "centrapay.nzd.test",
       "walletId": "1234c486308f3f0a23f0f92b"
+    },
+    {
+      "type": "farmlands.nzd.main",
+      "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
     }
   ]
 }
