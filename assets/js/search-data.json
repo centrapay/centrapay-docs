@@ -557,11 +557,11 @@
     "url": "/guides/loading-and-sending-assets",
     "relUrl": "/guides/loading-and-sending-assets"
   },"93": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Guides",
+    "title": "Guides",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/guides",
+    "relUrl": "/guides"
   },"94": {
     "doc": "Batches",
     "title": "Batches",
@@ -569,11 +569,11 @@
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
   },"95": {
-    "doc": "Accounts",
-    "title": "Accounts",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"96": {
     "doc": "Merchants",
     "title": "Merchants",
@@ -581,35 +581,35 @@
     "url": "/api/section/merchants",
     "relUrl": "/api/section/merchants"
   },"97": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"98": {
     "doc": "Integrations",
     "title": "Integrations",
     "content": " ",
     "url": "/api/section/integrations",
     "relUrl": "/api/section/integrations"
+  },"98": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"99": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"100": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
-  },"100": {
+  },"101": {
     "doc": "API Reference",
     "title": "API Reference",
     "content": " ",
     "url": "/api",
     "relUrl": "/api"
-  },"101": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": " ",
-    "url": "/guides",
-    "relUrl": "/guides"
   },"102": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -647,17 +647,17 @@
     "url": "/api/integrations",
     "relUrl": "/api/integrations"
   },"108": {
-    "doc": "API Introduction",
-    "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
-    "url": "/api/introduction",
-    "relUrl": "/api/introduction"
-  },"109": {
     "doc": "Guides",
     "title": "Guides",
     "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
+  },"109": {
+    "doc": "API Introduction",
+    "title": "API Introduction",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Patron Codes | Payment Requests | Profiles | Quotas | . ",
+    "url": "/api/introduction",
+    "relUrl": "/api/introduction"
   },"110": {
     "doc": "Invitations",
     "title": "Invitations",
@@ -787,13 +787,13 @@
   },"131": {
     "doc": "Merchant Configs",
     "title": "Models",
-    "content": ". Merchant Config . Required Fields . | Field | Type | Description | . | paymentOptions | Array | Array of Payment Option Configs. | . | createdAt | Timestamp | When the Merchant Config was created. | . | createdBy | CRN | The User or API Key that created the Merchant Config. | . | updatedAt | Timestamp | When the Merchant Config was updated. | . | updatedBy | CRN | The User or API Key that updated the Merchant Config. | . Optional Fields . | Field | Type | Description | . | allowedRedirectUrls | Array | Experimental Allowed prefixes for the redirectUrl property on Payment Requests created with this Config. | . Payment Option Config . Required Fields . | Field | Type | Description | . | type | String | Type of payment method. See supported payment types below. | . Optional Fields . | Field | Type | Description | . | walletId | String | Merchant’s Centrapay Settlement Wallet to receive payments. Optional for centrapay.nzd types, if not supplied then a settlement wallet may be created and then assigned. | . | assetId | String | Merchant’s Centrapay Settlement Asset to receive payments. Optional for kete.nzd and quartz.nzd types, if not supplied then a settlement asset may be created and then assigned. | . | terminalId | String | Merchant’s Epay terminal id. | . | wavesPublicAddress | String | Merchant’s public waves address. Required for zap.main types. | . | paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for paypal.usd and venmo.usd types. | . | paypalStoreId | String | Id of the PayPal merchants store. Required for paypal.usd and venmo.usd types. | . See Asset Types for values that may be present in the type field. Warning: Test payment options should never be used for live merchant configurations. ",
+    "content": ". Merchant Config . Required Fields . | Field | Type | Description | . | paymentOptions | Array | Array of Payment Option Configs. | . | createdAt | Timestamp | When the Merchant Config was created. | . | createdBy | CRN | The User or API Key that created the Merchant Config. | . | updatedAt | Timestamp | When the Merchant Config was updated. | . | updatedBy | CRN | The User or API Key that updated the Merchant Config. | . Optional Fields . | Field | Type | Description | . | allowedRedirectUrls | Array | Experimental Allowed prefixes for the redirectUrl property on Payment Requests created with this Config. | . Payment Option Config . Required Fields . | Field | Type | Description | . | type | String | Type of payment method. See supported payment types below. | . Optional Fields . | Field | Type | Description | . | walletId | String | Merchant’s Centrapay Settlement Wallet to receive payments. Optional for centrapay.nzd types, if not supplied then a settlement wallet may be created and then assigned. | . | assetId | String | Merchant’s Centrapay Settlement Asset to receive payments. Optional for kete.nzd and quartz.nzd types, if not supplied then a settlement asset may be created and then assigned. | . | terminalId | String | Merchant’s Epay terminal id. | . | wavesPublicAddress | String | Merchant’s public waves address. Required for zap.main types. | . | paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for paypal.usd and venmo.usd types. | . | paypalStoreId | String | Id of the PayPal merchants store. Required for paypal.usd and venmo.usd types. | . | farmlandsMerchantNumber | String | Id of the Farmlands merchant that funds will be transferred to. | . See Asset Types for values that may be present in the type field. Warning: Test payment options should never be used for live merchant configurations. ",
     "url": "/api/merchant-configs#models",
     "relUrl": "/api/merchant-configs#models"
   },"132": {
     "doc": "Merchant Configs",
     "title": "Operations",
-    "content": "Create a Merchant Config . POST /api/merchants/{merchantId}/configs . curl -X POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"centrapay.nzd.main\", \"walletId\": \"1234c486308f3f0a23f0f92b\" }, { \"type\": \"epay.nzd.main\", \"terminalId\": \"11000021\" }, { \"type\": \"pocketvouchers\" } ] }' . Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ] } . Error Responses . | Status | Code | Description | . | 403 | INVALID_WALLET_TYPE | walletId does not belong to a Settlement Wallet. | . | 403 | LIVENESS_MISMATCH | Only Merchants with the test flag can have merchant configs with test assets, vice versa | . Get a Merchant Config . GET /api/merchants/{merchantId}/configs/{configId} . curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454 \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" } ] } . List Merchant Configs . GET /api/merchants/{merchantId}/configs . curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \\ -H \"X-Api-Key: $api_key\" . Example response payload . [ { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-09-12T01:17:46.499Z\", \"updatedAt\": \"2021-09-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" } ] }, { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"test\" } ] } ] . Update a Merchant Config . PUT /api/merchants/{merchantId}/configs/{configId} . curl -X PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ] }' . Example response payload . { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-09-12T01:17:46.499Z\", \"updatedAt\": \"2021-12-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" } ] } . Error Responses . | Status | Code | Description | . | 403 | INVALID_WALLET_TYPE | walletId does not belong to a Settlement Wallet. | . | 403 | LIVENESS_MISMATCH | Only Merchants with the test flag can have merchant configs with test assets, vice versa | . ",
+    "content": "Create a Merchant Config . POST /api/merchants/{merchantId}/configs . curl -X POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"centrapay.nzd.main\", \"walletId\": \"1234c486308f3f0a23f0f92b\" }, { \"type\": \"epay.nzd.main\", \"terminalId\": \"11000021\" }, { \"type\": \"pocketvouchers\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] }' . Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] } . Error Responses . | Status | Code | Description | . | 403 | INVALID_WALLET_TYPE | walletId does not belong to a Settlement Wallet. | . | 403 | LIVENESS_MISMATCH | Only Merchants with the test flag can have merchant configs with test assets, vice versa | . Get a Merchant Config . GET /api/merchants/{merchantId}/configs/{configId} . curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454 \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] } . List Merchant Configs . GET /api/merchants/{merchantId}/configs . curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \\ -H \"X-Api-Key: $api_key\" . Example response payload . [ { \"id\": \"5ee168e8597be5002af7b454\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-09-12T01:17:46.499Z\", \"updatedAt\": \"2021-09-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"pocketvouchers\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] }, { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-11-12T01:17:46.499Z\", \"updatedAt\": \"2021-11-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"test\" } ] } ] . Update a Merchant Config . PUT /api/merchants/{merchantId}/configs/{configId} . curl -X PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] }' . Example response payload . { \"id\": \"5ee168e8597be5002af7baed\", \"merchantId\": \"5ee0c486308f590260d9a07f\", \"createdAt\": \"2021-09-12T01:17:46.499Z\", \"updatedAt\": \"2021-12-12T01:17:46.499Z\", \"createdBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"updatedBy\": \"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey\", \"paymentOptions\": [ { \"type\": \"bitcoin.main\" }, { \"type\": \"centrapay.nzd.test\", \"walletId\": \"1234c486308f3f0a23f0f92b\" }, { \"type\": \"farmlands.nzd.main\", \"farmlandsMerchantNumber\": \"DbgY2SyD5M85zkePJjsQEf\" } ] } . Error Responses . | Status | Code | Description | . | 403 | INVALID_WALLET_TYPE | walletId does not belong to a Settlement Wallet. | . | 403 | LIVENESS_MISMATCH | Only Merchants with the test flag can have merchant configs with test assets, vice versa | . ",
     "url": "/api/merchant-configs#operations",
     "relUrl": "/api/merchant-configs#operations"
   },"133": {
