@@ -111,12 +111,12 @@ Conditions always require a yes/no answer from the terminal operator. Possible m
 
 {% h4 Fields %}
 
-|  Name   |  Type  |                                               Description                                                |
-| ------- | ------ | -------------------------------------------------------------------------------------------------------- |
-| id      | String | An enumerated identifier for the Merchant Condition.                                                     |
-| name    | String | The name of the condition.                                                                               |
-| message | String | The message that can be displayed to the merchant.                                                       |
-| status  | String | The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`. |
+|  Name   |        Type        |                                               Description                                                |
+| ------- | ------------------ | -------------------------------------------------------------------------------------------------------- |
+| id      | {% dt BigNumber %} | An enumerated identifier for the Merchant Condition.                                                     |
+| name    | String             | The name of the condition.                                                                               |
+| message | String             | The message that can be displayed to the merchant.                                                       |
+| status  | String             | The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`. |
 
 
 ### Line Item
