@@ -105,11 +105,15 @@ See [Asset Types][] for values that may be present in the `type` field.
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "paymentOptions": [
     {
-      "type": "pocketvouchers"
+      "type": "centrapay.nzd.main",
+      "walletId": "1234c486308f3f0a23f0f92b"
     },
     {
-      "type": "centrapay.nzd.test",
-      "walletId": "1234c486308f3f0a23f0f92b"
+      type: 'epay.nzd.main',
+      'terminalId': '11000021'
+    },
+    {
+      "type": "pocketvouchers"
     },
     {
       "type": "farmlands.nzd.main",
