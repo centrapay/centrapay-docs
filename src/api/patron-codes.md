@@ -63,14 +63,15 @@ The Centrapay Prefix may present any of the following prefixes:
 
 ### Test Scenario Name
 
-This field is used to inject behavior into a [Payment Request]() when the
+This field is used to inject behavior into a [Payment Request][] when the
 generated barcode is supplied on creation. If a Test Scenario Name is
 defined on a Patron Code, it is considered a test resource and can only
-be used with Payment Requests that will have a liveness of 'test'.
+be used with Payment Requests that will have a liveness of 'test'. The [Asset Type][]
+`centrapay.nzd.test` is required to run test scenarios.
 
-|              name              |                                  description                                   |
-| :----------------------------- | :----------------------------------------------------------------------------- |
-| force-condition-check-photo-id | The payment request will have a required Merchant Condition to check photo id. |
+|              name              |                                    description                                     |
+| :----------------------------- | :--------------------------------------------------------------------------------- |
+| force-condition-check-photo-id | The Payment Request will have a required [Merchant Condition][] to check photo id. |
 
 ## Operations
 
@@ -146,5 +147,8 @@ Request][polling] using the transacting APIs.
 | 400    | {% break _ CHECKSUM_FAILED %}     | Luhn checksum digit doesn't pass.             |
 | 403    | {% break _ PATRON_CODE_INVALID %} | Patron Code doesn't exist or it has expired. |
 
+
 [polling]: {% link api/payment-requests/payment-requests.md %}#patron-code
-[Payment Request]: {% link api/payment-requests/payment-requests.md %}#payment-request
+[Payment Request]: {% link api/payment-requests/payment-requests.md %}
+[Merchant Condition]: {% link api/payment-requests/payment-requests.md %}#merchant-condition
+[Asset Type]: {% link api/assets/asset-types.md %}

@@ -104,6 +104,7 @@ version (documented on this page) and the "legacy" version (documented at
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
+<a name="merchant-condition">
 ### Merchant Condition
 Some asset types may require conditional operator approval. Requires `conditionsEnabled` to be set to true or the asset type may not be a [Payment Option](#payment-option).
 
