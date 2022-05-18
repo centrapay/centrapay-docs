@@ -638,6 +638,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ QUOTA_EXCEEDED %}           | The payment pay request exceeds the allowed spend quota supplied.                                                                                                                          |
 | 403    | {% break _ INSUFFICIENT_ASSET_VALUE %} | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.                                         |
 | 403    | {% break _ ASSET_REDEMPTION_DENIED %}  | The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset.                                                                   |
+| 403    | {% break _ PAYMENT_DECLINED %}         | The payment parameters were valid but payment was declined because additional payment restrictions were violated.                                                                          |
 
 <a name="refund"></a>
 ### Refund a Payment Request **EXPERIMENTAL**
