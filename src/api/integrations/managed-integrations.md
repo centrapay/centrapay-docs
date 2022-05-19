@@ -88,6 +88,7 @@ A summary of the [Invitation][] for a Managed Integration.
 |        Field        |  Type  |                       Description                        |
 | :------------------ | :----- | :------------------------------------------------------- |
 | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. |
+| email               | String | The email address to send the PayPal referral to.        |
 
 ## Operations
 
