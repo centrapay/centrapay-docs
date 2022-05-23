@@ -563,47 +563,47 @@
     "url": "/guides",
     "relUrl": "/guides"
   },"94": {
-    "doc": "Batches",
-    "title": "Batches",
-    "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
-  },"95": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"96": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"97": {
-    "doc": "Integrations",
-    "title": "Integrations",
-    "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
-  },"98": {
     "doc": "Accounts",
     "title": "Accounts",
     "content": " ",
     "url": "/api/section/accounts",
     "relUrl": "/api/section/accounts"
-  },"99": {
-    "doc": "Assets",
-    "title": "Assets",
+  },"95": {
+    "doc": "Integrations",
+    "title": "Integrations",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"100": {
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
+  },"96": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"97": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
+  },"98": {
+    "doc": "Batches",
+    "title": "Batches",
+    "content": " ",
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
+  },"99": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"100": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"101": {
     "doc": "API Reference",
     "title": "API Reference",
@@ -733,7 +733,7 @@
   },"122": {
     "doc": "Managed Integrations",
     "title": "Params",
-    "content": "kete-enrolment . Mandatory Fields . | Field | Type | Description | . | bankAccounts | Array | A list of Bank Account objects. | . | givenName | String | First name. | . | familyName | String | Last name. | . | email | String | Email address. | . | phoneNumber | String | The user’s NZ phone number. | . paypal-referral . Mandatory Fields . | Field | Type | Description | . | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. | . ",
+    "content": "kete-enrolment . Mandatory Fields . | Field | Type | Description | . | bankAccounts | Array | A list of Bank Account objects. | . | givenName | String | First name. | . | familyName | String | Last name. | . | email | String | Email address. | . | phoneNumber | String | The user’s NZ phone number. | . paypal-referral . Mandatory Fields . | Field | Type | Description | . | centrapayMerchantId | String | The ID of the Centrapay merchant that will be onboarded. | . | email | String | The email address to send the PayPal referral to. | . ",
     "url": "/api/managed-integrations#params",
     "relUrl": "/api/managed-integrations#params"
   },"123": {
