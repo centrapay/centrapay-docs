@@ -59,7 +59,7 @@ version (documented on this page) and the "legacy" version (documented at
 | createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                           |
 | updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
 | expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                               |
-| merchantConditions | Array              | The [Merchant Conditions](#merchant-condition) that require operator approval to complete a payment.            |
+| merchantConditions | Array              | A list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment.        |
 
 {% h4 Optional Fields %}
 
@@ -104,19 +104,22 @@ version (documented on this page) and the "legacy" version (documented at
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
-<a name="merchant-condition">
-### Merchant Condition
-Some asset types may require conditional operator approval. Requires `conditionsEnabled` to be set to true or the asset type may not be a [Payment Option](#payment-option).
+<a name="payment-condition">
+### Payment Condition
+The `conditionsEnabled` property should be true when creating the Payment Request to opt into Payment Conditions.
+If Payment Conditions are not opted into, some asset types may not be available as a [Payment Option](#payment-option).
 
-Conditions always require a yes/no answer from the terminal operator. Possible merchant conditions include, among others, confirming proof of ID or confirming a promotional item was purchased. Conditions must be approved for a Payment Request to be `paid` with the asset type.
+Conditions can either be [accepted](#accept-payment-condition) or declined.
+Conditions must be accepted for a Payment Request to be `paid` with asset types that require those conditions.
+Possible payment conditions include, among others, confirming proof of ID or confirming a promotional item was purchased.
 
 {% h4 Fields %}
 
 |  Name   |        Type        |                                               Description                                                |
 | ------- | ------------------ | -------------------------------------------------------------------------------------------------------- |
-| id      | {% dt BigNumber %} | An enumerated identifier for the Merchant Condition.                                                     |
+| id      | {% dt BigNumber %} | An enumerated identifier for the Payment Condition.                                                      |
 | name    | String             | The name of the condition.                                                                               |
-| message | String             | The message that can be displayed to the merchant.                                                       |
+| message | String             | The human-readable description of the condition.                                                         |
 | status  | String             | The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`. |
 
 
@@ -226,21 +229,24 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Optional Fields %}
 
-|       Field        |  Type   |                                                        Description                                                        |
-| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| assetType          | String  | The [Asset Type][] for the "payment" or "refund" activity.                                                                |
-| external           | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system.                               |
+|       Field        |  Type   |                                                                  Description                                                                  |
+| ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| assetType          | String  | The [Asset Type][] for the "payment" or "refund" activity.                                                                                    |
+| external           | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system.                                                   |
 | cancellationReason | String  | The reason that the [Payment Request](#payment-request) was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values. |
+| conditionId        | Number  | The id of a condition if the activity was for a condition being accepted or declined.                                                         |
 
 {% h4 Activity Types %}
 
-|     Name     |                            Description                             |
-| ------------ | ------------------------------------------------------------------ |
-| request      | [Payment Request][] was created.                                   |
-| payment      | [Payment Request][] was paid.                                      |
-| refund       | Funds were returned to the shopper.                                |
-| cancellation | [Payment Request][] was cancelled by the merchant or the shopper.  |
-| expiry       | [Payment Request][] wasn't paid before time out.                   |
+|       Name        |                            Description                            |
+| ----------------- | ----------------------------------------------------------------- |
+| request           | [Payment Request][] was created.                                  |
+| payment           | [Payment Request][] was paid.                                     |
+| refund            | Funds were returned to the shopper.                               |
+| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper. |
+| expiry            | [Payment Request][] wasn't paid before time out.                  |
+| accept-condition  | A [Payment Condition][] was accepted.                             |
+| decline-condition | A [Payment Condition][] was declined.                             |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
@@ -692,7 +698,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
 <a name="list-activities-for-merchant"></a>
-### List Payment Activities For Merchant **EXPERIMENTAL**
+### List Payment Activities For a Merchant **EXPERIMENTAL**
 
 List payment activities for a merchant. Results are [paginated][] and ordered by
 descending activity created date.
@@ -768,7 +774,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="list-activities"></a>
-### List Payment Activities For Payment Request **EXPERIMENTAL**
+### List Payment Activities For a Payment Request **EXPERIMENTAL**
 
 List payment activities for a payment request. Results are ordered by
 descending activity created date.
@@ -829,6 +835,49 @@ descending activity created date.
 }
 {% endjson %}
 
+<a name="accept-payment-condition"></a>
+### Accept Payment Condition For a Payment Request **EXPERIMENTAL**
+
+Accept one of the payment condition listed in the `merchantConditions` field of a Payment Request
+that has status `awaiting-merchant`. Returns a [Payment Activity][] in the response.
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+  path_param 'conditionId', '1'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  type: "accept-condition",
+  value: {
+    currency: 'NZD',
+    amount: 100
+  },
+  paymentRequestId: "MhocUmpxxmgdHjr7DgKoKw",
+  conditionId: "1",
+  createdAt: "2022-05-12T01:17:00.000Z",
+  createdBy: "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  paymentRequestCreatedBy: "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  activityNumber: "2",
+  merchantAccountId: "C4QnjXvj8At6SMsEN4LRi9",
+  merchantId: "5ee0c486308f590260d9a07f",
+  merchantConfigId: "5ee168e8597be5002af7b454",
+  merchantName: "Centrapay Café",
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                 Code                  |                                                  Description                                                  |
+| :----- | :------------------------------------ | :------------------------------------------------------------------------------------------------------------ |
+| 403    | {% break _ PATRON_NOT_AUTHORIZED %}   | The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition. |
+| 403    | {% break _ MERCHANT_NOT_AUTHORIZED %} | The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition. |
+| 403    | {% break _ CONDITION_ALREADY_SET %}   | The Payment Condition has already been accepted or declined.                                                  |
+
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
@@ -846,4 +895,6 @@ descending activity created date.
 [Centrapay Account]: {% link api/accounts/accounts.md %}
 [Payment Request]: #payment-request
 [Payment Options]: #payment-option
+[Payment Activity]: #payment-activity
+[Payment Condition]: #payment-condition
 [paginated]: {% link api/pagination.md %}
