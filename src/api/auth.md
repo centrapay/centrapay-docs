@@ -151,7 +151,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : patron-codes:create %}            |       ✅       |               |                   |                         |
 | {% break : patron-codes:read %}              |       ✅       |               |         ✅         |                         |
 | {% break : payment-activities:read %}        |       ✅       |               |                   |                         |
-| {% break : payment-conditions:approve %}     |      ✸ ✅      |               |         ✅         |                         |
+| {% break : payment-conditions:approve %}     |       ✅       |               |         ✅         |                         |
 | {% break : payment-requests:cancel 🗄 %}      |       ✅       |               |         ✅         |                         |
 | {% break : payment-requests:create 🗄 %}      |       ✅       |               |         ✅         |                         |
 | {% break : payment-requests:pay 🗄 %}         |      ✸ ✅      |      ✸ ✅      |         ✅         |                         |
