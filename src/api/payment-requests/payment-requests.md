@@ -105,13 +105,18 @@ version (documented on this page) and the "legacy" version (documented at
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
 <a name="payment-condition">
-### Payment Condition
-The `conditionsEnabled` property should be true when creating the Payment Request to opt into Payment Conditions.
-If Payment Conditions are not opted into, some asset types may not be available as a [Payment Option](#payment-option).
 
-Conditions can either be [accepted](#accept-payment-condition) or declined.
-Conditions must be accepted for a Payment Request to be `paid` with asset types that require those conditions.
-Possible payment conditions include, among others, confirming proof of ID or confirming a promotional item was purchased.
+### Payment Condition
+
+Some asset types require conditional approval to pay. Possible payment conditions include confirming proof of ID
+or confirming a promotional item was purchased.
+
+The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) or these asset
+types may not be available as a [Payment Option](#payment-option).
+
+Conditions can either be [accepted](#accept-payment-condition) or [declined](#accept-payment-condition).
+Conditions must be accepted for a Payment Request to be `paid` with an asset type that requires conditional approval.
+If a condition is declined, the Payment Request will be cancelled.
 
 {% h4 Fields %}
 
@@ -268,6 +273,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 ## Operations
 
+<a name="create-payment-request"></a>
 ### Create a Payment Request
 
 {% reqspec %}
@@ -705,7 +711,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
 <a name="list-activities-for-merchant"></a>
-### List Payment Activities For a Merchant **EXPERIMENTAL**
+### List Payment Activities for a Merchant **EXPERIMENTAL**
 
 List payment activities for a merchant. Results are [paginated][] and ordered by
 descending activity created date.
@@ -781,7 +787,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="list-activities"></a>
-### List Payment Activities For a Payment Request **EXPERIMENTAL**
+### List Payment Activities for a Payment Request **EXPERIMENTAL**
 
 List payment activities for a payment request. Results are ordered by
 descending activity created date.
@@ -843,10 +849,9 @@ descending activity created date.
 {% endjson %}
 
 <a name="accept-payment-condition"></a>
-### Accept Payment Condition For a Payment Request **EXPERIMENTAL**
+### Accept Payment Condition for a Payment Request **EXPERIMENTAL**
 
-Accept one of the payment condition listed in the `merchantConditions` field of a Payment Request
-that has status `awaiting-merchant`. Returns a [Payment Activity][] in the response.
+Accept a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept'
@@ -884,6 +889,48 @@ that has status `awaiting-merchant`. Returns a [Payment Activity][] in the respo
 | 403    | {% break _ PATRON_NOT_AUTHORIZED %}   | The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition. |
 | 403    | {% break _ MERCHANT_NOT_AUTHORIZED %} | The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition. |
 | 403    | {% break _ CONDITION_ALREADY_SET %}   | The Payment Condition has already been accepted or declined.                                                  |
+
+<a name="decline-payment-condition"></a>
+### Decline Payment Condition for a Payment Request **EXPERIMENTAL**
+
+Decline a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+  path_param 'conditionId', '1'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  type: "decline-condition",
+  value: {
+    currency: 'NZD',
+    amount: 100
+  },
+  paymentRequestId: "MhocUmpxxmgdHjr7DgKoKw",
+  conditionId: "1",
+  createdAt: "2022-05-12T01:17:00.000Z",
+  createdBy: "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  paymentRequestCreatedBy: "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  activityNumber: "2",
+  merchantAccountId: "C4QnjXvj8At6SMsEN4LRi9",
+  merchantId: "5ee0c486308f590260d9a07f",
+  merchantConfigId: "5ee168e8597be5002af7b454",
+  merchantName: "Centrapay Café",
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                 Code                  |                                                  Description                                                   |
+| :----- | :------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ PATRON_NOT_AUTHORIZED %}   | The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to decline the condition. |
+| 403    | {% break _ MERCHANT_NOT_AUTHORIZED %} | The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to decline the condition. |
+| 403    | {% break _ CONDITION_ALREADY_SET %}   | The Payment Condition has already been accepted or declined.                                                   |
 
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
