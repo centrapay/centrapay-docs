@@ -172,8 +172,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
   auth 'api-key'
   body ({
     amount: '10000',
-    walletId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    bankAuthorityId: 'FRhAzzWpTKb5U7pZygQjjY',
+    assetId: 'Te2uDM7xhDLWGVJU3nzwnh',
+    bankAccountId: 'FRhAzzWpTKb5U7pZygQjjY',
   })
 {% endreqspec %}
 
@@ -182,16 +182,16 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 | Field           | Type               | Description                              |
 | :-------------- | :-----             | :--------------------------------------- |
 | amount          | {% dt BigNumber %} | Total amount of the transaction in cents |
-| walletId        | String             | The id of the wallet                     |
-| bankAuthorityId | String             | The id of the bank account               |
+| assetId         | String             | The id of the asset                      |
+| bankAccountId   | String             | The id of the bank account               |
 
 {% h4 Example response payload %}
 
 {% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
-  "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+  "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
   "accountId": "aBc932S9182qwCDqwer",
   "type": "withdrawal",
   "amount": "10000",
@@ -223,8 +223,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 {% json %}
 {
   "id": "hg2RfYTQ635tPBZEPJdCre",
-  "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-  "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+  "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+  "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
   "accountId": "aBc932S9182qwCDqwer",
   "type": "withdrawal",
   "amount": "10000",
@@ -251,8 +251,8 @@ Returns a [paginated][] list of Withdrawals for an account.
   "items": [
     {
       "id": "5thg2RPBZEfYTPJdQ63Cre",
-      "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
       "accountId": "aBc932S9182qwCDqwer",
       "type": "withdrawal",
       "amount": "10000",
@@ -262,8 +262,8 @@ Returns a [paginated][] list of Withdrawals for an account.
     },
     {
       "id": "hg2RfYTQ635tPBZEPJdCre",
-      "walletId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAuthorityId": "FRhAzzWpTKb5U7pZygQjjY",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
       "accountId": "aBc932S9182qwCDqwer",
       "type": "withdrawal",
       "amount": "10000",
