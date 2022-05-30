@@ -49,6 +49,7 @@ version (documented on this page) and the "legacy" version (documented at
 |       Field        |        Type        |                                                   Description                                                   |
 | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------- |
 | id                 | String             | The payment request id.                                                                                         |
+| shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                              |
 | value              | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
 | paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
 | merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
@@ -373,6 +374,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 {% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CPC7FZS5015",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
