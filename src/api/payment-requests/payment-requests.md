@@ -79,7 +79,7 @@ version (documented on this page) and the "legacy" version (documented at
 | operatorId           | String  | POS operator Id.                                                                                                                                                         |
 | createdByAccountId   | String  | Id of the [Centrapay Account]() creating the Payment Request.                                                                                                            |
 | createdByAccountName | String  | Name of the [Centrapay Account]() creating the Payment Request.                                                                                                          |
-| conditionsEnabled    | Boolean | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
+| conditionsEnabled    | Boolean | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).        |
 | patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
 | cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
 
@@ -109,15 +109,15 @@ Once you have made that payment, you can use the transaction id to [Pay a Paymen
 
 ### Payment Condition
 
-Some asset types require conditional approval to pay. Possible payment conditions include confirming proof of ID
+Some [Asset Types][] require conditional approval to pay. Possible Payment Conditions include confirming proof of ID
 or confirming a promotional item was purchased.
 
-The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) or these asset
-types may not be available as a [Payment Option](#payment-option).
+The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) to indicate that
+Payment Conditions can be accepted. If a Payment Condition arises, the absence of the `conditionsEnabled` flag will result in the
+Payment Request being cancelled.
 
-Conditions can either be [accepted](#accept-payment-condition) or [declined](#accept-payment-condition).
-Conditions must be accepted for a Payment Request to be `paid` with an asset type that requires conditional approval.
-If a condition is declined, the Payment Request will be cancelled.
+Conditions can either be [accepted](#accept-payment-condition) or [declined](#accept-payment-condition). If a condition is declined,
+the Payment Request will be cancelled.
 
 {% h4 Fields %}
 
