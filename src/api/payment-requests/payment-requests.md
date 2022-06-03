@@ -713,6 +713,161 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
+<a name="cancel">
+### Cancel a Payment Request **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/cancel'
+  auth 'jwt'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CPC7FZS5015",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "barcode": "9990001234567895",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+  "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+  "value": { "currency": "NZD", "amount": "6190" },
+  "paymentOptions": [
+    {
+      "amount": "6190",
+      "assetType": "centrapay.nzd.test"
+    },
+    {
+      "amount": "6190",
+      "assetType": "epay.nzd.test",
+      "productCodes": [ "23403" ]
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "merchantConditions": [
+    {
+      "id": "1",
+      "name": "photo-id-check",
+      "message": "Please check ID",
+      "status": "awaiting-merchant"
+    }
+  ],
+  "status": "cancelled",
+  "cancellationReason": "CANCELLED_BY_MERCHANT",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |              Code               |                         Description                           |
+| :----- | :------------------------------ | :------------------------------------------------------------ |
+| 400    | {% break _ REQUEST_EXPIRED %}   | Action cannot be completed because the request has expired.   |
+| 400    | {% break _ REQUEST_PAID %}      | Action cannot be completed because the request has been paid. |
+| 404    | {% break _ REQUEST_NOT_FOUND %} | The provided request doesn't exist.                           |
+
+<a name="void">
+### Void a Payment Request **EXPERIMENTAL**
+
+Voiding a payment request can cause it to be cancelled or refunded. After 24 hours voiding a payment request will be disallowed, however a refund can still be made against the payment request if it has been paid successfully.
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/void'
+  auth 'jwt'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CPC7FZS5015",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+  "barcode": "9990001234567895",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+  "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+  "value": { "currency": "NZD", "amount": "6190" },
+  "paymentOptions": [
+    {
+      "amount": "6190",
+      "assetType": "centrapay.nzd.test"
+    },
+    {
+      "amount": "6190",
+      "assetType": "epay.nzd.test",
+      "productCodes": [ "23403" ]
+    }
+  ],
+  "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+      },
+  ],
+  "merchantConditions": [
+    {
+      "id": "1",
+      "name": "photo-id-check",
+      "message": "Please check ID",
+      "status": "awaiting-merchant"
+    }
+  ],
+  "status": "cancelled",
+  "cancellationReason": "CANCELLED_BY_MERCHANT",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "test",
+  "expirySeconds": 120
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                Code               |                                             Description                                          |
+| :----- | :-------------------------------- | :----------------------------------------------------------------------------------------------- |
+| 403    | {% break _ VOID_WINDOWEXCEEDED %} | The time since the payment request was created exceeds the time a payment request can be voided. |
+| 404    | {% break _ REQUEST_NOT_FOUND %}   | The provided request doesn't exist.                                                              |
+
+This endpoint can also return the same error responses as the [Refund][] and [Cancel][] payment request endpoints. 
+
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
 
@@ -954,4 +1109,6 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Options]: #payment-option
 [Payment Activity]: #payment-activity
 [Payment Condition]: #payment-condition
+[Cancel]: #cancel
+[Refund]: #refund
 [paginated]: {% link api/pagination.md %}
