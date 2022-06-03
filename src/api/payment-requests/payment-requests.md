@@ -60,7 +60,7 @@ version (documented on this page) and the "legacy" version (documented at
 | createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                           |
 | updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
 | expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                               |
-| merchantConditions | Array              | A list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment.        |
+| merchantConditions | Array              | A dynamic list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment. Conditions are calculated when [polling a Payment Request](#get-a-payment-request).       |
 
 {% h4 Optional Fields %}
 
@@ -412,14 +412,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "discount": "199",
       },
   ],
-  "merchantConditions": [
-    {
-      "id": "1",
-      "name": "photo-id-check",
-      "message": "Please check ID",
-      "status": "awaiting-merchant"
-    }
-  ],
+  "merchantConditions": [],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -439,6 +432,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | 403    | {% break _ PATRON_CODE_INVALID %}          | Patron Code doesn't exist or has expired.                                                                 |
 | 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | No payment options match the requested payment parameters.                                                |
 
+<a name="get-payment-request"></a>
 ### Get a Payment Request
 
 {% reqspec %}
@@ -484,7 +478,14 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "discount": "199",
       },
   ],
-  "merchantConditions": [],
+  "merchantConditions": [
+    {
+      "id": "1",
+      "name": "photo-id-check",
+      "message": "Please check ID",
+      "status": "awaiting-merchant"
+    }
+  ],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
