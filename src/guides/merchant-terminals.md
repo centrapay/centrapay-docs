@@ -140,7 +140,7 @@ Request is paid.
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Merchant Configs]: {% link api/merchants/merchant-configs.md %}
 [Get Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-info
-[Void Payment Request]: {% link api/payment-requests/payment-requests.md %}#void
+[Void Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-void
 [Payment Request Webhooks]: {% link api/payment-requests/legacy-payment-requests.md %}#webhooks
 [Payment Flows]: {% link guides/payment-flows.md %}
 [Centrapay Brand Assets]: https://centrapay.com/brand-assets/
