@@ -22,9 +22,10 @@ Payment Requests have the following statuses:
 
  * **new**: after being created.
  * **paid**: after being paid with one or more transactions.
- * **cancelled**: after being cancelled or voided by the merchant.
+ * **cancelled**: after being cancelled by the merchant.
  * **expired**: after expiry time is reached without being paid or cancelled.
  * **refunded**: after being partially or fully refunded.
+ * **voided**: after being voided by the merchant.
 
 Payment requests can also be refunded for a short period of time after being paid.
 
@@ -799,6 +800,8 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 <a name="void">
 ### Void a Payment Request **EXPERIMENTAL**
 
+Voiding a payment request will cancel the request and trigger any refunds if necessary.
+
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/void'
   auth 'jwt'
@@ -829,9 +832,9 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% h4 Error Responses %}
 
-| Status |                Code                |                                           Description                                            |
-| :----- | :--------------------------------- | :----------------------------------------------------------------------------------------------- |
-| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | The time since the payment request was created exceeds the time a payment request can be voided. |
+| Status |                Code                |              Description              |
+| :----- | :--------------------------------- | :------------------------------------ |
+| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | 24 hours have passed since createdAt. |
 
 This endpoint can also return the same error responses as the [Refund][] and [Cancel][] payment request endpoints.
 
