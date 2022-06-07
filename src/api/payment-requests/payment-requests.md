@@ -746,10 +746,10 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% h4 Error Responses %}
 
-| Status |             Code              |                             Description                              |
-| :----- | :---------------------------- | :------------------------------------------------------------------- |
-| 403    | {% break _ REQUEST_EXPIRED %} | The payment request has expired and therefore cannot be cancelled.   |
-| 403    | {% break _ REQUEST_PAID %}    | The payment request has been paid and therefore cannot be cancelled. |
+| Status |             Code              |                         Description                         |
+| :----- | :---------------------------- | :---------------------------------------------------------- |
+| 403    | {% break _ REQUEST_EXPIRED %} | expiresAt has passed based on the configured expirySeconds. |
+| 403    | {% break _ REQUEST_PAID %}    | status is `paid`.                                           |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
