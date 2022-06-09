@@ -746,10 +746,10 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% h4 Error Responses %}
 
-| Status |             Code              |                         Description                         |
-| :----- | :---------------------------- | :---------------------------------------------------------- |
-| 403    | {% break _ REQUEST_EXPIRED %} | expiresAt has passed based on the configured expirySeconds. |
-| 403    | {% break _ REQUEST_PAID %}    | status is `paid`.                                           |
+| Status |             Code              |                                       Description                                       |
+| :----- | :---------------------------- | :-------------------------------------------------------------------------------------- |
+| 403    | {% break _ REQUEST_EXPIRED %} | The cancellation cannot be completed because the `expiresAt` of the request has passed. |
+| 403    | {% break _ REQUEST_PAID %}    | The cancellation cannot be completed because the request `status` is `paid`.            |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
