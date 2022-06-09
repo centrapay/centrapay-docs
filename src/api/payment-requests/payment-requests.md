@@ -22,10 +22,9 @@ Payment Requests have the following statuses:
 
  * **new**: after being created.
  * **paid**: after being paid with one or more transactions.
- * **cancelled**: after being cancelled by the merchant.
+ * **cancelled**: after being cancelled or voided by the merchant.
  * **expired**: after expiry time is reached without being paid or cancelled.
  * **refunded**: after being partially or fully refunded.
- * **voided**: after being voided by the merchant.
 
 Payment requests can also be refunded for a short period of time after being paid.
 
@@ -1086,5 +1085,5 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Activity]: #payment-activity
 [Payment Condition]: #payment-condition
 [Refund]: #refund
-[Cancelled]: #cancel
+[Cancel]: #cancel
 [paginated]: {% link api/pagination.md %}
