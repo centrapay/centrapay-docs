@@ -374,7 +374,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 {% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
-  "shortCode": "CPC7FZS5015",
+  "shortCode": "CP-C7F-ZS5",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
@@ -446,6 +446,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 {% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
@@ -500,6 +501,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 {% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
@@ -614,6 +616,7 @@ them to find the Payment Request and proceed to pay.
 {% json %}
 {
   "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
@@ -674,6 +677,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
   "value": { "currency": "NZD", "amount": "1000" },
   "assetType": "centrapay.nzd.main",
   "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-015",
   "merchantName": "Centrapay Café",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -728,6 +732,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
   "value": { "currency": "NZD", "amount": "100" },
   "assetType": "centrapay.nzd.main",
   "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-015",
   "merchantName": "Centrapay Café",
   "merchantId": "5ee0c486308f590260d9a07f",
   "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -826,6 +831,7 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "600" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-032",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -840,6 +846,7 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "6190" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-027",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -853,6 +860,7 @@ descending activity created date.
       "type": "request",
       "value": { "currency": "NZD", "amount": "6190" },
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -887,6 +895,7 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "600" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-032",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -902,6 +911,7 @@ descending activity created date.
       "value": { "currency": "NZD", "amount": "6190" },
       "assetType": "centrapay.nzd.main",
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-027",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
@@ -915,6 +925,7 @@ descending activity created date.
       "type": "request",
       "value": { "currency": "NZD", "amount": "6190" },
       "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
       "merchantName": "Centrapay Café",
       "merchantId": "5ee0c486308f590260d9a07f",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",

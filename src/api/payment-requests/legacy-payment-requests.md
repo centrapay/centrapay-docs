@@ -103,6 +103,7 @@ See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 {% json %}
 {
   "requestId": "TyqV56mEkNLUeiY2QskHNR",
+  "shortCode": "CP-C7F-ZS5",
   "merchantId": "5efbe17d96c083633e2b9241",
   "merchantName": "NZD Test Merchant",
   "clientId": "5efbe2fb96c08357bb2b9242",
@@ -135,6 +136,7 @@ See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 
 {
   "requestId": "TyqV56mEkNLUeiY2QskHNR",
+  "shortCode": "CP-C7F-ZS5",
   "merchantId": "5efbe17d96c083633e2b9241",
   "merchantName": "NZD Test Merchant",
   "clientId": "5efbe2fb96c08357bb2b9242",
