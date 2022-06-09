@@ -818,6 +818,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
   },
   "assetType": "centrapay.nzd.main",
   "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-032"
   "merchantName": "Centrapay Café",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
