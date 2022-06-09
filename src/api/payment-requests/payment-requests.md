@@ -713,6 +713,44 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
 
+<a name="cancel">
+### Cancel a Payment Request **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/cancel'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "type": "cancelled",
+	"cancellationReason": "CANCELLED_BY_MERCHANT",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000",
+  },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "merchantName": "Centrapay Café",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "2",
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |             Code              |                                       Description                                       |
+| :----- | :---------------------------- | :-------------------------------------------------------------------------------------- |
+| 403    | {% break _ REQUEST_EXPIRED %} | The cancellation cannot be completed because the `expiresAt` of the request has passed. |
+| 403    | {% break _ REQUEST_PAID %}    | The cancellation cannot be completed because the request `status` is `paid`.            |
+
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
 
