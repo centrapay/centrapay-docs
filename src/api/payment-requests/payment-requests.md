@@ -746,16 +746,16 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% h4 Error Responses %}
 
-| Status |                    Code                     |                                                                                                                                 Description                                                                                                                                 |
-| :----- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ NOT_PAID %}                      | The payment request has not been paid.                                                                                                                                                                                                                                      |
-| 403    | {% break _ ALREADY_REFUNDED %}              | The payment request has already been refunded.                                                                                                                                                                                                                              |
-| 403    | {% break _ INVALID_AMOUNT %}                | The refund requested is greater than the refundable amount.                                                                                                                                                                                                                 |
-| 403    | {% break _ REPEAT_REFERENCE %}              | A separate refund request for the payment request has the same external reference. Attempting to refund the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
-| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %}   | The asset does not support partial refunds.                                                                                                                                                                                                                                 |
-| 403    | {% break _ INACTIVE_ASSET %}                | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                                                       |
-| 403    | {% break _ REFUND_NOT_SUPPORTED %}          | The asset type does not support refunds.                                                                                                                                                                                                                                    |
-| 403    | {% break _ REFUND_WINDOW_EXCEEDED %}        | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                                                 |
+| Status |                   Code                    |                                                                                                                     Description                                                                                                                     |
+| :----- | :---------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ NOT_PAID %}                    | The payment request has not been paid.                                                                                                                                                                                                              |
+| 403    | {% break _ ALREADY_REFUNDED %}            | The payment request has already been refunded.                                                                                                                                                                                                      |
+| 403    | {% break _ INVALID_AMOUNT %}              | The refund requested is greater than the refundable amount.                                                                                                                                                                                         |
+| 403    | {% break _ REPEAT_REFERENCE %}            | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
+| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %} | The asset does not support partial refunds.                                                                                                                                                                                                         |
+| 403    | {% break _ INACTIVE_ASSET %}              | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
+| 403    | {% break _ REFUND_NOT_SUPPORTED %}        | The asset type does not support refunds.                                                                                                                                                                                                            |
+| 403    | {% break _ REFUND_WINDOW_EXCEEDED %}      | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                         |
 
 <a name="cancel">
 ### Cancel a Payment Request **EXPERIMENTAL**
@@ -769,7 +769,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 {% h4 Example response payload %}
 {% json %}
 {
-  "type": "cancelled",
+  "type": "cancellation",
 	"cancellationReason": "CANCELLED_BY_MERCHANT",
   "value": {
     "currency": "NZD",
@@ -795,6 +795,72 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | :----- | :---------------------------- | :-------------------------------------------------------------------------------------- |
 | 403    | {% break _ REQUEST_EXPIRED %} | The cancellation cannot be completed because the `expiresAt` of the request has passed. |
 | 403    | {% break _ REQUEST_PAID %}    | The cancellation cannot be completed because the request `status` is `paid`.            |
+
+<a name="void">
+### Void a Payment Request **EXPERIMENTAL**
+
+Voiding a payment request will cancel the request and trigger any refunds if necessary.
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/void'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+{% endreqspec %}
+
+{% h4 Example response payload when payment request is unpaid%}
+{% json %}
+{
+  "type": "cancellation",
+	"cancellationReason": "CANCELLED_BY_MERCHANT",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000",
+  },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-032",
+  "merchantName": "Centrapay Café",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "2",
+}
+{% endjson %}
+
+{% h4 Example response payload when payment request is paid%}
+{% json %}
+{
+  "type": "refund",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000",
+  },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-032",
+  "merchantName": "Centrapay Café",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "3",
+},
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                Code                |                                                                                                                     Description                                                                                                                     |
+| :----- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | The void window is closed 24 hours after the request's `createdAt`. After the void window has closed if the request is paid, the [Refund][] endpoint can be used to reverse the payment.                                                            |
+| 403    | {% break _ ALREADY_REFUNDED %}     | The payment request has already been refunded.                                                                                                                                                                                                      |
+| 403    | {% break _ REPEAT_REFERENCE %}     | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
+| 403    | {% break _ INACTIVE_ASSET %}       | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
+| 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
@@ -1043,4 +1109,6 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Options]: #payment-option
 [Payment Activity]: #payment-activity
 [Payment Condition]: #payment-condition
+[Refund]: #refund
+[Cancel]: #cancel
 [paginated]: {% link api/pagination.md %}
