@@ -769,7 +769,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 {% h4 Example response payload %}
 {% json %}
 {
-  "type": "cancel",
+  "type": "cancellation",
 	"cancellationReason": "CANCELLED_BY_MERCHANT",
   "value": {
     "currency": "NZD",
@@ -810,7 +810,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 {% h4 Example response payload when payment request is unpaid%}
 {% json %}
 {
-  "type": "cancel",
+  "type": "cancellation",
 	"cancellationReason": "CANCELLED_BY_MERCHANT",
   "value": {
     "currency": "NZD",
