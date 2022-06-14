@@ -51,7 +51,6 @@ specific to its category. Assets which don't have a category are considered
 | description | String             | Displayable asset description.                                                                  |
 | createdAt   | {% dt Timestamp %} | Date when the asset was created or issued.                                                      |
 | status      | String             | "active" if the asset can be used for payments.                                                 |
-| status      | String             | "active" if the asset can be used for payments.                                                 |
 | meta        | Object {% opt %}   | **EXPERIMENTAL** Additional data that may only appear in the [Get Asset](#get-asset) response. |
 
 <a name="money">
