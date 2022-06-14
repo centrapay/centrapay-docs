@@ -67,7 +67,7 @@ version (documented on this page) and the "legacy" version (documented at
 |        Field         |        Type        |                                                                               Description                                                                                |
 | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
-| barcode              | String             | Scanned patron barcode used to create the payment request.                                                                                                               |
+| barcode              | String             | [Scanned Code][] used to create the payment request.                                                                                                                     |
 | expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
 | lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String             | A reference to a purchase order for this payment request.                                                                                                                |
@@ -82,8 +82,8 @@ version (documented on this page) and the "legacy" version (documented at
 | conditionsEnabled    | Boolean            | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).                                                                             |
 | patronNotPresent     | Boolean            | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
 | cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
-| preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                |
-| preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                             |
+| preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                         |
+| preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                                      |
 
 ### Payment Option
 
@@ -297,7 +297,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
   example {
-    title 'Create a Payment Request with a Patron Code'
+    title 'Create a Payment Request with a Barcode'
     body ({
       barcode: '1219210961929460',
       configId: '5efbe2fb96c08357bb2b9242',
@@ -364,7 +364,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | :------------------- | :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
-| barcode              | String {% opt %}  | The patron's barcode to identify the account to attach the payment request to                                                                                            |
+| barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
@@ -1218,3 +1218,4 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Condition]: #payment-condition
 [Refund]: #refund
 [paginated]: {% link api/pagination.md %}
+[Scanned Code]: {% link api/scanned-codes.md %}
