@@ -232,6 +232,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdBy               | {% dt CRN %}       | The identity that created the activity.              |
 | paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
 | activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.           |
+| shortCode               | String             | A shorter id that can be used for up to two years.   |
 
 {% h4 Optional Fields %}
 
