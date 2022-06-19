@@ -589,6 +589,11 @@ Returns the latest Payment Request that matches the given short code.
 }
 {% endjson %}
 
+{% h4 Error Responses %}
+
+| Status |             Code              |            Description            |
+| :----- | :---------------------------- | :-------------------------------- |
+| 400    | {% break _ CHECKSUM_FAILED %} | Luhn checksum digit doesn’t pass. |
 
 <a name="patron-code"></a>
 ### Get a Payment Request linked to a Patron Code
