@@ -82,6 +82,7 @@ version (documented on this page) and the "legacy" version (documented at
 | conditionsEnabled    | Boolean | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).        |
 | patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
 | cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
+| preAuth              | Boolean | Flag to indicate the if the request is a pre authorization for supported [Asset Types]().                                                                            |
 
 
 ### Payment Option
@@ -305,6 +306,15 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
   example {
+    title 'Create a Pre Authorization Payment Request'
+    body ({
+      barcode: '1219210961929460',
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: '8991', currency: 'NZD' },
+      preAuth: true
+    })
+  }
+  example {
     title 'Create a Payment Request with purchase order, invoice, and external reference'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
@@ -369,6 +379,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdByAccountName | String {% opt %}  | The name of the [Centrapay Account]() creating the Payment Request.                                                                                                      |
 | conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
+| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a pre authorization for supported [Asset Types](). If set barcode must be provided.                                         |
 
 {% h4 Example response payload %}
 
