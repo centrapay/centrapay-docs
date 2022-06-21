@@ -1088,5 +1088,4 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Activity]: #payment-activity
 [Payment Condition]: #payment-condition
 [Refund]: #refund
-[Cancel]: #cancel
 [paginated]: {% link api/pagination.md %}
