@@ -341,6 +341,41 @@
       "currency": "NZD"
     },
     "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a"
+  }'</span></code></pre></div> <h4> Refund a Payment Request with Line Items </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/<span class="o">{</span>paymentRequestId<span class="o">}</span>/refund <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "value": {
+      "amount": "6190",
+      "currency": "NZD"
+    },
+    "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+    "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00"
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+        "restricted": true,
+        "productId": "19412345123459",
+        "classification": {
+          "type": "GS1",
+          "code": "10001874",
+          "props": {
+            "20001479": "30008960"
+          }
+        }
+      }
+    ]
   }'</span></code></pre></div> </p> <h4> Example response payload </h4> <p> <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refund"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -358,7 +393,7 @@
   </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"paymentRequestCreatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="w">
-</span><span class="p">}</span></code></pre></div> </p> <h4> Error Responses </h4> <div class="table-wrapper"><table> <thead> <tr> <th style="text-align: left">Status</th> <th style="text-align: left">Code</th> <th style="text-align: left">Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">403</td> <td style="text-align: left">NOT_<wbr />PAID</td> <td style="text-align: left">The payment request has not been paid.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">ALREADY_<wbr />REFUNDED</td> <td style="text-align: left">The payment request has already been refunded.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INVALID_<wbr />AMOUNT</td> <td style="text-align: left">The refund requested is greater than the refundable amount.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REPEAT_<wbr />REFERENCE</td> <td style="text-align: left">A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">PARTIAL_<wbr />REFUNDS_<wbr />NOT_<wbr />ALLOWED</td> <td style="text-align: left">The asset does not support partial refunds.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INACTIVE_<wbr />ASSET</td> <td style="text-align: left">The asset is not refundable. It may have been disabled, expired, or already refunded.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REFUND_<wbr />NOT_<wbr />SUPPORTED</td> <td style="text-align: left">The asset type does not support refunds.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REFUND_<wbr />WINDOW_<wbr />EXCEEDED</td> <td style="text-align: left">The time since the payment exceeds the window of time a payment request can be refunded in.</td> </tr> </tbody> </table></div> <p><a name="void"></a></p> <h3 id="void-a-payment-request-experimental"> <a href="#void-a-payment-request-experimental" aria-labelledby="void-a-payment-request-experimental" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Void a Payment Request <strong>EXPERIMENTAL</strong> </h3> <p>Voiding a payment request will cancel the request and trigger any refunds if necessary.</p> <p> POST <code>/<wbr />api/<wbr />payment-requests/<wbr />{paymentRequestId}/<wbr />void</code> <h4> </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/void <span class="se">\</span>
+</span><span class="p">}</span></code></pre></div> </p> <h4> Error Responses </h4> <div class="table-wrapper"><table> <thead> <tr> <th style="text-align: left">Status</th> <th style="text-align: left">Code</th> <th style="text-align: left">Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">403</td> <td style="text-align: left">NOT_<wbr />PAID</td> <td style="text-align: left">The payment request has not been paid.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">ALREADY_<wbr />REFUNDED</td> <td style="text-align: left">The payment request has already been refunded.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INVALID_<wbr />AMOUNT</td> <td style="text-align: left">The refund requested is greater than the refundable amount.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REPEAT_<wbr />REFERENCE</td> <td style="text-align: left">A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">PARTIAL_<wbr />REFUNDS_<wbr />NOT_<wbr />ALLOWED</td> <td style="text-align: left">The asset does not support partial refunds.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INACTIVE_<wbr />ASSET</td> <td style="text-align: left">The asset is not refundable. It may have been disabled, expired, or already refunded.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REFUND_<wbr />NOT_<wbr />SUPPORTED</td> <td style="text-align: left">The asset type does not support refunds.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REFUND_<wbr />WINDOW_<wbr />EXCEEDED</td> <td style="text-align: left">The time since the payment exceeds the window of time a payment request can be refunded in.</td> </tr> <tr> <td style="text-align: left">400</td> <td style="text-align: left">LINE_<wbr />ITEMS_<wbr />SUM_<wbr />CHECK_<wbr />FAILED</td> <td style="text-align: left">The sum value of the line items did not equal the value of the refund.</td> </tr> </tbody> </table></div> <p><a name="void"></a></p> <h3 id="void-a-payment-request-experimental"> <a href="#void-a-payment-request-experimental" aria-labelledby="void-a-payment-request-experimental" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Void a Payment Request <strong>EXPERIMENTAL</strong> </h3> <p>Voiding a payment request will cancel the request and trigger any refunds if necessary.</p> <p> POST <code>/<wbr />api/<wbr />payment-requests/<wbr />{paymentRequestId}/<wbr />void</code> <h4> </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/void <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span></code></pre></div> </p> <h4> Example response payload when payment request is unpaid </h4> <p> <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancellation"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"cancellationReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELLED_BY_MERCHANT"</span><span class="p">,</span><span class="w">
