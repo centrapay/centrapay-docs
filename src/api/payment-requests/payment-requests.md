@@ -739,6 +739,43 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
     })
   }
 
+    example {
+    title 'Refund a Payment Request with Line Items'
+    body ({
+      "value": {
+        "amount": "6190",
+        "currency": "NZD",
+      },
+      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "lineItems": [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            props: {
+              '20001479': '30008960'
+            }
+          }
+        },
+      ],
+    })
+  }
+
 {% endreqspec %}
 
 {% h4 Example response payload %}
@@ -773,6 +810,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ INACTIVE_ASSET %}              | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
 | 403    | {% break _ REFUND_NOT_SUPPORTED %}        | The asset type does not support refunds.                                                                                                                                                                                                            |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}      | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                         |
+| 400    | {% break _ LINE_ITEMS_SUM_CHECK_FAILED %} | The sum value of the line items did not equal the value of the refund.                                                                                                                                                                              |
 
 <a name="void">
 ### Void a Payment Request **EXPERIMENTAL**
