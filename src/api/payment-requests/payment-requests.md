@@ -878,6 +878,43 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ INACTIVE_ASSET %}       | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
 | 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
 
+<a name="release">
+### Release funds held for a pre authorization Payment Request **EXPERIMENTAL**
+
+When you call release on a pre auth payment request, any remaining funds that were being held for the authorization are returned to the asset. 
+
+{% reqspec %}
+  POST '/api/payment-requests/{paymentRequestId}/release'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+{% endreqspec %}
+
+{% h4 Example response payload%}
+{% json %}
+{
+  "type": "release",
+  "value": { "currency": "NZD", "amount": "100" },
+  "assetType": "centrapay.nzd.main",
+  "preauth": true,
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-015",
+  "merchantName": "Centrapay Café",
+  "merchantId": "5ee0c486308f590260d9a07f",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5ee168e8597be5002af7b454",
+  "createdAt": "2021-06-12T01:17:00.000Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "3",
+},
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                 Code                         |                     Description                                                              |
+| :----- | :------------------------------------------- | :------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %}   | The Payment Request is not related to a pre authorization                                    |
+
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
 
