@@ -881,7 +881,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 <a name="release">
 ### Release funds held for a pre authorization Payment Request **EXPERIMENTAL**
 
-When you call release on a pre auth payment request, any remaining funds that were being held for the authorization are returned to the asset. 
+When you call release on a preauth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/release'
@@ -889,7 +889,7 @@ When you call release on a pre auth payment request, any remaining funds that we
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
-{% h4 Example response payload%}
+{% h4 Example response payload when a pre auth is released %}
 {% json %}
 {
   "type": "release",
@@ -908,6 +908,30 @@ When you call release on a pre auth payment request, any remaining funds that we
   "activityNumber": "3",
 },
 {% endjson %}
+
+{% h4 Example response payload when a pre auth is cancelled %}
+{% json %}
+{
+  "type": "cancellation",
+	"cancellationReason": "CANCELLED_BY_MERCHANT",
+  "value": {
+    "currency": "NZD",
+    "amount": "1000",
+  },
+  "assetType": "centrapay.nzd.main",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-032",
+  "merchantName": "Centrapay Café",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "activityNumber": "2",
+}
+{% endjson %}
+
 
 {% h4 Error Responses %}
 
