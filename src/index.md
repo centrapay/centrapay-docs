@@ -17,7 +17,7 @@ Checkout our [Guides][] for hints on where to begin or see the
 [API Reference][] for a deeper dive.
 
 For more help getting setup, contact us via email at
-[integrations@centrapay.com]().
+[integrations@centrapay.com](mailto:integrations@centrapay.com).
 
 [Guides]: {% link guides/introduction.md %}
 [API Reference]: {% link api/introduction.md %}
