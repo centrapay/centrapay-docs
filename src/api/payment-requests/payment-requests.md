@@ -77,12 +77,12 @@ version (documented on this page) and the "legacy" version (documented at
 | terminalId           | String  | The software or logical id of the payment terminal.                                                                                                                      |
 | deviceId             | String  | The hardware id or serial number of the payment terminal.                                                                                                                |
 | operatorId           | String  | POS operator Id.                                                                                                                                                         |
-| createdByAccountId   | String  | Id of the [Centrapay Account]() creating the Payment Request.                                                                                                            |
-| createdByAccountName | String  | Name of the [Centrapay Account]() creating the Payment Request.                                                                                                          |
+| createdByAccountId   | String  | Id of the [Centrapay Account][] creating the Payment Request.                                                                                                            |
+| createdByAccountName | String  | Name of the [Centrapay Account][] creating the Payment Request.                                                                                                          |
 | conditionsEnabled    | Boolean | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).        |
-| patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
+| patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
 | cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
-| preAuth              | Boolean | Flag to indicate the if the request is a pre authorization for supported [Asset Types]().                                                                            |
+| preAuth              | Boolean | Flag to indicate the if the request is a pre authorization for supported [Asset Types][].                                                                            |
 
 
 ### Payment Option
@@ -375,11 +375,11 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | terminalId           | String {% opt %}  | The software or logical id of the payment terminal.                                                                                                                      |
 | deviceId             | String {% opt %}  | The hardware id or serial number of the payment terminal.                                                                                                                |
 | operatorId           | String {% opt %}  | The POS operator Id.                                                                                                                                                     |
-| createdByAccountId   | String {% opt %}  | The id of the [Centrapay Account]() creating the Payment Request.                                                                                                        |
-| createdByAccountName | String {% opt %}  | The name of the [Centrapay Account]() creating the Payment Request.                                                                                                      |
-| conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types]() which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
-| patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options]().                                              |
-| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a pre authorization for supported [Asset Types](). If set barcode must be provided.                                         |
+| createdByAccountId   | String {% opt %}  | The id of the [Centrapay Account][] creating the Payment Request.                                                                                                        |
+| createdByAccountName | String {% opt %}  | The name of the [Centrapay Account][] creating the Payment Request.                                                                                                      |
+| conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types][] which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
+| patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
+| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a pre authorization for supported [Asset Types][]. If set barcode must be provided.                                         |
 
 {% h4 Example response payload %}
 
