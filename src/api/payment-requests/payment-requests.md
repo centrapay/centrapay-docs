@@ -64,26 +64,26 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-|        Field         |  Type   |                                                                               Description                                                                                |
-| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| patronCodeId         | String  | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
-| barcode              | String  | Scanned patron barcode used to create the payment request.                                                                                                               |
-| expirySeconds        | Number  | The expiry seconds used to configure the payment request expiry.                                                                                                         |
-| lineItems            | Array   | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
-| purchaseOrderRef     | String  | A reference to a purchase order for this payment request.                                                                                                                |
-| invoiceRef           | String  | A reference to an invoice for this payment request.                                                                                                                      |
-| redirectUrl          | String  | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| externalRef          | String  | An external reference to the payment request                                                                                                                             |
-| terminalId           | String  | The software or logical id of the payment terminal.                                                                                                                      |
-| deviceId             | String  | The hardware id or serial number of the payment terminal.                                                                                                                |
-| operatorId           | String  | POS operator Id.                                                                                                                                                         |
-| createdByAccountId   | String  | Id of the [Centrapay Account][] creating the Payment Request.                                                                                                            |
-| createdByAccountName | String  | Name of the [Centrapay Account][] creating the Payment Request.                                                                                                          |
-| conditionsEnabled    | Boolean | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).        |
-| patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
-| cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
-| preAuth              | Boolean | Flag to indicate the if the request is a pre authorization for supported [Asset Types][].                                                                            |
-
+|        Field         |        Type        |                                                                               Description                                                                                |
+| -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
+| barcode              | String             | Scanned patron barcode used to create the payment request.                                                                                                               |
+| expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
+| lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
+| purchaseOrderRef     | String             | A reference to a purchase order for this payment request.                                                                                                                |
+| invoiceRef           | String             | A reference to an invoice for this payment request.                                                                                                                      |
+| redirectUrl          | String             | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| externalRef          | String             | An external reference to the payment request                                                                                                                             |
+| terminalId           | String             | The software or logical id of the payment terminal.                                                                                                                      |
+| deviceId             | String             | The hardware id or serial number of the payment terminal.                                                                                                                |
+| operatorId           | String             | POS operator Id.                                                                                                                                                         |
+| createdByAccountId   | String             | Id of the [Centrapay Account][] creating the Payment Request.                                                                                                            |
+| createdByAccountName | String             | Name of the [Centrapay Account][] creating the Payment Request.                                                                                                          |
+| conditionsEnabled    | Boolean            | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).                                                                             |
+| patronNotPresent     | Boolean            | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
+| cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
+| preAuth              | Boolean            | Flag to indicate the if the request is a pre authorization for supported [Asset Types][].                                                                                |
+| preAuthExpiresAt     | {% dt Timestamp %} | Pre authorization completions and releases will be accepted until this time.                                                                                             |
 
 ### Payment Option
 
