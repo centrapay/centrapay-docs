@@ -560,6 +560,53 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 }
 {% endjson %}
 
+{% h4 Example response payload for a pre authorization Payment Request %}
+
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "barcode": 503901342
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "1000" },
+  "paymentOptions": [
+    {
+      "amount": "1000",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "amount": "1000",
+      "assetType": "farmlands.nzd.main"
+    }
+  ],
+  "merchantConditions": [],
+  "status": "paid",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "main",
+  "expirySeconds": 120,
+  "paidBy": {
+    "assetTotals": [
+      {
+        "type": "farmlands.nzd.main",
+        "description": "Farmlands NZD",
+        "settlementDate": "2021-06-28T04:04:27.426Z",
+        "total": {
+          "amount": "1000",
+          "currency": "NZD"
+        }
+      }
+    ]
+  },
+  "preauth": true,
+  "preauthExpiresAt": "2021-09-08T04:04:27.426Z"
+}
+{% endjson %}
+
 ### Get a Payment Request by Short Code
 
 Returns the latest Payment Request that matches the given short code.
