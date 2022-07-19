@@ -567,7 +567,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "id": "MhocUmpxxmgdHjr7DgKoKw",
   "shortCode": "CP-C7F-ZS5",
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-  "barcode": 503901342
+  "barcode": 503901342,
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
