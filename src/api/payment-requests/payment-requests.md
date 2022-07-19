@@ -82,8 +82,8 @@ version (documented on this page) and the "legacy" version (documented at
 | conditionsEnabled    | Boolean            | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).                                                                             |
 | patronNotPresent     | Boolean            | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
 | cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
-| preAuth              | Boolean            | Flag to indicate the if the request is a pre authorization for supported [Asset Types][].                                                                                |
-| preAuthExpiresAt     | {% dt Timestamp %} | Pre authorization completions and releases will be accepted until this time.                                                                                             |
+| preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                |
+| preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                             |
 
 ### Payment Option
 
@@ -305,7 +305,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
   example {
-    title 'Create a Pre Authorization Payment Request'
+    title 'Create a Pre Auth Payment Request'
     body ({
       barcode: '1219210961929460',
       configId: '5efbe2fb96c08357bb2b9242',
@@ -378,7 +378,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdByAccountName | String {% opt %}  | The name of the [Centrapay Account][] creating the Payment Request.                                                                                                      |
 | conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types][] which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
-| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a pre authorization for supported [Asset Types][]. If set barcode must be provided.                                         |
+| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                         |
 
 {% h4 Example response payload %}
 
@@ -560,7 +560,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 }
 {% endjson %}
 
-{% h4 Example response payload for a pre authorization Payment Request %}
+{% h4 Example response payload for a Pre Auth Payment Request %}
 
 {% json %}
 {
@@ -602,8 +602,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       }
     ]
   },
-  "preauth": true,
-  "preauthExpiresAt": "2021-09-08T04:04:27.426Z"
+  "preAuth": true,
+  "preAuthExpiresAt": "2021-09-08T04:04:27.426Z"
 }
 {% endjson %}
 
@@ -925,9 +925,9 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
 
 <a name="release">
-### Release funds held for a pre authorization Payment Request **EXPERIMENTAL**
+### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
 
-When you call release on a preAuth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
+When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/release'
@@ -935,7 +935,7 @@ When you call release on a preAuth Payment Request any remaining funds that were
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
-{% h4 Example response payload when a pre auth is released %}
+{% h4 Example response payload when a Pre Auth is released %}
 {% json %}
 {
   "type": "release",
@@ -955,7 +955,7 @@ When you call release on a preAuth Payment Request any remaining funds that were
 },
 {% endjson %}
 
-{% h4 Example response payload when a pre auth is cancelled %}
+{% h4 Example response payload when a Pre Auth is cancelled %}
 {% json %}
 {
   "type": "cancellation",
@@ -983,8 +983,8 @@ When you call release on a preAuth Payment Request any remaining funds that were
 
 | Status |                    Code                    |                                          Description                                           |
 | :----- | :----------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a pre authorization                                      |
-| 403    | {% break _ PREAUTH_EXPIRED %}              | Attempted to release the pre authorization Payment Request after `preAuthExpiresAt` has passed |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                      |
+| 403    | {% break _ PREAUTH_EXPIRED %}              | Attempted to release the Pre Auth Payment Request after `preAuthExpiresAt` has passed |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
