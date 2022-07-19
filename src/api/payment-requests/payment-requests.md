@@ -272,7 +272,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
 | PAYMENT_REQUEST_EXPIRED      | The payment request has expired.                                                                                                                                                                                     |
 | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-| PREAUTH_EXPIRED              | Attempted to create a “preauth completion” payment request using an expired payment request id.                                                                                                                      |
+| PREAUTH_EXPIRED              | Attempted to create a “preAuth confirmation” payment request using an expired payment request id.                                                                                                                      |
 
 ## Operations
 
@@ -881,7 +881,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 <a name="release">
 ### Release funds held for a pre authorization Payment Request **EXPERIMENTAL**
 
-When you call release on a preauth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
+When you call release on a preAuth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/release'
@@ -895,7 +895,7 @@ When you call release on a preauth Payment Request any remaining funds that were
   "type": "release",
   "value": { "currency": "NZD", "amount": "100" },
   "assetType": "centrapay.nzd.main",
-  "preauth": true,
+  "preAuth": true,
   "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
   "shortCode": "CP-C7F-ZS5-015",
   "merchantName": "Centrapay Café",
