@@ -272,7 +272,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
 | PAYMENT_REQUEST_EXPIRED      | The payment request has expired.                                                                                                                                                                                     |
 | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-| PREAUTH_EXPIRED              | Attempted to create a “preAuth confirmation” payment request using an expired payment request id.                                                                                                                      |
 
 ## Operations
 
@@ -935,9 +934,10 @@ When you call release on a preAuth Payment Request any remaining funds that were
 
 {% h4 Error Responses %}
 
-| Status |                 Code                         |                     Description                                                              |
-| :----- | :------------------------------------------- | :------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %}   | The Payment Request is not related to a pre authorization                                    |
+| Status |                    Code                    |                                          Description                                           |
+| :----- | :----------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a pre authorization                                      |
+| 403    | {% break _ PREAUTH_EXPIRED %}              | Attempted to release the pre authorization Payment Request after `preAuthExpiresAt` has passed |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
