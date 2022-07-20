@@ -575,33 +575,16 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "paymentOptions": [
     {
       "amount": "1000",
-      "assetType": "centrapay.nzd.main"
-    },
-    {
-      "amount": "1000",
       "assetType": "farmlands.nzd.main"
     }
   ],
   "merchantConditions": [],
-  "status": "paid",
+  "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
   "expiresAt": "2021-06-08T04:06:27.426Z",
   "liveness": "main",
   "expirySeconds": 120,
-  "paidBy": {
-    "assetTotals": [
-      {
-        "type": "farmlands.nzd.main",
-        "description": "Farmlands NZD",
-        "settlementDate": "2021-06-28T04:04:27.426Z",
-        "total": {
-          "amount": "1000",
-          "currency": "NZD"
-        }
-      }
-    ]
-  },
   "preAuth": true,
   "preAuthExpiresAt": "2021-09-08T04:04:27.426Z"
 }
