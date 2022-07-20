@@ -64,26 +64,26 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-|        Field         |  Type   |                                                                               Description                                                                                |
-| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| patronCodeId         | String  | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
-| barcode              | String  | Scanned patron barcode used to create the payment request.                                                                                                               |
-| expirySeconds        | Number  | The expiry seconds used to configure the payment request expiry.                                                                                                         |
-| lineItems            | Array   | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
-| purchaseOrderRef     | String  | A reference to a purchase order for this payment request.                                                                                                                |
-| invoiceRef           | String  | A reference to an invoice for this payment request.                                                                                                                      |
-| redirectUrl          | String  | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
-| externalRef          | String  | An external reference to the payment request                                                                                                                             |
-| terminalId           | String  | The software or logical id of the payment terminal.                                                                                                                      |
-| deviceId             | String  | The hardware id or serial number of the payment terminal.                                                                                                                |
-| operatorId           | String  | POS operator Id.                                                                                                                                                         |
-| createdByAccountId   | String  | Id of the [Centrapay Account][] creating the Payment Request.                                                                                                            |
-| createdByAccountName | String  | Name of the [Centrapay Account][] creating the Payment Request.                                                                                                          |
-| conditionsEnabled    | Boolean | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).        |
-| patronNotPresent     | Boolean | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
-| cancellationReason   | String  | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
-| preAuth              | Boolean | Flag to indicate the if the request is a pre authorization for supported [Asset Types][].                                                                            |
-
+|        Field         |        Type        |                                                                               Description                                                                                |
+| -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
+| barcode              | String             | Scanned patron barcode used to create the payment request.                                                                                                               |
+| expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
+| lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
+| purchaseOrderRef     | String             | A reference to a purchase order for this payment request.                                                                                                                |
+| invoiceRef           | String             | A reference to an invoice for this payment request.                                                                                                                      |
+| redirectUrl          | String             | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| externalRef          | String             | An external reference to the payment request                                                                                                                             |
+| terminalId           | String             | The software or logical id of the payment terminal.                                                                                                                      |
+| deviceId             | String             | The hardware id or serial number of the payment terminal.                                                                                                                |
+| operatorId           | String             | POS operator Id.                                                                                                                                                         |
+| createdByAccountId   | String             | Id of the [Centrapay Account][] creating the Payment Request.                                                                                                            |
+| createdByAccountName | String             | Name of the [Centrapay Account][] creating the Payment Request.                                                                                                          |
+| conditionsEnabled    | Boolean            | Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition).                                                                             |
+| patronNotPresent     | Boolean            | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
+| cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
+| preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                |
+| preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                             |
 
 ### Payment Option
 
@@ -272,7 +272,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
 | PAYMENT_REQUEST_EXPIRED      | The payment request has expired.                                                                                                                                                                                     |
 | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-| PREAUTH_EXPIRED              | Attempted to create a “preAuth confirmation” payment request using an expired payment request id.                                                                                                                      |
 
 ## Operations
 
@@ -306,7 +305,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
   example {
-    title 'Create a Pre Authorization Payment Request'
+    title 'Create a Pre Auth Payment Request'
     body ({
       barcode: '1219210961929460',
       configId: '5efbe2fb96c08357bb2b9242',
@@ -379,7 +378,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdByAccountName | String {% opt %}  | The name of the [Centrapay Account][] creating the Payment Request.                                                                                                      |
 | conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types][] which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
-| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a pre authorization for supported [Asset Types][]. If set barcode must be provided.                                         |
+| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                         |
 
 {% h4 Example response payload %}
 
@@ -558,6 +557,36 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       }
     ]
   }
+}
+{% endjson %}
+
+{% h4 Example response payload for a Pre Auth Payment Request %}
+
+{% json %}
+{
+  "id": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5",
+  "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+  "barcode": 503901342,
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "configId": "5efbe2fb96c08357bb2b9242",
+  "value": { "currency": "NZD", "amount": "1000" },
+  "paymentOptions": [
+    {
+      "amount": "1000",
+      "assetType": "farmlands.nzd.main"
+    }
+  ],
+  "merchantConditions": [],
+  "status": "new",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "updatedAt": "2021-06-08T04:04:27.426Z",
+  "expiresAt": "2021-06-08T04:06:27.426Z",
+  "liveness": "main",
+  "expirySeconds": 120,
+  "preAuth": true,
+  "preAuthExpiresAt": "2021-09-08T04:04:27.426Z"
 }
 {% endjson %}
 
@@ -879,9 +908,9 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
 
 <a name="release">
-### Release funds held for a pre authorization Payment Request **EXPERIMENTAL**
+### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
 
-When you call release on a preAuth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
+When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/release'
@@ -889,7 +918,7 @@ When you call release on a preAuth Payment Request any remaining funds that were
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
-{% h4 Example response payload when a pre auth is released %}
+{% h4 Example response payload when a Pre Auth is released %}
 {% json %}
 {
   "type": "release",
@@ -909,7 +938,7 @@ When you call release on a preAuth Payment Request any remaining funds that were
 },
 {% endjson %}
 
-{% h4 Example response payload when a pre auth is cancelled %}
+{% h4 Example response payload when a Pre Auth is cancelled %}
 {% json %}
 {
   "type": "cancellation",
@@ -935,9 +964,10 @@ When you call release on a preAuth Payment Request any remaining funds that were
 
 {% h4 Error Responses %}
 
-| Status |                 Code                         |                     Description                                                              |
-| :----- | :------------------------------------------- | :------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %}   | The Payment Request is not related to a pre authorization                                    |
+| Status |                    Code                    |                   Description                    |
+| :----- | :----------------------------------------- | :----------------------------------------------- |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth |
+| 403    | {% break _ PREAUTH_EXPIRED %}              | `preAuthExpiresAt` has passed                    |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
