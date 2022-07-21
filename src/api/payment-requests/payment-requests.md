@@ -50,6 +50,7 @@ version (documented on this page) and the "legacy" version (documented at
 | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------- |
 | id                 | String             | The payment request id.                                                                                         |
 | shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                              |
+| url                | String             | The URL for a Centrapay webpage that allows the user to pay the Payment Request.                                |
 | value              | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
 | paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
 | merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
