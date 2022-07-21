@@ -55,7 +55,7 @@ version (documented on this page) and the "legacy" version (documented at
 | merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
 | merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
 | configId           | String             | The [Merchant Config][] id used to configure the payment options.                                               |
-| status             | String             | "new", "paid", "cancelled", "expired", "refunded".                                                              |
+| status             | String             | "new", "paid", "cancelled", or "expired".                                                                       |
 | liveness           | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
 | createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                           |
 | updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
