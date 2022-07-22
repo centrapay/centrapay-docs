@@ -56,15 +56,15 @@ See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 
 {% h4 Optional Parameters %}
 
-| Parameter            | Description                                                                        |
-|:---------------------|:-----------------------------------------------------------------------------------|
-| description          | Description of the payment                                                         |
-| externalReference    | Unique merchant reference for the payment request                                  |
-| notifyUrl            | The URL that will receive **POST** requests from the webhook                       |
-| paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0   |
-| terminalId           | The payment system terminal Id. Required for NZ Epay integration.                  |
-| deviceId             | Physical payment system device Id                                                  |
-| patronCode           | Associate this payment request with an active Patron Code. |
+|      Parameter       |                                                   Description                                                   |
+| :------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| description          | Description of the payment                                                                                      |
+| externalReference    | Unique merchant reference for the payment request                                                               |
+| notifyUrl            | The URL that will receive **POST** requests from the webhook                                                    |
+| paymentExpirySeconds | The amount of seconds until a request expires, must be an integer greater than 0 and less than 86400 (24 hours) |
+| terminalId           | The payment system terminal Id. Required for NZ Epay integration.                                               |
+| deviceId             | Physical payment system device Id                                                                               |
+| patronCode           | Associate this payment request with an active Patron Code.                                                      |
 
 {% h4 Error Responses %}
 
