@@ -366,7 +366,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The patron's barcode to identify the account to attach the payment request to                                                                                            |
-| expirySeconds        | String {% opt %}  | How long the payment request will be payable for.                                                                                                                        |
+| expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
 | invoiceRef           | String {% opt %}  | A reference to an invoice for this payment request.                                                                                                                      |
@@ -379,7 +379,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | createdByAccountName | String {% opt %}  | The name of the [Centrapay Account][] creating the Payment Request.                                                                                                      |
 | conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types][] which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
-| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                         |
+| preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                                    |
 
 {% h4 Example response payload %}
 
