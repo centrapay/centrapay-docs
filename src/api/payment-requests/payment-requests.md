@@ -24,7 +24,6 @@ Payment Requests have the following statuses:
  * **paid**: after being paid with one or more transactions.
  * **cancelled**: after being cancelled or voided by the merchant.
  * **expired**: after expiry time is reached without being paid or cancelled.
- * **refunded**: after being partially or fully refunded.
 
 Payment requests can also be refunded for a short period of time after being paid.
 
