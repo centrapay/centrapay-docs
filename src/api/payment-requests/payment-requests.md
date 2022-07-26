@@ -968,7 +968,7 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 | Status |                    Code                    |                   Description                    |
 | :----- | :----------------------------------------- | :----------------------------------------------- |
 | 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth |
-| 403    | {% break _ PREAUTH_EXPIRED %}              | `preAuthExpiresAt` has passed                    |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}              | `preAuthExpiresAt` has passed                    |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
