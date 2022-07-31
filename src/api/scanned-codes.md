@@ -19,13 +19,13 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
 
 ### Scanned Code
 
-{% h4 Mandatory Fields %}
+{% h4 Fields %}
 
 |      Field       |  Type  |                                              Description                                               |
 | :--------------- | :----- | :----------------------------------------------------------------------------------------------------- |
 | code             | String | The utf8 representation of data decoded from what was scanned.                                         |
-| scannedBy        | String | The person that scanned the code. Can be `merchant`.                                                   |
-| provider         | String | The integrator that owns the code. The provider can be used to determine what [Line Items][] to apply. |
+| scannedBy        | String | The party that scanned the code. Can be `merchant`.                                                   |
+| provider         | String | The integrator that owns the code. This can be used to calculate discounts on [Line Items][]. Can be `paypal`, `venmo`, `farmlands` or `centrapay`. |
 | displayName      | String | A formatted name that can be displayed in a client.                                                    |
 | merchantConfigId | String | The ID of the [Merchant Config][].                                                                     |
 
