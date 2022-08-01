@@ -55,26 +55,27 @@ barcode or QR code displayed on the customer's smart device.
 
 1. Customer generates a short-lived [Patron Code][] via Centrapay API and displays
    it as a barcode on their smart device
-2. Merchant scans the barcode, optionally [retrieves the Patron Code][] for additional
-   information on the customer and then [creates a Payment Request][] via Centrapay API,
-   with the Patron Code as a parameter.
+2. Merchant scans the barcode, optionally checks for support using the
+   [Scanned Codes][] endpoints for additional information on the customer, and then
+   [creates a Payment Request][] via Centrapay API with the Patron Code as a
+   parameter.
 3. Customer device [fetches the payment request] created with the Patron Code and completes
    payment as normal.
 
 ### Static Patron Barcode
 
-Variant on Dynamic Patron Code, if you've setup long lived static Patron Codes by integrating with
-Centrapay, then you can use these to pay on behalf of a Customer. The customer may be asked for
-approval before this goes through.
+This is a Variant on Dynamic Patron Code. If you've setup long lived Centrapay
+Enabled Barcode then you can use these to pay on behalf of a Customer. You may
+need to check a Customer's Photo ID before this goes through.
 
-1. The Customer presents their [Patron Code][] barcode.
-2. Merchant scans the barcode, optionally [retrieves the Patron Code][] for additional
-   information on the Customer and then [creates a Payment Request][] via Centrapay API,
-   with the Patron Code as a parameter.
-3. Conditionally, the Customer is sent a text message to confirm payment.
-4. The Customer is sent an email with a summary of the payment.
-5. Merchant polls [Polls for the Payment Request][] created with the Patron Code checking the status
-   changes to "paid". Merchant completes payment as normal.
+1. Customer presents a Centrapay Enabled Barcode and it is scanned by the Merchant.
+2. Merchant checks the barcode for support using the [Scanned Codes][] endpoints.
+3. Merchant then [creates a Payment Request][] using the barcode as a parameter.
+4. Merchant [polls for the Payment Request][] created with the Patron Code checking the status.
+5. Merchant will have to call endpoints to [accept a Payment Condition]
+   if there are [Payment Conditions][] on the Payment Request
+   and the condition has an `awaiting-merchant` status.
+6. Once the status on the Payment Request is "paid" then the process is complete.
 
 <img src="{{site.url}}/images/static-patron-code-flow.svg" style="display: block; margin: auto;" />
 
@@ -87,9 +88,12 @@ asset type that allows quick pay. See [Asset Types][] for the list of asset type
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Asset Types]: {% link api/assets/asset-types.md %}
 [Creates a Payment Request]: {% link api/payment-requests/payment-requests.md %}#create-a-payment-request
-[Payment Request Details]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
+[Payment Request Details]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
 [Completes Payment]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [Patron Code]: {% link api/patron-codes.md %}
 [Retrieves the Patron Code]: {% link api/patron-codes.md %}#retrieving-a-patron-code-by-barcode
-[Fetches the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
-[Polls for the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request-by-id
+[Fetches the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
+[Polls for the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
+[Scanned Codes]: {% link api/scanned-codes.md %}#decode-scanned-code
+[Accept a Payment Condition]: {% link api/payment-requests/payment-requests.md %}#accept-payment-condition
+[Payment Conditions]: {% link api/payment-requests/payment-requests.md %}#payment-condition
