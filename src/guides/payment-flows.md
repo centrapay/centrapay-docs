@@ -71,7 +71,7 @@ need to check a Customer's Photo ID before this goes through.
 1. Customer presents a Centrapay Enabled Barcode and it is scanned by the Merchant.
 2. Merchant checks the barcode for support using the [Scanned Codes][] endpoints.
 3. Merchant then [creates a Payment Request][] using the barcode as a parameter.
-4. Merchant [polls for the Payment Request][] created with the Patron Code checking the status.
+4. Merchant [polls for the Payment Request][] created with the barcode checking the status.
 5. Merchant will have to call endpoints to [accept a Payment Condition]
    if there are [Payment Conditions][] on the Payment Request
    and the condition has an `awaiting-merchant` status.
