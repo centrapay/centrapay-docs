@@ -56,7 +56,7 @@ barcode or QR code displayed on the customer's smart device.
 1. Customer generates a short-lived [Patron Code][] via Centrapay API and displays
    it as a barcode on their smart device
 2. Merchant scans the barcode, optionally checks for support using the
-   [Scanned Codes][] endpoints for additional information on the customer, and then
+   [Scanned Codes][] endpoints for additional information on the patron, and then
    [creates a Payment Request][] via Centrapay API with the Patron Code as a
    parameter.
 3. Customer device [fetches the payment request] created with the Patron Code and completes
