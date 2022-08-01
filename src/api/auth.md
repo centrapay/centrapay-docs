@@ -161,6 +161,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : payment-requests:void 🗄 %}              |       ✅       |               |         ✅         |                         |
 | {% break : quotas:read             %}              |       ✅       |               |                   |                         |
 | {% break : quotas:read             %}              |       ✅       |               |                   |                         |
+| {% break : scanned-code:decode             %}      |       ✅       |               |         ✅         |                         |
 | {% break : topups:create 👤 %}                      |       ✅       |               |                   |                         |
 | {% break : topups:read %}                          |       ✅       |               |                   |                         |
 | {% break : wallets:create          %}              |       ✅       |               |                   |                         |
