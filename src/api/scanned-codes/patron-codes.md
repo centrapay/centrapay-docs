@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: API Reference
+grand_parent: API Reference
+parent: Scanned Codes
 title: Patron Codes
 permalink: /api/patron-codes
 ---

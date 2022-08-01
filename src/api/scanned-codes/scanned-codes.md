@@ -1,6 +1,8 @@
 ---
 layout: default
-parent: API Reference
+grand_parent: API Reference
+parent: Scanned Codes
+nav_order: 1
 title: Scanned Codes
 permalink: /api/scanned-codes
 ---

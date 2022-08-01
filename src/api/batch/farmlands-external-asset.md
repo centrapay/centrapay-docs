@@ -92,10 +92,10 @@ Centrapay matches previously created resources using `externalId` and records
 get created or updated based on these IDs. In some cases, fields may be omitted
 to only update some fields.
 
-{% warning 
+{% warning
   Below our records have newlines for legibility.
   When submitting a batch file you must only use newlines to separate records.
-%} 
+%}
 
 An example of a [Centrapay Asset][] complete with availableBalance, contacts and cards.
 
@@ -218,6 +218,6 @@ Update the contact list for an account. Use this where you want to exclude avail
 [Contact]: #contact
 [Card]: #card
 [Centrapay Asset]: {% link api/assets/assets.md %}
-[Patron Code]: {% link api/patron-codes.md %}
+[Patron Code]: {% link api/scanned-codes/patron-codes.md %}
 [JSONL]: https://jsonlines.org/
 [Example Models]: #example
