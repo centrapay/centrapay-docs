@@ -2,8 +2,8 @@
 layout: default
 nav_order: 3
 parent: API Reference
-title: Status Codes
-permalink: /api/status-codes
+title: HTTP Status Codes
+permalink: /api/http-status-codes
 ---
 
 # HTTP Status Codes
