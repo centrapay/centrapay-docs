@@ -64,7 +64,7 @@ barcode or QR code displayed on the customer's smart device.
 
 ### Static Patron Barcode
 
-This is a Variant on Dynamic Patron Code. If you've setup long lived Centrapay
+This is a variant on Dynamic Patron Code. If you've setup a long lived Centrapay
 Enabled Barcode then you can use these to pay on behalf of a Customer. You may
 need to check a Customer's Photo ID before this goes through.
 
