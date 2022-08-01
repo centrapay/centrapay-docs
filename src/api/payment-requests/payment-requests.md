@@ -1200,8 +1200,7 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Merchant]: {% link api/merchants/merchants.md %}
 [Merchant Config]: {% link api/merchants/merchant-configs.md %}
 [Product Classification]: #product-classification
-[Patron Code]: {% link api/patron-codes.md %}
-[Patron Code Ref]: #patron-code-ref
+[Patron Code]: {% link api/scanned-codes/patron-codes.md %}
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Asset Types]: {% link api/assets/asset-types.md %}
 [Assets]: {% link api/assets/assets.md %}
@@ -1218,4 +1217,4 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Payment Condition]: #payment-condition
 [Refund]: #refund
 [paginated]: {% link api/pagination.md %}
-[Scanned Code]: {% link api/scanned-codes.md %}
+[Scanned Code]: {% link api/scanned-codes/scanned-codes.md %}

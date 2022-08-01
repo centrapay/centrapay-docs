@@ -90,10 +90,10 @@ asset type that allows quick pay. See [Asset Types][] for the list of asset type
 [Creates a Payment Request]: {% link api/payment-requests/payment-requests.md %}#create-a-payment-request
 [Payment Request Details]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
 [Completes Payment]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
-[Patron Code]: {% link api/patron-codes.md %}
-[Retrieves the Patron Code]: {% link api/patron-codes.md %}#retrieving-a-patron-code-by-barcode
+[Patron Code]: {% link api/scanned-codes/patron-codes.md %}
+[Retrieves the Patron Code]: {% link api/scanned-codes/patron-codes.md %}#retrieving-a-patron-code-by-barcode
 [Fetches the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
 [Polls for the Payment Request]: {% link api/payment-requests/payment-requests.md %}#get-a-payment-request
-[Scanned Codes]: {% link api/scanned-codes.md %}#decode-scanned-code
+[Scanned Codes]: {% link api/scanned-codes/scanned-codes.md %}#decode-scanned-code
 [Accept a Payment Condition]: {% link api/payment-requests/payment-requests.md %}#accept-payment-condition
 [Payment Conditions]: {% link api/payment-requests/payment-requests.md %}#payment-condition
