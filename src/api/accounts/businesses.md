@@ -23,20 +23,28 @@ A Business is associated with a single [Account][].
 
 ### Business
 
-|     Field     |        Type        |                    Description                     |
-| :------------ | :----------------- | :------------------------------------------------- |
-| id            | String             | The unique identifier.                             |
-| accountId     | String             | The Centrapay accountId for an org account.        |
-| accountName   | String             | The Centrapay account name for an org account.     |
-| test          | Boolean            | A flag which is present if the [Account][] is test |
-| nzbn          | String             | The unique NZBN identifier.                        |
-| name          | String             | Legal name recorded in the Companies Register.     |
-| tradingName   | String             | Trading name recorded in the Companies Register.   |
-| companyNumber | String             | Company number recorded in the Companies Register. |
-| createdAt     | {% dt Timestamp %} | When the Business was created.                     |
-| updatedAt     | {% dt Timestamp %} | When the Business was updated.                     |
-| createdBy     | {% dt CRN %}       | The User or API Key that created the Business.     |
-| updatedBy     | {% dt CRN %}       | The User or API Key that updated the Business.     |
+|     Field     |                Type                 |                     Description                     |
+| :------------ | :---------------------------------- | :-------------------------------------------------- |
+| id            | String                              | The unique identifier.                              |
+| accountId     | String                              | The Centrapay accountId for an org account.         |
+| accountName   | String                              | The Centrapay account name for an org account.      |
+| test          | Boolean                             | A flag which is present if the [Account][] is test  |
+| nzbn          | String                              | The unique NZBN identifier.                         |
+| name          | String                              | Legal name recorded in the Companies Register.      |
+| tradingName   | String                              | Trading name recorded in the Companies Register.    |
+| companyNumber | String                              | Company number recorded in the Companies Register.  |
+| createdAt     | {% dt Timestamp %}                  | When the Business was created.                      |
+| updatedAt     | {% dt Timestamp %}                  | When the Business was updated.                      |
+| createdBy     | {% dt CRN %}                        | The User or API Key that created the Business.      |
+| updatedBy     | {% dt CRN %}                        | The User or API Key that updated the Business.      |
+| taxNumber     | [Tax Number](#tax-number) {% opt %} | The value-added tax configuration for the Business. |
+
+### Tax Number
+
+| Field  |  Type  |                Description                |
+| :----- | :----- | :---------------------------------------- |
+| value  | String | The tax number.                           |
+| type   | String | Type of value-added tax. Can be `nz_gst`. |
 
 ## Operations
 
@@ -49,7 +57,11 @@ org account will be created and associated to the business.
   POST '/api/businesses'
   auth 'api-key'
   body ({
-    nzbn: '9429046246448'
+    nzbn: '9429046246448',
+    taxNumber: {
+      value: '123-456-789',
+      type: 'nz_gst',
+    }
   })
 {% endreqspec %}
 
@@ -61,10 +73,11 @@ org account will be created and associated to the business.
 
 {% h4 Optional Fields %}
 
-|   Field   |  Type  |                        Description                        |
-| :-------- | :----- | :-------------------------------------------------------- |
-| accountId | String | The Centrapay accountId.                                  |
-| test      | String | The created Centrapay org account will have the test flag |
+|   Field   |           Type            |                        Description                         |
+| :-------- | :------------------------ | :--------------------------------------------------------- |
+| accountId | String                    | The Centrapay accountId.                                   |
+| test      | String                    | The created Centrapay org account will have the test flag. |
+| taxNumber | [Tax Number](#tax-number) | The value-added tax configuration.                         |
 
 {% h4 Example response payload %}
 
@@ -81,6 +94,10 @@ org account will be created and associated to the business.
   "updatedAt": "2020-06-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "taxNumber": {
+    "value": "123-456-789",
+    "type": "nz_gst",
+  }
 }
 {% endjson %}
 
