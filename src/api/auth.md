@@ -159,6 +159,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : payment-requests:read-by-shortcode   %} |       ✅       |               |         ✅         |                         |
 | {% break : payment-requests:refund 🗄 %}            |       ✅       |               |         ✅         |                         |
 | {% break : payment-requests:void 🗄 %}              |       ✅       |               |         ✅         |                         |
+| {% break : payment-requests:release 🗄 %}          |       ✅       |               |         ✅         |                         |
+| {% break : payment-requests:confirm 🗄 %}          |       ✅       |               |         ✅         |                         |
 | {% break : quotas:read             %}              |       ✅       |               |                   |                         |
 | {% break : quotas:read             %}              |       ✅       |               |                   |                         |
 | {% break : scanned-code:decode             %}      |       ✅       |               |         ✅         |                         |
