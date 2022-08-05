@@ -84,6 +84,7 @@ version (documented on this page) and the "legacy" version (documented at
 | cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
 | preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                         |
 | preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                                      |
+| preAuthStatus        | String             | Describes which state a Pre Auth Payment Request is in. Valid values are "authorized", or "released".   |
 
 ### Payment Option
 
@@ -586,6 +587,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "liveness": "main",
   "expirySeconds": 120,
   "preAuth": true,
+  "preAuthStatus": "authorized",
   "preAuthExpiresAt": "2021-09-08T04:04:27.426Z"
 }
 {% endjson %}
