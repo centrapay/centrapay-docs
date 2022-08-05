@@ -969,6 +969,104 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 | 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth |
 | 403    | {% break _ PRE_AUTH_EXPIRED %}              | `preAuthExpiresAt` has passed                    |
 
+
+<a name="confirm"></a>
+### Make a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
+
+Confirmations require an `idempotencyKey` in order to ensure that a confirmation will not be processed twice. In the event of a duplicate confirmation request e.g. the payload matches an already completed confirmation, we will return a 200 with the related confirmation Payment Activity, and this confirmation will not be processed again. If an `idempotencyKey` is reused for a different confirmation request, we will return a 403. Note that the `idempotencyKey` only has to be unique for confirmations against the same Payment Request.
+
+{% reqspec %}
+
+  POST '/api/payment-requests/${paymentRequestId}/confirm'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+  example {
+    title 'Confirm Pre Auth Payment Request'
+    body ({
+      "value": {
+        "amount": "6190",
+        "currency": "NZD",
+      },
+      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "invoiceRef": "2022-08-03T16:56:50-06:00",
+      "lineItems": [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            props: {
+              '20001479': '30008960'
+            }
+          }
+        }
+      ]
+    })
+  }
+  
+{% endreqspec %}
+
+{% h4 Example response payload when a Pre Auth is confirmed %}
+{% json %}
+{
+	"id": "MhocUmpxxmgdHjr7DgKoKw",
+	"parentTransactionId": "8sM6exj3mNixeEnkTFtQwE",
+	"shortCode": "CP-C7F-ZS5",
+	"value": { "amount": "6190", "currency": "NZD" },
+	"type": "confirmation",
+	"idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+	"createdAt": "2021-06-08T04:04:27.426Z",
+	"updatedAt": "2021-06-08T04:04:27.426Z",
+	"lineItems": [
+    {
+      "name": "Coffee Grounds",
+      "sku": "GH1234",
+      "qty": "1",
+      "price": "4195",
+      "tax": "15.00",
+    },
+    {
+      "name": "Centrapay Cafe Mug",
+      "sku": "SB456",
+      "qty": "25",
+      "price": "1995",
+      "tax": "15.00",
+      "discount": "199",
+    }
+  ],
+	"invoiceRef": "2022-08-03T16:56:50-06:00",
+	"createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+	"createdByAccountName": "Bob's Burgers Intergration"
+},
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                    Code                    |                   Description                                                                  |
+| :----- | :----------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                               |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                  |
+| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                          |
+| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                    |
+| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                         |
+| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                      |
+| 403    | {% break _ DUPLICATE_IDEMPOTENCY_KEY %}    | There has already been a confirmation against the Payment Request with the same idempotencyKey |
+
+
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
 
