@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: centrapay/centrapay-docs
+  branch: master
+publish_mode: editorial_workflow
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: guides
+    label: Guides
+    folder: src/guides # The path to the folder where the documents are stored
+    create: true
+    fields: [
+      { label: "Layout", name: "layout", widget: hidden, default: default }
+      { label: "Parent", name: "parent", widget: hidden, default: Guides }
+      { label: "Title", name: "title", widget: string }
+      { label: "Nav Order", name: "nav_order", widget: number, required: false }
+      { label: "Body", name: "body", widget: markdown }
+    ]
