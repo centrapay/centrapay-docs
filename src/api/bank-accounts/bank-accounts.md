@@ -72,9 +72,9 @@ There is one object per type of Bank Account Approval, which provides a summary 
 
 |   Name    |        Type        |                                                   Description                                                   |
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| type      | String             | The type of Bank Account Approval summary.                                                                      |
+| type      | String             | The type of Bank Account Approval Summary.                                                                      |
 | status    | String             | The summarized status of the Bank Account Approvals. Supported values are `pending`, `approved` and `declined`. |
-| updatedAt | {% dt Timestamp %} | When the Bank Account Approval summary was updated.                                                             |
+| updatedAt | {% dt Timestamp %} | When the Bank Account Approval Summary was updated.                                                             |
 
 <a name="bank-account-type">
 ### Bank Account Type **EXPERIMENTAL**
@@ -233,8 +233,37 @@ required together.
 {% reqspec %}
   GET '/api/bank-accounts/{bankAccountId}'
   auth 'api-key'
-  path_param 'bankAccountId', 'WRhAxxWpTKb5U7pXyxQjjY'
+  path_param 'bankAccountId', 'd4a7cbd6818a87c51b97'
 {% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "d4a7cbd6818a87c51b97",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "status": "created",
+  "bankAccountNumber": "12-1234-1234567-123",
+  "bankAccountName": "John Doe",
+  "directDebitAuthorized": false,
+  "bankRegion": "nz",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "createdAt": "2022-07-18T02:26:39.477Z",
+  "verified": false,
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "modifiedAt": "2022-07-18T02:26:39.477Z",
+  "approvals": [
+      {
+        "type": "account-consent",
+        "status": "approved",
+        "updatedAt": "2021-11-08T21:52:39.915Z"
+      }
+  ],
+  "type": "quartz",
+  "test": true,
+  "assetId": "2rSBqRjMcuQvZR55pwhTKC"
+}
+{% endjson %}
 
 <span id="verify-bank-account"></span>
 ### Verify a Bank Account

@@ -9,7 +9,9 @@ permalink: /api/bank-account-approvals
 # Bank Account Approvals
 {:.no_toc}
 
-An `approved` Bank Account Approval is required for the funds in a [Settlement Wallet][] to be released. A [Media Upload][] is uploaded by the user to provide evidence of ownership of the [Bank Account][] to be approved.
+A Bank Account Approval represents any added authorization on a [Bank Account][].
+This may be an approval from Centrapay or a consent from a Centrapay [Account][] owner
+that allows access to a third-party system. See [Bank Account Approval Types][].
 
 ## Contents
 {:.no_toc .text-delta}
@@ -20,24 +22,25 @@ An `approved` Bank Account Approval is required for the funds in a [Settlement W
 ## Models
 
 ### Bank Account Approval
-{% h4 Mandatory Fields %}
+{% h4 Fields %}
 
 |       Field        |        Type        |                                                          Description                                                           |
 | :----------------- | :----------------- | :----------------------------------------------------------------------------------------------------------------------------- |
 | id                 | String             | The Bank Account Approval's unique identifier.                                                                                 |
 | bankAccountId      | String             | The id of the associated [Bank Account][].                                                                                     |
-| mediaUploadId      | String             | The id of the associated [Media Upload][].                                                                                     |
 | accountId          | String             | The id of the owning Centrapay [Account][].                                                                                    |
-| type               | String             | The type of Bank Account Approval.                                                                                             |
+| type               | String             | The type of Bank Account Approval. See [Bank Account Approval Types][].                                                        |
 | status             | String             | The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`. |
 | createdAt          | {% dt Timestamp %} | When the Bank Account Approval was created.                                                                                    |
 | createdBy          | {% dt CRN %}       | The User or API Key that created the Bank Account Approval.                                                                    |
 | modifiedAt         | {% dt Timestamp %} | When the Bank Account Approval was updated.                                                                                    |
 | modifiedBy         | {% dt CRN %}       | The User or API Key that updated the Bank Account Approval.                                                                    |
 | approvalActivities | Array              | An array of [Bank Account Approval Activity] associated with the Bank Account Approval.                                        |
+| mediaUploadId      | String   {% opt %} | The id of the associated [Media Upload][]. Required for type `settlement`.                                                     |
+| refreshToken       | String   {% opt %} | A long lived access token for access to a third-party system. Required for type `account-consent` and `payment-consent`.        |
 
 ### Bank Account Approval Activity
-{% h4 Mandatory Fields %}
+{% h4 Fields %}
 
 |     Field      |        Type        |                             Description                              |
 | :------------- | :----------------- | :------------------------------------------------------------------- |
@@ -46,6 +49,14 @@ An `approved` Bank Account Approval is required for the funds in a [Settlement W
 | activityType   | String             | The type of the Bank Account Approval Activity.                      |
 | createdAt      | {% dt Timestamp %} | When the Bank Account Approval Activity was created.                 |
 | createdBy      | {% dt CRN %}       | The User or API Key that created the Bank Account Approval Activity. |
+
+### Bank Account Approval Types
+
+|      Name       |                                                                                                                    description                                                                                                                    |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| settlement      | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet][] to be released. A [Media Upload][] is uploaded by the user to provide evidence of ownership of the [Bank Account][] to be approved. |
+| account-consent | An `approved` Bank Account Approval of type `account-consent` provides an access token to read account details from a third-party.                                                                                                                |
+| payment-consent  | An `approved` Bank Account Approval of type `payment-consent` provides an access token for creating payments with a third-party.                                                                                                                   |
 
 ## Operations
 
@@ -57,16 +68,18 @@ An `approved` Bank Account Approval is required for the funds in a [Settlement W
     body ({
       mediaUploadId: 'uooxSens6ykJaim1Cu1Q55',
       bankAccountId: 'WRhAxxWpTKb5U7pXyxQjjY',
+      type: 'settlement',
     })
   }
 {% endreqspec %}
 
 {% h4 Required Fields %}
 
-|     Field     |  Type  |                Description                 |
-| :------------ | :----- | :----------------------------------------- |
-| mediaUploadId | String | The id of the associated [Media Upload][]. |
-| bankAccountId | String | The id of the associated [Bank Account][]. |
+|     Field     |  Type  |                                               Description                                                |
+| :------------ | :----- | :------------------------------------------------------------------------------------------------------- |
+| mediaUploadId | String | The id of the associated [Media Upload][].                                                               |
+| bankAccountId | String | The id of the associated [Bank Account][].                                                               |
+| type          | String | The [Bank Account Approval Type][]. A Bank Account Approval can only be requested for type `settlement`. |
 
 {% h4 Example response payload %}
 
@@ -83,26 +96,32 @@ modifiedAt: "2021-11-08T21:52:39.915Z"
 modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 {% endjson %}
 
+{% h4 Error Responses %}
+
+| Status |             Code             |                                         Description                                          |
+| :----- | :--------------------------- | :------------------------------------------------------------------------------------------- |
+| 403    | APPROVAL_ALREADY_IN_PROGRESS | There is already a Bank Account Approval in progress that is awaiting review from Centrapay. |
+
 ### Get Bank Account Approval **EXPERIMENTAL**
 {% reqspec %}
   POST '/api/bank-account-approvals/{bankAccountApprovalId}'
   auth 'api-key'
-  path_param 'bankAccountApprovalId', 'DcTs3U38HdhfEqwF1GKoT3'
+  path_param 'bankAccountApprovalId', 'bbab9a768921019cb856'
 {% endreqspec %}
 
 {% h4 Example response payload %}
 
 {% json %}
-id: DcTs3U38HdhfEqwF1GKoT3
-mediaUploadId: uooxSens6ykJaim1Cu1Q55
+id: bbab9a768921019cb856
 bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
 accountId: Jaim1Cu1Q55uooxSens6yk
-type: settlement
-status: pending
+type: account-consent
+status: approved
 createdAt: "2021-11-08T21:52:39.915Z"
 createdBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 modifiedAt: "2021-11-08T21:52:39.915Z"
 modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+refreshToken: "y04Njk3LTRjNmZkYjBhMzRiZSIsIm5vbmNlIjoiOTg3MTJjMGNkZmFiNWZjNzMwM2MxMzNl"
 {% endjson %}
 
 ### Accept a Bank Account Approval **EXPERIMENTAL**
@@ -171,3 +190,5 @@ modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 [Media Upload]: {% link api/media-uploads.md %}
 [Bank Account Approval]: {% link api/bank-accounts/bank-account-approvals.md %}
 [Bank Account Approval Activity]: {% link api/bank-accounts/bank-account-approvals.md %}#bank-account-approval-activity
+[Bank Account Approval Type]: {% link api/bank-accounts/bank-account-approvals.md %}#bank-account-approval-types
+[Bank Account Approval Types]: {% link api/bank-accounts/bank-account-approvals.md %}#bank-account-approval-types
