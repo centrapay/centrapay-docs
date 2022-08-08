@@ -977,7 +977,7 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 
 {% reqspec %}
 
-  POST '/api/payment-requests/${paymentRequestId}/confirm'
+  POST '/api/payment-requests/{paymentRequestId}/confirm'
   auth 'jwt'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
   example {
@@ -1017,7 +1017,7 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
       ]
     })
   }
-  
+
 {% endreqspec %}
 
 {% h4 Example response payload when a Pre Auth is confirmed %}
@@ -1056,15 +1056,15 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 
 {% h4 Error Responses %}
 
-| Status |                    Code                    |                   Description                                                                  |
-| :----- | :----------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                               |
-| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                  |
-| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                          |
-| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                    |
-| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                         |
-| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                      |
-| 403    | {% break _ DUPLICATE_IDEMPOTENCY_KEY %}    | There has already been a confirmation against the Payment Request with the same idempotencyKey |
+| Status |                    Code                    |                                                                             Description                                                                             |
+| :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                                                                                                    |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                                                                                       |
+| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                                                                                               |
+| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                                                                                         |
+| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                                                                                              |
+| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                                                                           |
+| 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. We recommend that you void this confirmation. |
 
 
 <a name="list-activities-for-merchant"></a>
