@@ -209,29 +209,29 @@
     "url": "/api/bank-account-approvals#operations",
     "relUrl": "/api/bank-account-approvals#operations"
   },"35": {
-    "doc": "Bank Account Requests",
-    "title": "Bank Account Requests",
-    "content": "Bank Account Requests facilitate user authorization of access to bank accounts. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts. After a bank account request has been completed, one or more Centrapay Bank Account resources may be created and long-lived access tokens may be stored against those Bank Accounts. ",
-    "url": "/api/bank-account-requests",
-    "relUrl": "/api/bank-account-requests"
+    "doc": "Bank Account Connection Intents",
+    "title": "Bank Account Connection Intents",
+    "content": "A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts. ",
+    "url": "/api/bank-account-connection-intents",
+    "relUrl": "/api/bank-account-connection-intents"
   },"36": {
-    "doc": "Bank Account Requests",
+    "doc": "Bank Account Connection Intents",
     "title": "Contents",
-    "content": ". | Models . | Bank Account Request | Bank Account Request Types | . | Operations . | Create Bank Account Request EXPERIMENTAL | Authorize Bank Account Request EXPERIMENTAL | . | . ",
-    "url": "/api/bank-account-requests#contents",
-    "relUrl": "/api/bank-account-requests#contents"
+    "content": ". | Models . | Bank Account Connection Intent | Bank Account Connection Intent Types | . | Operations . | Create Bank Account Connection Intent EXPERIMENTAL | Authorize Bank Account Connection Intent EXPERIMENTAL | . | . ",
+    "url": "/api/bank-account-connection-intents#contents",
+    "relUrl": "/api/bank-account-connection-intents#contents"
   },"37": {
-    "doc": "Bank Account Requests",
+    "doc": "Bank Account Connection Intents",
     "title": "Models",
-    "content": "Bank Account Request . Fields . | Field | Type | Description | . | id | String | The Bank Account Request’s unique identifier. | . | accountId | String | The id of the owning Centrapay Account. | . | type | String | The type of Bank Account Request. See Bank Account Request Types. | . | status | String | The current status of the Bank Account Request. Supported values are created, failed and done. | . | createdAt | Timestamp | When the Bank Account Request was created. | . | createdBy | CRN | The User or API Key that created the Bank Account Request. | . | updatedAt | Timestamp | When the Bank Account Request was updated. | . | updatedBy | CRN | The User or API Key that updated the Bank Account Request. | . | authorizationUrl | String | A URL to the third-party beginning the authorization flow. | . Bank Account Request Types . | Name | description | . | quartz-details | Request will initiate an authorization flow for authorizing access to account details. | . | quartz-payment | Request will initiate an authorization flow for authorizing access to create payments. | . ",
-    "url": "/api/bank-account-requests#models",
-    "relUrl": "/api/bank-account-requests#models"
+    "content": "Bank Account Connection Intent . Fields . | Field | Type | Description | . | id | String | The Bank Account Connection Intent’s unique identifier. | . | accountId | String | The id of the owning Centrapay Account. | . | type | String | The type of Bank Account Connection Intent. See Bank Account Connection Intent Types. | . | status | String | The current status of the Bank Account Connection Intent. Supported values are created, authorized and failed. | . | createdAt | Timestamp | When the Bank Account Connection Intent was created. | . | createdBy | CRN | The User or API Key that created the Bank Account Connection Intent. | . | updatedAt | Timestamp | When the Bank Account Connection Intent was updated. | . | updatedBy | CRN | The User or API Key that updated the Bank Account Connection Intent. | . | authorizationUrl | String | A URL to the third-party beginning the authorization flow. | . | test | Boolean Optional | A flag which is present if the intention is to connect with a Bank Account used for testing. | . Bank Account Connection Intent Types . | Name | description | . | quartz-accounts | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. | . | quartz-payment | Initiates an authorization flow for authorizing access to create payments. | . ",
+    "url": "/api/bank-account-connection-intents#models",
+    "relUrl": "/api/bank-account-connection-intents#models"
   },"38": {
-    "doc": "Bank Account Requests",
+    "doc": "Bank Account Connection Intents",
     "title": "Operations",
-    "content": "Create Bank Account Request EXPERIMENTAL . POST /api/bank-account-requests . curl -X POST https://service.centrapay.com/api/bank-account-requests \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"uooxSens6ykJaim1Cu1Q55\", \"type\": \"quartz-details\" }' . Fields . | Field | Type | Description | . | accountId | String | The id of the owning Account. | . | type | String | The type of Bank Account Request. | . | bankAccountId | String Optional | The id of the associated Bank Account. Required if type is quartz-payment. | . Example response payload . { \"id\": \"3KVjuKW2CZCJeJVqPxwkX7\", \"accountId\": \"B4u4WZCu3joZFVWT3XjWW3\", \"type\": \"quartz-details\", \"status\": \"created\", \"createdAt\": \"2022-03-31 02:56:29 UTC\", \"createdBy\": \"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey\", \"updatedAt\": \"2022-03-31 02:56:29 UTC\", \"updatedBy\": \"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey\", \"authorizationUrl\": \"https://example.com/authorization-url\" } . Authorize Bank Account Request EXPERIMENTAL . POST /api/bank-account-requests/{bankAccountRequestId}/authorize . curl -X POST https://service.centrapay.com/api/bank-account-requests/3KVjuKW2CZCJeJVqPxwkX7/authorize \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"code\": \"hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x\" }' . Fields . | Field | Type | Description | . | code | String | Authorization code returned from third-party. | . Example response payload . { } . ",
-    "url": "/api/bank-account-requests#operations",
-    "relUrl": "/api/bank-account-requests#operations"
+    "content": "Create Bank Account Connection Intent EXPERIMENTAL . POST /api/bank-account-connection-intents . curl -X POST https://service.centrapay.com/api/bank-account-connection-intents \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"accountId\": \"uooxSens6ykJaim1Cu1Q55\", \"type\": \"quartz-accounts\", \"test\": true }' . Fields . | Field | Type | Description | . | accountId | String | The id of the owning Account. | . | type | String | The type of Bank Account Connection Intent. | . | bankAccountId | String Optional | The id of the associated Bank Account. Required if type is quartz-payment. | . | test | Boolean Optional | A flag which is present if the intention is to connect with a Bank Account used for testing. | . Example response payload . { \"id\": \"3KVjuKW2CZCJeJVqPxwkX7\", \"accountId\": \"B4u4WZCu3joZFVWT3XjWW3\", \"type\": \"quartz-accounts\", \"status\": \"created\", \"createdAt\": \"2022-03-31 02:56:29 UTC\", \"createdBy\": \"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey\", \"updatedAt\": \"2022-03-31 02:56:29 UTC\", \"updatedBy\": \"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey\", \"authorizationUrl\": \"https://example.com/authorization-url\", \"test\": true } . Error Responses . | Status | Code | Description | . | 403 | LIVENESS_MISMATCH | Only Bank Account Connection Intents with the test flag can be associated with test Bank Accounts, and vice versa. | . Authorize Bank Account Connection Intent EXPERIMENTAL . POST /api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize . curl -X POST https://service.centrapay.com/api/bank-account-connection-intents/3KVjuKW2CZCJeJVqPxwkX7/authorize \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"code\": \"hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x\" }' . Fields . | Field | Type | Description | . | code | String | Authorization code returned from third-party. | . Example response payload . { } . ",
+    "url": "/api/bank-account-connection-intents#operations",
+    "relUrl": "/api/bank-account-connection-intents#operations"
   },"39": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
