@@ -104,7 +104,7 @@ modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 
 ### Get Bank Account Approval **EXPERIMENTAL**
 {% reqspec %}
-  POST '/api/bank-account-approvals/{bankAccountApprovalId}'
+  GET '/api/bank-account-approvals/{bankAccountApprovalId}'
   auth 'api-key'
   path_param 'bankAccountApprovalId', 'bbab9a768921019cb856'
 {% endreqspec %}
