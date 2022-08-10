@@ -84,7 +84,8 @@ version (documented on this page) and the "legacy" version (documented at
 | cancellationReason   | String             | The reason that the payment request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.                                                |
 | preAuth              | Boolean            | Flag to indicate the if the request is a Pre Auth for supported [Asset Types][].                                                                                         |
 | preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                                      |
-| preAuthStatus        | String             | Describes which state a Pre Auth Payment Request is in. Valid values are "authorized", or "released".   |
+| preAuthStatus        | String             | Describes which state a Pre Auth Payment Request is in. Valid values are "authorized", or "released".                                                                    |
+| taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
 
 ### Payment Option
 
@@ -1318,3 +1319,5 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Refund]: #refund
 [paginated]: {% link api/pagination.md %}
 [Scanned Code]: {% link api/scanned-codes/scanned-codes.md %}
+[Business]: {% link api/accounts/businesses.md %}
+[Tax Number]: {% link api/accounts/businesses.md %}#tax-number
