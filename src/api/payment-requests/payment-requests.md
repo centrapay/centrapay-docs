@@ -257,6 +257,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | expiry            | [Payment Request][] wasn't paid before time out.                  |
 | accept-condition  | A [Payment Condition][] was accepted.                             |
 | decline-condition | A [Payment Condition][] was declined.                             |
+| release           | Remaining funds on a Pre Auth were returned to the shopper.       |
+| confirmation      | Funds on a Pre Auth have been drawn down on.                      |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
@@ -951,6 +953,7 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
     "currency": "NZD",
     "amount": "1000",
   },
+  "preAuth": true,
   "assetType": "centrapay.nzd.main",
   "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
   "shortCode": "CP-C7F-ZS5-032",
@@ -1030,6 +1033,7 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 	"id": "MhocUmpxxmgdHjr7DgKoKw",
 	"shortCode": "CP-C7F-ZS5",
 	"value": { "amount": "6190", "currency": "NZD" },
+  "preAuth": true,
 	"type": "confirmation",
 	"idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
 	"createdAt": "2021-06-08T04:04:27.426Z",
