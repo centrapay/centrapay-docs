@@ -44,7 +44,7 @@ A Business is associated with a single [Account][].
 | Field  |  Type  |                Description                |
 | :----- | :----- | :---------------------------------------- |
 | value  | String | The tax number.                           |
-| type   | String | Type of value-added tax. Can be `nz_gst`. |
+| type   | String | Type of value-added tax. Can be `nz-gst`. |
 
 ## Operations
 
@@ -60,7 +60,7 @@ org account will be created and associated to the business.
     nzbn: '9429046246448',
     taxNumber: {
       value: '123-456-789',
-      type: 'nz_gst',
+      type: 'nz-gst',
     }
   })
 {% endreqspec %}
@@ -96,7 +96,7 @@ org account will be created and associated to the business.
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "taxNumber": {
     "value": "123-456-789",
-    "type": "nz_gst",
+    "type": "nz-gst",
   }
 }
 {% endjson %}
