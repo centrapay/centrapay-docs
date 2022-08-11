@@ -908,6 +908,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ REPEAT_REFERENCE %}     | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
 | 403    | {% break _ INACTIVE_ASSET %}       | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
 | 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
+| 403    | {% break _ REQUEST_EXPIRED %}      | The payment request has expired.                                                                                                                                                                                                                    |
 
 <a name="release">
 ### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
