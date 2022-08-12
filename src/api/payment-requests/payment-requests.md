@@ -1109,11 +1109,11 @@ Voiding a confirmation will cancel the confirmation and return any transferred f
 
 {% h4 Error Responses %}
 
-| Status |                Code                |                               Description                                |
-| :----- | :--------------------------------- | :----------------------------------------------------------------------- |
-| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | The void window is closed 24 hours after the confirmation's `createdAt`. |
-| 403    | {% break _ PRE_AUTH_EXPIRED %}     | `preAuthExpiresAt` has passed                                            |
-| 403    | {% break _ REQUEST_CANCELLED %}    | The Payment Request has been cancelled                                   |
+| Status |                Code                |                        Description                        |
+| :----- | :--------------------------------- | :-------------------------------------------------------- |
+| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | 24 hours have passed since the confirmation's `createdAt` |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}     | `preAuthExpiresAt` has passed                             |
+| 403    | {% break _ REQUEST_CANCELLED %}    | The Payment Request has been cancelled                    |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
