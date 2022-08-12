@@ -257,6 +257,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | expiry            | [Payment Request][] wasn't paid before time out.                  |
 | accept-condition  | A [Payment Condition][] was accepted.                             |
 | decline-condition | A [Payment Condition][] was declined.                             |
+| void-confirmation | A Confirmation Activity was cancelled by the merchant and any funds were returned to the shopper. |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
@@ -1070,6 +1071,49 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 | 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                                                                           |
 | 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. We recommend that you void this confirmation. |
 
+<a name="void confirm"></a>
+### Void a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
+
+Voiding a confirmation will cancel the confirmation and return any transferred funds. An `idempotencyKey` is required as a reference to the confirmation to be voided.
+
+{% reqspec %}
+
+  POST '/api/payment-requests/{paymentRequestId}/void-confirmation'
+  auth 'jwt'
+  path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
+  example {
+    title 'Void a Pre Auth Confirmation'
+    body ({
+      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a"
+    })
+  }
+
+{% endreqspec %}
+
+{% h4 Example response payload when a confirmation is voided %}
+{% json %}
+{
+	"id": "xmgdHjr7DgKoMhocUmpxKw",
+  "preAuth": true,
+	"shortCode": "CP-C7F-ZS5",
+	"value": { "amount": "6190", "currency": "NZD" },
+	"type": "void-confirmation",
+	"idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+	"createdAt": "2021-06-08T04:04:27.426Z",
+	"updatedAt": "2021-06-08T04:04:27.426Z",
+	"invoiceRef": "2022-08-03T16:56:50-06:00",
+	"createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+	"createdByAccountName": "Bob's Burgers Intergration"
+},
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                Code                |                               Description                                |
+| :----- | :--------------------------------- | :----------------------------------------------------------------------- |
+| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | The void window is closed 24 hours after the confirmation's `createdAt`. |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}     | `preAuthExpiresAt` has passed                                            |
+| 403    | {% break _ REQUEST_CANCELLED %}    | The Payment Request has been cancelled                                   |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
