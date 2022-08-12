@@ -1071,7 +1071,7 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 | 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                                                                           |
 | 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. We recommend that you void this confirmation. |
 
-<a name="void confirm"></a>
+<a name="void-confirmation"></a>
 ### Void a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
 
 Voiding a confirmation will cancel the confirmation and return any transferred funds. An `idempotencyKey` is required as a reference to the confirmation to be voided.
