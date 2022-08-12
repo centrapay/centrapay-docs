@@ -248,16 +248,16 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Activity Types %}
 
-|       Name        |                                                  Description                                                  |
-| ----------------- | ------------------------------------------------------------------------------------------------------------- |
-| request           | [Payment Request][] was created.                                                                              |
-| payment           | [Payment Request][] was paid.                                                                                 |
-| refund            | Funds were returned to the shopper.                                                                           |
-| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper.                                             |
-| expiry            | [Payment Request][] wasn't paid before time out.                                                              |
-| accept-condition  | A [Payment Condition][] was accepted.                                                                         |
-| decline-condition | A [Payment Condition][] was declined.                                                                         |
-| void-confirmation | A Confirmation Activity was cancelled by the merchant and any transferred funds were returned to the shopper. |
+|       Name        |                            Description                            |
+| ----------------- | ----------------------------------------------------------------- |
+| request           | [Payment Request][] was created.                                  |
+| payment           | [Payment Request][] was paid.                                     |
+| refund            | Funds were returned to the shopper.                               |
+| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper. |
+| expiry            | [Payment Request][] wasn't paid before time out.                  |
+| accept-condition  | A [Payment Condition][] was accepted.                             |
+| decline-condition | A [Payment Condition][] was declined.                             |
+| void-confirmation | A Confirmation was reversed by the merchant.                      |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
@@ -1074,7 +1074,7 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 <a name="void-confirmation"></a>
 ### Void a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
 
-Voiding a confirmation will cancel the confirmation and return any transferred funds. An `idempotencyKey` is required as a reference to the confirmation to be voided.
+Voiding a confirmation will reverse the confirmation. An `idempotencyKey` is required as a reference to the confirmation to be voided.
 
 {% reqspec %}
 
@@ -1114,6 +1114,7 @@ Voiding a confirmation will cancel the confirmation and return any transferred f
 | 403    | {% break _ VOID_WINDOW_EXCEEDED %} | 24 hours have passed since the confirmation's `createdAt` |
 | 403    | {% break _ PRE_AUTH_EXPIRED %}     | `preAuthExpiresAt` has passed                             |
 | 403    | {% break _ REQUEST_CANCELLED %}    | The Payment Request has been cancelled                    |
+| 403    | {% break _ PRE_AUTH_RELEASED %}    | The Payment Request has been released                     |
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
