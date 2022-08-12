@@ -248,15 +248,15 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Activity Types %}
 
-|       Name        |                            Description                            |
-| ----------------- | ----------------------------------------------------------------- |
-| request           | [Payment Request][] was created.                                  |
-| payment           | [Payment Request][] was paid.                                     |
-| refund            | Funds were returned to the shopper.                               |
-| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper. |
-| expiry            | [Payment Request][] wasn't paid before time out.                  |
-| accept-condition  | A [Payment Condition][] was accepted.                             |
-| decline-condition | A [Payment Condition][] was declined.                             |
+|       Name        |                                            Description                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| request           | [Payment Request][] was created.                                                                  |
+| payment           | [Payment Request][] was paid.                                                                     |
+| refund            | Funds were returned to the shopper.                                                               |
+| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper.                                 |
+| expiry            | [Payment Request][] wasn't paid before time out.                                                  |
+| accept-condition  | A [Payment Condition][] was accepted.                                                             |
+| decline-condition | A [Payment Condition][] was declined.                                                             |
 | void-confirmation | A Confirmation Activity was cancelled by the merchant and any funds were returned to the shopper. |
 
 <a name="cancellation-reasons">
