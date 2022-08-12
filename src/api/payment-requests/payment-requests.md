@@ -1028,7 +1028,6 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 {% json %}
 {
 	"id": "MhocUmpxxmgdHjr7DgKoKw",
-	"parentTransactionId": "8sM6exj3mNixeEnkTFtQwE",
 	"shortCode": "CP-C7F-ZS5",
 	"value": { "amount": "6190", "currency": "NZD" },
 	"type": "confirmation",
