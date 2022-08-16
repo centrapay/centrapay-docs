@@ -16,25 +16,25 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 |     Asset Type     |             Description              |   Category   | Currencies | Flags |
 | :----------------- | :----------------------------------- | :----------- | :--------- | :---- |
 | bitcoin.main       | [Bitcoin][]{:.external}              |              | NZD, AUD   |       |
-| cca.coke.main      | Coke tokens                          | [Token][]    | NZD        | 🚫    |
-| cca.coke.test      | Coke tokens                          | [Token][]    | NZD        | 🅃 🚫  |
+| cca.coke.main      | Coke tokens                          | [Token][]    | NZD        | 🚫     |
+| cca.coke.test      | Coke tokens                          | [Token][]    | NZD        | 🅃 🚫   |
 | cennznet.main      | [CENNZnet][]{:.external}             |              | NZD        |       |
 | centrapay.nzd.main | Centrapay NZD wallet                 | [Money][]    | NZD        |       |
 | centrapay.nzd.test | Centrapay NZD wallet                 | [Money][]    | NZD        | 🅃     |
 | epay.nzd.main      | EPay NZ giftcards                    | [Giftcard][] | NZD        |       |
 | epay.nzd.test      | EPay NZ giftcards                    | [Giftcard][] | NZD        | 🅃     |
-| farmlands.nzd.main | [Farmlands][]{:.external}            | [Money][]    | NZD        | 💸    |
-| farmlands.nzd.test | [Farmlands][]{:.external}            | [Money][]    | NZD        | 🅃💸   |
+| farmlands.nzd.main | [Farmlands][]{:.external}            | [Money][]    | NZD        | 💸💼    |
+| farmlands.nzd.test | [Farmlands][]{:.external}            | [Money][]    | NZD        | 🅃💸💼   |
 | kete.nzd.main      | Kete NZD asset                       |              | NZD        |       |
 | kete.nzd.test      | Kete NZD asset                       |              | NZD        | 🅃     |
-| paypal.main        | [PayPal][]{:.external}               |              | USD        | 💸    |
-| paypal.test        | [PayPal][]{:.external}               |              | USD        | 🅃 💸  |
+| paypal.main        | [PayPal][]{:.external}               |              | USD        | 💸     |
+| paypal.test        | [PayPal][]{:.external}               |              | USD        | 🅃 💸   |
 | pocketvouchers     | [Pocket Vouchers][]{:.external}      |              | NZD        |       |
 | quartz.nzd.main    | Quartz NZD asset                     |              | NZD        |       |
 | quartz.nzd.test    | Quartz NZD asset                     |              | NZD        | 🅃     |
 | test               | No-op test payment (always approved) |              | NZD        | 🅃     |
-| venmo.main         | [Venmo][]{:.external}                |              | USD        | 💸    |
-| venmo.test         | [Venmo][]{:.external}                |              | USD        | 🅃 💸  |
+| venmo.main         | [Venmo][]{:.external}                |              | USD        | 💸     |
+| venmo.test         | [Venmo][]{:.external}                |              | USD        | 🅃 💸   |
 | zap.main           | [Zap tokens][]{:.external}           |              | NZD        |       |
 
 
@@ -43,6 +43,7 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
  * 🅃  : **Test Asset** -- Cannot be assigned to [Merchants] without the test flag.
  * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items][].
  * 💸 : **Supports Quick Pay** -- Can be used to quick pay a [Payment Request][].
+ * 💼 : **Requires Tax Number** -- [Tax Number][] must exist on the Merchant's Business to transact this asset type.
 
 
 [Money]: {% link api/assets/assets.md %}#money
@@ -59,3 +60,4 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 [PayPal]: https://www.paypal.com/
 [Venmo]: https://venmo.com/
 [Farmlands]: https://www.farmlands.co.nz/
+[Tax Number]: {% link api/accounts/businesses.md %}#tax-number
