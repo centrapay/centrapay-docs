@@ -115,7 +115,7 @@
   },"19": {
     "doc": "Asset Types",
     "title": "Supported Asset Types",
-    "content": "The following table describes the Asset Types supported for payments. The Category column refers to the Centrapay asset type representation if applicable. When blank, the Asset is not managed by a Centrapay Account. | Asset Type | Description | Category | Currencies | Flags | . | bitcoin.main | Bitcoin |   | NZD, AUD |   | . | cca.coke.main | Coke tokens | Token | NZD | 🚫 | . | cca.coke.test | Coke tokens | Token | NZD | 🅃 🚫 | . | cennznet.main | CENNZnet |   | NZD |   | . | centrapay.nzd.main | Centrapay NZD wallet | Money | NZD |   | . | centrapay.nzd.test | Centrapay NZD wallet | Money | NZD | 🅃 | . | epay.nzd.main | EPay NZ giftcards | Giftcard | NZD |   | . | epay.nzd.test | EPay NZ giftcards | Giftcard | NZD | 🅃 | . | farmlands.nzd.main | Farmlands | Money | NZD | 💸 | . | farmlands.nzd.test | Farmlands | Money | NZD | 🅃💸 | . | kete.nzd.main | Kete NZD asset |   | NZD |   | . | kete.nzd.test | Kete NZD asset |   | NZD | 🅃 | . | paypal.main | PayPal |   | USD | 💸 | . | paypal.test | PayPal |   | USD | 🅃 💸 | . | pocketvouchers | Pocket Vouchers |   | NZD |   | . | quartz.nzd.main | Quartz NZD asset |   | NZD |   | . | quartz.nzd.test | Quartz NZD asset |   | NZD | 🅃 | . | test | No-op test payment (always approved) |   | NZD | 🅃 | . | venmo.main | Venmo |   | USD | 💸 | . | venmo.test | Venmo |   | USD | 🅃 💸 | . | zap.main | Zap tokens |   | NZD |   | . Flags . | 🅃 : Test Asset – Cannot be assigned to Merchants without the test flag. | 🚫 : Restricted Asset – Cannot be used to pay for “restricted” Line Items. | 💸 : Supports Quick Pay – Can be used to quick pay a Payment Request. | . ",
+    "content": "The following table describes the Asset Types supported for payments. The Category column refers to the Centrapay asset type representation if applicable. When blank, the Asset is not managed by a Centrapay Account. | Asset Type | Description | Category | Currencies | Flags | . | bitcoin.main | Bitcoin |   | NZD, AUD |   | . | cca.coke.main | Coke tokens | Token | NZD | 🚫 | . | cca.coke.test | Coke tokens | Token | NZD | 🅃 🚫 | . | cennznet.main | CENNZnet |   | NZD |   | . | centrapay.nzd.main | Centrapay NZD wallet | Money | NZD |   | . | centrapay.nzd.test | Centrapay NZD wallet | Money | NZD | 🅃 | . | epay.nzd.main | EPay NZ giftcards | Giftcard | NZD |   | . | epay.nzd.test | EPay NZ giftcards | Giftcard | NZD | 🅃 | . | farmlands.nzd.main | Farmlands | Money | NZD | 💸💼 | . | farmlands.nzd.test | Farmlands | Money | NZD | 🅃💸💼 | . | kete.nzd.main | Kete NZD asset |   | NZD |   | . | kete.nzd.test | Kete NZD asset |   | NZD | 🅃 | . | paypal.main | PayPal |   | USD | 💸 | . | paypal.test | PayPal |   | USD | 🅃 💸 | . | pocketvouchers | Pocket Vouchers |   | NZD |   | . | quartz.nzd.main | Quartz NZD asset |   | NZD |   | . | quartz.nzd.test | Quartz NZD asset |   | NZD | 🅃 | . | test | No-op test payment (always approved) |   | NZD | 🅃 | . | venmo.main | Venmo |   | USD | 💸 | . | venmo.test | Venmo |   | USD | 🅃 💸 | . | zap.main | Zap tokens |   | NZD |   | . Flags . | 🅃 : Test Asset – Cannot be assigned to Merchants without the test flag. | 🚫 : Restricted Asset – Cannot be used to pay for “restricted” Line Items. | 💸 : Supports Quick Pay – Can be used to quick pay a Payment Request. | 💼 : Requires Tax Number – Tax Number must exist on the Merchant’s Business to transact this asset type. | . ",
     "url": "/api/asset-types#supported-asset-types",
     "relUrl": "/api/asset-types#supported-asset-types"
   },"20": {
@@ -611,65 +611,65 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"102": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"103": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"104": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"105": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"106": {
-    "doc": "Integrations",
-    "title": "Integrations",
-    "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
-  },"107": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"108": {
-    "doc": "Scanned Codes",
-    "title": "Scanned Codes",
-    "content": " ",
-    "url": "/api/section/scanned-codes",
-    "relUrl": "/api/section/scanned-codes"
-  },"109": {
-    "doc": "Batches",
-    "title": "Batches",
-    "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
-  },"110": {
-    "doc": "API Reference",
-    "title": "API Reference",
-    "content": " ",
-    "url": "/api",
-    "relUrl": "/api"
-  },"111": {
     "doc": "Guides",
     "title": "Guides",
     "content": " ",
     "url": "/guides",
     "relUrl": "/guides"
+  },"103": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"104": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
+  },"105": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"106": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"107": {
+    "doc": "Batches",
+    "title": "Batches",
+    "content": " ",
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
+  },"108": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
+  },"109": {
+    "doc": "Scanned Codes",
+    "title": "Scanned Codes",
+    "content": " ",
+    "url": "/api/section/scanned-codes",
+    "relUrl": "/api/section/scanned-codes"
+  },"110": {
+    "doc": "Integrations",
+    "title": "Integrations",
+    "content": " ",
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
+  },"111": {
+    "doc": "API Reference",
+    "title": "API Reference",
+    "content": " ",
+    "url": "/api",
+    "relUrl": "/api"
   },"112": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -707,17 +707,17 @@
     "url": "/api/integrations",
     "relUrl": "/api/integrations"
   },"118": {
-    "doc": "API Introduction",
-    "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | HTTP Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Payment Requests | Profiles | Quotas | Scanned Codes | . ",
-    "url": "/api/introduction",
-    "relUrl": "/api/introduction"
-  },"119": {
     "doc": "Guides",
     "title": "Guides",
     "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
+  },"119": {
+    "doc": "API Introduction",
+    "title": "API Introduction",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | HTTP Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Payment Requests | Profiles | Quotas | Scanned Codes | . ",
+    "url": "/api/introduction",
+    "relUrl": "/api/introduction"
   },"120": {
     "doc": "Invitations",
     "title": "Invitations",
