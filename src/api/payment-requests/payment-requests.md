@@ -258,7 +258,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | accept-condition  | A [Payment Condition][] was accepted.                             |
 | decline-condition | A [Payment Condition][] was declined.                             |
 | confirmation      | Funds on a Pre Auth have been drawn down on.                      |
-| release           | Remaining funds on a Pre Auth were returned to the shopper.       |
+| release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.       |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
