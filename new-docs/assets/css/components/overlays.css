@@ -1,0 +1,28 @@
+@layer components {
+  .overlay {
+    @apply
+      fixed
+      left-0
+      top-0
+      right-0
+      flex
+      flex-col
+      h-full
+      justify-end
+      items-center
+      px-4
+      bg-overlay-dark
+      z-10
+      ;
+    background-image: url('~@/img/overlay-pattern.svg');
+    /* Extra padding for iOS full view port mode */
+    padding-bottom: calc(3.6rem + calc(env(safe-area-inset-bottom) * 2));
+  }
+
+  /* Add extra padding to bottom when using PWA */
+  @media (display-mode: standalone) {
+    .overlay {
+      padding-bottom: 5rem;
+    }
+  }
+}

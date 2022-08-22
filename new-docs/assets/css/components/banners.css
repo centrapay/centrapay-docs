@@ -1,0 +1,24 @@
+@layer components {
+  .banner {
+    @apply
+      relative
+      mb-8
+    ;
+  }
+
+  .avatar-business {
+    @apply
+      ring-4
+      ring-white
+      rounded-lg
+    ;
+  }
+
+  .avatar-person {
+    @apply
+      ring-4
+      ring-white
+      rounded-full
+    ;
+  }
+}

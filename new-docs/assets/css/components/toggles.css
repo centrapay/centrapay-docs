@@ -1,0 +1,68 @@
+@layer components {
+
+  .toggle-simple .slider {
+    @apply
+      inline-flex
+      flex-shrink-0
+      h-6
+      w-11
+      border-2
+      border-transparent
+      rounded-full
+      cursor-pointer
+      transition-colors
+      ease-in-out
+      duration-200
+    ;
+  }
+
+  .toggle input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle input[type="checkbox"]:focus + label .slider {
+    @apply
+      ring-2
+      ring-offset-2
+      ring-focus-ring
+    ;
+  }
+
+  .toggle input[type="checkbox"]:checked + label .slider {
+    @apply bg-content-positive;
+  }
+
+  .toggle input[type="checkbox"]:not(:checked) + label .slider {
+    @apply bg-outline-opaque;
+  }
+
+  .toggle label {
+    @apply
+      flex
+      items-center
+      justify-between
+    ;
+  }
+
+  .toggle .slider::before {
+    @apply
+      pointer-events-none
+      inline-block
+      h-5
+      w-5
+      rounded-full
+      bg-surface-primary
+      transform
+      ease-in-out
+      duration-200;
+      content: ""
+    ;
+  }
+
+  .toggle input[type="checkbox"]:checked + label .slider::before {
+    @apply translate-x-5;
+  }
+
+}

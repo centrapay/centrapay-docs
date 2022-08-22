@@ -1,0 +1,46 @@
+@layer components {
+
+  .nav-card {
+    @apply
+      bg-surface-primary
+      rounded-xl
+      flex
+      flex-col
+      justify-center
+      w-full
+    ;
+  },
+
+  .nav-item-stacked {
+    @apply
+      cursor-pointer
+      p-4
+      rounded-xl
+      text-content-primary
+      list-item-stacked
+    ;
+  }
+  .nav-item {
+    @apply
+      cursor-pointer
+      p-4
+      rounded-xl
+      text-content-primary
+      list-item
+    ;
+  }
+
+  .nav-item-stacked:hover,
+  .nav-item:hover {
+    @apply text-interactive-secondary-hover;;
+    /* Ripple Effect */
+    background: theme('colors.interactive-tertiary-hover') radial-gradient(circle, transparent 1%, theme('colors.interactive-tertiary-hover') 1%) center/15000%;
+  }
+
+  .nav-item-stacked:focus,
+  .nav-item:focus {
+    @apply text-interactive-secondary-hover;
+    /* Ripple Effect */
+    background: theme('colors.interactive-tertiary-hover') radial-gradient(circle, transparent 1%, theme('colors.interactive-tertiary-hover') 1%) center/15000%;
+  }
+}

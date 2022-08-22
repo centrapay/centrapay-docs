@@ -1,0 +1,131 @@
+@layer components {
+
+  .icon-sm {
+    @apply
+      inline-block
+      w-4
+      h-4
+    ;
+  }
+
+  .icon-md {
+    @apply
+      inline-block
+      w-5
+      h-5
+    ;
+  }
+
+  .icon-lg {
+    @apply
+      inline-block
+      w-6
+      h-6
+    ;
+  }
+
+  .icon-2xl {
+    @apply
+      inline-block
+      h-8
+      w-8
+    ;
+  }
+
+  .icon-3xl {
+    @apply
+      inline-block
+      h-10
+      w-10
+    ;
+  }
+
+  .icon-4xl {
+    @apply
+      inline-block
+      h-12
+      w-12
+    ;
+  }
+
+  .icon-5xl {
+    @apply
+      inline-block
+      h-14
+      w-14
+    ;
+  }
+
+  .icon-6xl {
+    @apply
+      inline-block
+      h-16
+      w-16
+    ;
+  }
+
+  .icon-full {
+    @apply
+      inline-block
+      h-full
+      w-full
+    ;
+  }
+
+  .icon-center-lg {
+    @apply absolute;
+    left: calc(50% - 12px);
+  }
+
+  .icon-center-md {
+    @apply absolute;
+    left: calc(50% - 10px);
+  }
+
+  .icon-center-sm {
+    @apply absolute;
+    left: calc(50% - 8px);
+  }
+
+  .icon-button {
+    @apply
+      p-1
+      cursor-pointer
+    ;
+  }
+
+  .icon-rounded-container {
+    @apply
+      rounded-full
+      h-10
+      w-10
+      flex
+      items-center
+      justify-center
+    ;
+  }
+
+  .indicator-icon {
+    @apply
+      w-2
+      h-2
+      bottom-0.5
+      box-border
+      rounded
+      absolute
+    ;
+    left: calc(50% - 4px);
+    top: calc(50% - 4px);
+    border: 3px solid #ff5c00;
+  }
+
+  .icon-spinner {
+    @apply
+      animate-spin
+      text-brand-accent
+      stroke-current
+      stroke-1
+    ;
+  }
+
+}

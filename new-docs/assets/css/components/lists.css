@@ -1,0 +1,70 @@
+@layer components {
+
+  .alerts-list {
+    @apply
+      list-disc
+      pb-2
+      type-body-3
+    ;
+  }
+
+  .list-content {
+    @apply
+      list-inside
+      list-decimal
+    ;
+  }
+
+  .list {
+    @apply
+      divide-y
+      divide-outline-opaque
+    ;
+  }
+
+  .list-item {
+    @apply
+      p-2
+      space-x-2
+      flex
+      flex-row
+      items-center
+    ;
+  }
+
+  .list-item-stacked {
+    @apply
+      p-2
+      space-y-2
+      flex
+      flex-col
+      items-center
+    ;
+  }
+
+  .list-item-content {
+    flex-grow: 1;
+  }
+
+  .list-indent {
+    @apply
+      pl-16
+      pb-2
+      pr-4
+    ;
+  }
+
+  .list-indent-small {
+    @apply
+      pl-6
+      pb-2
+    ;
+  }
+
+  .terms-and-conditions li{
+    @apply
+      pt-1
+    ;
+  }
+
+}

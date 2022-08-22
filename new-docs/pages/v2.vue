@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ name }}</h1>
-    <button @click="routeToDocs">Old Docs</button>
+    <h1 class="bg-brand-secondary type-display">{{ name }}</h1>
+    <button class="btn-secondary" @click="routeToDocs">Old Docs</button>
   </div>
 </template>
 

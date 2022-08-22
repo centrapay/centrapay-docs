@@ -1,0 +1,8 @@
+@layer components {
+  label {
+    @apply
+      my-1
+      type-subtitle-2
+    ;
+  }
+}
