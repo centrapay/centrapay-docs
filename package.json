@@ -1,0 +1,5 @@
+{
+ "scripts": {
+    "generate": "cd new-docs && yarn generate"
+  }
+}
