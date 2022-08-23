@@ -1,0 +1,33 @@
+@layer components {
+
+  .card {
+    @apply
+      bg-surface-primary
+      shadow
+      rounded-2xl
+      p-2
+      flex
+      flex-col
+      w-full
+    ;
+  }
+
+  .card-zoom {
+    @apply overflow-hidden;
+  }
+
+  .card-zoom-image {
+    @apply
+      rounded-xl
+      w-full
+      transition-all
+      duration-500
+      ease-in-out
+      transform
+    ;
+  }
+
+  .card-zoom:hover .card-zoom-image {
+    @apply scale-125;
+  }
+}

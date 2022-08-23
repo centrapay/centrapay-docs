@@ -1,0 +1,14 @@
+@layer components {
+
+  .radio-group ul {
+    @apply space-y-2;
+  }
+
+  .radio-group-md ul {
+    @apply space-y-3;
+  }
+
+  .radio-group-lg ul {
+    @apply space-y-4;
+  }
+}

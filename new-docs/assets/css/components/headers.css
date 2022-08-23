@@ -1,0 +1,12 @@
+@layer components {
+  .section-header {
+    @apply
+      flex
+      flex-row
+      p-squish-2
+      space-x-2
+      items-center
+    ;
+    min-height: 3rem;
+  }
+}

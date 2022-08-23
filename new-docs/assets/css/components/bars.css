@@ -1,0 +1,79 @@
+@layer components {
+  .bottom-bar {
+    @apply
+      bg-surface-primary
+      p-squish-1
+      fixed
+      bottom-0
+      left-0
+      right-0
+      desktop-gutters
+    ;
+    /* Extra padding for iOS full view port mode */
+    padding-bottom: calc(env(safe-area-inset-bottom) * 2);
+  }
+
+  .bottom-nav-bar {
+    @apply
+      bg-surface-primary
+      fixed
+      bottom-0
+      left-0
+      right-0
+      w-full
+    ;
+    /* Extra padding for iOS full view port mode */
+    padding-bottom: calc(env(safe-area-inset-bottom) * 2);
+  }
+
+  .bottom-secondary-bar {
+    @apply
+      fixed
+      bottom-0
+      left-0
+      right-0
+      bottom-14
+    ;
+    /* Extra padding for iOS full view port mode */
+  }
+
+  /* Add extra padding to bottom when using PWA */
+  @media (display-mode: standalone) {
+    .bottom-bar,
+    .bottom-nav-bar {
+      padding-bottom: 1rem;
+    }
+
+    .bottom-secondary-bar {
+      bottom: 4.5rem;
+    }
+  }
+
+  .top-bar {
+    @apply
+      bg-surface-primary
+      fixed
+      top-0
+      left-0
+      right-0
+    ;
+  }
+
+  .action-bar {
+    @apply
+      flex
+      justify-between
+      p-2
+      space-x-4
+    ;
+  }
+
+  .bar-btn-items {
+    @apply
+      flex
+      justify-center
+      desktop-gutters
+      m-auto
+    ;
+  }
+}
