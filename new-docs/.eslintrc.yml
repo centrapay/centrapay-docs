@@ -1,0 +1,59 @@
+ignorePatterns:
+  - dist
+
+env:
+  es6: true
+  node: true
+  jest: true
+
+globals:
+  fetch: false
+  document: false
+  window: false
+  __DEV__: false
+
+extends:
+  - "eslint:recommended"
+  - "plugin:vue/recommended"
+  - "plugin:cypress/recommended"
+  - "plugin:nuxt/recommended"
+
+plugins:
+  - "no-only-tests"
+
+parser: vue-eslint-parser
+
+parserOptions:
+  parser: "@babel/eslint-parser"
+  ecmaVersion: 2020
+  sourceType: module
+  requireConfigFile: false
+
+# when updating, please copy to other projects <3
+# code */.eslintrc.yml
+rules:
+  arrow-spacing: error
+  complexity: [ error, 6 ]
+  curly: [ error, all ]
+  indent: [ error, 2 ]
+  key-spacing: [ error, { beforeColon: false } ]
+  linebreak-style: [ error, unix ]
+  no-console: [ error ]
+  no-process-exit: off
+  no-trailing-spaces: [ error ]
+  quotes: [ error, single ]
+  semi: [ error, always ]
+  space-infix-ops: [ error ]
+  no-shadow: error
+  no-only-tests/no-only-tests: [ error ]
+  vue/html-self-closing: [ error, { html: { component: any } } ]
+  require-await: [ error ]
+
+overrides:
+  - files: [ "**/*.test.js" ]
+    globals:
+      global: readonly
+  - files: [ "**/scripts/**/*.js" ]
+    rules:
+      # we're ok for stdout in scripts
+      no-console: ["error", { allow: ["log", "warn", "error"] }]
