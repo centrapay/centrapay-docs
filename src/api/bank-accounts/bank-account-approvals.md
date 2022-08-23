@@ -37,7 +37,8 @@ that allows access to a third-party system. See [Bank Account Approval Types][].
 | modifiedBy         | {% dt CRN %}       | The User or API Key that updated the Bank Account Approval.                                                                    |
 | approvalActivities | Array              | An array of [Bank Account Approval Activity] associated with the Bank Account Approval.                                        |
 | mediaUploadId      | String   {% opt %} | The id of the associated [Media Upload][]. Required for type `settlement`.                                                     |
-| refreshToken       | String   {% opt %} | A long lived access token for access to a third-party system. Required for type `account-consent` and `payment-consent`.        |
+| refreshToken       | String   {% opt %} | A long lived access token for access to a third-party system. Required for type `account-consent` and `payment-consent`.       |
+| consentId          | String {% opt %}   | A unique identifier for an authorization in a third-party system.                                                              |
 
 ### Bank Account Approval Activity
 {% h4 Fields %}
@@ -122,6 +123,7 @@ createdBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 modifiedAt: "2021-11-08T21:52:39.915Z"
 modifiedBy: "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 refreshToken: "y04Njk3LTRjNmZkYjBhMzRiZSIsIm5vbmNlIjoiOTg3MTJjMGNkZmFiNWZjNzMwM2MxMzNl"
+consentId: "d24dbe-e2bc46ac-d924e38af112"
 {% endjson %}
 
 ### Accept a Bank Account Approval **EXPERIMENTAL**
