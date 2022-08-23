@@ -972,10 +972,10 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 
 {% h4 Error Responses %}
 
-| Status |                    Code                    |                   Description                    |
-| :----- | :----------------------------------------- | :----------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth |
-| 403    | {% break _ PRE_AUTH_EXPIRED %}              | `preAuthExpiresAt` has passed                    |
+| Status |                    Code                    |                   Description                     |
+| :----- | :----------------------------------------- | :------------------------------------------------ |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth. |
+| 403    | {% break _ PRE_AUTH_RELEASED %}            | `preAuthExpiresAt` has passed.                    |
 
 
 <a name="confirm"></a>
@@ -1066,14 +1066,12 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 
 | Status |                    Code                    |                                                  Description                                                          |
 | :----- | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                                                      |
-| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                                         |
-| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                                                 |
-| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                                           |
-| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                                                |
-| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                             |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth.                                                                     |
+| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released or Pre Auth has expired. Remaining funds have been returned to the Patron.      |
+| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized.                                                                          |
+| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled.                                                                               |
+| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization.                                            |
 | 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. |
-
 
 <a name="list-activities-for-merchant"></a>
 ### List Payment Activities for a Merchant **EXPERIMENTAL**
