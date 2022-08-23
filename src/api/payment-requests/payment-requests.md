@@ -904,14 +904,15 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 
 {% h4 Error Responses %}
 
-| Status |                Code                |                                                                                                                     Description                                                                                                                     |
-| :----- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ VOID_WINDOW_EXCEEDED %} | The void window is closed 24 hours after the request's `createdAt`. After the void window has closed if the request is paid, the [Refund][] endpoint can be used to reverse the payment.                                                            |
-| 403    | {% break _ ALREADY_REFUNDED %}     | The payment request has already been refunded.                                                                                                                                                                                                      |
-| 403    | {% break _ REPEAT_REFERENCE %}     | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
-| 403    | {% break _ INACTIVE_ASSET %}       | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
-| 403    | {% break _ REFUND_NOT_SUPPORTED %} | The asset type does not support refunds.                                                                                                                                                                                                            |
-| 403    | {% break _ REQUEST_EXPIRED %}      | The payment request has expired.                                                                                                                                                                                                                    |
+| Status |                   Code                   |                                                                                                                     Description                                                                                                                     |
+| :----- | :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ VOID_WINDOW_EXCEEDED %}       | The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use [Refund][] endpoint to reverse the payment.                                                          |
+| 403    | {% break _ ALREADY_REFUNDED %}           | The Payment Request has already been refunded.                                                                                                                                                                                                      |
+| 403    | {% break _ REPEAT_REFERENCE %}           | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
+| 403    | {% break _ INACTIVE_ASSET %}             | The Asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
+| 403    | {% break _ REFUND_NOT_SUPPORTED %}       | The Asset type does not support refunds.                                                                                                                                                                                                            |
+| 403    | {% break _ REQUEST_EXPIRED %}            | The Payment Request has expired.                                                                                                                                                                                                                    |
+| 403    | {% break _ PRE_AUTH_ALREADY_CONFIRMED %} | The Pre Auth Payment Request already has confirmations. Use [Refund][] endpoint to reverse the transaction.                                                                                                                                         |
 
 <a name="release">
 ### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
@@ -1063,15 +1064,15 @@ Confirmations require an `idempotencyKey` in order to ensure that a confirmation
 
 {% h4 Error Responses %}
 
-| Status |                    Code                    |                                                                             Description                                                                             |
-| :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                                                                                                    |
-| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                                                                                       |
-| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                                                                                               |
-| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                                                                                         |
-| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                                                                                              |
-| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                                                                           |
-| 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. We recommend that you void this confirmation. |
+| Status |                    Code                    |                                                  Description                                                          |
+| :----- | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| 403    | {% break _ INVALID_PAYMENT_REQUEST_TYPE %} | The Payment Request is not related to a Pre Auth                                                                      |
+| 403    | {% break _ PRE_AUTH_EXPIRED %}             | `preAuthExpiresAt` has passed                                                                                         |
+| 403    | {% break _ PRE_AUTH_RELEASED %}            | The Payment Request has been released                                                                                 |
+| 403    | {% break _ PRE_AUTH_PENDING %}             | The Payment Request has not been authorized                                                                           |
+| 403    | {% break _ REQUEST_CANCELLED %}            | The Payment Request has been cancelled                                                                                |
+| 403    | {% break _ INVALID_AMOUNT   %}             | The confirmation is greater then the remaining funds on the authroization                                             |
+| 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. |
 
 
 <a name="list-activities-for-merchant"></a>
