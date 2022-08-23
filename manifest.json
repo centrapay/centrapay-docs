@@ -62,13 +62,13 @@
       "nuxt/error-500.08851880.css"
     ]
   },
-  "node_modules/@nuxt/ui-templates/dist/templates/error-404.css": {
-    "file": "nuxt/error-404.9baff55c.css",
-    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.css"
-  },
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.css": {
     "file": "nuxt/error-500.08851880.css",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.css"
+  },
+  "node_modules/@nuxt/ui-templates/dist/templates/error-404.css": {
+    "file": "nuxt/error-404.9baff55c.css",
+    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.css"
   },
   "node_modules/nuxt/dist/app/entry.css": {
     "file": "nuxt/entry.7fe78c33.css",
