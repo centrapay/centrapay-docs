@@ -31,13 +31,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    routeToDocs() {
-      window.location = 'https://docs.centrapay.com';
-    }
-  },
-};
-</script>
