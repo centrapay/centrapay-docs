@@ -4,6 +4,8 @@ const tailwindConfig = {
   content: [
     './pages/**/*.{vue,js,css}',
     './assets/**/*.{vue,js,css}',
+    './components/**/*.{vue,js,css}',
+    './app.vue',
   ],
   theme: {
     fontFamily: {
