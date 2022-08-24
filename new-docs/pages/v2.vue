@@ -11,7 +11,9 @@
       terminals, and smart wallets to interact with each other.<br><br>
 
       For more help getting setup, contact us via email at
-      <a href="mailto:integrations@centrapay.com">integrations@centrapay.com</a>.
+      <NuxtLink href="mailto:integrations@centrapay.com">
+        integrations@centrapay.com.
+      </NuxtLink>
     </p>
     <div class="flex flex-col md:flex-row md:space-x-4">
       <card
