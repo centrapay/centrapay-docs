@@ -6,6 +6,4 @@ cd new-docs
 
 yarn generate
 
-rm .output/public/index.html
-
 mv .output/public/* ../_site/
