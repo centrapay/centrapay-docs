@@ -17,9 +17,6 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent } from '#imports';
-import { defineProps } from 'vue';
-
 const props = defineProps({
   iconName: { type: String, required: true },
   title: { type: String, required: true },
