@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <div class="my-4">
       <span class="type-headline-3">Getting Started</span>
     </div>
@@ -8,10 +8,14 @@
       giftcards, digital assets and vouchers via your point of sale,
       payment terminal, shopping cart or unattended device. We
       accomplish this via our APIs which allow merchants, customers,
-      terminals, and smart wallets to interact with each other.<br><br>
+      terminals, and smart wallets to interact with each other.
+    </p>
 
+    <p>
       For more help getting setup, contact us via email at
-      <a href="mailto:integrations@centrapay.com">integrations@centrapay.com</a>.
+      <NuxtLink href="mailto:integrations@centrapay.com">
+        integrations@centrapay.com.
+      </NuxtLink>
     </p>
     <div class="flex flex-col md:flex-row md:space-x-4">
       <card
@@ -29,15 +33,5 @@
         link="https://docs.centrapay.com/api"
       />
     </div>
-  </div>
+  </main>
 </template>
-
-<script>
-export default {
-  methods: {
-    routeToDocs() {
-      window.location = 'https://docs.centrapay.com';
-    }
-  },
-};
-</script>

@@ -13,7 +13,6 @@ globals:
   __DEV__: false
 
 extends:
-  - "eslint:recommended"
   - "plugin:vue/recommended"
   - "plugin:cypress/recommended"
   - "plugin:nuxt/recommended"
