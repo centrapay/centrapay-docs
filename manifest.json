@@ -1,20 +1,19 @@
 {
   "node_modules/nuxt/dist/app/entry.mjs": {
-    "file": "nuxt/entry.0ba9b573.mjs",
+    "file": "nuxt/entry.976f4509.mjs",
     "src": "node_modules/nuxt/dist/app/entry.mjs",
     "isEntry": true,
     "isDynamicEntry": true,
     "dynamicImports": [
       "pages/index.vue",
-      "pages/v2.vue",
       "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs"
     ],
     "css": [
-      "nuxt/entry.2a00d181.css"
+      "nuxt/entry.540cd2c6.css"
     ]
   },
   "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs": {
-    "file": "nuxt/error-component.eb69a5d9.mjs",
+    "file": "nuxt/error-component.973d0b8f.mjs",
     "src": "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs",
     "isDynamicEntry": true,
     "imports": [
@@ -26,16 +25,8 @@
     ]
   },
   "pages/index.vue": {
-    "file": "nuxt/index.347f555e.mjs",
+    "file": "nuxt/index.28a35898.mjs",
     "src": "pages/index.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "node_modules/nuxt/dist/app/entry.mjs"
-    ]
-  },
-  "pages/v2.vue": {
-    "file": "nuxt/v2.de71b846.mjs",
-    "src": "pages/v2.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.mjs"
@@ -47,7 +38,7 @@
     ]
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue": {
-    "file": "nuxt/error-404.75f3864e.mjs",
+    "file": "nuxt/error-404.1fbf18e0.mjs",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -58,7 +49,7 @@
     ]
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue": {
-    "file": "nuxt/error-500.f97787e7.mjs",
+    "file": "nuxt/error-500.911f6f96.mjs",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -69,7 +60,7 @@
     ]
   },
   "components/icons/Dashboard.vue": {
-    "file": "nuxt/Dashboard.9606af53.mjs",
+    "file": "nuxt/Dashboard.c619a911.mjs",
     "src": "components/icons/Dashboard.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -77,7 +68,7 @@
     ]
   },
   "components/icons/Rocket.vue": {
-    "file": "nuxt/Rocket.182793af.mjs",
+    "file": "nuxt/Rocket.b46cb51b.mjs",
     "src": "components/icons/Rocket.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -93,7 +84,7 @@
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.css"
   },
   "node_modules/nuxt/dist/app/entry.css": {
-    "file": "nuxt/entry.2a00d181.css",
+    "file": "nuxt/entry.540cd2c6.css",
     "src": "node_modules/nuxt/dist/app/entry.css"
   }
 }
