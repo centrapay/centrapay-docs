@@ -1,0 +1,1 @@
+import{a as e,o as n,b as t}from"./entry.0ba9b573.mjs";const s={};function a(r,o){return n(),t("button",{class:"bg-brand-primary",onClick:o[0]||(o[0]=()=>r.$router.push("/v2"))}," Go to /v2 ")}const f=e(s,[["render",a]]);export{f as default};
