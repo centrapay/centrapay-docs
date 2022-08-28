@@ -239,12 +239,14 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Optional Fields %}
 
-|       Field        |  Type   |                                                                  Description                                                                  |
-| ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| assetType          | String  | The [Asset Type][] for the "payment" or "refund" activity.                                                                                    |
-| external           | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system.                                                   |
-| cancellationReason | String  | The reason that the [Payment Request](#payment-request) was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values. |
-| conditionId        | Number  | The id of a condition if the activity was for a condition being accepted or declined.                                                         |
+|           Field            |  Type   |                                                                  Description                                                                  |
+| -------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| assetType                  | String  | The [Asset Type][] for the "payment" or "refund" activity.                                                                                    |
+| external                   | Boolean | The payment activity is recording a transaction that occurred outside the Centrapay system.                                                   |
+| cancellationReason         | String  | The reason that the [Payment Request](#payment-request) was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values. |
+| conditionId                | Number  | The id of a condition if the activity was for a condition being accepted or declined.                                                         |
+| idempotencyKey             | String  | Required when confirming a Payment Request. This is an identifier from your system to enforce uniqueness.                                     |
+| confirmationIdempotencyKey | String  | Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.                              |
 
 {% h4 Activity Types %}
 
@@ -810,6 +812,43 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
     })
   }
 
+  example {
+    title 'Refund a Pre Auth Payment Request with Confirmations'
+    body ({
+    "confirmationIdempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "value": {
+        "amount": "6190",
+        "currency": "NZD",
+      },
+      "lineItems": [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            props: {
+              '20001479': '30008960'
+            }
+          }
+        },
+      ],
+    })
+  }
+
 {% endreqspec %}
 
 {% h4 Example response payload %}
@@ -836,15 +875,16 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 | Status |                   Code                    |                                                                                                                     Description                                                                                                                     |
 | :----- | :---------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | {% break _ NOT_PAID %}                    | The payment request has not been paid.                                                                                                                                                                                                              |
-| 403    | {% break _ ALREADY_REFUNDED %}            | The payment request has already been refunded.                                                                                                                                                                                                      |
+| 403    | {% break _ NOT_PAID %}                    | The Payment Request has not been paid.                                                                                                                                                                                                              |
+| 403    | {% break _ ALREADY_REFUNDED %}            | The Payment Request already been refunded. If you want to perfom additional refunds then an `externalRef` is required.                                                                                                                              |
 | 403    | {% break _ INVALID_AMOUNT %}              | The refund requested is greater than the refundable amount.                                                                                                                                                                                         |
 | 403    | {% break _ REPEAT_REFERENCE %}            | A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200. |
-| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %} | The asset does not support partial refunds.                                                                                                                                                                                                         |
-| 403    | {% break _ INACTIVE_ASSET %}              | The asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
-| 403    | {% break _ REFUND_NOT_SUPPORTED %}        | The asset type does not support refunds.                                                                                                                                                                                                            |
+| 403    | {% break _ PARTIAL_REFUNDS_NOT_ALLOWED %} | The Asset does not support partial refunds.                                                                                                                                                                                                         |
+| 403    | {% break _ INACTIVE_ASSET %}              | The Asset is not refundable. It may have been disabled, expired, or already refunded.                                                                                                                                                               |
+| 403    | {% break _ REFUND_NOT_SUPPORTED %}        | The Asset type does not support refunds.                                                                                                                                                                                                            |
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}      | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                         |
 | 400    | {% break _ LINE_ITEMS_SUM_CHECK_FAILED %} | The sum value of the line items did not equal the value of the refund.                                                                                                                                                                              |
+| 403    | {% break _ PRE_AUTH_PENDING %}            | The Pre Auth Payment Request has yet to be authorized.                                                                                                                                                                                              |
 
 <a name="void">
 ### Void a Payment Request **EXPERIMENTAL**
@@ -981,7 +1021,9 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 <a name="confirm"></a>
 ### Make a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
 
-Confirmations require an `idempotencyKey` in order to ensure that a confirmation will not be processed twice. In the event of a duplicate confirmation request e.g. the payload matches an already completed confirmation, we will return a 200 with the related confirmation Payment Activity, and this confirmation will not be processed again. If an `idempotencyKey` is reused for a different confirmation request, we will return a 403. Note that the `idempotencyKey` only has to be unique for confirmations against the same Payment Request.
+An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
+If our endpoint does not respond you must retry until you get back a 200 or 403.
+If we recive 2 requests with the same `idempotencyKey` we won't process the second and return the first response.
 
 {% reqspec %}
 
