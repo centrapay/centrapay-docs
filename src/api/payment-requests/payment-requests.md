@@ -171,7 +171,7 @@ line items may be represented as a separate line item with a negative amount.
 | ----- | ------ | ------------------------------------ |
 | type  | String | The classification type (see below). |
 | code  | String | The classification code.             |
-| name  | String | The classification description.      |
+| name  | String | The classification title.            |
 
 {% h4 Optional Fields %}
 
@@ -354,6 +354,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
           classification: {
             type: 'GS1',
             code: '10001874',
+            name: 'CROCKERY',
             props: {
               '20001479': '30008960'
             }
@@ -803,6 +804,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
           classification: {
             type: 'GS1',
             code: '10001874',
+            name: 'CROCKERY',
             props: {
               '20001479': '30008960'
             }
@@ -840,6 +842,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
           classification: {
             type: 'GS1',
             code: '10001874',
+            name: 'CROCKERY',
             props: {
               '20001479': '30008960'
             }
@@ -1059,6 +1062,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
           classification: {
             type: 'GS1',
             code: '10001874',
+            name: 'CROCKERY',
             props: {
               '20001479': '30008960'
             }
