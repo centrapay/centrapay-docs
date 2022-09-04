@@ -1,4 +1,4 @@
-source: src
+source: legacy/src
 repository: centrapay/centrapay.github.io
 show_downloads: false
 title: Centrapay Docs
