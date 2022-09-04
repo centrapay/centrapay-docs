@@ -1,20 +1,20 @@
 {
   "node_modules/nuxt/dist/app/entry.mjs": {
-    "file": "nuxt/entry.976f4509.mjs",
+    "file": "nuxt/entry.3023d445.mjs",
     "src": "node_modules/nuxt/dist/app/entry.mjs",
     "isEntry": true,
     "isDynamicEntry": true,
     "dynamicImports": [
       "pages/index.vue",
-      "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs"
+      "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/.nuxt/error-component.mjs"
     ],
     "css": [
       "nuxt/entry.540cd2c6.css"
     ]
   },
-  "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs": {
-    "file": "nuxt/error-component.973d0b8f.mjs",
-    "src": "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/new-docs/.nuxt/error-component.mjs",
+  "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/.nuxt/error-component.mjs": {
+    "file": "nuxt/error-component.1b1ed1aa.mjs",
+    "src": "virtual:nuxt:/home/runner/work/centrapay-docs/centrapay-docs/.nuxt/error-component.mjs",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.mjs"
@@ -25,7 +25,7 @@
     ]
   },
   "pages/index.vue": {
-    "file": "nuxt/index.28a35898.mjs",
+    "file": "nuxt/index.600ae813.mjs",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -38,7 +38,7 @@
     ]
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue": {
-    "file": "nuxt/error-404.1fbf18e0.mjs",
+    "file": "nuxt/error-404.ff98f457.mjs",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -49,7 +49,7 @@
     ]
   },
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue": {
-    "file": "nuxt/error-500.911f6f96.mjs",
+    "file": "nuxt/error-500.25409f22.mjs",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -60,7 +60,7 @@
     ]
   },
   "components/icons/Dashboard.vue": {
-    "file": "nuxt/Dashboard.c619a911.mjs",
+    "file": "nuxt/Dashboard.f2dcfa3b.mjs",
     "src": "components/icons/Dashboard.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -68,7 +68,7 @@
     ]
   },
   "components/icons/Rocket.vue": {
-    "file": "nuxt/Rocket.b46cb51b.mjs",
+    "file": "nuxt/Rocket.84999f07.mjs",
     "src": "components/icons/Rocket.vue",
     "isDynamicEntry": true,
     "imports": [
