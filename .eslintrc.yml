@@ -1,5 +1,8 @@
 ignorePatterns:
   - dist
+  - legacy
+  - _site
+  - vendor
 
 env:
   es6: true
