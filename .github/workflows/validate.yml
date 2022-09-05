@@ -14,18 +14,17 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          working-directory: legacy
       - uses: actions/cache@v1
         with:
-          path: vendor/bundle
+          path: legacy/vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
       - run: gem install bundler
-      - run: bundle install
-      - run: bundle exec jekyll build
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
       - run: yarn install --frozen-lock-file
       - run: yarn lint
-      - run: ./build-nuxt-site.sh
+      - run: ./build.sh

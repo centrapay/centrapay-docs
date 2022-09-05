@@ -7,7 +7,7 @@ Install Ruby:
 ```
 brew install rbenv  # install Ruby version manager
 cd path-to/centrapay-docs # cd into centrapay-docs directory
-rbenv install $(cat .ruby-version)  # install version of Ruby defined in .ruby-version
+rbenv install $(cat ./legacy/.ruby-version)  # install version of Ruby defined in ./legacy/.ruby-version
 ```
 
 Install Bundler:
@@ -19,7 +19,7 @@ sudo gem install bundler
 Install Ruby gems:
 
 ```
-bundle install
+cd legacy && bundle install
 ```
 
 ## Local Dev
@@ -27,7 +27,7 @@ bundle install
 Run the Jekyll server:
 
 ```
-bundle exec jekyll serve --livereload
+cd legacy && bundle exec jekyll serve --livereload
 ```
 
 Preview the site at http://127.0.0.1:4000.
@@ -38,7 +38,7 @@ Preview the site at http://127.0.0.1:4000.
 Install Dependencies:
 
 ```
-docker compose run script bundle install
+docker compose run script bash -c 'cd legacy && bundle install'
 ```
 
 
