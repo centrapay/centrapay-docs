@@ -10,7 +10,7 @@
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/support/mixins/_layout.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/support/mixins/_buttons.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/support/mixins/_typography.scss",
-		"legacy/src/_sass/color_schemes/centrapay-theme.scss",
+		"src/_sass/color_schemes/centrapay-theme.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/modules.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/vendor/normalize.scss/normalize.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/base.scss",
@@ -30,7 +30,7 @@
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/utilities/_lists.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/utilities/_spacing.scss",
 		"vendor/bundle/ruby/2.7.0/gems/just-the-docs-0.3.1/_sass/print.scss",
-		"legacy/src/_sass/custom/custom.scss"
+		"src/_sass/custom/custom.scss"
 	],
 	"sourcesContent": [
 		"\n\n@import \"./support/support\";\n@import \"./color_schemes/centrapay-theme\";\n@import \"./modules\";\n@import \"./custom/custom\";\n\n\n",
