@@ -1,7 +1,7 @@
 [build]
   base = "legacy"
   publish = "../"
-  command = "./build.sh"
+  command = "./scripts/build.sh"
 
 [context.production]
   environment = { NODE_VERSION = "16" }
