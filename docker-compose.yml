@@ -2,14 +2,38 @@ version: "3"
 
 services:
   app:
+    image: node:16
+    working_dir: /work
+    volumes: [ ".:/work" ]
+    command: "yarn start"
+    ports: [ "3000:3000", "24678:24678" ]
+  legacy:
     image: ruby:2.7
     working_dir: /work/legacy
     volumes: [ ".:/work" ]
-    command: "bundle exec jekyll serve --livereload --host=0.0.0.0"
-    ports: [ "4000:4000" ]
+    command: "bundle exec jekyll serve --livereload --host=0.0.0.0 --port 3001"
+    ports: [ "4000:3001", "35729:35729" ]
+  server:
+    image: node:16
+    working_dir: /work/server
+    volumes: [ ".:/work" ]
+    command: "yarn start"
+    ports: [ "3001:3002" ]
   script:
-    image: ruby:2.7
+    image: node:16
     working_dir: /work
+    stop_signal: SIGKILL
+    volumes: [ ".:/work" ]
+    command:
+      - bash
+      - -c
+      - |
+        echo "
+        To execute a script, run:
+        docker-compose run script {command}"
+  ruby-script:
+    image: ruby:2.7
+    working_dir: /work/legacy
     volumes: [ ".:/work" ]
     stop_signal: SIGKILL
     command:
@@ -18,4 +42,4 @@ services:
       - |
         echo "
         To execute a script, run:
-        docker-compose run script {command}"
+        docker-compose run ruby-script {command}"
