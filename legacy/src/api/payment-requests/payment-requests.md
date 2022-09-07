@@ -764,7 +764,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/refund'
-  auth 'jwt'
+  auth 'api-key'
   example {
     title 'Refund a Payment Request'
     body ({
@@ -888,6 +888,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}      | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                         |
 | 400    | {% break _ LINE_ITEMS_SUM_CHECK_FAILED %} | The sum value of the line items did not equal the value of the refund.                                                                                                                                                                              |
 | 403    | {% break _ PRE_AUTH_PENDING %}            | The Pre Auth Payment Request has yet to be authorized.                                                                                                                                                                                              |
+| 403    | {% break _ CONFIRMATION_NOT_FOUND %}      | The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.                                                                                                                                          |
 
 <a name="void">
 ### Void a Payment Request **EXPERIMENTAL**
@@ -896,7 +897,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/void'
-  auth 'jwt'
+  auth 'api-key'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
@@ -964,7 +965,7 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/release'
-  auth 'jwt'
+  auth 'api-key'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
 {% endreqspec %}
 
@@ -1031,7 +1032,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
 {% reqspec %}
 
   POST '/api/payment-requests/{paymentRequestId}/confirm'
-  auth 'jwt'
+  auth 'api-key'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
   example {
     title 'Confirm Pre Auth Payment Request'
@@ -1077,7 +1078,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
 {% h4 Example response payload when a Pre Auth is confirmed %}
 {% json %}
 {
-	"id": "MhocUmpxxmgdHjr7DgKoKw",
+	"paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
 	"shortCode": "CP-C7F-ZS5",
 	"value": { "amount": "6190", "currency": "NZD" },
   "preAuth": true,
@@ -1127,7 +1128,7 @@ descending activity created date.
 
 {% reqspec %}
   GET '/api/payment-activities'
-  auth 'jwt'
+  auth 'api-key'
   query_param 'merchantId', '5ee0c486308f590260d9a07f'
   query_param 'pageKey', 'PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z'
 {% endreqspec %}
@@ -1270,7 +1271,7 @@ Accept a [Payment Condition][] listed in `merchantConditions` with status `await
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept'
-  auth 'jwt'
+  auth 'api-key'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
   path_param 'conditionId', '1'
 {% endreqspec %}
@@ -1312,7 +1313,7 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline'
-  auth 'jwt'
+  auth 'api-key'
   path_param 'paymentRequestId', 'MhocUmpxxmgdHjr7DgKoKw'
   path_param 'conditionId', '1'
 {% endreqspec %}
