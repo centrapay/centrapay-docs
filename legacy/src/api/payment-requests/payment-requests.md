@@ -888,6 +888,7 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
 | 403    | {% break _ REFUND_WINDOW_EXCEEDED %}      | The time since the payment exceeds the window of time a payment request can be refunded in.                                                                                                                                                         |
 | 400    | {% break _ LINE_ITEMS_SUM_CHECK_FAILED %} | The sum value of the line items did not equal the value of the refund.                                                                                                                                                                              |
 | 403    | {% break _ PRE_AUTH_PENDING %}            | The Pre Auth Payment Request has yet to be authorized.                                                                                                                                                                                              |
+| 403    | {% break _ CONFIRMATION_NOT_FOUND %}      | The confirmationIdempotencyKey could not be matched with an idempotencyKey used for Pre Auth Confirmation.                                                                                                                                          |
 
 <a name="void">
 ### Void a Payment Request **EXPERIMENTAL**
