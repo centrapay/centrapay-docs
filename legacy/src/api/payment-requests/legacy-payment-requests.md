@@ -346,6 +346,10 @@ the amount of the request is the same both times but do not process another
 refund, this is because we assume it to be a repeat request. If the amount
 is different you will get a REPEAT_REFERENCE error message.
 
+{% h4 Refund a Pre Auth Payment Request with Confirmations %}
+
+The legacy refund endpoint cannot be used to refund Pre Auth Payment Requests with Confirmations. To Refund Pre Auth Payment Requests with Confirmations please use the [non-legacy refund endpoint][].
+
 {% h4 Required Parameters for one time refund %}
 
 | Parameter     | Description                                                                                                                        |
@@ -537,3 +541,4 @@ gmIjCXdv3VNvYfTsaBO5PJNiaD3l9lD8PzEQu31ePsOG81mDVuo40+dgLg==
 [transactions.refund]: #transactions-refund
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
 [Asset Types]: {% link api/assets/asset-types.md %}
+[non-legacy refund endpoint]: {% link api/payment-requests/payment-requests.md %}#refund
