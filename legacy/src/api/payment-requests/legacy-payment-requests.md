@@ -348,7 +348,7 @@ is different you will get a REPEAT_REFERENCE error message.
 
 {% h4 Refund a Pre Auth Payment Request with Confirmations %}
 
-The legacy refund endpoint cannot be used to refund Pre Auth Payment Requests with Confirmations. To Refund Pre Auth Payment Requests with Confirmations please use the [non-legacy refund endpoint][].
+The legacy refund endpoint cannot be used to refund Pre Auth Payment Requests with Confirmations. Please use the [non-legacy refund endpoint][] instead.
 
 {% h4 Required Parameters for one time refund %}
 
