@@ -1078,7 +1078,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
 {% h4 Example response payload when a Pre Auth is confirmed %}
 {% json %}
 {
-	"id": "MhocUmpxxmgdHjr7DgKoKw",
+	"paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
 	"shortCode": "CP-C7F-ZS5",
 	"value": { "amount": "6190", "currency": "NZD" },
   "preAuth": true,
