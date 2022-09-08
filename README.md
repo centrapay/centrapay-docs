@@ -16,34 +16,19 @@ Install Bundler:
 sudo gem install bundler
 ```
 
-Install Ruby gems:
+Install app dependencies:
 
 ```
-cd legacy && bundle install
+docker compose run ruby-script bundle install
+docker compose run script yarn
+docker compose run script bash -c "cd server && yarn"
 ```
-
-## Local Dev
-
-Run the Jekyll server:
-
-```
-cd legacy && bundle exec jekyll serve --livereload
-```
-
-Preview the site at http://127.0.0.1:4000.
-
-
 ## Local Docker Usage
 
-Install Dependencies:
-
-```
-docker compose run script bash -c 'cd legacy && bundle install'
-```
-
-
-Run the Jekyll server:
+Run the servers:
 
 ```
 docker compose up
 ```
+
+Preview the site at http://0.0.0.0:3001.
