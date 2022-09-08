@@ -149,7 +149,7 @@ line items may be represented as a separate line item with a negative amount.
 | name  | String             | The product description.                                                                                               |
 | sku   | String             | The product (stock keeping unit) code.                                                                                 |
 | qty   | {% dt BigNumber %} | The product quantity (eg. item count, weight, volume etc).                                                             |
-| price | {% dt BigNumber %} | The combined price of each individual product in cents (eg. price = individual product price * qty - discounts + tax). |
+| price | {% dt BigNumber %} | The total price in cents for the line item (eg. price = product price * qty - discounts + tax). |
 
 {% h4 Optional Fields %}
 
