@@ -23,15 +23,19 @@
         class="mb-4"
         title="Guides"
         description="Checkout our Guides for hints on where to begin."
-        link="https://docs.centrapay.com/guides"
+        :link="config.baseUrl + '/guides'"
       />
       <card
         icon-name="Rocket"
         class="mb-4"
         title="API Reference"
         description="See the API Reference for a deeper dive"
-        link="https://docs.centrapay.com/api"
+        :link="config.baseUrl + '/api'"
       />
     </div>
   </main>
 </template>
+
+<script setup>
+const config = useRuntimeConfig();
+</script>
