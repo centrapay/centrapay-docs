@@ -48,7 +48,7 @@
               :href="previousPage._path"
               class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
             >
-              <span aria-hidden="true">&larr;</span> {{ previousPage.text }}
+              <span aria-hidden="true">&larr;</span> {{ previousPage.title }}
             </NuxtLink>
           </dd>
         </div>
@@ -67,7 +67,7 @@
               :href="nextPage._path"
               class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
             >
-              {{ nextPage.text }} <span aria-hidden="true">&rarr;</span>
+              {{ nextPage.title }} <span aria-hidden="true">&rarr;</span>
             </NuxtLink>
           </dd>
         </div>
