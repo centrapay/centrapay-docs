@@ -65,7 +65,7 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
 
 | Status |           Code            |                                      Description                                      |
 | :----- | :------------------------ | :------------------------------------------------------------------------------------ |
-| 403    | UNKNOWN_CODE              | The code doesn’t exist in our system.                                                 |
+| 403    | UNKNOWN_CODE              | The code doesn’t exist or is no longer active in our system.                          |
 | 403    | MERCHANT_CONFIG_NOT_FOUND | The supplied merchant config does not exist.                                          |
 | 403    | INVALID_MERCHANT_CONFIG   | The merchant config does not have a payment option that can satisfy the scanned code. |
 
