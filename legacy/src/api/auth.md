@@ -22,6 +22,10 @@ API calls can be authenticated by either providing an API key in the
 "X-Api-Key" header or by providing a user access token in the "Authorization"
 header.
 
+Org [Accounts][Account] accessed with a user access token require the
+"X-Centrapay-Account" header to be provided. The "X-Centrapay-Account" header
+specifies the unique identifier of the Centrapay Org Account.
+
 {% reqspec nosummary %}
   GET '/api/account-memberships'
   example {
@@ -31,6 +35,15 @@ header.
   example {
     title 'Authenticate with user access token'
     auth 'jwt'
+  }
+{% endreqspec %}
+
+{% reqspec nosummary %}
+  GET '/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts'
+  example {
+    title 'Authenticate org account with user access token'
+    auth 'jwt'
+    header 'X-Centrapay-Account', 'Jaim1Cu1Q55uooxSens6yk'
   }
 {% endreqspec %}
 
@@ -176,3 +189,4 @@ if there is a flag associated to it then at least one of them must be met.
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
 [API Keys]: {% link api/api-keys.md %}
+[Account]: {% link api/accounts/accounts.md %}
