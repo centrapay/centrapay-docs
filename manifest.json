@@ -480,6 +480,10 @@
     "file": "nuxt/ProseCode.e63e49c6.css",
     "src": "node_modules/@nuxt/content/dist/runtime/components/Prose/ProseCode.css"
   },
+  "node_modules/@nuxt/ui-templates/dist/templates/error-404.css": {
+    "file": "nuxt/error-404.9baff55c.css",
+    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.css"
+  },
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.css": {
     "file": "nuxt/error-500.08851880.css",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.css"
@@ -487,10 +491,6 @@
   "node_modules/@nuxt/content/dist/runtime/components/ContentNavigation.css": {
     "file": "nuxt/ContentNavigation.7ccf04d2.css",
     "src": "node_modules/@nuxt/content/dist/runtime/components/ContentNavigation.css"
-  },
-  "node_modules/@nuxt/ui-templates/dist/templates/error-404.css": {
-    "file": "nuxt/error-404.9baff55c.css",
-    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.css"
   },
   "node_modules/nuxt/dist/app/entry.css": {
     "file": "nuxt/entry.3a284d92.css",
