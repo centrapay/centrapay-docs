@@ -2,7 +2,6 @@ source: src
 destination: ../_site
 repository: centrapay/centrapay.github.io
 show_downloads: false
-include: [ _*.mjs ]
 title: Centrapay Docs
 kramdown:
   toc_levels: '2,3'
