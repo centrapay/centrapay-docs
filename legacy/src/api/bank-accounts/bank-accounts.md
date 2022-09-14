@@ -60,7 +60,6 @@ bank transaction can be used to verify a bank account.
 | fullName     | String  | The first and last name of the user.                        |
 | emailAddress | String  | The user's email address.                                   |
 | test         | Boolean | A flag which is present if the Bank Account is for testing. |
-| assetId      | String  | The id of an [Asset][] which is associated to the bank account. |
 
 <a name="bank-account-approval-type-summary">
 ### Bank Account Approval Type Summary **EXPERIMENTAL**
@@ -261,7 +260,6 @@ required together.
   ],
   "type": "quartz",
   "test": true,
-  "assetId": "2rSBqRjMcuQvZR55pwhTKC"
 }
 {% endjson %}
 
@@ -377,7 +375,6 @@ for Bank Accounts.
     "approvals": [],
     "type": "quartz",
     "test": true,
-    "assetId": "FXh3dRhxo8JmBkMHc5qcNa"
   },
   {
     "id": "3Kfdm8cuW1W6f8AoWJREs4",
