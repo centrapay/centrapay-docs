@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint --max-warnings 0 --no-fix .",
-    "start": "ENV=development nuxt dev --no-clear",
+    "start": "nuxt dev --no-clear",
     "generate": "nuxt generate"
   },
   "devDependencies": {
