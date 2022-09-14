@@ -1,0 +1,1 @@
+import{G as e,o as n,p as o,N as c,I as s,z as a,U as r}from"./entry.8cf140e6.mjs";const _={},i=r(" Go to Content ");function d(l,p){const t=a;return n(),o("div",null,[c(t,{to:"/introduction/getting-started",class:"btn btn-primary"},{default:s(()=>[i]),_:1})])}const f=e(_,[["render",d]]);export{f as default};
