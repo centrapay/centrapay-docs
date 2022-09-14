@@ -16,6 +16,9 @@ const tailwindConfig = {
         ...colors.light,
         current: 'currentColor',
       },
+      maxWidth: {
+        '8xl': '88rem',
+      },
     },
   },
   plugins: [

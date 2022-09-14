@@ -21,13 +21,13 @@
         >
           <p
             v-if="section"
-            class="font-display text-sm font-medium text-sky-500"
+            class="font-display text-sm font-medium text-brand-accent"
           >
             {{ section.title }}
           </p>
           <h1
             v-if="title"
-            class="font-display text-3xl tracking-tight text-slate-900 dark:text-white"
+            class="font-display font-bold text-4xl tracking-tight text-slate-900 dark:text-white"
           >
             {{ title }}
           </h1>
@@ -79,12 +79,12 @@
         class="w-56"
       >
         <div v-if="tableOfContents.length > 0">
-          <h2
+          <h5
             id="on-this-page-title"
-            class="font-display text-sm font-medium text-slate-900 dark:text-white"
+            class="font-display text-sm font-bold text-slate-900 dark:text-white"
           >
             On this page
-          </h2>
+          </h5>
 
           <ol
             role="list"
@@ -94,14 +94,12 @@
               v-for="group of tableOfContents"
               :key="group.id"
             >
-              <h3>
-                <NuxtLink
-                  :href="'#' + group.id"
-                  class="font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-                >
-                  {{ group.text }}
-                </NuxtLink>
-              </h3>
+              <a
+                :href="'#' + group.id"
+                class="font-normal text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
+              >
+                {{ group.text }}
+              </a>
 
               <ol
                 v-if="group.children && group.children.length > 0"
@@ -112,12 +110,12 @@
                   v-for="child of group.children"
                   :key="child.id"
                 >
-                  <NuxtLink
+                  <a
                     :href="'#' + child.id"
-                    class="text-sky-500' : 'hover:text-slate-600 dark:hover:text-slate-300"
+                    class="hover:text-slate-600 dark:hover:text-slate-300"
                   >
                     {{ child.text }}
-                  </NuxtLink>
+                  </a>
                 </li>
               </ol>
             </li>
@@ -145,3 +143,14 @@ const section = navigation.find((s) =>
   s.children.find((child) => child._path === path)
 );
 </script>
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+h2,h3 {
+  @apply
+    scroll-mt-24
+}
+</style>

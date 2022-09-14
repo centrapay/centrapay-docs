@@ -1,6 +1,6 @@
 <template>
   <div>
     <Header />
-    <NuxtPage class="desktop-gutters" />
+    <NuxtPage />
   </div>
 </template>
