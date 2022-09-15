@@ -163,7 +163,7 @@
   },"27": {
     "doc": "Auth",
     "title": "Authenticating API Calls",
-    "content": "API calls can be authenticated by either providing an API key in the “X-Api-Key” header or by providing a user access token in the “Authorization” header. Authenticate with API key . curl https://service.centrapay.com/api/account-memberships \\ -H \"X-Api-Key: $api_key\" . Authenticate with user access token . curl https://service.centrapay.com/api/account-memberships \\ -H \"Authorization: $jwt\" . ",
+    "content": "API calls can be authenticated by either providing an API key in the “X-Api-Key” header or by providing a user access token in the “Authorization” header. Org Accounts accessed with a user access token require the “X-Centrapay-Account” header to be provided. The “X-Centrapay-Account” header specifies the unique identifier of the Centrapay Org Account. Authenticate with API key . curl https://service.centrapay.com/api/account-memberships \\ -H \"X-Api-Key: $api_key\" . Authenticate with user access token . curl https://service.centrapay.com/api/account-memberships \\ -H \"Authorization: $jwt\" . Authenticate org account with user access token . curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts \\ -H \"Authorization: $jwt\" \\ -H \"X-Centrapay-Account: Jaim1Cu1Q55uooxSens6yk\" . ",
     "url": "/api/auth#authenticating-api-calls",
     "relUrl": "/api/auth#authenticating-api-calls"
   },"28": {
