@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseUrl: process.env.ENV === 'development' ? 'http://0.0.0.0:3001' : 'https://docs.centrapay.com'
+      baseUrl: process.env.ENV === 'development' ? 'http://0.0.0.0:4000' : 'https://docs.centrapay.com'
     }
   }
 });

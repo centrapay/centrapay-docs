@@ -4,8 +4,8 @@
     "start": "nodemon index.js --inspect=0.0.0.0"
   },
   "devDependencies": {
-    "@hapi/h2o2": "^9.1.0",
     "@hapi/hapi": "^20.2.2",
+    "@hapi/inert": "^7.0.0",
     "nodemon": "^2.0.19"
   }
 }
