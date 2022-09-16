@@ -59,6 +59,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 | paypalMerchantAccountId | String | Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.                                                                                                 |
 | paypalStoreId           | String | Id of the PayPal merchants store. Required for `paypal.usd` and `venmo.usd`  types.                                                                                                  |
 | farmlandsMerchantNumber | String | Id of the Farmlands merchant that funds will be transferred to.                                                                                                                      |
+| externalMerchantId      | String | Id of the external merchant. Required for `stadius` types.                                                                                                                           |
 
 See [Asset Types][] for values that may be present in the `type` field.
 
