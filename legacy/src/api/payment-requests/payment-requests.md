@@ -697,9 +697,9 @@ them to find the Payment Request and proceed to pay.
 <a name="pay"></a>
 ### Pay a Payment Request **EXPERIMENTAL**
 
-There are two methods of paying a payment request.
-The first uses Centrapay [Assets] and requires you to provide the Id and the type of the asset.
-Alternatively you can provide an external transaction Id and the Centrapay [Asset Type][] for any payments that we support. An example of an external transaction would be a Bitcoin payment.
+To pay a payment request you must supply the name of the [Asset Type][] and one of `assetId`, `transactionId` or `authorization`.
+Use assetId if the [Asset Type][] is managed by Centrapay. Use transactionId to verify an external transaction such as a Bitcoin payment.
+Use authorization to authorize an external transaction.
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/pay'
@@ -717,6 +717,14 @@ Alternatively you can provide an external transaction Id and the Centrapay [Asse
     body ({
       "assetType": "bitcoin.main",
       "transactionId": "VMXMkUttDGTVz4ESv5ND56",
+    })
+  }
+
+  example {
+    title 'Pay a Payment Request using authorization'
+    body ({
+      "assetType": "stadius.main",
+      "authorization": "LiOkwEtDGTVz4ESv5NS83",
     })
   }
 
