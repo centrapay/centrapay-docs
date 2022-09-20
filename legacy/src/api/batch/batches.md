@@ -138,6 +138,12 @@ Initialize loading of entities from a batch file.
 }
 {% endjson %}
 
+{% h4 Error Responses %}
+
+| Status |       Code         |                                    Description                                                                                         |
+| :----- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | LIVENESS_MISSMATCH | Safeguard against accidental changing of Prod assets. Check that your Account has `test` flag set the same as the Batch's `test` flag. |
+
 ### Get Batch **EXPERIMENTAL**
 
 {% reqspec %}
