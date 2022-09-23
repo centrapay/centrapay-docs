@@ -36,6 +36,7 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | venmo.main         | [Venmo][]{:.external}                |              | USD                     | 💸     |
 | venmo.test         | [Venmo][]{:.external}                |              | USD                     | 🅃 💸   |
 | zap.main           | [Zap tokens][]{:.external}           |              | NZD                     |       |
+| uplinkapi.test     | Uplink API Test asset                |              | NZD                     | 🅃     |
 | stadius.main       | [Stadius][]{:.external}              |              | NZD, AUD, USD, CAD, EUR |       |
 | stadius.test       | [Stadius][]{:.external}              |              | NZD, AUD, USD, CAD, EUR | 🅃     |
 
