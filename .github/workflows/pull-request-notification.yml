@@ -1,0 +1,33 @@
+# Post a Slack message for every pull request.
+#
+# The Github action context "event" attribute is a pull request webhook event
+# document. See:
+# https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+# https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#pull_request
+
+name: Pull Request Notification
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: '
+        curl -X POST ${{secrets.NEW_PR_SLACK_HOOK_URL }} \
+        --data "$(
+          scripts/slack-pull-request-msg.js \
+          --repo    "${{ github.event.repository.name }}" \
+          --user    "${{ github.event.pull_request.user.login }}" \
+          --number  "${{ github.event.pull_request.number }}" \
+          --title   "${{ github.event.pull_request.title }}" \
+          --desc    "${{ github.event.pull_request.body }}" \
+          --link    "${{ github.event.pull_request.html_url }}" \
+          )"
+        '
