@@ -1,1 +1,0 @@
-import{A as o,y as t,B as s,C as i}from"./entry.8cf140e6.mjs";const p=e=>{let a=e;typeof(a==null?void 0:a.params)=="function"&&(a=a.params());const n=o(a?`/navigation/${t(a)}.json`:"/navigation");return $fetch(n,{method:"GET",responseType:"json",params:{_params:s(a||{}),previewToken:i("previewToken").value}})};export{p as f};
