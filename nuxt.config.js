@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content'
   ],
+  content: {
+    documentDriven: true
+  },
   css: ['~/assets/css/tailwind.css'],
   app: {
     buildAssetsDir: '/nuxt/',
