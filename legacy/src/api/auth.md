@@ -129,62 +129,62 @@ if there is a flag associated to it then at least one of them must be met.
 
 ### Permissions
 
-|                     Permission                     | Account Owner | Anon Consumer | Merchant Terminal | External Asset Provider |
-| :------------------------------------------------- | :-----------: | :-----------: | :---------------: | :---------------------: |
-| {% break : accounts:create         %}              |       ✅       |               |                   |                         |
-| {% break : accounts:read           %}              |       ✅       |               |                   |            ✅            |
-| {% break : accounts:update         %}              |       ✅       |               |                   |                         |
-| {% break : api-keys:create         %}              |       ✅       |               |                   |                         |
-| {% break : api-keys:list           %}              |       ✅       |               |                   |                         |
-| {% break : api-keys:update         %}              |       ✅       |               |                   |                         |
-| {% break : asset-transfers:claim   %}              |       ✅       |               |                   |            ✅            |
-| {% break : asset-transfers:create 👤 🧀 %}           |       ✅       |               |                   |            ✅            |
-| {% break : asset-transfers:read    %}              |       ✅       |               |                   |            ✅            |
-| {% break : assets:read             %}              |       ✅       |               |                   |            ✅            |
-| {% break : assets:spend 👤         %}               |       ✅       |               |                   |                         |
-| {% break : bank-account-approvals:create%}         |       ✅       |               |                   |                         |
-| {% break : bank-account-requests:authorize%}       |       ✅       |               |                   |                         |
-| {% break : bank-account-requests:create%}          |       ✅       |               |                   |                         |
-| {% break : bank-accounts:create    %}              |       ✅       |               |                   |                         |
-| {% break : bank-accounts:read      %}              |       ✅       |               |                   |                         |
-| {% break : business:create         %}              |       ✅       |               |                   |                         |
-| {% break : business:update         %}              |       ✅       |               |                   |                         |
-| {% break : business:read         %}                |       ✅       |               |                   |                         |
-| {% break : external-assets:create 👤 🧀 %}           |       ✅       |               |                   |            ✅            |
-| {% break : external-assets:update %}               |       ✅       |               |                   |            ✅            |
-| {% break : integration-requests:configure %}       |               |               |                   |                         |
-| {% break : integration-requests:create 🗄 %}        |       ✅       |               |                   |                         |
-| {% break : integration-requests:read 🗄 %}          |       ✅       |               |                   |                         |
-| {% break : invitations:accept %}                   |      ✸ ✅      |               |                   |                         |
-| {% break : invitations:read %}                     |      ✸ ✅      |               |                   |                         |
-| {% break : media-uploads:create   %}               |       ✅       |               |                   |                         |
-| {% break : merchants:create 🗄     %}               |       ✅       |               |                   |                         |
-| {% break : merchants:list 🗄   %}                   |       ✅       |               |                   |                         |
-| {% break : merchants:read 🗄   %}                   |       ✅       |               |                   |                         |
-| {% break : merchants:update 🗄   %}                 |       ✅       |               |                   |                         |
-| {% break : patron-codes:create %}                  |       ✅       |               |                   |                         |
-| {% break : patron-codes:read %}                    |       ✅       |               |         ✅         |                         |
-| {% break : payment-activities:read %}              |       ✅       |               |                   |                         |
-| {% break : payment-conditions:approve %}           |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:cancel 🗄 %}            |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:create 🗄 %}            |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:pay 🗄 %}               |      ✸ ✅      |      ✸ ✅      |         ✅         |                         |
-| {% break : payment-requests:read   %}              |      ✸ ✅      |      ✸ ✅      |        ✸ ✅        |                         |
-| {% break : payment-requests:read-by-shortcode   %} |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:refund 🗄 %}            |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:void 🗄 %}              |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:release 🗄 %}           |       ✅       |               |         ✅         |                         |
-| {% break : payment-requests:confirm 🗄 %}           |       ✅       |               |         ✅         |                         |
-| {% break : quotas:read             %}              |       ✅       |               |                   |                         |
-| {% break : quotas:read             %}              |       ✅       |               |                   |                         |
-| {% break : scanned-code:decode             %}      |       ✅       |               |         ✅         |                         |
-| {% break : topups:create 👤 %}                      |       ✅       |               |                   |                         |
-| {% break : topups:read %}                          |       ✅       |               |                   |                         |
-| {% break : wallets:create          %}              |       ✅       |               |                   |                         |
-| {% break : wallets:deposit         %}              |       ✅       |               |                   |                         |
-| {% break : wallets:read            %}              |       ✅       |               |                   |                         |
-| {% break : wallets:transfer 👤     %}               |       ✅       |               |                   |                         |
-| {% break : wallets:withdraw        %}              |       ✅       |               |                   |                         |
+|                     Permission                   | Account Owner | Anon Consumer | Merchant Terminal | External Asset Provider | Cashier |
+| :----------------------------------------------- | :-----------: | :-----------: | :---------------: | :---------------------: | :-----: |
+| {% break : accounts:create %}                    |       ✅      |               |                   |                         |         |
+| {% break : accounts:read %}                      |       ✅      |               |                   |            ✅           |    ✅   |
+| {% break : accounts:update%}                     |       ✅      |               |                   |                         |         |
+| {% break : api-keys:create %}                    |       ✅      |               |                   |                         |         |
+| {% break : api-keys:list %}                      |       ✅      |               |                   |                         |         |
+| {% break : api-keys:update %}                    |       ✅      |               |                   |                         |         |
+| {% break : asset-transfers:claim %}              |       ✅      |               |                   |            ✅           |         |
+| {% break : asset-transfers:create 👤 🧀 %}       |       ✅      |               |                   |            ✅           |         |
+| {% break : asset-transfers:read %}               |       ✅      |               |                   |            ✅           |         |
+| {% break : assets:read %}                        |       ✅      |               |                   |            ✅           |         |
+| {% break : assets:spend 👤 %}                    |       ✅      |               |                   |                         |         |
+| {% break : bank-account-approvals:create %}      |       ✅      |               |                   |                         |         |
+| {% break : bank-account-requests:authorize %}    |       ✅      |               |                   |                         |         |
+| {% break : bank-account-requests:create %}       |       ✅      |               |                   |                         |         |
+| {% break : bank-accounts:create %}               |       ✅      |               |                   |                         |         |
+| {% break : bank-accounts:read %}                 |       ✅      |               |                   |                         |         |
+| {% break : business:create %}                    |       ✅      |               |                   |                         |         |
+| {% break : business:update %}                    |       ✅      |               |                   |                         |         |
+| {% break : business:read %}                      |       ✅      |               |                   |                         |         |
+| {% break : external-assets:create 👤 🧀 %}       |       ✅      |               |                   |            ✅           |         |
+| {% break : external-assets:update %}             |       ✅      |               |                   |            ✅           |         |
+| {% break : integration-requests:configure %}     |               |               |                   |                         |         |
+| {% break : integration-requests:create 🗄 %}     |       ✅      |               |                   |                         |         |
+| {% break : integration-requests:read 🗄 %}       |       ✅      |               |                   |                         |         |
+| {% break : invitations:accept %}                 |       ✅ ✸    |               |                   |                         |         |
+| {% break : invitations:read %}                   |       ✅ ✸    |               |                   |                         |         |
+| {% break : media-uploads:create %}               |       ✅      |               |                   |                         |         |
+| {% break : merchants:create 🗄 %}                |       ✅      |               |                   |                         |         |
+| {% break : merchants:list 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
+| {% break : merchants:read 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
+| {% break : merchants:update 🗄 %}                |       ✅      |               |                   |                         |         |
+| {% break : patron-codes:create %}                |       ✅      |               |                   |                         |         |
+| {% break : patron-codes:read %}                  |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-activities:read %}            |       ✅      |               |                   |                         |    ✅   |
+| {% break : payment-conditions:approve %}         |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:cancel 🗄 %}         |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:create 🗄 %}         |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:pay 🗄 %}            |       ✅ ✸    |       ✅ ✸    |         ✅        |                         |    ✅ ✸ |
+| {% break : payment-requests:read %}              |       ✅ ✸    |       ✅ ✸    |         ✅ ✸      |                         |    ✅ ✸ |
+| {% break : payment-requests:read-by-shortcode %} |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:refund 🗄 %}         |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:void 🗄 %}           |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:release 🗄 %}        |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:confirm 🗄 %}        |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : quotas:read %}                        |       ✅      |               |                   |                         |         |
+| {% break : quotas:read %}                        |       ✅      |               |                   |                         |         |
+| {% break : scanned-code:decode %}                |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : topups:create 👤 %}                   |       ✅      |               |                   |                         |         |
+| {% break : topups:read %}                        |       ✅      |               |                   |                         |         |
+| {% break : wallets:create %}                     |       ✅      |               |                   |                         |         |
+| {% break : wallets:deposit %}                    |       ✅      |               |                   |                         |         |
+| {% break : wallets:read %}                       |       ✅      |               |                   |                         |         |
+| {% break : wallets:transfer 👤 %}                |       ✅      |               |                   |                         |         |
+| {% break : wallets:withdraw %}                   |       ✅      |               |                   |                         |         |
 
 [okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
 [pkce]: https://oauth.net/2/pkce/
