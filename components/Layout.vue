@@ -1,18 +1,16 @@
 <template>
-  <div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
-    <div class="hidden lg:relative lg:block lg:flex-none">
-      <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
-      <div class="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
-        <div class="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block " />
-        <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block" />
+  <div class="mx-auto max-w-7xl flex flex-col-reverse min-h-full lg:grid lg:grid-cols-5 lg:gap-8 lg:px-8">
+    <div class="hidden lg:relative lg:block lg:flex-none lg:col-span-1">
+      <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50" />
+      <div class="sticky top-[4.5rem] h-[calc(100vh-4.5rem)] overflow-y-auto py-16 px-4">
         <Navigation
           :navigation="navigation"
-          class="w-64 pr-8 xl:w-72 xl:pr-16"
+          class="w-full"
         />
       </div>
     </div>
     <div
-      class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16"
+      class="min-w-full max-w-2xl flex-auto px-4 py-3 lg:py-16 lg:max-w-prose lg:col-span-3"
     >
       <article>
         <header
@@ -27,7 +25,7 @@
           </p>
           <h1
             v-if="title"
-            class="font-display font-bold text-4xl tracking-tight text-slate-900 dark:text-white"
+            class="font-display font-bold text-4xl text-slate-900"
           >
             {{ title }}
           </h1>
@@ -35,18 +33,18 @@
         <slot />
       </article>
       <dl
-        class="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800"
+        class="mt-12 flex border-t border-slate-200 pt-6"
       >
         <div v-if="previousPage">
           <dt
-            class="font-display text-sm font-medium text-slate-900 dark:text-white"
+            class="font-display text-sm font-medium text-slate-900"
           >
             Previous
           </dt>
           <dd class="mt-1">
             <NuxtLink
               :href="previousPage._path"
-              class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              class="text-base font-semibold text-slate-500 hover:text-slate-600"
             >
               <span aria-hidden="true">&larr;</span> {{ previousPage.title }}
             </NuxtLink>
@@ -58,14 +56,14 @@
           class="ml-auto text-right"
         >
           <dt
-            class="font-display text-sm font-medium text-slate-900 dark:text-white"
+            class="font-display text-sm font-medium text-slate-900"
           >
             Next
           </dt>
           <dd class="mt-1">
             <NuxtLink
               :href="nextPage._path"
-              class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+              class="text-base font-semibold text-slate-500 hover:text-slate-600"
             >
               {{ nextPage.title }} <span aria-hidden="true">&rarr;</span>
             </NuxtLink>
@@ -73,67 +71,73 @@
         </div>
       </dl>
     </div>
-    <div class="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
-      <nav
-        aria-labelledby="on-this-page-title"
-        class="w-56"
+    <nav
+      class="sticky top-[4.5rem] flex flex-col w-full px-4 bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
+    >
+      <button
+        class="px-0 py-3 gap-1 flex items-center focus:outline-none focus:ring-0 mb-0 font-display text-xs font-bold text-slate-900 lg:hidden"
+        @click="showTocDropdown = !showTocDropdown"
       >
-        <div v-if="tableOfContents.length > 0">
-          <h5
-            id="on-this-page-title"
-            class="font-display text-sm font-bold text-slate-900 dark:text-white"
-          >
-            On this page
-          </h5>
-
-          <ol
-            role="list"
-            class="mt-4 space-y-3 text-sm"
-          >
-            <li
-              v-for="group of tableOfContents"
-              :key="group.id"
-            >
-              <a
-                :href="'#' + group.id"
-                class="font-normal text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-              >
-                {{ group.text }}
-              </a>
-
-              <ol
-                v-if="group.children && group.children.length > 0"
-                role="list"
-                class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400"
-              >
-                <li
-                  v-for="child of group.children"
-                  :key="child.id"
-                >
-                  <a
-                    :href="'#' + child.id"
-                    class="hover:text-slate-600 dark:hover:text-slate-300"
-                  >
-                    {{ child.text }}
-                  </a>
-                </li>
-              </ol>
-            </li>
-          </ol>
+        On this page
+        <div
+          class="transition-transform duration-100"
+          :class="showTocDropdown ? 'transform rotate-90' : 'transform rotate-0'"
+        >
+          <icons-carat />
         </div>
-      </nav>
-    </div>
+      </button>
+      <div
+        :class="showTocDropdown === false ? 'hidden' : ''"
+        class="space-y-1 sm:space-y-2 mb-4 lg:mt-0 lg:block"
+      >
+        <p class="hidden lg:block mb-4 font-display text-sm font-bold text-slate-900">
+          On this page
+        </p>
+        <ol
+          v-if="toc && toc.links"
+          class="space-y-2"
+        >
+          <li
+            v-for="heading in toc.links"
+            :key="heading.text"
+            class="space-y-2 text-sm"
+          >
+            <a
+              :href="`#${heading.id}`"
+              class="font-normal text-sm active:text-brand-accent text-slate-500 hover:text-slate-700"
+              @click="showTocDropdown = false"
+            >
+              {{ heading.text }}
+            </a>
+            <ul
+              v-if="heading.children && heading.children.length > 0"
+              class="space-y-2 pl-4"
+            >
+              <li
+                v-for="subHeading in heading.children"
+                :key="subHeading.text"
+              >
+                <a
+                  :href="`#${subHeading.id}`"
+                  class="text-slate-500 hover:text-slate-600"
+                  @click="showTocDropdown = false"
+                >
+                  {{ subHeading.text }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script setup>
-const { title, tableOfContents } = defineProps({
-  title: { type: String, required: true },
-  tableOfContents: { type: Array, required: true },
-});
-const router = useRouter();
 const { path } = useRoute();
-const isHomePage = path === '/';
+const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
+const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
+const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const allLinks = navigation.flatMap((section) => section.children);
 const linkIndex = allLinks.findIndex((link) => link._path === path);
@@ -142,6 +146,8 @@ const nextPage = allLinks[linkIndex + 1];
 const section = navigation.find((s) =>
   s.children.find((child) => child._path === path)
 );
+const { toc } = useContent();
+const showTocDropdown = ref(false);
 </script>
 
 <style>
@@ -151,6 +157,7 @@ html {
 
 h2,h3 {
   @apply
-    scroll-mt-24
+    scroll-mt-32
+    lg:scroll-mt-24
 }
 </style>
