@@ -1,0 +1,1 @@
+import{E as _,o as e,q as c,L as o,H as a,M as s}from"./entry.2636a073.mjs";import r from"./Layout.8b3690de.mjs";import"./Navigation.c3aed0c5.mjs";import"./Carat.a002e7a1.mjs";const m={};function f(i,l){const t=s,n=r;return e(),c("main",null,[o(n,null,{default:a(()=>[o(t)]),_:1})])}const h=_(m,[["render",f]]);export{h as default};
