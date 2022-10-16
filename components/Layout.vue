@@ -35,7 +35,7 @@
       <dl
         class="mt-12 flex border-t border-slate-200 pt-6"
       >
-        <div v-if="previousPage">
+        <div v-if="prev">
           <dt
             class="font-display text-sm font-medium text-slate-900"
           >
@@ -43,16 +43,16 @@
           </dt>
           <dd class="mt-1">
             <NuxtLink
-              :href="previousPage._path"
+              :to="prev._path"
               class="text-base font-semibold text-slate-500 hover:text-slate-600"
             >
-              <span aria-hidden="true">&larr;</span> {{ previousPage.title }}
+              <span aria-hidden="true">&larr;</span> {{ prev.title }}
             </NuxtLink>
           </dd>
         </div>
 
         <div
-          v-if="nextPage"
+          v-if="next"
           class="ml-auto text-right"
         >
           <dt
@@ -62,10 +62,10 @@
           </dt>
           <dd class="mt-1">
             <NuxtLink
-              :href="nextPage._path"
+              :to="next._path"
               class="text-base font-semibold text-slate-500 hover:text-slate-600"
             >
-              {{ nextPage.title }} <span aria-hidden="true">&rarr;</span>
+              {{ next.title }} <span aria-hidden="true">&rarr;</span>
             </NuxtLink>
           </dd>
         </div>
@@ -139,14 +139,10 @@ const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
-const allLinks = navigation.flatMap((section) => section.children);
-const linkIndex = allLinks.findIndex((link) => link._path === path);
-const previousPage = allLinks[linkIndex - 1];
-const nextPage = allLinks[linkIndex + 1];
 const section = navigation.find((s) =>
   s.children.find((child) => child._path === path)
 );
-const { toc } = useContent();
+const { toc, prev, next } = useContent();
 const showTocDropdown = ref(false);
 </script>
 
