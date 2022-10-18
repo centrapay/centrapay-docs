@@ -140,7 +140,7 @@ const contentDirectory = await queryContent().where({ _path: contentPath }).find
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
-  s.children.find((child) => child._path === path)
+  s.children.find((child) => child._path === contentPath)
 );
 const { toc, prev, next } = useContent();
 const showTocDropdown = ref(false);
