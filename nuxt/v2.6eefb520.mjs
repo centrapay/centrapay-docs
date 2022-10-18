@@ -1,0 +1,1 @@
+import{E as e,o as n,q as o,L as c,H as s,B as a,Q as r}from"./entry.f2aed2dc.mjs";const _={},i=r(" Go to Content ");function d(l,u){const t=a;return n(),o("div",null,[c(t,{to:"/introduction/getting-started",class:"btn btn-primary"},{default:s(()=>[i]),_:1})])}const m=e(_,[["render",d]]);export{m as default};
