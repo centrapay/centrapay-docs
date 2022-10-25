@@ -249,17 +249,18 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Activity Types %}
 
-|       Name        |                            Description                            |
-| ----------------- | ----------------------------------------------------------------- |
-| request           | [Payment Request][] was created.                                  |
-| payment           | [Payment Request][] was paid.                                     |
-| refund            | Funds were returned to the shopper.                               |
-| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper. |
-| expiry            | [Payment Request][] wasn't paid before time out.                  |
-| accept-condition  | A [Payment Condition][] was accepted.                             |
-| decline-condition | A [Payment Condition][] was declined.                             |
-| confirmation      | Funds on a Pre Auth have been drawn down on.                      |
-| release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.       |
+|       Name        |                                        Description                                         |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| request           | [Payment Request][] was created.                                                           |
+| preAuthRequest    | [Payment Request][] was created with the `preAuth` flag set to "true".                     |
+| payment           | [Payment Request][] was paid.                                                              |
+| refund            | Funds were returned to the shopper.                                                        |
+| cancellation      | [Payment Request][] was cancelled by the merchant or the shopper.                          |
+| expiry            | [Payment Request][] wasn't paid before time out.                                           |
+| accept-condition  | A [Payment Condition][] was accepted.                                                      |
+| decline-condition | A [Payment Condition][] was declined.                                                      |
+| confirmation      | Funds on a Pre Auth have been drawn down on.                                               |
+| release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned. |
 
 <a name="cancellation-reasons">
 {% h4 Cancellation Reasons %}
