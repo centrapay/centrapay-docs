@@ -259,6 +259,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | expiry            | [Payment Request][] wasn't paid before time out.                                           |
 | accept-condition  | A [Payment Condition][] was accepted.                                                      |
 | decline-condition | A [Payment Condition][] was declined.                                                      |
+| authorization     | A Pre Auth [Payment Request][] was approved and confirmations can be made against it.      |
 | confirmation      | Funds on a Pre Auth have been drawn down on.                                               |
 | release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned. |
 
