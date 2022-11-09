@@ -275,6 +275,27 @@ Returns a [paginated][] list of Withdrawals for an account.
 }
 {% endjson %}
 
+## Abort Funds Transfer
+
+{% reqspec %}
+  POST '/api/funds-transfers/{fundsTransferId}/abort'
+  auth 'api-key'
+  path_param 'fundsTransferId', '5thg2RPBZEfYTPJdQ63Cre'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                     Code                      |                           Description                           |
+| :----- | :-------------------------------------------- | :-------------------------------------------------------------- |
+| 403    | {% break _ ABORT_WITHDRAWAL_NOT_SUPPORTED %}  | Aborting funds transfers of type `withdrawal` is not supported. |
+| 403    | {% break _ FUNDS_TRANSFER_ALREADY_COMPLETE %} | The funds transfer is already complete.                         |
+
 [direct debit endpoint]: {% link api/bank-accounts/bank-accounts.md %}#direct-debit-authority
 [settlement wallets]: {% link api/assets/wallets.md %}#settlement-wallets
 [Quota Error Response]: {% link api/quotas.md %}#quota-error-response
