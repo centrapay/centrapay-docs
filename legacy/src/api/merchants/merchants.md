@@ -119,57 +119,6 @@ which define the payment methods available for a Payment Request.
 }
 {% endjson %}
 
-### List all Merchants
-
-Returns a [paginated][] list of Merchants which belong to the authenticated subject.
-
-{% reqspec %}
-  GET '/api/merchants'
-  auth 'api-key'
-{% endreqspec %}
-
-{% h4 Example response payload %}
-
-{% json %}
-{
-  "items": [
-    {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-      "country": "BT",
-      "id": "5f6bf6ff81552101f8ff6122",
-      "name": "Adams, Runolfsdottir and Botsford",
-      "test": true,
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    },
-    {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-      "country": "GM",
-      "id": "5f6bf6ff81552101f8ff6123",
-      "name": "Vandervort Inc",
-      "test": false,
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    },
-    {
-      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-      "country": "MZ",
-      "id": "5f6bf6ff81552101f8ff6124",
-      "name": "West, O'Reilly and Huels",
-      "test": true,
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    },
-  ]
-}
-{% endjson %}
-
 ### List Merchants for Account
 
 Returns a [paginated][] list of Merchants attached to an Account.
@@ -263,6 +212,57 @@ Returns a [paginated][] list of Merchants attached to an Account.
 | Status |                Code                 |                                  Description                                   |
 | :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
 | 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
+
+### List all Merchants **DEPRECATED**
+
+Returns a [paginated][] list of Merchants which belong to the authenticated subject.
+
+{% reqspec %}
+  GET '/api/merchants'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "items": [
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "BT",
+      "id": "5f6bf6ff81552101f8ff6122",
+      "name": "Adams, Runolfsdottir and Botsford",
+      "test": true,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "GM",
+      "id": "5f6bf6ff81552101f8ff6123",
+      "name": "Vandervort Inc",
+      "test": false,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    },
+    {
+      "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+      "country": "MZ",
+      "id": "5f6bf6ff81552101f8ff6124",
+      "name": "West, O'Reilly and Huels",
+      "test": true,
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    },
+  ]
+}
+{% endjson %}
 
 [Merchant Configs]: {% link api/merchants/merchant-configs.md %}
 [Payment Requests]: {% link api/payment-requests/payment-requests.md %}
