@@ -1,5 +1,3 @@
-import { defineNuxtConfig } from 'nuxt';
-
 export default defineNuxtConfig({
   modules: [
     '@nuxt/content'
@@ -15,14 +13,10 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
-  build: {
-    postcss: {
-      postcssOptions: {
-        plugins: {
-          tailwindcss: {},
-          autoprefixer: {},
-        },
-      },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
     },
   },
   runtimeConfig: {
