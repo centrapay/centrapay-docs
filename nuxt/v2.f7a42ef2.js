@@ -1,0 +1,1 @@
+import{Q as e,o as n,I as o,U as c,S as a,O as r,Y as s}from"./entry.43acc0db.js";const _={};function i(d,l){const t=r;return n(),o("div",null,[c(t,{to:"/introduction/getting-started",class:"btn btn-primary"},{default:a(()=>[s(" Go to Content ")]),_:1})])}const f=e(_,[["render",i]]);export{f as default};
