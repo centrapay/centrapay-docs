@@ -61,6 +61,7 @@ version (documented on this page) and the "legacy" version (documented at
 | updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
 | expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                               |
 | merchantConditions | Array              | A dynamic list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment. Conditions are calculated when [polling a Payment Request](#get-a-payment-request).       |
+| paymentActivities  | Array              | A summary of the [Payment Activities](#payment-activity-experimental) associated with the Payment Request. In order to get all of the details for the Payment Activities you will need to call the [List Payment Activities](#list-payment-activities-for-a-payment-request-experimental) endpoint.               |
 
 {% h4 Optional Fields %}
 
@@ -432,6 +433,13 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       },
   ],
   "merchantConditions": [],
+  "paymentActivities": [{
+    "type": "request",
+    "value": { "currency": "NZD", "amount": "6190" },
+    "shortCode": "CP-C7F-ZS5",
+    "createdAt": "2021-06-08T04:04:27.426Z",
+    "activityNumber": "1"
+  }],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -474,10 +482,10 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "configId": "5efbe2fb96c08357bb2b9242",
   "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
   "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-  "value": { "currency": "NZD", "amount": "8991" },
+  "value": { "currency": "NZD", "amount": "6190" },
   "paymentOptions": [
     {
-      "amount": "8991",
+      "amount": "6190",
       "assetType": "centrapay.nzd.test"
     }
   ],
@@ -506,6 +514,13 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       "status": "awaiting-merchant"
     }
   ],
+  "paymentActivities": [{
+    "type": "request",
+    "value": { "currency": "NZD", "amount": "6190" },
+    "shortCode": "CP-C7F-ZS5",
+    "createdAt": "2021-06-12T01:15:46.000Z",
+    "activityNumber": "1"
+  }],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -537,6 +552,29 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     }
   ],
   "merchantConditions": [],
+  "paymentActivities": [
+    {
+      "type": "payment",
+      "value": { "currency": "NZD", "amount": "450" },
+      "shortCode": "CP-C7F-ZS7",
+      "createdAt": "2021-06-08T04:04:29.426Z",
+      "activityNumber": "3"
+    },
+    {
+      "type": "payment",
+      "value": { "currency": "NZD", "amount": "550" },
+      "shortCode": "CP-C7F-ZS6",
+      "createdAt": "2021-06-08T04:04:28.426Z",
+      "activityNumber": "2"
+    },
+    {
+      "type": "request",
+      "value": { "currency": "NZD", "amount": "1000" },
+      "shortCode": "CP-C7F-ZS5",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "activityNumber": "1"
+    }
+  ],
   "status": "paid",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -587,6 +625,13 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     }
   ],
   "merchantConditions": [],
+  "paymentActivities": [{
+    "type": "preAuthRequest",
+    "value": { "currency": "NZD", "amount": "1000" },
+    "shortCode": "CP-C7F-ZS5",
+    "createdAt": "2021-06-08T04:04:27.426Z",
+    "activityNumber": "1"
+  }],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -629,6 +674,13 @@ Returns the latest Payment Request that matches the given short code.
     }
   ],
   "merchantConditions": [],
+  "paymentActivities": [{
+    "type": "request",
+    "value": { "currency": "NZD", "amount": "100" },
+    "shortCode": "CP-C7F-ZS5",
+    "createdAt": "2021-06-08T04:04:27.426Z",
+    "activityNumber": "1"
+  }],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
@@ -686,6 +738,13 @@ them to find the Payment Request and proceed to pay.
     }
   ],
   "merchantConditions": [],
+  "paymentActivities": [{
+    "type": "request",
+    "value": { "currency": "NZD", "amount": "100" },
+    "shortCode": "CP-C7F-ZS5",
+    "createdAt": "2021-06-08T04:04:27.426Z",
+    "activityNumber": "1"
+  }],
   "status": "new",
   "createdAt": "2021-06-08T04:04:27.426Z",
   "updatedAt": "2021-06-08T04:04:27.426Z",
