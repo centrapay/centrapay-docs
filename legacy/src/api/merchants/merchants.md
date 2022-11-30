@@ -29,16 +29,17 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Mandatory Fields %}
 
-|   Field   |        Type        |                                        Description                                        |
-| :-------- | :----------------- | :---------------------------------------------------------------------------------------- |
-| id        | String             | Merchant's unique identifier.                                                             |
-| accountId | String             | Id of Merchant's owning Centrapay account.                                                |
-| name      | String             | Merchant name.                                                                            |
-| country   | String             | Merchant [ISO 3166]{:.external} country code. Must match the "region" on the [Account][]. |
-| createdAt | {% dt Timestamp %} | When the Merchant was created.                                                            |
-| createdBy | {% dt CRN %}       | The User or API Key that created the Merchant.                                            |
-| updatedAt | {% dt Timestamp %} | When the Merchant was updated.                                                            |
-| updatedBy | {% dt CRN %}       | The User or API Key that updated the Merchant.                                            |
+|      Field       |        Type        |                                                 Description                                                  |
+| :--------------- | :----------------- | :----------------------------------------------------------------------------------------------------------- |
+| id               | String             | Merchant's unique identifier.                                                                                |
+| accountId        | String             | Id of Merchant's owning Centrapay account.                                                                   |
+| name             | String             | Merchant name.                                                                                               |
+| country          | String             | Merchant [ISO 3166]{:.external} country code. Must match the "region" on the [Account][].                    |
+| createdAt        | {% dt Timestamp %} | When the Merchant was created.                                                                               |
+| createdBy        | {% dt CRN %}       | The User or API Key that created the Merchant.                                                               |
+| updatedAt        | {% dt Timestamp %} | When the Merchant was updated.                                                                               |
+| updatedBy        | {% dt CRN %}       | The User or API Key that updated the Merchant.                                                               |
+| onboardingStatus | String             | The onboarding status of the Merchant. One of `applied`, `provisioning`, `deactivated`, `on-hold`, `active`. |
 
 {% h4 Optional Fields %}
 
@@ -80,6 +81,7 @@ which define the payment methods available for a Payment Request.
   "name": "Centrapay Cafe Auckland",
   "country": "NZ",
   "test": false,
+  "onboardingStatus": "applied",
   "createdAt": "2021-11-12T01:17:46.499Z",
   "updatedAt": "2021-11-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -112,6 +114,7 @@ which define the payment methods available for a Payment Request.
   "name": "Parisian - Brown",
   "test": false,
   "country": "AD",
+  "onboardingStatus": "applied",
   "createdAt": "2021-11-12T01:17:46.499Z",
   "updatedAt": "2021-11-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -140,6 +143,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -151,6 +155,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
       "test": false,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -190,6 +195,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
   "name": "Centrapay Café",
   "test": false,
   "country": "NZ",
+  "onboardingStatus": "applied",
   "location": {
     "lat": "-36.8483579",
     "lng": "174.7725834",
@@ -233,6 +239,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -244,6 +251,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
       "test": false,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -255,6 +263,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6124",
       "name": "West, O'Reilly and Huels",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
