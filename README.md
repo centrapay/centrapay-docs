@@ -37,3 +37,5 @@ Preview the Nuxt site at http://0.0.0.0:3000.
 In production we build and serve static files which is different to the Nuxt development server.
 You can preview the static Nuxt site at http://0.0.0.0:5001.
 Note this does not support hot reloading.
+
+🐒
