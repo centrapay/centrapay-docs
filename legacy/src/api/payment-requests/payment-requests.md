@@ -785,7 +785,7 @@ Use authorization to authorize an external transaction.
     })
   }
 
-    example {
+  example {
     title 'Refund a Payment Request with Line Items'
     body ({
       "value": {
@@ -861,6 +861,18 @@ Use authorization to authorize an external transaction.
     })
   }
 
+  example {
+    title 'Refund a Payment Request with Invoice Reference'
+    body ({
+      "value": {
+        "amount": "100",
+        "currency": "NZD",
+      },
+      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+    })
+  }
+
 {% endreqspec %}
 
 {% h4 Example response payload %}
@@ -880,6 +892,7 @@ Use authorization to authorize an external transaction.
   "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
   "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
   "activityNumber": "3",
+  "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
 },
 {% endjson %}
 
