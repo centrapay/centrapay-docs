@@ -17,9 +17,9 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: legacy/vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-gems-v2-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gems-
+            ${{ runner.os }}-gems-v2
       - run: gem install bundler
       - uses: actions/setup-node@v2
         with:
