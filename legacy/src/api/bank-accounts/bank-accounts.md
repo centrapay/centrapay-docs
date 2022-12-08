@@ -80,11 +80,23 @@ There is one object per type of Bank Account Approval, which provides a summary 
 
 Types of bank accounts to allow access to different [Asset Types][].
 
-|   type    |                          description                           |
+|   Type    |                          Description                           |
 | --------- | -------------------------------------------------------------- |
 | centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
 | kete      | Allows topup and withdrawal of the `kete.nzd` asset type.      |
 | quartz    | Allows usage of the `quartz.nzd` asset type.                   |
+
+<a name="bank-account-balance">
+### Bank Account Balance **EXPERIMENTAL**
+
+The Bank Account balance, retrieved using Open Banking flows.
+The supported Bank Account type is `quartz`.
+
+|     Name      |        Type        |                     Description                      |
+| ------------- | ------------------ | ---------------------------------------------------- |
+| bankAccountId | String             | The unique identifier of the Centrapay Bank Account. |
+| balance       | {% dt BigNumber %} | The Open Banking Bank Account balance.               |
+| currency      | String             | Currency code (eg. "NZD").                           |
 
 ## Operations
 
@@ -262,6 +274,29 @@ required together.
   "test": true,
 }
 {% endjson %}
+
+### Get Bank Account Balance **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/bank-accounts/{bankAccountId}/balance'
+  auth 'api-key'
+  path_param 'bankAccountId', 'd4a7cbd6818a87c51b97'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+bankAccountId: 'd4a7cbd6818a87c51b97'
+balance: 1000
+currency: 'NZD'
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |                   Code                   |                                         Description                                         |
+| :----- | :--------------------------------------- | :------------------------------------------------------------------------------------------ |
+| 403    | {% break _ BANK_BALANCE_NOT_SUPPORTED %} | The [Bank Account Type][] does not support retrieval of a balance using Open Banking flows. |
+| 403    | {% break _ BANK_AUTHORIZATION_INVALID %} | The access token to retrieve the [Bank Account Balance][] is no longer valid.               |
 
 <span id="verify-bank-account"></span>
 ### Verify a Bank Account
@@ -543,6 +578,7 @@ for Bank Accounts.
 [Account]: {% link api/accounts/accounts.md %}
 [Bank Account Approvals]: {% link api/bank-accounts/bank-account-approvals.md %}
 [Bank Account Type]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-type
+[Bank Account Balance]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-balance
 [Bank Account Approval Type Summaries]: {% link api/bank-accounts/bank-accounts.md %}#bank-account-approval-type-summary
 [Asset Types]: {% link api/assets/asset-types.md %}#supported-asset-types
 [Asset]: {% link api/assets/assets.md %}
