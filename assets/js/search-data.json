@@ -617,41 +617,41 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"103": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"104": {
     "doc": "Batches",
     "title": "Batches",
     "content": " ",
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
-  },"105": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"106": {
+  },"104": {
     "doc": "Merchants",
     "title": "Merchants",
     "content": " ",
     "url": "/api/section/merchants",
     "relUrl": "/api/section/merchants"
-  },"107": {
+  },"105": {
     "doc": "Integrations",
     "title": "Integrations",
     "content": " ",
     "url": "/api/section/integrations",
     "relUrl": "/api/section/integrations"
-  },"108": {
+  },"106": {
     "doc": "Settlements",
     "title": "Settlements",
     "content": " ",
     "url": "/api/section/settlements",
     "relUrl": "/api/section/settlements"
+  },"107": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"108": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"109": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
@@ -659,17 +659,17 @@
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
   },"110": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"111": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Accounts",
+    "title": "Accounts",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"112": {
     "doc": "API Reference",
     "title": "API Reference",
