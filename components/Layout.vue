@@ -1,16 +1,7 @@
 <template>
   <div class="mx-auto max-w-7xl flex flex-col-reverse min-h-full lg:grid lg:grid-cols-5 lg:gap-8 lg:px-8">
-    <div class="hidden lg:relative lg:block lg:flex-none lg:col-span-1">
-      <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50" />
-      <div class="sticky top-[4.5rem] h-[calc(100vh-4.5rem)] overflow-y-auto py-16 px-4">
-        <Navigation
-          :navigation="navigation"
-          class="w-full"
-        />
-      </div>
-    </div>
     <div
-      class="min-w-full max-w-2xl flex-auto px-4 py-3 lg:py-16 lg:max-w-prose lg:col-span-3"
+      class="min-w-full max-w-2xl flex-auto px-4 py-3 lg:py-16 lg:max-w-prose lg:col-span-4"
     >
       <article>
         <header
@@ -32,44 +23,6 @@
         </header>
         <slot />
       </article>
-      <dl
-        class="mt-12 flex border-t border-slate-200 pt-6"
-      >
-        <div v-if="prev">
-          <dt
-            class="font-display text-sm font-medium text-slate-900"
-          >
-            Previous
-          </dt>
-          <dd class="mt-1">
-            <NuxtLink
-              :to="prev._path"
-              class="text-base font-semibold text-slate-500 hover:text-slate-600"
-            >
-              <span aria-hidden="true">&larr;</span> {{ prev.title }}
-            </NuxtLink>
-          </dd>
-        </div>
-
-        <div
-          v-if="next"
-          class="ml-auto text-right"
-        >
-          <dt
-            class="font-display text-sm font-medium text-slate-900"
-          >
-            Next
-          </dt>
-          <dd class="mt-1">
-            <NuxtLink
-              :to="next._path"
-              class="text-base font-semibold text-slate-500 hover:text-slate-600"
-            >
-              {{ next.title }} <span aria-hidden="true">&rarr;</span>
-            </NuxtLink>
-          </dd>
-        </div>
-      </dl>
     </div>
     <nav
       class="sticky top-[4.5rem] flex flex-col w-full px-4 bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
@@ -142,7 +95,7 @@ const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
   s.children.find((child) => child._path === contentPath)
 );
-const { toc, prev, next } = useContent();
+const { toc } = useContent();
 const showTocDropdown = ref(false);
 </script>
 
