@@ -1,1 +1,0 @@
-import{U as e,o as n,b as o,V as c,S as a,Q as r,Z as s}from"./entry.2ec9f10b.js";const _={};function i(d,l){const t=r;return n(),o("div",null,[c(t,{to:"/introduction/getting-started",class:"btn btn-primary"},{default:a(()=>[s(" Go to Content ")]),_:1})])}const f=e(_,[["render",i]]);export{f as default};
