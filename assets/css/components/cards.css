@@ -11,23 +11,4 @@
       w-full
     ;
   }
-
-  .card-zoom {
-    @apply overflow-hidden;
-  }
-
-  .card-zoom-image {
-    @apply
-      rounded-xl
-      w-full
-      transition-all
-      duration-500
-      ease-in-out
-      transform
-    ;
-  }
-
-  .card-zoom:hover .card-zoom-image {
-    @apply scale-125;
-  }
 }
