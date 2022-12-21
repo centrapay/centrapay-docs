@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLink
-      to="/introduction/getting-started"
+      to="/v2/guides/farmlands-pos-integration"
       class="btn btn-primary"
     >
       Go to Content
