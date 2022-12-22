@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/tailwindcss',
   ],
   content: {
     documentDriven: true
@@ -12,12 +13,6 @@ export default defineNuxtConfig({
       title: 'Centrapay Docs',
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
-  },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
   },
   runtimeConfig: {
     public: {
