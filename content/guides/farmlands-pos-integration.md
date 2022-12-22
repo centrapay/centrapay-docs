@@ -6,6 +6,8 @@ Centrapay and Farmlands have entered into a partnership that will allow Farmland
 
 Farmlands Card Partners need to be approved by Farmlands in order to enable the Farmlands Card as a payment option through the Centrapay integration. Please get in touch with your Farmlands Partnership Manager or the Contact Centre and request access.
 
+<img src="/farmlands-card.png" alt="The back of an example Farmlands card, displaying a barcode and a 9-digit card number" style="height: 288px;"/>
+
 ## Benefits of using the Centrapay Integration
 
 Integrating with Centrapay streamlines the process for authorising and invoicing Farmlands Card Payments. The integration provides:
