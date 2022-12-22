@@ -1,1 +1,0 @@
-import{U as e,o as n,b as o,V as a,S as s,Q as c,Z as r}from"./entry.f6e4803c.js";const _={};function i(d,l){const t=c;return n(),o("div",null,[a(t,{to:"/v2/guides/farmlands-pos-integration",class:"btn btn-primary"},{default:s(()=>[r(" Go to Content ")]),_:1})])}const m=e(_,[["render",i]]);export{m as default};
