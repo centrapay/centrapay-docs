@@ -8,10 +8,10 @@
         :is="currentIcon"
         class="w-6 h-6 fill-brand-accent stroke-brand-accent"
       />
-      <div class="type-subtitle-1">
+      <h2>
         {{ props.title }}
-      </div>
-      <p class="type-caption-2">
+      </h2>
+      <p>
         {{ props.description }}
       </p>
     </div>

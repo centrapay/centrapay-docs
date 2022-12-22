@@ -22,9 +22,10 @@ const tailwindConfig = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('./assets/css/plugins/typography'),
     require('./assets/css/plugins/spacing'),
-  ],
+  ]
 };
 
 module.exports = tailwindConfig;

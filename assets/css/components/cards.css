@@ -9,6 +9,7 @@
       flex
       flex-col
       w-full
+      no-underline
     ;
   }
 }
