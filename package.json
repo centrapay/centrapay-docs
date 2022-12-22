@@ -9,6 +9,7 @@
     "@babel/eslint-parser": "^7.14.7",
     "@babel/eslint-plugin": "^7.14.5",
     "@nuxt/content": "^2.1.0",
+    "@tailwindcss/typography": "^0.5.8",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "autoprefixer": "^10.4.8",

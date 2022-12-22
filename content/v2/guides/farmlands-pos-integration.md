@@ -15,7 +15,7 @@ Integrating with Centrapay streamlines the process for authorising and invoicing
 3. Automatic notification of invoices for Card Partners that submit invoices with Centrapay.
 4. The ability to accept other assets as payment methods with Centrapay.
 
-# How the Integration Works
+## How the Integration Works
 
 A Farmlands Cardholder presents their Farmlands Card for payment. The cashier at the point of sale will either scan the Barcode or enter the 9-digit Farmlands Card number.
 

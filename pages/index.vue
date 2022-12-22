@@ -1,8 +1,10 @@
 <template>
   <main>
-    <div class="desktop-gutters px-4 sm:px-6">
+    <div class="prose desktop-gutters px-4 sm:px-6">
       <div class="my-4">
-        <span class="type-headline-3">Getting Started</span>
+        <h1 class="type-headline-3">
+          Getting Started
+        </h1>
       </div>
       <p>
         Welcome to Centrapay! We enable you to transact fiat currency,
