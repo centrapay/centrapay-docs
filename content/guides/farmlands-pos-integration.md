@@ -45,7 +45,7 @@ If you need a deeper dive into how to request payment using Centrapay’s APIs, 
 <!-- TODO: Link to Patron Not Present page when it is created -->
 - Accepting payments when  [Patron Not Present](https://www.notion.so/Patron-Not-Present-7da502cf99de4bd1af82a3bf8ed05e90)
 
-## Simple Flow
+### Simple Flow
 
 The Simple Flow should be used when:
 
@@ -339,7 +339,7 @@ sequenceDiagram
 
 After each Payment Condition is accepted or declined, the POS must continue to poll the Payment Request until the Payment Request status is paid. Here, the POS can stop polling and display confirmation of the successful payment.
 
-## Pre Auth Flow
+### Pre Auth Flow
 <!-- TODO: Link to Pre Auth page when it is created -->
 The [Pre Auth](https://www.notion.so/Pre-Auth-5d923a9225a949329d3cccf3d7e3a879) flow involves creating an authorization that ensures funds are available and places a hold on them.
 
@@ -714,7 +714,7 @@ Note over POS: ✅ Display release confirmation
 
     - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental)]
 
-## Patron Not Present Flow
+### Patron Not Present Flow
 <!-- TODO: Link to Patron Not Present page when it is created -->
 The [Patron Not Present](https://www.notion.so/Patron-Not-Present-7da502cf99de4bd1af82a3bf8ed05e90) flow should be used when the Cardholder is not physically present when a Pre Auth payment is authorised. For example, it can be used to support phone-based orders or where the Farmlands barcode is already known.
 
