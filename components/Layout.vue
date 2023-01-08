@@ -94,3 +94,10 @@ const section = navigation.find((s) =>
 const { toc } = useContent();
 const showTocDropdown = ref(false);
 </script>
+
+<style>
+html {
+  @apply
+    scroll-smooth;
+}
+</style>
