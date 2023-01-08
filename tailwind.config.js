@@ -19,6 +19,22 @@ const tailwindConfig = {
       maxWidth: {
         '8xl': '88rem',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            h2: {
+              borderTopWidth: '1px',
+              paddingTop: '48px',
+            },
+            h3: {
+              paddingTop: '32px',
+            },
+            'h2 > a, h3 > a': {
+              textDecorationLine: 'none',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [
