@@ -37,7 +37,7 @@
         </div>
       </button>
       <div
-        :class="showTocDropdown === false ? 'hidden' : ''"
+        :class="{'hidden' : showTocDropdown === false}"
         class="space-y-1 sm:space-y-2 mb-4 lg:mt-0 lg:block"
       >
         <p class="hidden lg:block mt-0 mb-4">
@@ -55,6 +55,7 @@
             <a
               :href="`#${heading.id}`"
               class="active:text-brand-accent no-underline"
+              :class="currentlyVisibleHeadingId.has(heading.id) ? 'text-brand-accent' : 'text-slate-500'"
               @click="showTocDropdown = false"
             >
               {{ heading.text }}
@@ -69,6 +70,8 @@
               >
                 <a
                   :href="`#${subHeading.id}`"
+                  class="hover:text-brand-accent"
+                  :class="currentlyVisibleHeadingId.has(subHeading.id) ? 'text-brand-accent' : 'text-slate-500'"
                   @click="showTocDropdown = false"
                 >
                   {{ subHeading.text }}
@@ -93,6 +96,36 @@ const section = navigation.find((s) =>
 );
 const { toc } = useContent();
 const showTocDropdown = ref(false);
+let currentlyVisibleHeadingId = reactive(new Set());
+let observer = null;
+
+onMounted(() => {
+  console.log('MOUNTED');
+  const observerOptions = {
+    threshold: 1.0
+  };
+  observer = new IntersectionObserver(headings => {
+    headings.forEach(heading => {
+      const headingId = heading.target.getAttribute('id');
+      if (heading.isIntersecting) {
+        currentlyVisibleHeadingId.add(headingId);
+      } else {
+        currentlyVisibleHeadingId.delete(headingId);
+      }
+    });
+  }, observerOptions);
+
+  document
+    .querySelectorAll('h2[id], h3[id]')
+    .forEach(heading => {
+      observer.observe(heading);
+    });
+});
+
+// onBeforeUnmount(() => {
+//   console.log('UNMOUNTED');
+//   observer.disconnect();
+// });
 </script>
 
 <style>
