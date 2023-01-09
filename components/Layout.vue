@@ -1,5 +1,5 @@
 <template>
-  <div class="prose mx-auto max-w-7xl flex flex-col-reverse min-h-full lg:grid lg:grid-cols-5 lg:gap-8 lg:px-8">
+  <div class="mx-auto max-w-7xl flex flex-col-reverse min-h-full lg:grid lg:grid-cols-5 lg:gap-8 lg:px-8">
     <div
       class="min-w-full max-w-2xl flex-auto px-4 py-3 lg:py-16 lg:max-w-prose lg:col-span-4"
     >
@@ -10,7 +10,7 @@
         >
           <p
             v-if="section"
-            class="text-brand-accent"
+            class="text-brand-accent type-overline"
           >
             {{ section.title }}
           </p>
@@ -22,7 +22,7 @@
       </article>
     </div>
     <nav
-      class="sticky top-[4.5rem] flex flex-col w-full px-4 bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
+      class="prose-a:no-underline sticky top-[4.5rem] flex flex-col w-full px-4 bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
     >
       <button
         class="px-0 py-3 gap-1 flex items-center focus:outline-none focus:ring-0 mb-0 lg:hidden"
@@ -54,7 +54,7 @@
           >
             <a
               :href="`#${heading.id}`"
-              class="active:text-brand-accent no-underline"
+              class="active:text-brand-accent"
               @click="showTocDropdown = false"
             >
               {{ heading.text }}

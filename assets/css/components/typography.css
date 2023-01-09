@@ -1,6 +1,13 @@
-h2,h3 {
+h2 {
   @apply
-    scroll-mt-32
-    lg:scroll-mt-24
+    scroll-mt-20
+    lg:scroll-mt-12
+  ;
+}
+
+h3 {
+  @apply
+    scroll-mt-24
+    lg:scroll-mt-16
   ;
 }
