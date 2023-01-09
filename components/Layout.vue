@@ -40,43 +40,50 @@
         :class="showTocDropdown === false ? 'hidden' : ''"
         class="space-y-1 sm:space-y-2 mb-4 lg:mt-0 lg:block"
       >
-        <p class="hidden lg:block mt-0 mb-4">
-          On this page
-        </p>
-        <ol
-          v-if="toc && toc.links"
-          class="space-y-2 list-none p-0"
-        >
-          <li
-            v-for="heading in toc.links"
-            :key="heading.text"
-            class="space-y-2 p-0"
+        <nav aria-labelledby="navigation-label">
+          <p
+            id="navigation-label"
+            class="hidden lg:block mt-0 mb-4 text-brand-accent type-overline"
           >
-            <a
-              :href="`#${heading.id}`"
-              class="active:text-brand-accent"
-              @click="showTocDropdown = false"
+            On this page
+          </p>
+          <ol
+            v-if="toc && toc.links"
+            class="space-y-2 list-none p-0"
+          >
+            <li
+              v-for="heading in toc.links"
+              :key="heading.text"
+              class="space-y-2 p-0"
             >
-              {{ heading.text }}
-            </a>
-            <ul
-              v-if="heading.children && heading.children.length > 0"
-              class="space-y-2 pl-4"
-            >
-              <li
-                v-for="subHeading in heading.children"
-                :key="subHeading.text"
+              <a
+                :href="`#${heading.id}`"
+                class="text-content-tertiary active:text-brand-accent hover:bg-gray-50"
+                @click="showTocDropdown = false"
               >
-                <a
-                  :href="`#${subHeading.id}`"
-                  @click="showTocDropdown = false"
+                {{ heading.text }}
+              </a>
+              <ul
+                v-if="heading.children && heading.children.length > 0"
+                class="space-y-2 pl-4"
+              >
+                <li
+                  v-for="subHeading in heading.children"
+                  :key="subHeading.text"
+                  class="list-none"
                 >
-                  {{ subHeading.text }}
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ol>
+                  <a
+                    :href="`#${subHeading.id}`"
+                    class="text-content-tertiary active:text-brand-accent hover:bg-gray-100"
+                    @click="showTocDropdown = false"
+                  >
+                    {{ subHeading.text }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </nav>
       </div>
     </nav>
   </div>
