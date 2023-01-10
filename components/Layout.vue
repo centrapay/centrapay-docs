@@ -22,10 +22,10 @@
       </article>
     </div>
     <nav
-      class="prose-a:no-underline sticky top-[4.5rem] flex flex-col w-full px-4 bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
+      class="prose-a:no-underline sticky top-[4.5rem] flex flex-col w-full bg-white drop-shadow-sm lg:max-h-page lg:self-start lg:bg-transparent lg:backdrop-blur-none lg:flex-none lg:overflow-y-auto lg:py-16 lg:col-span-1"
     >
       <button
-        class="px-0 py-3 gap-1 flex items-center focus:outline-none focus:ring-0 mb-0 lg:hidden"
+        class="type-overline text-brand-accent py-3 gap-1 flex items-center focus:outline-none focus:ring-0 mb-0 lg:hidden"
         @click="showTocDropdown = !showTocDropdown"
       >
         On this page
@@ -40,45 +40,49 @@
         :class="showTocDropdown === false ? 'hidden' : ''"
         class="space-y-1 sm:space-y-2 mb-4 lg:mt-0 lg:block"
       >
-        <p class="hidden lg:block mt-0 mb-4">
+        <p class="type-overline text-brand-accent hidden lg:block mt-0 mb-4 pl-6">
           On this page
         </p>
         <ol
           v-if="toc && toc.links"
-          class="space-y-2 list-none p-0"
+          class="list-none p-0"
         >
-          <li
+          <div
             v-for="heading in toc.links"
             :key="heading.text"
-            class="space-y-2 p-0"
           >
             <a
               :href="`#${heading.id}`"
-              class="active:text-brand-accent"
-              :class="visibleHeadingIds.has(heading.id) ? 'text-brand-accent' : 'text-content-tertiary'"
-              @click="showTocDropdown = false"
+              class="type-body-3 text-content-tertiary hover:underline hover:text-gray-900"
+              @click="handleTocClick(heading.id)"
             >
-              {{ heading.text }}
+              <li
+                class="m-0 py-3 px-6 hover:bg-gray-50"
+                :class="visibleHeadingId === heading.id ? 'bg-gray-100' : 'bg-transparent'"
+              >
+                {{ heading.text }}
+              </li>
             </a>
             <ul
               v-if="heading.children && heading.children.length > 0"
-              class="space-y-2 pl-4"
+              class="pl-0 m-0"
             >
-              <li
+              <a
                 v-for="subHeading in heading.children"
                 :key="subHeading.text"
+                :href="`#${subHeading.id}`"
+                class="type-body-3 text-content-tertiary hover:underline hover:text-gray-900"
+                @click="handleTocClick(subHeading.id)"
               >
-                <a
-                  :href="`#${subHeading.id}`"
-                  class="active:text-brand-accent"
-                  :class="visibleHeadingIds.has(subHeading.id) ? 'text-brand-accent' : 'text-content-tertiary'"
-                  @click="showTocDropdown = false"
+                <li
+                  class="m-0 py-3 px-6 pl-10 list-none hover:bg-gray-50"
+                  :class="visibleHeadingId === subHeading.id ? 'bg-gray-100' : 'bg-transparent'"
                 >
                   {{ subHeading.text }}
-                </a>
-              </li>
+                </li>
+              </a>
             </ul>
-          </li>
+          </div>
         </ol>
       </div>
     </nav>
@@ -86,7 +90,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const { path } = useRoute();
 const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
@@ -99,21 +103,20 @@ const section = navigation.find((s) =>
 const { toc } = useContent();
 const showTocDropdown = ref(false);
 
-let visibleHeadingIds = reactive(new Set());
+const visibleHeadingId = ref('');
 let observer = null;
+
 onMounted(() => {
   const observerOptions = {
     threshold: 0,
-    rootMargin: '-72px',
+    rootMargin: '-20% 0px -80% 0px',
   };
 
   observer = new IntersectionObserver(contentSections => {
     contentSections.forEach(contentSection => {
       const headingId = contentSection.target.firstElementChild.id;
       if (contentSection.isIntersecting) {
-        visibleHeadingIds.add(headingId);
-      } else {
-        visibleHeadingIds.delete(headingId);
+        visibleHeadingId.value = headingId;
       }
     });
   }, observerOptions);
@@ -128,6 +131,11 @@ onMounted(() => {
 onUnmounted(() => {
   this.observer.disconnect();
 });
+
+const handleTocClick = (headingId) => {
+  showTocDropdown.value = false;
+  visibleHeadingId.value = headingId;
+};
 </script>
 
 <style>
