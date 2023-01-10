@@ -55,6 +55,7 @@
             <a
               :href="`#${heading.id}`"
               class="active:text-brand-accent"
+              :class="visibleHeadingIds.has(heading.id) ? 'text-brand-accent' : 'text-content-tertiary'"
               @click="showTocDropdown = false"
             >
               {{ heading.text }}
@@ -69,6 +70,8 @@
               >
                 <a
                   :href="`#${subHeading.id}`"
+                  class="active:text-brand-accent"
+                  :class="visibleHeadingIds.has(subHeading.id) ? 'text-brand-accent' : 'text-content-tertiary'"
                   @click="showTocDropdown = false"
                 >
                   {{ subHeading.text }}
@@ -83,6 +86,8 @@
 </template>
 
 <script setup>
+import { reactive, onMounted, onUnmounted } from 'vue';
+
 const { path } = useRoute();
 const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
@@ -93,6 +98,36 @@ const section = navigation.find((s) =>
 );
 const { toc } = useContent();
 const showTocDropdown = ref(false);
+
+let visibleHeadingIds = reactive(new Set());
+let observer = null;
+onMounted(() => {
+  const observerOptions = {
+    threshold: 0,
+    rootMargin: '-72px',
+  };
+
+  observer = new IntersectionObserver(contentSections => {
+    contentSections.forEach(contentSection => {
+      const headingId = contentSection.target.firstElementChild.id;
+      if (contentSection.isIntersecting) {
+        visibleHeadingIds.add(headingId);
+      } else {
+        visibleHeadingIds.delete(headingId);
+      }
+    });
+  }, observerOptions);
+
+  document
+    .querySelectorAll('section')
+    .forEach(contentSection => {
+      observer.observe(contentSection);
+    });
+});
+
+onUnmounted(() => {
+  this.observer.disconnect();
+});
 </script>
 
 <style>

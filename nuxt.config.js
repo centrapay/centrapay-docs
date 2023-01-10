@@ -3,7 +3,16 @@ export default defineNuxtConfig({
     '@nuxt/content'
   ],
   content: {
-    documentDriven: true
+    documentDriven: true,
+    markdown: {
+      remarkPlugins: {
+        'remark-sectionize': {},
+      },
+      toc: {
+        depth: 4,
+        searchDepth: 4,
+      }
+    }
   },
   css: ['~/assets/css/tailwind.css'],
   app: {
