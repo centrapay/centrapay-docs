@@ -32,6 +32,12 @@ const tailwindConfig = {
             'h2 > a, h3 > a': {
               textDecorationLine: 'none',
             },
+            pre: {
+              backgroundColor: false,
+              color: false,
+              marginTop: 0,
+              marginBottom: 0,
+            },
           },
         },
       },
