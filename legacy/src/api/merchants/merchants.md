@@ -29,24 +29,51 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Mandatory Fields %}
 
-|   Field   |        Type        |                                        Description                                        |
-| :-------- | :----------------- | :---------------------------------------------------------------------------------------- |
-| id        | String             | Merchant's unique identifier.                                                             |
-| accountId | String             | Id of Merchant's owning Centrapay account.                                                |
-| name      | String             | Merchant name.                                                                            |
-| country   | String             | Merchant [ISO 3166]{:.external} country code. Must match the "region" on the [Account][]. |
-| createdAt | {% dt Timestamp %} | When the Merchant was created.                                                            |
-| createdBy | {% dt CRN %}       | The User or API Key that created the Merchant.                                            |
-| updatedAt | {% dt Timestamp %} | When the Merchant was updated.                                                            |
-| updatedBy | {% dt CRN %}       | The User or API Key that updated the Merchant.                                            |
+|      Field       |        Type        |                                                 Description                                                 |
+| :--------------- | :----------------- | :---------------------------------------------------------------------------------------------------------- |
+| id               | String             | Merchant's unique identifier.                                                                               |
+| accountId        | String             | Id of Merchant's owning Centrapay account.                                                                  |
+| name             | String             | Merchant name.                                                                                              |
+| country          | String             | Merchant [ISO 3166]{:.external} country code. Must match the "region" on the [Account][].                   |
+| createdAt        | {% dt Timestamp %} | When the Merchant was created.                                                                              |
+| createdBy        | {% dt CRN %}       | The User or API Key that created the Merchant.                                                              |
+| updatedAt        | {% dt Timestamp %} | When the Merchant was updated.                                                                              |
+| updatedBy        | {% dt CRN %}       | The User or API Key that updated the Merchant.                                                              |
+| onboardingStatus | String             | The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values. |
 
 {% h4 Optional Fields %}
 
-|      Field       |                  Type                   |                        Description                        |
-| :--------------- | :-------------------------------------- | :-------------------------------------------------------- |
-| test             | Boolean                                 | **EXPERIMENTAL** Flag indicating merchant is for testing. |
-| settlementConfig | [Settlement Config](#settlement-config) | **EXPERIMENTAL** Merchant settlement config               |
-| location         | {% dt Location %}                       | **EXPERIMENTAL** Physical Location of Merchant            |
+|         Field          |                  Type                   |                                                                        Description                                                                         |
+| :--------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| test                   | Boolean                                 | **EXPERIMENTAL** Flag indicating merchant is for testing.                                                                                                  |
+| settlementConfig       | [Settlement Config](#settlement-config) | **EXPERIMENTAL** Merchant settlement config.                                                                                                               |
+| location               | {% dt Location %}                       | **EXPERIMENTAL** Physical Location of Merchant.                                                                                                            |
+| onboardingStatusReason | String                                  | The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values. |
+
+<a name="onboarding-statuses">
+{% h4 Onboarding Statuses %}
+
+|    Status    |                                                                Description                                                                 |                                      Allowed Reasons                                      |
+| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| applied      | Identifies merchants that have registered to be activated for the Centrapay service.                                                       |                                                                                           |
+| provisioning | Identifies merchants that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
+| active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
+| deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
+| on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal.                                         |
+
+<a name="onboarding-status-reasons">
+{% h4 Onboarding Status Reasons %}
+
+|          Reason           |                           Description                            |
+| :------------------------ | :--------------------------------------------------------------- |
+| duplicate                 | The merchant already exists in the Centrapay system.             |
+| data-quality-issues       | Data quality issues are preventing the merchant from onboarding. |
+| no-response               | No response has been received from the merchant.                 |
+| change-of-ownership       | The merchant has changed ownership.                              |
+| centrapay-discontinued    | The merchant is no longer using Centrapay.                       |
+| seasonal-business-closure | The merchant has closed temporarily.                             |
+| incompatible-terminal     | The merchant does not have any compatible terminals.             |
+
 
 ### Settlement Config
 {% h4 Optional Fields %}
@@ -80,6 +107,7 @@ which define the payment methods available for a Payment Request.
   "name": "Centrapay Cafe Auckland",
   "country": "NZ",
   "test": false,
+  "onboardingStatus": "applied",
   "createdAt": "2021-11-12T01:17:46.499Z",
   "updatedAt": "2021-11-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -112,6 +140,7 @@ which define the payment methods available for a Payment Request.
   "name": "Parisian - Brown",
   "test": false,
   "country": "AD",
+  "onboardingStatus": "applied",
   "createdAt": "2021-11-12T01:17:46.499Z",
   "updatedAt": "2021-11-12T01:17:46.499Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -140,6 +169,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -151,6 +181,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
       "test": false,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -190,6 +221,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
   "name": "Centrapay Café",
   "test": false,
   "country": "NZ",
+  "onboardingStatus": "applied",
   "location": {
     "lat": "-36.8483579",
     "lng": "174.7725834",
@@ -213,6 +245,32 @@ Returns a [paginated][] list of Merchants attached to an Account.
 | :----- | :---------------------------------- | :----------------------------------------------------------------------------- |
 | 403    | {% break _ BANK_ACCOUNT_MISMATCH %} | The bank account in the settlement config does not belong to the same account. |
 
+### Set Merchant Onboarding Status
+
+{% reqspec %}
+  POST '/api/merchants/{merchantId}/set-onboarding-status'
+  auth 'api-key'
+  path_param 'merchantId', '5ee0c486308f590260d9a07f'
+  body ({
+    onboardingStatus: 'deactivated',
+		onboardingStatusReason: 'change-of-ownership'
+  })
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "type": "set-onboarding-status",
+  "onboardingStatus": "deactivated",
+  "onboardingStatusReason": "change-of-ownership",
+  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+  "createdAt": "2021-09-12T01:11:22.491Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "activityNumber": "2",
+}
+{% endjson %}
+
 ### List all Merchants **DEPRECATED**
 
 Returns a [paginated][] list of Merchants which belong to the authenticated subject.
@@ -233,6 +291,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6122",
       "name": "Adams, Runolfsdottir and Botsford",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -244,6 +303,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6123",
       "name": "Vandervort Inc",
       "test": false,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -255,6 +315,7 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
       "id": "5f6bf6ff81552101f8ff6124",
       "name": "West, O'Reilly and Huels",
       "test": true,
+      "onboardingStatus": "applied",
       "createdAt": "2021-11-12T01:17:46.499Z",
       "updatedAt": "2021-11-12T01:17:46.499Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
