@@ -45,6 +45,43 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ## Operations
 
+### Create an Invitation **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/invitations'
+  auth 'api-key'
+  body ({
+    type: "account-membership",
+		resourceId: "Hopo4g34sLVdjEMBs2p19F",
+		resourceType: "account",
+		recipientAlias: "user@org.com",
+    params: {
+			role: "cashier"
+		}
+  })
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "code": "WIj211vFs9cNACwBb04vQw",
+  "type": "account-membership",
+  "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+  "resourceType": "account",
+  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "createdAt": "2021-08-25T00:02:49.488Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedAt": "2021-08-25T00:02:49.488Z",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "recipientAlias": "user@org.com",
+  "params": {
+		"role": "cashier"
+	}
+}
+{% endjson %}
+
 ### Get an Invitation by code **EXPERIMENTAL**
 
 {% reqspec %}
