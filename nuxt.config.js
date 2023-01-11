@@ -12,7 +12,13 @@ export default defineNuxtConfig({
         depth: 4,
         searchDepth: 4,
       }
-    }
+    },
+    highlight: {
+      theme: 'solarized-light',
+      preload: [
+        'bash',
+      ]
+    },
   },
   css: ['~/assets/css/tailwind.css'],
   app: {

@@ -85,257 +85,246 @@ sequenceDiagram
 
 1. The Cardholder presents their Farmlands card for the POS to scan.
 2. (Optional) The POS decodes the Scanned Barcode to confirm that it is valid and applies Farmlands discounts.
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code)]
+- [[API Reference](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code)]
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/decode \
-          -H "Authorization: $jwt" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "code": "123456789",
-            "scannedBy": "merchant",
-            "merchantConfigId": "5ee168e8597be5002af7b454"
-          }'
-        ```
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/decode \
+      -H "Authorization: $jwt" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "code": "123456789",
+        "scannedBy": "merchant",
+        "merchantConfigId": "5ee168e8597be5002af7b454"
+      }'
+    ```
 
-        Example API Response Payload
-
-        ```bash
-        {
-          "code": "123456789",
-          "scannedBy": "merchant",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "provider": "farmlands",
-          "displayName": "Farmlands Card"
-        }
-        ```
+    ```bash [Response]
+    {
+      "code": "123456789",
+      "scannedBy": "merchant",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "provider": "farmlands",
+      "displayName": "Farmlands Card"
+    }
+    ```
 
 3. The POS creates a Centrapay Payment Request with the barcode.
 
     Farmlands POS Integrators must support Merchant Payment Conditions by creating Payment Requests with the `conditionsEnabled` flag.
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)]
 
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)]
-
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests \
-          -H "X-Api-Key: $api_key" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "barcode": "123456789",
-            "configId": "5ee168e8597be5002af7b454",
-            "value": {
-              "amount": "10000",
-              "currency": "NZD"
-            },
-        	  "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-        		"invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-        		"lineItems": [
-              {
-                "name": "Hard Hat",
-                "sku": "GH1234",
-                "qty": "1",
-                "price": "4000",
-                "tax": "15",
-        				"discount": "400"
-              },
-        			{
-                "name": "Tool Belt",
-                "sku": "GH1234",
-                "qty": "1",
-                "price": "6000",
-                "tax": "15",
-        				"discount": "600"
-              }
-            ],
-        		"conditionsEnabled": "true"
-          }'
-        ```
-
-        Example API Response Payload
-
-        ```json
-        {
-          "id": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5",
-          "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-          "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-          "barcode": "123456789",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantName": "Farmlands Card Partner",
-          "configId": "5ee168e8597be5002af7b454",
-          "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-          "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-          "value": {
-            "currency": "NZD",
-            "amount": "10000"
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "barcode": "123456789",
+        "configId": "5ee168e8597be5002af7b454",
+        "value": {
+          "amount": "10000",
+          "currency": "NZD"
+        },
+        "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+        "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
           },
-          "paymentOptions": [
-            {
-              "amount": "10000",
-              "assetType": "farmlands.nzd.main"
-            }
-          ],
-          "lineItems": [
-            {
-              "name": "Hard Hat",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "4000",
-              "tax": "15",
-        			"discount": "400"
-            },
-        		{
-              "name": "Tool Belt",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "6000",
-              "tax": "15",
-        			"discount": "600"
-            }
-          ],
-          "merchantConditions": [
-        		{
-        			"id": "1",
-        			"name": "photo-id-check",
-        			"message": "Please check ID"
-        			"status": "awaiting-merchant",
-        		}
-          ],
-          "status": "new",
-          "createdAt": "2021-06-08T04:04:27.426Z",
-          "updatedAt": "2021-06-08T04:04:27.426Z",
-          "expiresAt": "2021-06-08T04:06:27.426Z",
-          "expirySeconds": 120,
-        	"conditionsEnabled": "true"
+          {
+            "name": "Tool Belt",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "6000",
+            "tax": "15",
+            "discount": "600"
+          }
+        ],
+        "conditionsEnabled": "true"
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "123456789",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "configId": "5ee168e8597be5002af7b454",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      },
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
         }
-        ```
+      ],
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID"
+          "status": "awaiting-merchant",
+        }
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "conditionsEnabled": "true"
+    }
+    ```
 
 4. The POS polls the Payment Request for status changes.
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)]
+- [[API Reference](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)]
 
-        ```bash
-        curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-          -H "Authorization: $jwt"
-        ```
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
 
-        Example API Response Payload
-
-        ```json
+    ```json [Response]
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "123456789",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      },
+      "paymentOptions": [
         {
-          "id": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5",
-          "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-          "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-          "barcode": "123456789",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantName": "Farmlands Card Partner",
-          "configId": "5efbe2fb96c08357bb2b9242",
-          "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-          "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-          "value": {
-            "currency": "NZD",
-            "amount": "10000"
-          },
-          "paymentOptions": [
-            {
-              "amount": "10000",
-              "assetType": "farmlands.nzd.main"
-            }
-          ],
-          "lineItems": [
-            {
-              "name": "Hard Hat",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "4000",
-              "tax": "15",
-        			"discount": "400"
-            },
-        		{
-              "name": "Tool Belt",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "6000",
-              "tax": "15",
-        			"discount": "600"
-            }
-          ],
-          "merchantConditions": [
-        		{
-        			"id": "1",
-        			"name": "photo-id-check",
-        			"message": "Please check ID"
-        			"status": "awaiting-merchant",
-        		}
-          ],
-          "status": "new",
-          "createdAt": "2021-06-08T04:04:27.426Z",
-          "updatedAt": "2021-06-08T04:04:27.426Z",
-          "expiresAt": "2021-06-08T04:06:27.426Z",
-          "expirySeconds": 120,
-        	"conditionsEnabled": "true",
-        	"patronNotPresent": "true"
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
         }
-        ```
+      ],
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID"
+          "status": "awaiting-merchant",
+        }
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "conditionsEnabled": "true",
+      "patronNotPresent": "true"
+    }
+    ```
 
 5. The POS must prompt the cashier to accept or decline any pending Merchant Payment Conditions  (e.g. an identification check for high-risk transactions).
-    - Example API Request to accept a pending Merchant Payment Condition [[API Reference](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental)] to accept a pending Merchant Payment Condition
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
-          -H "X-Api-Key: $api_key"
-        ```
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
+      -H "X-Api-Key: $api_key"
+    ```
 
-        Example API Response Payload
+    ```json [Response]
+    {
+      "type": "accept-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Farmlands Card Partner"
+    }
+    ```
 
-        ```json
-        {
-          "type": "accept-condition",
-          "value": {
-            "currency": "NZD",
-            "amount": 100
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "conditionId": "1",
-          "createdAt": "2022-05-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "merchantName": "Farmlands Card Partner"
-        }
-        ```
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental)] to decline a pending Merchant Payment Condition
 
-    - Example API Request to decline a pending Merchant Payment Condition [[API Reference](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental)]
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/decline \
+      -H "X-Api-Key: $api_key"
+    ```
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/decline \
-          -H "X-Api-Key: $api_key"
-        ```
-
-        Example API Response Payload
-
-        ```json
-        {
-          "type": "decline-condition",
-          "value": {
-            "currency": "NZD",
-            "amount": 100
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "conditionId": "1",
-          "createdAt": "2022-05-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "merchantName": "Farmlands Card Partner"
-        }
-        ```
+    ```json [Response]
+    {
+      "type": "decline-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Farmlands Card Partner"
+    }
+    ```
 
 After each Payment Condition is accepted or declined, the POS must continue to poll the Payment Request until the Payment Request status is paid. Here, the POS can stop polling and display confirmation of the successful payment.
 
@@ -392,258 +381,247 @@ Note over POS: ✅ Display release confirmation
 
 1. The Cardholder presents their Farmlands card for the POS to scan.
 2. (Optional) The POS decodes the Scanned Barcode to confirm that it is valid and applies Farmlands discounts.
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code)]
+    - [[API Reference](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code)]
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/decode \
-          -H "Authorization: $jwt" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "code": "123456789",
-            "scannedBy": "merchant",
-            "merchantConfigId": "5ee168e8597be5002af7b454"
-          }'
-        ```
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/decode \
+      -H "Authorization: $jwt" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "code": "123456789",
+        "scannedBy": "merchant",
+        "merchantConfigId": "5ee168e8597be5002af7b454"
+      }'
+    ```
 
-        Example API Response Payload
-
-        ```bash
-        {
-          "code": "123456789",
-          "scannedBy": "merchant",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "provider": "farmlands",
-          "displayName": "Farmlands Card"
-        }
-        ```
+    ```bash [Response]
+    {
+      "code": "123456789",
+      "scannedBy": "merchant",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "provider": "farmlands",
+      "displayName": "Farmlands Card"
+    }
+    ```
 
 3. The POS authorises a Pre Auth payment by creating a Centrapay Payment Request with the barcode on the Farmlands Card and the `preauth` flag.
 
     Farmlands POS Integrators must support Merchant Payment Conditions by creating Payment Requests with the `conditionsEnabled` flag.
 
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)]
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests \
-          -H "X-Api-Key: $api_key" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "barcode": "123456789",
-            "configId": "5ee168e8597be5002af7b454",
-            "value": {
-              "amount": "10000",
-              "currency": "NZD"
-            },
-        		"lineItems": [
-              {
-                "name": "Hard Hat",
-                "sku": "GH1234",
-                "qty": "1",
-                "price": "4000",
-                "tax": "15",
-        				"discount": "400"
-              },
-        			{
-                "name": "Tool Belt",
-                "sku": "GH1234",
-                "qty": "1",
-                "price": "6000",
-                "tax": "15",
-        				"discount": "600"
-              }
-            ],
-        		"conditionsEnabled": "true",
-            "preAuth": true
-          }'
-        ```
-
-        Example API Response Payload
-
-        ```json
-        {
-          "id": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5",
-          "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-          "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-          "barcode": "9990001234567895",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantName": "Farmlands Card Partner",
-          "configId": "5efbe2fb96c08357bb2b9242",
-          "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-          "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-          "value": {
-            "currency": "NZD",
-            "amount": "10000"
+    ```bash [Request ]
+    curl -X POST https://service.centrapay.com/api/payment-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "barcode": "123456789",
+        "configId": "5ee168e8597be5002af7b454",
+        "value": {
+          "amount": "10000",
+          "currency": "NZD"
+        },
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
           },
-          "paymentOptions": [
-            {
-              "amount": "10000",
-              "assetType": "farmlands.nzd.main"
-            }
-          ],
-          "lineItems": [
-            {
-              "name": "Hard Hat",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "4000",
-              "tax": "15",
-        			"discount": "400"
-            },
-        		{
-              "name": "Tool Belt",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "6000",
-              "tax": "15",
-        			"discount": "600"
-            }
-          ],
-          "merchantConditions": [
-        		{
-        			"id": "1",
-        			"name": "photo-id-check",
-        			"message": "Please check ID"
-        			"status": "awaiting-merchant",
-        		}
-          ],
-          "status": "new",
-          "createdAt": "2021-06-08T04:04:27.426Z",
-          "updatedAt": "2021-06-08T04:04:27.426Z",
-          "expiresAt": "2021-06-08T04:06:27.426Z",
-          "expirySeconds": 120,
-        	"conditionsEnabled": "true",
-        	"patronNotPresent": "true"
+          {
+            "name": "Tool Belt",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "6000",
+            "tax": "15",
+            "discount": "600"
+          }
+        ],
+        "conditionsEnabled": "true",
+        "preAuth": true
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "9990001234567895",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      },
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
         }
-        ```
+      ],
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID"
+          "status": "awaiting-merchant",
+        }
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "conditionsEnabled": "true",
+      "patronNotPresent": "true"
+    }
+    ```
 
 4. The POS polls the Payment Request for status changes.
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)]
 
-        ```bash
-        curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-          -H "Authorization: $jwt"
-        ```
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
 
-        Example API Response Payload
-
-        ```json
+    ```json [Response]
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "123456789",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      },
+      "paymentOptions": [
         {
-          "id": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5",
-          "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-          "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-          "barcode": "123456789",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantName": "Farmlands Card Partner",
-          "configId": "5efbe2fb96c08357bb2b9242",
-          "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-          "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-          "value": {
-            "currency": "NZD",
-            "amount": "10000"
-          },
-          "paymentOptions": [
-            {
-              "amount": "10000",
-              "assetType": "farmlands.nzd.main"
-            }
-          ],
-        	"lineItems": [
-            {
-              "name": "Hard Hat",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "4000",
-              "tax": "15",
-        			"discount": "400"
-            },
-        		{
-              "name": "Tool Belt",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "6000",
-              "tax": "15",
-        			"discount": "600"
-            }
-          ],
-          "merchantConditions": [
-        		{
-        			"id": "1",
-        			"name": "photo-id-check",
-        			"message": "Please check ID"
-        			"status": "awaiting-merchant",
-        		}
-          ],
-          "status": "new",
-          "createdAt": "2021-06-08T04:04:27.426Z",
-          "updatedAt": "2021-06-08T04:04:27.426Z",
-          "expiresAt": "2021-06-08T04:06:27.426Z",
-          "expirySeconds": 120,
-        	"conditionsEnabled": "true",
-        	"patronNotPresent": "false"
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
         }
-        ```
+      ],
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID"
+          "status": "awaiting-merchant",
+        }
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "conditionsEnabled": "true",
+      "patronNotPresent": "false"
+    }
+    ```
 
 5. The POS must prompt the cashier to accept or decline any pending Merchant Payment Conditions  (e.g. an identification check for high-risk transactions).
-    - Example API Request to accept a pending Merchant Payment Condition [[API Reference](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental)] to accept a pending Merchant Payment Condition
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
-          -H "X-Api-Key: $api_key"
-        ```
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
+      -H "X-Api-Key: $api_key"
+    ```
 
-        Example API Response Payload
+    ```json [Response]
+    {
+      "type": "accept-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Farmlands Card Partner"
+    }
+    ```
 
-        ```json
-        {
-          "type": "accept-condition",
-          "value": {
-            "currency": "NZD",
-            "amount": 100
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "conditionId": "1",
-          "createdAt": "2022-05-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "merchantName": "Farmlands Card Partner"
-        }
-        ```
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental)] to decline a pending Merchant Payment Condition
 
-    - Example API Request to decline a pending Merchant Payment Condition [[API Reference](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental)]
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/decline \
+      -H "X-Api-Key: $api_key"
+    ```
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/decline \
-          -H "X-Api-Key: $api_key"
-        ```
-
-        Example API Response Payload
-
-        ```json
-        {
-          "type": "decline-condition",
-          "value": {
-            "currency": "NZD",
-            "amount": 100
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "conditionId": "1",
-          "createdAt": "2022-05-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "merchantName": "Farmlands Card Partner"
-        }
-        ```
-
+    ```json [Response]
+    {
+      "type": "decline-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Farmlands Card Partner"
+    }
+    ```
 
     After each condition is accepted or declined, the POS must continue to poll the Payment Request until the Payment Request status is `paid`. Here, the POS can stop polling and display confirmation of the successful authorization.
 
@@ -651,68 +629,94 @@ Note over POS: ✅ Display release confirmation
 
     Note that making confirmations against a Pre Auth Payment Request is optional however doing so will remove the need to send an invoice PDF or EDI file to Farmlands for settlement.
 
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request-experimental)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request-experimental)]
 
-        ```bash
-        curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
-          -H "X-Api-Key: $api_key" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "value": {
-              "amount": "4000",
-              "currency": "NZD"
-            },
-            "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
-            "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-            "lineItems": [
-              {
-                "name": "Hard Hat",
-                "sku": "GH1234",
-                "qty": "1",
-                "price": "4000",
-                "tax": "15",
-        				"discount": "400"
-              }
-            ],
-          }'
-        ```
+    ```bash [Request ]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "value": {
+          "amount": "4000",
+          "currency": "NZD"
+        },
+        "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+        "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
+          }
+        ],
+      }'
+    ```
 
-        Example API Response Payload
-
-        ```json
+    ```json [Response]
+    {
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
+      "value": {
+        "amount": "4000",
+        "currency": "NZD"
+      },
+      "preAuth": true,
+      "type": "confirmation",
+      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "lineItems": [
         {
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-015",
-          "value": {
-            "amount": "4000",
-            "currency": "NZD"
-          },
-          "preAuth": true,
-          "type": "confirmation",
-          "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
-          "createdAt": "2021-06-08T04:04:27.426Z",
-          "updatedAt": "2021-06-08T04:04:27.426Z",
-          "lineItems": [
-            {
-              "name": "Hard Hat",
-              "sku": "GH1234",
-              "qty": "1",
-              "price": "4000",
-              "tax": "15",
-        			"discount": "400"
-            }
-          ],
-          "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-          "createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
-          "createdByAccountName": "Farmlands Card Partner"
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
         }
-        ```
+      ],
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "createdByAccountName": "Farmlands Card Partner"
+    }
+    ```
 
 7. The POS releases any remaining funds against the Payment Request back to the cardholder. The Payment Request `preAuth` status is now `released` and a confirmation can be displayed.
 
     Pre Auth Payment Requests automatically expire after 3 months. Any unreleased funds are subsequently released to the Cardholder.
 
-    - Example API Request [[API Reference](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental)]
+    - [[API Reference](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental)]
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/release \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json [Response]
+    {
+      "type": "release",
+      "value": {
+        "currency": "NZD",
+        "amount": "6000"
+      },
+      "assetType": "farmlands.nzd.main",
+      "preAuth": true,
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "merchantName": "Farmlands Card Partner",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3"
+    }
+    ```
+
 
 ### Patron Not Present Flow
 <!-- TODO: Link to Patron Not Present page when it is created -->
@@ -722,7 +726,7 @@ Please refer to the Farmlands Card Partner Acceptance Terms and Conditions to un
 
 You can extend the Pre Auth flow to support this by [creating the Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to true.
 
-- [Example API Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)
+- [Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)
 
 ## Integration Certification Requirements
 For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process. Farmlands POS Integrators must meet these requirements:
