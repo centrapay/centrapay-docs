@@ -1,7 +1,17 @@
 <template>
   <div>
+    <div
+      v-if="imageSrc"
+      class="flex items-center max-h-72 overflow-hidden"
+    >
+      <img
+        :src="imageSrc"
+        aria-hidden="true"
+        class="object-cover m-0"
+      >
+    </div>
     <div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
-      <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+      <div class="min-w-0 max-w-2xl flex-auto px-4 pb-16 pt-8 lg:pt-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
         <article>
           <header
             v-if="title || section"
@@ -85,6 +95,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const { path } = useRoute();
 const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
+const imageSrc = contentDirectory.img;
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
