@@ -21,14 +21,14 @@
         </p>
       </div>
       <div class="flex flex-col md:flex-row md:space-x-4">
-        <card
+        <landing-page-card
           icon-name="Dashboard"
           class="mb-4"
           title="Guides"
           description="Checkout our Guides for hints on where to begin."
           :link="config.baseUrl + '/guides'"
         />
-        <card
+        <landing-page-card
           icon-name="Rocket"
           class="mb-4"
           title="API Reference"

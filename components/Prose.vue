@@ -8,6 +8,7 @@
       prose-lead:text-slate-500
       prose-a:no-underline
       prose-pre:bg-transparent prose-pre:my-0
+      prose-img:mb-8 prose-img:mx-auto prose-img:object-contain
     "
   >
     <slot />
