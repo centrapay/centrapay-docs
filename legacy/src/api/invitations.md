@@ -21,18 +21,18 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 {% h4 Mandatory Fields %}
 
-|    Field     |        Type        |                               Description                                |
-| :----------- | :----------------- | :----------------------------------------------------------------------- |
-| id           | String             | The Invitation's unique identifier.                                      |
-| code         | String             | The Invitation code.                                                     |
-| type         | String             | The type of the related resource. Supported values are `kete-enrolment`. |
-| resourceId   | String             | The id of the related resource.                                          |
-| resourceType | String             | The type of the related resource. Supported values are `integration`.    |
-| expiresAt    | {% dt Timestamp %} | When the Invitation expires.                                             |
-| createdAt    | {% dt Timestamp %} | When the Invitation was created.                                         |
-| createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                         |
-| updatedAt    | {% dt Timestamp %} | When the Invitation was updated.                                         |
-| updatedBy    | {% dt CRN %}       | The User or API Key that updated the Invitation.                         |
+|    Field     |        Type        |                                    Description                                       |
+| :----------- | :----------------- | :----------------------------------------------------------------------------------- |
+| id           | String             | The Invitation's unique identifier.                                                  |
+| code         | String             | The Invitation code.                                                                 |
+| type         | String             | The type of invitation. Supported values are `kete-enrolment`, `account-membership`. |
+| resourceId   | String             | The id of the related resource.                                                      |
+| resourceType | String             | The type of the related resource. Supported values are `integration`, `account`.     |
+| expiresAt    | {% dt Timestamp %} | When the Invitation expires.                                                         |
+| createdAt    | {% dt Timestamp %} | When the Invitation was created.                                                     |
+| createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                                     |
+| updatedAt    | {% dt Timestamp %} | When the Invitation was updated.                                                     |
+| updatedBy    | {% dt CRN %}       | The User or API Key that updated the Invitation.                                     |
 
 {% h4 Optional Fields %}
 
@@ -42,6 +42,17 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | acceptedAt          | {% dt Timestamp %} | When the Invitation was accepted.                           |
 | acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.           |
 | acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.      |
+| recipientAlias      | String             | The email address of the user accepting the Invitation.     |
+
+## Params
+
+### account-membership
+
+{% h4 Mandatory Fields %}
+
+|  Field   |  Type  |                                          Description                                              |
+| :------- | :----- | :------------------------------------------------------------------------------------------------ |
+| role     | String | The role to be assigned to the account membership. Supported values are `account-owner`, `cashier`|
 
 ## Operations
 
@@ -60,6 +71,16 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 		}
   })
 {% endreqspec %}
+
+{% h4 Required Fields %}
+
+|     Field      |        Type        |                               Description                                            |
+| :------------- | :----------------- | :----------------------------------------------------------------------------------- |
+| type           | String             | The type of invitation. Supported values are `account-membership`.                   |
+| resourceId     | String             | The id of the related resource.                                                      |
+| resourceType   | String             | The type of the related resource. Supported values are `account`.                    |
+| recipientAlias | String             | The email address of the user accepting the Invitation.                              |
+| params         | Object             | [Params](#params) depending on the Invitation type.                                  |
 
 {% h4 Example response payload %}
 
