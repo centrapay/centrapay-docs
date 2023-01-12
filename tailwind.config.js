@@ -19,28 +19,25 @@ const tailwindConfig = {
       maxWidth: {
         '8xl': '88rem',
       },
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: {
-            h2: {
-              borderTopWidth: '1px',
-              paddingTop: '48px',
-            },
-            h3: {
-              paddingTop: '32px',
+            a: {
+              color: colors.light['brand-accent'],
+              '&:hover': {
+                color: colors.light['interactive-quaternary-active'],
+                textDecorationLine: 'underline',
+              },
             },
             'h2 > a, h3 > a': {
-              textDecorationLine: 'none',
-            },
-            pre: {
-              backgroundColor: false,
-              color: false,
-              marginTop: 0,
-              marginBottom: 0,
+              color: colors.light['content-primary'],
+              '&:hover': {
+                textDecorationLine: 'none',
+              },
             },
           },
         },
-      },
+      }),
     },
   },
   plugins: [
