@@ -1,5 +1,5 @@
 <template>
-  <div class="prose max-w-none">
+  <div>
     <Header />
     <NuxtPage />
     <Footer />
