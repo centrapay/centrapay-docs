@@ -1,7 +1,7 @@
 <template>
-  <div class="prose max-w-none">
-    <Header />
+  <div>
+    <!-- <Header /> -->
     <NuxtPage />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>

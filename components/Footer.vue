@@ -1,6 +1,6 @@
 <template>
   <footer>
     <!-- TODO: Create footer -->
-    <div class="py-40" />
+    <div />
   </footer>
 </template>

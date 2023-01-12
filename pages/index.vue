@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="desktop-gutters px-4 sm:px-6">
-      <div class="not-prose my-4">
+      <div class="my-4">
         <h1 class="type-headline-3">
           Getting Started
         </h1>
