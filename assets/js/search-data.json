@@ -617,11 +617,11 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"103": {
-    "doc": "Batches",
-    "title": "Batches",
+    "doc": "Guides",
+    "title": "Guides",
     "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
+    "url": "/guides",
+    "relUrl": "/guides"
   },"104": {
     "doc": "Merchants",
     "title": "Merchants",
@@ -647,11 +647,11 @@
     "url": "/api/section/payment-requests",
     "relUrl": "/api/section/payment-requests"
   },"108": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Batches",
+    "title": "Batches",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"109": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
@@ -659,29 +659,29 @@
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
   },"110": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"111": {
     "doc": "Accounts",
     "title": "Accounts",
     "content": " ",
     "url": "/api/section/accounts",
     "relUrl": "/api/section/accounts"
+  },"111": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"112": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"113": {
     "doc": "API Reference",
     "title": "API Reference",
     "content": " ",
     "url": "/api",
     "relUrl": "/api"
-  },"113": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": " ",
-    "url": "/guides",
-    "relUrl": "/guides"
   },"114": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -719,17 +719,17 @@
     "url": "/api/integrations",
     "relUrl": "/api/integrations"
   },"120": {
-    "doc": "API Introduction",
-    "title": "API Introduction",
-    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | HTTP Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Payment Requests | Profiles | Quotas | Scanned Codes | Settlements | . ",
-    "url": "/api/introduction",
-    "relUrl": "/api/introduction"
-  },"121": {
     "doc": "Guides",
     "title": "Guides",
     "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | Creating Test Money | eCommerce | Example OIDC Consumer | Loading &amp; Sending Assets | . ",
     "url": "/guides/introduction",
     "relUrl": "/guides/introduction"
+  },"121": {
+    "doc": "API Introduction",
+    "title": "API Introduction",
+    "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | HTTP Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Payment Requests | Profiles | Quotas | Scanned Codes | Settlements | . ",
+    "url": "/api/introduction",
+    "relUrl": "/api/introduction"
   },"122": {
     "doc": "Invitations",
     "title": "Invitations",
