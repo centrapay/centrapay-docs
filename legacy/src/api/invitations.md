@@ -43,6 +43,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.           |
 | acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.      |
 | recipientAlias      | String             | The email address of the user accepting the Invitation.     |
+| params              | Object             | [Params](#params) depending on the Invitation type.         |
 
 ## Params
 
