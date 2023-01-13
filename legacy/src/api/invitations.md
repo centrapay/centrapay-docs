@@ -45,15 +45,11 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | recipientAlias      | String             | The email address of the user accepting the Invitation.     |
 | params              | Object             | [Params](#params) depending on the Invitation type.         |
 
-## Params
+### Params
 
-### account-membership
-
-{% h4 Mandatory Fields %}
-
-|  Field   |  Type  |                                          Description                                              |
-| :------- | :----- | :------------------------------------------------------------------------------------------------ |
-| role     | String | The role to be assigned to the account membership. Supported values are `account-owner`, `cashier`|
+| Field |  Type  |                                                                    Description                                                                     |
+| :---- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| role  | String | The role to be assigned to the account membership. Supported values are `account-owner` and `cashier`. Required when type is `account-membership`. |
 
 ## Operations
 
