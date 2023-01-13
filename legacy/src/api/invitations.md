@@ -106,9 +106,9 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 {% h4 Error Responses %}
 
-| Status |         Code         |                                  Description                                   |
-| :----- | :------------------- | :----------------------------------------------------------------------------- |
-| 403    | INVALID_ACCOUNT_TYPE | The resourceId is associated with an account that does not have an `org` type. |
+| Status |         Code         |                             Description                             |
+| :----- | :------------------- | :------------------------------------------------------------------ |
+| 403    | INVALID_ACCOUNT_TYPE | The resourceId is associated with an account with a non `org` type. |
 
 ### Get an Invitation by code **EXPERIMENTAL**
 
