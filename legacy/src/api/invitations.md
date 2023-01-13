@@ -43,13 +43,13 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.           |
 | acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.      |
 | recipientAlias      | String             | The email address of the user accepting the Invitation.     |
-| params              | Object             | [Params](#params) depending on the Invitation type.         |
+| params              | Object             | [Params](#params) dependent on the Invitation type.         |
 
 ### Params
 
-| Field |  Type  |                                                                    Description                                                                     |
-| :---- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| role  | String | The role to be assigned to the account membership. Supported values are `account-owner` and `cashier`. Required when type is `account-membership`. |
+| Field |  Type  |                                                                              Description                                                                              |
+| :---- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| role  | String | The role that will be assigned to the account. Supported values are `account-owner`, `cashier`. Required when [Invitation](#invitation) type is `account-membership`. |
 
 ## Operations
 
