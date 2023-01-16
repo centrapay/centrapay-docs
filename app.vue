@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex flex-col min-h-screen">
     <Header />
     <NuxtPage />
-    <Footer />
+    <Footer class="mt-auto" />
   </div>
 </template>
