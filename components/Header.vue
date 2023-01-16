@@ -5,7 +5,7 @@
         to="/"
         class="flex items-center"
       >
-        <icons-centrapay-logo class="icon-3xl fill-brand-accent" />
+        <centrapay-logo class="icon-3xl fill-brand-accent" />
         <span class="hidden md:block type-headline-4 px-1">
           Centrapay Docs
         </span>

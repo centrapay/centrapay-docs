@@ -31,8 +31,8 @@
             leave-from-class="transform opacity-100"
             leave-to-class="transform opacity-0"
           >
-            <icons-checkmark v-if="copied == true" />
-            <icons-clipboard
+            <checkmark v-if="copied == true" />
+            <clipboard
               v-else
               @click="copyCode"
             />
