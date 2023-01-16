@@ -1,4 +1,13 @@
 export default defineNuxtConfig({
+  components: {
+    'dirs': [
+      {
+        'path': '~/components/icons',
+        'global': true
+      },
+      '~/components'
+    ]
+  },
   modules: [
     '@nuxt/content'
   ],
