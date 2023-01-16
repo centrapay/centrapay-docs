@@ -1,0 +1,19 @@
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    aria-hidden="true"
+    width="20"
+    height="16"
+    viewBox="0 0 20 16"
+    fill="none"
+  >
+    <path
+      d="M1 3V13C1 14.1046 1.89543 15 3 15H17C18.1046 15 19 14.1046 19 13V5C19 3.89543 18.1046 3 17 3H11L9 1H3C1.89543 1 1 1.89543 1 3Z"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</template>

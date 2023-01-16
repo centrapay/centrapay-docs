@@ -11,6 +11,15 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content'
   ],
+  components: {
+    'dirs': [
+      {
+        'path': '~/components/icons',
+        'global': true
+      },
+      '~/components'
+    ]
+  },
   content: {
     documentDriven: true,
     markdown: {

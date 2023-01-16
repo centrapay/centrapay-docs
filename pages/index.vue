@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <div class="desktop-gutters px-4 sm:px-6">
       <div class="prose max-w-none my-8">
         <h1 class="type-headline-3">
@@ -37,7 +37,7 @@
         />
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup>

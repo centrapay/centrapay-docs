@@ -10,8 +10,8 @@
         class="object-cover m-0"
       >
     </div>
-    <div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
-      <div class="min-w-0 max-w-2xl flex-auto px-4 pb-16 pt-8 lg:pt-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+    <div class="relative mx-auto flex max-w-8xl justify-center">
+      <div class="min-w-0 max-w-2xl flex-auto px-4 pb-16 pt-8 lg:pt-16 lg:max-w-none xl:px-16">
         <article>
           <header
             v-if="title || section"
@@ -35,7 +35,7 @@
           </Prose>
         </article>
       </div>
-      <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6">
+      <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6">
         <nav
           aria-labelledby="on-this-page-title"
           class="w-56"
@@ -132,7 +132,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  this.observer.disconnect();
+  observer.disconnect();
 });
 
 function handleTocClick (headingId) {
