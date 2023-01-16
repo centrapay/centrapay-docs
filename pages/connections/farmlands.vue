@@ -3,7 +3,7 @@
     <div
       class="bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('~/assets/images/countryside.jpg')]"
     >
-      <div class="desktop-gutters md:px-40 py-16 px-4 space-y-6">
+      <div class="desktop-gutters md:px-20 py-16 px-4 space-y-6">
         <header
           class="space-y-6"
         >
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="desktop-gutters">
-      <div class="px-6 md:px-40">
+      <div class="px-6 md:px-20">
         <h2 class="text-content-primary text-4xl leading-10 font-extrabold tracking-tight pt-16 pb-4">
           Overview
         </h2>
@@ -109,7 +109,7 @@
             description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that require integration with their retail Point-Of-Sale system."
             :link="{
               text: 'POS Integration Guide',
-              url: '/guides/farmlands-pos-integration',
+              url: '/connections/farmlands/farmlands-pos-integration',
             }"
           />
           <card

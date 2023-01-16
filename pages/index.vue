@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div class="desktop-gutters px-4 sm:px-6">
+  <div>
+    <div class="px-8">
       <div class="prose max-w-none my-8">
         <h1 class="type-headline-3">
           Getting Started
@@ -37,7 +37,7 @@
         />
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup>
