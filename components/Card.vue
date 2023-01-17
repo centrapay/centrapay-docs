@@ -1,29 +1,43 @@
 <template>
-  <NuxtLink
-    class="card w-full p-2 rounded-xl shadow-sm border border-color-outline-transparent cursor-pointer hover:bg-interactive-tertiary-hover hover:shadow-md focus:ring-1 focus:ring-offset-2 focus:ring-focus-ring"
-    :to="props.link"
-  >
-    <div class="p-2 space-y-2">
-      <component
-        :is="currentIcon"
-        class="w-6 h-6 fill-brand-accent stroke-brand-accent"
-      />
-      <h2 class="type-headline-4">
-        {{ props.title }}
-      </h2>
-      <p class="text-content-tertiary">
-        {{ props.description }}
-      </p>
+  <div class="flex flex-col overflow-hidden shadow-xl rounded-lg">
+    <div class="flex-shrink-0">
+      <img
+        class="h-48 w-full object-cover"
+        :src="imageSrc"
+        alt=""
+      >
     </div>
-  </NuxtLink>
+    <div class="flex flex-1 flex-col justify-between bg-white p-6">
+      <div class="flex-1">
+        <p class="text-lg leading-6 font-medium">
+          {{ title }}
+        </p>
+        <p class="mt-3 text-sm leading-5 font-normal text-content-secondary">
+          {{ description }}
+        </p>
+      </div>
+      <NuxtLink
+        v-if="link.text"
+        :to="link.url"
+        class="mt-6 flex items-center btn rounded-md bg-interactive-primary text-content-inverse-primary shadow-md justify-center"
+      >
+        {{ link.text }}
+      </NuxtLink>
+    </div>
+  </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  iconName: { type: String, required: true },
+  imageSrc: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  link: { type: String, required: true },
+  link: {
+    type: Object,
+    default: undefined,
+    validator(object) {
+      return object.text && object.url;
+    },
+  }
 });
-const currentIcon = defineAsyncComponent(() => import(`~/components/icons/${props.iconName}.vue`));
 </script>
