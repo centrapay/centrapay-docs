@@ -94,16 +94,16 @@
         </div>
         <NuxtLink
           href="/"
-          class="flex items-center justify-center rounded-full h-7 w-7 bg-static-black"
+          class="flex items-center justify-center h-20 w-20 bg-static-black"
         >
           <centrapay-logo class="text-content-on-color icon-md" />
         </NuxtLink>
       </div>
       <div class="hidden md:flex md:flex-1 md:justify-between md:py-3">
-        <div class="ml-4 flex items-center md:ml-6">
+        <div class="flex items-center">
           <NuxtLink
             href="/"
-            class="flex items-center justify-center rounded-full h-14 w-14 bg-static-black"
+            class="flex items-center justify-center h-20 w-20 bg-static-black"
           >
             <centrapay-logo class="text-content-on-color icon-2xl" />
           </NuxtLink>
@@ -138,11 +138,11 @@
               <Disclosure
                 as="div"
                 class="space-y-1"
+                :default-open="currentPath.startsWith(item._path)"
               >
                 <DisclosureButton
                   class="group w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200"
                   :class="currentPath.startsWith(item._path) ? 'bg-gray-100' : ''"
-                  @click="setActiveDisclosure(item._path)"
                 >
                   <span class="flex-1">{{ item.title }}</span>
                 </DisclosureButton>
@@ -154,41 +154,34 @@
                   leave-from-class="transform scale-100 opacity-100"
                   leave-to-class="transform scale-95 opacity-0"
                 >
-                  <div v-show="showPanel(item._path)">
-                    <DisclosurePanel
-                      static
-                      class="space-y-1"
+                  <DisclosurePanel
+                    class="space-y-1"
+                  >
+                    <div
+                      v-for="firstChild in item.children"
+                      :key="firstChild.title"
                     >
-                      <div
-                        v-for="firstChild in item.children"
-                        :key="firstChild.title"
+                      <NuxtLink
+                        :href="firstChild._path"
+                        class="group flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                       >
-                        <DisclosureButton
-                          as="a"
-                          :href="firstChild._path"
-                          class="group flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                          :class="currentPath == firstChild._path ? 'bg-light-surface-tertiary text-content-primary' : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900'"
+                        {{ firstChild.title }}
+                      </NuxtLink>
+                      <div v-if="firstChild.children">
+                        <div
+                          v-for="secondChild in firstChild.children"
+                          :key="secondChild.title"
                         >
-                          {{ firstChild.title }}
-                        </DisclosureButton>
-                        <div v-if="firstChild.children">
-                          <div
-                            v-for="secondChild in firstChild.children"
-                            :key="secondChild.title"
+                          <NuxtLink
+                            :href="secondChild._path"
+                            class="group flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                           >
-                            <DisclosureButton
-                              as="a"
-                              :href="secondChild._path"
-                              class="group flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                              :class="currentPath == secondChild._path ? 'bg-light-surface-tertiary text-content-primary' : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900'"
-                            >
-                              {{ secondChild.title }}
-                            </DisclosureButton>
-                          </div>
+                            {{ secondChild.title }}
+                          </NuxtLink>
                         </div>
                       </div>
-                    </DisclosurePanel>
-                  </div>
+                    </div>
+                  </DisclosurePanel>
                 </transition>
               </Disclosure>
             </div>
@@ -205,6 +198,8 @@
 
 <script setup>
 import { onBeforeMount, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
 import {
   Dialog,
   DialogPanel,
@@ -229,18 +224,16 @@ const topBarNavigation = [
 
 const sidebarOpen = ref(false);
 const { page, navigation } = useContent();
-const currentPath = page.value._path;
-const activeDisclosure = ref(currentPath);
 
-function showPanel(path) {
-  return currentPath.includes(path) || activeDisclosure.value.includes(path);
-}
-
-function setActiveDisclosure(val) {
-  if (activeDisclosure.value == val) {
-    activeDisclosure.value = '';
-  } else {
-    activeDisclosure.value = val;
-  }
-}
+const route = useRoute();
+const currentPath = computed(() => route.path);
 </script>
+
+<style scoped>
+.router-link-active {
+  @apply
+    bg-gray-100
+    text-content-primary
+  ;
+}
+</style>
