@@ -18,6 +18,14 @@
 </template>
 
 <script setup>
+const nuxtApp = useNuxtApp();
+nuxtApp.hook('page:finish', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'instant',
+  });
+});
+
 useHead({
   script: [
     {
