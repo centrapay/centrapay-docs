@@ -71,17 +71,16 @@
                   </div>
                   <NuxtLink
                     v-for="item in navigation"
-                    :key="item.name"
-                    :href="item.href"
+                    :key="item.title"
+                    :href="item._path"
                     class="text-content-primary group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                    :class="item.current ? 'bg-surface-tertiary' : ''"
                   >
                     <!-- <component
                       :is="item.icon"
                       class="text-content-tertiary mr-4 flex-shrink-0 icon-sm"
                       aria-hidden="true"
                     /> -->
-                    <span class="text-content-secondary text-base leading-6 font-medium">{{ item.name }}</span>
+                    <span class="text-content-secondary text-base leading-6 font-medium">{{ item.title }}</span>
                   </NuxtLink>
                 </nav>
               </div>
@@ -151,6 +150,7 @@
                 <DisclosureButton
                   class="group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 ring-focus-ring"
                   :class="true ? 'bg-gray-100 text-gray-900' : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900'"
+                  @click="setCurrentPath(item._path)"
                 >
                   <!-- <component
                     :is="item.icon"
@@ -159,34 +159,39 @@
                   /> -->
                   <span class="flex-1">{{ item.title }}</span>
                 </DisclosureButton>
-                <DisclosurePanel class="space-y-1">
-                  <div
-                    v-for="firstChild in item.children"
-                    :key="firstChild.title"
+                <div v-show="currentPath.startsWith(item._path)">
+                  <DisclosurePanel
+                    static
+                    class="space-y-1"
                   >
-                    <DisclosureButton
-                      as="a"
-                      :href="firstChild._path"
-                      class="group flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    <div
+                      v-for="firstChild in item.children"
+                      :key="firstChild.title"
                     >
-                      {{ firstChild.title }}
-                    </DisclosureButton>
-                    <div v-if="firstChild.children">
-                      <div
-                        v-for="secondChild in firstChild.children"
-                        :key="secondChild.title"
+                      <DisclosureButton
+                        as="a"
+                        :href="firstChild._path"
+                        class="group flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                       >
-                        <DisclosureButton
-                          as="a"
-                          :href="secondChild._path"
-                          class="group flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        {{ firstChild.title }}
+                      </DisclosureButton>
+                      <div v-if="firstChild.children">
+                        <div
+                          v-for="secondChild in firstChild.children"
+                          :key="secondChild.title"
                         >
-                          {{ secondChild.title }}
-                        </DisclosureButton>
+                          <DisclosureButton
+                            as="a"
+                            :href="secondChild._path"
+                            class="group flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          >
+                            {{ secondChild.title }}
+                          </DisclosureButton>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </DisclosurePanel>
+                  </DisclosurePanel>
+                </div>
               </Disclosure>
             </div>
           </nav>
@@ -201,7 +206,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import {
   Dialog,
   DialogPanel,
@@ -225,5 +230,10 @@ const topBarNavigation = [
 ];
 
 const sidebarOpen = ref(false);
-const { navigation } = useContent();
+const { page, navigation } = useContent();
+const currentPath = ref(page.value._path);
+
+function setCurrentPath(val) {
+  currentPath.value = val;
+}
 </script>
