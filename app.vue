@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <AppShell>
       <NuxtPage />
+      <Footer class="mt-auto" />
     </AppShell>
-    <Footer class="z-20 mt-auto" />
   </div>
 </template>

@@ -197,7 +197,7 @@
       </div>
     </div>
 
-    <main class="pt-20 md:pl-64">
+    <main class="flex flex-col min-h-screen pt-20 md:pl-64">
       <slot />
     </main>
   </div>
