@@ -34,7 +34,11 @@ export default defineNuxtConfig({
     buildAssetsDir: '/nuxt/',
     head: {
       title: 'Centrapay Docs',
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'},
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap', crossorigin: 'anonymous'},
+      ],
       meta: [
         // This is needed to send the entire URL of the page in Freshdesk support tickets
         // Refer to https://community.freshworks.com/freshdesk-11246/where-does-it-come-from-23026
