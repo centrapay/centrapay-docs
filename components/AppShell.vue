@@ -89,7 +89,7 @@
       </Dialog>
     </TransitionRoot>
 
-    <div class="fixed bg-white inset-x-0 z-10 flex h-16 flex-shrink-0 shadow">
+    <div class="fixed bg-white inset-x-0 z-20 flex h-16 flex-shrink-0 shadow">
       <div class="flex w-full justify-between md:hidden">
         <!-- FIXME: This should be a button -->
         <div
@@ -152,7 +152,10 @@
       </div>
     </div>
 
-    <main class="flex flex-col min-h-screen pt-16 md:pl-64 xl:pl-80">
+    <!-- Static breadcrumbs for desktop -->
+    <Breadcrumbs class="hidden md:fixed md:top-16 md:left-64 xl:left-80 md:flex md:w-full h-12 border-b bg-static-white z-10" />
+
+    <main class="flex flex-col min-h-screen pt-28 md:pl-64 xl:pl-80">
       <slot />
     </main>
   </div>
