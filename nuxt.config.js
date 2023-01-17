@@ -34,8 +34,13 @@ export default defineNuxtConfig({
     buildAssetsDir: '/nuxt/',
     head: {
       title: 'Centrapay Docs',
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-    }
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      meta: [
+        // This is needed to send the entire URL of the page in Freshdesk support tickets
+        // Refer to https://community.freshworks.com/freshdesk-11246/where-does-it-come-from-23026
+        { name: 'referrer', content: 'no-referrer-when-downgrade' }
+      ],
+    },
   },
   postcss: {
     plugins: {
