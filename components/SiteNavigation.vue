@@ -58,6 +58,13 @@
             </div>
           </DisclosurePanel>
         </transition>
+        <NuxtLink
+          target="_blank"
+          :to="config.baseUrl + '/api'"
+          class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+        >
+          API
+        </NuxtLink>
       </Disclosure>
     </div>
   </div>
@@ -74,6 +81,7 @@ import {
 emits: ['link-clicked' ];
 
 const { navigation } = useContent();
+const config = useRuntimeConfig();
 const route = useRoute();
 const currentPath = computed(() => route.path);
 </script>
