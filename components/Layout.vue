@@ -10,7 +10,7 @@
         class="object-cover m-0"
       >
     </div>
-    <div class="relative mx-auto flex justify-center">
+    <div class="relative mx-auto desktop-gutters flex justify-center">
       <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none">
         <article>
           <header

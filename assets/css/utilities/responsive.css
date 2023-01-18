@@ -1,7 +1,7 @@
 @layer utilities {
   .desktop-gutters {
     @apply
-      max-w-6xl
+      max-w-7xl
       mx-auto
       w-full
     ;

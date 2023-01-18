@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-surface-inverse-secondary">
-    <div class="mx-auto max-w-7xl px-6 py-8 md:flex md:items-center md:justify-between lg:px-8">
+    <div class="mx-auto desktop-gutters px-6 py-8 md:flex md:items-center md:justify-between lg:px-8">
       <div class="flex space-x-6 md:order-2">
         <a
           v-for="item in socials"
