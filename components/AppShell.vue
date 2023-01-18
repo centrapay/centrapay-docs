@@ -128,7 +128,7 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden border-t md:fixed md:h-full md:inset-y-16 md:flex md:w-64 md:flex-col">
+    <div class="hidden border-t md:fixed md:h-full md:inset-y-16 md:flex md:w-64 xl:w-80 md:flex-col">
       <div class="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white">
         <div class="flex flex-grow flex-col">
           <nav
@@ -141,7 +141,7 @@
       </div>
     </div>
 
-    <main class="flex flex-col min-h-screen pt-16 md:pl-64">
+    <main class="flex flex-col min-h-screen pt-16 md:pl-64 xl:pl-80">
       <slot />
     </main>
   </div>
