@@ -90,11 +90,11 @@
             Whether your business needs a solution fully-integrated with your retail point-of-sale system, or just access to a secure web portal to take payments anytime, anywhere - there is now an option for you.
           </p>
         </div>
-
-        <img
-          src="~/assets/images/farmlands-flow.png"
-          class="w-full m-auto pt-4 pb-3"
-        >
+        <div class="m-auto max-w-[450px] pt-4 pb-3">
+          <img
+            src="~/assets/images/farmlands-flow.png"
+          >
+        </div>
       </div>
       <div class="px-6 md:px-40">
         <h3 class="text-content-primary text-xl leading-7 font-semibold tracking-tight pt-3">
