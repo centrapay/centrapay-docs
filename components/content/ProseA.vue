@@ -8,9 +8,9 @@
     <span v-if="isExternalLink || isApiReferenceLink">&nbsp;</span>
     <span
       v-if="isApiReferenceLink"
-      class="rounded bg-interactive-quaternary h-5 w-10 inline-flex justify-center items-center"
+      class="rounded-sm bg-interactive-quaternary h-3 w-6 inline-flex justify-center items-center"
     >
-      <span class="text-content-inverse-primary text-xs">&nbsp;API&nbsp;</span>
+      <span class="text-content-inverse-primary text-[10px]">&nbsp;API&nbsp;</span>
     </span>
     <external-link
       v-else-if="isExternalLink"
