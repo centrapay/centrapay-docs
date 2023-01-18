@@ -131,6 +131,54 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 }
 {% endjson %}
 
+### List Invitations by accountId **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/accounts/{accountId}/invitations'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "items": [
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+      "resourceType": "account",
+      "exipresAt": "2021-08-26T00:02:49.488Z",
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2021-08-25T00:02:49.488Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "recipientAlias": "user@org.com",
+      "params": {
+        "role": "account-owner"
+      }
+    },
+    {
+      "id": "JKKDMU38hd01hfEqwF1oT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+      "resourceType": "account",
+      "exipresAt": "2021-08-26T00:02:49.488Z",
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2021-08-25T00:02:49.488Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "recipientAlias": "john.doe@org.com",
+      "params": {
+        "role": "cashier"
+      }
+    },
+  ]
+}
+{% endjson %}
+
 ### Accept an Invitation **EXPERIMENTAL**
 
 {% reqspec %}
