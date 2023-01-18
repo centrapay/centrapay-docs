@@ -1,18 +1,19 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header />
-    <NuxtPage />
-    <button
-      type="button"
-      class="btn-tertiary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16"
-      @click="openFreshWorksWidget"
-    >
-      <messages-bubble-double
-        class="icon-lg"
-        aria-hidden="true"
-      />
-    </button>
-    <Footer class="mt-auto" />
+    <AppShell>
+      <NuxtPage />
+      <button
+        type="button"
+        class="btn-tertiary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16"
+        @click="openFreshWorksWidget"
+      >
+        <messages-bubble-double
+          class="icon-lg"
+          aria-hidden="true"
+        />
+      </button>
+      <Footer class="mt-auto" />
+    </AppShell>
   </div>
 </template>
 
