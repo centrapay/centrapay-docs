@@ -63,11 +63,17 @@
                       :href="item.href"
                       target="_blank"
                       class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-                      :class="item.current ? 'bg-gray-50 text-content-primary': ''"
                       @click="sidebarOpen = false"
                     >
                       {{ item.name }}
                     </a>
+                    <NuxtLink
+                      class="bg-gray-50 group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+                      to="/"
+                      @click="sidebarOpen = false"
+                    >
+                      Docs
+                    </NuxtLink>
                   </div>
                 </nav>
               </div>
@@ -97,7 +103,7 @@
           </div>
         </div>
         <NuxtLink
-          href="/"
+          to="/"
           class="flex items-center justify-center h-16 w-16 bg-brand-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
         >
           <centrapay-logo class="text-content-on-color icon-2xl" />
@@ -106,7 +112,7 @@
       <div class="hidden md:flex md:flex-1 md:justify-between md:py-3">
         <div class="flex items-center">
           <NuxtLink
-            href="/"
+            to="/"
             class="flex items-center justify-center h-16 w-16 bg-brand-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
           >
             <centrapay-logo class="text-content-on-color icon-2xl" />
@@ -118,10 +124,15 @@
               :href="item.href"
               target="_blank"
               class="text-gray-600 text-sm leading-5 font-medium px-3 py-2 rounded-lg hover:bg-gray-200 hover:text-content-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-              :class="item.current ? 'bg-gray-100': ''"
             >
               {{ item.name }}
             </a>
+            <NuxtLink
+              to="/"
+              class="bg-gray-100 text-gray-600 text-sm leading-5 font-medium px-3 py-2 rounded-lg hover:bg-gray-200 hover:text-content-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+            >
+              Docs
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -165,11 +176,10 @@ import {
 } from '@headlessui/vue';
 
 const externalNavigation = [
-  { name: 'Products', href: 'https://centrapay.com/', current: false },
-  { name: 'Solutions', href: 'https://centrapay.com/', current: false },
-  { name: 'Resources', href: 'https://centrapay.com/', current: false },
-  { name: 'Pricing', href: 'https://centrapay.com/', current: false },
-  { name: 'Docs', href: '/', current: true },
+  { name: 'Products', href: 'https://centrapay.com/' },
+  { name: 'Solutions', href: 'https://centrapay.com/' },
+  { name: 'Resources', href: 'https://centrapay.com/' },
+  { name: 'Pricing', href: 'https://centrapay.com/' },
 ];
 
 const sidebarOpen = ref(false);
