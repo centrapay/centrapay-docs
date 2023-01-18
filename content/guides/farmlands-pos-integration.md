@@ -1,6 +1,7 @@
 ---
 title: Farmlands POS Integration Guide
 img: /farmlands-pos-integration-cover.jpg
+navPath: connections/farmlands/farmlands-pos-integration-guide
 ---
 
 Centrapay and Farmlands have entered into a partnership that will allow Farmlands Card Partners to accept the Farmlands Card for payment at the point of sale. The benefits include real-time balance checks, the elimination of reconciliation EDI files, and it unlocks the ability to accept many more payment methods on the Centrapay platform.

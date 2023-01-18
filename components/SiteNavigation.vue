@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="item in navigation"
+      v-for="item in nav"
       :key="item.title"
     >
       <Disclosure
@@ -76,6 +76,42 @@ emits: ['link-clicked' ];
 const { navigation } = useContent();
 const route = useRoute();
 const currentPath = computed(() => route.path);
+
+function capitalize(s) {
+  return s[0].toUpperCase() + s.slice(1);
+}
+
+const contentDirectory = await queryContent().find();
+
+function createBranchForSection({ path, pageTitle, originalPath, pagePath }) {
+  const split = path.split('/');
+  const sectionName = split[0];
+  const sectionHasChildren = split.length > 1;
+  if(!sectionHasChildren) {
+    return { title: pageTitle, _path: pagePath };
+  }
+  const children = [ createBranchForSection({ path: split.slice(1).join('/'), pageTitle, originalPath, pagePath }) ];
+  const p = '/' + originalPath.replace(split.slice(1).join('/'), '').slice(0, -1);
+  return { title: capitalize(sectionName), _path: p, children };
+}
+
+const nav = [];
+contentDirectory.forEach(c => {
+  console.log(c);
+  // const path = c.navPath;
+  // const sectionName = path.split('/');
+  // const navItem = { title: capitalize(sectionName[0]), _path: '/' + sectionName[0] };
+  // if(sectionName[1]) {
+
+  //   const name2 = path.split('/').slice(1).join('/');
+  //   navItem.children = [];
+  //   const title2 = name[2] ? capitalize(name2) : c.title;
+  //   navItem.children.push({ title: title2, _path: '/' + name[0] + '/' + name2 });
+  //   nav.push(navItem);
+  // }
+  nav.push(createBranchForSection({ path: c.navPath, pageTitle: c.title, originalPath: c.navPath, pagePath: c._path }));
+});
+console.log(JSON.stringify(nav,null,2));
 </script>
 
 <style scoped>
@@ -86,3 +122,32 @@ const currentPath = computed(() => route.path);
   ;
 }
 </style>
+
+// useContent() output
+
+// [
+//   {
+//     "title": "Guides",
+//     "_path": "/guides",
+//     "children": [
+//       {
+//         "title": "Farmlands POS Integration Guide",
+//         "_path": "/guides/farmlands-pos-integration"
+//       },
+//       {
+//         "title": "My Guide",
+//         "_path": "/guides/my-guide"
+//       }
+//     ]
+//   },
+//   {
+//     "title": "Reference",
+//     "_path": "/reference",
+//     "children": [
+//       {
+//         "title": "Hello REFERENCE",
+//         "_path": "/reference/hello"
+//       }
+//     ]
+//   }
+// ]

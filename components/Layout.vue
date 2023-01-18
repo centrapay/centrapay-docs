@@ -99,7 +99,7 @@ const imageSrc = contentDirectory.img;
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
-  s.children.find((child) => child._path === contentPath)
+  s.children?.find((child) => child._path === contentPath)
 );
 const { toc } = useContent();
 
