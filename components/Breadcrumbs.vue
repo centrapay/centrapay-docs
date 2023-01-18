@@ -31,7 +31,7 @@
             aria-hidden="true"
           />
           <NuxtLink
-            :href="page.fullPath"
+            :to="page._path"
             class="capitalize ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
           >
             {{ page.title }}
@@ -43,32 +43,34 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
 
-const crumbs = computed(() => {
-  const fullPath = route.path;
-  if (fullPath == '/') {
-    return;
-  }
-
-  const params = fullPath.startsWith('/')
-    ? fullPath.substring(1).split('/')
-    : fullPath.split('/');
-  const breadcrumbs = [];
-  let path = '';
-  params.forEach( param => {
-    path = `${path}/${param}`;
-    const match = router.resolve(path);
-    if (match.name !== null) {
-      breadcrumbs.push({
-        title: param.replace(/-/g, ' '),
-        ...match,
-      });
-    }
-  });
-  return breadcrumbs;
+watch(() => route.path, async () => {
+  const path = route.path;
+  crumbs.value = await getBreadcrumbs(path);
 });
+
+function flatten(data){
+  return data.reduce(function(result,next){
+    result.push(next);
+    if(next.children){
+      result = result.concat(flatten(next.children));
+      next.children = [];
+    }
+    return result;
+  },[]);
+}
+
+async function getBreadcrumbs(path) {
+  const breadcrumbs = await fetchContentNavigation(path);
+  const pathLength = path.startsWith('/')
+    ? path.substring(1).split('/').length
+    : path.split('/').length;
+  return flatten(breadcrumbs).slice(0, pathLength);;
+}
+
+const crumbs = ref(await getBreadcrumbs(route.path));
 </script>
