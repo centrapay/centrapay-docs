@@ -35,7 +35,7 @@
               :key="firstChild.title"
             >
               <NuxtLink
-                :href="firstChild._path"
+                :to="firstChild._path"
                 class="group mt-2 flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-content-secondary hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                 @click="$emit('link-clicked')"
               >
@@ -47,7 +47,7 @@
                   :key="secondChild.title"
                 >
                   <NuxtLink
-                    :href="secondChild._path"
+                    :to="secondChild._path"
                     class="group mt-2 flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                     @click="$emit('link-clicked')"
                   >
