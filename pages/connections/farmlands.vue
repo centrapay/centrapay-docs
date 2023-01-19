@@ -1,109 +1,78 @@
 <template>
-  <main>
-    <div
+  <div>
+    <header
       class="bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('~/assets/images/countryside.jpg')]"
     >
-      <div class="desktop-gutters md:px-20 py-16 px-4 space-y-6">
-        <header
-          class="space-y-6"
-        >
-          <span
-            class="text-content-on-color text-base leading-6 uppercase font-semibold tracking-wider block"
-          >
-            Project
-          </span>
-          <h1
-            class="text-content-inverse-primary text-4xl leading-10 font-extrabold block"
-          >
-            Farmlands
-          </h1>
-        </header>
-        <p class="text-content-inverse-secondary text-xl leading-7 font-normal">
+      <Prose class="desktop-gutters px-8 py-16 space-y-6">
+        <h1 class="type-display text-content-inverse-primary mb-8 mt-4">
+          <b>Farmlands</b>
+        </h1>
+        <p class="type-body-2 text-content-inverse-secondary">
           Farmlands has partnered with Centrapay to provide new ways for your business to accept Farmlands Cards faster, easier and more securely than ever.
         </p>
         <div class="space-y-1">
-          <p class="text-content-inverse-secondary type-subtitle-2">
+          <span class="type-body-3 text-content-inverse-secondary">
             Made By
-          </p>
-          <div class="flex items-center">
-            <p class="text-content-inverse-primary pr-2">
+          </span>
+          <div class="flex items-center space-x-2">
+            <span class="type-body-2 text-content-inverse-primary">
               Centrapay
-            </p>
+            </span>
             <verified-check class="icon-sm text-brand-accent" />
           </div>
         </div>
         <div class="space-y-1">
-          <div class="text-content-inverse-secondary type-subtitle-2">
+          <div class="type-body-3 text-content-inverse-secondary">
             Links
           </div>
           <NuxtLink
             to="https://www.farmlands.co.nz/"
             target="_blank"
-            class="no-underline"
+            class="hover:no-underline"
           >
             <div class="flex items-center space-x-2">
-              <div class="text-content-inverse-primary">
+              <div class="type-body-2 text-content-inverse-primary">
                 Website
               </div>
-              <external-link class="text-interactive-tertiary icon-sm" />
+              <external-link class="text-interactive-tertiary hover:text-interactive-tertiary-active icon-sm" />
             </div>
           </NuxtLink>
         </div>
-        <div class="flex items-center text-interactive-tertiary icon-md space-x-6">
+        <div class="flex items-center space-x-6">
           <NuxtLink
-            to="https://www.facebook.com/farmlandsnz/"
+            v-for="link in externalNavigation"
+            :key="link.name"
+            :to="link.href"
             target="_blank"
+            class="icon-md text-interactive-tertiary hover:text-interactive-tertiary-active"
           >
-            <facebook-logo />
-          </NuxtLink>
-          <NuxtLink
-            to="https://twitter.com/farmlands?lang=en"
-            target="_blank"
-          >
-            <twitter-logo />
-          </NuxtLink>
-          <NuxtLink
-            to="https://www.instagram.com/farmlandsnz/?hl=en"
-            target="_blank"
-          >
-            <instagram-logo />
-          </NuxtLink>
-          <NuxtLink
-            to="https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz"
-            target="_blank"
-          >
-            <linked-in-logo />
+            <component :is="link.logoName" />
           </NuxtLink>
         </div>
-      </div>
-    </div>
-    <div class="desktop-gutters">
-      <div class="px-6 md:px-20">
-        <h2 class="text-content-primary text-4xl leading-10 font-extrabold tracking-tight pt-16 pb-4">
+      </Prose>
+    </header>
+    <main class="desktop-gutters px-8">
+      <Prose class="prose-h2:border-none">
+        <h2>
           Overview
         </h2>
-        <div class="text-content-secondary type-body-1 py-4">
-          <p>
-            In partnership with Centrapay, Farmlands now offer Card Partners two new digital ways to accept and reconcile Farmlands Card payments. There are no additional costs to Card Partners to utilise these new digital tools provided by Centrapay.
-          </p>
-          <p class="mt-8">
-            Whether your business needs a solution fully-integrated with your retail point-of-sale system, or just access to a secure web portal to take payments anytime, anywhere - there is now an option for you.
-          </p>
-        </div>
+        <p>
+          In partnership with Centrapay, Farmlands now offer Card Partners two new digital ways to accept and reconcile Farmlands Card payments. There are no additional costs to Card Partners to utilise these new digital tools provided by Centrapay.
+        </p>
+        <p class="mt-8">
+          Whether your business needs a solution fully-integrated with your retail point-of-sale system, or just access to a secure web portal to take payments anytime, anywhere - there is now an option for you.
+        </p>
         <div class="m-auto max-w-[450px] pt-4 pb-3">
           <img
             src="~/assets/images/farmlands-flow.png"
           >
         </div>
-      </div>
-      <div class="px-6 md:px-40">
-        <h3 class="text-content-primary text-xl leading-7 font-semibold tracking-tight pt-3">
+        <h3>
           Solutions
         </h3>
-
-        <div class="flex flex-col md:flex-row pt-4 md:space-x-6 lg:space-x-12 pb-16 space-y-6 md:space-y-0">
+        <div class="not-prose flex flex-col md:flex-row pt-4 md:space-x-6 lg:space-x-12 pb-16 space-y-6 md:space-y-0">
           <card
-            class="md:w-1/2"
+            class="max-w-l"
             image-src="/farmlands-pos-background.png"
             title="1. POS API"
             description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that require integration with their retail Point-Of-Sale system."
@@ -113,18 +82,27 @@
             }"
           />
           <card
-            class="md:w-1/2"
+            class="max-w-l"
             image-src="/farmlands-portal-background.png"
             title="2. Portal"
             description="A secure web portal for Farmlands Card payments. This option is for Card Partners that do not require integration with their retail Point-Of-Sale system."
             button-url=""
             :link="{
               text: 'Portal Introduction Guide',
-              url: '',
+              url: '#',
             }"
           />
         </div>
-      </div>
-    </div>
-  </main>
+      </Prose>
+    </main>
+  </div>
 </template>
+
+<script setup>
+const externalNavigation = [
+  { name: 'Facebook', logoName: 'facebook-logo', href: 'https://www.facebook.com/farmlandsnz/' },
+  { name: 'Twitter', logoName: 'twitter-logo', href: 'https://twitter.com/farmlands?lang=en' },
+  { name: 'Instagram', logoName: 'instagram-logo', href: 'https://www.instagram.com/farmlandsnz/?hl=en' },
+  { name: 'LinkedIn', logoName: 'linked-in-logo', href: 'https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz' },
+];
+</script>
