@@ -28,14 +28,10 @@
           <NuxtLink
             to="https://www.farmlands.co.nz/"
             target="_blank"
-            class="hover:no-underline"
+            class="hover:no-underline flex items-center w-min type-body-2 text-interactive-tertiary hover:text-interactive-tertiary-active"
           >
-            <div class="flex items-center space-x-2">
-              <div class="type-body-2 text-content-inverse-primary">
-                Website
-              </div>
-              <external-link class="text-interactive-tertiary hover:text-interactive-tertiary-active icon-sm" />
-            </div>
+            Website
+            <external-link class="ml-2 icon-sm" />
           </NuxtLink>
         </div>
         <div class="flex items-center space-x-6">
