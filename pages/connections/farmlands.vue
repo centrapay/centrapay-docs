@@ -109,7 +109,7 @@
             description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that require integration with their retail Point-Of-Sale system."
             :link="{
               text: 'POS Integration Guide',
-              url: '/connections/farmlands/farmlands-pos-integration',
+              url: '/guides/farmlands-pos-integration',
             }"
           />
           <card
