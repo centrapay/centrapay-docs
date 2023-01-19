@@ -629,11 +629,11 @@
     "url": "/api/section/merchants",
     "relUrl": "/api/section/merchants"
   },"105": {
-    "doc": "Integrations",
-    "title": "Integrations",
+    "doc": "Scanned Codes",
+    "title": "Scanned Codes",
     "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
+    "url": "/api/section/scanned-codes",
+    "relUrl": "/api/section/scanned-codes"
   },"106": {
     "doc": "Settlements",
     "title": "Settlements",
@@ -647,17 +647,17 @@
     "url": "/api/section/payment-requests",
     "relUrl": "/api/section/payment-requests"
   },"108": {
-    "doc": "Batches",
-    "title": "Batches",
+    "doc": "Integrations",
+    "title": "Integrations",
     "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
   },"109": {
-    "doc": "Scanned Codes",
-    "title": "Scanned Codes",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/scanned-codes",
-    "relUrl": "/api/section/scanned-codes"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"110": {
     "doc": "Accounts",
     "title": "Accounts",
@@ -671,11 +671,11 @@
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
   },"112": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Batches",
+    "title": "Batches",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"113": {
     "doc": "API Reference",
     "title": "API Reference",
