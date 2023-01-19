@@ -63,7 +63,6 @@
                       :href="item.href"
                       :target="item.target"
                       class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-                      :class="item.current ? 'bg-gray-100': ''"
                       @click="sidebarOpen = false"
                     >
                       {{ item.name }}
@@ -165,10 +164,6 @@ import {
 } from '@headlessui/vue';
 
 const primaryNavigation = [
-  { name: 'Products', href: 'https://centrapay.com/', target: '_blank', current: false },
-  { name: 'Solutions', href: 'https://centrapay.com/', target: '_blank', current: false },
-  { name: 'Resources', href: 'https://centrapay.com/', target: '_blank', current: false },
-  { name: 'Pricing', href: 'https://centrapay.com/', target: '_blank', current: false },
   { name: 'Docs', href: '/', target: '_self', current: true },
 ];
 
