@@ -11,15 +11,15 @@
         :default-open="currentPath.startsWith(item.path)"
       >
         <DisclosureButton
-          class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+          class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 space-x-2 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
           :class="currentPath.startsWith(item.path) ? 'bg-gray-100' : ''"
         >
           <component
             :is="item.icon"
-            class="mr-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+            class="icon-md flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
             aria-hidden="true"
           />
-          <span class="flex-1">{{ item.title }}</span>
+          <span class="flex-1 text-content-primary text-base leading-5 font-medium">{{ item.title }}</span>
           <disclosure-arrow-right :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'ml-3 icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
         </DisclosureButton>
         <transition
@@ -64,9 +64,14 @@
         v-else
         target="_blank"
         :to="item.path"
-        class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+        class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 space-x-2 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
       >
-        {{ item.title }}
+        <component
+          :is="item.icon"
+          class="icon-md flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
+          aria-hidden="true"
+        />
+        <span class="flex-1 text-content-primary text-base leading-5 font-medium">{{ item.title }}</span>
       </NuxtLink>
     </div>
   </div>
@@ -88,6 +93,7 @@ const navigation = [
   {
     title: 'Connections',
     path: '/connections',
+    icon: 'connections',
     children: [
       {
         title: 'Farmlands',
@@ -104,6 +110,7 @@ const navigation = [
   {
     title: 'API',
     path: config.baseUrl + '/api',
+    icon: 'settings',
   }
 ];
 
