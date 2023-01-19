@@ -5,13 +5,14 @@
       :key="item.title"
     >
       <Disclosure
+        v-if="item.children"
         v-slot="{ open }"
         as="div"
-        :default-open="currentPath.startsWith(item._path)"
+        :default-open="currentPath.startsWith(item.path)"
       >
         <DisclosureButton
           class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-          :class="currentPath.startsWith(item._path) ? 'bg-gray-100' : ''"
+          :class="currentPath.startsWith(item.path) ? 'bg-gray-100' : ''"
         >
           <component
             :is="item.icon"
@@ -35,7 +36,7 @@
               :key="firstChild.title"
             >
               <NuxtLink
-                :to="firstChild._path"
+                :to="firstChild.path"
                 class="group mt-2 flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-content-secondary hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                 @click="$emit('link-clicked')"
               >
@@ -47,7 +48,7 @@
                   :key="secondChild.title"
                 >
                   <NuxtLink
-                    :to="secondChild._path"
+                    :to="secondChild.path"
                     class="group mt-2 flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                     @click="$emit('link-clicked')"
                   >
@@ -58,14 +59,15 @@
             </div>
           </DisclosurePanel>
         </transition>
-        <NuxtLink
-          target="_blank"
-          :to="config.baseUrl + '/api'"
-          class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-        >
-          API
-        </NuxtLink>
       </Disclosure>
+      <NuxtLink
+        v-else
+        target="_blank"
+        :to="item.path"
+        class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 text-left text-content-primary text-base leading-6 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+      >
+        {{ item.title }}
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -80,10 +82,36 @@ import {
 
 emits: ['link-clicked' ];
 
-const { navigation } = useContent();
 const config = useRuntimeConfig();
+// TODO Make the navigation dynamically pick up all the pages in content folder
+const navigation = [
+  {
+    title: 'Connections',
+    path: '/connections',
+    children: [
+      {
+        title: 'Farmlands',
+        path: '/connections/farmlands',
+        children: [
+          {
+            title: 'Farmlands POS Integration Guide',
+            path: '/guides/farmlands-pos-integration',
+          }
+        ]
+      }
+    ]
+  },
+  {
+    title: 'API',
+    path: config.baseUrl + '/api',
+  }
+];
+
+const urlToActiveNav = {
+  '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration'
+};
 const route = useRoute();
-const currentPath = computed(() => route.path);
+const currentPath = computed(() => urlToActiveNav[route.path] || route.path);
 </script>
 
 <style scoped>
