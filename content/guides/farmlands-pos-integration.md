@@ -86,7 +86,7 @@ sequenceDiagram
 
 1. The Cardholder presents their Farmlands card for the POS to scan.
 2. (Optional) The POS decodes the Scanned Barcode to confirm that it is valid and applies Farmlands discounts.
-- [[API Reference](https://docs.centrapay.com/scanned-codes#decode-scanned-code)]
+- [[API Reference](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code)]
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/decode \
