@@ -7,19 +7,19 @@
         alt=""
       >
     </div>
-    <div class="flex flex-1 flex-col justify-between bg-white p-6">
+    <div class="prose flex flex-1 flex-col justify-between bg-white p-6">
       <div class="flex-1">
-        <p class="text-lg leading-6 font-medium">
+        <h4 class="font-semibold">
           {{ title }}
-        </p>
-        <p class="mt-3 text-sm leading-5 font-normal text-content-secondary">
+        </h4>
+        <p>
           {{ description }}
         </p>
       </div>
       <NuxtLink
         v-if="link.text"
         :to="link.url"
-        class="mt-6 flex items-center btn rounded-md bg-interactive-primary text-content-inverse-primary shadow-md justify-center"
+        class="mt-6 flex items-center btn rounded-md bg-interactive-primary text-content-inverse-primary shadow-md justify-center hover:bg-interactive-secondary"
       >
         {{ link.text }}
       </NuxtLink>

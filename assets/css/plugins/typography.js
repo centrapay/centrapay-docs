@@ -13,7 +13,7 @@ const fontUtilitySpecs = [
       'text-content-primary',
     ],
     normalStyles: 'font-light',
-    boldStyles: 'font-medium',
+    boldStyles: 'font-semibold',
   },
   {
     name: 'headline-1',
