@@ -118,7 +118,11 @@ const urlToActiveNav = {
   '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration'
 };
 const route = useRoute();
-const currentPath = computed(() => urlToActiveNav[route.path] || route.path);
+
+const currentPath = computed(() => {
+  const path = route.path.endsWith('/') ? route.path.slice(0, -1) : route.path;
+  return urlToActiveNav[path] || path;
+});
 </script>
 
 <style scoped>
