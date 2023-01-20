@@ -101,4 +101,11 @@ const externalNavigation = [
   { name: 'Instagram', logoName: 'instagram-logo', href: 'https://www.instagram.com/farmlandsnz/?hl=en' },
   { name: 'LinkedIn', logoName: 'linked-in-logo', href: 'https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz' },
 ];
+
+useHead({
+  title: 'Connections - Farmlands',
+  meta: [
+    { name: 'Farmlands Merchants - How to integrate with Centrapay', description: 'Farmlands has partnered with Centrapay to provide new ways for your business to accept Farmlands Cards faster, easier and more securely than ever.' }
+  ],
+});
 </script>
