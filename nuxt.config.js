@@ -23,7 +23,7 @@ export default defineNuxtConfig({
       }
     },
     highlight: {
-      theme: 'solarized-light',
+      theme: 'github-light',
       preload: [
         'bash',
       ]
