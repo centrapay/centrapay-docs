@@ -29,7 +29,7 @@ const tailwindConfig = {
                 textDecorationLine: 'underline',
               },
             },
-            'h2 > a, h3 > a': {
+            'h2 > a, h3 > a, h4 > a': {
               color: colors.light['content-primary'],
               '&:hover': {
                 textDecorationLine: 'none',
