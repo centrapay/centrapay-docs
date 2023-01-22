@@ -2,7 +2,7 @@
   <NuxtLink
     :to="props.href"
     :target="isExternalLink ? '_blank' : '_self'"
-    class="no-underline hover:no-underline inline-flex justify-center items-center"
+    class="font-normal no-underline hover:no-underline inline-flex justify-center items-center"
   >
     <span class="hover:underline"><slot /></span>
     <span v-if="isExternalLink || isApiReferenceLink">&nbsp;</span>
