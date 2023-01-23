@@ -5,7 +5,7 @@
     class="font-normal no-underline hover:no-underline inline-flex justify-center items-center"
   >
     <span class="hover:underline"><slot /></span>
-    <span v-if="isExternalLink || isApiReferenceLink">&nbsp;</span>
+    <span v-if="isApiReferenceLink">&nbsp;</span>
     <span
       v-if="isApiReferenceLink"
       class="rounded-sm bg-interactive-quaternary h-3 w-6 inline-flex justify-center items-center"
@@ -14,7 +14,7 @@
     </span>
     <external-link
       v-else-if="isExternalLink"
-      class="icon-md mb-1"
+      class="icon-sm h-3 w-6"
     />
   </NuxtLink>
 </template>
@@ -29,5 +29,5 @@ const props = defineProps({
 
 const isApiReferenceLink = props.href.startsWith('https://docs.centrapay.com/api');
 
-const isExternalLink = !props.href.startsWith('https://docs.centrapay.com') || isApiReferenceLink;
+const isExternalLink = (!props.href.startsWith('/') && !props.href.startsWith('#') && !props.href.startsWith('https://docs.centrapay.com')) || isApiReferenceLink;
 </script>
