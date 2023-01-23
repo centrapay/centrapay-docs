@@ -102,6 +102,10 @@ const navigation = [
           {
             title: 'Merchant Payment Conditions',
             path: '/guides/merchant-payment-conditions',
+          },
+          {
+            title: 'Requesting Pre Auth',
+            path: '/guides/requesting-pre-auth',
           }
         ]
       }
@@ -125,23 +129,6 @@ const navigation = [
     ]
   },
   {
-    title: 'Reference',
-    path: '/reference',
-    icon: 'receipt',
-    children: [
-      {
-        title: 'Merchant Integrations',
-        path: '/reference/merchant-integrations',
-        children: [
-          {
-            title: 'Merchant Payment Conditions',
-            path: '/guides/merchant-payment-conditions',
-          }
-        ]
-      }
-    ]
-  },
-  {
     title: 'API',
     path: config.baseUrl + '/api',
     icon: 'settings',
@@ -151,6 +138,7 @@ const navigation = [
 const urlToActiveNav = {
   '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration',
   '/guides/merchant-payment-conditions': '/reference/merchant-integrations/merchant-payment-conditions',
+  '/guides/requesting-pre-auth': '/reference/merchant-integrations/requesting-pre-auth',
 };
 const route = useRoute();
 
