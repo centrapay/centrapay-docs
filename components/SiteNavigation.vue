@@ -125,6 +125,23 @@ const navigation = [
     ]
   },
   {
+    title: 'Reference',
+    path: '/reference',
+    icon: 'receipt',
+    children: [
+      {
+        title: 'Merchant Integrations',
+        path: '/reference/merchant-integrations',
+        children: [
+          {
+            title: 'Merchant Payment Conditions',
+            path: '/guides/merchant-payment-conditions',
+          }
+        ]
+      }
+    ]
+  },
+  {
     title: 'API',
     path: config.baseUrl + '/api',
     icon: 'settings',
