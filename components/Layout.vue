@@ -57,8 +57,8 @@
                 @click="handleTocClick(contentSection.id)"
               >
                 <h3
-                  class="border-l p-squish-2 hover:text-content-primary hover:border-content-primary hover:border-l-2"
-                  :class="visibleHeadingId === contentSection.id ? 'text-content-primary border-brand-accent border-l-2': 'font-normal text-content-tertiary'"
+                  class="border-l-2 p-squish-2 hover:text-content-primary hover:border-content-primary"
+                  :class="visibleHeadingId === contentSection.id ? 'text-content-primary border-brand-accent': 'font-normal text-content-tertiary'"
                 >
                   {{ contentSection.text }}
                 </h3>
@@ -74,8 +74,8 @@
                   @click="handleTocClick(subSection.id)"
                 >
                   <li
-                    class="border-l p-squish-2 hover:text-content-primary hover:border-content-primary hover:border-l-2"
-                    :class="visibleHeadingId === subSection.id ? 'text-content-primary border-brand-accent border-l-2' : 'text-content-tertiary font-normal'"
+                    class="border-l-2 p-squish-2 hover:text-content-primary hover:border-content-primary"
+                    :class="visibleHeadingId === subSection.id ? 'text-content-primary border-brand-accent' : 'text-content-tertiary font-normal'"
                   >
                     {{ subSection.text }}
                   </li>
