@@ -357,7 +357,7 @@ Card Partners must extend the Barcode Flow to support this by [creating Payment 
 
 The Payment Request must always be polled after accepting or declining a condition.
 
-> See also: [Merchant Payment Conditions](https://www.notion.so/Merchant-Payment-Conditions-a3e1c7f987b0400da28ef334a25229cc)
+> See also: [Merchant Payment Conditions](/guides/merchant-payment-conditions)
 
 ### Pre Auth
 
