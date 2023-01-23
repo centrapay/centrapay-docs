@@ -35,7 +35,7 @@
           </Prose>
         </article>
       </div>
-      <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6">
+      <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6 overflow-y-auto">
         <nav
           v-if="toc && toc.links"
           aria-labelledby="on-this-page-title"
