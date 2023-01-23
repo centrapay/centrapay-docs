@@ -793,7 +793,7 @@ curl -X POST https://service.centrapay.com/api/payment-requests \
   }'
 ```
 
-> See also: [Patron Not Present](https://www.notion.so/Patron-Not-Present-7da502cf99de4bd1af82a3bf8ed05e90)
+> See also: [Patron Not Present](/guides/patron-not-present)
 
 ### Validating a Farmlands Barcode
 

@@ -67,4 +67,4 @@ When Payment Conditions are present on a [Payment Request](https://docs.centrapa
 The payment request status must always be polled after [accepting](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [declining](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) a condition as these actions may trigger the additional behaviours below.
 
 - Conditions can be linked such that they are added or voided due to state changes on the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request). Note that accepting or declining a voided condition will fail.
-- The [Patron Not Present extension](https://www.notion.so/Patron-Not-Present-7da502cf99de4bd1af82a3bf8ed05e90) may prevent the presentation of conditions that are impossible to satisfy such as checking photo ID.
+- The [Patron Not Present extension](/guides/patron-not-present) may prevent the presentation of conditions that are impossible to satisfy such as checking photo ID.

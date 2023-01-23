@@ -106,6 +106,10 @@ const navigation = [
           {
             title: 'Requesting Pre Auth',
             path: '/guides/requesting-pre-auth',
+          },
+          {
+            title: 'Patron Not Present',
+            path: '/guides/patron-not-present',
           }
         ]
       }
@@ -139,6 +143,7 @@ const urlToActiveNav = {
   '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration',
   '/guides/merchant-payment-conditions': '/reference/merchant-integrations/merchant-payment-conditions',
   '/guides/requesting-pre-auth': '/reference/merchant-integrations/requesting-pre-auth',
+  '/guides/patron-not-present': '/reference/merchant-integrations/patron-not-present',
 };
 const route = useRoute();
 
