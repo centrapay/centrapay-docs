@@ -57,7 +57,11 @@ sequenceDiagram
 <img src="/farmlands-card.png" alt="The back of an example Farmlands card, displaying a barcode and a 9-digit card number" style="height: 288px;"/>
 
 2. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
+    ::disclosure
+    #heading
+    See example
 
+    #content
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests \
       -H "X-Api-Key: $api_key" \
@@ -149,6 +153,7 @@ sequenceDiagram
       }
     }
     ```
+    ::
 
 3. The POS [polls the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second for status changes.
 

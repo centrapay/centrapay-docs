@@ -39,10 +39,7 @@
           </transition>
         </div>
       </div>
-      <div
-        ref="code"
-        class="max-h-96 overflow-y-auto"
-      >
+      <div ref="code" class="bg-white">
         <slot />
       </div>
     </div>
