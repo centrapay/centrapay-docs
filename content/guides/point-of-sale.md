@@ -14,7 +14,7 @@ The POS authenticates against Centrapay APIs using a single “merchant terminal
 - [Merchant integration errors](https://docs.centrapay.com/guides/merchant-integration-error-handling) MUST be handled correctly.
 - [Initiating refunds](https://docs.centrapay.com/guides/initiating-refunds) MUST be performed using the `externalRef` or `shortCode` [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) fields.
 - At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
-- Paid [Asset Types](https://docs.centrapay.com/api/asset-types) MUST be made available for merchant [Transaction Reporting](https://www.notion.so/Transaction-Reporting-3e80c48d8241400ba25d9d169fdaff59).
+- Paid [Asset Types](https://docs.centrapay.com/api/asset-types) MUST be made available for merchant [Transaction Reporting](/guides/transaction-reporting).
 
 ### Optional Protocol Extensions
 

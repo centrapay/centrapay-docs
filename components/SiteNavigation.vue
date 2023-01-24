@@ -112,6 +112,10 @@ const navigation = [
             path: '/guides/merchant-integration-error-handling',
           },
           {
+            title: 'Transaction Reporting',
+            path: '/guides/transaction-reporting',
+          },
+          {
             title: 'Initiating Refunds',
             path: '/guides/initiating-refunds',
           },
@@ -169,6 +173,7 @@ const urlToActiveNav = {
   '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
   '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale',
   '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
+  '/guides/transaction-reporting': 'reference/merchant-integrations/transaction-reporting',
 };
 const route = useRoute();
 
