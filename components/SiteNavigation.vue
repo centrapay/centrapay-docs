@@ -100,6 +100,10 @@ const navigation = [
         path: '/guides/merchant-integrations',
         children: [
           {
+            title: 'Point of Sale',
+            path: '/guides/point-of-sale',
+          },
+          {
             title: 'Merchant Integration Error Handling',
             path: '/guides/merchant-integration-error-handling',
           },
@@ -159,6 +163,7 @@ const urlToActiveNav = {
   '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
   '/guides/payment-request-line-items': '/reference/merchant-integrations/payment-request-line-items',
   '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
+  '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale'
 };
 const route = useRoute();
 

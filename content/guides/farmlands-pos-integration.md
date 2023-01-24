@@ -931,7 +931,7 @@ You need to go through the following steps in order to test your integration in 
 
 For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process.
 
-The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](https://www.notion.so/Point-Of-Sale-79fc0dd2d5a9454183446c654b656aab) requirements, and the following additional requirements.
+The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale) requirements, and the following additional requirements.
 
 **POS Requirements**
 
