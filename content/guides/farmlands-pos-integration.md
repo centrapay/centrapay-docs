@@ -367,7 +367,7 @@ This extension enables the POS to create an authorisation that ensures funds are
 
 Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag set to true.
 
-#### Pre Auth Sequence
+**Pre Auth Sequence**
 
 ```mermaid
 sequenceDiagram
