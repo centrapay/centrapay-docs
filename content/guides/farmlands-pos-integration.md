@@ -747,7 +747,7 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-> See also: [Requesting Pre Auth](https://www.notion.so/Requesting-Pre-Auth-5d923a9225a949329d3cccf3d7e3a879)
+> See also: [Requesting Pre Auth](/guides/requesting-pre-auth)
 
 ### Cardholder Not Present
 
