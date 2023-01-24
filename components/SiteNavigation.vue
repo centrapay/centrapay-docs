@@ -97,7 +97,7 @@ const navigation = [
     children: [
       {
         title: 'Merchant Integrations',
-        path: '/guides/merchant-integrations',
+        path: '/guides/point-of-sale',
         children: [
           {
             title: 'Point of Sale',
