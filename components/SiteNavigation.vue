@@ -110,7 +110,11 @@ const navigation = [
           {
             title: 'Patron Not Present',
             path: '/guides/patron-not-present',
-          }
+          },
+          {
+            title: 'Merchant Integration Error Handling',
+            path: '/guides/merchant-integration-error-handling',
+          },
         ]
       }
     ]
@@ -144,6 +148,7 @@ const urlToActiveNav = {
   '/guides/merchant-payment-conditions': '/reference/merchant-integrations/merchant-payment-conditions',
   '/guides/requesting-pre-auth': '/reference/merchant-integrations/requesting-pre-auth',
   '/guides/patron-not-present': '/reference/merchant-integrations/patron-not-present',
+  '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
 };
 const route = useRoute();
 
