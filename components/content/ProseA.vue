@@ -2,13 +2,13 @@
   <NuxtLink
     :to="props.href"
     :target="isExternalLink ? '_blank' : '_self'"
-    class="font-normal no-underline hover:no-underline inline-flex justify-center items-center"
+    class="group inline-flex justify-center items-center text-interactive-secondary hover:text-interactive-secondary-hover"
   >
-    <span class="hover:underline"><slot /></span>
+    <span class="underline"><slot /></span>
     <span v-if="isApiReferenceLink">&nbsp;</span>
     <span
       v-if="isApiReferenceLink"
-      class="rounded-sm bg-interactive-quaternary h-3 w-6 inline-flex justify-center items-center"
+      class="rounded-sm bg-interactive-secondary group-hover:bg-interactive-secondary-hover h-3 w-6 inline-flex justify-center items-center"
     >
       <span class="text-content-inverse-primary text-[10px]">&nbsp;API&nbsp;</span>
     </span>
