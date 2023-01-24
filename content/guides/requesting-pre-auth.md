@@ -15,7 +15,7 @@ Pre Auth payments are not supported in all cases.
 
 Pre Auth payments go through an orthogonal payment flow compared to Centrapay’s standard payment flow.
 
-> See also: [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2).
+> See also: [Requesting Payment](/guides/requesting-payment).
 
 ```mermaid
 sequenceDiagram
@@ -49,7 +49,7 @@ sequenceDiagram
 
 ### Authorise
 
-An authorisation is created when the [Payment Request is created](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2).
+An authorisation is created when the [Payment Request is created](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment).
 
 Once the authorisation is successful, the Payment Request `preAuthStatus` is set to `authorized`.
 

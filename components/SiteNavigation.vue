@@ -104,6 +104,10 @@ const navigation = [
             path: '/guides/point-of-sale',
           },
           {
+            title: 'Requesting Payment',
+            path: '/guides/requesting-payment',
+          },
+          {
             title: 'QR Code Flow',
             path: '/guides/merchant-integration-qr-code-flow',
           },
@@ -174,6 +178,7 @@ const urlToActiveNav = {
   '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale',
   '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
   '/guides/transaction-reporting': 'reference/merchant-integrations/transaction-reporting',
+  '/guides/requesting-payment': 'reference/merchant-integrations/requesting-payment',
 };
 const route = useRoute();
 

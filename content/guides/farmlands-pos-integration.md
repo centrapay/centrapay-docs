@@ -20,7 +20,7 @@ Integrating with Centrapay streamlines the process for authorising and invoicing
 
 Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54) to connect to Cardholders and accept Farmlands transactions.
 
-> See also: [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2)
+> See also: [Requesting Payment](/guides/requesting-payment)
 
 ```mermaid
 sequenceDiagram
