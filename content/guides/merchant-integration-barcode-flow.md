@@ -329,7 +329,7 @@ sequenceDiagram
     }
     ```
 
-## Checking Scanned Barcode Details
+## Checking Barcode Details
 
 The POS can optionally [decode a scanned barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request. For example, the POS can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
 
