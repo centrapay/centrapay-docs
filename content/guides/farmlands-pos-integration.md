@@ -822,9 +822,9 @@ curl -X POST https://service.centrapay.com/api/decode \
 
 ### Handling Payment Errors
 
-The POS must follow Centrapay’s guidelines on [handling errors](https://www.notion.so/Merchant-Integration-Error-Handling-2078164fbdbe425caa4f2fd878ad3969) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
 
-> See also: [Merchant Integration Error Handling](https://www.notion.so/Merchant-Integration-Error-Handling-2078164fbdbe425caa4f2fd878ad3969)
+> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
 
 ### Refunds
 
