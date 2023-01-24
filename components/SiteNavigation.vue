@@ -179,11 +179,11 @@ const urlToActiveNav = {
   '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
   '/guides/payment-request-line-items': '/reference/merchant-integrations/payment-request-line-items',
   '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
-  '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale',
-  '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
-  '/guides/transaction-reporting': 'reference/merchant-integrations/transaction-reporting',
-  '/guides/requesting-payment': 'reference/merchant-integrations/requesting-payment',
-  '/guides/merchant-integration-barcode-flow': 'reference/merchant-integrations/merchant-integration-barcode-flow',
+  '/guides/point-of-sale': '/reference/merchant-integrations/point-of-sale',
+  '/guides/merchant-integration-qr-code-flow': '/reference/merchant-integrations/merchant-integration-qr-code-flow',
+  '/guides/transaction-reporting': '/reference/merchant-integrations/transaction-reporting',
+  '/guides/requesting-payment': '/reference/merchant-integrations/requesting-payment',
+  '/guides/merchant-integration-barcode-flow': '/reference/merchant-integrations/merchant-integration-barcode-flow',
 };
 const route = useRoute();
 
