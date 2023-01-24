@@ -23,10 +23,9 @@ const tailwindConfig = {
         DEFAULT: {
           css: {
             a: {
-              color: colors.light['brand-accent'],
+              color: colors['content-tertiary'],
               '&:hover': {
-                color: colors.light['interactive-quaternary-active'],
-                textDecorationLine: 'underline',
+                color: colors.light['content-primary'],
               },
             },
             'h2 > a, h3 > a, h4 > a': {
