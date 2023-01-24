@@ -5,7 +5,7 @@ img: /farmlands-pos-integration-cover.jpg
 
 Centrapay and Farmlands have entered into a partnership that will allow Farmlands Card Partners to accept the Farmlands Card for payment at the point of sale. The benefits include real-time standard industry card checks, elimination of reconciliation EDI files or manual PDF invoicing, and it unlocks the ability to accept many more payment methods on the Centrapay platform. This solution positions Card Partners to be able to accept digital Farmlands Card payments in the future.
 
-Farmlands Card Partners need to be approved by Farmlands prior to enabling the Farmlands Card as a payment option through the Centrapay integration. Contact your Card Partnership Manager or the Card Specialist team at [`card.specialist@farmlands.co.nz`](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
+Farmlands Card Partners need to be approved by Farmlands prior to enabling the Farmlands Card as a payment option through the Centrapay integration. Contact your Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
 
 ## Benefits of using the Centrapay Integration
 
@@ -331,7 +331,7 @@ curl https://service.centrapay.com/api/account-memberships \
   -H "X-Api-Key: $api_key"
 ```
 
-> Contact [`integrations@centrapay.com`](mailto:integrations@centrapay.com) to be issued with your API keys.
+> Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to be issued with your API keys.
 
 ### Basic Payment Flow Requirements
 
@@ -983,5 +983,5 @@ The Certification Process includes checking that Farmlands POS integrators are m
 
 ## Next Steps
 
-1. Processing Farmlands Card transactions through the Centrapay platform is only available to existing Farmlands Card Partners. Existing Card Partners who are interested in integrating with Centrapay should contact their Card Partnership Manager or the Card Specialist team at [`card.specialist@farmlands.co.nz`](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
-2. Reach out to [`integrations@centrapay.com`](mailto:integrations@centrapay.com) to get your API keys, your Merchants configured, and a copy of Centrapay’s Certification Process.
+1. Processing Farmlands Card transactions through the Centrapay platform is only available to existing Farmlands Card Partners. Existing Card Partners who are interested in integrating with Centrapay should contact their Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
+2. Reach out to [integrations@centrapay.com](mailto:integrations@centrapay.com) to get your API keys, your Merchants configured, and a copy of Centrapay’s Certification Process.
