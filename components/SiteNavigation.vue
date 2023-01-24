@@ -49,7 +49,7 @@
                 >
                   <NuxtLink
                     :to="secondChild.path"
-                    class="group mt-2 flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+                    class="group mt-2 flex w-full items-center rounded-md py-2 pl-10 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                     @click="$emit('link-clicked')"
                   >
                     {{ secondChild.title }}
@@ -100,7 +100,7 @@ const navigation = [
         path: '/guides/merchant-integrations',
         children: [
           {
-            title: 'Merchant Integration Error Handling',
+            title: 'Error Handling',
             path: '/guides/merchant-integration-error-handling',
           },
           {
@@ -108,7 +108,7 @@ const navigation = [
             path: '/guides/payment-request-line-items',
           },
           {
-            title: 'Merchant Payment Conditions',
+            title: 'Payment Conditions',
             path: '/guides/merchant-payment-conditions',
           },
           {
