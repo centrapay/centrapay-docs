@@ -899,7 +899,7 @@ sequenceDiagram
     }
     ```
 
-> See also: [Initiating Refunds](https://www.notion.so/Initiating-Refunds-ae3daeeb04c24b8b8e22680cc475afd7)
+> See also: [Initiating Refunds](/guides/initiating-refunds)
 
 ### Short Codes
 

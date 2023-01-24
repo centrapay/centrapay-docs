@@ -104,6 +104,10 @@ const navigation = [
             path: '/guides/merchant-integration-error-handling',
           },
           {
+            title: 'Initiating Refunds',
+            path: '/guides/initiating-refunds',
+          },
+          {
             title: 'Payment Request Line Items',
             path: '/guides/payment-request-line-items',
           },
@@ -154,6 +158,7 @@ const urlToActiveNav = {
   '/guides/patron-not-present': '/reference/merchant-integrations/patron-not-present',
   '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
   '/guides/payment-request-line-items': '/reference/merchant-integrations/payment-request-line-items',
+  '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
 };
 const route = useRoute();
 

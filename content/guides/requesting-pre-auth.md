@@ -133,7 +133,7 @@ Authorisations automatically expire after 3 months. Any unreleased funds are sub
 
 ### Refund
 
-[Refunds](https://www.notion.so/ae3daeeb04c24b8b8e22680cc475afd7) can be made against authorisations, confirmations, released authorisations and expired authorisations.
+[Refunds](/guides/initiating-refunds) can be made against authorisations, confirmations, released authorisations and expired authorisations.
 
 Refunds made against confirmations must include the `confirmationIdempotencyKey` field that is the same as the `idempotencyKey` used for original confirmation.
 
