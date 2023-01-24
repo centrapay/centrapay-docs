@@ -41,7 +41,7 @@ sequenceDiagram
 
 Lookup the transaction within the merchant system using the transaction reference that the patron obtains from their paper receipt or digital wallet transaction history.
 
-The transaction reference is made available to users of digital wallets by attaching it as the `externalRef` attribute when [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2).
+The transaction reference is made available to users of digital wallets by attaching it as the `externalRef` attribute when [Requesting Payment](/guides/requesting-payment).
 
 ```mermaid
 sequenceDiagram
