@@ -112,6 +112,10 @@ const navigation = [
             path: '/guides/merchant-integration-qr-code-flow',
           },
           {
+            title: 'Barcode Flow',
+            path: '/guides/merchant-integration-barcode-flow',
+          },
+          {
             title: 'Merchant Integration Error Handling',
             path: '/guides/merchant-integration-error-handling',
           },
@@ -179,6 +183,7 @@ const urlToActiveNav = {
   '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
   '/guides/transaction-reporting': 'reference/merchant-integrations/transaction-reporting',
   '/guides/requesting-payment': 'reference/merchant-integrations/requesting-payment',
+  '/guides/merchant-integration-barcode-flow': 'reference/merchant-integrations/merchant-integration-barcode-flow',
 };
 const route = useRoute();
 
