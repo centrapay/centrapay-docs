@@ -179,6 +179,7 @@ const urlToActiveNav = {
   '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
   '/guides/transaction-reporting': 'reference/merchant-integrations/transaction-reporting',
   '/guides/requesting-payment': 'reference/merchant-integrations/requesting-payment',
+  '/guides/request-payment': 'reference/merchant-integrations/request-payment',
 };
 const route = useRoute();
 
