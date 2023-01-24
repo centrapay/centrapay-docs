@@ -37,7 +37,7 @@
       </div>
       <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6 overflow-y-auto">
         <nav
-          v-if="toc && toc.links"
+          v-if="toc && toc.links.length"
           aria-labelledby="on-this-page-title"
           class="w-56"
         >
@@ -84,6 +84,12 @@
             </li>
           </ol>
         </nav>
+        <div
+          v-else
+          class="w-56"
+        >
+          <!-- Dummy element to force page content width to stay consistent when there is no TOC -->
+        </div>
       </div>
     </div>
   </div>
