@@ -22,14 +22,7 @@ const tailwindConfig = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            a: {
-              color: colors.light['brand-accent'],
-              '&:hover': {
-                color: colors.light['interactive-quaternary-active'],
-                textDecorationLine: 'underline',
-              },
-            },
-            'h2 > a, h3 > a, h4 > a': {
+            'h2 > a, h3 > a': {
               color: colors.light['content-primary'],
               '&:hover': {
                 textDecorationLine: 'none',
