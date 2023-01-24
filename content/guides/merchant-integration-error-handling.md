@@ -26,4 +26,4 @@ When faced with an unknown error while checking the status of a Payment Request,
 
 ## Resolving Persistent Errors
 
-For issues that cannot be resolved, please reach out to Centrapay Support at [`integrations@centrapay.com`](mailto:integrations@centrapay.com).
+For issues that cannot be resolved, please reach out to Centrapay Support at [integrations@centrapay.com](mailto:integrations@centrapay.com).

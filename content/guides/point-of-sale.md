@@ -26,6 +26,6 @@ The POS authenticates against Centrapay APIs using a single “merchant terminal
 
 ## Contact Us
 
-Contact [`integrations@centrapay.com`](mailto:integrations@centrapay.com) to get started with API keys.
+Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to get started with API keys.
 
 Once you have confirmed your integration needs we will then provide you with a customised integration checklist for certification.
