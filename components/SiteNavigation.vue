@@ -104,6 +104,10 @@ const navigation = [
             path: '/guides/point-of-sale',
           },
           {
+            title: 'QR Code Flow',
+            path: '/guides/merchant-integration-qr-code-flow',
+          },
+          {
             title: 'Merchant Integration Error Handling',
             path: '/guides/merchant-integration-error-handling',
           },
@@ -163,7 +167,8 @@ const urlToActiveNav = {
   '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
   '/guides/payment-request-line-items': '/reference/merchant-integrations/payment-request-line-items',
   '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
-  '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale'
+  '/guides/point-of-sale': 'reference/merchant-integrations/point-of-sale',
+  '/guides/merchant-integration-qr-code-flow': 'reference/merchant-integrations/merchant-integration-qr-code-flow',
 };
 const route = useRoute();
 

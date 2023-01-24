@@ -14,7 +14,7 @@ Examples of Merchant Payment Conditions include:
 
 In order to support Merchant Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true.
 
-The example flow below assumes that the merchant integration has first connected with the Patron when [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2) using the [QR Code Flow for Merchants](https://www.notion.so/QR-Code-Flow-for-Merchants-a445069e6d9041b48f03bbc22bd5258a) or the [Barcode Flow for Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54).
+The example flow below assumes that the merchant integration has first connected with the Patron when [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2) using the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54).
 
 ```mermaid
 sequenceDiagram
