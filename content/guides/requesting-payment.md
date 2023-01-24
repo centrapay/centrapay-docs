@@ -12,7 +12,7 @@ The [Payment Request](https://docs.centrapay.com/api/payment-requests) object is
 
 In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the Patron. Centrapay supports 2 different options to connect with Patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
 1. [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow)
-2. [Barcode Flow for Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54)
+2. [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow)
 
 ### Required Fields When Creating a Payment Request
 
