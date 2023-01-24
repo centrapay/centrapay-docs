@@ -25,7 +25,7 @@
         class="mb-4"
         title="Guides"
         description="Checkout our Guides for hints on where to begin."
-        :link="config.baseUrl + '/guides'"
+        link="/guides/point-of-sale"
       />
       <landing-page-card
         icon-name="Rocket"
