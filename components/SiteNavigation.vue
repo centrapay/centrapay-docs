@@ -91,6 +91,23 @@ const config = useRuntimeConfig();
 // TODO Make the navigation dynamically pick up all the pages in content folder
 const navigation = [
   {
+    title: 'Reference',
+    path: '/reference',
+    icon: 'receipt',
+    children: [
+      {
+        title: 'Merchant Integrations',
+        path: '/guides/merchant-integrations',
+        children: [
+          {
+            title: 'Merchant Payment Conditions',
+            path: '/guides/merchant-payment-conditions',
+          }
+        ]
+      }
+    ]
+  },
+  {
     title: 'Connections',
     path: '/connections',
     icon: 'connections',
@@ -115,7 +132,8 @@ const navigation = [
 ];
 
 const urlToActiveNav = {
-  '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration'
+  '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration',
+  '/guides/merchant-payment-conditions': '/reference/merchant-integrations/merchant-payment-conditions',
 };
 const route = useRoute();
 
