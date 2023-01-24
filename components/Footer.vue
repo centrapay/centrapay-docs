@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-surface-inverse-secondary">
+  <footer class="bg-surface-tertiary">
     <div class="mx-auto desktop-gutters px-6 py-8 md:flex md:items-center md:justify-between lg:px-8">
       <div class="flex space-x-6 md:order-2">
         <a
@@ -7,7 +7,7 @@
           :key="item.name"
           :href="item.link"
           target="_blank"
-          class="text-content-inverse-tertiary hover:text-gray-500"
+          class="text-interactive-secondary hover:text-interactive-secondary-hover"
         >
           <span class="sr-only">{{ item.name }}</span>
           <component
@@ -17,7 +17,7 @@
           />
         </a>
       </div>
-      <p class="mt-8 text-xs leading-5 text-content-inverse-tertiary md:order-1 md:mt-0">
+      <p class="mt-8 text-xs leading-5 text-content-tertiary md:order-1 md:mt-0">
         {{ `&copy; ${year} Centrapay - All rights reserved.` }}
       </p>
     </div>
