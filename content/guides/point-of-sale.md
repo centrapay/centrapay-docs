@@ -10,7 +10,7 @@ Centrapay POS integrations must be able to [create](https://docs.centrapay.com/a
 
 The POS authenticates against Centrapay APIs using a single “merchant terminal” API key.
 
-- [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2) MUST connect with the patron using either the [QR Code Flow for Merchants](https://www.notion.so/QR-Code-Flow-for-Merchants-a445069e6d9041b48f03bbc22bd5258a) or the [Barcode Flow for Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54).
+- [Requesting Payment](https://www.notion.so/Requesting-Payment-ad4c917a690a4bc3a4de5fc04a7396c2) MUST connect with the patron using either the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](https://www.notion.so/Barcode-Flow-for-Merchants-482ac4e5879642378297f3ad17a68b54).
 - [Merchant integration errors](https://docs.centrapay.com/guides/merchant-integration-error-handling) MUST be handled correctly.
 - [Initiating refunds](https://docs.centrapay.com/guides/initiating-refunds) MUST be performed using the `externalRef` or `shortCode` [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) fields.
 - At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
