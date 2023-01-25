@@ -3,75 +3,61 @@
     <div
       v-for="item in navigation"
       :key="item.title"
+      class="px-2"
     >
-      <Disclosure
+      <div
         v-if="item.children"
-        v-slot="{ open }"
-        as="div"
-        :default-open="currentPath.startsWith(item.path)"
       >
-        <DisclosureButton
-          class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 space-x-2 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-          :class="currentPath.startsWith(item.path) ? 'bg-gray-100' : ''"
+        <div
+          class="flex items-center pl-4 pr-1 py-5 space-x-2 text-left"
         >
           <component
             :is="item.icon"
-            class="icon-md flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
+            class="icon-lg flex-shrink-0 text-content-tertiary"
             aria-hidden="true"
           />
-          <span class="flex-1 text-content-primary text-base leading-5 font-medium">{{ item.title }}</span>
-          <disclosure-arrow-right :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'ml-3 icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
-        </DisclosureButton>
-        <transition
-          enter-active-class="transition duration-100 ease-out"
-          enter-from-class="transform scale-95 opacity-0"
-          enter-to-class="transform scale-100 opacity-100"
-          leave-active-class="transition duration-75 ease-out"
-          leave-from-class="transform scale-100 opacity-100"
-          leave-to-class="transform scale-95 opacity-0"
+          <span class="flex-1 text-content-primary type-caption-1 font-medium">{{ item.title }}</span>
+        </div>
+        <div
+          v-for="firstChild in item.children"
+          :key="firstChild.title"
+          class="space-y-2"
         >
-          <DisclosurePanel>
-            <div
-              v-for="firstChild in item.children"
-              :key="firstChild.title"
+          <NuxtLink
+            class="flex w-full rounded-md py-2 pl-4 pr-2 type-caption-2 font-medium text-interactive-primary hover:text-interactive-primary hover:bg-content-inverse-tertiary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+            :to="firstChild.path"
+            @click="$emit('link-clicked')"
+          >
+            {{ firstChild.title }}
+          </NuxtLink>
+          <div
+            v-if="firstChild.children"
+            class="space-y-1"
+          >
+            <NuxtLink
+              v-for="secondChild in firstChild.children"
+              :key="secondChild.title"
+              class="flex w-full rounded-md py-2 pl-10 pr-2 type-caption-2 font-medium text-interactive-secondary hover:text-interactive-primary hover:bg-content-inverse-tertiary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+              :to="secondChild.path"
+              @click="$emit('link-clicked')"
             >
-              <NuxtLink
-                :to="firstChild.path"
-                class="group mt-2 flex w-full items-center rounded-md py-2 pl-6 pr-2 text-sm font-medium text-content-secondary hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-                @click="$emit('link-clicked')"
-              >
-                {{ firstChild.title }}
-              </NuxtLink>
-              <div v-if="firstChild.children">
-                <div
-                  v-for="secondChild in firstChild.children"
-                  :key="secondChild.title"
-                >
-                  <NuxtLink
-                    :to="secondChild.path"
-                    class="group mt-2 flex w-full items-center rounded-md py-2 pl-8 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-                    @click="$emit('link-clicked')"
-                  >
-                    {{ secondChild.title }}
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
-          </DisclosurePanel>
-        </transition>
-      </Disclosure>
+              {{ secondChild.title }}
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
       <NuxtLink
         v-else
         target="_blank"
         :to="item.path"
-        class="group mt-2 w-full flex items-center pl-2 pr-1 py-2 space-x-2 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+        class="group flex items-center pl-4 pr-1 my-3 py-2 space-x-2 text-left"
       >
         <component
           :is="item.icon"
-          class="icon-md flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
+          class="icon-lg flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
           aria-hidden="true"
         />
-        <span class="flex-1 text-content-primary text-base leading-5 font-medium">{{ item.title }}</span>
+        <span class="flex-1 text-content-primary type-caption-1 font-medium group-hover:text-content-secondary">{{ item.title }}</span>
       </NuxtLink>
     </div>
   </div>
@@ -79,11 +65,6 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from '@headlessui/vue';
 
 emits: ['link-clicked' ];
 
@@ -196,8 +177,9 @@ const currentPath = computed(() => {
 <style scoped>
 .router-link-active {
   @apply
-    bg-gray-50
     text-content-primary
+    bg-content-inverse-secondary
+    hover:bg-content-inverse-tertiary
   ;
 }
 </style>
