@@ -7,7 +7,7 @@ Centrapay and Farmlands have entered into a partnership to allow Farmlands Card 
 
 Farmlands Card Partners need to be approved by Farmlands prior to enabling the Farmlands Card as a payment option through the Centrapay integration. Contact your Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
 
-## Benefits of using the Centrapay Integration
+## Centrapay Integration Benefits
 
 Integrating with Centrapay streamlines the process for authorising and invoicing Farmlands Card Payments. The integration provides:
 
@@ -16,7 +16,7 @@ Integrating with Centrapay streamlines the process for authorising and invoicing
 3. Automatic notification of invoices to Farmlands that submit invoices with Centrapay. This eliminates the need to send a PDF invoice or EDI file to Farmlands for settlement.
 4. Merchants can opt-in to accept other assets as payment methods with Centrapay.
 
-## Overview of Payment Flow for Farmlands
+## Payment Flow Overview
 
 Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](/guides/merchant-integration-barcode-flow#quick-pay-flow) to connect to Cardholders and accept Farmlands transactions.
 
@@ -38,7 +38,7 @@ sequenceDiagram
 	loop Poll for Payment Confirmation
 		POS->>Centrapay: Get Payment Request
 
-		alt Merchant Payment Condition Pending
+		alt Payment Condition Pending
 			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
 			POS->>Centrapay: POS Accepts Condition
 		else Payment Request Status is paid
@@ -213,7 +213,7 @@ sequenceDiagram
     }
     ```
 
-4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Merchant Payment Condition](#merchant-payment-conditions) in order to successfully complete a payment.
+4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
@@ -241,7 +241,7 @@ sequenceDiagram
     ```
 
 
-    A successful payment is identified when all Merchant Payment Conditions have an `accepted` status and the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
+    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
 
     ```bash [Request]
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -305,18 +305,18 @@ sequenceDiagram
     }
     ```
 
-## Implementing the Payment Flow for Farmlands
+## Payment Flow Implementation
 
-The Farmlands Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
+The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
 
 1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
 2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
-3. Card Partners must meet [basic payment requirements](/guides/farmlands-pos-integration#basic-payment-flow-requirements) in order to implement the Barcode Payment Flow.
+3. Card Partners must meet [basic payment requirements](#basic-requirements) in order to implement the Barcode Payment Flow.
 4. Each Card Partner should extend the Barcode Payment Flow to meet any additional requirements they have.
-    1. Mandatory extensions include supporting [Merchant Payment Conditions](#merchant-payment-conditions) and [Refunds](#refunds).
-    2. Optional extensions include supporting [Pre Auth](#pre-auth) payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately, supporting payments when the [Cardholder is not physically present](#cardholder-not-present), and [validating Farmlands barcodes](#validating-a-farmlands-barcode) before a transaction is initiated.
+    1. Mandatory extensions include supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds).
+    2. Optional extensions include supporting [Pre Auth](#pre-auth) payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately, supporting payments when the [Cardholder is not physically present](#cardholder-not-present), and [validating Farmlands barcodes](#validating-farmlands-barcodes) before a transaction is initiated.
 
-### Setting Up Farmlands Merchants
+### Merchant Configuration
 
 Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](https://docs.centrapay.com/api/merchants) with its own [Merchant Config](https://docs.centrapay.com/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](https://docs.centrapay.com/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
 
@@ -335,20 +335,20 @@ curl https://service.centrapay.com/api/account-memberships \
 
 > Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to be issued with your API keys.
 
-### Basic Payment Flow Requirements
+### Basic Requirements
 
-The Farmlands Payment Flow needs the following requirements to be met.
+The Payment Flow needs the following requirements to be met.
 
 - Card Partners MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
-- Card Partners MUST support [Merchant Payment Conditions](#merchant-payment-conditions).
-- The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Merchant Payment Conditions.
+- Card Partners MUST support [Payment Conditions](#payment-conditions).
+- The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
 - The POS MUST include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
 
     > See the [Pre Auth extension](#pre-auth) to accept payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately.
 
 - The POS MUST stop [polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) when its status is no longer `new`.
 
-### Merchant Payment Conditions
+### Payment Conditions
 
 > Farmlands Card Partners must support this extension.
 
@@ -358,7 +358,7 @@ Card Partners must extend the Barcode Flow to support this by [creating Payment 
 
 The Payment Request must always be polled after accepting or declining a condition.
 
-> See also: [Merchant Payment Conditions](/guides/merchant-payment-conditions)
+> See also: [Payment Conditions](/guides/payment-conditions)
 
 ### Pre Auth
 
@@ -386,7 +386,7 @@ POS->>Centrapay: Create Payment Request with Barcode and the preAuth flag
 loop Poll for Payment Confirmation
 	POS->>Centrapay: Get Payment Request
 
-	alt Merchant Payment Condition Pending
+	alt Payment Condition Pending
 			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
 			POS->>Centrapay: POS Accepts Condition
 		else Payment Request Status is paid
@@ -410,7 +410,7 @@ Note over POS: ✅ Display Release confirmation
 ```
 
 1. The Cardholder presents their Farmlands Card for the POS to scan.
-2. The POS authorises a Pre Auth payment by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Merchant Payment Conditions](#merchant-payment-conditions) extension and include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+2. The POS authorises a Pre Auth payment by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
 
     > Including Line Items is optional for Card Partners that do not intend to make Pre Auth confirmations.
 
@@ -569,7 +569,7 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Merchant Payment Condition](#merchant-payment-conditions) in order to successfully authorise a Pre Auth payment.
+4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
@@ -596,7 +596,7 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-    A successful authorisation is identified when all Merchant Payment Conditions have an `accepted` status, the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
+    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
 
     ```bash [Request]
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -796,7 +796,7 @@ curl -X POST https://service.centrapay.com/api/payment-requests \
 
 > See also: [Patron Not Present](/guides/patron-not-present)
 
-### Validating a Farmlands Barcode
+### Validating Farmlands Barcodes
 
 Farmlands Card Partners may optionally [decode a scanned Farmlands Barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) to confirm that it is valid and apply Farmlands discounts before [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 
@@ -930,7 +930,7 @@ You need to go through the following steps in order to test your integration in 
 
 3. Centrapay can set you up with a Centrapay Portal account and a test Merchant to allow you to verify that transactions are being processed correctly.
 
-## Integration Certification Requirements
+## Certification Requirements
 
 For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process.
 
@@ -945,7 +945,7 @@ The Certification Process includes checking that Farmlands POS integrators are m
 
 - The POS MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 - The POS MUST provide an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
-- [Merchant Payment Conditions](#merchant-payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
+- [Payment Conditions](#payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
 - The POS MUST always poll the Payment Request after accepting or declining a condition.
 
 **Line Item Requirements**
@@ -986,4 +986,4 @@ The Certification Process includes checking that Farmlands POS integrators are m
 ## Next Steps
 
 1. Processing Farmlands Card transactions through the Centrapay platform is only available to existing Farmlands Card Partners. Existing Card Partners who are interested in integrating with Centrapay should contact their Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
-2. Reach out to [integrations@centrapay.com](mailto:integrations@centrapay.com) to get your API keys, your Merchants configured, and a copy of Centrapay’s Certification Process.
+2. Reach out to [integrations@centrapay.com](mailto:integrations@centrapay.com) to get your API keys and a copy of Centrapay’s Certification Process.

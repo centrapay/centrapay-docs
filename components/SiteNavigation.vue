@@ -116,7 +116,7 @@ const navigation = [
             path: '/guides/merchant-integration-barcode-flow',
           },
           {
-            title: 'Merchant Integration Error Handling',
+            title: 'Error Handling',
             path: '/guides/merchant-integration-error-handling',
           },
           {
@@ -128,12 +128,12 @@ const navigation = [
             path: '/guides/initiating-refunds',
           },
           {
-            title: 'Payment Request Line Items',
-            path: '/guides/payment-request-line-items',
+            title: 'Line Items',
+            path: '/guides/line-items',
           },
           {
-            title: 'Merchant Payment Conditions',
-            path: '/guides/merchant-payment-conditions',
+            title: 'Payment Conditions',
+            path: '/guides/payment-conditions',
           },
           {
             title: 'Requesting Pre Auth',
@@ -157,7 +157,7 @@ const navigation = [
         path: '/connections/farmlands',
         children: [
           {
-            title: 'Farmlands POS Integration Guide',
+            title: 'POS Integration Guide',
             path: '/guides/farmlands-pos-integration',
           }
         ]
@@ -173,11 +173,11 @@ const navigation = [
 
 const urlToActiveNav = {
   '/guides/farmlands-pos-integration': '/connections/farmlands/farmlands-pos-integration',
-  '/guides/merchant-payment-conditions': '/reference/merchant-integrations/merchant-payment-conditions',
+  '/guides/payment-conditions': '/reference/merchant-integrations/payment-conditions',
   '/guides/requesting-pre-auth': '/reference/merchant-integrations/requesting-pre-auth',
   '/guides/patron-not-present': '/reference/merchant-integrations/patron-not-present',
   '/guides/merchant-integration-error-handling': '/reference/merchant-integrations/merchant-integration-error-handling',
-  '/guides/payment-request-line-items': '/reference/merchant-integrations/payment-request-line-items',
+  '/guides/line-items': '/reference/merchant-integrations/line-items',
   '/guides/initiating-refunds': '/reference/merchant-integrations/initiating-refunds',
   '/guides/point-of-sale': '/reference/merchant-integrations/point-of-sale',
   '/guides/merchant-integration-qr-code-flow': '/reference/merchant-integrations/merchant-integration-qr-code-flow',

@@ -1,18 +1,18 @@
 ---
-title: Merchant Payment Conditions
+title: Payment Conditions
 ---
 
 Some [Asset Types](https://docs.centrapay.com/api/asset-types) such as tokens or closed-loop cards may require conditional operator approval. Merchant integrations are required to support [Payment Conditions](https://docs.centrapay.com/api/payment-requests#payment-condition) for these asset types in order for them to be accepted for payment.
 
-Examples of Merchant Payment Conditions include:
+Examples of Payment Conditions include:
 
 - The merchant needs to confirm proof of identification for age-restricted purchases.
 - The merchant needs to confirm that a promotional item was purchased.
 - The patron needs to confirm the payment from their Centrapay integrated app.
 
-## Payment Conditions Flow
+## Implementation
 
-In order to support Merchant Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true.
+In order to support Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true.
 
 The example flow below assumes that the merchant integration has first connected with the Patron when [Requesting Payment](/guides/requesting-payment) using the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
 
@@ -44,8 +44,6 @@ sequenceDiagram
 	note over Patron: ✅ Display Successful Payment
 ```
 
-## How to Handle Payment Conditions
-
 When Payment Conditions are present on a [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request), merchant integrations and consumer apps need to negotiate them with their respective parties using the `status` of each condition.
 
 1. **Prompt**
@@ -62,7 +60,7 @@ When Payment Conditions are present on a [Payment Request](https://docs.centrapa
 
 3. **Repeat** the above steps when polling shows conditions have changed.
 
-## Additional Payment Condition Behaviours
+## Additional Behaviours
 
 The payment request status must always be polled after [accepting](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [declining](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) a condition as these actions may trigger the additional behaviours below.
 

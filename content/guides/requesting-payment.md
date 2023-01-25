@@ -14,7 +14,7 @@ In order to [create a Payment Request](https://docs.centrapay.com/api/payment-re
 1. [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow)
 2. [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow)
 
-### Required Fields When Creating a Payment Request
+### Required Fields
 
 We require compliant integrations to provide the following optional fields when creating a Payment Request.
 
@@ -24,7 +24,7 @@ We require compliant integrations to provide the following optional fields when 
 | `terminalId`        | The logical identifier of the terminal. Useful for auditing and debugging.                                                                                            |
 | `deviceId`          | The hardware identifier of the terminal. Useful for auditing and debugging.                                                                                           |
 | `patronNotPresent`  | This flag indicates whether a Patron is physically present at the point of sale. Setting this flag can change the liability for some asset types.                     |
-| `conditionsEnabled` | The flag which indicates [Merchant Payment Conditions](/guides/merchant-payment-conditions) are supported.                                                            |
+| `conditionsEnabled` | The flag which indicates [Payment Conditions](/guides/payment-conditions) are supported.                                                            |
 
 ### Short Codes
 Payment Requests have a short code that is human- and OCR-friendly. Short codes are recycled every two years. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
@@ -55,7 +55,7 @@ sequenceDiagram
 
 | Payment Request Status |                                              Integrator Behaviour                                               |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------- |
-| new                    | Check for [Merchant Payment Conditions](/guides/merchant-payment-conditions) then poll again for status change. |
+| new                    | Check for [Payment Conditions](/guides/payment-conditions) then poll again for status change. |
 | paid                   | Show Confirmation. Stop polling.                                                                                |
 | expired                | Show payment timed-out message. Stop polling.                                                                   |
 | cancelled              | Show cancellation reason. Stop polling.                                                                         |
@@ -63,9 +63,9 @@ sequenceDiagram
 ## Protocol Extensions
 
 Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
-- [Merchant Payment Conditions](/guides/merchant-payment-conditions)
+- [Line Items](/guides/line-items)
+- [Payment Conditions](/guides/payment-conditions)
 - [Requesting Pre Auth](/guides/requesting-pre-auth)
-- [Payment Request Line Items](/guides/payment-request-line-items)
 - [Patron Not Present](/guides/patron-not-present)
 
 ## Handling Payment Errors

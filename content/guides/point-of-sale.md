@@ -18,8 +18,10 @@ The POS authenticates against Centrapay APIs using a single “merchant terminal
 
 ### Optional Protocol Extensions
 
-- [Payment Request Line Items](/guides/payment-request-line-items)
-- [Merchant Payment Conditions](/guides/merchant-payment-conditions)
+Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+
+- [Line Items](/guides/line-items)
+- [Payment Conditions](/guides/payment-conditions)
 - [Requesting Pre Auth](/guides/requesting-pre-auth)
 - [Patron Not Present](/guides/patron-not-present)
 

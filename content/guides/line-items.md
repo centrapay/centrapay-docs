@@ -1,5 +1,5 @@
 ---
-title: Payment Request Line Items
+title: Line Items
 ---
 
 [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a Patron.
