@@ -3,7 +3,7 @@ title: Farmlands POS Integration Guide
 img: /farmlands-pos-integration-cover.jpg
 ---
 
-Centrapay and Farmlands have entered into a partnership that will allow Farmlands Card Partners to accept the Farmlands Card for payment at the point of sale. The benefits include real-time standard industry card checks, elimination of reconciliation EDI files or manual PDF invoicing, and it unlocks the ability to accept many more payment methods on the Centrapay platform. This solution positions Card Partners to be able to accept digital Farmlands Card payments in the future.
+Centrapay and Farmlands have entered into a partnership to allow Farmlands Card Partners to accept Farmlands Card payments at the point of sale. The benefits include real-time standard industry card checks, the elimination of reconciliation EDI files or manual PDF invoicing, and it unlocks the ability to accept many more payment methods on the Centrapay platform. This solution positions Card Partners to be able to accept digital Farmlands Card payments in the future.
 
 Farmlands Card Partners need to be approved by Farmlands prior to enabling the Farmlands Card as a payment option through the Centrapay integration. Contact your Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
 
@@ -50,6 +50,8 @@ sequenceDiagram
 ```
 
 1. The Farmlands Cardholder presents their Farmlands Card for payment. The cashier at the point of sale will scan the Barcode or manually enter the 9-digit Farmlands Card number.
+
+    > The Card number is under the Cardholder’s name on the front of the card; and under the barcode on the back of the card.
 
 <img src="/farmlands-card.png" alt="The back of an example Farmlands card, displaying a barcode and a 9-digit card number" style="height: 288px;"/>
 
@@ -305,7 +307,7 @@ sequenceDiagram
 
 ## Implementing the Payment Flow for Farmlands
 
-Implementing the Farmlands Payment Flow involves several steps in order to allow Card Partners to accept Farmlands transactions. The Farmlands Payment Flow can only be used by existing Farmlands Card Partners that have been approved by Farmlands.
+The Farmlands Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
 
 1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
 2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
@@ -337,7 +339,6 @@ curl https://service.centrapay.com/api/account-memberships \
 
 The Farmlands Payment Flow needs the following requirements to be met.
 
-- Card Partners MUST not accept a photograph or representation of the Card on a non-Farmlands app (e.g.Stocard).
 - Card Partners MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 - Card Partners MUST support [Merchant Payment Conditions](#merchant-payment-conditions).
 - The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Merchant Payment Conditions.
@@ -751,7 +752,7 @@ Note over POS: ✅ Display Release confirmation
 
 ### Cardholder Not Present
 
-Farmlands Card Partners must support this extension if they accept payments when the Cardholder is not physically present when a [Pre Auth](#pre-auth) payment is authorised. For example, to accept phone-based orders or orders where the Farmlands barcode is already known.
+Farmlands Card Partners must support this extension if they accept payments when the Cardholder is not physically present when a payment is authorised. For example, to accept phone-based orders or orders where the Farmlands barcode is already known.
 
 Please refer to your Farmlands Card Partner Acceptance Terms and Conditions to understand the risks involved with these transactions.
 
@@ -907,11 +908,13 @@ sequenceDiagram
 
 Short codes can be used for [initiating refunds](#refunds) by making them available to the Cardholder on a paper printout.
 
+Card Partners should store the short code for each transaction. This helps with reconciliation if a transaction query occurs.
+
 > Some [Payment Activities](https://docs.centrapay.com/api/payment-requests#payment-activity-experimental) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
 
 ## Testing Your Integration
 
-Merchant Integrators need to work with Farmlands and Centrapay to get set up to test payments. Please contact Farmlands to organise full end-to-end testing. This process is expected to take up to 6 weeks.
+Merchant Integrators need to work with Farmlands and Centrapay to get set up to test payments. Please contact Farmlands to organise full end-to-end testing.
 
 You need to go through the following steps in order to test your integration in a test environment:
 
@@ -940,7 +943,6 @@ The Certification Process includes checking that Farmlands POS integrators are m
 
 **Barcode Flow Requirements**
 
-- Card Partners MUST not accept a photograph or representation of the Card on a non-Farmlands app (e.g.Stocard).
 - The POS MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 - The POS MUST provide an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
 - [Merchant Payment Conditions](#merchant-payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.

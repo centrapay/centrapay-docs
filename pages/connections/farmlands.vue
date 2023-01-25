@@ -56,7 +56,7 @@
           In partnership with Centrapay, Farmlands now offer Card Partners two new digital ways to accept and reconcile Farmlands Card payments. There are no additional costs to Card Partners to utilise these new digital tools provided by Centrapay.
         </p>
         <p class="mt-8">
-          Whether your business needs a solution fully-integrated with your retail point-of-sale system, or just access to a secure web portal to take payments anytime, anywhere - there is now an option for you.
+          Whether your business needs a solution fully-integrated with your retail point-of-sale system, or just access to a secure web portal to authorise payments anytime, anywhere - there is now an option for you.
         </p>
         <div class="m-auto max-w-[450px] pt-4 pb-3">
           <img
@@ -81,7 +81,7 @@
             class="max-w-l"
             image-src="/farmlands-portal-background.png"
             title="2. Portal"
-            description="A secure web portal for Farmlands Card payments. This option is for Card Partners that do not require integration with their retail Point-Of-Sale system."
+            description="A secure web portal to authorise Farmlands Card payments. This option is for Card Partners that do not require integration with their retail Point-Of-Sale system."
             button-url=""
             :link="{
               text: 'Portal Introduction Guide',
