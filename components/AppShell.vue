@@ -71,7 +71,7 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden border-t md:fixed md:h-full md:inset-y-16 md:flex md:w-64 xl:w-80 md:flex-col">
+    <div class="hidden md:fixed md:h-full md:inset-y-16 md:flex md:w-64 xl:w-80 md:flex-col">
       <div class="flex flex-grow flex-col overflow-y-auto pt-5 border-r border-gray-200 bg-white">
         <div class="flex flex-grow flex-col">
           <nav
