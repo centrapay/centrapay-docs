@@ -1,7 +1,7 @@
 <template>
   <div>
     <header
-      class="bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('~/assets/images/countryside.jpg')]"
+      class="not-prose bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('~/assets/images/countryside.jpg')]"
     >
       <Prose class="desktop-gutters px-8 py-16 space-y-6">
         <h1 class="type-display text-content-inverse-primary mb-8 mt-4">
