@@ -16,21 +16,6 @@ const tailwindConfig = {
         ...colors.light,
         current: 'currentColor',
       },
-      maxWidth: {
-        '8xl': '88rem',
-      },
-      typography: (theme) => ({
-        DEFAULT: {
-          css: {
-            'h2 > a, h3 > a': {
-              color: colors.light['content-primary'],
-              '&:hover': {
-                textDecorationLine: 'none',
-              },
-            },
-          },
-        },
-      }),
     },
   },
   plugins: [
