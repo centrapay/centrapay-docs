@@ -40,4 +40,7 @@
 
 <script setup>
 const config = useRuntimeConfig();
+useHead({
+  title: 'Centrapay Docs'
+});
 </script>

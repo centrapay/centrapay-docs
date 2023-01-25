@@ -19,6 +19,7 @@
 
 <script setup>
 useHead({
+  titleTemplate: (titleChunk) => titleChunk === 'Centrapay Docs' ? titleChunk : `${titleChunk} - Centrapay Docs`,
   script: [
     {
       innerHTML: `

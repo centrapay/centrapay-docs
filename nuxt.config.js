@@ -33,7 +33,6 @@ export default defineNuxtConfig({
   app: {
     buildAssetsDir: '/nuxt/',
     head: {
-      title: 'Centrapay Docs',
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'},

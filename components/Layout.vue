@@ -144,6 +144,29 @@ onUnmounted(() => {
 function handleTocClick (headingId) {
   visibleHeadingId.value = headingId;
 };
+
+if(imageSrc) {
+  useHead({
+    meta: [
+      {
+        property: 'og:image',
+        content: imageSrc,
+      },
+      {
+        property: 'og:image:width',
+        content: '1200'
+      },
+      {
+        property: 'og:image:height',
+        content: '630'
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+    ],
+  });
+}
 </script>
 
 <style>
