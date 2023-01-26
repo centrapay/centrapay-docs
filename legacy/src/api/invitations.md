@@ -50,6 +50,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | Field |  Type  |                                                                              Description                                                                              |
 | :---- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | role  | String | The role that will be assigned to the account. Supported values are `account-owner`, `cashier`. Required when [Invitation](#invitation) type is `account-membership`. |
+| accountName  | String | The name of the business inviting a new member. Required when [Invitation](#invitation) type is `account-membership`. |
 
 ## Operations
 
