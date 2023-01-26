@@ -1,0 +1,1 @@
+import{h as o,o as s,b as r,a as t,r as n}from"./entry.b1928dfe.js";const a={},c={class:"not-prose rounded-md bg-surface-secondary border border-outline-opaque px-[3px] pb-[1px]"},d={class:"text-content-primary text-sm font-normal"};function l(e,p){return s(),r("span",c,[t("code",d,[n(e.$slots,"default")])])}const f=o(a,[["render",l]]);export{f as default};
