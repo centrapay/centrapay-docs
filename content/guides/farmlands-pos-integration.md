@@ -885,7 +885,7 @@ sequenceDiagram
       "assetType": "farmlands.nzd.main",
       "createdAt": "2021-06-12T01:17:00.000Z",
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423"
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
       "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
       "merchantConfigId": "5ee168e8597be5002af7b454",
       "merchantId": "5ee0c486308f590260d9a07f",
@@ -897,7 +897,7 @@ sequenceDiagram
       "value": {
         "currency": "NZD",
         "amount": "100"
-      },
+      }
     }
     ```
 
