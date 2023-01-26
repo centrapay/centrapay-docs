@@ -1,7 +1,7 @@
 <template>
   <div>
     <header
-      class="not-prose bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('~/assets/images/countryside.jpg')]"
+      class="not-prose bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('/countryside.jpg')]"
     >
       <Prose class="desktop-gutters px-8 py-16 space-y-6">
         <h1 class="type-display text-content-inverse-primary mb-8 mt-4">
@@ -103,9 +103,28 @@ const externalNavigation = [
 ];
 
 useHead({
-  title: 'Connections - Farmlands',
+  title: 'Farmlands',
   meta: [
-    { name: 'Farmlands Merchants - How to integrate with Centrapay', description: 'Farmlands has partnered with Centrapay to provide new ways for your business to accept Farmlands Cards faster, easier and more securely than ever.' }
+    {
+      name: 'description',
+      content: 'Farmlands has partnered with Centrapay to provide new ways for your business to accept Farmlands Cards faster, easier and more securely than ever.',
+    },
+    {
+      property: 'og:image',
+      content: '/countryside.jpg',
+    },
+    {
+      property: 'og:image:width',
+      content: '1200'
+    },
+    {
+      property: 'og:image:height',
+      content: '630'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
   ],
 });
 </script>
