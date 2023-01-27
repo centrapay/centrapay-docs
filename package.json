@@ -11,6 +11,7 @@
     "@babel/eslint-plugin": "^7.14.5",
     "@mdx-js/mdx": "^2.2.1",
     "@nuxt/content": "^2.1.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.8",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -37,6 +38,7 @@
     "vfile": "^5.3.6"
   },
   "dependencies": {
-    "@headlessui/vue": "1.6.0"
+    "@headlessui/vue": "1.6.0",
+    "flexsearch": "^0.7.31"
   }
 }

@@ -30,6 +30,8 @@
       </Dialog>
     </TransitionRoot>
 
+    <CommandPalette />
+
     <div class="fixed bg-white inset-x-0 z-10 flex h-16 flex-shrink-0 shadow">
       <div class="flex w-full justify-between">
         <div class="flex items-center">
@@ -91,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import {
   Dialog,

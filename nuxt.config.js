@@ -1,3 +1,5 @@
+import createIndex from './scripts/create-flexsearch-index.mjs';
+
 export default defineNuxtConfig({
   components: {
     'dirs': [
@@ -55,5 +57,8 @@ export default defineNuxtConfig({
     public: {
       baseUrl: process.env.ENV === 'development' ? 'http://0.0.0.0:4000' : 'https://docs.centrapay.com'
     }
+  },
+  vite: {
+    plugins: [createIndex]
   }
 });

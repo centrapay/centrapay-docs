@@ -10,6 +10,10 @@ import { createProcessor } from '@mdx-js/mdx';
 import { toString } from 'mdast-util-to-string';
 import { findAfter } from 'unist-util-find-after';
 
+function hrefFromFilepath(filepath) {
+  return `/${filepath.replace(/(content\/|\.md(x)?)/g, '')}`;
+}
+
 function remarkExtractSections() {
   return (tree, file, done) => {
     const data = this.data();
@@ -18,15 +22,14 @@ function remarkExtractSections() {
       const vFile = new VFile(file);
       const id = title.toLocaleLowerCase().replace(/\s/g, '-');
       const description = toString(findAfter(tree, node, 'paragraph'));
-      const href = `${vFile.path.replace(/(content\/|\.md(x)?)/g, '')}#${id}`;
+      const href = `${hrefFromFilepath(vFile.path)}#${id}`;
 
       data.sections.push({
         href,
         title,
         description,
       });
-    }
-    );
+    });
     done();
   };
 }
@@ -40,13 +43,14 @@ async function main() {
     compiler.data('sections', [{
       title: frontMatter.title,
       description: frontMatter.description,
-      href: path.replace(/content\//, '').replace(/\.md(x)?/, ''),
+      href: hrefFromFilepath(path),
     }]);
     await compiler.process({ value: content, path });
     sections.push(...compiler.data('sections'));
   }
 
-  await fs.writeFile('data.json', JSON.stringify(sections));
+  await fs.mkdir('assets/js', { recursive: true });
+  await fs.writeFile('assets/js/data.json', JSON.stringify(sections));
 }
 
 main()
