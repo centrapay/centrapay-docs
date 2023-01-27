@@ -47,10 +47,10 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ### Params
 
-| Field |  Type  |                                                                              Description                                                                              |
-| :---- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| role  | String | The role that will be assigned to the account. Supported values are `account-owner`, `cashier`. Required when [Invitation](#invitation) type is `account-membership`. |
-| accountName  | String | The name of the business that is inviting a new member. Used when creating a new account membership |
+|    Field    |  Type  |                                              Description                                               |
+| :---------- | :----- | :----------------------------------------------------------------------------------------------------- |
+| role        | String | The role assigned to the recipient, for invitations of type `account-membership`.                      |
+| accountName | String | The name of the account that the recipient is invited to, for invitations of type `account-membership` |
 
 ## Operations
 
@@ -72,13 +72,14 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 {% h4 Required Fields %}
 
-|     Field      |        Type        |                               Description                                            |
-| :------------- | :----------------- | :----------------------------------------------------------------------------------- |
-| type           | String             | The type of invitation. Supported values are `account-membership`.                   |
-| resourceId     | String             | The id of the related resource.                                                      |
-| resourceType   | String             | The type of the related resource. Supported values are `account`.                    |
-| recipientAlias | String             | The email address of the user accepting the Invitation.                              |
-| params         | Object             | [Params](#params) depending on the Invitation type.                                  |
+|     Field      |  Type  |                                 Description                                 |
+| :------------- | :----- | :-------------------------------------------------------------------------- |
+| type           | String | The type of invitation. Supported values are `account-membership`.          |
+| resourceId     | String | The id of the related resource.                                             |
+| resourceType   | String | The type of the related resource. Supported values are `account`.           |
+| recipientAlias | String | The email address of the user accepting the Invitation.                     |
+| params         | Object | [Params](#params) depending on the Invitation type.                         |
+| role           | String | The role that will be assigned to the user when the Invitation is accepted. |
 
 {% h4 Example response payload %}
 
