@@ -50,7 +50,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | Field |  Type  |                                                                              Description                                                                              |
 | :---- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | role  | String | The role that will be assigned to the account. Supported values are `account-owner`, `cashier`. Required when [Invitation](#invitation) type is `account-membership`. |
-| accountName  | String | The name of the business inviting a new member. Required when [Invitation](#invitation) type is `account-membership`. |
+| accountName  | String | The name of the business that is inviting a new member. Used when creating a new account membership |
 
 ## Operations
 
@@ -96,7 +96,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "recipientAlias": "user@org.com",
   "params": {
-		"role": "cashier"
+		"role": "cashier",
+    "accountName": "Centrapay Cafe"
 	}
 }
 {% endjson %}
@@ -157,7 +158,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
       "recipientAlias": "user@org.com",
       "params": {
-        "role": "account-owner"
+        "role": "account-owner",
+        "accountName": "Centrapay Cafe"
       }
     },
     {
@@ -173,7 +175,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
       "recipientAlias": "john.doe@org.com",
       "params": {
-        "role": "cashier"
+        "role": "cashier",
+        "accountName": "Centrapay Tea Warehouse"
       }
     },
   ]
