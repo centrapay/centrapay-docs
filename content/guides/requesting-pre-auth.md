@@ -1,5 +1,8 @@
 ---
 title: Requesting Pre Auth
+nav:
+  path: Reference/Merchant Integrations
+  order: 10
 ---
 
 Centrapay’s Pre Auth extension allows a patron to authorize payment up to a limit when the actual payment amount is not yet known.

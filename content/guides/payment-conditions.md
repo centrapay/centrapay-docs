@@ -1,5 +1,8 @@
 ---
 title: Payment Conditions
+nav:
+  path: Reference/Merchant Integrations
+  order: 9
 ---
 
 Some [Asset Types](https://docs.centrapay.com/api/asset-types) such as tokens or closed-loop cards may require conditional operator approval. Merchant integrations are required to support [Payment Conditions](https://docs.centrapay.com/api/payment-requests#payment-condition) for these asset types in order for them to be accepted for payment.
