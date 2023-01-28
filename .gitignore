@@ -17,3 +17,6 @@ _site
 
 # vim
 *.sw[a-p]
+
+# flexsearch index data
+assets/js/data.json

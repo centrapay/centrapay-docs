@@ -8,7 +8,7 @@
       <Dialog
         as="div"
         class="relative z-10"
-        @close="closeModal"
+        @close="$emit('close')"
       >
         <TransitionChild
           as="template"
@@ -22,14 +22,15 @@
           <div class="fixed inset-0 bg-black bg-opacity-25" />
         </TransitionChild>
         <div class="fixed inset-0 overflow-y-auto">
-          <div class="flex justify-center p-4 mt-[15vh] mx-auto max-w-xl">
+          <DialogPanel class="flex justify-center p-4 mt-[15vh] mx-auto max-w-xl">
             <Combobox v-model="selected">
               <div class="relative mt-1 w-full">
                 <div
-                  class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
+                  class="relative flex items-center w-full p-squish-2 space-x-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
                 >
+                  <Search class="w-6 flex-grow" />
                   <ComboboxInput
-                    class="w-full border-none py-2 px-10 text-sm leading-5 text-gray-900 focus:ring-0 ring-0"
+                    class="w-full border-none text-sm leading-5 text-gray-900 outline-none"
                     placeholder="Search..."
                     @change="query = $event.target.value"
                   />
@@ -58,16 +59,13 @@
                       :value="result"
                     >
                       <li
-                        class="relative cursor-default select-none py-2 px-10"
+                        class="relative cursor-default select-none py-2 px-4"
                         :class="{
                           'bg-teal-600 text-white': active,
                           'text-gray-900': !active,
                         }"
                       >
-                        <NuxtLink
-                          :to="result.href"
-                          @click="closeModal"
-                        >
+                        <NuxtLink :to="result.href">
                           <span class="block truncate font-semibold">
                             {{ result.title }}
                           </span>
@@ -81,7 +79,7 @@
                 </TransitionRoot>
               </div>
             </Combobox>
-          </div>
+          </DialogPanel>
         </div>
       </Dialog>
     </TransitionRoot>
@@ -93,6 +91,7 @@ import {
   TransitionRoot,
   TransitionChild,
   Dialog,
+  DialogPanel,
   Combobox,
   ComboboxInput,
   ComboboxOptions,
@@ -112,14 +111,18 @@ const index = new Document({
 const router = useRouter();
 
 const query = ref('');
-const isOpen = ref(false);
 const selected = ref(undefined);
+
+const { isOpen } = defineProps({
+  isOpen: Boolean,
+});
+
+const emit = defineEmits(['close']);
 
 const results = computed(() => {
   if (query.value === '') {
     return [];
   }
-
 
   const searchResults = index.search(query.value);
   const hrefs = new Set(searchResults.map(r => r.result).flat());
@@ -137,26 +140,12 @@ const results = computed(() => {
 onMounted(async () => {
   sections = (await import('../assets/js/data.json')).default;
   sections.forEach(section => index.add(section));
-  window.addEventListener('keydown', onKeyDown);
 });
-
-onUnmounted(() => window.removeEventListener('keydown', onKeyDown));
 
 watch(selected, async () => {
   if (selected.value) {
-    closeModal();
+    emit('close');
     await router.push(selected.value.href);
   }
 });
-
-function closeModal() {
-  isOpen.value = false;
-}
-
-function onKeyDown(event) {
-  if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-    isOpen.value = !isOpen.value;
-    event.preventDefault();
-  }
-}
 </script>

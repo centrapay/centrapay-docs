@@ -30,7 +30,11 @@
       </Dialog>
     </TransitionRoot>
 
-    <CommandPalette />
+    <LazyCommandPalette
+      v-if="isOpen"
+      :is-open="isOpen"
+      @close="closeCommandPalette"
+    />
 
     <div class="fixed bg-white inset-x-0 z-10 flex h-16 flex-shrink-0 shadow">
       <div class="flex w-full justify-between">
@@ -109,5 +113,20 @@ import {
   DisclosurePanel,
 } from '@headlessui/vue';
 
+const isOpen = ref(false);
 const mainMenuOpen = ref(false);
+
+onMounted(() => window.addEventListener('keydown', onKeyDown));
+onUnmounted(() => window.removeEventListener('keydown', onKeyDown));
+
+function onKeyDown(event) {
+  if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+    isOpen.value = !isOpen.value;
+    event.preventDefault();
+  }
+}
+
+function closeCommandPalette() {
+  isOpen.value = false;
+}
 </script>
