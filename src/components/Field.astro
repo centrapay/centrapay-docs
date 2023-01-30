@@ -1,0 +1,27 @@
+---
+const {name, type} = Astro.props;
+---
+<li class="m-0 px-0 py-4 [&>:first-child]:pt-0 [&>:last-child]:pb-0">
+  <dl class="not-prose m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
+    <dt class="sr-only">
+      Name
+    </dt>
+    <dd class="py-1 prose-code:rounded-none">
+      <code>
+        {name}
+      </code>
+    </dd>
+    <dt class="sr-only">
+      Type
+    </dt>
+    <dd class="text-zinc-400">
+      {type}
+    </dd>
+    <dt class="sr-only">
+      Description
+    </dt>
+    <dd class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+      <slot />
+    </dd>
+  </dl>
+</li>

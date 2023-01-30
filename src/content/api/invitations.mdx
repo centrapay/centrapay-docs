@@ -1,0 +1,234 @@
+---
+title: Invitations
+img: /farmlands-pos-integration-cover.jpg
+description: An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+nav:
+  path: Reference/Digital Assets
+  order: 1
+---
+import ApiSection from '../../components/ApiSection.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Field from '../../components/Field.astro';
+
+An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+
+## Models
+
+### Invitation
+<ApiSection>
+<div slot="fields">
+  <Field name="id" type="string">
+    The Invitation’s unique identifier.
+  </Field>
+
+  <Field name="code" type="string">
+    The Invitation code.
+  </Field>
+
+  <Field name="type" type="string">
+    The type of invitation. Supported values are `kete-enrolment`, `account-membership`.
+  </Field>
+
+  <Field name="resourceId" type="string">
+    The id of the related resource.
+  </Field>
+
+  <Field name="resourceType" type="string">
+    The type of the related resource. Supported values are `integration`, `account`.
+  </Field>
+
+  <Field name="expiresAt" type="Timestamp">
+    When the Invitation expires.
+  </Field>
+
+  <Field name="createdAt" type="Timestamp">
+    When the Invitation was created.
+  </Field>
+
+  <Field name="createdBy" type="CRN">
+    The User or API Key that created the Invitation.
+  </Field>
+
+  <Field name="updatedAt" type="Timestamp">
+    When the Invitation was updated.
+  </Field>
+
+  <Field name="updatedBy" type="CRN">
+    The User or API Key that updated the Invitation.
+  </Field>
+
+  <Field name="accepted" type="boolean">
+    A flag indicating whether the Invitation has been accepted.
+  </Field>
+
+  <Field name="acceptedAt" type="Timestamp">
+    When the Invitation was accepted.
+  </Field>
+
+  <Field name="acceptedBy" type="CRN">
+    The User or API Key that accepted the Invitation.
+  </Field>
+
+  <Field name="acceptedByAccountId" type="string">
+    The [Account](https://docs.centrapay.com/api/accounts) ID of the user accepting the Invitation.
+  </Field>
+
+  <Field name="recipientAlias" type="string">
+    The email address of the user accepting the Invitation.
+  </Field>
+
+  <Field name="params" type="Object">
+    [Params](#params) dependent on the Invitation type.
+  </Field>
+
+  ### Params
+  <Field name="role" type="string">
+    The role assigned to the recipient, for invitations of type `account-membership`.
+  </Field>
+
+  <Field name="accountName" type="string">
+    The name of the account that the recipient is invited to, for invitations of type `account-membership`.
+  </Field>
+</div>
+
+<div slot="example">
+```json
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "code": "WIj211vFs9cNACwBb04vQw",
+  "type": "kete-enrolment",
+  "resourceId": "5ee0c486308f590260d9a07f",
+  "resourceType": "integration",
+  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "createdAt": "2021-08-25T00:02:49.488Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "accepted": true,
+  "acceptedAt": "2021-08-25T10:12:22.122Z",
+  "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
+  "acceptedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+  "updatedAt": "2021-08-25T10:12:22.122Z",
+  "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
+}
+```
+</div>
+</ApiSection>
+
+## Operations
+
+<Eyebrow method="POST" route="/api/invitations"/>
+### Create an Invitation
+
+<ApiSection>
+Creates an Invitation resource.
+
+<div slot="fields">
+  <Field name="type" type="string">
+    The type of invitation. Supported values are `kete-enrolment`, `account-membership`.
+  </Field>
+
+  <Field name="resourceId" type="string">
+    The id of the related resource.
+  </Field>
+
+  <Field name="resourceType" type="string">
+    The type of the related resource. Supported values are `integration`, `account`.
+  </Field>
+
+  <Field name="recipientAlias" type="string">
+    The email address of the user accepting the Invitation.
+  </Field>
+
+  <Field name="params" type="Object">
+    [Params](#params) dependent on the Invitation type.
+  </Field>
+
+  <Field name="role" type="string">
+    The role assigned to the recipient, for invitations of type `account-membership`.
+  </Field>
+</div>
+
+<div slot="example">
+  ```bash
+  curl -X POST https://service.centrapay.com/api/invitations \
+    -H "X-Api-Key: $api_key" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "type": "account-membership",
+      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+      "resourceType": "account",
+      "recipientAlias": "user@org.com",
+      "params": {
+        "role": "cashier"
+      }
+    }'
+  ```
+  ```json
+  {
+    "id": "DKTs3U38hdhfEqwF1JKoT2",
+    "code": "WIj211vFs9cNACwBb04vQw",
+    "type": "account-membership",
+    "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+    "resourceType": "account",
+    "exipresAt": "2021-08-26T00:02:49.488Z",
+    "createdAt": "2021-08-25T00:02:49.488Z",
+    "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+    "updatedAt": "2021-08-25T00:02:49.488Z",
+    "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+    "recipientAlias": "user@org.com",
+    "params": {
+      "role": "cashier",
+      "accountName": "Centrapay Cafe"
+    }
+  }
+  ```
+</div>
+</ApiSection>
+
+<Eyebrow method="POST" route="/api/invitations/:invitationId/accept" />
+### Accept an Invitation
+
+<ApiSection>
+This endpoint allows you to accept an invitation in order to claim ownership of a Centrapay resource.
+
+<div slot="fields">
+  <Field name="code" type="string">
+    The Invitation code.
+  </Field>
+
+  <Field name="accountId" type="string">
+    The [Account](/api/accounts) ID of the user accepting the Invitation.
+  </Field>
+</div>
+
+<div slot="example">
+```bash
+  POST '/api/invitations/{invitationId}/accept'
+  auth 'api-key'
+  path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
+  body ({
+    code: 'WIj211vFs9cNACwBb04vQw',
+    accountId: 'Jaim1Cu1Q55uooxSens6yk'
+  })
+```
+
+```json
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "code": "WIj211vFs9cNACwBb04vQw",
+  "type": "kete-enrolment",
+  "resourceId": "5ee0c486308f590260d9a07f",
+  "resourceType": "integration",
+  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "createdAt": "2021-08-25T00:02:49.488Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "accepted": true,
+  "acceptedAt": "2021-08-25T10:12:22.122Z",
+  "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
+  "acceptedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+  "updatedAt": "2021-08-25T10:12:22.122Z",
+  "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
+}
+```
+</div>
+</ApiSection>
+

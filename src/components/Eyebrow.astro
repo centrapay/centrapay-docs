@@ -1,0 +1,10 @@
+---
+import EndpointTag from "./EndpointTag.astro";
+
+const {method, route} = Astro.props;
+---
+<div class="not-prose mt-8 flex items-center gap-x-3">
+  <EndpointTag tag={method} />
+  <span class="h-0.5 w-0.5 rounded-full bg-zinc-300 dark:bg-zinc-600" />
+  <code class="font-mono text-xs text-zinc-400">{route}</code>
+</div>

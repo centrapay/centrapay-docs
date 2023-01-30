@@ -1,0 +1,23 @@
+<div>
+  <div class="grid grid-cols-1 items-start gap-x-16 gap-y-10 xl:max-w-none xl:grid-cols-2">
+    <div
+      class="[&>:first-child]:mt-0 [&>:last-child]:mb-0"
+    >
+      <slot />
+      <div class="my-6">
+        <ul
+          role="list"
+          class="m-0 max-w-full list-none divide-y divide-zinc-900/5 p-0"
+        >
+          <slot name="fields" />
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="[&>:first-child]:mt-0 [&>:last-child]:mb-0 xl:sticky xl:top-24"
+    >
+      <slot name="example" />
+    </div>
+  </div>
+</div>
