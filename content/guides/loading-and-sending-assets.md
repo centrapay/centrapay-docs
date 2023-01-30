@@ -1,62 +1,49 @@
 ---
-layout: default
-parent: Guides
-title: Loading & Sending Assets
-permalink: /guides/loading-and-sending-assets
+title: Loading and Sending Assets
+description: Issue and distribute Centrapay Assets such as Giftcards or Tokens to users via SMS.
+nav:
+  path: Reference/Digital Assets
+  order: 2
 ---
 
-# Loading and Sending Assets
-
-[Assets][] such as Giftcards or Tokens can be issued by a Centrapay Account and then distributed to
-another Centrapay user's phone number via SMS.
-
-## Contents
-{:.no_toc .text-delta}
-
-* TOC
-{:toc}
+[Assets](https://docs.centrapay.com/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account and then distributed to another Centrapay user’s phone number via SMS.
 
 ## Loading Giftcards
 
-You can load Giftcards by calling our [External Assets] endpoint. You will need to use the giftcard
-number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
+You can load Giftcards by calling our [External Assets](https://docs.centrapay.com/api/external-assets) endpoint. You will need to use the giftcard number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
 
 If your asset type is not included on the list, contact [integrations@centrapay.com](mailto:integrations@centrapay.com).
 
 ## Sending Assets
 
-You can send Assets such as Tokens and Giftcards by calling our [Asset Transfers][] endpoint.
-You will need to have the recipient's phone number for `recipientAlias` to identify the reciever.
+You can send Assets such as Tokens and Giftcards by calling our [Asset Transfers](https://docs.centrapay.com/api/asset-transfers#asset-transfer-create) endpoint. You will need to have the recipient’s phone number for `recipientAlias` to identify the reciever.
 
-Optionally the `senderAlias` field can be used if you're loading an asset on behalf of someone else.
-If the `recipientAlias` doesn't end up creating a Centrapay account, then it will be sent to this
-number.
+Optionally the `senderAlias` field can be used if you’re loading an asset on behalf of someone else. If the `recipientAlias` doesn’t end up creating a Centrapay account, then it will be sent to this number.
 
 ## Example: Bulk distribution of Giftcards
 
-Sometimes you might want to load and distribute Giftcards to a large number of recipients. This
-requires some scripting, but this is not hard. We can do this with:
+Sometimes you might want to load and distribute Giftcards to a large number of recipients. This requires some scripting, but this is not hard. We can do this with:
 
-* A CSV to manage Giftcards to load
-* A script to load and send Giftcards
+- A CSV to manage Giftcards to load
+- A script to load and send Giftcards
 
-Here's an example of the CSV named `input.csv`:
+Here’s an example of the CSV named `input.csv`:
 
-```
+```bash
 recipientAlias,cardNumber,pin,message
 +64221231234,23403321042,1111,Hello Bob! Here's your giftcard
 +64221231235,23403321042,1111,Hello Alice! Here's your giftcard
 +64221231236,23403321042,1111,Hello Eve! Here's your giftcard
 ```
 
-{% warning Phone numbers must start with +64 %}
+> Phone numbers must start with +64
 
-Here's an example of the script to parse the CSV and send Giftcards. To run this, you will need:
+Here’s an example of the script to parse the CSV and send Giftcards. To run this, you will need:
 
-* Node JS in your environment
-* A copy of [Axios][]{:.external} for HTTP requests
-* An [API Key][] to call our APIs
-* Your [Account id][] for the initial load of each Giftcard
+- Node JS in your environment
+- A copy of [Axios](https://www.npmjs.com/package/axios) for HTTP requests
+- An [API Key](https://docs.centrapay.com/api/api-keys) to call our APIs
+- Your [Account id](https://docs.centrapay.com/api/accounts) for the initial load of each Giftcard
 
 ```javascript
 #!/usr/bin/env node
@@ -144,11 +131,3 @@ run()
   .then(console.log)
   .catch(console.error);
 ```
-
-[Assets]: {% link api/assets/assets.md %}
-[External Assets]: {% link api/assets/external-assets.md %}
-[Asset Transfers]: {% link api/assets/asset-transfers.md %}#asset-transfer-create
-[API Key]: {% link api/api-keys.md %}#asset-transfer-create
-[Account id]: {% link api/accounts/accounts.md %}
-[Account Memberships]: {% link api/accounts/account-memberships.md %}
-[Axios]: https://www.npmjs.com/package/axios

@@ -1,0 +1,25 @@
+---
+title: eCommerce
+description: How to redirect users back to an e-commerce website after paying/cancelling a Centrapay Payment Request.
+nav:
+  path: Reference/Merchant Integrations
+  order: 12
+---
+
+eCommerce websites accepting payments via Centrapay may want to redirect their users back to their website after they pay/cancel the payment request. In order to do this, the eCommerce website must add `allowedRedirectUrls` to it’s [Merchant Config](https://docs.centrapay.com/api/merchant-configs).
+
+After `allowedRedirectUrls` have been added to the Merchant Config, the eCommerce website can simply pass in their `redirectUrl` when creating a [Payment Request](https://docs.centrapay.com/api/payment-requests).
+
+```bash
+curl -X POST https://service.centrapay.com/api/payment-requests \
+  -H "X-Api-Key: $api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "configId": "5efbe2fb96c08357bb2b9242",
+    "value": {
+      "amount": "8991",
+      "currency": "NZD"
+    },
+    "redirectUrl": "https://www.example.com/store/checkout"
+  }'
+```
