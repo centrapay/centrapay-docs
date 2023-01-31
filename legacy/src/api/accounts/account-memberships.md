@@ -29,7 +29,7 @@ A Member contains extended information about an user's access to an account.
 {% h4 Required Fields %}
 
 | Field       | Type   | Description                                              |
-| :-----      | :----- | :------------------------------------------------------  |
+|:------------|:-------|:---------------------------------------------------------|
 | accountId   | String | The id of the [Account][] the Membership is scoped to.   |
 | accountType | String | The type of the [Account][] the Membership is scoped to. |
 | accountName | String | The name of the [Account][] the Membership is scoped to. |
@@ -38,18 +38,17 @@ A Member contains extended information about an user's access to an account.
 
 {% h4 Optional Fields %}
 
-|    Field    |        Type        |                        Description                         |
-| :---------- | :----------------- | :--------------------------------------------------------- |
-| subject     | {% dt CRN %}       | User or API key resource name for the membership.          |
-| createdAt   | {% dt Timestamp %} | When the Membership was created.                           |
-| createdBy   | {% dt CRN %}       | Resource that created the  member.                         |
-| modifiedAt  | {% dt Timestamp %} | When the Membership was last modified.                     |
-| modifiedBy  | {% dt CRN %}       | Resource that last modified the account member.            |
-| version     | {% dt BigNumber %} | Number of times the document has been modified.            |
-| testAccount | Boolean            | A flag which is present if the [Account][] is test         |
-| firstName   | String             | First name of the user the membership belongs to.          |
-| lastName    | String             | Last name of the user the membership belongs to.           |
-| email       | String             | Email of the user the membership belongs to.               |
+| Field       | Type               | Description                                        |
+|:------------|:-------------------|:---------------------------------------------------|
+| subject     | {% dt CRN %}       | User or API key resource name for the membership.  |
+| createdAt   | {% dt Timestamp %} | When the Membership was created.                   |
+| createdBy   | {% dt CRN %}       | Resource that created the  member.                 |
+| modifiedAt  | {% dt Timestamp %} | When the Membership was last modified.             |
+| modifiedBy  | {% dt CRN %}       | Resource that last modified the account member.    |
+| testAccount | Boolean            | A flag which is present if the [Account][] is test |
+| firstName   | String             | First name of the user the membership belongs to.  |
+| lastName    | String             | Last name of the user the membership belongs to.   |
+| email       | String             | Email of the user the membership belongs to.       |
 
 ## Operations
 
@@ -74,10 +73,25 @@ A Member contains extended information about an user's access to an account.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "createdAt": "2020-06-12T01:17:46.499Z",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
-  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "version": "1"
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
+
+### Revoke Member
+
+{% reqspec %}
+  DELETE '/api/accounts/{accountId}/members/{userId}'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  path_param 'userId', '45dwes-rf4h55-tyf45s-6st4gd'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Error Responses %}
+
+| Status |                    Code                    |                          Description                           |
+| :----- | :----------------------------------------- | :------------------------------------------------------------- |
+| 403    | {% break _ CANNOT_REVOKE_OWN_MEMBERSHIP %} | A user cannot revoke their own membership.                     |
+| 403    | {% break _ LAST_OWNER_NOT_REVOKABLE %}     | The last remaining membership to an account cannot be revoked. |
 
 ### List Members
 
