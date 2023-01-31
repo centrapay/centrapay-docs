@@ -10,7 +10,7 @@ Additionally, merchant integrations can opt into protocol extensions when creati
 
 The [Payment Request](https://docs.centrapay.com/api/payment-requests) object is a core part of Centrapay’s payment protocol. It represents the intention of a merchant to receive payment, defines the amount to be paid, and the acceptable [Asset Types](https://docs.centrapay.com/api/asset-types) for payment.
 
-In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the Patron. Centrapay supports 2 different options to connect with Patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
+In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the Patron. Centrapay supports two different options to connect with Patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
 1. [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow)
 2. [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow)
 
