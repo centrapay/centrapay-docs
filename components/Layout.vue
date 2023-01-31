@@ -168,10 +168,3 @@ if(imageSrc) {
   });
 }
 </script>
-
-<style>
-html {
-  @apply
-    scroll-smooth;
-}
-</style>
