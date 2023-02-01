@@ -45,7 +45,6 @@ A Member contains extended information about an user's access to an account.
 | createdBy   | {% dt CRN %}       | Resource that created the  member.                         |
 | modifiedAt  | {% dt Timestamp %} | When the Membership was last modified.                     |
 | modifiedBy  | {% dt CRN %}       | Resource that last modified the account member.            |
-| version     | {% dt BigNumber %} | Number of times the document has been modified.            |
 | testAccount | Boolean            | A flag which is present if the [Account][] is test         |
 | firstName   | String             | First name of the user the membership belongs to.          |
 | lastName    | String             | Last name of the user the membership belongs to.           |
@@ -74,8 +73,7 @@ A Member contains extended information about an user's access to an account.
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "createdAt": "2020-06-12T01:17:46.499Z",
   "modifiedAt": "2020-06-12T01:17:46.499Z",
-  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-  "version": "1"
+  "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 {% endjson %}
 
