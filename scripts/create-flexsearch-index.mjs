@@ -11,7 +11,7 @@ import { toString } from 'mdast-util-to-string';
 import { findAfter } from 'unist-util-find-after';
 
 function hrefFromFilepath(filepath) {
-  return `/${filepath.replace(/(content\/|\.md(x)?)/g, '')}`;
+  return `/${filepath.replace(/(content\/|\.md)/g, '')}`;
 }
 
 function remarkExtractSections() {
@@ -35,7 +35,7 @@ function remarkExtractSections() {
 }
 
 async function main() {
-  const sections = [];
+  const sections = {};
 
   for (const path of await promisify(glob)('content/**/*.md')) {
     const compiler = createProcessor({ remarkPlugins: [remarkExtractSections] });
@@ -46,7 +46,7 @@ async function main() {
       href: hrefFromFilepath(path),
     }]);
     await compiler.process({ value: content, path });
-    sections.push(...compiler.data('sections'));
+    sections[frontMatter.nav.path] = compiler.data('sections');
   }
 
   await fs.mkdir('assets/js', { recursive: true });

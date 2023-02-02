@@ -19,18 +19,16 @@
           leave-from="opacity-100"
           leave-to="opacity-0"
         >
-          <div class="fixed inset-0 bg-black bg-opacity-25" />
+          <div class="fixed inset-0 bg-black bg-opacity-50" />
         </TransitionChild>
-        <div class="fixed inset-0 overflow-y-auto">
-          <DialogPanel class="flex justify-center p-4 mt-[15vh] mx-auto max-w-xl">
+        <div class="fixed inset-0 overflow-y-auto backdrop-blur-sm">
+          <DialogPanel class="flex justify-center p-4 mt-[10vh] mx-auto max-w-xl">
             <Combobox v-model="selected">
               <div class="relative mt-1 w-full">
-                <div
-                  class="relative flex items-center w-full p-squish-2 space-x-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
-                >
-                  <Search class="w-6 flex-grow" />
+                <div class="relative flex items-center w-full p-squish-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                  <Search class="absolute left-4 w-6" />
                   <ComboboxInput
-                    class="w-full border-none text-sm leading-5 text-gray-900 outline-none"
+                    class="w-full pl-8 border-none text-sm leading-5 text-gray-900 outline-none"
                     placeholder="Search..."
                     @change="query = $event.target.value"
                   />
@@ -69,9 +67,33 @@
                           <span class="block truncate font-semibold">
                             {{ result.title }}
                           </span>
-                          <p class="block line-clamp-2">
+                          <p class="block truncate">
                             {{ result.description }}
                           </p>
+                          <div class="mt-2">
+                            <template v-for="(step, idx) in result.path">
+                              <!-- eslint-disable-next-line vue/require-v-for-key -->
+                              <span
+                                class="capitalize"
+                                :class="{
+                                  'text-gray-100': active,
+                                  'text-gray-600': !active,
+                                }"
+                              >
+                                {{ step }}
+                              </span>
+                              <!-- eslint-disable-next-line vue/require-v-for-key -->
+                              <span
+                                v-if="idx < result.path.length - 1"
+                                :class="{
+                                  'text-gray-100': active,
+                                  'text-gray-600': !active,
+                                }"
+                              >
+                                /
+                              </span>
+                            </template>
+                          </div>
                         </NuxtLink>
                       </li>
                     </ComboboxOption>
@@ -101,7 +123,7 @@ import Document from 'flexsearch/src/document';
 
 let sections = [];
 const index = new Document({
-  tokenize: 'forward',
+  tokenize: 'full',
   document: {
     id: 'href',
     index: ['title', 'description'],
@@ -133,12 +155,16 @@ const results = computed(() => {
       href,
       title: section.title,
       description: section.description,
+      path: section.path.split('/').filter(p => p).map(p => p.replace(/-/g, ' ')),
     };
   });
 });
 
 onMounted(async () => {
-  sections = (await import('../assets/js/data.json')).default;
+  const _sections = (await import('../assets/js/data.json')).default;
+  Object.entries(_sections).forEach(([path, items]) => {
+    sections.push(...items.map(item => ({ ...item, path })));
+  });
   sections.forEach(section => index.add(section));
 });
 
