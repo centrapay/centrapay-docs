@@ -6,7 +6,7 @@ Connecting with Patrons using our Barcode Flow requires the Patron to present a 
 
 ## Barcode Flow
 
-The sequence diagram below indicates the expected flow of behaviour between the Patron, the Point of Sale (POS) and Centrapay.
+The sequence diagram below indicates the expected flow of behavior between the Patron, the Point of Sale (POS) and Centrapay.
 
 ```mermaid
 sequenceDiagram
