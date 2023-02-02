@@ -30,4 +30,4 @@ Our payment protocol supports several optional extensions. Please review the ext
 
 Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to get started with API keys.
 
-Once you have confirmed your integration needs we will then provide you with a customised integration checklist for certification.
+Once you have confirmed your integration needs we will then provide you with a customized integration checklist for certification.

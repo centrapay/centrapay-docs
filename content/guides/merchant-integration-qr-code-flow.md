@@ -4,7 +4,7 @@ title: QR Code Flow for Merchants
 
 Connecting with Patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](https://docs.centrapay.com/api/payment-requests) and present a QR Code for the Patron to scan.
 
-The sequence diagram below indicates the expected flow of behaviour between the Patron, the Point of Sale (POS) and Centrapay.
+The sequence diagram below indicates the expected flow of behavior between the Patron, the Point of Sale (POS) and Centrapay.
 
 ```mermaid
 sequenceDiagram
