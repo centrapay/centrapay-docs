@@ -23,28 +23,54 @@ A Business is associated with a single [Account][].
 
 ### Business
 
-|     Field     |                Type                 |                     Description                     |
-| :------------ | :---------------------------------- | :-------------------------------------------------- |
-| id            | String                              | The unique identifier.                              |
-| accountId     | String                              | The Centrapay accountId for an org account.         |
-| accountName   | String                              | The Centrapay account name for an org account.      |
-| test          | Boolean                             | A flag which is present if the [Account][] is test  |
-| nzbn          | String                              | The unique NZBN identifier.                         |
-| name          | String                              | Legal name recorded in the Companies Register.      |
-| tradingName   | String                              | Trading name recorded in the Companies Register.    |
-| companyNumber | String                              | Company number recorded in the Companies Register.  |
-| createdAt     | {% dt Timestamp %}                  | When the Business was created.                      |
-| updatedAt     | {% dt Timestamp %}                  | When the Business was updated.                      |
-| createdBy     | {% dt CRN %}                        | The User or API Key that created the Business.      |
-| updatedBy     | {% dt CRN %}                        | The User or API Key that updated the Business.      |
-| taxNumber     | [Tax Number](#tax-number) {% opt %} | The value-added tax configuration for the Business. |
+|         Field          |                Type                 |                                                                        Description                                                                         |
+| :--------------------- | :---------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                     | String                              | The unique identifier.                                                                                                                                     |
+| accountId              | String                              | The Centrapay accountId for an org account.                                                                                                                |
+| accountName            | String                              | The Centrapay account name for an org account.                                                                                                             |
+| test                   | Boolean                             | A flag which is present if the [Account][] is test                                                                                                         |
+| nzbn                   | String                              | The unique NZBN identifier.                                                                                                                                |
+| name                   | String                              | Legal name recorded in the Companies Register.                                                                                                             |
+| tradingName            | String                              | Trading name recorded in the Companies Register.                                                                                                           |
+| companyNumber          | String                              | Company number recorded in the Companies Register.                                                                                                         |
+| createdAt              | {% dt Timestamp %}                  | When the Business was created.                                                                                                                             |
+| updatedAt              | {% dt Timestamp %}                  | When the Business was updated.                                                                                                                             |
+| createdBy              | {% dt CRN %}                        | The User or API Key that created the Business.                                                                                                             |
+| updatedBy              | {% dt CRN %}                        | The User or API Key that updated the Business.                                                                                                             |
+| taxNumber              | [Tax Number](#tax-number) {% opt %} | The value-added tax configuration for the Business.                                                                                                        |
+| onboardingStatus       | String                              | The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.                                                |
+| onboardingStatusReason | String                              | The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values. |
 
 ### Tax Number
 
-| Field  |  Type  |                Description                |
-| :----- | :----- | :---------------------------------------- |
-| value  | String | The tax number.                           |
-| type   | String | Type of value-added tax. Can be `nz-gst`. |
+| Field |  Type  |                Description                |
+| :---- | :----- | :---------------------------------------- |
+| value | String | The tax number.                           |
+| type  | String | Type of value-added tax. Can be `nz-gst`. |
+
+<a name="onboarding-statuses">
+{% h4 Onboarding Statuses %}
+
+|    Status    |                                                                Description                                                                 |                                      Allowed Reasons                                      |
+| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| applied      | Identifies businesses that have registered to be activated for the Centrapay service.                                                       |                                                                                           |
+| provisioning | Identifies businesses that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
+| active       | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
+| deactivated  | Identifies businesses that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
+| on-hold      | Identifies businesses that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal.                                         |
+
+<a name="onboarding-status-reasons">
+{% h4 Onboarding Status Reasons %}
+
+|          Reason           |                           Description                            |
+| :------------------------ | :--------------------------------------------------------------- |
+| duplicate                 | The business already exists in the Centrapay system.             |
+| data-quality-issues       | Data quality issues are preventing the business from onboarding. |
+| no-response               | No response has been received from the business.                 |
+| change-of-ownership       | The business has changed ownership.                              |
+| centrapay-discontinued    | The business is no longer using Centrapay.                       |
+| seasonal-business-closure | The business has closed temporarily.                             |
+| incompatible-terminal     | The business does not have any compatible terminals.             |
 
 ## Operations
 
@@ -97,7 +123,8 @@ org account will be created and associated to the business.
   "taxNumber": {
     "value": "123-456-789",
     "type": "nz-gst",
-  }
+  },
+  "onboardingStatus": "applied"
 }
 {% endjson %}
 
@@ -193,6 +220,42 @@ number. Results are [paginated][] and ordered by relevance.
       "addressLines": ["82 Greatwood Road", "Northclover", "Auckland"]
     }
   ]
+}
+{% endjson %}
+
+### Set Business Onboarding Status
+
+{% reqspec %}
+  POST '/api/businesses/{businessId}/set-onboarding-status'
+  auth 'api-key'
+  path_param 'businessId', 'DKTs3U38hdhfEqwF1JKoT2'
+  body ({
+    onboardingStatus: 'deactivated',
+		onboardingStatusReason: 'change-of-ownership'
+  })
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "accountName": "Centrapay",
+  "nzbn": "9429046246448",
+  "name": "CENTRAPAY LIMITED",
+  "tradingName": "CentraPay",
+  "companyNumber": "6340244",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "updatedAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "taxNumber": {
+    "value": "123-456-789",
+    "type": "nz-gst",
+  },
+  "onboardingStatus": "deactivated",
+  "onboardingStatusReason": "change-of-ownership"
 }
 {% endjson %}
 
