@@ -1,5 +1,9 @@
 ---
 title: Barcode Flow for Merchants
+nav:
+  path: Reference/Merchant Integrations
+  title: Barcode Flow
+  order: 4
 ---
 
 Connecting with Patrons using our Barcode Flow requires the Patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).

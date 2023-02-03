@@ -1,5 +1,9 @@
 ---
 title: Merchant Integration Error Handling
+nav:
+  path: Reference/Merchant Integrations
+  title: Error Handling
+  order: 5
 ---
 
 Below are our guidelines for dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.

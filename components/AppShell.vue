@@ -30,8 +30,14 @@
       </Dialog>
     </TransitionRoot>
 
+    <LazyCommandPalette
+      v-if="isOpen"
+      :is-open="isOpen"
+      @close="closeCommandPalette"
+    />
+
     <div class="fixed bg-white inset-x-0 z-10 flex h-16 flex-shrink-0 shadow">
-      <div class="flex w-full justify-between">
+      <div class="flex w-full justify-between items-center">
         <div class="flex items-center">
           <NuxtLink
             to="/"
@@ -51,22 +57,39 @@
             </NuxtLink>
           </div>
         </div>
-        <button
-          class="flex items-center pr-6 md:hidden focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-          @click="mainMenuOpen = !mainMenuOpen"
-        >
-          <span class="sr-only">Open Main Menu</span>
-          <navigation-menu
-            v-if="!mainMenuOpen"
-            class="block h-6 w-6 text-content-tertiary"
-            aria-hidden="true"
-          />
-          <close-outline
-            v-else
-            class="block h-6 w-6 text-content-tertiary"
-            aria-hidden="true"
-          />
-        </button>
+        <div class="flex items-center">
+          <button
+            class="flex items-center md:w-80 md:mr-4 text-left space-x-3 py-0 px-0 md:px-4 md:pr-0 h-10 bg-white md:border border-gray-300 focus:outline-none ring-0 focus:ring-0 md:shadow-sm rounded-none md:rounded-lg overflow-hidden"
+            @click="openCommandPalette"
+          >
+            <Search class="w-6 h-6 md:w-4 md:h-4" />
+            <span class="hidden md:flex flex-auto text-gray-500">Search</span>
+            <kbd class="hidden md:flex items-center justify-center h-full aspect-square font-sans font-medium text-sm leading-5 bg-gray-50 text-gray-700">
+              <abbr
+                title="Command"
+                class="no-underline"
+              >⌘
+              </abbr>
+              K
+            </kbd>
+          </button>
+          <button
+            class="flex items-center pr-6 md:hidden focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+            @click="mainMenuOpen = !mainMenuOpen"
+          >
+            <span class="sr-only">Open Main Menu</span>
+            <navigation-menu
+              v-if="!mainMenuOpen"
+              class="block h-6 w-6 text-content-tertiary"
+              aria-hidden="true"
+            />
+            <close-outline
+              v-else
+              class="block h-6 w-6 text-content-tertiary"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -91,7 +114,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import {
   Dialog,
@@ -107,5 +130,24 @@ import {
   DisclosurePanel,
 } from '@headlessui/vue';
 
+const isOpen = ref(false);
 const mainMenuOpen = ref(false);
+
+onMounted(() => window.addEventListener('keydown', onKeyDown));
+onUnmounted(() => window.removeEventListener('keydown', onKeyDown));
+
+function onKeyDown(event) {
+  if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+    isOpen.value = !isOpen.value;
+    event.preventDefault();
+  }
+}
+
+function openCommandPalette() {
+  isOpen.value = true;
+}
+
+function closeCommandPalette() {
+  isOpen.value = false;
+}
 </script>

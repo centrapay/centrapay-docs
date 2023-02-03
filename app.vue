@@ -18,6 +18,8 @@
 </template>
 
 <script setup>
+import Navigation from './utils/Navigation';
+
 useHead({
   titleTemplate: (titleChunk) => titleChunk === 'Centrapay Docs' ? titleChunk : `${titleChunk} - Centrapay Docs`,
   script: [
@@ -53,6 +55,10 @@ useHead({
     },
   ],
 });
+const config = useRuntimeConfig();
+const content = await queryContent().find();
+Navigation.create({ baseUrl: config.public.baseUrl, content });
+
 onMounted(() => {
   window.FreshworksWidget('hide', 'launcher');
 });

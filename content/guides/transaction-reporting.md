@@ -1,5 +1,8 @@
 ---
 title: Transaction Reporting
+nav:
+  path: Reference/Merchant Integrations
+  order: 6
 ---
 
 Centrapay allows merchants to give their Patrons choice over which digital assets to use for payment.

@@ -4,7 +4,7 @@
   >
     <DisclosureButton
       class="group mt-2 w-full flex items-center pl-3 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-      :class="currentPath.startsWith(navigationItem.path) ? 'bg-gray-100' : ''"
+      :class="isNavItemActive ? 'bg-gray-100' : ''"
       @click="open = !open"
     >
       <component
@@ -30,7 +30,7 @@
             :key="firstChild.title"
           >
             <NuxtLink
-              :to="firstChild.path"
+              :to="firstChild.to"
               class="group mt-2 flex w-full items-center rounded-md py-2 pl-3 pr-2 text-sm font-medium text-content-secondary hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
               @click="$emit('link-clicked')"
             >
@@ -42,7 +42,7 @@
                 :key="secondChild.title"
               >
                 <NuxtLink
-                  :to="secondChild.path"
+                  :to="secondChild.to"
                   class="group mt-2 flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
                   @click="$emit('link-clicked')"
                 >
@@ -59,33 +59,30 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
 
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from '@headlessui/vue';
+import Navigation from '../utils/Navigation';
 
 const props = defineProps({
   navigationItem: { type: Object, required: true },
-  urlToActiveNav: { type: Object, required: true },
 });
 
 const emit = defineEmits([ 'link-clicked' ]);
 
 const route = useRoute();
-const currentPath = computed(() => {
-  const path = route.path.endsWith('/') ? route.path.slice(0, -1) : route.path;
-  return props.urlToActiveNav[path] || path;
-});
-const open = ref(currentPath.value.startsWith(props.navigationItem.path));
-watch(currentPath, (newPath) => {
+const currentNavPath = computed(() => Navigation.getCurrentNavPath(route.path));
+const isNavItemActive = computed(() => currentNavPath.value.startsWith(props.navigationItem.to));
+const open = ref(isNavItemActive.value);
+watch(currentNavPath, (newPath) => {
   if (open.value) {
     // If disclosure is already open, leave it open
     return;
   }
-  open.value = newPath.startsWith(props.navigationItem.path);
+  open.value = newPath.startsWith(props.navigationItem.to);
 });
 </script>
 
