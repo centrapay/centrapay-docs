@@ -158,6 +158,8 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : invitations:accept %}                 |       ✅ ✸    |               |                   |                         |         |
 | {% break : invitations:read %}                   |       ✅ ✸    |               |                   |                         |         |
 | {% break : media-uploads:create %}               |       ✅      |               |                   |                         |         |
+| {% break : memberships:delete 🗄 %}              |       ✅      |               |                   |                         |         |
+| {% break : memberships:update %}                 |       ✅      |               |                   |                         |         |
 | {% break : merchants:create 🗄 %}                |       ✅      |               |                   |                         |         |
 | {% break : merchants:list 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
 | {% break : merchants:read 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
