@@ -25,14 +25,17 @@
           <DialogPanel class="flex justify-center p-4 mt-[10vh] mx-auto max-w-xl">
             <Combobox v-model="selected">
               <div class="relative mt-1 w-full">
-                <div class="relative flex items-center w-full p-squish-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                  <Search class="absolute left-4 w-6" />
+                <form class="flex items-center w-full p-squish-2 space-x-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none text-sm">
+                  <label for="query-input">
+                    <Search class="left-4 w-6" />
+                  </label>
                   <ComboboxInput
-                    class="w-full pl-8 border-none text-sm leading-5 text-gray-900 outline-none"
+                    id="query-input"
+                    class="w-full border-none text-sm leading-5 text-gray-900 outline-none"
                     placeholder="Search..."
                     @change="query = $event.target.value"
                   />
-                </div>
+                </form>
                 <TransitionRoot
                   leave="transition ease-in duration-100"
                   leave-from="opacity-100"
@@ -41,7 +44,7 @@
                 >
                   <ComboboxOptions
                     v-if="query !== ''"
-                    class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm"
                   >
                     <div
                       v-if="results.length === 0"
@@ -70,7 +73,7 @@
                           <p class="block truncate">
                             {{ result.description }}
                           </p>
-                          <div class="mt-2">
+                          <div class="mt-2 truncate">
                             <template v-for="(step, idx) in result.path">
                               <!-- eslint-disable-next-line vue/require-v-for-key -->
                               <span
