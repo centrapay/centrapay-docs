@@ -114,6 +114,21 @@ A Member contains extended information about an user's access to an account.
 ]
 {% endjson %}
 
+### Revoke Member
+
+{% reqspec %}
+  DELETE '/api/accounts/{accountId}/members/{userId}'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  path_param 'userId', '45dwes-rf4h55-tyf45s-6st4gd'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Error Responses %}
+
+| Status |                    Code                    |                          Description                           |
+| :----- | :----------------------------------------- | :------------------------------------------------------------- |
+| 403    | {% break _ LAST_OWNER_NOT_REVOKABLE %}     | The last remaining membership to an account cannot be revoked. |
+
 ### List Account Memberships for authenticated subject
 
 {% reqspec %}
