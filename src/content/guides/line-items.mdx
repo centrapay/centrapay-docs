@@ -1,0 +1,64 @@
+---
+title: Line Items
+---
+import ProseBlockquote from '../../components/ProseBlockquote.vue';
+import ProseA from '../../components/ProseA.vue';
+import ProseCode from '../../components/ProseCode.vue';
+import ProseCodeInline from '../../components/ProseCodeInline.vue';
+export const components = {
+  a: ProseA,
+  blockquote: ProseBlockquote,
+  code: ProseCodeInline,
+  pre: ProseCode,
+}
+
+[Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a Patron.
+
+## Restrictions
+
+1. The price of a Line Item MUST represent the amount that a Patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
+
+    ```json [Example]
+    [
+      {
+        name: 'Cinema Tickets',
+        sku: '123456789',
+        qty: '2',
+        price: '3600', // 2 x $20 + $6 (15% tax) - $10 (discount)
+        tax: '15.0',
+        discount: '1000' # $10
+      }
+    ]
+    ```
+
+2. The price for each Line Item MUST be provided in cents.
+3. The total for all Line Item prices MUST sum to the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) amount.
+4. The currency for each Line Item MUST be consistent with the Payment Request value.
+5. The discount for each Line Item MUST be provided in cents and is tax exclusive.
+6. A discount that applies to multiple line items may be represented as a separate line item with a negative amount.
+
+    ```json [Example]
+    [
+      {
+        name: 'Cinema Tickets',
+        sku: '123456789',
+        qty: '2',
+        price: '4600' // 2 x $20 + $6 (15% tax),
+        tax: '15.0'
+      },
+      {
+        name: 'Popcorn',
+        sku: '987654321',
+        qty: '1',
+        price: '1150', // $10 popcorn + $1.50 (15% tax)
+        tax: '15.0'
+      },
+      {
+        name: 'Combo Discount',
+        sku: '123456789',
+        qty: '1',
+        price: '-1500', // $15 (discount)
+        tax: '15.0'
+      }
+    ]
+    ```

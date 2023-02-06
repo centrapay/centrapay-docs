@@ -1,0 +1,91 @@
+---
+import AppShell from '../components/AppShell.vue';
+import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
+import Footer from '../components/Footer.vue';
+import '../assets/css/tailwind.css';
+import '@fontsource/inter';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: {path: undefined }
+    }
+  ]
+}
+
+const { title, description, img } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <meta property="img" content={`${Astro.url.origin}${img}`}>
+    <meta name="og:title" content={title}>
+    <meta name="og:description" content={description}>
+    <meta property="og:image" content={`${Astro.url.origin}${img}`}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+  </head>
+  <body>
+    <header>
+    </header>
+    <div class="flex flex-col min-h-screen">
+      <AppShell client:load path={Astro.url.pathname}>
+        <main>
+          <slot />
+        </main>
+        <button
+          type="button"
+          class="btn-tertiary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16"
+          @click="openFreshWorksWidget"
+        >
+          <MessagesBubbleDouble
+            class="icon-lg"
+            aria-hidden="true"
+          />
+        </button>
+        <Footer class="mt-auto" />
+      </AppShell>
+    </div>
+    <script>
+      const graphs = document.getElementsByClassName('mermaid');
+      if (document.getElementsByClassName('mermaid').length > 0) {
+        const { default: mermaid } = await import('mermaid');
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          themeVariables: {
+            mainBkg: '#F8F8F8',
+            actorBkg: '#F8F8F8',
+            primaryColor: '#F8F8F8',
+            primaryTextColor: '#232323',
+            primaryBorderColor: '#D1D5DB',
+            secondaryColor: '#232323',
+            noteBkgColor: '#232323',
+            noteTextColor: '#F8F8F8',
+            labelBoxBkgColor: '#FFFFFF',
+          },
+          sequence: {
+            diagramMarginY: 50,
+          }
+        });
+        for (const graph of graphs) {
+          const content = graph.getAttribute('data-content');
+          if (!content) {
+            continue;
+          }
+          let svg = document.createElement('svg');
+          const id = (svg.id = 'mermaid-' + Math.round(Math.random() * 100000));
+          graph.appendChild(svg);
+          mermaid.render(id, content, (result) => {
+            graph.innerHTML = result;
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

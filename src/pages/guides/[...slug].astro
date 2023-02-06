@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.vue';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const img = entry.data.image || '/default-cover-image.png';
+---
+<BaseLayout title={entry.data.title} description={entry.data.description} img={img}>
+  <Layout client:load collectionName="Guides" headings={headings} title={entry.data.title} img={img}>
+    <Content />
+  </Layout>
+</BaseLayout>

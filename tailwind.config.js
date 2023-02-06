@@ -1,11 +1,8 @@
-const colors = require('./assets/css/colors');
+const colors = require('./src/assets/css/colors');
 
 const tailwindConfig = {
   content: [
-    './pages/**/*.{vue,js,css}',
-    './assets/**/*.{vue,js,css}',
-    './components/**/*.{vue,js,css}',
-    './app.vue',
+    './src/**/*.{astro,vue, js, css}',
   ],
   theme: {
     fontFamily: {
@@ -20,8 +17,8 @@ const tailwindConfig = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('./assets/css/plugins/typography'),
-    require('./assets/css/plugins/spacing'),
+    require('./src/assets/css/plugins/typography'),
+    require('./src/assets/css/plugins/spacing'),
   ]
 };
 
