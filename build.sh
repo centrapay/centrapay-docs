@@ -9,10 +9,8 @@ bundle exec jekyll build
 
 cd ../
 
-yarn generate
+yarn build
 
-mv .output/public/api/_content _site/api
-rm -r .output/public/api/
-rsync -a .output/public/* _site/
+rsync -a dist/* _site/
 
 cp CNAME _site
