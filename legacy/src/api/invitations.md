@@ -36,14 +36,16 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 {% h4 Optional Fields %}
 
-|        Field        |        Type        |                         Description                         |
-| :------------------ | :----------------- | :---------------------------------------------------------- |
-| accepted            | Boolean            | A flag indicating whether the Invitation has been accepted. |
-| acceptedAt          | {% dt Timestamp %} | When the Invitation was accepted.                           |
-| acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.           |
-| acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.      |
-| recipientAlias      | String             | The email address of the user accepting the Invitation.     |
-| params              | Object             | [Params](#params) dependent on the Invitation type.         |
+|        Field        |        Type        |                                          Description                                           |
+| :------------------ | :----------------- | :--------------------------------------------------------------------------------------------- |
+| accepted            | Boolean            | A flag indicating whether the Invitation has been accepted.                                    |
+| acceptedAt          | {% dt Timestamp %} | When the Invitation was accepted.                                                              |
+| acceptedBy          | {% dt CRN %}       | The User or API Key that accepted the Invitation.                                              |
+| acceptedByAccountId | String             | The [Account] id of the user accepting the Invitation.                                         |
+| recipientAlias      | String             | The email address of the user accepting the Invitation.                                        |
+| params              | Object             | [Params](#params) dependent on the Invitation type.                                            |
+| status              | String             | The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked ` |
+
 
 ### Params
 
@@ -90,7 +92,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "type": "account-membership",
   "resourceId": "Hopo4g34sLVdjEMBs2p19F",
   "resourceType": "account",
-  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "expiresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedAt": "2021-08-25T00:02:49.488Z",
@@ -99,7 +101,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "params": {
 		"role": "cashier",
     "accountName": "Centrapay Cafe"
-	}
+	},
+  "status": "created"
 }
 {% endjson %}
 
@@ -127,7 +130,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   "type": "kete-enrolment",
   "resourceId": "5ee0c486308f590260d9a07f",
   "resourceType": "integration",
-  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "expiresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
   "updatedAt": "2021-08-25T00:02:49.488Z",
@@ -162,7 +165,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       "params": {
         "role": "account-owner",
         "accountName": "Centrapay Cafe"
-      }
+      },
+      "status": "created",
     },
     {
       "id": "JKKDMU38hd01hfEqwF1oT2",
@@ -179,7 +183,8 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       "params": {
         "role": "cashier",
         "accountName": "Centrapay Tea Warehouse"
-      }
+      },
+      "status": "sent",
     },
   ]
 }
@@ -231,6 +236,44 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | :----- | :-------------------------- | :---------------------------------------- |
 | 403    | INVITATION_EXPIRED          | The Invitation is expired.                |
 | 403    | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted. |
+
+### Revoke an invitation **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/invitations/{invitationId}/revoke'
+  auth 'api-key'
+  path_param 'invitationId', 'DKTs3U38hdhfEqwF1JKoT2'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+	"code": "WIj211vFs9cNACwBb04vQw",
+  "type": "account-membership",
+  "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+  "resourceType": "account",
+  "recipientAlias": "user@org.com",
+	"params": {
+		"role": "cashier",
+		"accountName": "Centrapay Cafe",
+	},
+	"createdAt": "2021-08-25T00:02:49.488Z",
+  "exipresAt": "2021-08-26T00:02:49.488Z",
+  "createdBy": "crn::user:1234",
+	"updatedAt": "2021-08-25T00:00:00.000Z",
+  "updatedBy": "crn::user:1234",
+	"status": "revoked",
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |            Code             |                Description                |
+| :----- | :-------------------------- | :---------------------------------------- |
+| 403    | INVITATION_EXPIRED          | The Invitation is expired.                |
+| 403    | INVITATION_ACCEPTED         | The Invitation has already been accepted. |
 
 [Managed Integrations]: {% link api/integrations/managed-integrations.md %}
 [Account]: {% link api/accounts/accounts.md %}
