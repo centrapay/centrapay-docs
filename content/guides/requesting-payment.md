@@ -1,11 +1,12 @@
 ---
 title: Requesting Payment
+description: How to request payment on the Centrapay payment platform.
 nav:
   path: Reference/Merchant Integrations
   order: 2
 ---
 
-Centrapay’s payment protocol requires a merchant integration to connect with the Patron in order to create a [Payment Request](https://docs.centrapay.com/api/payment-requests); and poll it for payment confirmation.
+Centrapay’s payment protocol requires a merchant integration to connect with the patron in order to create a [Payment Request](https://docs.centrapay.com/api/payment-requests); and poll it for payment confirmation.
 
 Additionally, merchant integrations can opt into protocol extensions when creating a Payment Request in order to unlock acceptance of a wider set of payment options.
 
@@ -13,7 +14,7 @@ Additionally, merchant integrations can opt into protocol extensions when creati
 
 The [Payment Request](https://docs.centrapay.com/api/payment-requests) object is a core part of Centrapay’s payment protocol. It represents the intention of a merchant to receive payment, defines the amount to be paid, and the acceptable [Asset Types](https://docs.centrapay.com/api/asset-types) for payment.
 
-In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the Patron. Centrapay supports two different options to connect with Patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
+In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the patron. Centrapay supports two different options to connect with patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
 1. [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow)
 2. [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow)
 
@@ -26,7 +27,7 @@ We require compliant integrations to provide the following optional fields when 
 | `externalRef`       | The merchant’s identifier for the transaction. Typically this is also printed on the paper receipt and required for [Initiating Refunds](/guides/initiating-refunds). |
 | `terminalId`        | The logical identifier of the terminal. Useful for auditing and debugging.                                                                                            |
 | `deviceId`          | The hardware identifier of the terminal. Useful for auditing and debugging.                                                                                           |
-| `patronNotPresent`  | This flag indicates whether a Patron is physically present at the point of sale. Setting this flag can change the liability for some asset types.                     |
+| `patronNotPresent`  | This flag indicates whether a patron is physically present at the point of sale. Setting this flag can change the liability for some asset types.                     |
 | `conditionsEnabled` | The flag which indicates [Payment Conditions](/guides/payment-conditions) are supported.                                                            |
 
 ### Short Codes
@@ -38,7 +39,7 @@ Short codes can be used for [Initiating Refunds](/guides/initiating-refunds).
 
 ## Polling for Payment Confirmation
 
-After connecting with the Patron, the POS must [poll the Payment Request status](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second until the status has changed.
+After connecting with the patron, the POS must [poll the Payment Request status](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second until the status has changed.
 
 ```mermaid
 sequenceDiagram

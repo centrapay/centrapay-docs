@@ -1,5 +1,6 @@
 ---
 title: Point of Sale
+description: How to integrate a point of sale (POS) terminal with Centrapay APIs.
 nav:
   path: Reference/Merchant Integrations
   order: 1

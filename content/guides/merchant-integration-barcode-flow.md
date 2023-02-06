@@ -1,16 +1,17 @@
 ---
 title: Barcode Flow for Merchants
+description: How merchants can accept payments by scanning a barcode presented by the patron.
 nav:
   path: Reference/Merchant Integrations
   title: Barcode Flow
   order: 4
 ---
 
-Connecting with Patrons using our Barcode Flow requires the Patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 
 ## Barcode Flow
 
-The sequence diagram below indicates the expected flow of behavior between the Patron, the Point of Sale (POS) and Centrapay.
+The sequence diagram below indicates the expected flow of behavior between the patron, the Point of Sale (POS) and Centrapay.
 
 ```mermaid
 sequenceDiagram
@@ -37,7 +38,7 @@ sequenceDiagram
 	Note over Patron: ✅ Display Successful Payment
 ```
 
-1. The Patron presents a Barcode for the POS to scan.
+1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
 
     ```bash [Request]
@@ -118,7 +119,7 @@ sequenceDiagram
     }
     ```
 
-4. While the POS continues to poll, the Patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app.
+4. While the POS continues to poll, the patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app.
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
@@ -190,9 +191,9 @@ sequenceDiagram
 
 ## Quick Pay Flow
 
-Quick Pay is used to immediately confirm the payment without requiring Patron approval.
+Quick Pay is used to immediately confirm the payment without requiring patron approval.
 
-The Patron’s barcode must be linked to an asset type that allows Quick Pay in order to use this flow. See [Asset Types](https://docs.centrapay.com/api/asset-types) for the list of asset types that support Quick Pay.
+The patron’s barcode must be linked to an asset type that allows Quick Pay in order to use this flow. See [Asset Types](https://docs.centrapay.com/api/asset-types) for the list of asset types that support Quick Pay.
 
 ```mermaid
 sequenceDiagram
@@ -216,7 +217,7 @@ sequenceDiagram
 	Note over Patron: ✅ Display Successful Payment
 ```
 
-1. The Patron presents a Barcode for the POS to scan.
+1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
 
     ```bash [Request]
@@ -354,7 +355,7 @@ sequenceDiagram
 	POS->>Centrapay: Create Payment Request with Barcode
 ```
 
-1. The Patron presents a barcode for the POS to scan.
+1. The patron presents a barcode for the POS to scan.
 2. The POS [decodes the scanned barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
 
     ```bash [Request]

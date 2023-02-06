@@ -1,11 +1,12 @@
 ---
 title: Patron Not Present
+description: Centrapay’s Patron Not Present extension allows a merchant to complete a payment when the patron is not physically present at the time of payment.
 nav:
   path: Reference/Merchant Integrations
   order: 11
 ---
 
-Centrapay’s Patron Not Present extension allows a merchant to complete a payment when the Patron is not physically present at the time of payment (e.g. phone-based orders).
+Centrapay’s Patron Not Present extension allows a merchant to complete a payment when the patron is not physically present at the time of payment (e.g. phone-based orders).
 
 You can enable this extension by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to true.
 

@@ -1,39 +1,40 @@
 ---
 title: QR Code Flow for Merchants
+description: How merchants can accept payments by presenting a QR code to the patron.
 nav:
   path: Reference/Merchant Integrations
   title: QR Code Flow
   order: 3
 ---
 
-Connecting with Patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](https://docs.centrapay.com/api/payment-requests) and present a QR Code for the Patron to scan.
+Connecting with patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](https://docs.centrapay.com/api/payment-requests) and present a QR Code for the patron to scan.
 
-The sequence diagram below indicates the expected flow of behavior between the Patron, the Point of Sale (POS) and Centrapay.
+The sequence diagram below indicates the expected flow of behavior between the patron, the Point of Sale (POS) and Centrapay.
 
 ```mermaid
 sequenceDiagram
 	autonumber
 
-	participant P as Patron
+	participant Patron
 	participant POS
-	participant C as Centrapay
+	participant Centrapay
 
-	POS->>C: Create Payment Request
+	POS->>Centrapay: Create Payment Request
 
 	note over POS: Present QR Code
 
-	P->>POS: Scan QR Code
+	Patron->>POS: Scan QR Code
 
 	par
 		loop
-			POS->>C: Poll for Payment Confirmation
+			POS->>Centrapay: Poll for Payment Confirmation
 		end
 
-		P->>C: Pay Payment Request
+		Patron->>Centrapay: Pay Payment Request
 	end
 
 	Note over POS: ✅ Display Successful Payment
-	Note over P: ✅ Display Successful Payment
+	Note over Patron: ✅ Display Successful Payment
 ```
 
 1. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) and presents a QR code to the Patron on a customer-facing display.
@@ -79,7 +80,7 @@ sequenceDiagram
     }
     ```
 
-2. The Patron scans the QR code using a Centrapay-enabled app.
+2. The patron scans the QR code using a Centrapay-enabled app.
 3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
     ```bash [Request]
@@ -113,7 +114,7 @@ sequenceDiagram
     }
     ```
 
-4. While the POS continues to poll, the Patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
+4. While the POS continues to poll, the patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
