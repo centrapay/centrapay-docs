@@ -1,7 +1,6 @@
 <template>
   <div>
     <div
-      v-if="imageSrc"
       class="flex items-center max-h-72 overflow-hidden"
     >
       <img
@@ -101,14 +100,14 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const { path } = useRoute();
 const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
-const imageSrc = contentDirectory.img;
+const imageSrc = contentDirectory.img || '/default-cover-image.png';
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
   s.children.find((child) => child._path === contentPath)
 );
 const { toc } = useContent();
-
+const config = useRuntimeConfig();
 const visibleHeadingId = ref('');
 let observer = null;
 
@@ -145,26 +144,24 @@ function handleTocClick (headingId) {
   visibleHeadingId.value = headingId;
 };
 
-if(imageSrc) {
-  useHead({
-    meta: [
-      {
-        property: 'og:image',
-        content: imageSrc,
-      },
-      {
-        property: 'og:image:width',
-        content: '1200'
-      },
-      {
-        property: 'og:image:height',
-        content: '630'
-      },
-      {
-        name: 'twitter:card',
-        content: 'summary_large_image'
-      },
-    ],
-  });
-}
+useHead({
+  meta: [
+    {
+      property: 'og:image',
+      content: config.baseUrl + imageSrc,
+    },
+    {
+      property: 'og:image:width',
+      content: '1200'
+    },
+    {
+      property: 'og:image:height',
+      content: '630'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
+  ],
+});
 </script>
