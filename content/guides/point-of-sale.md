@@ -1,5 +1,8 @@
 ---
 title: Point of Sale
+nav:
+  path: Reference/Merchant Integrations
+  order: 1
 ---
 
 Integrating a point of sale (POS) terminal with Centrapay APIs allows merchants to accept payment via any Centrapay-enabled apps without installing additional POS hardware or software.

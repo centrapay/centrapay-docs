@@ -1,5 +1,8 @@
 ---
 title: Line Items
+nav:
+  path: Reference/Merchant Integrations
+  order: 8
 ---
 
 [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a Patron.

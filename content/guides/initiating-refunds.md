@@ -1,5 +1,8 @@
 ---
 title: Initiating Refunds
+nav:
+  path: Reference/Merchant Integrations
+  order: 7
 ---
 
 Refunds are initiated by calling the [Refund Payment Request](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request-experimental) endpoint.

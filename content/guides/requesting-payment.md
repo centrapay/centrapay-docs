@@ -1,5 +1,8 @@
 ---
 title: Requesting Payment
+nav:
+  path: Reference/Merchant Integrations
+  order: 2
 ---
 
 Centrapay’s payment protocol requires a merchant integration to connect with the Patron in order to create a [Payment Request](https://docs.centrapay.com/api/payment-requests); and poll it for payment confirmation.
