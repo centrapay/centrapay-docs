@@ -46,7 +46,17 @@ async function main() {
       href: hrefFromFilepath(path),
     }]);
     await compiler.process({ value: content, path });
-    sections[frontMatter.nav.path] = compiler.data('sections');
+
+    let key = frontMatter.nav.path;
+    if (frontMatter.nav.title) {
+      key += '/' + frontMatter.nav.title.toLowerCase().replace(/\s/g, '-');
+    }
+
+    if (!sections[key]) {
+      sections[key] = [];
+    }
+
+    sections[key].push(...compiler.data('sections'));
   }
 
   await fs.mkdir('assets/js', { recursive: true });
