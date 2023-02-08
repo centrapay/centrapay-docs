@@ -124,7 +124,6 @@ import {
 } from '@headlessui/vue';
 import Document from 'flexsearch/src/document';
 
-let sections = [];
 const index = new Document({
   tokenize: 'full',
   document: {
@@ -132,6 +131,21 @@ const index = new Document({
     index: ['title', 'description'],
   },
 });
+
+function toText(obj) {
+  let txt = '';
+  for (const child of obj?.children ?? []) {
+    if (child.type === 'text') {
+      txt += child.value;
+    }
+  }
+
+  return txt;
+}
+
+const headingRegex = /(h1|h2|h3|h4|h5|h6)/;
+
+const data = [];
 
 const router = useRouter();
 
@@ -150,25 +164,46 @@ const results = computed(() => {
   }
 
   const searchResults = index.search(query.value);
-  const hrefs = new Set(searchResults.map(r => r.result).flat());
+  const uniqueHrefs = new Set(searchResults.map(r => r.result).flat());
 
-  return Array.from(hrefs).map(href => {
-    const section = sections.find(_section => _section.href === href);
-    return {
-      href,
-      title: section.title,
-      description: section.description,
-      path: section.path.split('/').filter(p => p).map(p => p.replace(/-/g, ' ')),
-    };
-  });
+  return Array.from(uniqueHrefs).map(href => data.find(d => d.href === href));
 });
 
 onMounted(async () => {
-  const _sections = (await import('../assets/js/data.json')).default;
-  Object.entries(_sections).forEach(([path, items]) => {
-    sections.push(...items.map(item => ({ ...item, path })));
+  const pages = await queryContent().find();
+
+  // Extract frontmatter
+  pages.forEach(page => {
+    const _data = {
+      href: page._path,
+      title: page.title,
+      description: page.description,
+      path: `${page.nav.path}${page.nav.title ? `/${page.nav.title}` : ''}`.split('/')
+    };
+
+    data.push(_data);
   });
-  sections.forEach(section => index.add(section));
+
+  // Extract sections
+  pages.forEach(page => page.body.children
+    .filter(child => child.tag === 'section')
+    .forEach(section => {
+      const paragraph = section.children.find(child => child.tag === 'p');
+      const heading = section.children.find(child => headingRegex.test(child.tag));
+
+      const _data = {
+        title: toText(heading),
+        description: toText(paragraph),
+        href: `${page._path}#${heading.props.id}`,
+        path: `${page.nav.path}${page.nav.title ? `/${page.nav.title}` : ''}`.split('/')
+      };
+
+      data.push(_data);
+    })
+  );
+
+  // Add frontmatter and sections to index
+  data.forEach(d => index.add(d));
 });
 
 watch(selected, async () => {
