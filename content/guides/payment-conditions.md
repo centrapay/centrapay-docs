@@ -1,5 +1,6 @@
 ---
 title: Payment Conditions
+description: Payment Conditions enable integrations to require conditional approval to accept specific Asset Types as payment.
 nav:
   path: Reference/Merchant Integrations
   order: 9
@@ -17,7 +18,7 @@ Examples of Payment Conditions include:
 
 In order to support Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true.
 
-The example flow below assumes that the merchant integration has first connected with the Patron when [Requesting Payment](/guides/requesting-payment) using the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
+The example flow below assumes that the merchant integration has first connected with the patron when [Requesting Payment](/guides/requesting-payment) using the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
 
 ```mermaid
 sequenceDiagram
@@ -53,13 +54,13 @@ When Payment Conditions are present on a [Payment Request](https://docs.centrapa
 
     Merchant integrations should prompt the terminal operator to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any conditions that have status `awaiting-merchant`.
 
-    Consumer apps should inform the Patron to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any conditions that have status `awaiting-patron`.
+    Consumer apps should inform the patron to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any conditions that have status `awaiting-patron`.
 
 2. **Inform**
 
     Merchant integrations should inform the terminal operator of any conditions that have status `awaiting-patron` using the `message` provided with the condition.
 
-    Consumer apps should inform the Patron of any conditions that have status `awaiting-merchant` using the `message` provided with the condition.
+    Consumer apps should inform the patron of any conditions that have status `awaiting-merchant` using the `message` provided with the condition.
 
 3. **Repeat** the above steps when polling shows conditions have changed.
 

@@ -1,5 +1,6 @@
 ---
 title: Initiating Refunds
+description: How to issue refunds on the Centrapay payment platform.
 nav:
   path: Reference/Merchant Integrations
   order: 7

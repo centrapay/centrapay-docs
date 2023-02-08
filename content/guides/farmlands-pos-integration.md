@@ -1,7 +1,7 @@
 ---
 title: Farmlands POS Integration Guide
 img: /farmlands-pos-integration-cover.jpg
-description: Centrapay and Farmlands have entered into a partnership to allow Farmlands Card Partners to accept Farmlands Card payments at the point of sale.
+description: Farmlands has partnered with Centrapay to deliver new ways for your business to authorise and process Farmlands Card payments that are faster, easier, and more secure than ever.
 nav:
   path: Connections/Farmlands
   title: POS Integration Guide
@@ -844,15 +844,15 @@ When the Cardholder presents a transaction reference (e.g. a [Payment Request](h
 sequenceDiagram
 	autonumber
 
-	participant P as Cardholder
+	participant Cardholder
 	participant POS
-	participant C as Centrapay
+	participant Centrapay
 
-	P->>POS: Present Transaction Reference
+	Cardholder->>POS: Present Transaction Reference
 
 	Note over POS: Look up Payment Request ID
 
-	POS->>C: Refund Payment Request
+	POS->>Centrapay: Refund Payment Request
 
 	Note over POS: ✅ Display Refund Confirmation
 ```

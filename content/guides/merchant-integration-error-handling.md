@@ -1,5 +1,6 @@
 ---
 title: Merchant Integration Error Handling
+description: How to deal with inconsistencies in Payment Request statuses due to network issues or race conditions.
 nav:
   path: Reference/Merchant Integrations
   title: Error Handling

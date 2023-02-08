@@ -1,15 +1,16 @@
 ---
 title: Line Items
+description: Line items are used to communicate the details of a purchase to a patron.
 nav:
   path: Reference/Merchant Integrations
   order: 8
 ---
 
-[Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a Patron.
+[Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a patron.
 
 ## Restrictions
 
-1. The price of a Line Item MUST represent the amount that a Patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
+1. The price of a Line Item MUST represent the amount that a patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
 
     ```json [Example]
     [

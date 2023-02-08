@@ -1,11 +1,12 @@
 ---
 title: Transaction Reporting
+description: Guidelines on communicating the Asset Types used for payment to the user in any transaction reporting function on the merchant side.
 nav:
   path: Reference/Merchant Integrations
   order: 6
 ---
 
-Centrapay allows merchants to give their Patrons choice over which digital assets to use for payment.
+Centrapay allows merchants to give their patrons choice over which digital assets to use for payment.
 
 The settlement process to the merchant will differ depending on which [Asset Types](https://docs.centrapay.com/api/asset-types) have been selected for payment by the patron.
 
