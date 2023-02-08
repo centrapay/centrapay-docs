@@ -34,7 +34,7 @@ const { title, description, img } = Astro.props;
     <header>
     </header>
     <div class="flex flex-col min-h-screen">
-      <AppShell client:load path={Astro.url.pathname}>
+      <AppShell client:only="vue" path={Astro.url.pathname}>
         <main>
           <slot />
         </main>
