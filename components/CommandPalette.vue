@@ -123,11 +123,10 @@ import {
   ComboboxOption,
 } from '@headlessui/vue';
 import Document from 'flexsearch/src/document';
+import findIndexableData from '../src/utilities/indexableData';
 
-const data = [];
+let indexableData = [];
 const router = useRouter();
-const headingRegex = /(h1|h2|h3|h4|h5|h6)/;
-
 
 const query = ref('');
 const selected = ref(undefined);
@@ -146,30 +145,6 @@ const index = new Document({
   },
 });
 
-function htmlObjToText(obj) {
-  let txt = '';
-  for (const child of obj?.children ?? []) {
-    if (child.type === 'text') {
-      txt += child.value;
-    }
-  }
-
-  return txt;
-}
-
-function findAllHtmlSections(root) {
-  const sections = [];
-  const queue = [root];
-  while (queue.length) {
-    const node = queue.shift();
-    if (node.tag === 'section') {
-      sections.push(node);
-    }
-    queue.push(...node.children ?? []);
-  }
-  return sections;
-}
-
 const results = computed(() => {
   if (query.value === '') {
     return [];
@@ -178,37 +153,12 @@ const results = computed(() => {
   const searchResults = index.search(query.value);
   const uniqueHrefs = new Set(searchResults.map(r => r.result).flat());
 
-  return Array.from(uniqueHrefs).map(href => data.find(item => item.href === href));
+  return Array.from(uniqueHrefs).map(href => indexableData.find(item => item.href === href));
 });
 
 onMounted(async () => {
-  const pages = await queryContent().find();
-
-  // Extract frontmatter
-  pages.forEach(page => data.push({
-    href: page._path,
-    title: page.title,
-    description: page.description,
-    path: `${page.nav.path}${page.nav.title ? `/${page.nav.title}` : ''}`.split('/')
-  }));
-
-  // Extract sections
-  pages.forEach(page => findAllHtmlSections(page.body)
-    .forEach(section => {
-      const paragraph = section.children.find(child => child.tag === 'p');
-      const heading = section.children.find(child => headingRegex.test(child.tag));
-
-      data.push({
-        title: htmlObjToText(heading),
-        description: htmlObjToText(paragraph),
-        href: `${page._path}#${heading.props.id}`,
-        path: `${page.nav.path}${page.nav.title ? `/${page.nav.title}` : ''}`.split('/')
-      });
-    })
-  );
-
-  // Add frontmatter and sections to index
-  data.forEach(d => index.add(d));
+  indexableData = await findIndexableData();
+  indexableData.forEach(item => index.add(item));
 });
 
 watch(selected, async () => {
