@@ -135,6 +135,60 @@ org account will be created and associated to the business.
 | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
 | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
 
+
+### Update a Business **EXPERIMENTAL**
+
+{% reqspec %}
+  PUT '/api/businesses/{businessId}'
+  auth 'api-key'
+  path_param 'businessId', 'DKTs3U38hdhfEqwF1JKoT2'
+  body ({
+    taxNumber: {
+      value: '123-456-789',
+      type: 'nz-gst',
+    },
+    farmlandsBusinessNumber: '12345678'
+  })
+{% endreqspec %}
+
+{% h4 Optional Fields %}
+
+|          Field          |           Type            |                     Description                     |
+| :---------------------- | :------------------------ | :-------------------------------------------------- |
+| taxNumber               | [Tax Number](#tax-number) | The value-added tax configuration.                  |
+| farmlandsBusinessNumber | String                    | The number associated with your Farmlands business. |
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "accountName": "Centrapay",
+  "nzbn": "9429046246448",
+  "name": "CENTRAPAY LIMITED",
+  "tradingName": "CentraPay",
+  "companyNumber": "6340244",
+  "createdAt": "2020-06-12T01:17:46.499Z",
+  "updatedAt": "2020-06-12T01:17:46.499Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "taxNumber": {
+    "value": "123-456-789",
+    "type": "nz-gst",
+  },
+  "farmlandsBusinessNumber": "12345678",
+  "onboardingStatus": "applied"
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |      Code       |                                         Description                                          |
+| :----- | :-------------- | :------------------------------------------------------------------------------------------- |
+| 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
+| 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
+
 ### Get a Business by Account id **EXPERIMENTAL**
 
 {% reqspec %}
