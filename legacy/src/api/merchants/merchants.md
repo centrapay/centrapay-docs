@@ -60,6 +60,7 @@ which define the payment methods available for a Payment Request.
 | active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
 | deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
 | on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal.                                         |
+| test         | Identifies merchants that are test and should not follow the usual onboarding workflow.                                                    |                                                                                           |
 
 <a name="onboarding-status-reasons">
 {% h4 Onboarding Status Reasons %}
