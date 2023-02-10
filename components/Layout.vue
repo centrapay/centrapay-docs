@@ -6,7 +6,7 @@
       <img
         :src="imageSrc"
         aria-hidden="true"
-        class="object-cover m-0"
+        class="object-cover m-0 w-full h-24 md:h-full"
       >
     </div>
     <div class="relative mx-auto desktop-gutters flex justify-center">
@@ -100,7 +100,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const { path } = useRoute();
 const contentPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const contentDirectory = await queryContent().where({ _path: contentPath }).findOne();
-const imageSrc = contentDirectory.img || '/default-cover-image.png';
+const imageSrc = contentDirectory.img || '/centrapay-docs-feature.png';
 const title = contentDirectory.title;
 const navigation = await fetchContentNavigation();
 const section = navigation.find((s) =>
