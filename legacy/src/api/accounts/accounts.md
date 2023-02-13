@@ -154,5 +154,35 @@ individual account.
 }
 {% endjson %}
 
+### Update Subscriptions
+
+{% reqspec %}
+  PUT '/api/accounts/{accountId}/subscriptions'
+  auth 'api-key'
+  path_param 'accountId', 'Jaim1Cu1Q55uooxSens6yk'
+  body ({ subscriptions: [ 'quartz' ] })
+{% endreqspec %}
+
+{% h4 Required Fields %}
+
+|     Field     | Type  |                     Description                     |
+| :------------ | :---- | :-------------------------------------------------- |
+| subscriptions | Array | The list of subscriptions to assign to the account. |
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "subscriptions": [ "quartz" ]
+}
+{% endjson %}
+
+{% h4 Error Responses %}
+
+| Status |         Code         |                    Description                     |
+| :----- | :------------------- | :------------------------------------------------- |
+| 403    | INVALID_ACCOUNT_ID   | The account does not exist.                        |
+| 403    | INVALID_SUBSCRIPTION | One of the subscriptions in the list is not valid. |
+
 [API Keys]: {% link api/api-keys.md %}
 [Account Memberships]: {% link api/accounts/account-memberships.md %}
