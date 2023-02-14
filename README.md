@@ -21,7 +21,6 @@ Install app dependencies:
 ```
 docker compose run ruby-script bundle install
 docker compose run script yarn
-docker compose run script bash -c "cd preview-nuxt && yarn"
 ```
 ## Local Docker Usage
 
@@ -32,8 +31,10 @@ docker compose up
 ```
 
 Preview the Jekyll site at http://0.0.0.0:4000.
-Preview the Nuxt site at http://0.0.0.0:3000.
+Preview the Astro site at http://0.0.0.0:3000.
 
-In production we build and serve static files which is different to the Nuxt development server.
-You can preview the static Nuxt site at http://0.0.0.0:5001.
-Note this does not support hot reloading.
+You can build and preview the static site without hot reloading to mimic our production build:
+```
+docker compose run script yarn build
+docker compose run script yarn preview
+```

@@ -26,6 +26,7 @@ jobs:
           node-version: '16'
       - run: yarn install --frozen-lock-file
       - run: yarn lint
+      - run: yarn test
       - run: ./build.sh
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:

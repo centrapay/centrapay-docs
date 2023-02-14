@@ -8,7 +8,7 @@ services:
     command:
       - bash
       - -c
-      - yarn generate && yarn start
+      - yarn dev --host 0.0.0.0
     ports: [ "3000:3000", "24678:24678" ]
     environment:
       - "ENV=development"
@@ -18,12 +18,6 @@ services:
     volumes: [ ".:/work" ]
     command: "bundle exec jekyll serve --livereload --host=0.0.0.0"
     ports: [ "4000:4000", "35729:35729" ]
-  preview-nuxt:
-    image: node:16
-    working_dir: /work/preview-nuxt
-    volumes: [ ".:/work" ]
-    command: "yarn start"
-    ports: [ "5001:5001" ]
   script:
     image: node:16
     working_dir: /work

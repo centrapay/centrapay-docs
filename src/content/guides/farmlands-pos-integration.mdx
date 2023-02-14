@@ -1,0 +1,993 @@
+---
+title: Farmlands POS Integration Guide
+img: /farmlands-pos-integration-cover.jpg
+description: Farmlands has partnered with Centrapay to deliver new ways for your business to authorise and process Farmlands Card payments that are faster, easier, and more secure than ever.
+nav:
+  path: Connections/Farmlands
+  title: POS Integration Guide
+  order: 1
+---
+Centrapay and Farmlands have entered into a partnership to allow Farmlands Card Partners to accept Farmlands Card payments at the point of sale. The benefits include real-time standard industry card checks, the elimination of reconciliation EDI files or manual PDF invoicing, and it unlocks the ability to accept many more payment methods on the Centrapay platform. This solution positions Card Partners to be able to accept digital Farmlands Card payments in the future.
+
+Farmlands Card Partners need to be approved by Farmlands prior to enabling the Farmlands Card as a payment option through the Centrapay integration. Contact your Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
+
+## Centrapay Integration Benefits
+
+Integrating with Centrapay streamlines the process for authorising and invoicing Farmlands Card Payments. The integration provides:
+
+1. Real-time validation that the card presented is a valid Farmlands Card.
+2. Real-time balance checks to verify that the Cardholder has sufficient funds.
+3. Automatic notification of invoices to Farmlands that submit invoices with Centrapay. This eliminates the need to send a PDF invoice or EDI file to Farmlands for settlement.
+4. Merchants can opt-in to accept other assets as payment methods with Centrapay.
+
+## Payment Flow Overview
+
+Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](/guides/merchant-integration-barcode-flow#quick-pay-flow) to connect to Cardholders and accept Farmlands transactions.
+
+> See also: [Requesting Payment](/guides/requesting-payment)
+
+```mermaid
+sequenceDiagram
+	autonumber
+
+	participant Cardholder
+	participant POS
+	participant Centrapay
+
+	Note over Cardholder: Present Barcode
+	Cardholder->>POS: Scan Barcode
+
+	POS->>Centrapay: Create Payment Request with Barcode
+
+	loop Poll for Payment Confirmation
+		POS->>Centrapay: Get Payment Request
+
+		alt Payment Condition Pending
+			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
+			POS->>Centrapay: POS Accepts Condition
+		else Payment Request Status is paid
+			Note over POS: Stop Polling for Confirmation
+		end
+	end
+
+	Note over POS: ✅ Display Successful Payment
+```
+
+1. The Farmlands Cardholder presents their Farmlands Card for payment. The cashier at the point of sale will scan the Barcode or manually enter the 9-digit Farmlands Card number.
+
+    > The Card number is under the Cardholder’s name on the front of the card; and under the barcode on the back of the card.
+
+<img src="/farmlands-card.png" alt="The back of an example Farmlands card, displaying a barcode and a 9-digit card number" style="height: 288px;"/>
+
+2. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "barcode": "123456789",
+        "conditionsEnabled": true,
+        "configId": "5ee168e8597be5002af7b454",
+        "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
+          },
+          {
+            "name": "Tool Belt",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "6000",
+            "tax": "15",
+            "discount": "600"
+          }
+        ],
+        "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+        "value": {
+          "amount": "10000",
+          "currency": "NZD"
+        }
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "awaiting-merchant"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "new",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+3. The POS [polls the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second for status changes.
+
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "awaiting-merchant"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "new",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json [Response]
+    {
+      "activityNumber": "2",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "type": "accept-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      }
+    }
+    ```
+
+
+    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
+
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "accepted"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "paid",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+## Payment Flow Implementation
+
+The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
+
+1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
+2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
+3. Card Partners must meet [basic payment requirements](#basic-requirements) in order to implement the Barcode Payment Flow.
+4. Each Card Partner should extend the Barcode Payment Flow to meet any additional requirements they have.
+    1. Mandatory extensions include supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds).
+    2. Optional extensions include supporting [Pre Auth](#pre-auth) payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately, supporting payments when the [Cardholder is not physically present](#cardholder-not-present), and [validating Farmlands barcodes](#validating-farmlands-barcodes) before a transaction is initiated.
+
+### Merchant Configuration
+
+Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](https://docs.centrapay.com/api/merchants) with its own [Merchant Config](https://docs.centrapay.com/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](https://docs.centrapay.com/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
+
+The POS needs to provide the unique Merchant Config ID for the Merchant when [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) on their behalf.
+
+> Merchants and Merchant Configs are managed by Centrapay. Farmlands will provide Card Partners with these details.
+
+### Authentication
+
+Requests to Centrapay’s APIs are [authenticated](https://docs.centrapay.com/api/auth) by providing an API key in the `X-Api-Key` header. [API Keys](https://docs.centrapay.com/api/api-keys) provide enduring access to a single Centrapay account.
+
+```bash [Request]
+curl https://service.centrapay.com/api/account-memberships \
+  -H "X-Api-Key: $api_key"
+```
+
+> Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to be issued with your API keys.
+
+### Basic Requirements
+
+The Payment Flow needs the following requirements to be met.
+
+- Card Partners MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+- Card Partners MUST support [Payment Conditions](#payment-conditions).
+- The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
+- The POS MUST include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
+
+    > See the [Pre Auth extension](#pre-auth) to accept payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately.
+
+- The POS MUST stop [polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) when its status is no longer `new`.
+
+### Payment Conditions
+
+> Farmlands Card Partners must support this extension.
+
+This extension enables the POS to enforce requiring an ID check for high-risk transactions.
+
+Card Partners must extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true. The response will include the `merchantConditions` that must be accepted, and each condition will include a `message` field that the POS can display to the cashier.
+
+The Payment Request must always be polled after accepting or declining a condition.
+
+> See also: [Payment Conditions](/guides/payment-conditions)
+
+### Pre Auth
+
+Farmlands Card Partners must support this extension when there is not an invoice number available at the point of sale or the purchase cannot be fulfilled immediately. This might happen if your stock is not on hand or you have a separate fulfilment process.
+
+This extension enables the POS to create an authorisation that ensures funds are available and places a hold on them.
+
+Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag set to true.
+
+**Pre Auth Sequence**
+
+```mermaid
+sequenceDiagram
+autonumber
+
+participant Cardholder
+participant POS
+participant Centrapay
+
+Note over Cardholder: Present Barcode
+Cardholder->>POS: Scan Barcode
+
+POS->>Centrapay: Create Payment Request with Barcode and the preAuth flag
+
+loop Poll for Payment Confirmation
+	POS->>Centrapay: Get Payment Request
+
+	alt Payment Condition Pending
+			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
+			POS->>Centrapay: POS Accepts Condition
+		else Payment Request Status is paid
+			Note over POS: Stop Polling for Confirmation
+		end
+end
+
+Note over POS: ✅ Display Authorization Confirmation
+
+Note over POS, Centrapay: ⏱ Some time later..
+
+loop 0..Many (Up to Authorised Amount)
+	POS->>Centrapay: Make Confirmations Against Authorised Funds
+
+	Note over POS: ✅ Display Confirmation
+end
+
+POS->>Centrapay: Release Remaining Authorised Funds
+Note over POS: ✅ Display Release confirmation
+
+```
+
+1. The Cardholder presents their Farmlands Card for the POS to scan.
+2. The POS authorises a Pre Auth payment by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+
+    > Including Line Items is optional for Card Partners that do not intend to make Pre Auth confirmations.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "barcode": "123456789",
+        "conditionsEnabled": true,
+        "configId": "5ee168e8597be5002af7b454",
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
+          },
+          {
+            "name": "Tool Belt",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "6000",
+            "tax": "15",
+            "discount": "600"
+          }
+        ],
+        "preAuth": true,
+        "value": {
+          "amount": "10000",
+          "currency": "NZD"
+        }
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "awaiting-merchant"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "new",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+3. The POS [polls the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second for status changes.
+
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "awaiting-merchant"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "new",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json [Response]
+    {
+      "activityNumber": "2",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "type": "accept-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      }
+    }
+    ```
+
+    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
+
+    ```bash [Request]
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
+
+    ```json [Response]
+    {
+      "barcode": "123456789",
+      "conditionsEnabled": true,
+      "configId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "expirySeconds": 120,
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        },
+        {
+          "name": "Tool Belt",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "6000",
+          "tax": "15",
+          "discount": "600"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "accepted"
+        }
+      ],
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "paymentOptions": [
+        {
+          "amount": "10000",
+          "assetType": "farmlands.nzd.main"
+        }
+      ],
+      "preAuthStatus": "authorized",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "shortCode": "CP-C7F-ZS5",
+      "status": "paid",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "value": {
+        "currency": "NZD",
+        "amount": "10000"
+      }
+    }
+    ```
+
+5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](https://docs.centrapay.com/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request-experimental) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
+
+    > Making Pre Auth Confirmations is optional but they remove the need to send a PDF invoice or EDI file to Farmlands for settlement.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+        "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+        "lineItems": [
+          {
+            "name": "Hard Hat",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4000",
+            "tax": "15",
+            "discount": "400"
+          }
+        ],
+        "value": {
+          "amount": "4000",
+          "currency": "NZD"
+        },
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "activityNumber": "3",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "createdByAccountName": "Farmlands Card Partner",
+      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "lineItems": [
+        {
+          "name": "Hard Hat",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4000",
+          "tax": "15",
+          "discount": "400"
+        }
+      ],
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "preAuth": true,
+      "shortCode": "CP-C7F-ZS5-03",
+      "type": "confirmation",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "value": {
+        "amount": "4000",
+        "currency": "NZD"
+      }
+    }
+    ```
+
+6. The POS [releases any remaining authorised funds](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) back to the Cardholder.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/release \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json [Response]
+    {
+      "activityNumber": "4",
+      "assetType": "farmlands.nzd.main",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Farmlands Card Partner",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "preAuth": true,
+      "shortCode": "CP-C7F-ZS5-05",
+      "type": "release",
+      "value": {
+        "currency": "NZD",
+        "amount": "6000"
+      }
+    }
+    ```
+
+> See also: [Requesting Pre Auth](/guides/requesting-pre-auth)
+
+### Cardholder Not Present
+
+Farmlands Card Partners must support this extension if they accept payments when the Cardholder is not physically present when a payment is authorised. For example, to accept phone-based orders or orders where the Farmlands barcode is already known.
+
+Please refer to your Farmlands Card Partner Acceptance Terms and Conditions to understand the risks involved with these transactions.
+
+Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to `true`.
+
+```bash [Request]
+curl -X POST https://service.centrapay.com/api/payment-requests \
+  -H "X-Api-Key: $api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "barcode": "123456789",
+    "conditionsEnabled": true,
+    "configId": "5ee168e8597be5002af7b454",
+    "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+    "lineItems": [
+      {
+        "name": "Hard Hat",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4000",
+        "tax": "15",
+        "discount": "400"
+      },
+      {
+        "name": "Tool Belt",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "6000",
+        "tax": "15",
+        "discount": "600"
+      }
+    ],
+    "patronNotPresent": true,
+    "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+    "value": {
+      "amount": "10000",
+      "currency": "NZD"
+    }
+  }'
+```
+
+> See also: [Patron Not Present](/guides/patron-not-present)
+
+### Validating Farmlands Barcodes
+
+Farmlands Card Partners may optionally [decode a scanned Farmlands Barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) to confirm that it is valid and apply Farmlands discounts before [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+
+```bash [Request]
+curl -X POST https://service.centrapay.com/api/decode \
+  -H "Authorization: $jwt" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "code": "123456789",
+    "merchantConfigId": "5ee168e8597be5002af7b454",
+    "scannedBy": "merchant"
+  }'
+```
+
+```json [Response]
+{
+  "code": "123456789",
+  "displayName": "Farmlands Card",
+  "merchantConfigId": "5ee168e8597be5002af7b454",
+  "provider": "farmlands",
+  "scannedBy": "merchant"
+}
+```
+
+### Handling Payment Errors
+
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+
+> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
+
+### Refunds
+
+> Farmlands Card Partners must support refunds.
+
+Cardholder purchases are refunded by [refunding the Payment Request](https://docs.centrapay.com/api/payment-requests#refund).
+
+When the Cardholder presents a transaction reference (e.g. a [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) short code or `externalRef`) on their paper receipt, the POS should use this reference to look up the Payment Request ID and initiate the refund.
+
+```mermaid
+sequenceDiagram
+	autonumber
+
+	participant Cardholder
+	participant POS
+	participant Centrapay
+
+	Cardholder->>POS: Present Transaction Reference
+
+	Note over POS: Look up Payment Request ID
+
+	POS->>Centrapay: Refund Payment Request
+
+	Note over POS: ✅ Display Refund Confirmation
+```
+
+1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) ID using the transaction reference.
+2. The POS [refunds the Payment Request](https://docs.centrapay.com/api/payment-requests#refund) using its ID.
+
+    ```bash [Request]
+    curl -X POST https://service.centrapay.com/api/payment-requests/{paymentRequestId}/refund \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+        "lineItems": [
+          {
+            "name": "Tool Belt",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "6000",
+            "tax": "15",
+            "discount": "600"
+          }
+        ],
+        "value": {
+          "amount": "6000",
+          "currency": "NZD"
+        }
+      }'
+    ```
+
+    ```json [Response]
+    {
+      "activityNumber": "4",
+      "assetType": "farmlands.nzd.main",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantName": "Farmlands Card Partner",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-04",
+      "type": "refund",
+      "value": {
+        "currency": "NZD",
+        "amount": "100"
+      }
+    }
+    ```
+
+> See also: [Initiating Refunds](/guides/initiating-refunds)
+
+### Short Codes
+
+[Payment Requests](https://docs.centrapay.com/api/payment-requests#payment-request) have a short code field that is human- and OCR-friendly. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
+
+Short codes can be used for [initiating refunds](#refunds) by making them available to the Cardholder on a paper printout.
+
+Card Partners should store the short code for each transaction. This helps with reconciliation if a transaction query occurs.
+
+> Some [Payment Activities](https://docs.centrapay.com/api/payment-requests#payment-activity-experimental) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
+
+## Testing Your Integration
+
+Merchant Integrators need to work with Farmlands and Centrapay to get set up to test payments. Please contact Farmlands to organise full end-to-end testing.
+
+You need to go through the following steps in order to test your integration in a test environment:
+
+1. Centrapay must set you up with a test merchant and merchant config ID, and issue you with an API key before you can make API requests.
+2. Integrators can use the Farmlands test barcodes below to test different scenarios.
+
+    |             Test Scenario             | Farmlands Card Barcode |
+    | ------------------------------------- | ---------------------- |
+    | Active Card with available balance    | `424242424`            |
+    | Active Card with no available balance | `434343434`            |
+    | Expired Card                          | `454545454`            |
+    | Inactive Card                         | `464646464`            |
+
+3. Centrapay can set you up with a Centrapay Portal account and a test Merchant to allow you to verify that transactions are being processed correctly.
+
+## Certification Requirements
+
+For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process.
+
+The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale) requirements, and the following additional requirements.
+
+**POS Requirements**
+
+- The POS MUST support manual barcode entry.
+- The POS scanner SHOULD be capable of scanning the barcode on the back of a Farmlands Card.
+
+**Barcode Flow Requirements**
+
+- The POS MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+- The POS MUST provide an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
+- [Payment Conditions](#payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
+- The POS MUST always poll the Payment Request after accepting or declining a condition.
+
+**Line Item Requirements**
+
+- Full details for [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) MUST include the description, SKU, quantity, price, tax and the discount provided to the Cardholder.
+- The price of a Line Item MUST represent the amount that a Cardholder will pay for that Line Item, including tax and any discounts applied.
+- The total for all Line Item prices MUST sum to the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) amount.
+- The price and discount for each Line Item MUST be provided in cents.
+- The currency for each Line Item MUST be consistent with the Payment Request value.
+
+**Patron Not Present Requirements**
+
+- The [Patron Not Present extension](#cardholder-not-present) SHOULD be supported. This is required when the Cardholder is not physically present (e.g. over the phone) or when the Farmlands Barcode is already known.
+
+**Pre Auth Requirements**
+
+- The [Pre Auth extension](#pre-auth) MUST be supported when invoice numbers are not available at the time of purchase.
+- Pre Auth completion MAY be performed through existing reconciliation channels (eg PDF, EDI messaging) if Pre Auth confirmations are not being used.
+- Pre Authorisations MAY omit Line Items when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) when completion is performed through existing reconciliation channels.
+- [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) short codes MUST be included when completion is performed through existing reconciliation channels.
+- Pre Auth Confirmations MUST be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorised funds twice.
+- Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+- Authorised funds that will not be confirmed MUST be [released](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) in order to return the funds to the Cardholder (e.g. orders that are cancelled before fulfilment).
+- Confirmed funds MUST be [refunded](https://docs.centrapay.com/api/payment-requests#refund) in order to return them to the Cardholder. They cannot be released.
+
+**Refund Requirements**
+
+- [Refunds](https://docs.centrapay.com/api/payment-requests#refund) can be partial or full. Partial refunds can be performed multiple times but the total refunded amount cannot exceed the paid amount.
+- You MUST include an `externalRef` field, unique to each refund transaction, in order to ensure that a refund request can be retried safely.
+- At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
+- You MUST include an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+- [Short codes](#short-codes) for refunds MUST be included when sending a PDF invoice or EDI file to Farmlands for settlement.
+
+    > Refunds have their own short code that is different to the Payment Request short code.
+
+- Refunds made against a Pre Auth Confirmation MUST include the `confirmationIdempotencyKey` field used for original confirmation.
+
+## Next Steps
+
+1. Processing Farmlands Card transactions through the Centrapay platform is only available to existing Farmlands Card Partners. Existing Card Partners who are interested in integrating with Centrapay should contact their Card Partnership Manager or the Card Specialist team at [card.specialist@farmlands.co.nz](mailto:card.specialist@farmlands.co.nz) to work through the onboarding process.
+2. Reach out to [integrations@centrapay.com](mailto:integrations@centrapay.com) to get your API keys and a copy of Centrapay’s Certification Process.

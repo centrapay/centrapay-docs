@@ -18,7 +18,6 @@ globals:
 extends:
   - "plugin:vue/recommended"
   - "plugin:cypress/recommended"
-  - "plugin:nuxt/recommended"
 
 plugins:
   - "no-only-tests"
