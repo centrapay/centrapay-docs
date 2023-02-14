@@ -38,11 +38,18 @@ class Navigation {
       .sort((a, b) => a.order - b.order);
     pages.forEach(page => navigation.insertPage({ page }));
 
-    // FIXME remove this block once merchant integrations has a landing page
-    const merchantIntegrations = navigation.findItem({ title: 'Merchant Integrations' });
-    if(merchantIntegrations) {
-      merchantIntegrations.to = merchantIntegrations.children[0].to;
-    }
+    // FIXME remove this block once each section header has a landing page
+    const sectionHeaderTitle = [
+      'Merchant Integrations',
+      'App Integrations',
+      'Digital Assets',
+    ];
+    sectionHeaderTitle.forEach((title) => {
+      const category = navigation.findItem({ title: title });
+      if(category) {
+        category.to = category.children[0].to;
+      }
+    });
   }
 
   static getMenu() {

@@ -1,24 +1,14 @@
 ---
-layout: default
-parent: Guides
 title: Example OIDC Consumer
-permalink: /guides/example-oidc-consumer
+description: How to integrate a browser-based application with the Centrapay OAuth server using an OIDC flow.oidc-client-js) JavaScript library.
+nav:
+  path: Reference/App Integrations
+  order: 1
 ---
 
-# Example OIDC Consumer
+This guide demonstrates how to integrate a browser based application with the Centrapay OAuth server using the [oidc-client-js](https://github.com/IdentityModel/oidc-client-js) JavaScript library.
 
-This guide demonstrates how to integrate a browser based application with the
-Centrapay OAuth server using the [oidc-client-js][oidcjs]{:.external}
-JavaScript library.
-
-A good starting point for learning more about OIDC is Okta's [OAuth OIDC Illustrated Guide][okta-oidc]{:.external}.
-
-## Contents
-{:.no_toc .text-delta}
-
-* TOC
-{:toc}
-
+A good starting point for learning more about OIDC is Okta’s [OAuth OIDC Illustrated Guide](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc).
 
 ## OIDC User Manager Configuration
 
@@ -115,8 +105,7 @@ refreshUser()
 
 ## Detect OIDC User Refresh
 
-Detect when OIDC user is refreshed via auto silent renew. The new user *may*
-have changed with updated claims, for example, if they have added an email address.
+Detect when OIDC user is refreshed via auto silent renew. The new user *may* have changed with updated claims, for example, if they have added an email address.
 
 ```javascript
 userManager.events.addUserLoaded((user) => {
@@ -140,7 +129,3 @@ async function handleLogoutOidcCallback() {
   window.location.replace(result.state || '/');
 }
 ```
-
-
-[oidcjs]: https://github.com/IdentityModel/oidc-client-js
-[okta-oidc]: https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
