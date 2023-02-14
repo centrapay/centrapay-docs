@@ -51,13 +51,13 @@ A Business is associated with a single [Account][].
 <a name="onboarding-statuses">
 {% h4 Onboarding Statuses %}
 
-|    Status    |                                                                Description                                                                 |                                      Allowed Reasons                                      |
-| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+|    Status    |                                                                 Description                                                                 |                                      Allowed Reasons                                      |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------- |
 | applied      | Identifies businesses that have registered to be activated for the Centrapay service.                                                       |                                                                                           |
 | provisioning | Identifies businesses that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
 | active       | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
 | deactivated  | Identifies businesses that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
-| on-hold      | Identifies businesses that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal.                                         |
+| on-hold      | Identifies businesses that have been placed on hold.                                                                                        | seasonal-business-closure.                                                                |
 
 <a name="onboarding-status-reasons">
 {% h4 Onboarding Status Reasons %}
@@ -70,7 +70,6 @@ A Business is associated with a single [Account][].
 | change-of-ownership       | The business has changed ownership.                              |
 | centrapay-discontinued    | The business is no longer using Centrapay.                       |
 | seasonal-business-closure | The business has closed temporarily.                             |
-| incompatible-terminal     | The business does not have any compatible terminals.             |
 
 ## Operations
 
