@@ -3,6 +3,8 @@ version: "3"
 services:
   app:
     volumes: [ node-modules:/work/node_modules ]
+  preview:
+    volumes: [ node-modules:/work/node_modules ]
   script:
     volumes: [ node-modules:/work/node_modules ]
   legacy:

@@ -9,9 +9,20 @@ services:
       - bash
       - -c
       - yarn dev --host 0.0.0.0
-    ports: [ "3000:3000", "24678:24678" ]
-    environment:
-      - "ENV=development"
+    ports: [ "127.0.0.1:3000:3000" ]
+
+  preview:
+    image: node:16
+    working_dir: /work
+    volumes: [ ".:/work" ]
+    command:
+      - bash
+      - -c
+      - |
+        yarn build
+        yarn preview --host 0.0.0.0 --port 5001
+    ports: [ "127.0.0.1:5001:5001" ]
+
   legacy:
     image: ruby:2.7
     working_dir: /work/legacy

@@ -24,18 +24,20 @@ docker compose run script yarn
 ```
 ## Local Docker Usage
 
-For local development (with hot reloading):
+For local development:
 
 ```
 docker compose up
 ```
 
-Preview Centrapay Docs at http://0.0.0.0:3000.
-Preview the Legacy Docs at http://0.0.0.0:4000.
++ Preview Centrapay Docs with hot-module replacement at http://localhost:3000.
 
-To build and preview Centrapay Docs using the static files that are deployed to production (without hot-reloading):
++ Preview the production build of Centrapay Docs at http://localhost:5001.
 
-```
-docker compose run script yarn build
-docker compose run script yarn preview
-```
+  The production build does not support hot module replacement. To view changes to source files, you will need to rerun the build process and refresh the site.
+
+  ```
+  docker compose run script yarn build
+  ```
+
++ Preview the Legacy Centrapay Docs at http://0.0.0.0:4000.

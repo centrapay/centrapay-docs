@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "husky install",
     "lint": "vue-cli-service lint --max-warnings 0 --no-fix .",
     "dev": "astro dev",
     "build": "astro build",
