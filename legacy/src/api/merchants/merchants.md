@@ -59,7 +59,7 @@ which define the payment methods available for a Payment Request.
 | provisioning | Identifies merchants that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
 | active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
 | deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
-| on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal.                                         |
+| on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal, no-response                             |
 
 <a name="onboarding-status-reasons">
 {% h4 Onboarding Status Reasons %}
