@@ -295,7 +295,7 @@
   },"49": {
     "doc": "Businesses",
     "title": "Models",
-    "content": "Business . | Field | Type | Description | . | id | String | The unique identifier. | . | accountId | String | The Centrapay accountId for an org account. | . | accountName | String | The Centrapay account name for an org account. | . | test | Boolean | A flag which is present if the Account is test | . | nzbn | String | The unique NZBN identifier. | . | name | String | Legal name recorded in the Companies Register. | . | tradingName | String | Trading name recorded in the Companies Register. | . | companyNumber | String | Company number recorded in the Companies Register. | . | createdAt | Timestamp | When the Business was created. | . | updatedAt | Timestamp | When the Business was updated. | . | createdBy | CRN | The User or API Key that created the Business. | . | updatedBy | CRN | The User or API Key that updated the Business. | . | taxNumber | Tax Number Optional | The value-added tax configuration for the Business. | . | onboardingStatus | String | The onboarding status of the Business. See Onboarding Statuses for possible values. | . | onboardingStatusReason | String | The reason associated with the Onboarding Status. See Onboarding Status Reasons for possible values. | . Tax Number . | Field | Type | Description | . | value | String | The tax number. | . | type | String | Type of value-added tax. Can be nz-gst. | . Onboarding Statuses . | Status | Description | Allowed Reasons | . | applied | Identifies businesses that have registered to be activated for the Centrapay service. |   | . | provisioning | Identifies businesses that are in the process of being activated for the Centrapay service. |   | . | active | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |   | . | deactivated | Identifies businesses that have been de-registered for the Centrapay service. | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. | . | on-hold | Identifies businesses that have been placed on hold. | seasonal-business-closure. | . Onboarding Status Reasons . | Reason | Description | . | duplicate | The business already exists in the Centrapay system. | . | data-quality-issues | Data quality issues are preventing the business from onboarding. | . | no-response | No response has been received from the business. | . | change-of-ownership | The business has changed ownership. | . | centrapay-discontinued | The business is no longer using Centrapay. | . | seasonal-business-closure | The business has closed temporarily. | . ",
+    "content": "Business . | Field | Type | Description | . | id | String | The unique identifier. | . | accountId | String | The Centrapay accountId for an org account. | . | accountName | String | The Centrapay account name for an org account. | . | test | Boolean | A flag which is present if the Account is test | . | nzbn | String | The unique NZBN identifier. | . | name | String | Legal name recorded in the Companies Register. | . | tradingName | String | Trading name recorded in the Companies Register. | . | companyNumber | String | Company number recorded in the Companies Register. | . | createdAt | Timestamp | When the Business was created. | . | updatedAt | Timestamp | When the Business was updated. | . | createdBy | CRN | The User or API Key that created the Business. | . | updatedBy | CRN | The User or API Key that updated the Business. | . | taxNumber | Tax Number Optional | The value-added tax configuration for the Business. | . | onboardingStatus | String | The onboarding status of the Business. See Onboarding Statuses for possible values. | . | onboardingStatusReason | String | The reason associated with the Onboarding Status. See Onboarding Status Reasons for possible values. | . Tax Number . | Field | Type | Description | . | value | String | The tax number. | . | type | String | Type of value-added tax. Can be nz-gst. | . Onboarding Statuses . | Status | Description | Allowed Reasons | . | applied | Identifies businesses that have registered to be activated for the Centrapay service. |   | . | provisioning | Identifies businesses that are in the process of being activated for the Centrapay service. |   | . | active | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |   | . | deactivated | Identifies businesses that have been de-registered for the Centrapay service. | data-quality-issues,change-of-ownership, centrapay-discontinued, duplicate, blocked | . | on-hold | Identifies businesses that have been placed on hold. | seasonal-business-closure, no-response | . Onboarding Status Reasons . | Reason | Description | . | duplicate | The business already exists in the Centrapay system. | . | data-quality-issues | Data quality issues are preventing the business from onboarding. | . | no-response | No response has been received from the business. | . | change-of-ownership | The business has changed ownership. | . | centrapay-discontinued | The business is no longer using Centrapay. | . | seasonal-business-closure | The business has closed temporarily. | . ",
     "url": "/api/businesses#models",
     "relUrl": "/api/businesses#models"
   },"50": {
@@ -509,71 +509,71 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": " ",
-    "url": "/guides",
-    "relUrl": "/guides"
-  },"86": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"87": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
     "content": " ",
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
-  },"88": {
-    "doc": "Settlements",
-    "title": "Settlements",
-    "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
-  },"89": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"90": {
-    "doc": "Integrations",
-    "title": "Integrations",
-    "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
-  },"91": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"92": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"93": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"94": {
+  },"86": {
     "doc": "Batches",
     "title": "Batches",
     "content": " ",
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
-  },"95": {
+  },"87": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
+  },"88": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"89": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"90": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
+  },"91": {
+    "doc": "Integrations",
+    "title": "Integrations",
+    "content": " ",
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
+  },"92": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"93": {
+    "doc": "Settlements",
+    "title": "Settlements",
+    "content": " ",
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
+  },"94": {
     "doc": "API Reference",
     "title": "API Reference",
     "content": " ",
     "url": "/api",
     "relUrl": "/api"
+  },"95": {
+    "doc": "Guides",
+    "title": "Guides",
+    "content": " ",
+    "url": "/guides",
+    "relUrl": "/guides"
   },"96": {
     "doc": "Getting Started",
     "title": "Getting Started",
@@ -611,17 +611,17 @@
     "url": "/api/integrations",
     "relUrl": "/api/integrations"
   },"102": {
-    "doc": "Guides",
-    "title": "Guides",
-    "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | . ",
-    "url": "/guides/introduction",
-    "relUrl": "/guides/introduction"
-  },"103": {
     "doc": "API Introduction",
     "title": "API Introduction",
     "content": "The Centrapay API is an RMM level 2 RESTful web service which expresses operations in terms of HTTP verbs on resource-oriented URLs. API endpoint definitions in these docs are grouped by resource type along with definitions for the associated resource types. Most API calls require authentication using an API key or JWT. HTTP requests and responses usually have JSON payloads and use “application/json” as the content type. Some API features may be flagged as EXPERIMENTAL. These API features may be removed or changed without warning and should not be relied on in a production setting. | Auth | HTTP Status Codes | Data Types | Pagination | API Keys | Accounts | Assets | Bank Accounts | Batches | Integrations | Invitations | Media Uploads | Merchants | Payment Requests | Profiles | Quotas | Scanned Codes | Settlements | . ",
     "url": "/api/introduction",
     "relUrl": "/api/introduction"
+  },"103": {
+    "doc": "Guides",
+    "title": "Guides",
+    "content": "Guides and examples of how to use Centrapay. | Merchant Terminals | Payment Flows | . ",
+    "url": "/guides/introduction",
+    "relUrl": "/guides/introduction"
   },"104": {
     "doc": "Invitations",
     "title": "Invitations",
@@ -835,7 +835,7 @@
   },"139": {
     "doc": "Merchants",
     "title": "Models",
-    "content": "Merchant . Mandatory Fields . | Field | Type | Description | . | id | String | Merchant’s unique identifier. | . | accountId | String | Id of Merchant’s owning Centrapay account. | . | name | String | Merchant name. | . | country | String | Merchant ISO 3166 country code. Must match the “region” on the Account. | . | createdAt | Timestamp | When the Merchant was created. | . | createdBy | CRN | The User or API Key that created the Merchant. | . | updatedAt | Timestamp | When the Merchant was updated. | . | updatedBy | CRN | The User or API Key that updated the Merchant. | . | onboardingStatus | String | The onboarding status of the Merchant. See Onboarding Statuses for possible values. | . Optional Fields . | Field | Type | Description | . | test | Boolean | EXPERIMENTAL Flag indicating merchant is for testing. | . | settlementConfig | Settlement Config | EXPERIMENTAL Merchant settlement config. | . | location | Location | EXPERIMENTAL Physical Location of Merchant. | . | onboardingStatusReason | String | The reason associated with the Onboarding Status. See Onboarding Status Reasons for possible values. | . Onboarding Statuses . | Status | Description | Allowed Reasons | . | applied | Identifies merchants that have registered to be activated for the Centrapay service. |   | . | provisioning | Identifies merchants that are in the process of being activated for the Centrapay service. |   | . | active | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |   | . | deactivated | Identifies merchants that have been de-registered for the Centrapay service. | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. | . | on-hold | Identifies merchants that have been placed on hold. | seasonal-business-closure, incompatible-terminal. | . Onboarding Status Reasons . | Reason | Description | . | duplicate | The merchant already exists in the Centrapay system. | . | data-quality-issues | Data quality issues are preventing the merchant from onboarding. | . | no-response | No response has been received from the merchant. | . | change-of-ownership | The merchant has changed ownership. | . | centrapay-discontinued | The merchant is no longer using Centrapay. | . | seasonal-business-closure | The merchant has closed temporarily. | . | incompatible-terminal | The merchant does not have any compatible terminals. | . Settlement Config . Optional Fields . | Field | Type | Description | . | bankAccountId | String | The id of the bank account funds should be settled into. This must belong to the account | . ",
+    "content": "Merchant . Mandatory Fields . | Field | Type | Description | . | id | String | Merchant’s unique identifier. | . | accountId | String | Id of Merchant’s owning Centrapay account. | . | name | String | Merchant name. | . | country | String | Merchant ISO 3166 country code. Must match the “region” on the Account. | . | createdAt | Timestamp | When the Merchant was created. | . | createdBy | CRN | The User or API Key that created the Merchant. | . | updatedAt | Timestamp | When the Merchant was updated. | . | updatedBy | CRN | The User or API Key that updated the Merchant. | . | onboardingStatus | String | The onboarding status of the Merchant. See Onboarding Statuses for possible values. | . Optional Fields . | Field | Type | Description | . | test | Boolean | EXPERIMENTAL Flag indicating merchant is for testing. | . | settlementConfig | Settlement Config | EXPERIMENTAL Merchant settlement config. | . | location | Location | EXPERIMENTAL Physical Location of Merchant. | . | onboardingStatusReason | String | The reason associated with the Onboarding Status. See Onboarding Status Reasons for possible values. | . Onboarding Statuses . | Status | Description | Allowed Reasons | . | applied | Identifies merchants that have registered to be activated for the Centrapay service. |   | . | provisioning | Identifies merchants that are in the process of being activated for the Centrapay service. |   | . | active | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |   | . | deactivated | Identifies merchants that have been de-registered for the Centrapay service. | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. | . | on-hold | Identifies merchants that have been placed on hold. | seasonal-business-closure, incompatible-terminal, no-response | . Onboarding Status Reasons . | Reason | Description | . | duplicate | The merchant already exists in the Centrapay system. | . | data-quality-issues | Data quality issues are preventing the merchant from onboarding. | . | no-response | No response has been received from the merchant. | . | change-of-ownership | The merchant has changed ownership. | . | centrapay-discontinued | The merchant is no longer using Centrapay. | . | seasonal-business-closure | The merchant has closed temporarily. | . | incompatible-terminal | The merchant does not have any compatible terminals. | . Settlement Config . Optional Fields . | Field | Type | Description | . | bankAccountId | String | The id of the bank account funds should be settled into. This must belong to the account | . ",
     "url": "/api/merchants#models",
     "relUrl": "/api/merchants#models"
   },"140": {
