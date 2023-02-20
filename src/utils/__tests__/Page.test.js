@@ -17,7 +17,7 @@ describe('Page', () => {
       };
       const result = Page.fromContent(content);
       expect(result).toEqual({
-        path: '/guides/farmlands-pos-guide',
+        path: '/guides/farmlands-pos-guide/',
         title: 'Farmlands POS Integration Guide',
         nav: {
           order: 1,
@@ -60,9 +60,9 @@ describe('Page', () => {
 
     describe('pathAtNavDepth', () => {
       const expected = {
-        1: '/references',
-        2: '/references/farmlands',
-        3: '/references/farmlands/override'
+        1: '/references/',
+        2: '/references/farmlands/',
+        3: '/references/farmlands/override/'
       };
       it(`should return ${expected[i]} when passed nav depth ${i}`, () => {
         const result = page.pathAtNavDepth(i);

@@ -19,7 +19,7 @@ Pre Auth payments are not supported in all cases.
 
 Pre Auth payments go through an orthogonal payment flow compared to Centrapay’s standard payment flow.
 
-> See also: [Requesting Payment](/guides/requesting-payment).
+> See also: [Requesting Payment](/guides/requesting-payment/).
 
 ```mermaid
 sequenceDiagram
@@ -53,7 +53,7 @@ sequenceDiagram
 
 ### Authorize
 
-An authorization is created when the [Payment Request is created](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment).
+An authorization is created when the [Payment Request is created](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment/).
 
 Once the authorization is successful, the Payment Request `preAuthStatus` is set to `authorized`.
 
@@ -137,7 +137,7 @@ Authorizations automatically expire after 3 months. Any unreleased funds are sub
 
 ### Refund
 
-[Refunds](/guides/initiating-refunds) can be made against authorizations, confirmations, released authorizations and expired authorizations.
+[Refunds](/guides/initiating-refunds/) can be made against authorizations, confirmations, released authorizations and expired authorizations.
 
 Refunds made against confirmations must include the `confirmationIdempotencyKey` field that is the same as the `idempotencyKey` used for original confirmation.
 

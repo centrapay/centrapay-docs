@@ -25,7 +25,7 @@
         class="mb-4"
         title="Guides"
         description="Checkout our Guides for hints on where to begin."
-        link="/guides/point-of-sale"
+        link="/guides/point-of-sale/"
       />
       <LandingPageCard
         :icon="Rocket"

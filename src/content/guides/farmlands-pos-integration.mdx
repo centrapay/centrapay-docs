@@ -23,9 +23,9 @@ Integrating with Centrapay streamlines the process for authorising and invoicing
 
 ## Payment Flow Overview
 
-Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](/guides/merchant-integration-barcode-flow#quick-pay-flow) to connect to Cardholders and accept Farmlands transactions.
+Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](/guides/merchant-integration-barcode-flow/#quick-pay-flow) to connect to Cardholders and accept Farmlands transactions.
 
-> See also: [Requesting Payment](/guides/requesting-payment)
+> See also: [Requesting Payment](/guides/requesting-payment/)
 
 ```mermaid
 sequenceDiagram
@@ -363,7 +363,7 @@ Card Partners must extend the Barcode Flow to support this by [creating Payment 
 
 The Payment Request must always be polled after accepting or declining a condition.
 
-> See also: [Payment Conditions](/guides/payment-conditions)
+> See also: [Payment Conditions](/guides/payment-conditions/)
 
 ### Pre Auth
 
@@ -753,7 +753,7 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-> See also: [Requesting Pre Auth](/guides/requesting-pre-auth)
+> See also: [Requesting Pre Auth](/guides/requesting-pre-auth/)
 
 ### Cardholder Not Present
 
@@ -799,7 +799,7 @@ curl -X POST https://service.centrapay.com/api/payment-requests \
   }'
 ```
 
-> See also: [Patron Not Present](/guides/patron-not-present)
+> See also: [Patron Not Present](/guides/patron-not-present/)
 
 ### Validating Farmlands Barcodes
 
@@ -828,9 +828,9 @@ curl -X POST https://service.centrapay.com/api/decode \
 
 ### Handling Payment Errors
 
-The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling/) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
 
-> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
+> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling/)
 
 ### Refunds
 
@@ -905,7 +905,7 @@ sequenceDiagram
     }
     ```
 
-> See also: [Initiating Refunds](/guides/initiating-refunds)
+> See also: [Initiating Refunds](/guides/initiating-refunds/)
 
 ### Short Codes
 
@@ -939,7 +939,7 @@ You need to go through the following steps in order to test your integration in 
 
 For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process.
 
-The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale) requirements, and the following additional requirements.
+The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale/) requirements, and the following additional requirements.
 
 **POS Requirements**
 

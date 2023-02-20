@@ -11,13 +11,13 @@ class Navigation {
       children: [
         {
           title: 'Reference',
-          to: '/reference',
+          to: '/reference/',
           icon: 'Receipt',
           children: [],
         },
         {
           title: 'Connections',
-          to: '/connections',
+          to: '/connections/',
           icon: 'Connections',
           children: [],
         },
@@ -59,7 +59,7 @@ class Navigation {
     if(!item) {
       item = {
         title: hasChildren ? titleAtDepth : page.navTitle,
-        to: hasChildren ? page.pathAtNavDepth(depth) : page.path,
+        to: hasChildren ? `${page.pathAtNavDepth(depth)}/` : `${page.path}/`,
         children: [],
       };
       navigationItem.children.push(item);

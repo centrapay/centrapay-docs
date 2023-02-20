@@ -44,21 +44,21 @@ describe('Navigation', () => {
         children: [
           {
             title: 'Reference',
-            to: '/reference',
+            to: '/reference/',
             icon: 'Receipt',
             children: [
               {
                 title: 'Merchant Integrations',
-                to: '/guides/line-items',
+                to: '/guides/line-items/',
                 children: [
                   {
                     title: 'Line Items',
-                    to: '/guides/line-items',
+                    to: '/guides/line-items/',
                     children: [],
                   },
                   {
                     title: 'overridden title',
-                    to: '/guides/point-of-sale',
+                    to: '/guides/point-of-sale/',
                     children: [],
                   },
                 ]
@@ -67,16 +67,16 @@ describe('Navigation', () => {
           },
           {
             title: 'Connections',
-            to: '/connections',
+            to: '/connections/',
             icon: 'Connections',
             children: [
               {
                 title: 'Farmlands',
-                to: '/connections/farmlands',
+                to: '/connections/farmlands/',
                 children: [
                   {
                     title: 'POS Integration Guide',
-                    to: '/guides/farmlands-pos-integration',
+                    to: '/guides/farmlands-pos-integration/',
                     children: [],
                   }
                 ]
