@@ -42,6 +42,7 @@
             target="_blank"
             class="icon-md text-interactive-tertiary hover:text-interactive-tertiary-active"
           >
+            <span class="sr-only">{{ link.description }}</span>
             <component :is="link.logo" />
           </a>
         </div>
@@ -59,7 +60,10 @@
           Your business can now either fully integrate your retail point of sale system or access a secure web portal when accepting Farmlands Card payments anytime, anywhere.
         </p>
         <div class="m-auto max-w-[450px] pt-4 pb-3">
-          <img src="/farmlands-flow.png">
+          <img
+            src="/farmlands-flow.png"
+            alt=""
+          >
         </div>
         <h3>
           Solutions
@@ -103,9 +107,9 @@ import ExternalLink from './icons/ExternalLink.vue';
 import VerifiedCheck from './icons/VerifiedCheck.vue';
 
 const externalNavigation = [
-  { name: 'Facebook', logo: FacebookLogo, href: 'https://www.facebook.com/farmlandsnz/' },
-  { name: 'Twitter', logo: TwitterLogo, href: 'https://twitter.com/farmlands?lang=en' },
-  { name: 'Instagram', logo: InstagramLogo, href: 'https://www.instagram.com/farmlandsnz/?hl=en' },
-  { name: 'LinkedIn', logo: LinkedInLogo, href: 'https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz' },
+  { name: 'Facebook', description: 'Farmlands Facebook', logo: FacebookLogo, href: 'https://www.facebook.com/farmlandsnz/' },
+  { name: 'Twitter', description: 'Farmlands Twitter', logo: TwitterLogo, href: 'https://twitter.com/farmlands?lang=en' },
+  { name: 'Instagram', description: 'Farmlands Instagram', logo: InstagramLogo, href: 'https://www.instagram.com/farmlandsnz/?hl=en' },
+  { name: 'LinkedIn', description: 'Farmlands LinkedIn', logo: LinkedInLogo, href: 'https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz' },
 ];
 </script>

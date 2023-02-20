@@ -42,6 +42,7 @@
             class="flex items-center justify-center h-16 w-16 bg-brand-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
             @click="mainMenuOpen = false"
           >
+            <span class="sr-only">Go to home page</span>
             <CentrapayLogo class="text-content-on-color icon-2xl" />
           </a>
           <div class="flex flex-row space-x-1 ml-7">
