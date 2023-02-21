@@ -312,14 +312,15 @@ sequenceDiagram
 
 ## Payment Flow Implementation
 
-The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
+The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions. 
 
 1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
 2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
-3. Card Partners must meet [basic payment requirements](#basic-requirements) in order to implement the Barcode Payment Flow.
-4. Each Card Partner should extend the Barcode Payment Flow to meet any additional requirements they have.
-    1. Mandatory extensions include supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds).
-    2. Optional extensions include supporting [Pre Auth](#pre-auth) payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately, supporting payments when the [Cardholder is not physically present](#cardholder-not-present), and [validating Farmlands barcodes](#validating-farmlands-barcodes) before a transaction is initiated.
+3. Card Partners must meet [basic payment requirements](#basic-requirements), including supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds) in order to implement the Barcode Payment Flow.
+4. Card Partners should extend the Barcode payment Flow to meet any additional requirements, these optional extensions include:
+    - [Pre Auth payments](#pre-auth) when there is no invoice number available at the point of sale, or the purchase cannot be fulfilled immediately
+    - [Cardholder not physically present](#cardholder-not-present)
+    - [Validating Farmlands barcodes](#validating-farmlands-barcodes) before a transaction is initiated
 
 ### Merchant Configuration
 
