@@ -76,19 +76,17 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden md:fixed md:h-full md:inset-y-16 md:flex md:w-64 xl:w-80 md:flex-col">
-      <div class="flex flex-grow flex-col overflow-y-auto pt-5 border-r border-gray-200 bg-white">
-        <div class="flex flex-grow flex-col">
-          <nav
-            class="flex-1 space-y-1 bg-white px-2"
-            aria-label="Sidebar"
-          >
-            <SiteNavigation
-              :path="props.path"
-              :navigation="navigation"
-            />
-          </nav>
-        </div>
+    <div class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col">
+      <div class="flex flex-grow flex-col mt-16 py-5 overflow-y-scroll border-r border-gray-200 bg-white">
+        <nav
+          class="flex-1 space-y-1 bg-white px-2"
+          aria-label="Sidebar"
+        >
+          <SiteNavigation
+            :path="props.path"
+            :navigation="navigation"
+          />
+        </nav>
       </div>
     </div>
 
