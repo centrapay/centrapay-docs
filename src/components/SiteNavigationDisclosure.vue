@@ -33,7 +33,7 @@
             <a
               :href="firstChild.to"
               class="group mt-2 flex w-full items-center rounded-md py-2 pl-3 pr-2 text-sm font-medium text-content-secondary hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-              :class="path == firstChild.to ? 'bg-gray-100 text-content-primary hover:bg-gray-200' : ''"
+              :class="strippedPath == firstChild.to ? 'bg-gray-100 text-content-primary hover:bg-gray-200' : ''"
               @click="$emit('link-clicked')"
             >
               {{ firstChild.title }}
@@ -46,7 +46,7 @@
                 <a
                   :href="secondChild.to"
                   class="group mt-2 flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-                  :class="path == secondChild.to ? 'bg-gray-100 text-content-primary hover:bg-gray-200' : ''"
+                  :class="strippedPath == secondChild.to ? 'bg-gray-100 text-content-primary hover:bg-gray-200' : ''"
                   @click="$emit('link-clicked')"
                 >
                   {{ secondChild.title }}
@@ -92,10 +92,14 @@ const props = defineProps({
 const emit = defineEmits([ 'link-clicked' ]);
 
 const disclosureIcon = defineAsyncComponent(() => import(`./icons/${props.navigationItem.icon}.vue`));
-const currentNavPath = computed(() => {
+
+const strippedPath = computed(() => {
   const path = props.path;
-  const strippedPath = path.endsWith('/') ? path.slice(0, -1) : path;
-  return props.navigation.pathToActiveNav[strippedPath] || strippedPath;
+  return path.endsWith('/') ? path.slice(0, -1) : path;
+});
+
+const currentNavPath = computed(() => {
+  return props.navigation.pathToActiveNav[strippedPath.value] || strippedPath.value;
 });
 
 function toggleDisclosure() {
