@@ -54,10 +54,11 @@
           Overview
         </h2>
         <p>
-          In partnership with Centrapay, Farmlands now offers two new digital solutions that will allow Card Partners to authorise payments in real-time and process Farmlands invoices faster. There are no transactional costs for Card Partners that use these new options.
+          In partnership with Centrapay, Farmlands has two new digital solutions that enable Card Partners to authorise Card payments in real-time and process invoices to Farmlands faster.
+          There are no transactional costs for Card Partners using these solutions.
         </p>
         <p class="mt-8">
-          Your business can now either fully integrate your retail point of sale system or access a secure web portal when accepting Farmlands Card payments anytime, anywhere.
+          Your business can either fully integrate the Farmlands solution to your retail point of sale system or access a secure web portal when accepting Farmlands Card as a form of payment for a sale anytime, anywhere.
         </p>
         <div class="m-auto max-w-[450px] pt-4 pb-3">
           <img
@@ -73,7 +74,7 @@
             class="max-w-l"
             image-src="/farmlands-pos-background.png"
             title="1. POS API"
-            description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that need integration with their retail point of sale system."
+            description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that need integration with their retail POS system."
             :link="{
               text: 'POS Integration Guide',
               url: '/guides/farmlands-pos-integration',
@@ -83,7 +84,7 @@
             class="max-w-l"
             image-src="/farmlands-portal-background.png"
             title="2. Portal"
-            description="A secure web portal for Farmlands Card payments. This option allows Card Partners to authorise payments without having to integrate their retail point of sale system."
+            description="A secure web portal to support acceptance of Farmlands Card as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card when presented as payment for a sale, without having to integrate to their retail point of sale system."
             button-url=""
             :link="{
               text: 'Portal Introduction Guide',
