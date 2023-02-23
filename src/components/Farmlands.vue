@@ -86,7 +86,7 @@
             description="A secure web portal for Farmlands Card payments. This option allows Card Partners to authorise payments without having to integrate their retail point of sale system."
             button-url=""
             :link="{
-              text: 'Portal Introduction Guide',
+              text: 'Portal Guide',
               url: '/guides/farmlands-portal',
             }"
           />
