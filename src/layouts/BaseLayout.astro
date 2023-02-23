@@ -78,11 +78,11 @@ const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guide
         <button
           id="freshdesk"
           type="button"
-          class="btn-tertiary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16"
+          class="btn bg-interactive-quaternary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16 hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
         >
           <span class="sr-only">Open support widget</span>
           <MessagesBubbleDouble
-            class="icon-lg"
+            class="icon-lg text-content-on-color"
             aria-hidden="true"
           />
         </button>

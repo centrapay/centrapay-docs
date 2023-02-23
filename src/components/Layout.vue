@@ -19,7 +19,7 @@
           >
             <p
               v-if="collectionName"
-              class="type-overline text-brand-accent"
+              class="type-overline text-content-primary"
             >
               {{ collectionName }}
             </p>
@@ -43,7 +43,7 @@
         >
           <h2
             id="on-this-page-title"
-            class="type-overline text-brand-accent"
+            class="type-overline text-content-primary"
           >
             On this page
           </h2>

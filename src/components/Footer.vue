@@ -17,7 +17,7 @@
           />
         </a>
       </div>
-      <p class="mt-8 text-xs leading-5 text-content-tertiary md:order-1 md:mt-0">
+      <p class="mt-8 text-xs leading-5 text-content-primary md:order-1 md:mt-0">
         {{ `&#169; ${year} Centrapay - All rights reserved.` }}
       </p>
     </div>
