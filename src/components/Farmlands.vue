@@ -87,8 +87,8 @@
             description="A secure web portal to support acceptance of Farmlands Card as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card when presented as payment for a sale, without having to integrate to their retail point of sale system."
             button-url=""
             :link="{
-              text: 'Portal Introduction Guide',
-              url: '/guides/farmlands-portal-introduction',
+              text: 'Portal Guide',
+              url: '/guides/farmlands-portal',
             }"
           />
         </div>
