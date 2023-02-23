@@ -87,7 +87,7 @@
             button-url=""
             :link="{
               text: 'Portal Introduction Guide',
-              url: '/guides/farmlands-portal-introduction',
+              url: '/guides/farmlands-portal',
             }"
           />
         </div>
