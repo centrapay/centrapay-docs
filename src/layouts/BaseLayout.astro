@@ -18,7 +18,7 @@ export function getStaticPaths() {
 const {
   title,
   description,
-  img = '/default-cover-image.png'
+  img,
 } = Astro.props;
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 

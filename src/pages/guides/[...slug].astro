@@ -14,10 +14,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-const img = entry.data.img || '/default-cover-image.png';
+const coverImage = entry.data.img || '/default-cover.svg';
+const previewImg = entry.data.img || '/default-cover.jpg';
 ---
-<BaseLayout title={entry.data.title} description={entry.data.description} img={img}>
-  <Layout client:load collectionName="Guides" headings={headings} title={entry.data.title} img={img}>
+<BaseLayout title={entry.data.title} description={entry.data.description} img={previewImg}>
+  <Layout client:load collectionName="Guides" headings={headings} title={entry.data.title} img={coverImage}>
     <Content components={customComponents}/>
   </Layout>
 </BaseLayout>
