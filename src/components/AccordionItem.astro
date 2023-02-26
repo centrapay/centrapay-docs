@@ -1,0 +1,11 @@
+---
+import AccordionHeader from './AccordionHeader.vue';
+import AccordionContent from './AccordionContent.vue';
+---
+
+<AccordionHeader>
+  <slot name="title" />
+</AccordionHeader>
+<AccordionContent>
+  <slot name="description" />
+</AccordionContent>
