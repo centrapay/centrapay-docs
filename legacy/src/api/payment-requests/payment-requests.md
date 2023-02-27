@@ -69,10 +69,10 @@ version (documented on this page) and the "legacy" version (documented at
 | patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
 | barcode              | String             | [Scanned Code][] used to create the payment request.                                                                                                                     |
 | expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
-| lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
+| lineItems            | Array              | The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String             | A reference to a purchase order for this payment request.                                                                                                                |
 | invoiceRef           | String             | A reference to an invoice for this payment request.                                                                                                                      |
-| redirectUrl          | String             | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| redirectUrl          | String             | URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
 | externalRef          | String             | An external reference to the payment request                                                                                                                             |
 | terminalId           | String             | The software or logical id of the payment terminal.                                                                                                                      |
 | deviceId             | String             | The hardware id or serial number of the payment terminal.                                                                                                                |
@@ -214,7 +214,7 @@ The Paid By provides a summary of the transactions after the Payment Request was
 | total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
 <a name="payment-activity"></a>
-### Payment Activity **EXPERIMENTAL**
+### Payment Activity
 
 A Payment Activity records a transaction that has happened on a [Payment Request][].
 Payment Activities are created when a Payment Request has been **created**, **paid**, **refunded**, **cancelled**, or **expired**.
@@ -374,11 +374,11 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
-| lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
+| lineItems            | Array {% opt %}   | The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
 | invoiceRef           | String {% opt %}  | A reference to an invoice for this payment request.                                                                                                                      |
 | externalRef          | String {% opt %}  | An external reference to the payment request                                                                                                                             |
-| redirectUrl          | String {% opt %}  | **Experimental** URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
+| redirectUrl          | String {% opt %}  | URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the `allowedRedirectUrls` for the [Merchant Config][]. |
 | terminalId           | String {% opt %}  | The software or logical id of the payment terminal.                                                                                                                      |
 | deviceId             | String {% opt %}  | The hardware id or serial number of the payment terminal.                                                                                                                |
 | operatorId           | String {% opt %}  | The POS operator Id.                                                                                                                                                     |
@@ -695,7 +695,7 @@ them to find the Payment Request and proceed to pay.
 
 
 <a name="pay"></a>
-### Pay a Payment Request **EXPERIMENTAL**
+### Pay a Payment Request
 
 To pay a payment request you must supply the name of the [Asset Type][] and one of `assetId`, `transactionId` or `authorization`.
 Use assetId if the [Asset Type][] is managed by Centrapay. Use transactionId to verify an external transaction such as a Bitcoin payment.
@@ -767,7 +767,7 @@ Use authorization to authorize an external transaction.
 | 403    | {% break _ PAYMENT_DECLINED %}         | The payment parameters were valid but payment was declined because additional payment restrictions were violated.                                                                          |
 
 <a name="refund"></a>
-### Refund a Payment Request **EXPERIMENTAL**
+### Refund a Payment Request
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/refund'
@@ -911,7 +911,7 @@ Use authorization to authorize an external transaction.
 | 403    | {% break _ CONFIRMATION_NOT_FOUND %}      | The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.                                                                                                                                          |
 
 <a name="void">
-### Void a Payment Request **EXPERIMENTAL**
+### Void a Payment Request
 
 Voiding a payment request will cancel the request and trigger any refunds if necessary.
 
@@ -979,7 +979,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ PRE_AUTH_ALREADY_CONFIRMED %} | The Pre Auth Payment Request already has confirmations. Use [Refund][] endpoint to reverse the transaction.                                                                                                                                         |
 
 <a name="release">
-### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
+### Release funds held for a Pre Auth Payment Request
 
 When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
@@ -1043,7 +1043,7 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 
 
 <a name="confirm"></a>
-### Make a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
+### Make a confirmation against a Pre Auth Payment Request
 
 An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
 If our endpoint does not respond you must retry until you get back a 200 or 403.
@@ -1141,7 +1141,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
 | 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. |
 
 <a name="list-activities-for-merchant"></a>
-### List Payment Activities for a Merchant **EXPERIMENTAL**
+### List Payment Activities for a Merchant
 
 List payment activities for a merchant. Results are [paginated][] and ordered by
 descending activity created date.
@@ -1220,7 +1220,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="list-activities"></a>
-### List Payment Activities for a Payment Request **EXPERIMENTAL**
+### List Payment Activities for a Payment Request
 
 List payment activities for a payment request. Results are ordered by
 descending activity created date.
@@ -1285,7 +1285,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="accept-payment-condition"></a>
-### Accept Payment Condition for a Payment Request **EXPERIMENTAL**
+### Accept Payment Condition for a Payment Request
 
 Accept a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
 
@@ -1327,7 +1327,7 @@ Accept a [Payment Condition][] listed in `merchantConditions` with status `await
 | 403    | {% break _ CONDITION_ALREADY_SET %}   | The Payment Condition has already been accepted or declined.                                                  |
 
 <a name="decline-payment-condition"></a>
-### Decline Payment Condition for a Payment Request **EXPERIMENTAL**
+### Decline Payment Condition for a Payment Request
 
 Decline a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
 
