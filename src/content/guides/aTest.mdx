@@ -6,13 +6,13 @@ nav:
   order: 1
 ---
 
-import AccordionItem from '../../components/AccordionItem.astro';
+import AccordionItem from '../../components/AccordionItem.vue';
 
-<AccordionItem>
+<AccordionItem client:visible>
   <p slot="title">
     **The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?**
   </p>
   <p slot="description">
-    No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.
+    No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   </p>
 </AccordionItem>
