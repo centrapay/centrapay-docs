@@ -18,7 +18,7 @@ A Patron Code is an alternative to presenting a QR code where that option isn't 
 
 ## Models
 
-### Patron Code **EXPERIMENTAL**
+### Patron Code
 
 {% h4 Fields %}
 
@@ -76,7 +76,7 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
 ## Operations
 
-### Creating a Patron Code **EXPERIMENTAL**
+### Creating a Patron Code
 
 {% reqspec %}
   POST '/api/patron-codes'
