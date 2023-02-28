@@ -1,40 +1,39 @@
 <template>
-  <div>
-    <button
+  <Disclosure>
+    <DisclosureButton
       class="flex w-full flex-row justify-between px-0 my-2 focus:ring-1 ring-offset-8 rounded-md type-subtitle-2"
       style="text-align:left"
-      @click="toggleDescription()"
+      @click="open = !open"
     >
       <slot name="title" />
-      <ChevronDown :class="[showDescription && 'rotate-180', 'h-6 w-6 flex-none']" />
-    </button>
-    <div class="mr-6 mb-2">
-      <slot
-        v-if="showDescription"
-        name="description"
-      />
-    </div>
-  </div>
+      <ChevronDown :class="[open && 'rotate-180', 'h-6 w-6 flex-none']" />
+    </DisclosureButton>
+    <DisclosurePanel class="mr-6 mb-2">
+      <slot name="description" />
+    </DisclosurePanel>
+  </Disclosure>
 </template>
 
 <script>
 import ChevronDown from './icons/ChevronDown.vue';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from '@headlessui/vue';
 
 export default {
   components: {
     ChevronDown,
+    Disclosure,
+    DisclosureButton,
+    DisclosurePanel,
   },
 
   data() {
     return {
-      showDescription: false,
+      open: false,
     };
-  },
-
-  methods: {
-    toggleDescription() {
-      this.showDescription = !this.showDescription;
-    },
-  },
+  }
 };
 </script>
