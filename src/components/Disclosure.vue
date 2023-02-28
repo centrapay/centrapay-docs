@@ -5,11 +5,11 @@
       style="text-align:left"
       @click="open = !open"
     >
-      <slot name="title" />
+      {{ title }}
       <ChevronDown :class="[open && 'rotate-180', 'h-6 w-6 flex-none']" />
     </DisclosureButton>
     <DisclosurePanel class="mr-6 mb-2">
-      <slot name="description" />
+      <slot />
     </DisclosurePanel>
   </Disclosure>
 </template>
@@ -30,10 +30,14 @@ export default {
     DisclosurePanel,
   },
 
+  props: {
+    title: { type: String, required: true },
+  },
+
   data() {
     return {
       open: false,
     };
-  }
+  },
 };
 </script>
