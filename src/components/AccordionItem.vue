@@ -8,7 +8,7 @@
       <slot name="title" />
       <ChevronDown :class="[showDescription && 'rotate-180', 'h-6 w-6 flex-none']" />
     </button>
-    <div class="mr-6">
+    <div class="mr-6 mb-2">
       <slot
         v-if="showDescription"
         name="description"
