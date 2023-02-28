@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div class="flex flex-row space-x-4">
+    <button
+      class="flex w-full flex-row justify-between px-0 my-2 focus:ring-1 ring-offset-8 rounded-md type-subtitle-2"
+      style="text-align:left"
+      @click="toggleDescription()"
+    >
       <slot name="title" />
-      <button
-        class="focus:ring-0"
-        @click="toggleDescription()"
-      >
-        <ChevronDown :class="[showDescription && 'rotate-180']" />
-      </button>
+      <ChevronDown :class="[showDescription && 'rotate-180', 'h-6 w-6 flex-none']" />
+    </button>
+    <div class="mr-6">
+      <slot
+        v-if="showDescription"
+        name="description"
+      />
     </div>
-    <slot
-      v-if="showDescription"
-      name="description"
-    />
   </div>
 </template>
 
