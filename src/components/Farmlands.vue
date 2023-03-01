@@ -74,7 +74,7 @@
             class="max-w-l"
             image-src="/farmlands-pos-background.png"
             title="1. POS API"
-            description="A comprehensive payment API to support Farmlands Card payments. This option is for Card Partners that need integration with their retail POS system."
+            description="A comprehensive payment API to support acceptance of Farmlands Card as a form of payment. This option is for Card Partners that prefer a full integration with their point of sale system."
             :link="{
               text: 'POS Integration Guide',
               url: '/guides/farmlands-pos-integration',
