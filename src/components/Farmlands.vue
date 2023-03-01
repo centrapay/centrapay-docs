@@ -84,7 +84,7 @@
             class="max-w-l"
             image-src="/farmlands-portal-background.png"
             title="2. Portal"
-            description="A secure web portal to support accepting Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a transaction without having to integrate with their point of sale system."
+            description="A secure web portal to support accepting Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card without having to integrate with their point of sale system."
             button-url=""
             :link="{
               text: 'Portal Guide',
