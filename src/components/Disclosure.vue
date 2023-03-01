@@ -14,7 +14,8 @@
   </Disclosure>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import Carat from './icons/Carat.vue';
 import {
   Disclosure,
@@ -22,22 +23,9 @@ import {
   DisclosurePanel,
 } from '@headlessui/vue';
 
-export default {
-  components: {
-    Carat,
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-  },
+const props = defineProps({
+  title: { type: String, required: true },
+});
 
-  props: {
-    title: { type: String, required: true },
-  },
-
-  data() {
-    return {
-      open: false,
-    };
-  },
-};
+let open = ref(false);
 </script>

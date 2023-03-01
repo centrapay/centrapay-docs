@@ -201,77 +201,52 @@ On the Settings page, you can change your business information. Please note this
   Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
 </FAQ>
 
-{/* <Disclosure client:visible>
-  <span slot="title">**What do we do if a customer returns one or more items, and the invoice has already been sent to Farmlands?**</span>
-  <span slot="description">Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.</span>
-</Disclosure>
+<FAQ client:visible title="What do we do if the customer cancels their order <u>after</u> we have sent the invoice to Farmlands?">
+  Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**What do we do if the customer cancels their order <u>after</u> we have sent the invoice to Farmlands?**</span>
-  <span slot="description">Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.</span>
-</Disclosure>
+<FAQ client:visible title="What do we do if the customer cancels their order <u>before</u> we have sent the invoice to Farmlands?">
+  If the entire order has been cancelled, release the hold on the customer’s funds via the Portal. There is no requirement to send an invoice to Farmlands.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**What do we do if the customer cancels their order <u>before</u> we have sent the invoice to Farmlands?**</span>
-  <span slot="description">If the entire order has been cancelled, release the hold on the customer’s funds via the Portal. There is no requirement to send an invoice to Farmlands.</span>
-</Disclosure>
+<FAQ client:visible title="What do we do if we need to amend the value of the order prior to sending the invoice to Farmlands?">
+  If the revised sale amount is:\
+  - less than the original authorisation amount, submit the amended invoice with the original authorisation short code.\
+  - greater than the original authorisation sales amount, release the hold on the customer’s funds via the Portal. Once completed, generate a new authorisation request for the revised sales amount.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**What do we do if we need to amend the value of the order prior to sending the invoice to Farmlands?**</span>
-  <span slot="description">
-    <span>If the revised sale amount is:</span>
-    <p>- less than the original authorisation amount, submit the amended invoice with the original authorisation short code.</p>
-    <span>- greater than the original authorisation sales amount, release the hold on the customer’s funds via the Portal. Once completed, generate a new authorisation request for the revised sales amount.</span>
-  </span>
-</Disclosure>
+<FAQ client:visible title="How long are funds held for on a Customer’s Card?">
+  The value of the authorisation will be held on the customer’s Card for up to 31 days. It is important Invoices, with a valid authorisation short code, are submitted to Farmlands as soon as possible so these can be matched against the funds held.\
+  Invoices received after 31 days and up to 3 months will be processed in good faith however, if the associated Farmlands Account has been closed, you will be advised to contact the customer for another form of payment.\
+  If you are concerned, **re-authorise the transaction especially prior to fulfilling a back order if it is over 31 days since originally authorised.**
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**How long are funds held for on a Customer’s Card?**</span>
-  <span slot="description">
-    <span>The value of the authorisation will be held on the customer’s Card for up to 31 days. It is important Invoices, with a valid authorisation short code, are submitted to Farmlands as soon as possible so these can be matched against the funds held.</span>
-    <p>Invoices received after 31 days and up to 3 months will be processed in good faith however, if the associated Farmlands Account has been closed, you will be advised to contact the customer for another form of payment.</p>
-    <span>If you are concerned, re-authorise the transaction especially prior to fulfilling a back order if it is over 31 days since originally authorised.</span>
-  </span>
-</Disclosure>
+<FAQ client:visible title="We received a message on the Portal stating the “Barcode is invalid.” What does this mean?">
+  The Card number being entered is either not a valid number or the Card being presented is no longer active on the Farmlands system. Check the correct Card number has been entered or request another method of payment.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**We received a message on the Portal stating the “Barcode is invalid.” What does this mean?**</span>
-  <span slot="description">The Card number being entered is either not a valid number or the Card being presented is no longer active on the Farmlands system. Check the correct Card number has been entered or request another method of payment.</span>
-</Disclosure>
+<FAQ client:visible title="How do I manage who has access to the Authorisation Portal?">
+  User management and access is at the discretion of the Card Partner.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**How do I manage who has access to the Authorisation Portal?**</span>
-  <span slot="description">User management and access is at the discretion of the Card Partner.</span>
-</Disclosure>
+<FAQ client:visible title="We have a regular customer. Do we need to obtain an authorisation?">
+  All sales where a Farmlands Card has been provided as payment require an authorisation prior to submitting an invoice to Farmlands.\
+  If you hold your customer’s Farmlands’ Card number on file and have their permission to charge this on a recurring basis, please select the 'Cardholder Not Present' option at the time of sale.
+</FAQ>
 
-<AccordionItem client:visible>
-  <span slot="title">**We have a regular customer. Do we need to obtain an authorisation?**</span>
-  <span slot="description">
-    <span>All sales where a Farmlands Card has been provided as payment require an authorisation prior to submitting an invoice to Farmlands.</span>
-    <p>If you hold your customer’s Farmlands’ Card number on file and have their permission to charge this on a recurring basis, please select the 'Cardholder Not Present' option at the time of sale.</p>
-  </span>
-</Disclosure>
+<FAQ client:visible title="How do I release funds held on a customer’s Card?">
+    Go into the Portal, find the original authorisation by searching for the Short Code. Click the authorisation and then “Release Funds”.
+    If you have sent the original invoice to Farmlands, you must still create a credit note and send it to Farmlands. Use the same short code as the original Invoice.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**How do I release funds held on a customer’s Card?**</span>
-  <span slot="description">
-    <span>Go into the Portal, find the original authorisation by searching for the Short Code. Click the authorisation and then “Release Funds”.</span>
-    <p>If you have sent the original invoice to Farmlands, you must still create a credit note and send it to Farmlands. Use the same short code as the original Invoice.</p>
-  </span>
-</Disclosure>
+<FAQ client:visible title="What if the barcode will not scan or is obscured?">
+  The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the Card under the Cardholder's name.\
+  If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands to request a new Card.
+</FAQ>
 
-<Disclosure client:visible>
-  <span slot="title">**What if the barcode will not scan or is obscured?**</span>
-  <span slot="description">
-    <span>The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the Card under the Cardholder's name.</span>
-    <p>If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands to request a new Card.</p>
-  </span>
-</Disclosure>
-
-<Disclosure>
-  <span slot="title">**The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?**</span>
-  <span slot="description">No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.</span>
-</Disclosure> */}
+<FAQ client:visible title="The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?">
+  No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.
+</FAQ>
 
 ## **Support**
 
