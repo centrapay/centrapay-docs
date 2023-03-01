@@ -6,7 +6,7 @@
       @click="open = !open"
     >
       {{ title }}
-      <Carat :class="[open ? '-rotate-90' : 'rotate-90', 'h-6 w-6 flex-none']" />
+      <Carat :class="[open ? '-rotate-90' : 'rotate-90', 'ml-2 h-6 w-6 flex-none']" />
     </DisclosureButton>
     <DisclosurePanel class="mr-6 mb-2">
       <slot />
