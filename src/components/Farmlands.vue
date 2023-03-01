@@ -74,7 +74,7 @@
             class="max-w-l"
             image-src="/farmlands-pos-background.png"
             title="1. POS API"
-            description="A comprehensive payment API to support accepting Farmlands Cards as a form of payment. This option is for Card Partners that prefer full integration with their point of sale system."
+            description="A comprehensive payment API to support the acceptance of Farmlands Cards as a form of payment. This option is for Card Partners that prefer full integration with their point of sale system."
             :link="{
               text: 'POS Integration Guide',
               url: '/guides/farmlands-pos-integration',
@@ -84,7 +84,7 @@
             class="max-w-l"
             image-src="/farmlands-portal-background.png"
             title="2. Portal"
-            description="A secure web portal to support accepting Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card without having to integrate with their point of sale system."
+            description="A secure web portal to support the acceptance of Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card without having to integrate with their point of sale system."
             button-url=""
             :link="{
               text: 'Portal Guide',
