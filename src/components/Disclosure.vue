@@ -6,7 +6,7 @@
       @click="open = !open"
     >
       {{ title }}
-      <ChevronDown :class="[open && 'rotate-180', 'h-6 w-6 flex-none']" />
+      <Carat :class="[open ? '-rotate-90' : 'rotate-90', 'h-6 w-6 flex-none']" />
     </DisclosureButton>
     <DisclosurePanel class="mr-6 mb-2">
       <slot />
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ChevronDown from './icons/ChevronDown.vue';
+import Carat from './icons/Carat.vue';
 import {
   Disclosure,
   DisclosureButton,
@@ -24,7 +24,7 @@ import {
 
 export default {
   components: {
-    ChevronDown,
+    Carat,
     Disclosure,
     DisclosureButton,
     DisclosurePanel,
