@@ -11,11 +11,11 @@
       >
     </div>
     <div class="relative mx-auto desktop-gutters flex justify-center">
-      <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 lg:max-w-none">
+      <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
         <article>
           <header
             v-if="props.title || collectionName"
-            class="mb-9 space-y-1 pt-8 xl:pt-16"
+            class="mb-9 space-y-1"
           >
             <p
               v-if="collectionName"
