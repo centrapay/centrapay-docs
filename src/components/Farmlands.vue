@@ -48,52 +48,6 @@
         </div>
       </Prose>
     </header>
-    <main class="desktop-gutters px-8">
-      <Prose class="prose-h2:border-none">
-        <h2>
-          Overview
-        </h2>
-        <p>
-          In partnership with Centrapay, Farmlands has two new digital solutions that enable Card Partners to authorise Card payments in real-time, and process invoices to Farmlands faster.
-          There are no transactional costs for Card Partners using these solutions.
-        </p>
-        <p class="mt-8">
-          Your business can either fully integrate the Farmlands solution to your retail point of sale system, or access a secure web portal when accepting Farmlands Card as a form of payment for a sale anytime, anywhere.
-        </p>
-        <div class="m-auto max-w-[450px] pt-4 pb-3">
-          <img
-            src="/farmlands-flow.png"
-            alt=""
-          >
-        </div>
-        <h3>
-          Solutions
-        </h3>
-        <div class="not-prose flex flex-col md:flex-row pt-4 md:space-x-6 lg:space-x-12 pb-16 space-y-6 md:space-y-0">
-          <Card
-            class="max-w-l"
-            image-src="/farmlands-pos-background.png"
-            title="1. POS API"
-            description="A comprehensive payment API to support the acceptance of Farmlands Cards as a form of payment. This option is for Card Partners that prefer full integration with their point of sale system."
-            :link="{
-              text: 'POS Integration Guide',
-              url: '/guides/farmlands-pos-integration',
-            }"
-          />
-          <Card
-            class="max-w-l"
-            image-src="/farmlands-portal-background.png"
-            title="2. Portal"
-            description="A secure web portal to support the acceptance of Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card without having to integrate with their point of sale system."
-            button-url=""
-            :link="{
-              text: 'Portal Guide',
-              url: '/guides/farmlands-portal',
-            }"
-          />
-        </div>
-      </Prose>
-    </main>
   </div>
 </template>
 

@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Farmlands from '../components/Farmlands.vue';
+import Layout from '../components/Layout.vue';
+
+const img = 'countryside.jpg';
+const fullWidth = true;
+const headings = {};
+---
+
+<BaseLayout>
+  <div slot="header"><Farmlands></div>
+    <Layout
+      collectionName="Connections"
+      headings={headings}
+      title="Farmlands"
+      img=""
+      fullWidth={fullWidth}
+      >
+    <slot />
+  </Layout>
+</BaseLayout>

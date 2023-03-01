@@ -11,11 +11,11 @@
       >
     </div>
     <div class="relative mx-auto desktop-gutters flex justify-center">
-      <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
+      <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 lg:max-w-none">
         <article>
           <header
             v-if="props.title || collectionName"
-            class="mb-9 space-y-1"
+            class="mb-9 space-y-1 pt-8 xl:pt-16"
           >
             <p
               v-if="collectionName"
@@ -71,7 +71,7 @@
           </ol>
         </nav>
         <div
-          v-else
+          v-if="!props.headings?.length && !props.fullWidth"
           class="w-56"
         >
           <!-- Dummy element to force page content width to stay consistent when there is no TOC -->
@@ -90,6 +90,7 @@ const props = defineProps({
   headings: { type: Object, required: true },
   title: { type: String, required: true },
   img: { type: String, required: true },
+  fullWidth: { type: Boolean, required: false },
 });
 
 const visibleHeadingId = ref('');
