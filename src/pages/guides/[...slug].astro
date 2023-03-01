@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../components/Layout.vue';
+import GuideLayout from '../../components/GuideLayout.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
 
@@ -18,7 +18,7 @@ const coverImage = entry.data.img || '/default-cover.svg';
 const previewImg = entry.data.img || '/default-cover.jpg';
 ---
 <BaseLayout title={entry.data.title} description={entry.data.description} img={previewImg}>
-  <Layout client:load collectionName="Guides" headings={headings} title={entry.data.title} img={coverImage}>
+  <GuideLayout client:load collectionName="Guides" headings={headings} title={entry.data.title} img={coverImage}>
     <Content components={customComponents}/>
-  </Layout>
+  </GuideLayout>
 </BaseLayout>

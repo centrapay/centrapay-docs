@@ -1,7 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Farmlands from '../components/Farmlands.vue';
-import Layout from '../components/Layout.vue';
+import GuideLayout from '../components/GuideLayout.vue';
 
 const img = 'countryside.jpg';
 const fullWidth = true;
@@ -9,8 +9,8 @@ const headings = {};
 ---
 
 <BaseLayout>
-  <div slot="header"><Farmlands></div>
-    <Layout
+  <Farmlands/>
+    <GuideLayout
       collectionName=""
       headings={headings}
       title="Overview"
@@ -18,5 +18,5 @@ const headings = {};
       fullWidth={fullWidth}
       >
     <slot />
-  </Layout>
+  </GuideLayout>
 </BaseLayout>

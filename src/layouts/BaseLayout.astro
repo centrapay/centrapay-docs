@@ -73,7 +73,6 @@ const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guide
     <div class="flex flex-col min-h-screen">
       <AppShell client:load path={Astro.url.pathname} navigation={navigation}>
         <main>
-          <slot name="header"/>
           <slot />
         </main>
         <button
