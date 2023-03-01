@@ -1,8 +1,7 @@
 <template>
   <Disclosure>
     <DisclosureButton
-      class="flex w-full flex-row justify-between px-0 my-4 focus:ring-1 ring-offset-8 rounded-md type-subtitle-2"
-      style="text-align:left"
+      class="flex w-full flex-row text-left justify-between px-0 my-4 focus:ring-1 ring-offset-8 rounded-md type-subtitle-2"
       @click="open = !open"
     >
       {{ title }}
