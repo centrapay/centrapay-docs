@@ -41,6 +41,7 @@ class Navigation {
       'Merchant Integrations',
       'App Integrations',
       'Digital Assets',
+      'Centrapay Experiences',
     ];
     sectionHeaderTitle.forEach((title) => {
       const category = navigation.findItem({ title: title });

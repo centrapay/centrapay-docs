@@ -1375,7 +1375,7 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Asset Types]: {% link api/assets/asset-types.md %}
 [Assets]: {% link api/assets/assets.md %}
-[Payment Flows Guide]: {% link guides/payment-flows.md %}
+[Payment Flows Guide]: https://docs.centrapay.com/guides/payment-flows
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Paying a Legacy Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc
