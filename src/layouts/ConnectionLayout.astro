@@ -1,0 +1,18 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Farmlands from '../components/Farmlands.vue';
+import GuideLayout from '../components/GuideLayout.vue';
+---
+
+<BaseLayout>
+  <Farmlands/>
+    <GuideLayout
+      collectionName=""
+      headings={{}}
+      title="Overview"
+      img=""
+      fullWidth={true}
+      >
+    <slot />
+  </GuideLayout>
+</BaseLayout>
