@@ -2,20 +2,16 @@
 import BaseLayout from './BaseLayout.astro';
 import Farmlands from '../components/Farmlands.vue';
 import GuideLayout from '../components/GuideLayout.vue';
-
-const img = 'countryside.jpg';
-const fullWidth = true;
-const headings = {};
 ---
 
 <BaseLayout>
   <Farmlands/>
     <GuideLayout
       collectionName=""
-      headings={headings}
+      headings={{}}
       title="Overview"
       img=""
-      fullWidth={fullWidth}
+      fullWidth={true}
       >
     <slot />
   </GuideLayout>
