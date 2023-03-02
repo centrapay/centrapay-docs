@@ -7,6 +7,9 @@ nav:
   order: 3
 ---
 
+import Disclosure from '../../components/Disclosure.vue';
+import Faq from '../../components/Faq.astro';
+
 If you are a Farmlands Card Partner needing extra support this is the guide for you. Here you will find who you need to reach out to and how you can get in touch with them.
 
 ## Support for Portal Users
@@ -17,29 +20,43 @@ You can also use the Support window inside the Portal.
 
 ### Trouble Shooting
 
-**What is the address for the portal?**
+<Faq>
+  <div>
+    <Disclosure client:visible title="What is the address for the portal?">
+      https://app.centrapay.com/business
+    </Disclosure>
+  </div>
 
-https://app.centrapay.com/business
+  <div>
+    <Disclosure client:visible title="I am getting an invalid barcode message in the portal">
+      Double check you are entering the correct length barcode on the card. If you are using the scan feature, try to enter it manually instead.
+    </Disclosure>
+  </div>
 
-**I am getting an invalid barcode message in the portal**
+  <div>
+    <Disclosure client:visible title="What if the barcode will not scan or is obscured?">
+      The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the card under the Cardholder's name. If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands on 0800 200 600 to request a new Card.
+    </Disclosure>
+  </div>
 
-Double check you are entering the correct length barcode on the card. If you are using the scan feature, try to enter it manually instead.
+    <div>
+    <Disclosure client:visible title="What should I do if the Authorisation is declined?">
+      Request an alternative form of payment from your customer. Refer the Cardholder to Farmlands on 0800 200 600 for further information.
+    </Disclosure>
+  </div>
 
-**What if the barcode will not scan or is obscured?**
+    <div>
+    <Disclosure client:visible title="How do I check if a transaction was authorised or where can I see the transaction history?">
+      Go to the Payments page on the Centrapay Business Portal, select the transaction related to the Farmlands Authorisation and check that the status is Authorised.
+    </Disclosure>
+  </div>
 
-The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the card under the Cardholder's name. If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands on 0800 200 600 to request a new Card.
-
-**What should I do if the Authorisation is declined?**
-
-Request an alternative form of payment from your customer. Refer the Cardholder to Farmlands on 0800 200 600 for further information.
-
-**How do I check if a transaction was authorised or where can I see the transaction history?**
-
-Go to the Payments page on the Centrapay Business Portal, select the transaction related to the Farmlands Authorisation and check that the status is Authorised.
-
-**Is there a portal guide that covers additional Trouble Shooting FAQs and that can help with training?**
-
-Yes. If you go to the portal and click on the dashboard there is a guides section or go to the [Farmlands Portal Guide](https://docs.centrapay.com/guides/farmlands-portal)
+    <div>
+    <Disclosure client:visible title="Is there a portal guide that covers additional Trouble Shooting FAQs and that can help with training?">
+      Yes. If you go to the portal and click on the dashboard there is a guides section or go to the [Farmlands Portal Guide](https://docs.centrapay.com/guides/farmlands-portal)
+    </Disclosure>
+  </div>
+</Faq>
 
 ## Support for POS Integrators
 
