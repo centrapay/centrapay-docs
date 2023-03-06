@@ -1,18 +1,25 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Farmlands from '../components/Farmlands.vue';
-import GuideLayout from '../components/GuideLayout.vue';
----
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Prose from '../components/Prose.vue';
 
-<BaseLayout>
-  <Farmlands/>
-    <GuideLayout
-      collectionName=""
-      headings={{}}
-      title="Overview"
-      img=""
-      fullWidth={true}
-      >
-    <slot />
-  </GuideLayout>
+const { title, description, img } = Astro.props;
+---
+<BaseLayout title={title} description={description} img={img}>
+  <div>
+    <slot name="header" />
+    <div>
+      <div class="relative mx-auto desktop-gutters flex justify-center">
+        <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
+          <article>
+            <h2 class="font-display text-3xl tracking-tight text-slate-900 mb-12">
+              Overview
+            </h2>
+            <Prose client:load slot="content">
+              <slot name="content" />
+            </Prose>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
