@@ -60,7 +60,6 @@
                 <h3
                   class="border-l-2 p-squish-2 hover:text-content-primary hover:border-content-primary"
                   :class="[
-                    visibleHeadingId === heading.slug ? 'text-content-primary border-brand-accent': 'font-normal text-content-tertiary',
                     heading.depth === 3 ? 'pl-5' : ''
                   ]"
                 >
