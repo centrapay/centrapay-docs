@@ -71,7 +71,7 @@
           </ol>
         </nav>
         <div
-          v-show="!props.headings?.length && !props.fullWidth"
+          v-show="!props.headings?.length"
           class="w-56"
         >
           <!-- Dummy element to force page content width to stay consistent when there is no TOC -->
@@ -90,7 +90,6 @@ const props = defineProps({
   headings: { type: Object, required: true },
   title: { type: String, required: true },
   img: { type: String, required: true },
-  fullWidth: { type: Boolean, required: false },
 });
 
 const visibleHeadingId = ref('');

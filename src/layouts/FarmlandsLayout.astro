@@ -1,0 +1,14 @@
+---
+import ConnectionLayout from '../layouts/ConnectionLayout.astro';
+import Farmlands from '../components/Farmlands.vue';
+const { title, description } = Astro.props.frontmatter;
+const previewImg = 'countryside.jpg'
+---
+<ConnectionLayout title={title} description={description} img={previewImg}>
+  <div slot="header">
+    <Farmlands />
+  </div>
+  <div slot="content">
+    <slot />
+  </div>
+</ConnectionLayout>
