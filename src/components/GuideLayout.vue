@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="props.img"
+      v-show="props.img"
       class="flex items-center max-h-72 overflow-hidden"
     >
       <img
@@ -14,17 +14,17 @@
       <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
         <article>
           <header
-            v-if="props.title || collectionName"
+            v-show="props.title || collectionName"
             class="mb-9 space-y-1"
           >
             <p
-              v-if="collectionName"
+              v-show="collectionName"
               class="type-overline text-content-primary"
             >
               {{ collectionName }}
             </p>
             <h1
-              v-if="props.title"
+              v-show="props.title"
               class="font-display text-3xl tracking-tight text-slate-900"
             >
               {{ props.title }}
@@ -37,7 +37,7 @@
       </div>
       <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6 overflow-y-auto">
         <nav
-          v-if="props.headings && props.headings.length"
+          v-show="props.headings && props.headings.length"
           aria-labelledby="on-this-page-title"
           class="w-56"
         >
@@ -71,7 +71,7 @@
           </ol>
         </nav>
         <div
-          v-if="!props.headings?.length && !props.fullWidth"
+          v-show="!props.headings?.length && !props.fullWidth"
           class="w-56"
         >
           <!-- Dummy element to force page content width to stay consistent when there is no TOC -->
