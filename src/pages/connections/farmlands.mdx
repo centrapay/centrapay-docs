@@ -11,43 +11,43 @@ In partnership with Centrapay, Farmlands has two new digital solutions that enab
 Your business can either fully integrate the Farmlands solution to your retail point of sale system, or access a secure web portal when accepting Farmlands Card as a form of payment for a sale anytime, anywhere.
 
 <center>
-```mermaid
-%%{
-  init: {
-    'theme': 'base',
-    'themeVariables': {
-      'secondaryColor': '#f8f8f8',
-      'tertiaryColor': '#f8f8f8'
-    }
-  }
-}%%
+  <div style="max-width: 800px">
+    ```mermaid
+    %%{
+      init: {
+        'theme': 'base',
+        'themeVariables': {
+          'secondaryColor': '#f8f8f8',
+          'tertiaryColor': '#f8f8f8'
+        }
+      }
+    }%%
 
-flowchart TD
-  subgraph F[Farmlands Cardholder]
-    subgraph padding1 [ ]
-      Card(Farmlands Card)
-    end
-  end
-
-  subgraph P[Farmlands Card Partner]
-    subgraph padding2 [Authorisations via: ]
-      subgraph padding3 [ ]
-        portal(Centrapay Business Portal)
-        pos(Integrated Point of Sale)
-        portal-. or .-pos
+    flowchart TD
+      subgraph F[Farmlands Cardholder]
+        subgraph padding1 [ ]
+          Card(Farmlands Card)
+        end
       end
-    end
-  end
 
-  centrapay(Centrapay) -- Process Authorization --> farmlands(Farmlands)
+      subgraph P[Farmlands Card Partner]
+        subgraph padding2 [Authorisations via: ]
+          portal(Centrapay Business Portal)
+          pos(Integrated Point of Sale)
+          portal-. or .-pos
+        end
+      end
 
-  Card -- Present Card --> P
-  P -- Create Authorization --> centrapay
+      centrapay(Centrapay) -- Process Authorization --> farmlands(Farmlands)
 
-classDef padding stroke-dasharray: 0 1
-class padding1,padding2,padding3 padding
-linkStyle 0 stroke:#f8f8f8
-```
+      Card -- Present Card --> P
+      P -- Create Authorization --> centrapay
+
+    classDef padding stroke-dasharray: 0 1;
+    class padding1,padding2, padding
+    linkStyle 0 stroke:#f8f8f8
+    ```
+  </div>
 </center>
 
 ## Solutions
