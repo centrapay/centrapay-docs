@@ -9,7 +9,7 @@ const guidesCollection = defineCollection({
       title: z.string().optional(),
       path: z.string(),
       order: z.number(),
-    })
+    }),
   }),
 });
 
