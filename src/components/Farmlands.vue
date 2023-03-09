@@ -52,7 +52,6 @@
 </template>
 
 <script setup>
-import Card from './Card.vue';
 import Prose from './Prose.vue';
 import FacebookLogo from './icons/FacebookLogo.vue';
 import TwitterLogo from './icons/TwitterLogo.vue';
