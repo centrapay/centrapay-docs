@@ -509,17 +509,17 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Scanned Codes",
-    "title": "Scanned Codes",
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/scanned-codes",
-    "relUrl": "/api/section/scanned-codes"
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
   },"86": {
-    "doc": "Batches",
-    "title": "Batches",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"87": {
     "doc": "Accounts",
     "title": "Accounts",
@@ -527,41 +527,41 @@
     "url": "/api/section/accounts",
     "relUrl": "/api/section/accounts"
   },"88": {
-    "doc": "Merchants",
-    "title": "Merchants",
+    "doc": "Scanned Codes",
+    "title": "Scanned Codes",
     "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
+    "url": "/api/section/scanned-codes",
+    "relUrl": "/api/section/scanned-codes"
   },"89": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"90": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"91": {
-    "doc": "Integrations",
-    "title": "Integrations",
-    "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
-  },"92": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"93": {
     "doc": "Settlements",
     "title": "Settlements",
     "content": " ",
     "url": "/api/section/settlements",
     "relUrl": "/api/section/settlements"
+  },"90": {
+    "doc": "Batches",
+    "title": "Batches",
+    "content": " ",
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
+  },"91": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
+  },"92": {
+    "doc": "Integrations",
+    "title": "Integrations",
+    "content": " ",
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
+  },"93": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"94": {
     "doc": "API Reference",
     "title": "API Reference",
