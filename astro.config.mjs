@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import flexsearchPlugin from './src/plugins/flexsearch';
 
 // https://astro.build/config
 import tailwind from '@astrojs/tailwind';
@@ -37,5 +38,10 @@ export default defineConfig({
       // https://github.com/shikijs/shiki/blob/main/docs/languages.md
       langs: [],
     },
+  },
+  vite: {
+    plugins: [
+      flexsearchPlugin(),
+    ]
   }
 });
