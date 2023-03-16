@@ -27,3 +27,6 @@ pnpm-debug.log*
 .DS_Store
 
 .vscode/
+
+# Flexsearch index data
+public/index-data.json
