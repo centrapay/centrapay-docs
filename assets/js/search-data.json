@@ -325,7 +325,7 @@
   },"54": {
     "doc": "Data Types",
     "title": "Monetary",
-    "content": "A monetary amount in a currency, represented as an Object. The amount is usually an integer in the smallest denomination for the currency (ie cents) but may be a decimal value for some currencies (eg Bitcoin). The currency is typically represented as an ISO 4217 code. Fields . | Name | Type | Description | . | amount | BigNumber | Value in the currency’s smallest denomination (eg. cents). | . | currency | String | Currency code (eg. “NZD”). | . ",
+    "content": "A monetary amount in a currency, represented as an Object. The amount is usually an integer in the smallest denomination for the currency (ie cents) but may be a decimal value for some currencies (eg Bitcoin). The currency is typically represented as an ISO 4217 code. Fields . | Name | Type | Description | . | amount | BigNumber | Value in the currency’s smallest denomination (eg. cents). Value must be less than 100000000. | . | currency | String | Currency code (eg. “NZD”). | . ",
     "url": "/api/data-types#monetary",
     "relUrl": "/api/data-types#monetary"
   },"55": {
