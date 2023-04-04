@@ -389,7 +389,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | patronNotPresent  | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                                                 |
 | preAuth           | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                                                       |
 | partialAllowed    | Boolean {% opt %} | Flag to indicate if the Payment Request can be partially paid for. If set basketAmount must be provided.                                                                                    |
-| basketAmount      | {% dt Monetary %} | The total amount of the payment expected from the customer, including payments outside of Centrapay. Must be less than 100000000 and positive. If provided partialAllowed must also be set. |
+| basketAmount      | {% dt Monetary %} {% opt %} | The total amount of the payment expected from the customer, including payments outside of Centrapay. Must be less than 100000000 and positive. If provided partialAllowed must also be set. |
 
 {% h4 Example response payload %}
 
