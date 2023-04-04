@@ -50,7 +50,7 @@ version (documented on this page) and the "legacy" version (documented at
 | id                 | String             | The payment request id.                                                                                         |
 | shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                              |
 | url                | String             | The URL for a Centrapay webpage that allows the user to pay the Payment Request.                                |
-| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
+| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be less than 100000000 and positive.                           |
 | paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
 | merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
 | merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
@@ -224,20 +224,20 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 
 {% h4 Mandatory Fields %}
 
-|          Field          |        Type        |                     Description                      |
-| ----------------------- | ------------------ | ---------------------------------------------------- |
-| type                    | String             | See Activity Types below.                            |
-| value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
-| paymentRequestId        | String             | The Payment Request's id.                            |
-| merchantId              | String             | The Payment Request's [Merchant][] id.               |
-| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.        |
-| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.       |
-| merchantName            | String             | The Payment Request's Merchant name.                 |
-| createdAt               | {% dt Timestamp %} | When the activity was created.                       |
-| createdBy               | {% dt CRN %}       | The identity that created the activity.              |
-| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
-| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.           |
-| shortCode               | String             | A shorter id that can be used for up to two years.   |
+|          Field          |        Type        |                                 Description                                  |
+| ----------------------- | ------------------ | ---------------------------------------------------------------------------- |
+| type                    | String             | See Activity Types below.                                                    |
+| value                   | {% dt Monetary %}  | The value of the payment activity. Must be less than 100000000 and positive. |
+| paymentRequestId        | String             | The Payment Request's id.                                                    |
+| merchantId              | String             | The Payment Request's [Merchant][] id.                                       |
+| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.                                |
+| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.                               |
+| merchantName            | String             | The Payment Request's Merchant name.                                         |
+| createdAt               | {% dt Timestamp %} | When the activity was created.                                               |
+| createdBy               | {% dt CRN %}       | The identity that created the activity.                                      |
+| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.                               |
+| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.                                   |
+| shortCode               | String             | A shorter id that can be used for up to two years.                           |
 
 {% h4 Optional Fields %}
 
@@ -374,7 +374,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 |       Field       |       Type        |                                                                       Description                                                                       |
 | :---------------- | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | configId          | String            | The [Merchant Config][] id used to configure the payment options.                                                                                       |
-| value             | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                           |
+| value             | {% dt Monetary %} | The canonical value of the payment request. Must be less than 100000000 and positive.                                                                   |
 | barcode           | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                             |
 | expirySeconds     | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                      |
 | lineItems         | Array {% opt %}   | The [Line Items](#line-item) being paid for.                                                                                                            |
