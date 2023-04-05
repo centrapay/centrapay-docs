@@ -60,7 +60,6 @@
   </Disclosure>
   <a
     v-else
-    target="_blank"
     :href="navigationItem.to"
     class="group mt-2 w-full flex items-center pl-3 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
   >
