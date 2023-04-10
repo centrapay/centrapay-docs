@@ -509,23 +509,23 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Settlements",
-    "title": "Settlements",
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
   },"86": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
+  },"87": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
-  },"87": {
-    "doc": "Batches",
-    "title": "Batches",
-    "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
   },"88": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
@@ -533,11 +533,11 @@
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
   },"89": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"90": {
     "doc": "Integrations",
     "title": "Integrations",
@@ -545,23 +545,23 @@
     "url": "/api/section/integrations",
     "relUrl": "/api/section/integrations"
   },"91": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Batches",
+    "title": "Batches",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"92": {
-    "doc": "Merchants",
-    "title": "Merchants",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"93": {
-    "doc": "Accounts",
-    "title": "Accounts",
+    "doc": "Settlements",
+    "title": "Settlements",
     "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
   },"94": {
     "doc": "API Reference",
     "title": "API Reference",
