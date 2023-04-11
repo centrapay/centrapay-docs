@@ -68,7 +68,7 @@ version (documented on this page) and the "legacy" version (documented at
 | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
 | barcode              | String             | [Scanned Code][] used to create the payment request.                                                                                                                     |
-| barcodeType          | String             | The owner or origin of the barcode when the barcode is a token                                                                                                           |
+| barcodeType          | String             | The identifier of the barcode type                                                                                                                                       |
 | collectionId         | String             | The identifier of the token collection                                                                                                                                   |
 | expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
 | lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
@@ -367,6 +367,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
 {% endreqspec %}
+
 {% h4 Fields %}
 
 |        Field         |       Type        |                                                                               Description                                                                                |
@@ -374,7 +375,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
-| barcodeType          | String {% opt %}  | The owner or origin of the barcode when the barcode is a token                                                                                                           |
+| barcodeType          | String {% opt %}  | The identifier of the barcode type                                                                                                                                       |
 | collectionId         | String {% opt %}  | The identifier of the token collection                                                                                                                                   |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
@@ -398,7 +399,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
-  "barcodeType": "event#1",
+  "barcodeType": "Ticketek",
   "collectionId": "C12345",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
