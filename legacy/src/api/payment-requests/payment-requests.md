@@ -373,6 +373,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
+| barcodeType          | String {% opt %}  | An attribute to specify or identify the type of barcode that is being used or processed                                                                                  |
+| collectionId         | String {% opt %}  | The Collection Id                                                                                                                                                        |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
@@ -395,6 +397,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
+  "barcodeType": "event#1",
+  "collectionId": "C12345",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
