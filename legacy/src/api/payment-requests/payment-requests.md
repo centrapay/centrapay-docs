@@ -365,7 +365,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
 {% endreqspec %}
-
 {% h4 Fields %}
 
 |        Field         |       Type        |                                                                               Description                                                                                |
@@ -374,7 +373,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
 | barcodeType          | String {% opt %}  | An attribute to specify or identify the type of barcode that is being used or processed                                                                                  |
-| collectionId         | String {% opt %}  | The Collection Id                                                                                                                                                        |
+| collectionId         | String {% opt %}  | The identifier of the token collection                                                                                                                                   |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
 | purchaseOrderRef     | String {% opt %}  | A reference to a purchase order for this payment request.                                                                                                                |
