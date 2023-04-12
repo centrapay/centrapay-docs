@@ -1,13 +1,3 @@
-#Nuxt
-node_modules
-*.log*
-.nuxt
-.nitro
-.cache
-.output
-.env
-dist
-
 #Jekyll
 vendor
 _site
@@ -17,3 +7,26 @@ _site
 
 # vim
 *.sw[a-p]
+
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# macOS-specific files
+.DS_Store
+
+.vscode/
+
+# Flexsearch index data
+public/index-data.json

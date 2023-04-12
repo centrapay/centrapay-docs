@@ -1,0 +1,342 @@
+---
+title: Farmlands Portal Guide
+description: Farmlands Co-operative (Farmands) have partnered with Centrapay Payment Gateway (Centrapay) to deliver a secure web portal for Farmlands Card payments.
+nav:
+  path: Connections/Farmlands
+  title: Portal Guide
+  order: 2
+img: /farmlands-portal-guide-cover.jpg
+---
+
+import Disclosure from '../../components/Disclosure.vue';
+import Faq from '../../components/Faq.astro';
+
+Farmlands Co-operative (Farmlands) have partnered with Centrapay Payment Gateway (Centrapay) to deliver a secure web portal for Card Partners to gain an instant authorisation on a Farmlands Card when presented as payment for a sale. This option does not require integration with a Point of Sale (POS) system.
+
+**Key Benefits:**
+
+- Enables Industry standard, card validation checks prior to agreeing to accept a Farmlands Card for payment of goods or services.
+- Reduces exposure to fraud, especially for high-value products/ or when a Farmlands Card number is provided as payment for a phone or online order (Card not present transaction)
+- Mitigates issues with unpaid invoices due to insufficient or incorrect Cardholder information provided to Farmlands
+
+## Getting Started
+
+### Business Information
+
+The initial setup of your Business and all Branches (referred to as Merchants) will be managed by Farmlands. Farmlands will provide Centrapay with the details of a primary Account Owner for the business who will be loaded by Centrapay. Once setup this account owner will be able login and maintain the other members (users) who have or need access to the Account (see [Members](#members)).
+
+### Registration
+
+Once the Business and Merchants are set up in the Centrapay Portal, users will receive an email from Farmlands inviting them to register for the portal. Users must use the email address provided in the initial setup process to register.
+
+During registration a Verification Code will be sent to the email account by Centrapay, this code must be entered into the Portal when prompted to confirm your identity. The verification code is active for 15 minutes from when it is received.
+
+If you do not receive a Verification Code, please check your Spam folder. If the code has expired, repeat the registration process to request a new code.
+
+### Log In
+
+The Centrapay Business Portal will store your authenticated session for up to 60 days. During this time, it is not necessary to re-authenticate simply enter your email address to log in. After 60 days, you will be prompted to re-authenticate by entering a Verification Code sent to your registered email address.
+
+In some cases, a user may be requested to select a business location as the default.  This ensures all authorises are loaded against that location and can assist when searching for authorisation history.
+
+> We recommend bookmarking the [Centrapay Business Portal](https://app.centrapay.com/business) for easy access.
+
+### Dashboard
+
+The Dashboard is an overview of Centrapay Business Account and will be your main screen for generating an authorisation or releasing a previous Farmlands Authorisation.
+
+![The dashboard of the centrapay business portal](/business-portal-dashboard.png)
+
+## Farmlands Authorisations
+
+The Centrapay Business Portal provides a real-time authorisation of a Farmlands Card when presented as payment for the purchase of goods or services. It validates that the Card is active and there is a sufficient available balance to process the transaction.
+
+### Authorisation Responses
+
+|          Type          |                                                                                                        Description                                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Authorisation Approved | Funds have now been placed on hold onto the customer account, pending the receipt of the Card Partner’s invoice within the agreed period.                                                                                  |
+| Pending                | Card Partner creates the request, but the authorisation is not yet complete. This authorisation is not approved.                                                                                                           |
+| Check ID               | This response may occur for a high-value sale. This means the transaction is pending authorisation until the Card Partner confirms they have authenticated the customer’s photo ID against the name on the Farmlands Card. |
+| Declined               | The authorisation is declined due to an invalid card number, a credit limit exceeded, or Card Partner is unable to verify a high-value transaction. Refer to Farmlands Contact Centre 0800 200 600                         |
+| Release                | The funds “on hold” are cancelled by Card Partner. This may occur when a Card Partner is unable to fulfil an order. (This is not used for a refund).                                                                       |
+
+### Create a Farmlands Authorisation
+
+1. Select **Create Authorisation Request** from the main dashboard.
+
+    ![Create a Farmlands authorisation request on the Centrapay business portal](/farmlands-payment-create-authorization-request.png)
+
+2. **Enter the total amount** of the sale (including GST)
+
+    > Make sure the correct merchant is selected
+
+    ![Enter payment amount on the Centrapay business portal](/farmlands-payment-enter-amount.png)
+
+3. **Scan the barcode** on the rear of the Farmlands Card by using the camera function or scanner (if available). Alternatively, manually enter the 9-digit Card number located on the front of the Card (bottom left-hand corner or below the barcode on the rear of the Card).
+
+    > The 9-digit Card number displayed on the Card must be entered, not the 16-digit card number or 9-digit account number.
+
+    ![Scan and Enter Farmlands barcode on the Centrapay business portal](/farmlands-payment-scan-barcode.png)
+
+4. **Cardholder Not Present** - Tick this box if you are seeking an authorisation for a sale where the Cardholder is not physically present e.g. a phone or online order when a Card number has been quoted.
+
+    ![Select card holder not present on the Centrapay business portal](/farmlands-payment-select-card-holder-not-present.png)
+
+5. **Add the Customer Reference (Optional)** to relate the Authorisation Request to the Customer's Farmlands reference.
+
+    ![Enter the Customer's Farmlands Reference](/farmlands-payment-reference.png)
+
+6. **Click Create**
+
+7. **Check ID** - This response may be given for high-value or high-risk transactions. The user is required to request request the Cardholder to provide photo ID to check against the Cardholder’s name. The transaction remains in a “pending” state until the user confirms they have authenticated the Card.
+
+    ![Check photo ID and accept condition on the Centrapay business portal](/farmlands-payment-check-photo-id.png)
+
+8. **Approved** - Response received.
+
+    ![Payment Authorization approved on the Centrapay business portal](/farmlands-payment-authorisation-approved.png)
+
+9. **Copy Short Code** - Once approved this will bring up the Authorisation Approved screen, showing the “Short Code”. The Short code must be copied into the PO field of your invoice and then sent to Farmlands.
+10. **Click Close** - This will redirect you to the Payment screen showing the authorisation history.
+
+    ![Summary of payments on the Centrapay business portal](/farmlands-payment-payments-summary.png)
+
+### **Invoicing & Settlement**
+
+Once an approved authorisation has been provided, a full GST invoice must be submitted to Farmlands at vendor.invoices@farmlands,co.nz. The Short Code shown on the Approval screen must be copied and clearly displayed in the PO field of the invoice or where previously confirmed with the Farmlands Team. The Farmlands 9-digit Card number can be provided in addition to the Short Code in another field. Settlement will be completed as per agreed payment terms.
+
+![Payment Authorization approved on the Centrapay business portal](/farmlands-payment-authorisation-approved.png)
+
+Farmlands encourages invoices to be submitted daily rather than at the end of the month. This allows Farmlands to apply the purchase to the customer’s account in a timely manner.
+
+> **Instore Transactions** <br />
+A physical Farmlands Card **must** be presented to complete an in-store sale. It is recommended Card Partners do not accept photographs or representation of the Card on an app e.g.Stocard. In doing so, this is considered a Card Not Present transaction.
+<br />
+
+> **Phone Order & Online Transactions** <br />
+Farmlands Card details can be accepted remotely for a phone or online website order. Cardholders must have provided authorisation to charge a Card on a regular, ongoing basis. This type of transaction must be flagged as Cardholder Not Present and Card Partner acknowledges the increased risk of processing transactions where no Card is presented.
+<br />
+
+> **Card Partner Terms and Conditions** <br />
+Payment is made on the basis that all Card Partner terms and conditions are met.
+
+## Releasing Funds
+
+The Authorised funds will be held against the Cardholder account for 31 days or until the invoice is received.  If the order is cancelled before the invoice is submitted to Farmlands the Authorisation should be released to remove the hold on Cardholder funds.
+
+> Once you have released the funds, this step cannot be reversed.
+<br />
+> If an invoice has been sent to Farmlands a credit (refund) must be submitted to Farmlands to reverse the transaction.
+
+### Release Hold on Customer Funds
+
+1. **Navigate** to the Payments page
+2. **Select the authorisation** from the list in the Payments History
+3. **Click “Release Funds”**
+
+    ![Release funds on Centrapay business portal](/farmlands-payment-release-funds.png)
+
+4. **Click “Approve Release”** This step cannot be undone after clicking Approve Release.
+
+    ![Approve release of funds on the Centrapay business portal](/farmlands-payment-approve-release.png)
+
+## Authorisation History
+
+The Payments page provides a list of transactions that were previously authorised. You can search by using the Authorisation Short Code as the reference. Further search functionality will be available at a later date.
+
+From this screen, you can also select an authorisation and action a “release,” cancelling the "hold” placed on the Cardholder funds
+
+![Summary of authorisations on the Centrapay business portal](/farmlands-payment-authorisations-summary.png)
+
+## Setting a Default Merchant
+
+**Select your Default Merchant (First-time user) -** The default merchant is the branch or outlet that the user normally works from, and which the transaction will be associated with.
+
+1. Click on the **Merchant drop-down** menu
+
+![Select a merchant during payment on the Centrapay business portal](/farmlands-payment-select-merchant.png)
+
+2. Click **Edit My Default Merchant**
+
+![Edit the default merchant for payment on the Centrapay business portal](/farmlands-payment-edit-default-merchant.png)
+
+3. **Select a merchant** from the merchants listed.
+
+![Select default merchant on the Centrapay business portal](/farmlands-payment-select-default-merchant.png)
+
+4. Click **Set as Default**
+
+## Manage My Centrapay Business Account
+
+The Account Owner has access to additional options to manage their Centrapay Business Account, including adding an removing users who have access to complete authorisations on their account.
+
+If the the Account Owner want their business to be able to accept different Centrapay Payment Methods as well as Farmlands Card these can be added and managed here.
+
+### **Merchants**
+
+This area relates to the management of new and existing Branches/Locations used for Centrapay’s other payment types e.g gift cards (i.e not Farmlands). Additional merchants added through the Merchants area will not be able to accept Farmlands Card until they are setup by Farmlands.
+
+If you are needing to add a new branch/location, please contact your Card Portfolio Manager or Card.Specialist@farmlands.co.nz as Farmlands will need to complete the setup of the branch/location within our system prior to this being enabled in the Portal.
+
+![Centrapay business portal merchants page](/centrapay-portal-merchants.png)
+
+### **Bank Accounts**
+
+This function is only available to businesses who wish to use other Centrapay supported payment methods other than Farmlands Cards. (e.g. Gift Cards or NZD).
+
+Farmlands Card transactions are settled through the existing settlement methods. If you need to update you settlement details please contact your Card Portfolio Manager or Card.Specialist@farmlands.co.nz.
+
+![Centrapay business portal bank accounts page](/centrapay-portal-bank-accounts.png)
+
+### Members
+
+On the Members page you can manage the members connected to the Centrapay Business Account. An Account Owner can see the list of members and pending invitations and easily add or remove members.
+
+![Centrapay business portal members page](/centrapay-portal-members.png)
+
+**Adding members**
+
+1. An Account owner can **select the Members page** in the left sidebar menu.
+![Centrapay business portal add members screen](/members/add-people.png)
+
+2. The Account owner can click **Add people**.
+
+3. **Enter the email address** of the new member.
+![Enter Member's email address](/members/add-member-email.png)
+
+4. **Select the member's role** (account owner or cashier).
+![Select Member's role](/members/add-member-role.png)
+
+5. Press **Send Invitation**.
+
+6. The member that was added will receive an email that will allow them to accept the invitation and join the business account. The invitation will be in pending state until the member accepts the invitation.
+![Invitation sent modal](/members/member-invited-modal.png)
+
+7. User accepts invitation and is added to the list of members.
+![User is added to Members list](/members/added-members-page.png)
+
+**Revoke Invitation**
+
+1. Account owner can **select the Members page** in the left sidebar menu.
+![Select the Members page](/members/pending-members-page.png)
+
+2. **Find the pending invite** they wish to revoke.
+
+3. **Click on the three dots** beside the pending invite.
+![Click on the three dots besides the invitation](/members/revoke-invitation.png)
+
+4. Press **Revoke Invitation**.
+
+5. The invitation is now revoked and will no longer show inside the pending invitation list.
+![Invitation revoked modal](/members/invitation-revoked-modal.png)
+
+**Removing members**
+
+1. Account owner can **select the Members page** in the left sidebar menu.
+![Select the Members page](/members/added-members-page.png)
+
+2. Find the member they wish to remove.
+
+3. Click on the three dots beside the member.
+![Click on the three dots besides the member](/members/remove-member.png)
+
+4. Press **Remove Member**.
+
+5. Member is removed and will not longer show in the members list.
+![Member removed modal](/members/member-removed-modal.png)
+
+### **Settings**
+
+On the Settings page, you can change your business information. Please note this does not flow through to Farmlands. If you have a change of ownership, please contact Farmlands.
+
+![Centrapay business portal settings page](/centrapay-portal-settings.png)
+
+## FAQs
+
+<Faq>
+  <div>
+    <Disclosure client:visible title="What do we do if a customer returns one or more items, and the invoice has already been sent to Farmlands?">
+      Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="What do we do if the customer cancels their order after we have sent the invoice to Farmlands?">
+      Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="What do we do if the customer cancels their order before we have sent the invoice to Farmlands?">
+      If the entire order has been cancelled, release the hold on the customer’s funds via the Portal. There is no requirement to send an invoice to Farmlands.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="What do we do if we need to amend the value of the order prior to sending the invoice to Farmlands?">
+      If the revised sale amount is:
+      - less than the original authorisation amount, submit the amended invoice with the original authorisation short code.
+      - greater than the original authorisation sales amount, release the hold on the customer’s funds via the Portal. Once completed, generate a new authorisation request for the revised sales amount.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="How long are funds held for on a Customer’s Card?">
+      The value of the authorisation will be held on the customer’s Card for up to 31 days. It is important Invoices, with a valid authorisation short code, are submitted to Farmlands as soon as possible so these can be matched against the funds held.\
+      Invoices received after 31 days and up to 3 months will be processed in good faith however, if the associated Farmlands Account has been closed, you will be advised to contact the customer for another form of payment.\
+      If you are concerned, **re-authorise the transaction especially prior to fulfilling a back order if it is over 31 days since originally authorised.**
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="We received a message on the Portal stating the “Barcode is invalid.” What does this mean?">
+      The Card number being entered is either not a valid number or the Card being presented is no longer active on the Farmlands system. Check the correct Card number has been entered or request another method of payment.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="How do I manage who has access to the Authorisation Portal?">
+      User management and access is at the discretion of the Card Partner.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="How do I release funds held on a customer’s Card?">
+        Go into the Portal, find the original authorisation by searching for the Short Code. Click the authorisation and then “Release Funds”.
+        If you have sent the original invoice to Farmlands, you must still create a credit note and send it to Farmlands. Use the same short code as the original Invoice.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="We have a regular customer. Do we need to obtain an authorisation?">
+      All sales where a Farmlands Card has been provided as payment require an authorisation prior to submitting an invoice to Farmlands.\
+      If you hold your customer’s Farmlands’ Card number on file and have their permission to charge this on a recurring basis, please select the 'Cardholder Not Present' option at the time of sale.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="What if the barcode will not scan or is obscured?">
+      The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the Card under the Cardholder's name.\
+      If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands to request a new Card.
+    </Disclosure>
+  </div>
+
+  <div>
+    <Disclosure client:visible title="The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?">
+      No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.
+    </Disclosure>
+  </div>
+
+    <div>
+    <Disclosure client:visible title="Can the Account-Owner add a new merchant/location to the Portal?">
+      No, the Card Partner should contact the Farmlands Card Team to set up a new merchant/location in the first instance.
+    </Disclosure>
+  </div>
+</Faq>
+
+## **Support**
+
+The Support button opens up a form that will allow you to send a support request directly to Centrapay if you have any issues regarding the Centrapay Business Portal.
+
+Alternatively email [support@centrapay.com](mailto:support@centrapay.com) for issues regarding the portal. Please refer Cardholders to Farmlands if they have a query on a declined transaction, **0800 200 600** or [ask@farmlands.co.nz](mailto:ask@farmlands.co.nz)

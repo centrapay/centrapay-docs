@@ -1,0 +1,135 @@
+---
+import AppShell from '../components/AppShell.vue';
+import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
+import Footer from '../components/Footer.vue';
+import '../assets/css/tailwind.css';
+import '@fontsource/inter';
+import { getCollection } from 'astro:content';
+import Navigation from '../utils/Navigation';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: {path: undefined }
+    }
+  ]
+}
+
+const {
+  title,
+  description,
+  img,
+} = Astro.props;
+const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
+
+const guides = await getCollection('guides');
+const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guides });
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>{metaTitle}</title>
+    <meta name="description" content={description}>
+    <meta property="img" content={`${Astro.url.origin}${img}`}>
+
+    <!-- OpenGraph Tags -->
+    <meta name="og:title" content={metaTitle}>
+    <meta name="og:description" content={description}>
+    <meta property="og:image" content={`${Astro.url.origin}${img}`}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Freshdesk widget -->
+    <!-- This is needed to send the entire URL of the page in Freshdesk support tickets -->
+    <!-- Refer to https://community.freshworks.com/freshdesk-11246/where-does-it-come-from-23026 -->
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <script type="text/javascript" charset="utf-8">
+      window.fwSettings={
+        'widget_id':51000002960
+        };
+        !function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()
+    </script>
+    <script src="https://aus-widget.freshworks.com/widgets/51000002960.js" defer async type="text/javascript"></script>
+
+    <!-- Hotjar Tracking Code for Centrapay Docs -->
+    <script type="text/javascript" charset="utf-8">
+      (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3333046,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+  </head>
+  <body>
+    <header>
+    </header>
+    <div class="flex flex-col min-h-screen">
+      <AppShell client:load path={Astro.url.pathname} navigation={navigation}>
+        <main>
+          <slot />
+        </main>
+        <button
+          id="freshdesk"
+          type="button"
+          class="btn bg-interactive-quaternary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16 hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
+        >
+          <span class="sr-only">Open support widget</span>
+          <MessagesBubbleDouble
+            class="icon-lg text-content-on-color"
+            aria-hidden="true"
+          />
+        </button>
+        <Footer class="mt-auto" />
+      </AppShell>
+    </div>
+    <script>
+      window.FreshworksWidget('hide', 'launcher');
+      const freshdeskButton = document.querySelectorAll('button#freshdesk')[0];
+      freshdeskButton.addEventListener('click', () => {
+        window.FreshworksWidget('open');
+      });
+
+      const graphs = document.getElementsByClassName('mermaid');
+      if (graphs.length > 0) {
+        const { default: mermaid } = await import('mermaid');
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          themeVariables: {
+            mainBkg: '#F8F8F8',
+            actorBkg: '#F8F8F8',
+            primaryColor: '#F8F8F8',
+            primaryTextColor: '#232323',
+            primaryBorderColor: '#D1D5DB',
+            secondaryColor: '#232323',
+            noteBkgColor: '#232323',
+            noteTextColor: '#F8F8F8',
+            labelBoxBkgColor: '#FFFFFF',
+          },
+          sequence: {
+            diagramMarginY: 50,
+          }
+        });
+        for (const graph of graphs) {
+          const content = graph.getAttribute('data-content');
+          if (!content) {
+            continue;
+          }
+          let svg = document.createElement('svg');
+          const id = (svg.id = 'mermaid-' + Math.round(Math.random() * 100000));
+          graph.appendChild(svg);
+          mermaid.render(id, content, (result) => {
+            graph.innerHTML = result;
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

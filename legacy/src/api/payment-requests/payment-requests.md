@@ -50,7 +50,7 @@ version (documented on this page) and the "legacy" version (documented at
 | id                 | String             | The payment request id.                                                                                         |
 | shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                              |
 | url                | String             | The URL for a Centrapay webpage that allows the user to pay the Payment Request.                                |
-| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be positive.                                                   |
+| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be less than 100000000 and positive.                           |
 | paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
 | merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
 | merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
@@ -88,6 +88,9 @@ version (documented on this page) and the "legacy" version (documented at
 | preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                                      |
 | preAuthStatus        | String             | Describes which state a Pre Auth Payment Request is in. Valid values are "authorized", or "released".                                                                    |
 | taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
+| remainingAmount      | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                           |
+| basketAmount         | {% dt BigNumber %} | The total amount of the transaction including non Centrapay payment methods.                                                                                             |
+| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                                       |
 
 ### Payment Option
 
@@ -216,27 +219,27 @@ The Paid By provides a summary of the transactions after the Payment Request was
 | total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
 <a name="payment-activity"></a>
-### Payment Activity **EXPERIMENTAL**
+### Payment Activity
 
 A Payment Activity records a transaction that has happened on a [Payment Request][].
 Payment Activities are created when a Payment Request has been **created**, **paid**, **refunded**, **cancelled**, or **expired**.
 
 {% h4 Mandatory Fields %}
 
-|          Field          |        Type        |                     Description                      |
-| ----------------------- | ------------------ | ---------------------------------------------------- |
-| type                    | String             | See Activity Types below.                            |
-| value                   | {% dt Monetary %}  | The value of the payment activity. Must be positive. |
-| paymentRequestId        | String             | The Payment Request's id.                            |
-| merchantId              | String             | The Payment Request's [Merchant][] id.               |
-| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.        |
-| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.       |
-| merchantName            | String             | The Payment Request's Merchant name.                 |
-| createdAt               | {% dt Timestamp %} | When the activity was created.                       |
-| createdBy               | {% dt CRN %}       | The identity that created the activity.              |
-| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.       |
-| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.           |
-| shortCode               | String             | A shorter id that can be used for up to two years.   |
+|          Field          |        Type        |                                 Description                                  |
+| ----------------------- | ------------------ | ---------------------------------------------------------------------------- |
+| type                    | String             | See Activity Types below.                                                    |
+| value                   | {% dt Monetary %}  | The value of the payment activity. Must be less than 100000000 and positive. |
+| paymentRequestId        | String             | The Payment Request's id.                                                    |
+| merchantId              | String             | The Payment Request's [Merchant][] id.                                       |
+| merchantConfigId        | String             | The Payment Request's [Merchant Config][] id.                                |
+| merchantAccountId       | String             | The Payment Request's Merchant [Account][] id.                               |
+| merchantName            | String             | The Payment Request's Merchant name.                                         |
+| createdAt               | {% dt Timestamp %} | When the activity was created.                                               |
+| createdBy               | {% dt CRN %}       | The identity that created the activity.                                      |
+| paymentRequestCreatedBy | {% dt CRN %}       | The identity that created the Payment Request.                               |
+| activityNumber          | {% dt BigNumber %} | Unique sequential number for the activity.                                   |
+| shortCode               | String             | A shorter id that can be used for up to two years.                           |
 
 {% h4 Optional Fields %}
 
@@ -389,7 +392,9 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | conditionsEnabled    | Boolean {% opt %} | Flag to opt into accepting [Asset Types][] which require conditions to be met. If not set, assets which require conditions will not be payment options.                  |
 | patronNotPresent     | Boolean {% opt %} | Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options][].                                              |
 | preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                                    |
-
+| partialAllowed       | Boolean {% opt %} | Flag to indicate if the Payment Request can be partially paid for. If set basketAmount must be provided.                                                                 |
+| basketAmount         | {% dt Monetary %} {% opt %} | The total amount of the payment expected from the customer, including payments outside of Centrapay. Must be less than 100000000 and positive. If provided partialAllowed must also be set. |
+                                 
 {% h4 Example response payload %}
 
 {% json %}
@@ -701,7 +706,7 @@ them to find the Payment Request and proceed to pay.
 
 
 <a name="pay"></a>
-### Pay a Payment Request **EXPERIMENTAL**
+### Pay a Payment Request
 
 To pay a payment request you must supply the name of the [Asset Type][] and one of `assetId`, `transactionId` or `authorization`.
 Use assetId if the [Asset Type][] is managed by Centrapay. Use transactionId to verify an external transaction such as a Bitcoin payment.
@@ -773,7 +778,7 @@ Use authorization to authorize an external transaction.
 | 403    | {% break _ PAYMENT_DECLINED %}         | The payment parameters were valid but payment was declined because additional payment restrictions were violated.                                                                          |
 
 <a name="refund"></a>
-### Refund a Payment Request **EXPERIMENTAL**
+### Refund a Payment Request
 
 {% reqspec %}
   POST '/api/payment-requests/{paymentRequestId}/refund'
@@ -917,7 +922,7 @@ Use authorization to authorize an external transaction.
 | 403    | {% break _ CONFIRMATION_NOT_FOUND %}      | The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.                                                                                                                                          |
 
 <a name="void">
-### Void a Payment Request **EXPERIMENTAL**
+### Void a Payment Request
 
 Voiding a payment request will cancel the request and trigger any refunds if necessary.
 
@@ -985,7 +990,7 @@ Voiding a payment request will cancel the request and trigger any refunds if nec
 | 403    | {% break _ PRE_AUTH_ALREADY_CONFIRMED %} | The Pre Auth Payment Request already has confirmations. Use [Refund][] endpoint to reverse the transaction.                                                                                                                                         |
 
 <a name="release">
-### Release funds held for a Pre Auth Payment Request **EXPERIMENTAL**
+### Release funds held for a Pre Auth Payment Request
 
 When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned. If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
@@ -1049,7 +1054,7 @@ When you call release on a Pre Auth Payment Request any remaining funds that wer
 
 
 <a name="confirm"></a>
-### Make a confirmation against a Pre Auth Payment Request **EXPERIMENTAL**
+### Make a confirmation against a Pre Auth Payment Request
 
 An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
 If our endpoint does not respond you must retry until you get back a 200 or 403.
@@ -1147,7 +1152,7 @@ If we recive 2 requests with the same `idempotencyKey` we won't process the seco
 | 403    | {% break _ IDEMPOTENT_OPERATION_FAILED %}  | There has already been a confirmation against the Payment Request with the same idempotencyKey but different content. |
 
 <a name="list-activities-for-merchant"></a>
-### List Payment Activities for a Merchant **EXPERIMENTAL**
+### List Payment Activities for a Merchant
 
 List payment activities for a merchant. Results are [paginated][] and ordered by
 descending activity created date.
@@ -1226,7 +1231,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="list-activities"></a>
-### List Payment Activities for a Payment Request **EXPERIMENTAL**
+### List Payment Activities for a Payment Request
 
 List payment activities for a payment request. Results are ordered by
 descending activity created date.
@@ -1291,7 +1296,7 @@ descending activity created date.
 {% endjson %}
 
 <a name="accept-payment-condition"></a>
-### Accept Payment Condition for a Payment Request **EXPERIMENTAL**
+### Accept Payment Condition for a Payment Request
 
 Accept a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
 
@@ -1333,7 +1338,7 @@ Accept a [Payment Condition][] listed in `merchantConditions` with status `await
 | 403    | {% break _ CONDITION_ALREADY_SET %}   | The Payment Condition has already been accepted or declined.                                                  |
 
 <a name="decline-payment-condition"></a>
-### Decline Payment Condition for a Payment Request **EXPERIMENTAL**
+### Decline Payment Condition for a Payment Request
 
 Decline a [Payment Condition][] listed in `merchantConditions` with status `awaiting-merchant`. Returns a [Payment Activity][].
 
@@ -1381,7 +1386,7 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Asset Type]: {% link api/assets/asset-types.md %}
 [Asset Types]: {% link api/assets/asset-types.md %}
 [Assets]: {% link api/assets/assets.md %}
-[Payment Flows Guide]: {% link guides/payment-flows.md %}
+[Payment Flows Guide]: https://docs.centrapay.com/guides/payment-flows
 [Legacy Payment Requests]: {% link api/payment-requests/legacy-payment-requests.md %}
 [Paying a Legacy Payment Request]: {% link api/payment-requests/legacy-payment-requests.md %}#requests-pay
 [GS1 Global Product Classification]: https://www.gs1.org/standards/gpc

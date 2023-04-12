@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FeaturedGuideCard from '../components/FeaturedGuideCard.astro';
+import FeaturedContentCard from '../components/FeaturedContentCard.astro';
+import { getCollection } from 'astro:content';
+import Prose from '../components/Prose.vue';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+function hydrateGuides(featuredGuides, guides) {
+  return featuredGuides.map((guide) => {
+    const hydratedGuide = guides.find((g) => g.slug === guide.slug);
+    return hydratedGuide;
+  });
+}
+
+const guides = await getCollection('guides');
+
+const featuredGuides = hydrateGuides([
+  { slug: 'payment-flows' },
+  { slug: 'farmlands-portal' },
+  { slug: 'farmlands-pos-integration' },
+], guides);
+
+const featuredContent = [
+  {
+    href: 'https://docs.centrapay.com/api',
+    title: 'API Reference',
+    description: 'Powerful, Easy-to-use payment APIs',
+    img: '/api-reference-cover.jpg',
+  },
+]
+
+---
+
+<BaseLayout>
+  <div class="desktop-gutters px-4 sm:px-8 my-32">
+    <Prose class="max-w-none">
+      <h1 class="type-display">
+        <b>Centrapay Docs</b>
+      </h1>
+      <p class="type-body-1 max-w-[720px]">
+        Welcome to Centrapay! We enable you to transact fiat currency,
+        giftcards, digital assets and vouchers via your point of sale,
+        payment terminal, shopping cart or unattended device. We
+        accomplish this via our APIs which allow merchants, customers,
+        terminals, and smart wallets to interact with each other.
+      </p>
+
+      <p class="type-body-2 max-w-[720px]">
+        For more help getting setup, contact us via email at
+        <a href="mailto:integrations@centrapay.com">
+          integrations@centrapay.com.
+        </a>
+      </p>
+    </Prose>
+    <div class="grid md:grid-cols-4 gap-4 lg:gap-6 mt-12 justify-center">
+      { featuredContent.map((content, index) => (
+          <div class='md:col-span-2'>
+            <FeaturedContentCard
+              title={content.title}
+              description={content.description}
+              img={content.img}
+              href={content.href}
+            />
+          </div>
+        ))
+      }
+    </div>
+    <Prose>
+      <h2 class="type-headline-2">Featured Docs</h2>
+    </Prose>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-8">
+        { featuredGuides.map((guide) => (
+          <FeaturedGuideCard
+          title={guide.data.title}
+            description={guide.data.description}
+            img={guide.data.img}
+            slug={guide.slug}
+          />
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

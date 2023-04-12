@@ -1,0 +1,71 @@
+---
+title: Partial Payment
+description: An extension to the Payment Request Protocol allowing merchant integrators to accept a partial amount of a transaction through Centrapay.
+nav:
+  path: Reference/Merchant Integrations
+  order: 8
+---
+
+Partial Payment is an extension to the Payment Request Protocol that allows
+customers to pay a partial amount of a payment request using Centrapay.
+However, it is the responsibility of the integrating POS to ensure payment of the remaining amount.
+
+## Implementation
+
+```mermaid
+sequenceDiagram
+autonumber
+	opt
+		Patron->>POS: Make external payment
+	end
+	POS->>Centrapay: Create Payment Request (with partialAllowed = true)
+	par
+		Loop Starts polling for Payment Confirmation
+			POS->>Centrapay: Get Payment Request
+		end
+		POS->>Patron: Connect with Patron
+		Patron->>Centrapay: Makes a Payment
+		note over POS: Stop Polling for Payment Confirmation
+	end
+	opt remaining amount > 0
+		Patron->>POS: Make external payment
+	end
+	note over POS: Display Confirmation
+```
+
+### Create Payment Request
+
+When [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)
+you can opt into partial payment by following these steps:
+
+- Set `partialAllowed` to true.
+- Set `value.amount` to the amount payable via Centrapay.
+- Set `basketAmount` to the total amount of the transaction, including external
+forms of payment (e.g., cash or card). This value should be equal to `value.amount`
+if the customer is completing their entire transaction using Centrapay.
+
+If the customer has paid by another method or indicates they would like to pay
+only a partial amount of the transaction with Centrapay, then `value.amount`
+should be less than the `basketAmount`.
+
+If you are integrating with the [Line Items payment extension](/guides/line-items),
+the total amount of line items must sum to either the `basketAmount` or the
+`value.amount`.
+
+### Get Payment Request
+
+Integrators should continue to poll [get Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
+until the status is no longer `new`. If the Payment Request status has been
+updated to `cancelled` or `expired`, proceed as describe in [requesting a payment](/guides/requesting-payment#polling-for-payment-confirmation).
+If the status is `paid` you need to check the `remainingAmount` property on the
+Payment Request.
+
+- If the remaining amount is 0, then the entire amount requested via Centrapay
+has been paid.
+- If the remaining amount is greater than 0, then the remaining amount must
+be paid through means external to Centrapay. If the customer cannot complete
+the transaction then the payment request should be [refunded](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request).
+
+## See also
+
+- [Point of sale](/guides/point-of-sale/)

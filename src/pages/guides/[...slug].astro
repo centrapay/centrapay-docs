@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Prose from '../../components/Prose.vue';
+import TocNav from '../../components/TocNav.vue';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import customComponents from '../../utils/customComponents';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const coverImage = entry.data.img || '/default-cover.svg';
+const previewImg = entry.data.img || '/default-cover.jpg';
+const { title, description } = entry.data;
+---
+<BaseLayout title={title} description={description} img={previewImg}>
+  <div class="flex items-center max-h-72 overflow-hidden">
+    <img
+      src={coverImage}
+      aria-hidden="true"
+      class="object-cover m-0 w-full h-24 md:h-full"
+    >
+  </div>
+  <div class="relative mx-auto desktop-gutters flex justify-center">
+    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
+      <article>
+        <header class="mb-9 space-y-1" >
+          <p class="type-overline text-content-primary" >
+            Guides
+          </p>
+          <h1
+            class="font-display text-3xl tracking-tight text-slate-900"
+          >
+            { title }
+          </h1>
+        </header>
+        <Prose client:load>
+          <Content components={customComponents}/>
+        </Prose>
+      </article>
+    </div>
+    <div class="hidden xl:sticky border-none xl:top-[4.5rem] xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:py-16 xl:pr-6 overflow-y-auto">
+      <TocNav client:load headings={headings} />
+    </div>
+  </div>
+</BaseLayout>

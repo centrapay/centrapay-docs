@@ -232,10 +232,12 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 {% h4 Error Responses %}
 
-| Status |            Code             |                Description                |
-| :----- | :-------------------------- | :---------------------------------------- |
-| 403    | INVITATION_EXPIRED          | The Invitation is expired.                |
-| 403    | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted. |
+| Status |            Code             |                                              Description                                               |
+| :----- | :-------------------------- | :----------------------------------------------------------------------------------------------------- |
+| 403    | INVITATION_EXPIRED          | The Invitation is expired.                                                                             |
+| 403    | INVITATION_ALREADY_ACCEPTED | The Invitation has already been accepted.                                                              |
+| 403    | RECIPIENT_ALIAS_MISMATCH    | The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation. |
+| 403    | INVITATION_REVOKED          | The Invitation was revoked.                                                                            |
 
 ### Revoke an invitation **EXPERIMENTAL**
 

@@ -1,0 +1,62 @@
+---
+title: Payment Terminal
+description: How to integrate a payment terminal with Centrapay APIs.
+nav:
+  path: Reference/Centrapay Integrations
+  order: 1
+---
+
+Integrating a merchant terminal with Centrapay APIs requires creating, cancelling, voiding and refunding [Payment Requests](https://docs.centrapay.com/api/payment-requests) on behalf of Merchants using a “merchant terminal” API key.
+
+## API Keys
+
+To create API keys, you first need to get in touch with Centrapay to be issued an Integrator Account and an “Account owner” API key. An “Account owner” is a special kind of role that allows you to manage your account.
+
+You can use this key to [Create an API Key](https://docs.centrapay.com/api/api-keys#create-an-api-key) with the “merchant terminal” role. A “merchant terminal” key has a role that can create, cancel, void and refund Payment Requests on behalf of merchants.
+
+> You are responsible for the safety of your API keys
+
+## Merchant Configs
+Centrapay [Merchant Configs](https://docs.centrapay.com/api/merchant-configs) represent an available set of configured payment methods that can be utilized by one or more payment terminals by a Merchant.
+
+Merchants and merchant configs are managed by Centrapay. The only details required to create payment requests on their behalf are the `merchantId` and `merchantConfigId` (aka `clientId`). Centrapay will send you these details through whatever channel works for you. Please get in touch to let us know.
+
+In the future Centrapay will allow an integrator to on-board their own merchants through APIs using integrator API keys.
+
+## Example Flows
+
+See [Payment Flows](/guides/payment-flows) for an overview of the API calls required for different payment flows.
+
+## Terminal Interface Guidelines
+
+When configuring a terminal with Centrapay there are a few common touch points that require branded assets. Please use the [Centrapay Brand Assets](https://centrapay.com/brand-assets/) when building the UI for these screens.
+
+### Displaying a Button
+
+![Illustration of payment terminal displaying Centrapay button](/terminals/display-centrapay-button.png)
+
+Touch displays should show a button that loads the QR Code screen when pressed.
+
+### Displaying an Icon
+
+![Illustration of payment terminal displaying Centrapay icon](/terminals/display-centrapay-icon.png)
+
+Displays that don’t support touch should show an icon above the button used to load the QR Code screen.
+
+### Displaying QR Codes
+
+![Illustration of payment terminal displaying Centrapay QR code](/terminals/displaying-centrapay-qr-code.png)
+
+Centrapay QR codes should be displayed with a Centrapay logo in the centre.
+
+## Integration Architecture
+
+We strongly recommend Centrapay APIs are invoked from your backend and not directly from your payment terminals. Centralizing the invocation of our APIs from your backend offers the following benefits:
+
+1. Merchant network administrators will not need to make additional firewall changes.
+2. Your Centrapay API Keys can be managed centrally inside your secured network.
+3. TLS negotiation with Centrapay APIs can be managed independently of terminal hardware and software updates.
+
+## Mitigating Network Issues
+
+See the guide on [Merchant Integration Error Handling](/guides/merchant-integration-error-handling) for information on preventing and handling network issues.

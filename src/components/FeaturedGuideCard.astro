@@ -1,0 +1,27 @@
+---
+import Card from '../components/Card.astro'
+const { img, title, description, slug } = Astro.props;
+const previewImg = img || '/default-cover.svg';
+---
+<Card>
+  <a href={`/guides/${slug}`} class="block h-full">
+    <div class="h-32 overflow-hidden rounded-t">
+      <img class='object-cover h-full w-full transition-transform ease-in duration-200' src={previewImg}>
+    </div>
+
+    <div class="space-y-4 p-4 hover-parent">
+      <p class="type-overline text-brand-accent">guide</p>
+      <h3 class="type-headline-4 hover-child link-text">{title}</h3>
+      <p class="type-body-2">{description}</p>
+    </div>
+  </a>
+</Card>
+
+<style>
+  a:hover .link-text {
+    @apply underline;
+  }
+  a:hover img {
+    @apply scale-105;
+  }
+</style>

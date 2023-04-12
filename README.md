@@ -21,7 +21,6 @@ Install app dependencies:
 ```
 docker compose run ruby-script bundle install
 docker compose run script yarn
-docker compose run script bash -c "cd preview-nuxt && yarn"
 ```
 ## Local Docker Usage
 
@@ -31,9 +30,12 @@ For local development (with hot reloading):
 docker compose up
 ```
 
-Preview the Jekyll site at http://0.0.0.0:4000.
-Preview the Nuxt site at http://0.0.0.0:3000.
+Preview Centrapay Docs at http://0.0.0.0:3000.
+Preview the Legacy Docs at http://0.0.0.0:4000.
 
-In production we build and serve static files which is different to the Nuxt development server.
-You can preview the static Nuxt site at http://0.0.0.0:5001.
-Note this does not support hot reloading.
+To build and preview Centrapay Docs using the static files that are deployed to production (without hot-reloading):
+
+```
+docker compose run script yarn build
+docker compose run script yarn preview
+```
