@@ -90,7 +90,7 @@ version (documented on this page) and the "legacy" version (documented at
 | taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
 | remainingAmount      | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                           |
 | basketAmount         | {% dt BigNumber %} | The total amount of the transaction including non Centrapay payment methods.                                                                                             |
-| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                                       |
+| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                               
 
 ### Payment Option
 
