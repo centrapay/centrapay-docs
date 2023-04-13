@@ -404,7 +404,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
-  "barcodeType": "Ticketek",
+  "barcodeType": "ticketek",
   "collectionId": "C12345",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
