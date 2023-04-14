@@ -68,7 +68,7 @@ version (documented on this page) and the "legacy" version (documented at
 | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | patronCodeId         | String             | The id of a [Patron Code][] the payment request is attached to.                                                                                                          |
 | barcode              | String             | [Scanned Code][] used to create the payment request.                                                                                                                     |
-| barcodeType          | String             | The identifier of the barcode type                                                                                                                                       |
+| barcodeType          | String             | Indicates the provider of a barcode, e.g. 'ticketek'                                                                                                                     |
 | collectionId         | String             | The identifier of the token collection                                                                                                                                   |
 | expirySeconds        | Number             | The expiry seconds used to configure the payment request expiry.                                                                                                         |
 | lineItems            | Array              | **EXPERIMENTAL** The [Line Items](#line-item) being paid for.                                                                                                            |
@@ -90,7 +90,7 @@ version (documented on this page) and the "legacy" version (documented at
 | taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
 | remainingAmount      | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                           |
 | basketAmount         | {% dt BigNumber %} | The total amount of the transaction including non Centrapay payment methods.                                                                                             |
-| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                                       |
+| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                               
 
 ### Payment Option
 
@@ -369,6 +369,43 @@ Payment Activities are created when a Payment Request has been **created**, **pa
       ],
     })
   }
+  example {
+    title 'Create a Payment Request with barcode, barcodeType, and collectionId'
+    body ({
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: '25', currency: 'NZD' },
+      barcode: '6273d06820db5ec22914f697c95b07122',
+      barcodeType: 'ticketek',
+      collectionId: 'C12345',
+      lineItems: [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            name: 'CROCKERY',
+            props: {
+              '20001479': '30008960'
+            }
+          }
+        },
+      ]
+    })
+  }
 {% endreqspec %}
 
 {% h4 Fields %}
@@ -378,7 +415,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | configId             | String            | The [Merchant Config][] id used to configure the payment options.                                                                                                        |
 | value                | {% dt Monetary %} | The canonical value of the payment request. Must be positive.                                                                                                            |
 | barcode              | String {% opt %}  | The [Scanned Code] to identify the account to attach the payment request to                                                                                              |
-| barcodeType          | String {% opt %}  | The identifier of the barcode type                                                                                                                                       |
+| barcodeType          | String {% opt %}  | Indicates the provider of a barcode, e.g. 'ticketek'                                                                                                                     |
 | collectionId         | String {% opt %}  | The identifier of the token collection                                                                                                                                   |
 | expirySeconds        | String {% opt %}  | How long the payment request will be payable for. Maximum value: 86400 (24 hours).                                                                                       |
 | lineItems            | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being paid for.                                                                                                            |
@@ -404,7 +441,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
   "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
   "barcode": "9990001234567895",
-  "barcodeType": "Ticketek",
+  "barcodeType": "ticketek",
   "collectionId": "C12345",
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
