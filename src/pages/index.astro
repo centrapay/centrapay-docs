@@ -62,19 +62,6 @@ const img = '/homepage-preview.png';
         </a>
       </p>
     </Prose>
-    <div class="grid md:grid-cols-4 gap-4 lg:gap-6 mt-12 justify-center">
-      { featuredContent.map((content, index) => (
-          <div class='md:col-span-2'>
-            <FeaturedContentCard
-              title={content.title}
-              description={content.description}
-              img={content.img}
-              href={content.href}
-            />
-          </div>
-        ))
-      }
-    </div>
     <Prose>
       <h2 class="type-headline-2">Featured Docs</h2>
     </Prose>
@@ -86,6 +73,19 @@ const img = '/homepage-preview.png';
             img={guide.data.img}
             slug={guide.slug}
           />
+        ))
+      }
+    </div>
+    <div class="grid md:grid-cols-4 gap-4 lg:gap-6 mt-12 justify-center">
+      { featuredContent.map((content, index) => (
+          <div class='md:col-span-2'>
+            <FeaturedContentCard
+              title={content.title}
+              description={content.description}
+              img={content.img}
+              href={content.href}
+            />
+          </div>
         ))
       }
     </div>
