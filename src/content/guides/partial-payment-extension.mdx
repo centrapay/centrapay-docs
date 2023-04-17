@@ -35,7 +35,7 @@ autonumber
 
 ### Create Payment Request
 
-When [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request)
+When [creating a Payment Request](/api/payment-requests#create-a-payment-request)
 you can opt into partial payment by following these steps:
 
 - Set `partialAllowed` to true.
@@ -54,7 +54,7 @@ the total amount of line items must sum to either the `basketAmount` or the
 
 ### Get Payment Request
 
-Integrators should continue to poll [get Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
+Integrators should continue to poll [get Payment Request](/api/payment-requests#get-a-payment-request)
 until the status is no longer `new`. If the Payment Request status has been
 updated to `cancelled` or `expired`, proceed as describe in [requesting a payment](/guides/requesting-payment#polling-for-payment-confirmation).
 If the status is `paid` you need to check the `remainingAmount` property on the
@@ -64,7 +64,7 @@ Payment Request.
 has been paid.
 - If the remaining amount is greater than 0, then the remaining amount must
 be paid through means external to Centrapay. If the customer cannot complete
-the transaction then the payment request should be [refunded](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request).
+the transaction then the payment request should be [refunded](/api/payment-requests#refund-a-payment-request).
 
 ## See also
 

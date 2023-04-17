@@ -6,7 +6,7 @@ nav:
   order: 8
 ---
 
-[Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a patron.
+[Line Items](/api/payment-requests#line-item) are used to communicate the details of a purchase to a patron.
 
 ## Restrictions
 
@@ -26,7 +26,7 @@ nav:
     ```
 
 2. The price for each Line Item MUST be provided in cents.
-3. The total for all Line Item prices MUST sum to the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) amount.
+3. The total for all Line Item prices MUST sum to the [Payment Request](/api/payment-requests#payment-request) amount.
 4. The currency for each Line Item MUST be consistent with the Payment Request value.
 5. The discount for each Line Item MUST be provided in cents and is tax exclusive.
 6. A discount that applies to multiple line items may be represented as a separate line item with a negative amount.
