@@ -177,11 +177,11 @@ fields below when specified are required together.
 
 {% h4 Error Responses %}
 
-| Status |                      Code                        |                                     Description                                         |
-| :----- | :----------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| 403    | {% break _ BANK_ACCOUNT_LIMIT_EXCEEDED %}        | The Centrapay account already has the max amount of Bank Accounts.                      |
-| 403    | {% break _ BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED %} | The global maximum Bank Accounts for the provided Bank Account number has been reached. |
-| 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this Bank Account.                                  |
+| Status |                       Code                       |                                           Description                                            |
+| :----- | :----------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| 403    | {% break _ BANK_ACCOUNT_LIMIT_EXCEEDED %}        | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
+| 403    | {% break _ BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED %} | The global maximum Bank Accounts for the provided Bank Account number has been reached.          |
+| 403    | {% break _ DUPLICATE_BANK_ACCOUNT %}             | The Centrapay account already holds this Bank Account.                                           |
 
 <span id="direct-debit-authority"></span>
 ### Adding a direct debit authority to a Bank Account
@@ -234,9 +234,10 @@ required together.
 
 {% h4 Error Responses %}
 
-| Status |                           Code                |                          Description                               |
-| :----- | :-------------------------------------------- | :----------------------------------------------------------------- |
-| 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set. |
+| Status |                     Code                      |                                           Description                                            |
+| :----- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| 403    | {% break _ DIRECT_DEBIT_ALREADY_AUTHORIZED %} | This bank authority cannot be changed as all fields have been set.                               |
+| 403    | {% break _ DIRECT_DEBIT_LIMIT_EXCEEDED %}     | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
 
 <span id="bank-authority-get"></span>
 ### Get information about a Bank Account
