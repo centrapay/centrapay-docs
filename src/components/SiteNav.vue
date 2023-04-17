@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full">
+  <div>
     <TransitionRoot
       as="template"
       :show="mainMenuOpen"
@@ -21,7 +21,7 @@
             <DialogPanel class="relative flex w-full flex-1 flex-col bg-surface-primary">
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                 <nav class="space-y-1 px-2">
-                  <SiteNavigation
+                  <SideNavigation
                     :path="props.path"
                     :navigation="navigation"
                     @link-clicked="mainMenuOpen = false"
@@ -61,7 +61,6 @@
             </a>
           </div>
         </div>
-
         <div class="flex items-center">
           <button
             class="flex items-center md:w-80 md:mr-4 text-left space-x-3 py-0 px-0 md:px-4 md:pr-0 h-10 bg-white md:border border-gray-300 focus:outline-none ring-0 focus:ring-0 md:shadow-sm rounded-none md:rounded-lg overflow-hidden"
@@ -106,28 +105,24 @@
           class="flex-1 space-y-1 bg-white px-2"
           aria-label="Sidebar"
         >
-          <SiteNavigation
+          <SideNavigation
             :path="props.path"
             :navigation="navigation"
           />
         </nav>
       </div>
     </div>
-
-    <main class="flex flex-col min-h-screen pt-16 md:pl-64 xl:pl-80">
-      <slot />
-    </main>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import SearchLogo from '../components/icons/Search.vue';
-import CentrapayLogo from '../components/icons/CentrapayLogo.vue';
-import CloseOutline from '../components/icons/CloseOutline.vue';
-import NavigationMenu from '../components/icons/NavigationMenu.vue';
-import SiteNavigation from '../components/SiteNavigation.vue';
-import CommandPalette from '../components/CommandPalette.vue';
+import SearchLogo from './icons/Search.vue';
+import CentrapayLogo from './icons/CentrapayLogo.vue';
+import CloseOutline from './icons/CloseOutline.vue';
+import NavigationMenu from './icons/NavigationMenu.vue';
+import SideNavigation from './SideNavigation.vue';
+import CommandPalette from './CommandPalette.vue';
 import {
   Dialog,
   DialogPanel,

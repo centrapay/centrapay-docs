@@ -1,11 +1,11 @@
 ---
-import AppShell from '../components/AppShell.vue';
 import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
 import Footer from '../components/Footer.vue';
 import '../assets/css/tailwind.css';
 import '@fontsource/inter';
 import { getCollection } from 'astro:content';
 import Navigation from '../utils/Navigation';
+import SiteNav from '../components/SiteNav.vue';
 
 export function getStaticPaths() {
   return [
@@ -71,7 +71,8 @@ const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guide
     <header>
     </header>
     <div class="flex flex-col min-h-screen">
-      <AppShell client:load path={Astro.url.pathname} navigation={navigation}>
+      <SiteNav client:load navigation={navigation} path={Astro.url.pathname} />
+      <div class="flex flex-col min-h-screen pt-16 md:pl-64 xl:pl-80">
         <main>
           <slot />
         </main>
@@ -87,7 +88,7 @@ const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guide
           />
         </button>
         <Footer class="mt-auto" />
-      </AppShell>
+      </div>
     </div>
     <script>
       window.FreshworksWidget('hide', 'launcher');

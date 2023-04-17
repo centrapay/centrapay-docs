@@ -4,7 +4,7 @@
       v-for="item in navigation.menu.children"
       :key="item.title"
     >
-      <SiteNavigationDisclosure
+      <SideNavigationDisclosure
         :path="props.path"
         :navigation="navigation"
         :navigation-item="item"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import SiteNavigationDisclosure from './SiteNavigationDisclosure.vue';
+import SideNavigationDisclosure from './SideNavigationDisclosure.vue';
 import Receipt from './icons/Receipt.vue';
 import Connections from './icons/Connections.vue';
 import Settings from './icons/Settings.vue';
