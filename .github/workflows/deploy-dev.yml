@@ -1,0 +1,36 @@
+name: Deploy Centrapay Docs Dev
+
+on:
+  workflow_dispatch
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: legacy
+      - uses: actions/cache@v1
+        with:
+          path: legacy/vendor/bundle
+          key: ${{ runner.os }}-gems-v2-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-v2
+      - run: gem install bundler
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: yarn install --frozen-lock-file
+      - run: ./build.sh http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::450412180052:role/github-actions-centrapay-docs
+          role-session-name: centrapay-docs-preview-deploy-session
+          aws-region: ap-southeast-1
+      - run: ./scripts/deploy-dev.sh

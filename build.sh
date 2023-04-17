@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+url="${1:-}"
+
 cd legacy
 
 bundle install
@@ -9,7 +11,11 @@ bundle exec jekyll build
 
 cd ../
 
-yarn build
+if [[ -n "$url" ]]; then
+  yarn build --site "$url"
+else
+  yarn build
+fi
 
 rsync -a dist/* _site/
 
