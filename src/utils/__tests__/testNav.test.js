@@ -33,6 +33,7 @@ describe('Navigation', () => {
           children: [
             {
               title: 'API',
+              children: []
             }
           ]
         },
@@ -71,6 +72,85 @@ describe('Navigation', () => {
                 }
               ],
             }
+          ]
+        },
+        pathToActiveNav: undefined,
+      });
+    });
+
+    test('Content is children of different nav', () => {
+      expect(TestNav.create({
+        nav: [
+          {
+            title: 'API',
+          },
+          {
+            title: 'Reference',
+          }
+        ],
+        content: [
+          {
+            data: {
+              title: 'content 1',
+              nav: {
+                path: 'API'
+              }
+            }
+          },
+          {
+            data: {
+              title: 'content 2',
+              nav: {
+                path: 'Reference'
+              }
+            }
+          },
+          {
+            data: {
+              title: 'content 3',
+              nav: {
+                path: 'Reference'
+              }
+            }
+          },
+        ],
+      })).toEqual({
+        menu: {
+          children: [
+            {
+              title: 'API',
+              children: [
+                {
+                  data: {
+                    title: 'content 1',
+                    nav: {
+                      path: 'API'
+                    }
+                  }
+                }
+              ],
+            },
+            {
+              title: 'Reference',
+              children: [
+                {
+                  data: {
+                    title: 'content 2',
+                    nav: {
+                      path: 'Reference'
+                    }
+                  }
+                },
+                {
+                  data: {
+                    title: 'content 3',
+                    nav: {
+                      path: 'Reference'
+                    }
+                  }
+                }
+              ],
+            },
           ]
         },
         pathToActiveNav: undefined,
