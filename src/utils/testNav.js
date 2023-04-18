@@ -7,9 +7,10 @@ class NavGroup {
   }
 
   static create({ nav, content }) {
+    const children = content.filter(c => c.data.nav.path === nav.title);
     return new NavGroup({
       title: nav.title,
-      children: content
+      children,
     });
   }
 }

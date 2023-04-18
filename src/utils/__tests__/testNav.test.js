@@ -156,5 +156,74 @@ describe('Navigation', () => {
         pathToActiveNav: undefined,
       });
     });
+
+    test('Content is child of nav', () => {
+      expect(TestNav.create({
+        nav: [
+          {
+            title: 'API',
+            children: [
+              {
+                title: 'API Guide',
+              },
+              {
+                title: 'API Integration',
+              },
+            ]
+          }
+        ],
+        content: [
+          {
+            data: {
+              nav: {
+                path: 'API/API Guide'
+              }
+            },
+          },
+          {
+            data: {
+              nav: {
+                path: 'API/API Integration'
+              }
+            },
+          },
+        ],
+      })).toEqual({
+        menu: {
+          children: [
+            {
+              title: 'API',
+              children: [
+                {
+                  title: 'API Guide',
+                  children: [
+                    {
+                      data: {
+                        nav: {
+                          path: 'API/API Guide'
+                        }
+                      },
+                    }
+                  ],
+                },
+                {
+                  title: 'API Integration',
+                  children: [
+                    {
+                      data: {
+                        nav: {
+                          path: 'API/API Integration'
+                        }
+                      },
+                    }
+                  ],
+                }
+              ],
+            }
+          ]
+        },
+        pathToActiveNav: undefined,
+      });
+    });
   });
 });
