@@ -5,7 +5,8 @@ import Footer from '../components/Footer.vue';
 import '../assets/css/tailwind.css';
 import '@fontsource/inter';
 import { getCollection } from 'astro:content';
-import Navigation from '../utils/Navigation';
+import Navigation from '../navigation/Navigation';
+import sideNavConfig from '../navigation/sideNavConfig'
 
 export function getStaticPaths() {
   return [
@@ -22,8 +23,11 @@ const {
 } = Astro.props;
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 
-const guides = await getCollection('guides');
-const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guides });
+const content = await Promise.all([
+  ...await getCollection('guides'),
+  ...await getCollection('connections'),
+])
+const navigation = Navigation.create({ nav: sideNavConfig, content });
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +75,7 @@ const navigation = Navigation.create({ baseUrl: Astro.url.origin, content: guide
     <header>
     </header>
     <div class="flex flex-col min-h-screen">
-      <AppShell client:load path={Astro.url.pathname} navigation={navigation}>
+      <AppShell client:load path={Astro.url.pathname} baseUrl={Astro.url.origin} navigation={navigation}>
         <main>
           <slot />
         </main>

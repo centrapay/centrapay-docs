@@ -25,6 +25,10 @@ class Page {
     });
   }
 
+  get to() {
+    return this.path;
+  }
+
   get fullNavPath() {
     return `${this.nav.path}/${this.navTitle}`;
   }
