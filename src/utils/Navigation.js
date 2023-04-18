@@ -25,7 +25,7 @@ class Navigation {
           to: '/connections',
           icon: 'Connections',
           children: [
-            { title: 'Farmlands', children: [] },
+            { title: 'Farmlands', to: '/connections/farmlands', children: [] },
           ],
         },
         {
@@ -50,15 +50,9 @@ class Navigation {
     }
 
     // FIXME remove this block once each section header has a landing page
-    const sectionHeaderTitle = [
-      'Merchant Integrations',
-      'App Integrations',
-      'Digital Assets',
-      'Centrapay Experiences',
-    ];
-    sectionHeaderTitle.forEach((title) => {
-      const category = navigation.findItem({ title });
-      if(category) {
+    subHeadings.forEach((subHeading) => {
+      const category = navigation.findItem({ title: subHeading.title });
+      if(category && !category.to) {
         category.to = category.children[0].to;
       }
     });

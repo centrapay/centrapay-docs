@@ -17,6 +17,42 @@ describe('Navigation', () => {
         },
         {
           collection: 'guides',
+          slug: 'payment-flows',
+          data: {
+            title: 'Payment Flows',
+            nav: {
+              path: 'Reference/Centrapay Experiences',
+              title: 'Payment Flows',
+              order: 1
+            },
+          },
+        },
+        {
+          collection: 'guides',
+          slug: 'creating-test-money',
+          data: {
+            title: 'Creating Test Money',
+            nav: {
+              path: 'Reference/Digital Assets',
+              title: 'Creating Test Money',
+              order: 1
+            },
+          },
+        },
+        {
+          collection: 'guides',
+          slug: 'example-oidc-consumer',
+          data: {
+            title: 'Example OIDC Consumer',
+            nav: {
+              path: 'Reference/App Integrations',
+              title: 'Example OIDC Consumer',
+              order: 1
+            },
+          },
+        },
+        {
+          collection: 'guides',
           slug: 'point-of-sale',
           data: {
             title: 'Point of Sale',
@@ -47,6 +83,39 @@ describe('Navigation', () => {
             to: '/reference',
             icon: 'Receipt',
             children: [
+              {
+                title: 'Centrapay Experiences',
+                to: '/guides/payment-flows',
+                children: [
+                  {
+                    title: 'Payment Flows',
+                    to: '/guides/payment-flows',
+                    children: [],
+                  },
+                ]
+              },
+              {
+                title: 'Digital Assets',
+                to: '/guides/creating-test-money',
+                children: [
+                  {
+                    title: 'Creating Test Money',
+                    to: '/guides/creating-test-money',
+                    children: [],
+                  },
+                ]
+              },
+              {
+                title: 'App Integrations',
+                to: '/guides/example-oidc-consumer',
+                children: [
+                  {
+                    title: 'Example OIDC Consumer',
+                    to: '/guides/example-oidc-consumer',
+                    children: [],
+                  },
+                ]
+              },
               {
                 title: 'Merchant Integrations',
                 to: '/guides/line-items',
