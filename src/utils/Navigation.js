@@ -39,14 +39,14 @@ class Navigation {
     const pathToActiveNav = {};
     const navigation = new Navigation({ menu, pathToActiveNav });
 
-    const headings = navigation.menu.children;
-    const subHeadings = headings.map(c => c.children).flat();
+    const pages = content.map(c => Page.fromContent(c));
+
+    const subHeadings = navigation.menu.children.map(c => c.children).flat();
     for (const subHeading of subHeadings) {
-      const sectionPages = content
-        .map(c => Page.fromContent(c))
+      pages
         .filter(a => a.nav.path.split('/')[1] === subHeading.title)
-        .sort((a, b) => a.order - b.order);
-      sectionPages.forEach(page => navigation.insertPage({ page }));
+        .sort((a, b) => a.order - b.order)
+        .forEach(page => navigation.insertPage({ page }));
     }
 
     // FIXME remove this block once each section header has a landing page
