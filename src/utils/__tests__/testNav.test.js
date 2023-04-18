@@ -20,7 +20,7 @@ describe('Navigation', () => {
       });
     });
 
-    test('API ', () => {
+    test('Children is populated with single title nav entry', () => {
       expect(TestNav.create({
         nav: [
           {
@@ -33,6 +33,43 @@ describe('Navigation', () => {
           children: [
             {
               title: 'API',
+            }
+          ]
+        },
+        pathToActiveNav: undefined,
+      });
+    });
+
+    test('Content is child of nav', () => {
+      expect(TestNav.create({
+        nav: [
+          {
+            title: 'API',
+          }
+        ],
+        content: [
+          {
+            data: {
+              nav: {
+                path: 'API'
+              }
+            }
+          }
+        ],
+      })).toEqual({
+        menu: {
+          children: [
+            {
+              title: 'API',
+              children: [
+                {
+                  data: {
+                    nav: {
+                      path: 'API'
+                    }
+                  }
+                }
+              ],
             }
           ]
         },

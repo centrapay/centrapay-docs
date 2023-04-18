@@ -6,10 +6,10 @@ class TestNav {
     this.pathToActiveNav = props.pathToActiveNav;
   }
 
-  static create({ baseUrl, content = [] }) {
+  static create({ nav = [], content = [] }) {
     return new TestNav({
       menu: {
-        children: content
+        children: nav
       }
     });
   }
