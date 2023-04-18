@@ -13,13 +13,20 @@ class Navigation {
           title: 'Reference',
           to: '/reference',
           icon: 'Receipt',
-          children: [],
+          children: [
+            { title: 'Centrapay Experiences', children: [] },
+            { title: 'Digital Assets', children: [] },
+            { title: 'App Integrations', children: [] },
+            { title: 'Merchant Integrations', children: [] },
+          ],
         },
         {
           title: 'Connections',
           to: '/connections',
           icon: 'Connections',
-          children: [],
+          children: [
+            { title: 'Farmlands', children: [] },
+          ],
         },
         {
           title: 'API',
@@ -31,10 +38,16 @@ class Navigation {
     };
     const pathToActiveNav = {};
     const navigation = new Navigation({ menu, pathToActiveNav });
-    const pages = content
-      .map(c => Page.fromContent(c))
-      .sort((a, b) => a.order - b.order);
-    pages.forEach(page => navigation.insertPage({ page }));
+
+    const headings = navigation.menu.children;
+    const subHeadings = headings.map(c => c.children).flat();
+    for (const subHeading of subHeadings) {
+      const sectionPages = content
+        .map(c => Page.fromContent(c))
+        .filter(a => a.nav.path.split('/')[1] === subHeading.title)
+        .sort((a, b) => a.order - b.order);
+      sectionPages.forEach(page => navigation.insertPage({ page }));
+    }
 
     // FIXME remove this block once each section header has a landing page
     const sectionHeaderTitle = [
@@ -42,10 +55,9 @@ class Navigation {
       'App Integrations',
       'Digital Assets',
       'Centrapay Experiences',
-      'Centrapay Integrations',
     ];
     sectionHeaderTitle.forEach((title) => {
-      const category = navigation.findItem({ title: title });
+      const category = navigation.findItem({ title });
       if(category) {
         category.to = category.children[0].to;
       }
