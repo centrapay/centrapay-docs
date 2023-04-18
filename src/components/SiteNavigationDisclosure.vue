@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, defineAsyncComponent } from 'vue';
+import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
 import DisclosureArrowRight from './icons/DisclosureArrowRight.vue';
 
 import {
@@ -101,10 +101,17 @@ const currentNavPath = computed(() => {
   return props.navigation.pathToActiveNav[strippedPath.value] || strippedPath.value;
 });
 
+const open = ref(currentNavPath.value.startsWith(props.navigationItem.to));
+
+onMounted(() => {
+  if (!open.value) {
+    open.value = localStorage.getItem(props.navigationItem.title) || false;
+  }
+});
+
 function toggleDisclosure() {
   const title = props.navigationItem.title;
-  const itemExists = localStorage.getItem(title);
-  if (itemExists) {
+  if (open.value) {
     localStorage.removeItem(title);
     open.value = false;
   } else {
@@ -112,13 +119,4 @@ function toggleDisclosure() {
     open.value = true;
   }
 }
-
-function isOpen() {
-  const title = props.navigationItem.title;
-  if (currentNavPath.value.startsWith(props.navigationItem.to)) {
-    localStorage.setItem(title, true);
-  }
-  return localStorage.getItem(title);
-}
-const open = ref(isOpen());
 </script>
