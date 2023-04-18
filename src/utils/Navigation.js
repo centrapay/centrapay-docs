@@ -41,12 +41,20 @@ class Navigation {
 
     const pages = content.map(c => Page.fromContent(c));
 
-    const subHeadings = navigation.menu.children.map(c => c.children).flat();
+    const subHeadings = navigation.menu.children.map(c => c.children).flat().map(a => a.title);
     for (const subHeading of subHeadings) {
       pages
-        .filter(a => a.nav.path.split('/')[1] === subHeading.title)
+        .filter(a => a.nav.path.split('/')[1] === subHeading)
         .sort((a, b) => a.order - b.order)
         .forEach(page => navigation.insertPage({ page }));
+    }
+
+    const err = pages.filter(a => !subHeadings.includes(a.nav.path.split('/')[1]));
+    if (err) {
+      throw Error(
+        `The following pages have invalid paths: ${err.map(i => i.title)}.
+        If you are adding the page under a new subheading, ensure the subheading is included in the children list of the parent heading above.`
+      );
     }
 
     // FIXME remove this block once each section header has a landing page
