@@ -496,7 +496,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | 400    | {% break _ CHECKSUM_FAILED %}              | Luhn checksum digit doesn't pass.                                                                         |
 | 403    | {% break _ PATRON_CODE_INVALID %}          | Patron Code doesn't exist or has expired.                                                                 |
 | 403    | {% break _ NO_AVAILABLE_PAYMENT_OPTIONS %} | No payment options match the requested payment parameters.                                                |
-| 403    | {% break _ TOKEN_COLLECTION_INVALID %}     | Either the `collectionId` is not configured with the provided token collection or the token collection does not exist.                                                                      |
+| 403    | {% break _ TOKEN_COLLECTION_NOT_FOUND %}   | The token collection does not exist.                                                                      |
 
 <a name="get-payment-request"></a>
 ### Get a Payment Request
