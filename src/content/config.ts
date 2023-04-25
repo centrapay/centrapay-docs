@@ -15,4 +15,5 @@ const guidesCollection = defineCollection({
 
 export const collections = {
   'guides': guidesCollection,
+  'connections': guidesCollection,
 };

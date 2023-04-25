@@ -22,7 +22,8 @@
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                 <nav class="space-y-1 px-2">
                   <SiteNavigation
-                    :path="props.path"
+                    :path="navPath"
+                    :base-url="baseUrl"
                     :navigation="navigation"
                     @link-clicked="mainMenuOpen = false"
                   />
@@ -107,7 +108,8 @@
           aria-label="Sidebar"
         >
           <SiteNavigation
-            :path="props.path"
+            :base-url="baseUrl"
+            :path="navPath"
             :navigation="navigation"
           />
         </nav>
@@ -137,11 +139,14 @@ import {
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
+  baseUrl: { type: String, required: true },
   navigation: { type: Object, required: true },
 });
 
 const isOpen = ref(false);
 const mainMenuOpen = ref(false);
+
+const navPath = ref(props.path.endsWith('/') ? props.path.slice(0, -1) : props.path);
 
 onMounted(() => window.addEventListener('keydown', onKeyDown));
 onUnmounted(() => window.removeEventListener('keydown', onKeyDown));

@@ -90,7 +90,7 @@ version (documented on this page) and the "legacy" version (documented at
 | taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
 | remainingAmount      | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                           |
 | basketAmount         | {% dt BigNumber %} | The total amount of the transaction including non Centrapay payment methods.                                                                                             |
-| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |                                                               
+| partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |
 
 ### Payment Option
 
@@ -431,7 +431,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | preAuth              | Boolean {% opt %} | Flag to indicate if the Payment Request is a Pre Auth for supported [Asset Types][]. If set barcode must be provided.                                                    |
 | partialAllowed       | Boolean {% opt %} | Flag to indicate if the Payment Request can be partially paid for. If set basketAmount must be provided.                                                                 |
 | basketAmount         | {% dt Monetary %} {% opt %} | The total amount of the payment expected from the customer, including payments outside of Centrapay. Must be less than 100000000 and positive. If provided partialAllowed must also be set. |
-                                 
+
 {% h4 Example response payload %}
 
 {% json %}
