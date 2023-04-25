@@ -22,7 +22,7 @@
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                 <nav class="space-y-1 px-2">
                   <SiteNavigation
-                    :path="path"
+                    :path="navPath"
                     :base-url="baseUrl"
                     :navigation="navigation"
                     @link-clicked="mainMenuOpen = false"
@@ -109,7 +109,7 @@
         >
           <SiteNavigation
             :base-url="baseUrl"
-            :path="props.path"
+            :path="navPath"
             :navigation="navigation"
           />
         </nav>
@@ -145,6 +145,8 @@ const props = defineProps({
 
 const isOpen = ref(false);
 const mainMenuOpen = ref(false);
+
+const navPath = ref(props.path.endsWith('/') ? props.path.slice(0, -1) : props.path);
 
 onMounted(() => window.addEventListener('keydown', onKeyDown));
 onUnmounted(() => window.removeEventListener('keydown', onKeyDown));
