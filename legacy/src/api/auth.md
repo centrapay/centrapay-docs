@@ -169,7 +169,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : payment-activities:read %}            |       ✅      |               |         ✅        |                         |    ✅   |
 | {% break : payment-conditions:approve %}         |       ✅      |               |         ✅        |                         |    ✅   |
 | {% break : payment-requests:cancel 🗄 %}         |       ✅      |               |         ✅        |                         |    ✅   |
-| {% break : payment-requests:create 🗄 %}         |       ✅      |               |         ✅        |                         |    ✅   |
+| {% break : payment-requests:create 🗄 %}         |       ✅      |               |         ✅ ✸      |                         |    ✅   |
 | {% break : payment-requests:pay 🗄 %}            |       ✅ ✸    |       ✅ ✸    |         ✅        |                         |    ✅ ✸ |
 | {% break : payment-requests:read %}              |       ✅ ✸    |       ✅ ✸    |         ✅ ✸      |                         |    ✅ ✸ |
 | {% break : payment-requests:read-by-shortcode %} |       ✅      |               |         ✅        |                         |    ✅   |
