@@ -181,7 +181,7 @@
   },"30": {
     "doc": "Auth",
     "title": "Roles and Permissions",
-    "content": "Users and API keys are assigned a role for their associated Centrapay account(s). The permissions granted to the roles are shown in the table below. Most permissions apply only to resources owned by the associated account. Some permissions, such as payment-requests:pay, apply globally to all resources regardless of the account the resource belongs to. The global permissions are indicated below with a star (✸). Account Flags . Some permissions require an additional flag associated to their individual account or the targeted account that owns the resource (they may be the same account). For each permission, if there is a flag associated to it then at least one of them must be met. | Symbol | Description | . | 👤 | A trusted user flag on the individual account, obtained by verifying a NZ phone number. | . | 🧀 | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. | . | 🗄 | The targeted account must be of type org. | . Permissions . | Permission | Account Owner | Anon Consumer | Merchant Terminal | External Asset Provider | Cashier | . | accounts:create | ✅ |   |   |   |   | . | accounts:read | ✅ |   |   | ✅ | ✅ | . | accounts:update | ✅ |   |   |   |   | . | api-keys:create | ✅ |   |   |   |   | . | api-keys:list | ✅ |   |   |   |   | . | api-keys:update | ✅ |   |   |   |   | . | asset-transfers:claim | ✅ |   |   | ✅ |   | . | asset-transfers:create 👤 🧀 | ✅ |   |   | ✅ |   | . | asset-transfers:read | ✅ |   |   | ✅ |   | . | assets:read | ✅ |   |   | ✅ |   | . | assets:spend 👤 | ✅ |   |   |   |   | . | bank-account-approvals:create | ✅ |   |   |   |   | . | bank-account-requests:authorize | ✅ |   |   |   |   | . | bank-account-requests:create | ✅ |   |   |   |   | . | bank-accounts:create | ✅ |   |   |   |   | . | bank-accounts:read | ✅ |   |   |   |   | . | business:create | ✅ |   |   |   |   | . | business:update | ✅ |   |   |   |   | . | business:read | ✅ |   |   |   |   | . | external-assets:create 👤 🧀 | ✅ |   |   | ✅ |   | . | external-assets:update | ✅ |   |   | ✅ |   | . | integration-requests:configure |   |   |   |   |   | . | integration-requests:create 🗄 | ✅ |   |   |   |   | . | integration-requests:read 🗄 | ✅ |   |   |   |   | . | invitations:accept | ✅ ✸ |   |   |   |   | . | invitations:read | ✅ ✸ |   |   |   |   | . | media-uploads:create | ✅ |   |   |   |   | . | memberships:delete 🗄 | ✅ |   |   |   |   | . | memberships:update | ✅ |   |   |   |   | . | merchants:create 🗄 | ✅ |   |   |   |   | . | merchants:list 🗄 | ✅ |   |   |   | ✅ | . | merchants:read 🗄 | ✅ |   |   |   | ✅ | . | merchants:update 🗄 | ✅ |   |   |   |   | . | patron-codes:create | ✅ |   |   |   |   | . | patron-codes:read | ✅ |   | ✅ |   | ✅ | . | payment-activities:read | ✅ |   | ✅ |   | ✅ | . | payment-conditions:approve | ✅ |   | ✅ |   | ✅ | . | payment-requests:cancel 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:create 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:pay 🗄 | ✅ ✸ | ✅ ✸ | ✅ |   | ✅ ✸ | . | payment-requests:read | ✅ ✸ | ✅ ✸ | ✅ ✸ |   | ✅ ✸ | . | payment-requests:read-by-shortcode | ✅ |   | ✅ |   | ✅ | . | payment-requests:refund 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:void 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:release 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:confirm 🗄 | ✅ |   | ✅ |   | ✅ | . | quotas:read | ✅ |   |   |   |   | . | quotas:read | ✅ |   |   |   |   | . | scanned-code:decode | ✅ |   | ✅ |   | ✅ | . | topups:create 👤 | ✅ |   |   |   |   | . | topups:read | ✅ |   |   |   |   | . | wallets:create | ✅ |   |   |   |   | . | wallets:deposit | ✅ |   |   |   |   | . | wallets:read | ✅ |   |   |   |   | . | wallets:transfer 👤 | ✅ |   |   |   |   | . | wallets:withdraw | ✅ |   |   |   |   | . ",
+    "content": "Users and API keys are assigned a role for their associated Centrapay account(s). The permissions granted to the roles are shown in the table below. Most permissions apply only to resources owned by the associated account. Some permissions, such as payment-requests:pay, apply globally to all resources regardless of the account the resource belongs to. The global permissions are indicated below with a star (✸). Account Flags . Some permissions require an additional flag associated to their individual account or the targeted account that owns the resource (they may be the same account). For each permission, if there is a flag associated to it then at least one of them must be met. | Symbol | Description | . | 👤 | A trusted user flag on the individual account, obtained by verifying a NZ phone number. | . | 🧀 | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. | . | 🗄 | The targeted account must be of type org. | . Permissions . | Permission | Account Owner | Anon Consumer | Merchant Terminal | External Asset Provider | Cashier | . | accounts:create | ✅ |   |   |   |   | . | accounts:read | ✅ |   |   | ✅ | ✅ | . | accounts:update | ✅ |   |   |   |   | . | api-keys:create | ✅ |   |   |   |   | . | api-keys:list | ✅ |   |   |   |   | . | api-keys:update | ✅ |   |   |   |   | . | asset-transfers:claim | ✅ |   |   | ✅ |   | . | asset-transfers:create 👤 🧀 | ✅ |   |   | ✅ |   | . | asset-transfers:read | ✅ |   |   | ✅ |   | . | assets:read | ✅ |   |   | ✅ |   | . | assets:spend 👤 | ✅ |   |   |   |   | . | bank-account-approvals:create | ✅ |   |   |   |   | . | bank-account-requests:authorize | ✅ |   |   |   |   | . | bank-account-requests:create | ✅ |   |   |   |   | . | bank-accounts:create | ✅ |   |   |   |   | . | bank-accounts:read | ✅ |   |   |   |   | . | business:create | ✅ |   |   |   |   | . | business:update | ✅ |   |   |   |   | . | business:read | ✅ |   |   |   |   | . | external-assets:create 👤 🧀 | ✅ |   |   | ✅ |   | . | external-assets:update | ✅ |   |   | ✅ |   | . | integration-requests:configure |   |   |   |   |   | . | integration-requests:create 🗄 | ✅ |   |   |   |   | . | integration-requests:read 🗄 | ✅ |   |   |   |   | . | invitations:accept | ✅ ✸ |   |   |   |   | . | invitations:read | ✅ ✸ |   |   |   |   | . | media-uploads:create | ✅ |   |   |   |   | . | memberships:delete 🗄 | ✅ |   |   |   |   | . | memberships:update | ✅ |   |   |   |   | . | merchants:create 🗄 | ✅ |   |   |   |   | . | merchants:list 🗄 | ✅ |   |   |   | ✅ | . | merchants:read 🗄 | ✅ |   |   |   | ✅ | . | merchants:update 🗄 | ✅ |   |   |   |   | . | patron-codes:create | ✅ |   |   |   |   | . | patron-codes:read | ✅ |   | ✅ |   | ✅ | . | payment-activities:read | ✅ |   | ✅ |   | ✅ | . | payment-conditions:approve | ✅ |   | ✅ |   | ✅ | . | payment-requests:cancel 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:create 🗄 | ✅ |   | ✅ ✸ |   | ✅ | . | payment-requests:pay 🗄 | ✅ ✸ | ✅ ✸ | ✅ |   | ✅ ✸ | . | payment-requests:read | ✅ ✸ | ✅ ✸ | ✅ ✸ |   | ✅ ✸ | . | payment-requests:read-by-shortcode | ✅ |   | ✅ |   | ✅ | . | payment-requests:refund 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:void 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:release 🗄 | ✅ |   | ✅ |   | ✅ | . | payment-requests:confirm 🗄 | ✅ |   | ✅ |   | ✅ | . | quotas:read | ✅ |   |   |   |   | . | quotas:read | ✅ |   |   |   |   | . | scanned-code:decode | ✅ |   | ✅ |   | ✅ | . | topups:create 👤 | ✅ |   |   |   |   | . | topups:read | ✅ |   |   |   |   | . | wallets:create | ✅ |   |   |   |   | . | wallets:deposit | ✅ |   |   |   |   | . | wallets:read | ✅ |   |   |   |   | . | wallets:transfer 👤 | ✅ |   |   |   |   | . | wallets:withdraw | ✅ |   |   |   |   | . ",
     "url": "/api/auth#roles-and-permissions",
     "relUrl": "/api/auth#roles-and-permissions"
   },"31": {
@@ -509,41 +509,41 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"86": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
-  },"87": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
-    "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
-  },"88": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
     "content": " ",
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
-  },"89": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+  },"86": {
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"90": {
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"87": {
+    "doc": "Accounts",
+    "title": "Accounts",
+    "content": " ",
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
+  },"88": {
+    "doc": "Assets",
+    "title": "Assets",
+    "content": " ",
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
+  },"89": {
     "doc": "Integrations",
     "title": "Integrations",
     "content": " ",
     "url": "/api/section/integrations",
     "relUrl": "/api/section/integrations"
+  },"90": {
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
+    "content": " ",
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"91": {
     "doc": "Batches",
     "title": "Batches",
@@ -551,11 +551,11 @@
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
   },"92": {
-    "doc": "Assets",
-    "title": "Assets",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"93": {
     "doc": "Settlements",
     "title": "Settlements",
