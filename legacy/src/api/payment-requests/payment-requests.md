@@ -283,7 +283,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
 | PAYMENT_REQUEST_EXPIRED      | The payment request has expired.                                                                                                                                                                                     |
 | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-| LINE_ITEMS_INVALID           | The line items on payment request was invalid                                                                                                                                                                        |
 
 ## Operations
 
