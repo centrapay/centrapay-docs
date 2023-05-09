@@ -276,7 +276,6 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | CANCELLED_BY_MERCHANT        | The merchant cancelled the payment request by calling the cancel or void endpoint.                                                                                                                                   |
 | CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                                                                                                |
 | PATRON_CODE_INVALID          | The patron code on the payment request was invalid.                                                                                                                                                                  |
-| INSUFFICIENT_ASSET_VALUE     | The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.                                                                   |
 | PAYMENT_FAILED               | The payment request failed for an unknown reason.                                                                                                                                                                    |
 | PATRON_CODE_EXPIRED          | The patron code on the payment request has expired.                                                                                                                                                                  |
 | DECLINED_BY_PATRON           | The payment was declined by the patron during approval steps.                                                                                                                                                        |
@@ -284,6 +283,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
 | PAYMENT_REQUEST_EXPIRED      | The payment request has expired.                                                                                                                                                                                     |
 | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
+| LINE_ITEMS_INVALID           | The line items on payment request was invalid                                                                                                                                                                        |
 
 ## Operations
 
