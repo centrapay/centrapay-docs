@@ -108,6 +108,29 @@ curl https://auth.centrapay.com/api/.well-known/jwks.json
 }
 ```
 
+To verify a request start by decripting the JWT.
+
+**Decripted JWT Payload**
+
+```JSON
+{
+  "iat": "1684105185",
+  "exp": "1684105485",
+  "aud": "https://your.endpoint/",
+  "request_body_sha256": "b9195bf41bf0e38ab0ab44e7ef5b9af5cb0fe2ece8dee5d112d7485bf4ef0007",
+}
+```
+
+Use the decripted JWT validate the following fields:
+
+|        Field        |                                                                         Assertion                                                                           |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| exp                 | Assert that exp is greater than the current Unix timestamp.                                                                                                 |
+| aud                 | Assert that aud is equal to the base URL of your Uplink API.                                                                                                |
+| request_body_sha256 | Hash the request payload using the [SHA256 algorythm](https://en.wikipedia.org/wiki/SHA-2). Assert that request_body_sha256 is equal to the hashed payload. |
+
+If any assertion is not met the request must be rejected.
+
 ### Error Codes
 
 You may define the errors thrown from each endpoint. If an error is received, Centrapay will [get the Transaction Status](#get-transaction-endpoint) and decide whether to retry based on the response.
