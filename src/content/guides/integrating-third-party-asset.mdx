@@ -130,46 +130,30 @@ To verify a request start by decoding the JWT.
 
 Use the decoded JWT fields to validate the following:
 
-Expiry
+Exp is provided as a default expiry. Alternatively, use iat + your own expiry window to determine if the JWT has expired.
 
-Verify that the request authorisation has not expired to prevent against replay attack.
+Assert that the audience is correct by checking that aud is equal to the base URL of your Uplink API.
 
-Exp is provided as a default expiry, with a 5 minute expiry window. Check that the default expiry has not passed by asserting that exp is greater than the current Unix timestamp.
-
-To use a custom expiry window instead of the default provided in exp, add the duration of the expiry window in seconds to iat. To verify this custom expiry has not passed, assert that the value is greater than the current Unix timestamp.
-
-
-Audience
-
-To prevent against man-in-the-middle attacks assert that aud is equal to the base URL of your Uplink API.
-
-
-Request payload
-
-The request_body_sha256 property can be used to verify that the request payload has not been tampered with. Request_body_sha256 contains a hash of the request payload, created using the [SHA256 algorythm](https://en.wikipedia.org/wiki/SHA-2).
-We can therefore assert the payload is unchanged by hashing the received request payload using the SHA256 algorythm and checking for equality with request_body_sha256.
-
-**Example Of Verifying A Request Payload**
+The request_body_sha256 property should be used to verify that the request payload has not been tampered with. This should be done by hashing the received request payload using the SHA256 algorythm and checking for equality with request_body_sha256 as shown below.
 
 ```javascript
-  const crypto = require('crypto');
+  const crypto = require("crypto");
 
   const decodedJwt = {
-    request_body_sha256: 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35',
+    request_body_sha256: "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
   };
 
   const payload = {
-    vader: 'I am your father',
-    luke: 'That\'s not true, that\'s impossible',
+    vader: "I am your father",
+    luke: "That's not true, that's impossible",
   };
 
   const jsonStringPayload = JSON.stringify(payload);
 
-  const hashedPayload = crypto.createHash('sha256').update(jsonStringPayload).digest('hex');
+  const hashedPayload = crypto.createHash("sha256").update(jsonStringPayload).digest("hex");
 
-
-  if (decodedJwt['request_body_sha256'] != hashedPayload) {
-    throw new Error('Payload hashes do not match');
+  if (decodedJwt["request_body_sha256"] != hashedPayload) {
+    throw new Error("Payload hashes do not match");
   }
 ```
 
