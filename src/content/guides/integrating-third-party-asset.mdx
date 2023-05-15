@@ -108,28 +108,72 @@ curl https://auth.centrapay.com/api/.well-known/jwks.json
 }
 ```
 
-To verify a request start by decripting the JWT.
+To verify a request start by decoding the JWT.
 
-**Decripted JWT Payload**
+**Decoded JWT Payload**
 
 ```JSON
 {
   "iat": "1684105185",
   "exp": "1684105485",
-  "aud": "https://your.endpoint/",
+  "aud": "https://your.endpoint",
   "request_body_sha256": "b9195bf41bf0e38ab0ab44e7ef5b9af5cb0fe2ece8dee5d112d7485bf4ef0007",
 }
 ```
 
-Use the decripted JWT validate the following fields:
+|        Field        |                                                Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------- |
+| iat                 | An Unix timestap of the request's creation.                                                               |
+| exp                 | An Unix timestap that the request is vaild until. Set to 5 minutes after iat.                             |
+| aud                 | The Uplink API URL belonging to the intended recipient of the request.                                    |
+| request_body_sha256 | A hash of the request payload, created using the [SHA256 algorythm](https://en.wikipedia.org/wiki/SHA-2). |
 
-|        Field        |                                                                         Assertion                                                                           |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| exp                 | Assert that exp is greater than the current Unix timestamp.                                                                                                 |
-| aud                 | Assert that aud is equal to the base URL of your Uplink API.                                                                                                |
-| request_body_sha256 | Hash the request payload using the [SHA256 algorythm](https://en.wikipedia.org/wiki/SHA-2). Assert that request_body_sha256 is equal to the hashed payload. |
+Use the decoded JWT fields to validate the following:
 
-If any assertion is not met the request must be rejected.
+Expiry
+
+Verify that the request authorisation has not expired to prevent against replay attack.
+
+Exp is provided as a default expiry, with a 5 minute expiry window. Check that the default expiry has not passed by asserting that exp is greater than the current Unix timestamp.
+
+To use a custom expiry window instead of the default provided in exp, add the duration of the expiry window in seconds to iat. To verify this custom expiry has not passed, assert that the value is greater than the current Unix timestamp.
+
+
+Audience
+
+To prevent against man-in-the-middle attacks assert that aud is equal to the base URL of your Uplink API.
+
+
+Request payload
+
+The request_body_sha256 property can be used to verify that the request payload has not been tampered with. Request_body_sha256 contains a hash of the request payload, created using the [SHA256 algorythm](https://en.wikipedia.org/wiki/SHA-2).
+We can therefore assert the payload is unchanged by hashing the received request payload using the SHA256 algorythm and checking for equality with request_body_sha256.
+
+**Example Of Verifying A Request Payload**
+
+```javascript
+  const crypto = require('crypto');
+
+  const decodedJwt = {
+    request_body_sha256: 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35',
+  };
+
+  const payload = {
+    vader: 'I am your father',
+    luke: 'That\'s not true, that\'s impossible',
+  };
+
+  const jsonStringPayload = JSON.stringify(payload);
+
+  const hashedPayload = crypto.createHash('sha256').update(jsonStringPayload).digest('hex');
+
+
+  if (decodedJwt['request_body_sha256'] != hashedPayload) {
+    throw new Error('Payload hashes do not match');
+  }
+```
+
+If any of the above assertions are not met the request must be rejected.
 
 ### Error Codes
 
