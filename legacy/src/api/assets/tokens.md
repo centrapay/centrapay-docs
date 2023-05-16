@@ -57,10 +57,11 @@ Token value may be set in multiple currencies and is the same for all tokens in 
   "expiresAt": "2022-01-18T18:00:23.000Z",
 	"liveness": "test",
 	"createdBy": "crn:1234abc:api-key:MyAssetIssuerKey",
-	"description": "My Test Token",
-  "brandImg": "s3://centrapay.brands.dev/tokens/Jaim1Cu1Q55uooxSens6yk/brandImg",
-	"img": "s3://centrapay.brands.dev/tokens/Jaim1Cu1Q55uooxSens6yk/img",
-	"brandName": "Centraperk Cafe",
+	"description": "My Cafe Token",
+  "issuerImg": "https://static.centrapay.com/assets/brands/centraperk/logo.png",
+	"img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
+  "issuer": "Centraperk Cafe",
+  "issuerWebsite": "www.centraperk-cafe.com",
 	"type": "centrapay.token.test"
 }
 {% endjson %}
