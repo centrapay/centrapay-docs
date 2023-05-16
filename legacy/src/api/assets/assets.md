@@ -117,7 +117,7 @@ Tokens have the following fields along with the base asset fields.
 |     Field     |             Type             |                                         Description                                          |
 | :------------ | :--------------------------- | :------------------------------------------------------------------------------------------- |
 | value         | Array {% opt %}              | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. |
-| validFrom     | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                   |
+| activeFrom    | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                   |
 | expiresAt     | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                             |
 | img           | String {% opt %}             | The img URL of the token.                                                                    |
 | issuer        | String {% opt %}             | The identifier for the issuer of the token.                                                  |
