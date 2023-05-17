@@ -463,11 +463,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collections": [
-        {
-          "id": "345224"
-        }
-      ]
+      "collections": [ "345224" ]
     }
   ],
   "lineItems": [
@@ -540,11 +536,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collections": [
-        {
-          "id": "345224"
-        }
-      ]
+      "collections": [ "345224" ]
     }
   ],
   "lineItems": [
