@@ -53,7 +53,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 	"collectionId": "Jaim1Cu1Q55uooxSens6yk",
   "status": "active",
   "createdAt": "2021-01-17T18:00:23.000Z",
-  "validFrom": "2021-01-17T18:00:23.000Z",
+  "activeFrom": "2021-01-17T18:00:23.000Z",
   "expiresAt": "2022-01-18T18:00:23.000Z",
 	"liveness": "test",
 	"createdBy": "crn:1234abc:api-key:MyAssetIssuerKey",
