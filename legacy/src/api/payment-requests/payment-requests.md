@@ -109,7 +109,7 @@ version (documented on this page) and the "legacy" version (documented at
 | cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                              |
 | wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                       |
 | productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`      |
-| collections    | Array  | Supported collections for the payment request, when the "assetType" is `centrapay.token.*` |
+| collectionIds    | Array  | Supported collectionIds for the payment request, when the "assetType" is `centrapay.token.*` |
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
@@ -463,7 +463,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collections": [ "345224" ]
+      "collectionIds": [ "345224" ]
     }
   ],
   "lineItems": [
@@ -536,7 +536,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collections": [ "345224" ]
+      "collectionIds": [ "345224" ]
     }
   ],
   "lineItems": [
