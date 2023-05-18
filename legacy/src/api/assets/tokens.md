@@ -30,18 +30,16 @@ Token value may be set in multiple currencies and is the same for all tokens in 
   auth 'api-key'
   body ({
     "collectionId": "Jaim1Cu1Q55uooxSens6yk",
-    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
-		"liveness": "test"
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b"
   })
 {% endreqspec %}
 
 {% h4 Fields %}
 
-|     Field      |  Type   |                                      Description                                       |
-| :------------- | :------ | :------------------------------------------------------------------------------------- |
-| collectionId   | String  | The token collection that will govern the branding and redemption rules for the token. |
-| idempotencyKey | String  | Client-supplied identifier that prevents double creation.                              |
-| liveness       | Boolean | 'main' if the token is a live token, 'test' if the token is a test token.              |
+|     Field      |  Type  |                                      Description                                       |
+| :------------- | :----- | :------------------------------------------------------------------------------------- |
+| collectionId   | String | The token collection that will govern the branding and redemption rules for the token. |
+| idempotencyKey | String | Client-supplied identifier that prevents double creation.                              |
 
 {% h4 Example response payload %}
 
@@ -68,7 +66,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 
 {% h4 Error Responses %}
 
-| Status |              Code               |                             Description                              |
-| :----- | :------------------------------ | :------------------------------------------------------------------- |
-| 403    | TOKEN_ALREADY_CREATED           | Token with supplied parameters already exists.                       |
-| 403    | ACCOUNT_LIVENESS_MISMATCH       | The account is test and the supplied liveness is main or vice versa. |
+| Status |         Code          |                               Description                                |
+| :----- | :-------------------- | :----------------------------------------------------------------------- |
+| 403    | TOKEN_ALREADY_CREATED | Token with supplied parameters already exists.                           |
+| 403    | LIVENESS_MISMATCH     | The account is test and the collection's liveness is main or vice versa. |
