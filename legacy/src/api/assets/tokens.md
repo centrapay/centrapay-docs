@@ -23,7 +23,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 * TOC
 {:toc}
 
-## Create Token
+## Create Token **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/tokens'
