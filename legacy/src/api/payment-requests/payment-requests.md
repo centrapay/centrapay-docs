@@ -103,13 +103,13 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-|     Field      |  Type  |                                        Description                                         |
-| -------------- | ------ | ------------------------------------------------------------------------------------------ |
-| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                            |
-| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                              |
-| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                       |
-| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`      |
-| collectionIds    | Array  | Supported collectionIds for the payment request, when the "assetType" is `centrapay.token.*` |
+|     Field      |  Type  |                                         Description                                          |
+| -------------- | ------ | -------------------------------------------------------------------------------------------- |
+| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                              |
+| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                |
+| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                         |
+| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`        |
+| collectionIds  | Array  | Supported collectionIds for the payment request, when the "assetType" is `centrapay.token.*` |
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
