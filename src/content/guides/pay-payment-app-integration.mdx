@@ -40,36 +40,36 @@ sequenceDiagram
   participant Centrapay
 
 	user->>Payment Terminal: Select Centrapay
-	Payment Terminal->>Centrapay: Create payment request
+	Payment Terminal->>Centrapay: Create Payment Request
 	note over Payment Terminal: Display QR code
 	App->>Payment Terminal: Scan QR code
 	note over App: Parse Centrapay QR code
 	App->>Integrator: Request payment details
-	Integrator->>Centrapay: Get payment request
-	note over App: Display payment request details
+	Integrator->>Centrapay: Get Payment Request
+	note over App: Display Payment Request details
   user->>App: Approve payment
 	App->>Integrator: Request payment is paid
-	Integrator->>Centrapay: Pay payment request
+	Integrator->>Centrapay: Pay Payment Request
 	App->>user: Display successful payment
-  Payment Terminal->>Centrapay: Get payment request
+  Payment Terminal->>Centrapay: Get Payment Request
   note over Payment Terminal: Display paid successfully
 
 ```
 
 1. User selects Centrapay on the terminal at a participant merchant
-2. The payment terminal creates a payment request with Centrapay on behalf of the merchant
+2. The payment terminal creates a Payment Request with Centrapay on behalf of the merchant
    and displays a QR code.
 3. User scans the QR code with their app.
-4. App sends the payment request id from the QR code to the server requesting
+4. App sends the Payment Request id from the QR code to the server requesting
    the details of the payment.
-5. The server [gets the payment request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
+5. The server [gets the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
    from Centrapay.
 6. The user views the payment details on their app and approves the payment.
-7. The app requests the server pay the payment request
+7. The app requests the server pay the Payment Request
 8. The server [Pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request)
    with the users asset
 9. The app displays a successfully paid screen to the user
-10. The terminal gets the payment request and display successfully paid
+10. The terminal gets the Payment Request and display successfully paid
 
 ## Payment Flow Implementation
 
@@ -84,7 +84,7 @@ the url by asserting it matches the above format and ignore any malformed QR cod
 Once the app has validated the url, use the id of the Payment Request to
 call the [Get Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
 API from your server. The returned [PaymentRequest model](https://docs.centrapay.com/api/payment-requests#payment-request)
-will provide the details needed to determine if the payment request can be completed.
+will provide the details needed to determine if the Payment Request can be completed.
 
 | Field          | Used for                                                                                                                                                                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +111,7 @@ from the server on behalf of the user with the following fields:
 | assetType     | The Asset Type defined when you registered your third party asset.                                                                                    |
 | authorization | An identifier for your Asset Type which will be used when invoking the https://docs.centrapay.com/guides/integrating-third-party-asset/#pay-endpoint. |
 
-If the payment was successful then the status of the payment request will be `paid`
+If the payment was successful then the status of the Payment Request will be `paid`
 and you can show confirmation of payment to the user.
 
 ## Payment Extensions
@@ -122,22 +122,22 @@ by providing alternative payment flows.
 ### Partial Pay
 
 If both your app and the merchant support [Partial Pay](/guides/partial-payment-extension/)
-then you may allow the user to pay only a portion of the payment request and
+then you may allow the user to pay only a portion of the Payment Request and
 then pay the remaining amount with an alternative payment method.
 
-The `partialAllowed` flag on the payment request will determine if the merchant
+The `partialAllowed` flag on the Payment Request will determine if the merchant
 allows partial payments. If they don’t then you should only allow paying the entire
-payment request.
+Payment Request.
 
-To pay a partial amount of the payment request pass the mode and amount to the pay
-payment request API.
+To pay a partial amount of the Payment Request pass the mode and amount to the pay
+Payment Request API.
 
 | Field  | Used for                                                                                           |
 | ------ | -------------------------------------------------------------------------------------------------- |
 | mode   | For partial payments the mode should be `partial`                                                  |
 | amount | For partial payments you must provide the amount of the Payment Request you want to partially pay. |
 
-The `remainingAmount` property on the payment request can be used to show how much
+The `remainingAmount` property on the Payment Request can be used to show how much
 the user still needs to pay with an alternative method.
 
 ## Testing
