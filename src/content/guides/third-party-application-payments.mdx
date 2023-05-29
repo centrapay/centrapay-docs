@@ -69,7 +69,7 @@ sequenceDiagram
 8. The server [Pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request)
    with the users asset
 9. The app displays a successfully paid screen to the user
-10. The terminal gets the Payment Request and display successfully paid
+10. The terminal gets the Payment Request and displays successfully paid
 
 ## Payment Flow Implementation
 
@@ -88,28 +88,28 @@ will provide the details needed to determine if the Payment Request can be compl
 
 | Field          | Used for                                                                                                                                                                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| status         | If the status is `new` the Payment Request is able to be paid, if it is `cancelled`, `expired`, or `paid` it is in a final state and payments can no longer be made against the Payment Request                                                                                 |
+| status         | If the status of the the Payment Request is `new` it is still able to be paid, if it is `cancelled`, `expired`, or `paid` it is in a final state and payments can no longer be made against the Payment Request.                                                                |
 | paymentOptions | The Payment Options define what Assets a merchant accepts. If your Asset’s type is in the Payment Options array, it is able to be used for payment. If your Asset’s type is not in the Payment Options then the merchant has not been configured to accept your payment method. |
-| liveness       | Determines whether a Payment Request is a test Payment Request. Test Payment Requests can only be paid with test assets, and should not be displayed to end users.                                                                                                              |
+| liveness       | Liveness determines whether a Payment Request is a test Payment Request. Test Payment Requests can only be paid with test assets, and should not be displayed to end users.                                                                                                     |
 
 ### Pay the Payment Request
 
 If the Payment Request is payable with your Asset then you should display the
 Payment Request details to the user. Some relevant fields to display are:
 
-| Field        | Used for                                                                                                                        |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| merchantName | The name of the merchant the user is paying                                                                                     |
-| value        | The currency and amount the merchant is request, which may need to converted to the denomination of the asset used for payment. |
+| Field        | Description                                                                                                                         |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| merchantName | The name of the merchant the user is paying                                                                                         |
+| value        | The currency and amount the merchant is requesting, which may need to be converted to the denomination of the asset used for payment|
 
 Once a user has seen the relevant information and confirmed payment you should invoke the
 [Pay Payment Request API](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request)
 from the server on behalf of the user with the following fields:
 
-| Field         | Used for                                                                                                                                              |
+| Field         | Description                                                                                                                                           |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| assetType     | The Asset Type defined when you registered your third party asset.                                                                                    |
-| authorization | An identifier for your Asset Type which will be used when invoking the https://docs.centrapay.com/guides/integrating-third-party-asset/#pay-endpoint. |
+| assetType     | The Asset Type defined when you registered your third party asset                                                                                     |
+| authorization | An identifier for your Asset Type which will be used when invoking the [Pay Payment Request API](https://docs.centrapay.com/guides/integrating-third-party-asset/#pay-endpoint) |
 
 If the payment was successful then the status of the Payment Request will be `paid`
 and you can show confirmation of payment to the user.
@@ -134,7 +134,7 @@ Payment Request API.
 
 | Field  | Used for                                                                                           |
 | ------ | -------------------------------------------------------------------------------------------------- |
-| mode   | For partial payments the mode should be `partial`                                                  |
+| mode   | For partial payments the mode should be `partial`.                                                 |
 | amount | For partial payments you must provide the amount of the Payment Request you want to partially pay. |
 
 The `remainingAmount` property on the Payment Request can be used to show how much
