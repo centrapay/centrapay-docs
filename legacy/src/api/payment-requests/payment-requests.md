@@ -371,6 +371,42 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     })
   }
   example {
+    title 'Create a Payment Request with Line Items and Partial Pay'
+    body ({
+      configId: '5efbe2fb96c08357bb2b9242',
+      value: { amount: '6190', currency: 'NZD' },
+      partialAllowed: true,
+      basketAmount: '10000',
+      lineItems: [
+        {
+          name: 'Coffee Grounds',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4195',
+          tax: '15.00',
+        },
+        {
+          name: 'Centrapay Cafe Mug',
+          sku: 'SB456',
+          qty: '25',
+          price: '1995',
+          tax: '15.00',
+          discount: '199',
+          restricted: true,
+          productId: '19412345123459',
+          classification: {
+            type: 'GS1',
+            code: '10001874',
+            name: 'CROCKERY',
+            props: {
+              '20001479': '30008960'
+            }
+          }
+        },
+      ],
+    })
+  }
+  example {
     title 'Create a Payment Request with barcode, barcodeType, and collectionId'
     body ({
       configId: '5efbe2fb96c08357bb2b9242',
@@ -787,6 +823,15 @@ Use authorization to authorize an external transaction.
       "authorization": "LiOkwEtDGTVz4ESv5NS83",
     })
   }
+  example {
+    title 'Partially Pay a Payment Request'
+    body ({
+      "assetType": "centrapay.nzd.main",
+      "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+      "amount": "200",
+      "mode": "partial-payment"
+    })
+  }
 
 {% endreqspec %}
 
@@ -807,6 +852,7 @@ Use authorization to authorize an external transaction.
   "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
   "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
   "activityNumber": "2",
+  "mode": "partial-payment",
 },
 {% endjson %}
 
