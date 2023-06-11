@@ -86,6 +86,44 @@
         }
       }
     ]
+  }'</span></code></pre></div> <h4> Create a Payment Request with Line Items and Partial Pay </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "configId": "5efbe2fb96c08357bb2b9242",
+    "value": {
+      "amount": "6190",
+      "currency": "NZD"
+    },
+    "partialAllowed": true,
+    "basketAmount": "10000",
+    "lineItems": [
+      {
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00"
+      },
+      {
+        "name": "Centrapay Cafe Mug",
+        "sku": "SB456",
+        "qty": "25",
+        "price": "1995",
+        "tax": "15.00",
+        "discount": "199",
+        "restricted": true,
+        "productId": "19412345123459",
+        "classification": {
+          "type": "GS1",
+          "code": "10001874",
+          "name": "CROCKERY",
+          "props": {
+            "20001479": "30008960"
+          }
+        }
+      }
+    ]
   }'</span></code></pre></div> <h4> Create a Payment Request with barcode, barcodeType, and collectionId </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -407,6 +445,14 @@
   <span class="nt">-d</span> <span class="s1">'{
     "assetType": "stadius.main",
     "authorization": "LiOkwEtDGTVz4ESv5NS83"
+  }'</span></code></pre></div> <h4> Partially Pay a Payment Request </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/<span class="o">{</span>paymentRequestId<span class="o">}</span>/pay <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "assetType": "centrapay.nzd.main",
+    "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+    "amount": "200",
+    "mode": "partial-payment"
   }'</span></code></pre></div> </p> <h4> Example response payload </h4> <p> <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -423,7 +469,8 @@
   </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T04:04:27.426Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"paymentRequestCreatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:0af834c8-1110-11ec-9072-3e22fb52e878"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+  </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"partial-payment"</span><span class="w">
 </span><span class="p">}</span></code></pre></div> </p> <h4> Error Responses </h4> <div class="table-wrapper"><table> <thead> <tr> <th style="text-align: left">Status</th> <th style="text-align: left">Code</th> <th style="text-align: left">Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INVALID_<wbr />ASSET_<wbr />TYPE</td> <td style="text-align: left">Either the merchant is not configured with the provided asset type or the asset type does not exist.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REQUEST_<wbr />EXPIRED</td> <td style="text-align: left">Action cannot be completed because the request has expired.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REQUEST_<wbr />PAID</td> <td style="text-align: left">Action cannot be completed because the request has been paid.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">REQUEST_<wbr />CANCELLED</td> <td style="text-align: left">Action cannot be completed because the request has already been cancelled.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INACTIVE_<wbr />ASSET</td> <td style="text-align: left">The asset is not spendable. It may have been disabled, expired, or already spent.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INVALID_<wbr />MERCHANT_<wbr />CONFIG</td> <td style="text-align: left">The merchant is not configured properly to satisfy the payment request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">QUOTA_<wbr />EXCEEDED</td> <td style="text-align: left">The payment pay request exceeds the allowed spend quota supplied.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">INSUFFICIENT_<wbr />ASSET_<wbr />VALUE</td> <td style="text-align: left">The asset has insufficient funds to pay the payment request or the transaction amount received by Centrapay is less than the total of the payment.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">ASSET_<wbr />REDEMPTION_<wbr />DENIED</td> <td style="text-align: left">The asset redemption has been unsuccessful due to an error with provided payment parameters, the merchant, or the asset.</td> </tr> <tr> <td style="text-align: left">403</td> <td style="text-align: left">PAYMENT_<wbr />DECLINED</td> <td style="text-align: left">The payment parameters were valid but payment was declined because additional payment restrictions were violated.</td> </tr> </tbody> </table></div> <p><a name="refund"></a></p> <h3 id="refund-a-payment-request"> <a href="#refund-a-payment-request" aria-labelledby="refund-a-payment-request" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Refund a Payment Request </h3> <p> POST <code>/<wbr />api/<wbr />payment-requests/<wbr />{paymentRequestId}/<wbr />refund</code> <h4> Refund a Payment Request </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/<span class="o">{</span>paymentRequestId<span class="o">}</span>/refund <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
