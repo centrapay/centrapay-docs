@@ -7,16 +7,17 @@ nav:
 ---
 
 Partial Payment is an extension to the Payment Request Protocol that allows
-customers to pay a partial amount of a payment request using Centrapay. This
-allows Centrapay Payments to easily complement other methods of payment such as
-cash. This also allows for reporting to track upselling from forms of payment
-like [Token](https://docs.centrapay.com/api/assets#tokens-experimental).
-For expample if a customer comes in and wants to purchase a loaf of b
+the flexibility for customers to utilize different forms of payment. This allows
+Centrapay Payments to easily complement other methods of payment. In addition
+leaveraging this with payment methods such as
+[Token](https://docs.centrapay.com/api/assets#tokens-experimental) will allow you
+to gain valuable insights into customer spending behaviour.
 
-Partial Payment is an extension to the Payment Request Protocol that allows
-customers to pay a partial amount of a payment request using Centrapay.
-However, it is the responsibility of the integrating POS to ensure payment
-of the remaining amount.
+If a customer wants to pay with Centrapay but finds they lack sufficient funds
+to cover the full payment, enabling Partial Pay offers a practical solution.
+Instead of canceling the Payment Request and starting over, the customer can
+make a partial payment using the available funds. Once the payment is successful,
+you can proceed to take payment for the remaining balance using another method.
 
 ## Implementation
 
