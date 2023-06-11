@@ -29,6 +29,7 @@ We require compliant integrations to provide the following optional fields when 
 | `deviceId`          | The hardware identifier of the terminal. Useful for auditing and debugging.                                                                                           |
 | `patronNotPresent`  | This flag indicates whether a patron is physically present at the point of sale. Setting this flag can change the liability for some asset types.                     |
 | `conditionsEnabled` | The flag which indicates [Payment Conditions](/guides/payment-conditions) are supported.                                                            |
+| `partialAllowed`    | The flag which indicates if [Partial Payment](/guides/partial-payment-extension) is allowed.                                                            |
 
 ### Short Codes
 Payment Requests have a short code that is human- and OCR-friendly. Short codes are recycled every two years. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
@@ -71,6 +72,7 @@ Our payment protocol supports several optional extensions. Please review the ext
 - [Payment Conditions](/guides/payment-conditions)
 - [Requesting Pre Auth](/guides/requesting-pre-auth)
 - [Patron Not Present](/guides/patron-not-present)
+- [Partial Payment](/guides/partial-payment-extension)
 
 ## Handling Payment Errors
 
