@@ -7,10 +7,10 @@ nav:
 ---
 
 Partial Payment is an extension to the Payment Request Protocol that allows
-the flexibility for customers to utilize different forms of payment. This allows
-Centrapay Payments to easily complement other methods of payment. In addition
+customers to utilize different forms of payment. This allows Centrapay Payments
+to easily complement other methods of payment. In addition
 leaveraging this with payment methods such as
-[Token](https://docs.centrapay.com/api/assets#tokens-experimental) will allow you
+[Tokens](https://docs.centrapay.com/api/assets#tokens-experimental) will allow you
 to gain valuable insights into customer spending behaviour.
 
 If a customer wants to pay with Centrapay but finds they lack sufficient funds
@@ -63,18 +63,18 @@ the total amount of line items must sum to either the `basketAmount` or the
 
 ### Get Payment Request
 
-Integrators should continue to poll[get Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
+Integrators should continue to poll [get Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request)
 until the status is no longer `new`. If the Payment Request status has been
-updated to `cancelled` or `expired`, proceed as describe in[requesting a payment](/guides/requesting-payment#polling-for-payment-confirmation).
+updated to `cancelled` or `expired`, proceed as describe in [requesting a payment](/guides/requesting-payment#polling-for-payment-confirmation).
 If the status is `paid` you need to check the `remainingAmount` property on the
 Payment Request.
 
-- If the remaining amount is 0, then the entire amount requested via Centrapay
+- If `remainingAmount` is 0, then the entire amount requested via Centrapay
 has been paid.
-- If the remaining amount is greater than 0, then there is a remaining balance
-outstanding you will need to request payment via other means. If the customer
-cannot complete the transaction via other means then you should
-[refund](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request).
+- If `remainingAmount` is greater than 0, then there is an outstanding balance
+you will need to request payment via other means. If the customer cannot complete
+the transaction via other means then you should
+[refund](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request)
 the Payment Request.
 
 ## See also
