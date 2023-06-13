@@ -16,8 +16,9 @@ to gain valuable insights into customer spending behaviour.
 If a customer wants to pay with Centrapay but finds they lack sufficient funds
 to cover the full payment, enabling Partial Pay offers a practical solution.
 Instead of canceling the Payment Request and starting over, the customer can
-make a partial payment using the available funds. Once the payment is successful,
-you can proceed to take payment for the remaining balance using another method.
+make a partial payment using their available funds. Once the Centrapy payment
+is successful, you can proceed to take payment for the remaining balance using
+another method.
 
 ## Implementation
 
@@ -48,10 +49,10 @@ When [creating a Payment Request](https://docs.centrapay.com/api/payment-request
 you can opt into partial payment by following these steps:
 
 - Set `partialAllowed` to true.
-- Set `value.amount` to the amount payable through Centrapay.
+- Set `value.amount` to the amount payable with Centrapay.
 - Set `basketAmount` to the purchase total, including other forms of payment
-(e.g., cash or card). If the customer intends to pay the entire outstanding
-via Centrapay this should be equal to `value.amount`.
+(e.g., cash or card). If the customer intends to pay the total purchase via
+Centrapay this should be equal to `value.amount`.
 
 If the customer has already paid for part of the transaction by another method
 or indicates they would like to pay only a part of the transaction with Centrapay,
