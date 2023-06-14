@@ -835,6 +835,19 @@ Use authorization to authorize an external transaction.
 
 {% endreqspec %}
 
+{% h4 Fields %}
+
+|     Field     |       Type        |                        Description                             |
+| :------------ | :---------------- | :------------------------------------------------------------- |
+| assetType     | String            | The name of the [Asset Type][].                                |
+| assetId       | String {% opt %}  | The id of the Asset being used to make payment.                |
+| transactionId | String {% opt %}  | Used to verify an external transaction eg Bitcoin.             |
+| authorization | String {% opt %}  | Used to authorize an external transaction.                     |
+| mode          | String {% opt %}  | The mode of payment valid value is `parital-payment`.          |
+| amount        | String {% opt %}  | The amount being paid if less than the Payment Request amount. |
+
+One of either `assetId`, `transactionId` or `authorization` must be provided.
+
 {% h4 Example response payload %}
 
 {% json %}
