@@ -212,15 +212,12 @@ The Paid By provides a summary of the transactions after the Payment Request was
 
 {% h4 Mandatory Fields %}
 
-|     Field      |        Type        |                               Description                                 |
-| -------------- | ------------------ | ------------------------------------------------------------------------- |
-| type           | String             | The asset type used for the payment.                                      |
-| description    | String             | A human readable description of the asset type used.                      |
-| settlementDate | {% dt Timestamp %} | The estimated date that the merchant can expect settlement of funds.      |
-| total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request  |
-
-{% h4 Optional Fields %}
-| lineItems      | Array {% opt %}    | **Experimental** The [Line Items](#line-item) paid for by the asset type. |
+|     Field      |        Type        |                               Description                                |
+| -------------- | ------------------ | ------------------------------------------------------------------------ |
+| type           | String             | The asset type used for the payment.                                     |
+| description    | String             | A human readable description of the asset type used.                     |
+| settlementDate | {% dt Timestamp %} | The estimated date that the merchant can expect settlement of funds.     |
+| total          | {% dt Monetary %}  | The total monetary value of the asset type used to pay a Payment Request |
 
 <a name="payment-activity"></a>
 ### Payment Activity
@@ -622,35 +619,17 @@ Payment Activities are created when a Payment Request has been **created**, **pa
   "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
   "merchantName": "Centrapay Café",
   "configId": "5efbe2fb96c08357bb2b9242",
-  "value": { "currency": "NZD", "amount": "6910" },
+  "value": { "currency": "NZD", "amount": "1000" },
   "paymentOptions": [
     {
-      "amount": "6910",
+      "amount": "1000",
       "assetType": "centrapay.nzd.main"
     },
     {
-      "amount": "6910",
-      "assetType": "centrapay.token.main",
-      "collectionIds": [
-        "QWNB6jurnBczmvXDVfRuMK"
-      ],
+      "amount": "1000",
+      "assetType": "cca.coke.main"
     }
   ],
-  "lineItems": [{
-      "name": "Coffee Grounds",
-      "sku": "GH1234",
-      "qty": "1",
-      "price": "4195",
-      "tax": "15.00",
-  },
-  {
-      "name": "Centrapay Cafe Mug",
-      "sku": "SB456",
-      "qty": "25",
-      "price": "1995",
-      "tax": "15.00",
-      "discount": "199",
-  }],
   "merchantConditions": [],
   "status": "paid",
   "createdAt": "2021-06-08T04:04:27.426Z",
@@ -665,25 +644,18 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "description": "Centrapay NZD",
         "settlementDate": "2021-06-28T04:04:27.426Z",
         "total": {
-          "amount": "1995",
+          "amount": "550",
           "currency": "NZD"
         }
       },
       {
-        "type": "centrapay.token.main",
-        "description": "Centrapay Token",
+        "type": "cca.coke.main",
+        "description": "Coke Token",
         "settlementDate": "2021-06-28T04:04:27.426Z",
         "total": {
           "amount": "450",
           "currency": "NZD"
-        },
-        "lineItems": [{
-          "name": "Coffee Grounds",
-          "sku": "GH1234",
-          "qty": "1",
-          "price": "4195",
-          "tax": "15.00",
-        }],
+        }
       }
     ]
   }
