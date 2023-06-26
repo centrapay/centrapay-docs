@@ -80,7 +80,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
     "name": "Bread",
 		"accountId": "T3y6hogYA4d612BExypWYH",
 		"tokenExpiresAfter": {
-			"period": "months",
+			"period": "month",
 			"duration": "1"
 		},
 		"maxValue": {
@@ -105,7 +105,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 
 |     Field      |  Type  |                                      Description                                       |
 | :------------- | :----- | :------------------------------------------------------------------------------------- |
-| period | String | The unit of time to measure the duration until token expiration. It can be `hours`, `days`, `weeks`, and `months` .|
+| period | String | The unit of time to measure the duration until token expiration. It can be `hour`, `day`, `week`, and `month` .|
 | duration | String | The length of time for the token to remain valid before expiration. |
 
 {% h4 Example response payload %}
@@ -116,7 +116,7 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 	"accountId": "T3y6hogYA4d612BExypWYH",
 	"img": "https://static.centrapay.com/assets/media-uploads/{mediaUploadId}.png",
   "tokenExpiresAfter": {
-    "period": "months",
+    "period": "month",
     "duration": "1",
   },
   "maxValue": {
