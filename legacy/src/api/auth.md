@@ -126,6 +126,7 @@ if there is a flag associated to it then at least one of them must be met.
 | 👤      | A trusted user flag on the individual account, obtained by verifying a NZ phone number.          |
 | 🧀      | An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay. |
 | 🗄      | The targeted account must be of type org.                                                        |
+| 🪙      | A collection-manager subscription on the targeted Account, obtained by contacting centrapay. |
 
 ### Permissions
 
@@ -150,6 +151,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : business:create %}                    |       ✅      |               |                   |                         |         |
 | {% break : business:update %}                    |       ✅      |               |                   |                         |         |
 | {% break : business:read %}                      |       ✅      |               |                   |                         |         |
+| {% break : collections:create 🪙 %}              |       ✅      |               |                   |                         |         |
 | {% break : external-assets:create 👤 🧀 %}       |       ✅      |               |                   |            ✅           |         |
 | {% break : external-assets:update %}             |       ✅      |               |                   |            ✅           |         |
 | {% break : integration-requests:configure %}     |               |               |                   |                         |         |
@@ -179,6 +181,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : payment-requests:confirm 🗄 %}        |       ✅      |               |         ✅        |                         |    ✅   |
 | {% break : quotas:read %}                        |       ✅      |               |                   |                         |         |
 | {% break : quotas:read %}                        |       ✅      |               |                   |                         |         |
+| {% break : redemption-conditions:create 🪙 %}    |       ✅      |               |                   |                         |         |
 | {% break : scanned-code:decode %}                |       ✅      |               |         ✅        |                         |    ✅   |
 | {% break : topups:create 👤 %}                   |       ✅      |               |                   |                         |         |
 | {% break : topups:read %}                        |       ✅      |               |                   |                         |         |
