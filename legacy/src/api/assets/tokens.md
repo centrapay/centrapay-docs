@@ -100,7 +100,6 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 | tokenExpiresAfter   | String | The active duration of all tokens created from this collection. |
 | type | String | Supported values: <br> - `product`: tokens for this collection will be exchanged for one product. |
 | maxValue | {% dt Monetary %} {% opt %} | The maximum agreed value that any merchants will be settled for a token redemption. |
-| mediaUploadId | String {% opt %} | The id of the media upload image used for all tokens that are created from this collection. |
 
 {% h4 TokenExpiresAfter %}
 
