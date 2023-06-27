@@ -114,6 +114,40 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 }
 {% endjson %}  
 
+### List Token Collections for Account **EXPERIMENTAL**
+
+{% reqspec %}
+  GET '/api/accounts/{accountId}/collections'
+  auth 'api-key'
+  path_param 'accountId', 'T3y6hogYA4d612BExypWYH'
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "nextPageKey": "Collection#E9eXsErwA444qFDoZt5iLA|#Collection",
+	"items": [{
+		"id": "Xv990BzkgfoDS7bBls50pd",
+		"name": "Bread",
+		"accountId": 'T3y6hogYA4d612BExypWYH',
+		"tokenExpiresAfter": {
+	    "period": 'month',
+	    "duration": '1',
+	  },
+		"maxValue": {
+			"currency": "NZD",
+			"amount": "400",
+		},
+		"test": true,
+		"type": "product",
+		"status": "active",
+		"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
+		"createdAt": "2021-05-12T04:30:11.001Z",
+	}]
+}
+{% endjson %}
+
 ### Create Redemption Condition **EXPERIMENTAL**
 
 {% reqspec %}

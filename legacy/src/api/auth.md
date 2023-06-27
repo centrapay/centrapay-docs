@@ -152,6 +152,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : business:update %}                    |       ✅      |               |                   |                         |         |
 | {% break : business:read %}                      |       ✅      |               |                   |                         |         |
 | {% break : collections:create 🪙 %}              |       ✅      |               |                   |                         |         |
+| {% break : collections:list 🪙 %}                |       ✅      |               |                   |                         |         |
 | {% break : external-assets:create 👤 🧀 %}       |       ✅      |               |                   |            ✅           |         |
 | {% break : external-assets:update %}             |       ✅      |               |                   |            ✅           |         |
 | {% break : integration-requests:configure %}     |               |               |                   |                         |         |
