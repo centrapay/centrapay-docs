@@ -23,7 +23,129 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 * TOC
 {:toc}
 
-## Create Token **EXPERIMENTAL**
+## Models
+
+### Token Collection
+<a name="token-collection">
+{% h4 Fields %}
+
+|       Field       |                  Type                   |                                     Description                                     |
+| :---------------- | :-------------------------------------- | :---------------------------------------------------------------------------------- |
+| name              | String                                  | The display name of the collection.                                                 |
+| accountId         | String                                  | The account that will own the collection.                                           |
+| tokenExpiresAfter | [TokenExpiresAfter](#tokenexpiresafter) | The active duration of all tokens created from this collection.                     |
+| type              | String                                  | The type of value exchanged when redeeming tokens, can be `product`                 |
+| maxValue          | {% dt Monetary %} {% opt %}             | The maximum agreed value that any merchants will be settled for a token redemption. |
+
+### TokenExpiresAfter
+<a name="tokenExpiresAfter">
+
+|  Field   |  Type  |                        Description                        |
+| :------- | :----- | :-------------------------------------------------------- |
+| period   | String | Supported values are `hour`, `day`, `week`, and `month` . |
+| duration | String | Number of `period` until token expiration.                |
+
+### Redemption Condition
+{% h4 Fields %}
+
+|      Field      |                     Type                      |                             Description                              |
+| :-------------- | :-------------------------------------------- | :------------------------------------------------------------------- |
+| merchantId      | String                                        | The identifier of the merchant that is accepting the collection.     |
+| allowedProducts | [AllowedProducts](#allowedproducts) {% opt %} | List of allowed products, required for collections of type `product` |
+
+
+### AllowedProducts
+<a name="allowedProducts">
+
+|  Field   |       Type        |                       Description                       |
+| :------- | :---------------- | :------------------------------------------------------ |
+| sku      | String            | The SKU of the product that is to be accepted.          |
+| name     | String            | Display name of the product                             |
+| maxValue | {% dt Monetary %} | The maximum value that the product can be redeemed for. |
+
+### Token
+{% h4 Fields %}
+
+|     Field      |  Type  |                                                 Description                                                 |
+| :------------- | :----- | :---------------------------------------------------------------------------------------------------------- |
+| collectionId   | String | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| idempotencyKey | String | Client-supplied identifier that prevents double creation.                                                   |
+
+## Operations
+### Create Token Collection **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/collections'
+  auth 'api-key'
+  body ({
+    "name": "Bread",
+		"accountId": "T3y6hogYA4d612BExypWYH",
+		"tokenExpiresAfter": {
+			"period": "month",
+			"duration": "1"
+		},
+		"maxValue": {
+			"currency": "NZD",
+			"amount": "400"
+		},
+		"type": "product",
+  })
+{% endreqspec %}
+
+{% h4 Example response payload %}
+{% json %}
+{
+  "id": "Xv990BzkgfoDS7bBls50pd",
+  "name": "Bread",
+	"accountId": "T3y6hogYA4d612BExypWYH",
+  "tokenExpiresAfter": {
+    "period": "month",
+    "duration": "1",
+  },
+  "maxValue": {
+		"currency": "NZD",
+		"amount": "400",
+	},
+  "test": true,
+	"type": "product",
+	"status": "active",
+	"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
+	"createdAt": "2021-05-12T04:30:11.001Z",
+}
+{% endjson %}  
+
+### Create Redemption Condition **EXPERIMENTAL**
+
+{% reqspec %}
+  POST '/api/collections/{collectionId}/redemption-conditions'
+  auth 'api-key'
+  path_param 'collectionId', 'NFhUgPQEYbk2EbTXAYArTX'
+  body ({
+   "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+		"allowedProducts": [
+			{ "sku": "100001", "name": "White Bread", "maxValue": { "currency": "NZD", "amount": "400" },}, 
+			{ "sku": "100002", "name": "Sourdough Bread", "maxValue": { "currency": "NZD", "amount": "800" },}, 
+		]
+  })
+{% endreqspec %}
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+  "id": "1234",
+  "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+  "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+  "allowedProducts": [
+	  { sku: "100001", name: "White Bread", maxValue: { currency: "NZD", amount: "400" },}, 
+	  { sku: "100002", name: "Sourdough Bread", maxValue: { currency: "NZD", amount: "800" },}, 
+  ],
+  "createdAt": "2022-05-12T04:30:11.001Z",
+  "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
+}
+{% endjson %}
+
+### Create Token **EXPERIMENTAL**
 
 {% reqspec %}
   POST '/api/tokens'
@@ -33,13 +155,6 @@ Token value may be set in multiple currencies and is the same for all tokens in 
     "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b"
   })
 {% endreqspec %}
-
-{% h4 Fields %}
-
-|     Field      |  Type  |                                      Description                                       |
-| :------------- | :----- | :------------------------------------------------------------------------------------- |
-| collectionId   | String | The token collection that will govern the branding and redemption rules for the token. |
-| idempotencyKey | String | Client-supplied identifier that prevents double creation.                              |
 
 {% h4 Example response payload %}
 
@@ -70,109 +185,3 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 | :----- | :-------------------- | :----------------------------------------------------------------------- |
 | 403    | TOKEN_ALREADY_CREATED | Token with supplied parameters already exists.                           |
 | 403    | LIVENESS_MISMATCH     | The account is test and the collection's liveness is main or vice versa. |
-
-## Create Token Collection
-
-{% reqspec %}
-  POST '/api/collections'
-  auth 'api-key'
-  body ({
-    "name": "Bread",
-		"accountId": "T3y6hogYA4d612BExypWYH",
-		"tokenExpiresAfter": {
-			"period": "month",
-			"duration": "1"
-		},
-		"maxValue": {
-			"currency": "NZD",
-			"amount": "400"
-		},
-		"type": "product",
-  })
-{% endreqspec %}
-
-{% h4 Fields %}
-
-|     Field      |  Type  |                                      Description                                       |
-| :------------- | :----- | :------------------------------------------------------------------------------------- |
-| name   | String | The display name of the collection. |
-| accountId | String | The account that will own the collection.                              |
-| tokenExpiresAfter   | String | The active duration of all tokens created from this collection. |
-| type | String | Supported values: <br> - `product`: tokens for this collection will be exchanged for one product. |
-| maxValue | {% dt Monetary %} {% opt %} | The maximum agreed value that any merchants will be settled for a token redemption. |
-
-{% h4 TokenExpiresAfter %}
-
-|     Field      |  Type  |                                      Description                                       |
-| :------------- | :----- | :------------------------------------------------------------------------------------- |
-| period | String | The unit of time to measure the duration until token expiration. It can be `hour`, `day`, `week`, and `month` .|
-| duration | String | The length of time for the token to remain valid before expiration. |
-
-{% h4 Example response payload %}
-{% json %}
-{
-  "id": "Xv990BzkgfoDS7bBls50pd",
-  "name": "Bread",
-	"accountId": "T3y6hogYA4d612BExypWYH",
-	"img": "https://static.centrapay.com/assets/media-uploads/{mediaUploadId}.png",
-  "tokenExpiresAfter": {
-    "period": "month",
-    "duration": "1",
-  },
-  "maxValue": {
-		"currency": "NZD",
-		"amount": "400",
-	},
-  "test": true,
-	"type": "product",
-	"status": "active",
-	"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
-	"createdAt": "2021-05-12T04:30:11.001Z",
-}
-{% endjson %}  
-
-## Create Redemption Condition
-
-{% reqspec %}
-  POST '/api/collections/{collectionId}/redemption-conditions'
-  auth 'api-key'
-  path_param 'collectionId', 'NFhUgPQEYbk2EbTXAYArTX'
-  body ({
-   "merchantId": "36EALpZ89XpShxM2Ee9sXT",
-		"allowedProducts": [
-			{ "sku": "100001", "name": "White Bread", "maxValue": { "currency": "NZD", "amount": "400" },}, 
-			{ "sku": "100002", "name": "Sourdough Bread", "maxValue": { "currency": "NZD", "amount": "800" },}, 
-		]
-  })
-{% endreqspec %}
-
-{% h4 Fields %}
-
-|     Field      |  Type  |                                      Description                                       |
-| :------------- | :----- | :------------------------------------------------------------------------------------- |
-| merchantId   | String | The ID of the merchant that is accepting the collection. |
-| allowedProducts | String {% opt %} | List of allowed products, required for collections of type `product`                             |
-
-{% h4 AllowedProducts %}
-
-|     Field      |  Type  |                                      Description                                       |
-| :------------- | :----- | :------------------------------------------------------------------------------------- |
-| sku   | String | The SKU of the product that is to be accepted. |
-| name  | String | Display name of the product |
-| maxValue   | {% dt Monetary %} | The maximum value that the product can be redeemed for. |
-
-{% h4 Example response payload %}
-
-{% json %}
-{
-  "id": "1234",
-  "merchantId": "36EALpZ89XpShxM2Ee9sXT",
-  "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
-  "allowedProducts": [
-	  { sku: "100001", name: "White Bread", maxValue: { currency: "NZD", amount: "400" },}, 
-	  { sku: "100002", name: "Sourdough Bread", maxValue: { currency: "NZD", amount: "800" },}, 
-  ],
-  "createdAt": "2022-05-12T04:30:11.001Z",
-  "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
-}
-{% endjson %}
