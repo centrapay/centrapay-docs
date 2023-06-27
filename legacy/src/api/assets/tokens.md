@@ -40,10 +40,10 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 ### TokenExpiresAfter
 <a name="tokenExpiresAfter">
 
-|  Field   |  Type  |                        Description                        |
-| :------- | :----- | :-------------------------------------------------------- |
-| period   | String | Supported values are `hour`, `day`, `week`, and `month` . |
-| duration | String | Number of `period` until token expiration.                |
+|  Field   |  Type  |                          Description                           |
+| :------- | :----- | :------------------------------------------------------------- |
+| period   | String | Supported values are `hour`, `day`, `week`,`month` and `year`. |
+| duration | String | Number of `period` until token expiration.                     |
 
 ### Redemption Condition
 {% h4 Fields %}
