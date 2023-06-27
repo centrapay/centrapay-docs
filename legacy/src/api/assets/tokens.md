@@ -12,10 +12,11 @@ permalink: /api/tokens
 Tokens are assets which can be spent only once. They are usually tied to a
 small set of merchants and have an expiry date.
 
-Tokens belong to a collection. A collection defines the redemption rules and
-branding for all tokens under the collection.
+Every token is associated with a collection, which sets the guidelines for redeeming the tokens and establishes their unique branding.
 
-Token value may be set in multiple currencies and is the same for all tokens in the same collection.
+A redemption condition outlines the specific details regarding the products that can be exchanged in return for the tokens. It provides information on the eligible items that can be redeemed.
+
+
 
 ## Contents
 {:.no_toc .text-delta}
@@ -36,9 +37,16 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 | tokenExpiresAfter | [TokenExpiresAfter](#tokenexpiresafter) | The active duration of all tokens created from this collection.                     |
 | type              | String                                  | The type of value exchanged when redeeming tokens, can be `product`                 |
 | maxValue          | {% dt Monetary %} {% opt %}             | The maximum agreed value that any merchants will be settled for a token redemption. |
+| id                | String                                  | The token collection id                                                             |
+| test              | Boolean                                 | `true` if the token collection is for testing purposes only.                        |
+| status            | String                                  | The status of the token collection. Valid values include 'active'.                  |
+| createdBy         | {% dt CRN %}                            | The identity that created the activity.                                             |
+| createdAt         | {% dt Timestamp %}                      | Timestamp at which the token collection was created.                                |
 
 ### TokenExpiresAfter
 <a name="tokenExpiresAfter">
+
+TokenExpiresAfter is the active duration of all tokens created from a collection.
 
 |  Field   |  Type  |                          Description                           |
 | :------- | :----- | :------------------------------------------------------------- |
@@ -48,14 +56,19 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 ### Redemption Condition
 {% h4 Fields %}
 
-|      Field      |                     Type                      |                             Description                              |
-| :-------------- | :-------------------------------------------- | :------------------------------------------------------------------- |
-| merchantId      | String                                        | The identifier of the merchant that is accepting the collection.     |
-| allowedProducts | [AllowedProducts](#allowedproducts) {% opt %} | List of allowed products, required for collections of type `product` |
-
+|      Field      |                     Type                      |                                                 Description                                                 |
+| :-------------- | :-------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| merchantId      | String                                        | The identifier of the merchant that is accepting the collection.                                            |
+| allowedProducts | [AllowedProducts](#allowedproducts) {% opt %} | List of allowed products, required for collections of type `product`                                        |
+| id              | String                                        | The redemption condition id                                                                                 |
+| collectionId    | String                                        | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| createdBy       | {% dt CRN %}                                  | The identity that created the activity.                                                                     |
+| createdAt       | {% dt Timestamp %}                            | Timestamp at which the redemption condition was created.                                                    |
 
 ### AllowedProducts
 <a name="allowedProducts">
+
+AllowedProducts include a list of products that can be redeemed for.
 
 |  Field   |       Type        |                       Description                       |
 | :------- | :---------------- | :------------------------------------------------------ |
@@ -66,10 +79,21 @@ Token value may be set in multiple currencies and is the same for all tokens in 
 ### Token
 {% h4 Fields %}
 
-|     Field      |  Type  |                                                 Description                                                 |
-| :------------- | :----- | :---------------------------------------------------------------------------------------------------------- |
-| collectionId   | String | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
-| idempotencyKey | String | Client-supplied identifier that prevents double creation.                                                   |
+|     Field      |        Type        |                                                 Description                                                 |
+| :------------- | :----------------- | :---------------------------------------------------------------------------------------------------------- |
+| collectionId   | String             | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| idempotencyKey | String             | Client-supplied identifier that prevents double creation.                                                   |
+| id             | String             | The token id                                                                                                |
+| accountId      | String             | The account that owns the collection.                                                                       |
+| collectionId   | String             | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| createdBy      | {% dt CRN %}       | The identity that created the activity.                                                                     |
+| createdAt      | {% dt Timestamp %} | Timestamp at which the token was created.                                                                   |
+| category       | String             | Asset category ("money", "giftcard", "token").                                                              |
+| status         | String             | The status of the token.                                                                                    |
+| liveness       | String             | Indicates liveness of tokens that are created. Values are “main” o“test”.                                   |
+| description    | String             | A brief and informative depiction that captures the characteristics of a token                              |
+| type           | String             | An [Asset Type](/api/asset-types) reference.                                                                                |
+| issuer         | String             | The identifier for the issuer of the token                                                                  |
 
 ## Operations
 ### Create Token Collection **EXPERIMENTAL**
@@ -189,6 +213,13 @@ Token value may be set in multiple currencies and is the same for all tokens in 
     "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b"
   })
 {% endreqspec %}
+
+{% h4 Fields %}
+
+|     Field      |        Type        |                                                 Description                                                 |
+| :------------- | :----------------- | :---------------------------------------------------------------------------------------------------------- |
+| collectionId   | String             | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| idempotencyKey | String             | Client-supplied identifier that prevents double creation.                                                   |
 
 {% h4 Example response payload %}
 
