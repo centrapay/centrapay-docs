@@ -83,7 +83,6 @@ Types of bank accounts to allow access to different [Asset Types][].
 |   Type    |                          Description                           |
 | --------- | -------------------------------------------------------------- |
 | centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
-| kete      | Allows topup and withdrawal of the `kete.nzd` asset type.      |
 | quartz    | Allows usage of the `quartz.nzd` asset type.                   |
 
 <a name="bank-account-balance">

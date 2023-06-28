@@ -25,9 +25,9 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 | :----------- | :----------------- | :----------------------------------------------------------------------------------- |
 | id           | String             | The Invitation's unique identifier.                                                  |
 | code         | String             | The Invitation code.                                                                 |
-| type         | String             | The type of invitation. Supported values are `kete-enrolment`, `account-membership`. |
+| type         | String             | The type of invitation. Supported values are `account-membership`.                   |
 | resourceId   | String             | The id of the related resource.                                                      |
-| resourceType | String             | The type of the related resource. Supported values are `integration`, `account`.     |
+| resourceType | String             | The type of the related resource. Supported values are `account`.                    |
 | expiresAt    | {% dt Timestamp %} | When the Invitation expires.                                                         |
 | createdAt    | {% dt Timestamp %} | When the Invitation was created.                                                     |
 | createdBy    | {% dt CRN %}       | The User or API Key that created the Invitation.                                     |
@@ -127,9 +127,9 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "code": "WIj211vFs9cNACwBb04vQw",
-  "type": "kete-enrolment",
+  "type": "account-membership",
   "resourceId": "5ee0c486308f590260d9a07f",
-  "resourceType": "integration",
+  "resourceType": "account",
   "expiresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -215,9 +215,9 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 {
   "id": "DKTs3U38hdhfEqwF1JKoT2",
   "code": "WIj211vFs9cNACwBb04vQw",
-  "type": "kete-enrolment",
+  "type": "account-membership",
   "resourceId": "5ee0c486308f590260d9a07f",
-  "resourceType": "integration",
+  "resourceType": "account",
   "expiresAt": "2021-08-26T00:02:49.488Z",
   "createdAt": "2021-08-25T00:02:49.488Z",
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",

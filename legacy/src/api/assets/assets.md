@@ -106,7 +106,7 @@ Gift cards have the following fields along with the base asset fields.
 <a name="tokens">
 ### Tokens (EXPERIMENTAL)
 
-Tokens are assets which can only be spent in full. 
+Tokens are assets which can only be spent in full.
 
 Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.
 
@@ -214,98 +214,6 @@ Returns a [paginated][] list of Assets for an account. This will only return act
       ],
       "expiresAt": "2020-12-31T00:00:00.000Z",
       "createdAt": "2020-05-01T12:30:00.000Z"
-    }
-  ]
-}
-{% endjson %}
-
-### Listing Asset Transactions **EXPERIMENTAL**
-
-Returns a [paginated][] list of Asset Transactions. This endpoint is currently only supported for `kete` asset types.
-
-{% reqspec %}
-  GET '/api/assets/{assetId}/transactions'
-  path_param 'assetId', 'WRhAxxWpTKb5U7pXyxQjjY'
-  auth 'api-key'
-{% endreqspec %}
-
-
-{% h4 Transaction Fields %}
-
-|     Field      |       Type       |                                                 Description                                                  |
-| :------------- | :--------------- | :----------------------------------------------------------------------------------------------------------- |
-| ref            | String           | ID of the Centrapay resource that initiated this transaction.                                                |
-| refType        | String           | Name of the Centrapay resource that initiated this transaction.                                              |
-| type           | String           | Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`. |
-| kind           | String           | Human readable value indicating the reason for this transaction.                                             |
-| srcAssetId     | String {% opt %} | ID of the source asset if applicable.                                                                        |
-| destAssetId    | String {% opt %} | ID of the destination asset if applicable.                                                                   |
-| srcParty       | String {% opt %} | Display value for party providing funds if applicable. See note below.                                       |
-| destParty      | String {% opt %} | Display value for party receiving funds if applicable. See note below.                                       |
-| otherParty     | String {% opt %} | Display value for party providing or receiving funds if applicable. See note below.                          |
-| amount         | String           | Amount of transaction in cents.                                                                              |
-| activityType   | String           | Indicating whether the asset gained or lost value. Supported types are `value-in` and `value-out`.           |
-| activityNumber | String           | Unique sequential Asset transaction number.                                                                  |
-
-{% h4 Party Values %}
-
-The "destParty" and "srcParty" are optionally provided only on transactions of
-type `transfer`. Values may include a merchant name, user handle, masked user
-email, masked user phone, or bank account.
-
-The "otherParty" is optionally provided only on transactions of type
-`increment-balance` and `decrement-balance`. Values may include bank account
-number.
-
-{% h4 Example response payload %}
-
-{% json %}
-{
-  "items": [
-    {
-      "ref": "adRGJqMyMhmGfnDXasRZ",
-      "type": "transfer",
-      "kind": "refund",
-      "refType": "payment-request",
-      "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "srcParty": "Coffee Ltd",
-      "destParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
-      "createdAt": "2022-03-31T20:36:08.562Z",
-      "createdBy": "crn::service:payments-api",
-      "srcAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
-      "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "amount": "2000",
-      "activityType": "value-in",
-      "activityNumber": "3"
-    },
-    {
-      "ref": "adRGJqMyMhmGfnDXasRZ",
-      "type": "transfer",
-      "kind": "payment",
-      "refType": "payment-request",
-      "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "srcParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
-      "destParty": "Coffee Ltd",
-      "createdAt": "2022-03-31T20:35:54.717Z",
-      "createdBy": "crn::service:payments-api",
-      "srcAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "destAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
-      "amount": "3000",
-      "activityType": "value-out",
-      "activityNumber": "2"
-    },
-    {
-      "ref": "H4SZKwMcU9VCmnGEqDA7Mn",
-      "type": "increment-balance",
-      "kind": "topup",
-      "refType": "topup",
-      "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "createdAt": "2022-03-31T02:37:47.207Z",
-      "createdBy": "crn::application:rhea",
-      "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "amount": "7600",
-      "activityType": "value-in",
-      "activityNumber": "1"
     }
   ]
 }

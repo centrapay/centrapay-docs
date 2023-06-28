@@ -26,7 +26,7 @@ A Managed Integration is an [Integration][]  which a third party can control.
 |   Field    |        Type        |                                                                Description                                                                 |
 | :--------- | :----------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
 | id         | String             | The Managed Integration's unique identifier.                                                                                               |
-| type       | String             | The type of Managed Integration. Supported types are `kete-enrolment`, `paypal-referral`.                                                  |
+| type       | String             | The type of Managed Integration. Supported types are `paypal-referral`.                                                                    |
 | enabled    | Boolean            | Flag indicating whether the Managed Integration should become active or inactive.                                                          |
 | status     | String             | Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`. |
 | externalId | String             | Field used to reference an id from an external system.                                                                                     |
@@ -69,18 +69,6 @@ A summary of the [Invitation][] for a Managed Integration.
 
 ## Params
 
-### kete-enrolment
-
-{% h4 Mandatory Fields %}
-
-|    Field     |  Type  |                   Description                    |
-| :----------- | :----- | :----------------------------------------------- |
-| bankAccounts | Array  | A list of [Bank Account](#bank-account) objects. |
-| givenName    | String | First name.                                      |
-| familyName   | String | Last name.                                       |
-| email        | String | Email address.                                   |
-| phoneNumber  | String | The user's NZ phone number.                      |
-
 ### paypal-referral
 
 {% h4 Mandatory Fields %}
@@ -97,19 +85,14 @@ A summary of the [Invitation][] for a Managed Integration.
 {% reqspec %}
   PUT '/api/managed-integrations/{type}/{externalId}'
   auth 'api-key'
-  path_param 'type', 'kete-enrolment'
+  path_param 'type', 'paypal-referral'
   path_param 'externalId', 'DKTs3U38hdhfEqwF1JKoT2'
   example {
     body ({
       enabled: true,
       params: {
-        bankAccounts: [
-          { number: '00-1111-2222222-00' },
-        ],
-        givenName: 'John',
-        familyName: 'Doe',
-        email: 'john@doe.com',
-        phoneNumber: '+64270000000'
+        centrapayMerchantId: '5ffcaf432003060007b98343',
+        email: 'test@centrapay.com'
       }
     })
   }
@@ -133,22 +116,12 @@ A summary of the [Invitation][] for a Managed Integration.
 {% json %}
 {
   "id": "5ee0c486308f590260d9a07f",
-  "type": "kete-enrolment",
+  "type": "paypal-referral",
   "externalId": "DKTs3U38hdhfEqwF1JKoT2",
   "enabled": true,
   "params": {
-    "bankAccounts": [
-      { "number": "00-1111-2222222-00" },
-    ],
-    "givenName": "John",
-    "familyName": "Doe",
-    "email": "john@doe.com",
-    "phoneNumber": "+64270000000"
-  },
-  "invitation": {
-    "id": "dadfaTs3U38hdhfEqwF1JKoT2",
-    "code": "eg44tetbfsJHFJHFsfhbgds23",
-    "expiresAt": "2020-06-13T01:17:46.499Z",
+    "centrapayMerchantId": "5ffcaf432003060007b98343",
+    "email": "test@centrapay.com"
   },
   "status": "provisioning",
   "claimedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -182,25 +155,18 @@ A summary of the [Invitation][] for a Managed Integration.
 
 {% json %}
 {
-  "id": "dh375hdh08f590260d9a07f",
-  "type": "kete-enrolment",
+  "id": "5ee0c486308f590260d9a07f",
+  "type": "paypal-referral",
   "externalId": "DKTs3U38hdhfEqwF1JKoT2",
   "enabled": true,
   "params": {
-    "bankAccounts": [
-      { "number": '00-1111-2222222-00' }
-    ],
-    "givenName": "John",
-    "familyName": "Doe",
-    "email": "john@doe.com",
-    "phoneNumber": "+64270000000"
+    "centrapayMerchantId": "5ffcaf432003060007b98343",
+    "email": "test@centrapay.com"
   },
-  "invitation": {
-    "id": "dadfaTs3U38hdhfEqwF1JKoT2",
-    "code": "eg44tetbfsJHFJHFsfhbgds23",
-    "expiresAt": "2020-06-13T01:17:46.499Z",
-  },
-  "status": "pending",
+  "status": "provisioning",
+  "claimedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+  "claimedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+  "claimedAt": "2020-06-12T01:17:46.499Z",
   "inProgress": true,
   "createdAt": "2020-06-11T01:17:46.499Z",
   "createdBy": "crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
