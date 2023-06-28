@@ -23,7 +23,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 
 ## Models
 
-### Token Collection
+### Token Collection **EXPERIMENTAL**
 <a name="token-collection">
 {% h4 Fields %}
 
@@ -31,7 +31,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | :---------------- | :---------------------------------------- | :---------------------------------------------------------------------------------- |
 | name              | String                                    | The display name of the collection.                                                 |
 | accountId         | String                                    | The account that will own the collection.                                           |
-| tokenExpiresAfter | [Token Expires After](#tokenexpiresafter) | The active duration of all tokens created from this collection.                     |
+| tokenExpiresAfter | [Token Expires After](#tokenExpiresAfter) | The active duration of all tokens created from this collection.                     |
 | type              | String                                    | The type of value exchanged when redeeming tokens, can be `product`                 |
 | maxValue          | {% dt Monetary %} {% opt %}               | The maximum agreed value that any merchants will be settled for a token redemption. |
 | id                | String                                    | The token collection id                                                             |
@@ -40,28 +40,28 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | createdBy         | {% dt CRN %}                              | The identity that created the activity.                                             |
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
 
-### Token Expires After
 <a name="tokenExpiresAfter">
+### Token Expires After **EXPERIMENTAL**
 
 |  Field   |  Type  |                          Description                           |
 | :------- | :----- | :------------------------------------------------------------- |
 | period   | String | Supported values are `hour`, `day`, `week`,`month` and `year`. |
 | duration | String | Number of `period` until token expiration.                     |
 
-### Redemption Condition
+### Redemption Condition **EXPERIMENTAL**
 {% h4 Fields %}
 
 |      Field      |                      Type                      |                                                 Description                                                 |
 | :-------------- | :--------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
 | merchantId      | String                                         | The identifier of the merchant that is accepting the collection.                                            |
-| allowedProducts | [Allowed Products](#allowedproducts) {% opt %} | List of allowed products, required for collections of type `product`                                        |
+| allowedProducts | [Allowed Products](#allowedProducts) {% opt %} | List of allowed products, required for collections of type `product`                                        |
 | id              | String                                         | The redemption condition id                                                                                 |
 | collectionId    | String                                         | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
 | createdBy       | {% dt CRN %}                                   | The identity that created the activity.                                                                     |
 | createdAt       | {% dt Timestamp %}                             | Timestamp at which the redemption condition was created.                                                    |
 
-### Allowed Products
 <a name="allowedProducts">
+### Allowed Products **EXPERIMENTAL**
 
 |  Field   |       Type        |                       Description                       |
 | :------- | :---------------- | :------------------------------------------------------ |
