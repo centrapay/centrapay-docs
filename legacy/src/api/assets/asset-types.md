@@ -27,8 +27,6 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | epay.nzd.test        | EPay NZ giftcards                    | [Giftcard][] | NZD                     | 🅃     |
 | farmlands.nzd.main   | [Farmlands][]{:.external}            | [Money][]    | NZD                     | 💸💼    |
 | farmlands.nzd.test   | [Farmlands][]{:.external}            | [Money][]    | NZD                     | 🅃💸💼   |
-| kete.nzd.main        | Kete NZD asset                       |              | NZD                     |       |
-| kete.nzd.test        | Kete NZD asset                       |              | NZD                     | 🅃     |
 | paypal.main          | [PayPal][]{:.external}               |              | USD                     | 💸     |
 | paypal.test          | [PayPal][]{:.external}               |              | USD                     | 🅃 💸   |
 | pocketvouchers       | [Pocket Vouchers][]{:.external}      |              | NZD                     |       |
