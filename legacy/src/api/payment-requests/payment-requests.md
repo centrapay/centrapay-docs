@@ -103,18 +103,29 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Optional Fields %}
 
-|     Field      |  Type  |                                         Description                                          |
-| -------------- | ------ | -------------------------------------------------------------------------------------------- |
-| bitcoinAddress | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                              |
-| cennzAddress   | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                |
-| wavesAddress   | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                         |
-| productCodes   | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`        |
-| collectionIds  | Array  | Supported collectionIds for the payment request, when the "assetType" is `centrapay.token.*` |
+|     Field            |  Type  |                                         Description                                                                 |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
+| bitcoinAddress       | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                                                     |
+| cennzAddress         | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                                       |
+| wavesAddress         | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                                                |
+| productCodes         | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`                               |
+| acceptedCollections  | Array  | [Accepted Collections](#accepted-collection) for the payment request, when the "assetType" is `centrapay.token.*`|
 
 ★  For payment options which specify an address, there's a requirement to make a transaction on an external ledger.
 Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay) using the legacy payment API.
 
 <a name="payment-condition">
+
+### Accepted Collection
+
+If a Payment Request contains a `centrapay.token.*` [Payment Option](#payment-option) an array of Accepted Collections will be present inside the `centrapay.token` Payment Option. The Accepted Collections returned can be used to determine if a [Centrapay Token][] can be used to pay a Payment Request, and the line items able to be purchased using the token.
+
+{% h4 Fields %}
+
+|   Field   |        Type        |                               Description                                                               |
+| --------- | ------------------ | ------------------------------------------------------------------------------------------------------- |
+| id        | String             | The id of a collection that the merchant accepts for the given Payment Request                          |
+| lineItems | Array              | The [Line Items](#line-item) that can be purchased by a [Centrapay Token][] with matching collection id |
 
 ### Payment Condition
 
@@ -136,7 +147,6 @@ the Payment Request will be cancelled.
 | name    | String             | The name of the condition.                                                                               |
 | message | String             | The human-readable description of the condition.                                                         |
 | status  | String             | The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`. |
-
 
 ### Line Item
 
@@ -505,7 +515,16 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collectionIds": [ "345224" ]
+      "acceptedCollections": [{
+       id: "QWNB6jurnBczmvXDVfRuMK",
+       lineItems: [{
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+        }] 
+      }]
     }
   ],
   "lineItems": [
@@ -578,7 +597,16 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6190",
       "assetType": "centrapay.token.test",
-      "collectionIds": [ "345224" ]
+      "acceptedCollections": [{
+       id: "QWNB6jurnBczmvXDVfRuMK",
+       lineItems: [{
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4195",
+        "tax": "15.00",
+        }] 
+      }]
     }
   ],
   "lineItems": [
@@ -634,9 +662,16 @@ Payment Activities are created when a Payment Request has been **created**, **pa
     {
       "amount": "6910",
       "assetType": "centrapay.token.main",
-      "collectionIds": [
-        "QWNB6jurnBczmvXDVfRuMK"
-      ],
+      "acceptedCollections": [{
+        id: "QWNB6jurnBczmvXDVfRuMK",
+        lineItems: [{
+          "name": "Coffee Grounds",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4195",
+          "tax": "15.00",
+        }],
+    }],
     }
   ],
   "lineItems": [{
@@ -1541,3 +1576,4 @@ Decline a [Payment Condition][] listed in `merchantConditions` with status `awai
 [Scanned Code]: {% link api/scanned-codes/scanned-codes.md %}
 [Business]: {% link api/accounts/businesses.md %}
 [Tax Number]: {% link api/accounts/businesses.md %}#tax-number
+[Centrapay Token]: {% link api/assets/tokens.md %}
