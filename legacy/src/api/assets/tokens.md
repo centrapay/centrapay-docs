@@ -179,9 +179,10 @@ A redemption condition is created for each merchant that accepts tokens from a c
 
 {% h4 Error Responses %}
 
-| Status |      Code      |                                                  Description                                                   |
-| :----- | :------------- | :------------------------------------------------------------------------------------------------------------- |
-| 403    | INVALID_AMOUNT | One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection. |
+| Status |                Code                 |                                                  Description                                                   |
+| :----- | :---------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| 403    | INVALID_AMOUNT                      | One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection. |
+| 403    | REDEMPTION_CONDITION_ALREADY_EXISTS | A redemption condition for the collection and the merchant has already been created.                           |
 
 ### Create Token **EXPERIMENTAL**
 
