@@ -33,6 +33,19 @@ bring support to GET endpoints for listing, these conventions will be followed.
 
 ### Example
 
+A GET endpoint for listing with a `pageKey`
+{% reqspec %}
+  GET '/api/examples'
+  auth 'api-key'
+  query_param 'pageKey', 'Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8'
+{% endreqspec %}
+
+{% h4 Fields %}
+
+|  Field  |       Type       |               Description                |
+| ------- | ---------------- | ---------------------------------------- |
+| pageKey | String {% opt %} | Used to retrieve the next page of items. |
+
 A page with more content
 
 {% json %}
