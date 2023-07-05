@@ -23,8 +23,9 @@ A redemption condition is created for each merchant that accepts tokens from a c
 
 ## Models
 
-### Token Collection **EXPERIMENTAL**
 <a name="token-collection">
+### Token Collection **EXPERIMENTAL**
+
 {% h4 Fields %}
 
 |       Field       |                   Type                    |                                     Description                                     |
@@ -114,11 +115,20 @@ A redemption condition is created for each merchant that accepts tokens from a c
 
 ### List Token Collections for Account **EXPERIMENTAL**
 
+Returns a [paginated][] list of token collections for an account.
+
 {% reqspec %}
   GET '/api/accounts/{accountId}/collections'
   auth 'api-key'
   path_param 'accountId', 'T3y6hogYA4d612BExypWYH'
+	query_param 'pageKey', 'Collection#2G5bXm4dnuDHnnKY8WeCPm|#Collection|8vq4kn03o0g1grrihk7ooloizpqt2y'
 {% endreqspec %}
+
+{% h4 Fields %}
+
+|  Field  |       Type       |               Description                |
+| ------- | ---------------- | ---------------------------------------- |
+| pageKey | String {% opt %} | Used to retrieve the next page of items. |
 
 {% h4 Example response payload %}
 
@@ -230,3 +240,5 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | :----- | :-------------------- | :----------------------------------------------------------------------- |
 | 403    | TOKEN_ALREADY_CREATED | Token with supplied parameters already exists.                           |
 | 403    | LIVENESS_MISMATCH     | The account is test and the collection's liveness is main or vice versa. |
+
+[paginated]: {% link api/pagination.md %}

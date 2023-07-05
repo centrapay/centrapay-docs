@@ -116,7 +116,7 @@ Tokens have the following fields along with the base asset fields.
 
 |     Field      |             Type             |                                                 Description                                                 |
 | :------------- | :--------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| collectionId   | String                       | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| collectionId   | String                       | The [token collection][] that will govern the branding and redemption rules for the token. |
 | createdBy      | {% dt CRN %}                 | The identity that created the activity.                                                                     |
 | value          | Array {% opt %}              | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. **DEPRECATED** |
 | activeFrom     | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                                  |
@@ -355,3 +355,4 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 [Asset Transfers]: {% link api/assets/asset-transfers.md %}
 [paginated]: {% link api/pagination.md %}
 [Settlements]: {% link api/assets/wallets.md %}#settlement-wallets
+[token collection]: {% link api/assets/tokens.md %}#token-collection
