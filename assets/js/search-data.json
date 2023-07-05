@@ -509,41 +509,41 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Batches",
-    "title": "Batches",
+    "doc": "Integrations",
+    "title": "Integrations",
     "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
   },"86": {
-    "doc": "Settlements",
-    "title": "Settlements",
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
   },"87": {
-    "doc": "Assets",
-    "title": "Assets",
-    "content": " ",
-    "url": "/api/section/assets",
-    "relUrl": "/api/section/assets"
-  },"88": {
     "doc": "Payment Requests",
     "title": "Payment Requests",
     "content": " ",
     "url": "/api/section/payment-requests",
     "relUrl": "/api/section/payment-requests"
+  },"88": {
+    "doc": "Batches",
+    "title": "Batches",
+    "content": " ",
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"89": {
+    "doc": "Settlements",
+    "title": "Settlements",
+    "content": " ",
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
+  },"90": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
-  },"90": {
-    "doc": "Accounts",
-    "title": "Accounts",
-    "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
   },"91": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
@@ -551,17 +551,17 @@
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
   },"92": {
-    "doc": "Integrations",
-    "title": "Integrations",
+    "doc": "Assets",
+    "title": "Assets",
     "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
+    "url": "/api/section/assets",
+    "relUrl": "/api/section/assets"
   },"93": {
-    "doc": "Merchants",
-    "title": "Merchants",
+    "doc": "Accounts",
+    "title": "Accounts",
     "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"94": {
     "doc": "API Reference",
     "title": "API Reference",
@@ -775,7 +775,7 @@
   },"129": {
     "doc": "Pagination",
     "title": "Pagination",
-    "content": "Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory usage and speed up page rendering. To retrieve the next page, a pageKey can be supplied. Typically this will be the nextPageKey returned from your previous query. Some of our endpoints have been designed to be forwards compatible with pagination. When we do bring support to GET endpoints for listing, these conventions will be followed. Models . Mandatory Fields . | Field | Type | Description | . | items | Array | A list from the current page. | . Optional Fields . | Field | Type | Description | . | nextPageKey | String | Can be used to fetch the next page, not present on the last page. | . Example . A page with more content . { \"nextPageKey\": \"5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d\", \"items\": [ { \"value\": \"16\", \"assetType\": \"centrapay.nzd.main\" }, { \"value\": \"32\", \"assetType\": \"centrapay.nzd.main\" }, { \"value\": \"64\", \"assetType\": \"centrapay.nzd.main\" } ] } . The last page . { \"items\": [ { \"value\": \"128\", \"assetType\": \"centrapay.nzd.main\" } ] } . ",
+    "content": "Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory usage and speed up page rendering. To retrieve the next page, a pageKey can be supplied. Typically this will be the nextPageKey returned from your previous query. Some of our endpoints have been designed to be forwards compatible with pagination. When we do bring support to GET endpoints for listing, these conventions will be followed. Models . Mandatory Fields . | Field | Type | Description | . | items | Array | A list from the current page. | . Optional Fields . | Field | Type | Description | . | nextPageKey | String | Can be used to fetch the next page, not present on the last page. | . Example . A GET endpoint for listing with a pageKey . GET /api/examples . curl -G https://service.centrapay.com/api/examples \\ -H \"X-Api-Key: $api_key\" \\ -d pageKey=Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8 . Fields . | Field | Type | Description | . | pageKey | String Optional | Used to retrieve the next page of items. | . A page with more content . { \"nextPageKey\": \"5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d\", \"items\": [ { \"value\": \"16\", \"assetType\": \"centrapay.nzd.main\" }, { \"value\": \"32\", \"assetType\": \"centrapay.nzd.main\" }, { \"value\": \"64\", \"assetType\": \"centrapay.nzd.main\" } ] } . The last page . { \"items\": [ { \"value\": \"128\", \"assetType\": \"centrapay.nzd.main\" } ] } . ",
     "url": "/api/pagination",
     "relUrl": "/api/pagination"
   },"130": {
@@ -943,13 +943,13 @@
   },"157": {
     "doc": "Tokens",
     "title": "Models",
-    "content": "Token Collection EXPERIMENTAL . Fields . | Field | Type | Description | . | name | String | The display name of the collection. | . | accountId | String | The account that will own the collection. | . | tokenExpiresAfter | Token Expires After | The active duration of all tokens created from this collection. | . | type | String | The type of value exchanged when redeeming tokens, can be product | . | maxValue | Monetary Optional | The maximum agreed value that any merchants will be settled for a token redemption. | . | id | String | The token collection id | . | test | Boolean | true if the token collection is for testing purposes only. | . | status | String | The status of the token collection. Valid values include ‘active’. | . | createdBy | CRN | The identity that created the activity. | . | createdAt | Timestamp | Timestamp at which the token collection was created. | . Token Expires After EXPERIMENTAL . | Field | Type | Description | . | period | String | Supported values are hour, day, week,month and year. | . | duration | String | Number of period until token expiration. | . Redemption Condition EXPERIMENTAL . Fields . | Field | Type | Description | . | merchantId | String | The identifier of the merchant that is accepting the collection. | . | allowedProducts | Allowed Products Optional | List of allowed products, required for collections of type product | . | id | String | The redemption condition id | . | collectionId | String | The token collection that will govern the branding and redemption rules for the token. | . | createdBy | CRN | The identity that created the activity. | . | createdAt | Timestamp | Timestamp at which the redemption condition was created. | . Allowed Products EXPERIMENTAL . | Field | Type | Description | . | sku | String | The SKU of the product that is to be accepted. | . | name | String | Display name of the product | . | maxValue | Monetary | The maximum value that the product can be redeemed for. | . ",
+    "content": ". Token Collection EXPERIMENTAL . Fields . | Field | Type | Description | . | name | String | The display name of the collection. | . | accountId | String | The account that will own the collection. | . | tokenExpiresAfter | Token Expires After | The active duration of all tokens created from this collection. | . | type | String | The type of value exchanged when redeeming tokens, can be product | . | maxValue | Monetary Optional | The maximum agreed value that any merchants will be settled for a token redemption. | . | id | String | The token collection id | . | test | Boolean | true if the token collection is for testing purposes only. | . | status | String | The status of the token collection. Valid values include ‘active’. | . | createdBy | CRN | The identity that created the activity. | . | createdAt | Timestamp | Timestamp at which the token collection was created. | . Token Expires After EXPERIMENTAL . | Field | Type | Description | . | period | String | Supported values are hour, day, week,month and year. | . | duration | String | Number of period until token expiration. | . Redemption Condition EXPERIMENTAL . Fields . | Field | Type | Description | . | merchantId | String | The identifier of the merchant that is accepting the collection. | . | allowedProducts | Allowed Products Optional | List of allowed products, required for collections of type product | . | id | String | The redemption condition id | . | collectionId | String | The token collection that will govern the branding and redemption rules for the token. | . | createdBy | CRN | The identity that created the activity. | . | createdAt | Timestamp | Timestamp at which the redemption condition was created. | . Allowed Products EXPERIMENTAL . | Field | Type | Description | . | sku | String | The SKU of the product that is to be accepted. | . | name | String | Display name of the product | . | maxValue | Monetary | The maximum value that the product can be redeemed for. | . ",
     "url": "/api/tokens#models",
     "relUrl": "/api/tokens#models"
   },"158": {
     "doc": "Tokens",
     "title": "Operations",
-    "content": "Create Token Collection EXPERIMENTAL . POST /api/collections . curl -X POST https://service.centrapay.com/api/collections \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"type\": \"product\" }' . Example response payload . { \"id\": \"Xv990BzkgfoDS7bBls50pd\", \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"test\": true, \"type\": \"product\", \"status\": \"active\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\", \"createdAt\": \"2021-05-12T04:30:11.001Z\" } . List Token Collections for Account EXPERIMENTAL . GET /api/accounts/{accountId}/collections . curl https://service.centrapay.com/api/accounts/T3y6hogYA4d612BExypWYH/collections \\ -H \"X-Api-Key: $api_key\" . Example response payload . { \"nextPageKey\": \"Collection#E9eXsErwA444qFDoZt5iLA|#Collection\", \"items\": [ { \"id\": \"Xv990BzkgfoDS7bBls50pd\", \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"test\": true, \"type\": \"product\", \"status\": \"active\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\", \"createdAt\": \"2021-05-12T04:30:11.001Z\" } ] } . Create Redemption Condition EXPERIMENTAL . POST /api/collections/{collectionId}/redemption-conditions . curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"merchantId\": \"36EALpZ89XpShxM2Ee9sXT\", \"allowedProducts\": [ { \"sku\": \"100001\", \"name\": \"White Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" } }, { \"sku\": \"100002\", \"name\": \"Sourdough Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"800\" } } ] }' . Example response payload . { \"id\": \"1234\", \"merchantId\": \"36EALpZ89XpShxM2Ee9sXT\", \"collectionId\": \"NFhUgPQEYbk2EbTXAYArTX\", \"allowedProducts\": [ { \"sku\": \"100001\", \"name\": \"White Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" } }, { \"sku\": \"100002\", \"name\": \"Sourdough Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"800\" } } ], \"createdAt\": \"2022-05-12T04:30:11.001Z\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\" } . Error Responses . | Status | Code | Description | . | 403 | INVALID_AMOUNT | One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection. | . | 403 | REDEMPTION_CONDITION_ALREADY_EXISTS | A redemption condition for the collection and the merchant has already been created. | . Create Token EXPERIMENTAL . POST /api/tokens . curl -X POST https://service.centrapay.com/api/tokens \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"collectionId\": \"Jaim1Cu1Q55uooxSens6yk\", \"idempotencyKey\": \"payment-de32dd90-b46c-11ea-93c3-83a333b86e7b\" }' . Fields . | Field | Type | Description | . | collectionId | String | The token collection that will govern the branding and redemption rules for the token. | . | idempotencyKey | String | Client-supplied identifier that prevents double creation. | . Example response payload . { \"id\": \"pe32dd90-b46c-11ea-92828sa\", \"accountId\": \"WRhAxxWpTKb5U7pXyxQjjP\", \"category\": \"token\", \"collectionId\": \"Jaim1Cu1Q55uooxSens6yk\", \"status\": \"active\", \"createdAt\": \"2021-01-17T18:00:23.000Z\", \"activeFrom\": \"2021-01-17T18:00:23.000Z\", \"expiresAt\": \"2022-01-18T18:00:23.000Z\", \"liveness\": \"test\", \"createdBy\": \"crn:1234abc:api-key:MyAssetIssuerKey\", \"description\": \"My Cafe Token\", \"issuerImg\": \"https://static.centrapay.com/assets/brands/centraperk/logo.png\", \"img\": \"https://static.centrapay.com/assets/brands/centraperk/cafe-token.png\", \"issuer\": \"Centraperk Cafe\", \"issuerWebsite\": \"www.centraperk-cafe.com\", \"type\": \"centrapay.token.test\" } . Error Responses . | Status | Code | Description | . | 403 | TOKEN_ALREADY_CREATED | Token with supplied parameters already exists. | . | 403 | LIVENESS_MISMATCH | The account is test and the collection’s liveness is main or vice versa. | . ",
+    "content": "Create Token Collection EXPERIMENTAL . POST /api/collections . curl -X POST https://service.centrapay.com/api/collections \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"type\": \"product\" }' . Example response payload . { \"id\": \"Xv990BzkgfoDS7bBls50pd\", \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"test\": true, \"type\": \"product\", \"status\": \"active\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\", \"createdAt\": \"2021-05-12T04:30:11.001Z\" } . List Token Collections for Account EXPERIMENTAL . Returns a paginated list of token collections for an account. GET /api/accounts/{accountId}/collections . curl -G https://service.centrapay.com/api/accounts/T3y6hogYA4d612BExypWYH/collections \\ -H \"X-Api-Key: $api_key\" \\ -d pageKey=Collection#2G5bXm4dnuDHnnKY8WeCPm|#Collection|8vq4kn03o0g1grrihk7ooloizpqt2y . Fields . | Field | Type | Description | . | pageKey | String Optional | Used to retrieve the next page of items. | . Example response payload . { \"nextPageKey\": \"Collection#E9eXsErwA444qFDoZt5iLA|#Collection\", \"items\": [ { \"id\": \"Xv990BzkgfoDS7bBls50pd\", \"name\": \"Bread\", \"accountId\": \"T3y6hogYA4d612BExypWYH\", \"tokenExpiresAfter\": { \"period\": \"month\", \"duration\": \"1\" }, \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" }, \"test\": true, \"type\": \"product\", \"status\": \"active\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\", \"createdAt\": \"2021-05-12T04:30:11.001Z\" } ] } . Create Redemption Condition EXPERIMENTAL . POST /api/collections/{collectionId}/redemption-conditions . curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"merchantId\": \"36EALpZ89XpShxM2Ee9sXT\", \"allowedProducts\": [ { \"sku\": \"100001\", \"name\": \"White Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" } }, { \"sku\": \"100002\", \"name\": \"Sourdough Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"800\" } } ] }' . Example response payload . { \"id\": \"1234\", \"merchantId\": \"36EALpZ89XpShxM2Ee9sXT\", \"collectionId\": \"NFhUgPQEYbk2EbTXAYArTX\", \"allowedProducts\": [ { \"sku\": \"100001\", \"name\": \"White Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"400\" } }, { \"sku\": \"100002\", \"name\": \"Sourdough Bread\", \"maxValue\": { \"currency\": \"NZD\", \"amount\": \"800\" } } ], \"createdAt\": \"2022-05-12T04:30:11.001Z\", \"createdBy\": \"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99\" } . Error Responses . | Status | Code | Description | . | 403 | INVALID_AMOUNT | One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection. | . | 403 | REDEMPTION_CONDITION_ALREADY_EXISTS | A redemption condition for the collection and the merchant has already been created. | . Create Token EXPERIMENTAL . POST /api/tokens . curl -X POST https://service.centrapay.com/api/tokens \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"collectionId\": \"Jaim1Cu1Q55uooxSens6yk\", \"idempotencyKey\": \"payment-de32dd90-b46c-11ea-93c3-83a333b86e7b\" }' . Fields . | Field | Type | Description | . | collectionId | String | The token collection that will govern the branding and redemption rules for the token. | . | idempotencyKey | String | Client-supplied identifier that prevents double creation. | . Example response payload . { \"id\": \"pe32dd90-b46c-11ea-92828sa\", \"accountId\": \"WRhAxxWpTKb5U7pXyxQjjP\", \"category\": \"token\", \"collectionId\": \"Jaim1Cu1Q55uooxSens6yk\", \"status\": \"active\", \"createdAt\": \"2021-01-17T18:00:23.000Z\", \"activeFrom\": \"2021-01-17T18:00:23.000Z\", \"expiresAt\": \"2022-01-18T18:00:23.000Z\", \"liveness\": \"test\", \"createdBy\": \"crn:1234abc:api-key:MyAssetIssuerKey\", \"description\": \"My Cafe Token\", \"issuerImg\": \"https://static.centrapay.com/assets/brands/centraperk/logo.png\", \"img\": \"https://static.centrapay.com/assets/brands/centraperk/cafe-token.png\", \"issuer\": \"Centraperk Cafe\", \"issuerWebsite\": \"www.centraperk-cafe.com\", \"type\": \"centrapay.token.test\" } . Error Responses . | Status | Code | Description | . | 403 | TOKEN_ALREADY_CREATED | Token with supplied parameters already exists. | . | 403 | LIVENESS_MISMATCH | The account is test and the collection’s liveness is main or vice versa. | . ",
     "url": "/api/tokens#operations",
     "relUrl": "/api/tokens#operations"
   },"159": {
