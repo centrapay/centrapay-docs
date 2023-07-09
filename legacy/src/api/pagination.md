@@ -14,6 +14,8 @@ usage and speed up page rendering.
 To retrieve the next page, a `pageKey` can be supplied. Typically this will be the `nextPageKey`
 returned from your previous query.
 
+Please note that when making a request, the values of `pageKey` must be URL-encoded. This ensures proper handling of special characters and encoding requirements.
+
 Some of our endpoints have been designed to be forwards compatible with pagination. When we do
 bring support to GET endpoints for listing, these conventions will be followed.
 

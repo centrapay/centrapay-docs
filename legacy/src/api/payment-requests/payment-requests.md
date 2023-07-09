@@ -1350,6 +1350,7 @@ descending activity created date.
 | --------- | ------ | ---------------------------------------- |
 | pageKey   | String | Used to retrieve the next page of items. |
 
+Note: The `pageKey` value, if provided, needs to be URL-encoded.
 
 {% h4 Example response payload %}
 {% json %}
