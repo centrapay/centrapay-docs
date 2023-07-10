@@ -209,7 +209,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
   	})
   }
   example {
-    title 'Creae a token with externalId'
+    title 'Create a token with externalId'
     body ({
     "collectionId": "Jaim1Cu1Q55uooxSens6yk",
     "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
