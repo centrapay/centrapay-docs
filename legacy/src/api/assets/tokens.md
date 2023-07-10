@@ -201,18 +201,30 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 {% reqspec %}
   POST '/api/tokens'
   auth 'api-key'
-  body ({
+	example {
+    title 'Create a token'
+		body ({
     "collectionId": "Jaim1Cu1Q55uooxSens6yk",
-    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b"
-  })
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+  	})
+  }
+  example {
+    title 'Create a token with externalId'
+    body ({
+    "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+		"externalId": "23403283262",
+  	})
+  }
 {% endreqspec %}
 
 {% h4 Fields %}
 
-|     Field      |        Type        |                                                 Description                                                 |
-| :------------- | :----------------- | :---------------------------------------------------------------------------------------------------------- |
-| collectionId   | String             | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
-| idempotencyKey | String             | Client-supplied identifier that prevents double creation.                                                   |
+|     Field      |       Type       |                                                 Description                                                 |
+| :------------- | :--------------- | :---------------------------------------------------------------------------------------------------------- |
+| collectionId   | String           | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
+| idempotencyKey | String           | Client-supplied identifier that prevents double creation.                                                   |
+| externalId     | String {% opt %} | The asset identifier from the issuing system.                                                               |
 
 {% h4 Example response payload %}
 
@@ -233,7 +245,8 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 	"img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
   "issuer": "Centraperk Cafe",
   "issuerWebsite": "www.centraperk-cafe.com",
-	"type": "centrapay.token.test"
+	"type": "centrapay.token.test",
+	"externalId": "23403283262",
 }
 {% endjson %}
 

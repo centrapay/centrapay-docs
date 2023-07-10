@@ -114,17 +114,18 @@ Tokens have the following fields along with the base asset fields.
 
 {% h4 Fields %}
 
-|     Field      |             Type             |                                                 Description                                                 |
-| :------------- | :--------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| collectionId   | String                       | The [token collection][] that will govern the branding and redemption rules for the token. |
-| createdBy      | {% dt CRN %}                 | The identity that created the activity.                                                                     |
-| value          | Array {% opt %}              | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. **DEPRECATED** |
-| activeFrom     | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                                  |
-| expiresAt      | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                                            |
-| img            | String {% opt %}             | The img URL of the token.                                                                                   |
-| issuer         | String {% opt %}             | The identifier for the issuer of the token.                                                                 |
-| issuerWebsite  | String {% opt %}             | The URL of the issuer of the token.                                                                         |
-| issuerImg      | String {% opt %}             | The img URL of the issuer that the token belongs to.                                                        |
+|     Field     |             Type             |                                                 Description                                                 |
+| :------------ | :--------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| collectionId  | String                       | The [token collection][] that will govern the branding and redemption rules for the token.                  |
+| createdBy     | {% dt CRN %}                 | The identity that created the activity.                                                                     |
+| value         | Array {% opt %}              | The [Monetary Amounts][] representing the token's nominal value in its supported currencies. **DEPRECATED** |
+| activeFrom    | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                                  |
+| expiresAt     | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                                            |
+| img           | String {% opt %}             | The img URL of the token.                                                                                   |
+| issuer        | String {% opt %}             | The identifier for the issuer of the token.                                                                 |
+| issuerWebsite | String {% opt %}             | The URL of the issuer of the token.                                                                         |
+| issuerImg     | String {% opt %}             | The img URL of the issuer that the token belongs to.                                                        |
+| externalId    | String {% opt %}             | The asset identifier from the issuing system.                                                               |
 
 ## Operations
 
