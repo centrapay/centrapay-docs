@@ -160,12 +160,19 @@ Tokens have the following fields along with the base asset fields.
 
 ### List Assets for Account
 
-Returns a [paginated][] list of Assets for an account. This will only return active assets.
+Returns a [paginated][] list of Assets for an account. This will not return archived assets.
 
 {% reqspec %}
   GET '/api/accounts/{accountId}/assets'
   auth 'api-key'
   path_param 'accountId', 'Te2uDM7xhDLWGVJU3nzwnh'
+  example {
+    title 'List Assets for Account'
+  }
+  example {
+    title 'List Assets for Account by externalId'
+    query_param 'externalId', 'QZnc7ehZGub1PHAUBjzVxo'
+  }
 {% endreqspec %}
 
 {% h4 Example response payload %}
