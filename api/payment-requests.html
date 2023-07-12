@@ -624,6 +624,16 @@
     },
     "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
     "invoiceRef": "sy8CRmo3sp3ArOpnfmb423"
+  }'</span></code></pre></div> <h4> Refund a Payment Request using a specific Merchant </h4> <div class="highlighter-rouge"><pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/payment-requests/<span class="o">{</span>paymentRequestId<span class="o">}</span>/refund <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "value": {
+      "amount": "100",
+      "currency": "NZD"
+    },
+    "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+    "merchantConfigId": "5ee168e8597be5002af7b454"
   }'</span></code></pre></div> </p> <h4> Example response payload </h4> <p> <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refund"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
