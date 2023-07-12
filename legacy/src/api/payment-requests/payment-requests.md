@@ -523,7 +523,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "qty": "1",
         "price": "4195",
         "tax": "15.00",
-        }] 
+        }]
       }]
     }
   ],
@@ -605,7 +605,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
         "qty": "1",
         "price": "4195",
         "tax": "15.00",
-        }] 
+        }]
       }]
     }
   ],
@@ -1053,6 +1053,18 @@ One of either `assetId`, `transactionId` or `authorization` must be provided.
       },
       "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
       "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+    })
+  }
+
+    example {
+    title 'Refund a Payment Request using a specific Merchant'
+    body ({
+      "value": {
+        "amount": "100",
+        "currency": "NZD",
+      },
+      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
     })
   }
 
