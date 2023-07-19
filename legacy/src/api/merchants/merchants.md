@@ -276,16 +276,19 @@ Returns a [paginated][] list of Merchants attached to an Account.
 {% reqspec %}
   GET '/api/merchants/search'
   auth 'api-key'
+  query_param 'origin', '123.42,32.22'
+  query_param 'distance', '100'
+  query_param 'name', 'Store'
 {% endreqspec %}
 
 {% h4 Request Query Parameters %}
 
-|       Query Parameter   |                                  Description                                                         |
-| :---------------------- | :--------------------------------------------------------------------------------------------------- |
-| {% break _ origin %}    | The point to be searched around, passed as a lat/lng pair of the form 123.456,54.321                 |
-| {% break _ distance %}  | The distance from the origin to be searched around in km. Required if origin is supplied             |
-| {% break _ assetType %} | The assetType to filter merchants by. This can be supplied multiple times to further filter results  |
-| {% break _ name %}      | Name of the merchant. This will match partial names                                                  |
+|       Query Parameter   |           Type            |                                 Description                                                         |
+| :---------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------- |
+| {% break _ origin %}    | {% dt String %} {% opt %} | The point to be searched around, formatted as a latitude,longitude                                   |
+| {% break _ distance %}  | {% dt Number %} {% opt %} | The distance from the origin to be searched around in km                                             |
+| {% break _ assetType %} | {% dt String %} {% opt %} | The assetType to filter merchants by. This can be supplied multiple times to further filter results  |
+| {% break _ name %}      | {% dt String %} {% opt %} | Name of the merchant                                                                                 |
 
 {% h4 Example response payload %}
 
