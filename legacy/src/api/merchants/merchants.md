@@ -271,6 +271,49 @@ Returns a [paginated][] list of Merchants attached to an Account.
 }
 {% endjson %}
 
+### Search Merchants
+
+{% reqspec %}
+  GET '/api/merchants/search'
+  auth 'api-key'
+{% endreqspec %}
+
+{% h4 Request Query Parameters %}
+
+|       Query Parameter   |                                  Description                                                         |
+| :---------------------- | :--------------------------------------------------------------------------------------------------- |
+| {% break _ origin %}    | The point to be searched around, passed as a lat/lng pair of the form 123.456,54.321                 |
+| {% break _ distance %}  | The distance from the origin to be searched around in km. Required if origin is supplied             |
+| {% break _ assetType %} | The assetType to filter merchants by. This can be supplied multiple times to further filter results  |
+| {% break _ name %}      | Name of the merchant. This will match partial names                                                  |
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+	items: [
+		{
+			"id": "M001",
+			"name": "Store 1",
+			"acceptedAssetTypes": [
+				"centrapay.nzd.main",
+				"epay.nzd.main",
+			],
+			"location": {
+	      "lat": "123.45",
+	      "lng": "32.21",
+	      "city": "Auckland",
+	      "country": "NZ",
+	      "postCode": "1234",
+	      "state": "Auckland",
+	      "street": "2 Street Street",
+	      "suburb": "Place",
+	    },
+		},
+	],
+}
+{% endjson %}
+
 ### List all Merchants **DEPRECATED**
 
 Returns a [paginated][] list of Merchants which belong to the authenticated subject.
