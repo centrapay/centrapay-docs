@@ -287,7 +287,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
 | :---------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------- |
 | {% break _ origin %}    | {% dt String %} {% opt %} | The point to be searched around, formatted as a latitude,longitude                                   |
 | {% break _ distance %}  | {% dt Number %} {% opt %} | The distance from the origin to be searched around in km                                             |
-| {% break _ assetType %} | {% dt String %} {% opt %} | The assetType to filter merchants by. This can be supplied multiple times to further filter results  |
+| {% break _ assetType %} | {% dt String %} {% opt %} | The [AssetType][] to filter merchants by. This can be supplied multiple times to further filter results  |
 | {% break _ name %}      | {% dt String %} {% opt %} | Name of the merchant                                                                                 |
 
 {% h4 Example response payload %}
@@ -377,3 +377,4 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
 [Location]: {% link api/data-types.md %}#Location
 [paginated]: {% link api/pagination.md %}
 [Account]: {% link api/accounts/accounts.md %}
+[AssetType]: {% link api/assets/asset-types.md %}
