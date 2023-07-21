@@ -183,6 +183,7 @@ individual account.
 | :----- | :------------------- | :------------------------------------------------- |
 | 403    | INVALID_ACCOUNT_ID   | The account does not exist.                        |
 | 403    | INVALID_SUBSCRIPTION | One of the subscriptions in the list is not valid. |
+| 403    | ACCOUNT_TYPE_INVALID | Only 'org' type accounts can have subscriptions.   |
 
 [API Keys]: {% link api/api-keys.md %}
 [Account Memberships]: {% link api/accounts/account-memberships.md %}
