@@ -271,7 +271,9 @@ Returns a [paginated][] list of Merchants attached to an Account.
 }
 {% endjson %}
 
-### Search Merchants
+### Search Merchants **EXPERIMENTAL**
+
+Returns a [paginated][] list of Merchants with [AssetType][] information
 
 {% reqspec %}
   GET '/api/merchants/search'
@@ -279,16 +281,20 @@ Returns a [paginated][] list of Merchants attached to an Account.
   query_param 'origin', '123.42,32.22'
   query_param 'distance', '100'
   query_param 'name', 'Store'
+  query_param 'pageKey' , '2'
+  query_param 'paginationLimit', '1'
 {% endreqspec %}
 
-{% h4 Request Query Parameters %}
+{% h4  Query Parameters %}
 
-|       Query Parameter   |           Type            |                                 Description                                                         |
+|       Parameter         |           Type            |                                 Description                                                         |
 | :---------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------- |
 | {% break _ origin %}    | {% dt String %} {% opt %} | The point to be searched around, formatted as a latitude,longitude                                   |
 | {% break _ distance %}  | {% dt Number %} {% opt %} | The distance from the origin to be searched around in km                                             |
-| {% break _ assetType %} | {% dt String %} {% opt %} | The [AssetType][] to filter merchants by. This can be supplied multiple times to further filter results  |
+| {% break _ assetType %} | {% dt String %} {% opt %} | The [AssetType][] to filter merchants by. This can be supplied multiple times to further filter results |
 | {% break _ name %}      | {% dt String %} {% opt %} | Name of the merchant                                                                                 |
+| {% break _ pageKey %}   | {% dt String %} {% opt %} | pageKey of next merchant to fetch                                                                    |
+| {% break _ paginationLimit %} | {% dt String %} {% opt %} | Maximum amount of merchants to return                                                          |
 
 {% h4 Example response payload %}
 
@@ -314,6 +320,7 @@ Returns a [paginated][] list of Merchants attached to an Account.
 	    },
 		},
 	],
+  "nextPageKey": "3",
 }
 {% endjson %}
 
