@@ -167,6 +167,7 @@ if there is a flag associated to it then at least one of them must be met.
 | {% break : merchants:list 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
 | {% break : merchants:read 🗄 %}                  |       ✅      |               |                   |                         |    ✅   |
 | {% break : merchants:update 🗄 %}                |       ✅      |               |                   |                         |         |
+| {% break : merchants:search %}                   |       ✅      |               |                   |                         |         |
 | {% break : patron-codes:create %}                |       ✅      |               |                   |                         |         |
 | {% break : patron-codes:read %}                  |       ✅      |               |         ✅        |                         |    ✅   |
 | {% break : payment-activities:read %}            |       ✅      |               |         ✅        |                         |    ✅   |

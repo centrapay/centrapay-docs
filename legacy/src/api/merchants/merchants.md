@@ -280,9 +280,8 @@ Returns a [paginated][] list of Merchants with [AssetType][] information
   auth 'api-key'
   query_param 'origin', '123.42,32.22'
   query_param 'distance', '100'
-  query_param 'name', 'Store'
-  query_param 'pageKey' , '2'
-  query_param 'paginationLimit', '1'
+  query_param 'pageKey' , '10'
+  query_param 'paginationLimit', '10'
 {% endreqspec %}
 
 {% h4  Query Parameters %}
@@ -320,7 +319,7 @@ Returns a [paginated][] list of Merchants with [AssetType][] information
 	    },
 		},
 	],
-  "nextPageKey": "3",
+  "nextPageKey": "20",
 }
 {% endjson %}
 
