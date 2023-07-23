@@ -271,6 +271,58 @@ Returns a [paginated][] list of Merchants attached to an Account.
 }
 {% endjson %}
 
+### Search Merchants **EXPERIMENTAL**
+
+Returns a [paginated][] list of Merchants with [AssetType][] information
+
+{% reqspec %}
+  GET '/api/merchants/search'
+  auth 'api-key'
+  query_param 'origin', '123.42,32.22'
+  query_param 'distance', '100'
+  query_param 'pageKey' , '10'
+  query_param 'paginationLimit', '10'
+{% endreqspec %}
+
+{% h4  Query Parameters %}
+
+|       Parameter         |           Type            |                                 Description                                                         |
+| :---------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------- |
+| {% break _ origin %}    | {% dt String %} {% opt %} | The point to be searched around, formatted as a latitude,longitude                                   |
+| {% break _ distance %}  | {% dt Number %} {% opt %} | The distance from the origin to be searched around in km                                             |
+| {% break _ assetType %} | {% dt String %} {% opt %} | The [AssetType][] to filter merchants by. This can be supplied multiple times to further filter results |
+| {% break _ name %}      | {% dt String %} {% opt %} | Name of the merchant                                                                                 |
+| {% break _ pageKey %}   | {% dt String %} {% opt %} | pageKey of next merchant to fetch                                                                    |
+| {% break _ paginationLimit %} | {% dt String %} {% opt %} | Maximum amount of merchants to return                                                          |
+
+{% h4 Example response payload %}
+
+{% json %}
+{
+	items: [
+		{
+			"id": "M001",
+			"name": "Store 1",
+			"acceptedAssetTypes": [
+				"centrapay.nzd.main",
+				"epay.nzd.main",
+			],
+			"location": {
+	      "lat": "123.45",
+	      "lng": "32.21",
+	      "city": "Auckland",
+	      "country": "NZ",
+	      "postCode": "1234",
+	      "state": "Auckland",
+	      "street": "2 Street Street",
+	      "suburb": "Place",
+	    },
+		},
+	],
+  "nextPageKey": "20",
+}
+{% endjson %}
+
 ### List all Merchants **DEPRECATED**
 
 Returns a [paginated][] list of Merchants which belong to the authenticated subject.
@@ -331,3 +383,4 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
 [Location]: {% link api/data-types.md %}#Location
 [paginated]: {% link api/pagination.md %}
 [Account]: {% link api/accounts/accounts.md %}
+[AssetType]: {% link api/assets/asset-types.md %}
