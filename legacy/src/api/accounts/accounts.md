@@ -32,18 +32,19 @@ individual account.
 ### Account
 
 
-|     Field     |        Type        |                                  Description                                  |
-| :------------ | :----------------- | :---------------------------------------------------------------------------- |
-| id            | String             | The unique identifier.                                                        |
-| type          | String             | Account type, must be either 'org' or 'individual'.                           |
-| name          | String             | The display name of the Account.                                              |
-| region        | String             | The region that the Account will operate in. Only defined for 'org' Accounts. |
-| test          | Boolean            | A flag which is only present if the Account is for testing.                   |
-| createdAt     | {% dt Timestamp %} | When the Account was created.                                                 |
-| modifiedAt    | {% dt Timestamp %} | When the Account was updated.                                                 |
-| createdBy     | {% dt CRN %}       | The User or API Key that created the Account.                                 |
-| modifiedBy    | {% dt CRN %}       | The User or API Key that updated the Account.                                 |
-| subscriptions | Array              | A list of [Subscriptions](#subscription) on the Account.                      |
+|      Field      |        Type        |                                  Description                                  |
+| :-------------- | :----------------- | :---------------------------------------------------------------------------- |
+| id              | String             | The unique identifier.                                                        |
+| type            | String             | Account type, must be either 'org' or 'individual'.                           |
+| name            | String             | The display name of the Account.                                              |
+| region          | String             | The region that the Account will operate in. Only defined for 'org' Accounts. |
+| test            | Boolean            | A flag which is only present if the Account is for testing.                   |
+| createdAt       | {% dt Timestamp %} | When the Account was created.                                                 |
+| modifiedAt      | {% dt Timestamp %} | When the Account was updated.                                                 |
+| createdBy       | {% dt CRN %}       | The User or API Key that created the Account.                                 |
+| modifiedBy      | {% dt CRN %}       | The User or API Key that updated the Account.                                 |
+| subscriptions   | Array              | A list of [Subscriptions](#subscription) on the Account.                      |
+| parentAccountId | String             | Id of a parent account given access to the resources of this account.         |
 
 ### Subscription
 
@@ -73,11 +74,12 @@ individual account.
 
 {% h4 Optional Fields %}
 
-| Field  |  Type   |                                                                 Description                                                                  |
-| :----- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| owner  | String  | Id of user to add as member with "account-owner" role.                                                                                       |
-| test   | Boolean | A flag indicating if the Account is for testing.                                                                                             |
-| region | String  | The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US". |
+|      Field      |  Type   |                                                                 Description                                                                  |
+| :-------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| owner           | String  | Id of user to add as member with "account-owner" role.                                                                                       |
+| test            | Boolean | A flag indicating if the Account is for testing.                                                                                             |
+| region          | String  | The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US". |
+| parentAccountId | String  | Id of a parent account given access to the resources of this account.                                                                        |
 
 
 {% h4 Example response payload %}
