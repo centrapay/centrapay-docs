@@ -509,47 +509,47 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"85": {
-    "doc": "Integrations",
-    "title": "Integrations",
+    "doc": "Accounts",
+    "title": "Accounts",
     "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
+    "url": "/api/section/accounts",
+    "relUrl": "/api/section/accounts"
   },"86": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"87": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
-    "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
-  },"88": {
-    "doc": "Batches",
-    "title": "Batches",
-    "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
-  },"89": {
-    "doc": "Settlements",
-    "title": "Settlements",
-    "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
-  },"90": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
-  },"91": {
+  },"87": {
+    "doc": "Integrations",
+    "title": "Integrations",
+    "content": " ",
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
+  },"88": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
     "content": " ",
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
+  },"89": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"90": {
+    "doc": "Settlements",
+    "title": "Settlements",
+    "content": " ",
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
+  },"91": {
+    "doc": "Batches",
+    "title": "Batches",
+    "content": " ",
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"92": {
     "doc": "Assets",
     "title": "Assets",
@@ -557,11 +557,11 @@
     "url": "/api/section/assets",
     "relUrl": "/api/section/assets"
   },"93": {
-    "doc": "Accounts",
-    "title": "Accounts",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/accounts",
-    "relUrl": "/api/section/accounts"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"94": {
     "doc": "API Reference",
     "title": "API Reference",
