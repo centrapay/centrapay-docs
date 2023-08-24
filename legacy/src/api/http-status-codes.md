@@ -50,7 +50,7 @@ Don't try again, this is never going to work.
 
 ## 401 Unauthorized
 
-API key or JWT is missing or expired. Go look at our [Auth][] documentation.
+API key or JWT is missing, expired or invalid. Go look at our [Auth][] documentation.
 
 {% h4 Example response body %}
 
