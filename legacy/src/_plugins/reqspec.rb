@@ -56,8 +56,8 @@ class RequestSpec
     @default_example.auth(s)
   end
 
-  def query_param(name, value)
-    @default_example.query_param(name, value)
+  def query_param(name, value, encoding = "")
+    @default_example.query_param(name, value, encoding)
   end
 
   def path_param(name, value)
@@ -103,8 +103,8 @@ class RequestExample
     end
   end
 
-  def query_param(name, value)
-    @query_params.append({ :name => name, :value => value })
+  def query_param(name, value, encoding = "")
+    @query_params.append({ :name => name, :value => value, :encoding => encoding })
   end
 
   def path_param(name, value)
@@ -156,7 +156,7 @@ class RequestExample
   end
 
   def curl_query_lines
-    @query_params.map { |p| "  -d #{p[:name]}=#{p[:value]}" }
+    @query_params.map { |p| "  #{p[:encoding] != "" ? "--data-#{p[:encoding]}" : "-d"} #{p[:name]}=#{p[:value]}" }
   end
 
   def curl_data_lines
