@@ -418,8 +418,6 @@ Note over POS: ✅ Display Release confirmation
 1. The Cardholder presents their Farmlands Card for the POS to scan.
 2. The POS authorises a Pre Auth payment by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
 
-    > Including Line Items is optional for Card Partners that do not intend to make Pre Auth confirmations.
-
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests \
       -H "X-Api-Key: $api_key" \
@@ -668,8 +666,6 @@ Note over POS: ✅ Display Release confirmation
     ```
 
 5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](https://docs.centrapay.com/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request-experimental) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
-
-    > Making Pre Auth Confirmations is optional but they remove the need to send a PDF invoice or EDI file to Farmlands for settlement.
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
@@ -970,8 +966,6 @@ The Certification Process includes checking that Farmlands POS integrators are m
 **Pre Auth Requirements**
 
 - The [Pre Auth extension](#pre-auth) MUST be supported when invoice numbers are not available at the time of purchase.
-- Pre Auth completion MAY be performed through existing reconciliation channels (eg PDF, EDI messaging) if Pre Auth confirmations are not being used.
-- Pre Authorisations MAY omit Line Items when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) when completion is performed through existing reconciliation channels.
 - [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) short codes MUST be included when completion is performed through existing reconciliation channels.
 - Pre Auth Confirmations MUST be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorised funds twice.
 - Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
