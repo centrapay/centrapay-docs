@@ -1014,6 +1014,7 @@ One of either `assetId`, `transactionId` or `authorization` must be provided.
         "amount": "6190",
         "currency": "NZD",
       },
+      "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
       "lineItems": [
         {
           name: 'Coffee Grounds',
@@ -1069,6 +1070,17 @@ One of either `assetId`, `transactionId` or `authorization` must be provided.
   }
 
 {% endreqspec %}
+
+{% h4 Fields %}
+
+|           Field            |       Type        |                                                   Description                                                    |
+| :------------------------- | :---------------- | :--------------------------------------------------------------------------------------------------------------- |
+| value                      | {% dt Monetary %} | The value of the refund. Must be less than 100000000 and positive.                                               |
+| externalRef                | String            | An external reference to the refund.                                                                             |
+| merchantConfigId           | String {% opt %}  | The [Merchant Config][] id of the refunding merchant when refunding a `farmlands.nzd.*` payment.                 |
+| lineItems                  | Array {% opt %}   | **Experimental** The [Line Items](#line-item) being refunded.                                                    |
+| confirmationIdempotencyKey | String {% opt %}  | Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation. |
+| invoiceRef                 | String {% opt %}  | A reference to an invoice for the refund. Must be less than or equal to 128 characters.                          |
 
 {% h4 Example response payload %}
 
