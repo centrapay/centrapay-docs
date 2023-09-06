@@ -40,7 +40,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | status            | String                                    | The status of the token collection. Valid values include 'active'.                          |
 | createdBy         | {% dt CRN %}                              | The identity that created the activity.                                                     |
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                        |
-| mediaUploadId     | String {% opt %}                          | The id of the media upload image used for all tokens that are created from this collection. |
+| mediaUploadId     | String {% opt %}                          | The id of the media upload image of the collection. |
 | img               | String {% opt %}                          | The img URL of the collection.                                                              |
 
 <a name="tokenExpiresAfter">
