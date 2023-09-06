@@ -28,20 +28,20 @@ A redemption condition is created for each merchant that accepts tokens from a c
 
 {% h4 Fields %}
 
-|       Field       |                   Type                    |                                         Description                                         |
-| :---------------- | :---------------------------------------- | :------------------------------------------------------------------------------------------ |
-| name              | String                                    | The display name of the collection.                                                         |
-| accountId         | String                                    | The account that will own the collection.                                                   |
-| tokenExpiresAfter | [Token Expires After](#tokenExpiresAfter) | The active duration of all tokens created from this collection.                             |
-| type              | String                                    | The type of value exchanged when redeeming tokens, can be `product`                         |
-| maxValue          | {% dt Monetary %} {% opt %}               | The maximum agreed value that any merchants will be settled for a token redemption.         |
-| id                | String                                    | The token collection id                                                                     |
-| test              | Boolean                                   | `true` if the token collection is for testing purposes only.                                |
-| status            | String                                    | The status of the token collection. Valid values include 'active'.                          |
-| createdBy         | {% dt CRN %}                              | The identity that created the activity.                                                     |
-| createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                        |
-| mediaUploadId     | String {% opt %}                          | The id of the media upload image of the collection. |
-| img               | String {% opt %}                          | The img URL of the collection.                                                              |
+|       Field       |                   Type                    |                                     Description                                     |
+| :---------------- | :---------------------------------------- | :---------------------------------------------------------------------------------- |
+| name              | String                                    | The display name of the collection.                                                 |
+| accountId         | String                                    | The account that will own the collection.                                           |
+| tokenExpiresAfter | [Token Expires After](#tokenExpiresAfter) | The active duration of all tokens created from this collection.                     |
+| type              | String                                    | The type of value exchanged when redeeming tokens, can be `product`                 |
+| maxValue          | {% dt Monetary %} {% opt %}               | The maximum agreed value that any merchants will be settled for a token redemption. |
+| id                | String                                    | The token collection id                                                             |
+| test              | Boolean                                   | `true` if the token collection is for testing purposes only.                        |
+| status            | String                                    | The status of the token collection. Valid values include 'active'.                  |
+| createdBy         | {% dt CRN %}                              | The identity that created the activity.                                             |
+| createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
+| mediaUploadId     | String {% opt %}                          | The id of the [media upload] [] image of the collection.                            |
+| img               | String {% opt %}                          | The img URL of the collection.                                                      |
 
 <a name="tokenExpiresAfter">
 ### Token Expires After **EXPERIMENTAL**
@@ -265,3 +265,4 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 | 403    | LIVENESS_MISMATCH     | The account is test and the collection's liveness is main or vice versa. |
 
 [paginated]: {% link api/pagination.md %}
+[media upload]: {% link api/media-uploads.md %}
