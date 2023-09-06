@@ -43,12 +43,12 @@ which define the payment methods available for a Payment Request.
 
 {% h4 Optional Fields %}
 
-|         Field          |                  Type                   |                                                                        Description                                                                         |
-| :--------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| test                   | Boolean                                 | **EXPERIMENTAL** Flag indicating merchant is for testing.                                                                                                  |
-| settlementConfig       | [Settlement Config](#settlement-config) | **EXPERIMENTAL** Merchant settlement config.                                                                                                               |
-| location               | {% dt Location %}                       | **EXPERIMENTAL** Physical Location of Merchant.                                                                                                            |
-| onboardingStatusReason | String                                  | The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values. |
+|         Field          |                  Type                   |                                                                                                                     Description                                                                                                                     |
+| :--------------------- | :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| test                   | Boolean                                 | **EXPERIMENTAL** Flag indicating merchant is for testing.                                                                                                                                                                                           |
+| settlementConfig       | [Settlement Config](#settlement-config) | **EXPERIMENTAL** Merchant settlement config.                                                                                                                                                                                                        |
+| location               | {% dt Location %}                       | **EXPERIMENTAL** Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants-experimental) API if they perform a origin + distance query. |
+| onboardingStatusReason | String                                  | The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.                                                                                          |
 
 <a name="onboarding-statuses">
 {% h4 Onboarding Statuses %}
