@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "lint": "vue-cli-service lint --max-warnings 0 --no-fix .",
+    "lint": "eslint --ext .js,.mjs,.ts,.vue .",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -16,8 +16,6 @@
     "@fontsource/inter": "^4.5.15",
     "@headlessui/vue": "^1.6.0",
     "@tailwindcss/typography": "^0.5.8",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
     "astro": "^2.0.11",
     "eslint": "^7.20.0",
     "eslint-plugin-cypress": "^2.11.2",
