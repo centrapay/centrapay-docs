@@ -722,6 +722,10 @@ Note over POS: ✅ Display Release confirmation
     ```
 
 6. The POS [releases any remaining authorised funds](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) back to the Cardholder.
+To confirm if there are funds requiring release you can [list payment activities](https://docs.centrapay.com/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](https://docs.centrapay.com/api/payment-requests#payment-activity).
+
+> Only call release if there are funds requiring release.
+
 
     ```bash [Request]
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/release \
