@@ -2,12 +2,12 @@ version: "3"
 
 services:
   app:
-    image: node:16
+    image: node:18-alpine
     init: true
     working_dir: /work
     volumes: [ ".:/work" ]
     command:
-      - bash
+      - sh
       - -c
       - yarn dev --host 0.0.0.0
     ports: [ "3000:3000", "24678:24678" ]
@@ -21,13 +21,13 @@ services:
     command: "bundle exec jekyll serve --livereload --host=0.0.0.0"
     ports: [ "4000:4000", "35729:35729" ]
   script:
-    image: node:16
+    image: node:18-alpine
     init: true
     working_dir: /work
     stop_signal: SIGKILL
     volumes: [ ".:/work" ]
     command:
-      - bash
+      - sh
       - -c
       - |
         echo "

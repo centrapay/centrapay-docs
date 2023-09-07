@@ -16,9 +16,9 @@ jobs:
     if: github.event.action == 'opened'
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 18
       - run: |
           curl -X POST "${{ secrets.NEW_PR_SLACK_HOOK_URL }}" \
           --data "$(
