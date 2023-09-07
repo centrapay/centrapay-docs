@@ -40,6 +40,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | status            | String                                    | The status of the token collection. Valid values include 'active'.                  |
 | createdBy         | {% dt CRN %}                              | The identity that created the activity.                                             |
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
+| mediaUploadId     | String {% opt %}                          | The id of the [media upload] [] image of the collection.                            |
 
 <a name="tokenExpiresAfter">
 ### Token Expires After **EXPERIMENTAL**
@@ -88,6 +89,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 			"amount": "400"
 		},
 		"type": "product",
+		"mediaUploadId": "12345",
   })
 {% endreqspec %}
 
@@ -110,6 +112,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 	"status": "active",
 	"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 	"createdAt": "2021-05-12T04:30:11.001Z",
+	"mediaUploadId": "12345",
 }
 {% endjson %}  
 
@@ -154,6 +157,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 		"status": "active",
 		"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 		"createdAt": "2021-05-12T04:30:11.001Z",
+		"mediaUploadId": "12345",
 	}]
 }
 {% endjson %}
@@ -258,3 +262,4 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 | 403    | LIVENESS_MISMATCH     | The account is test and the collection's liveness is main or vice versa. |
 
 [paginated]: {% link api/pagination.md %}
+[media upload]: {% link api/media-uploads.md %}
