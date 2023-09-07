@@ -246,7 +246,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 	"createdBy": "crn:1234abc:api-key:MyAssetIssuerKey",
 	"description": "My Cafe Token",
   "issuerImg": "https://static.centrapay.com/assets/brands/centraperk/logo.png",
-	"img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
+	"img": "https://s3.ap-southeast-1.amazonaws.com/centrapay.media-uploads/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=credentials&X-Amz-Date=20230907T040843Z&X-Amz-Expires=600&X-Amz-Security-Token=1234X-Amz-Signature=23456&X-Amz-SignedHeaders=host",
   "issuer": "Centraperk Cafe",
   "issuerWebsite": "www.centraperk-cafe.com",
 	"type": "centrapay.token.test",

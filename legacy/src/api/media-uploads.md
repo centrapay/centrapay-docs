@@ -65,7 +65,7 @@ permalink: /api/media-uploads
 
 {% json %}
 id: DKTs3U38hdhfEqwF1JKoT2
-uploadUrl: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+uploadUrl: https://s3.ap-southeast-1.amazonaws.com/centrapay.media-uploads/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=credentials&X-Amz-Date=20230907T040843Z&X-Amz-Expires=600&X-Amz-Security-Token=1234X-Amz-Signature=23456&X-Amz-SignedHeaders=host
 {% endjson %}
 
 ### Get Media Upload Location **EXPERIMENTAL**
@@ -79,5 +79,5 @@ uploadUrl: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsd
 {% h4 Example response payload %}
 
 {% json %}
-url: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+url: https://s3.ap-southeast-1.amazonaws.com/centrapay.media-uploads/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=credentials&X-Amz-Date=20230907T040843Z&X-Amz-Expires=600&X-Amz-Security-Token=1234X-Amz-Signature=23456&X-Amz-SignedHeaders=host
 {% endjson %}
