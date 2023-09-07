@@ -268,6 +268,7 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | conditionId                | Number  | The id of a condition if the activity was for a condition being accepted or declined.                                                         |
 | idempotencyKey             | String  | Required when confirming a Payment Request. This is an identifier from your system to enforce uniqueness.                                     |
 | confirmationIdempotencyKey | String  | Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.                              |
+| preAuth                    | Boolean | True if the related Payment Request is a Pre Auth                                                                                             |
 
 {% h4 Activity Types %}
 
@@ -1424,6 +1425,36 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
       "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
       "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
       "activityNumber": "1",
+    },
+    {
+      "type": "Authorization",
+      "value": { "currency": "NZD", "amount": "100" },
+      "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
+      "shortCode": "CP-W4R-01J",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-05-12T01:15:46.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "preAuth": true,
+    },
+    {
+      "type": "preAuthRequest",
+      "value": { "currency": "NZD", "amount": "100" },
+      "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
+      "shortCode": "CP-W4R-01J",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-05-12T01:15:46.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "1",
+      "preAuth": true,
     }
   ]
 }
