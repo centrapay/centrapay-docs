@@ -41,7 +41,6 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | createdBy         | {% dt CRN %}                              | The identity that created the activity.                                             |
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
 | mediaUploadId     | String {% opt %}                          | The id of the [media upload] [] image of the collection.                            |
-| img               | String {% opt %}                          | The img URL of the collection.                                                      |
 
 <a name="tokenExpiresAfter">
 ### Token Expires After **EXPERIMENTAL**
@@ -114,7 +113,6 @@ A redemption condition is created for each merchant that accepts tokens from a c
 	"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 	"createdAt": "2021-05-12T04:30:11.001Z",
 	"mediaUploadId": "12345",
-	"img": "https://static.centrapay.com/assets/collections/{mediaUploadId}.png"
 }
 {% endjson %}  
 
@@ -160,7 +158,6 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 		"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 		"createdAt": "2021-05-12T04:30:11.001Z",
 		"mediaUploadId": "12345",
-		"img": "https://static.centrapay.com/assets/collections/{mediaUploadId}.png"
 	}]
 }
 {% endjson %}
