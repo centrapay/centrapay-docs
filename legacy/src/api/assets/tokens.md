@@ -41,6 +41,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | createdBy         | {% dt CRN %}                              | The identity that created the activity.                                             |
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
 | mediaUploadId     | String {% opt %}                          | The id of the [media upload] [] image of the collection.                            |
+| img               | String {% opt %}                          | The img URL of the collection.                                                      |
 
 <a name="tokenExpiresAfter">
 ### Token Expires After **EXPERIMENTAL**
@@ -113,8 +114,9 @@ A redemption condition is created for each merchant that accepts tokens from a c
 	"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 	"createdAt": "2021-05-12T04:30:11.001Z",
 	"mediaUploadId": "12345",
+	"img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
 }
-{% endjson %}  
+{% endjson %}
 
 ### List Token Collections for Account **EXPERIMENTAL**
 
@@ -158,6 +160,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 		"createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
 		"createdAt": "2021-05-12T04:30:11.001Z",
 		"mediaUploadId": "12345",
+    "img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
 	}]
 }
 {% endjson %}
@@ -171,8 +174,8 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
   body ({
    "merchantId": "36EALpZ89XpShxM2Ee9sXT",
 		"allowedProducts": [
-			{ "sku": "100001", "name": "White Bread", "maxValue": { "currency": "NZD", "amount": "400" },}, 
-			{ "sku": "100002", "name": "Sourdough Bread", "maxValue": { "currency": "NZD", "amount": "800" },}, 
+			{ "sku": "100001", "name": "White Bread", "maxValue": { "currency": "NZD", "amount": "400" },},
+			{ "sku": "100002", "name": "Sourdough Bread", "maxValue": { "currency": "NZD", "amount": "800" },},
 		]
   })
 {% endreqspec %}
@@ -185,8 +188,8 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
   "merchantId": "36EALpZ89XpShxM2Ee9sXT",
   "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
   "allowedProducts": [
-	  { sku: "100001", name: "White Bread", maxValue: { currency: "NZD", amount: "400" },}, 
-	  { sku: "100002", name: "Sourdough Bread", maxValue: { currency: "NZD", amount: "800" },}, 
+	  { sku: "100001", name: "White Bread", maxValue: { currency: "NZD", amount: "400" },},
+	  { sku: "100002", name: "Sourdough Bread", maxValue: { currency: "NZD", amount: "800" },},
   ],
   "createdAt": "2022-05-12T04:30:11.001Z",
   "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
