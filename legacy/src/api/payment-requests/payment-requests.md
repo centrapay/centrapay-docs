@@ -106,8 +106,6 @@ version (documented on this page) and the "legacy" version (documented at
 |     Field            |  Type  |                                         Description                                                                 |
 | -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
 | bitcoinAddress       | String | ★  Address to send Bitcoin, when the "assetType" is `bitcoin.*`                                                     |
-| cennzAddress         | String | ★  Address to send CPay, when the "assetType" is `cennznet.*`                                                       |
-| wavesAddress         | String | ★  Waves address to send Zap tokens, when the "assetType" is `zap.*`                                                |
 | productCodes         | Array  | Supported product codes for the payment request, when the "assetType" is `epay.nzd.*`                               |
 | acceptedCollections  | Array  | [Accepted Collections](#accepted-collection) for the payment request, when the "assetType" is `centrapay.token.*`|
 
