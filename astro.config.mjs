@@ -20,7 +20,7 @@ export default defineConfig({
   integrations: [
     vue(),
     tailwind({
-      config: { applyBaseStyles: false },
+      applyBaseStyles: false,
     }),
     mdx()
   ],

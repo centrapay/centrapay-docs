@@ -10,7 +10,7 @@ services:
       - sh
       - -c
       - yarn dev --host 0.0.0.0
-    ports: [ "3000:3000", "24678:24678" ]
+    ports: [ "4321:4321", "24678:24678" ]
     environment:
       - "ENV=development"
   legacy:
