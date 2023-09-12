@@ -197,8 +197,8 @@ See [Asset Types][] for the list of possible `asset` values for each Asset Type.
 {% reqspec %}
   POST '/payments/api/requests.pay'
   auth 'api-key'
-  query_param 'authorization', '12345678'
-  query_param 'ledger', 'g.pocketvouchers.pv'
+  query_param 'authorization', '4a936ad82d8e51ae0afc317e944bfa569d935a45206b49b67117ee8aaa04a3b1'
+  query_param 'ledger', 'g.crypto.bitcoin.mainnet'
   query_param 'requestId', '7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9'
 {% endreqspec %}
 
@@ -227,25 +227,13 @@ is returned with the payment request info as `payments[].ledger`.
 | centrapay.nzd.main | centrapay.nzd.main       | *Centrapay wallet id*          |
 | centrapay.nzd.test | centrapay.nzd.test       | *Centrapay wallet id*          |
 | epay.nzd.main      | epay.nzd.main            | *Centrapay asset id*           |
-| pocketvouchers     | g.pocketvouchers.pv      | *Pocket Vouchers voucher code* |
 | bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
-| cennznet.main      | cennznet.main            | *Cennznet transaction id*      |
-| zap.main           | zap.main                 | *Waves transaction id*         |
-| test               | g.test.testUplink        | *Any*                          |
 
 {% h4 Centrapay Asset Permissions %}
 
 To pay with a Centrapay asset or wallet ledger the user (identified by the API
 Key or identity token) must have permission to redeem the asset or transfer
 funds from the specified wallet.
-
-{% h4 Testing Pocket Vouchers %}
-
-To test Pocket Vouchers, generate a test value voucher by texting
-"CENTRALBONUS" to 393.  You will then receive a response text containing an 8
-digit voucher code that has $20 of loaded credit. The received code is only
-valid for two weeks from the issue date. You might get charged your standard
-text rates from your provider.
 
 {% h4 Error Responses %}
 

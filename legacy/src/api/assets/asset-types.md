@@ -18,7 +18,6 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | bitcoin.main         | [Bitcoin][]{:.external}              |              | NZD, AUD                |       |
 | cca.coke.main        | Coke tokens                          | [Token][]    | NZD                     | 🚫     |
 | cca.coke.test        | Coke tokens                          | [Token][]    | NZD                     | 🅃 🚫   |
-| cennznet.main        | [CENNZnet][]{:.external}             |              | NZD                     |       |
 | centrapay.nzd.main   | Centrapay NZD wallet                 | [Money][]    | NZD                     |       |
 | centrapay.nzd.test   | Centrapay NZD wallet                 | [Money][]    | NZD                     | 🅃     |
 | centrapay.token.main | Centrapay tokens                     | [Token][]    | NZD                     |       |
@@ -29,13 +28,10 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 | farmlands.nzd.test   | [Farmlands][]{:.external}            | [Money][]    | NZD                     | 🅃💸💼   |
 | paypal.main          | [PayPal][]{:.external}               |              | USD                     | 💸     |
 | paypal.test          | [PayPal][]{:.external}               |              | USD                     | 🅃 💸   |
-| pocketvouchers       | [Pocket Vouchers][]{:.external}      |              | NZD                     |       |
 | quartz.nzd.main      | Quartz NZD asset                     |              | NZD                     |       |
 | quartz.nzd.test      | Quartz NZD asset                     |              | NZD                     | 🅃     |
-| test                 | No-op test payment (always approved) |              | NZD                     | 🅃     |
 | venmo.main           | [Venmo][]{:.external}                |              | USD                     | 💸     |
 | venmo.test           | [Venmo][]{:.external}                |              | USD                     | 🅃 💸   |
-| zap.main             | [Zap tokens][]{:.external}           |              | NZD                     |       |
 | uplinkapi.test       | Uplink API Test asset                |              | NZD                     | 🅃     |
 | stadius.main         | [Stadius][]{:.external}              |              | NZD, AUD, USD, CAD, EUR |       |
 | stadius.test         | [Stadius][]{:.external}              |              | NZD, AUD, USD, CAD, EUR | 🅃     |
@@ -57,9 +53,6 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 [Merchants]: {% link api/merchants/merchants.md %}
 [Line Items]: {% link api/payment-requests/payment-requests.md %}#line-item
 [Bitcoin]: https://bitcoin.org/en/
-[CENNZnet]: https://cennznet.io
-[Zap tokens]: https://www.zap.org/
-[Pocket Vouchers]: https://centrapay.com/pocket-vouchers/
 [PayPal]: https://www.paypal.com/
 [Venmo]: https://venmo.com/
 [Farmlands]: https://www.farmlands.co.nz/
