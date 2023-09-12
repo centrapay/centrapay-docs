@@ -67,13 +67,13 @@ by locality.
 
 {% h4 Optional Fields %}
 
-|   Name   |  Type  |                     Description                      |
-| -------- | ------ | ---------------------------------------------------- |
-| lat      | Number | Absolute latitude coordinate                         |
-| lng      | Number | Absolute longitude coordinate                        |
-| suburb   | String | Suburb of location                                   |
-| postCode | String | Post or Zip code of location                         |
-| state    | String | The state or region of the location (eg. "Auckland") |
+|   Name   |  Type  |                                                  Description                                                  |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| lat      | Number | Absolute latitude coordinate. If you don't provide this, we will automatically infer this from your address.  |
+| lng      | Number | Absolute longitude coordinate. If you don't provide this, we will automatically infer this from your address. |
+| suburb   | String | Suburb of location                                                                                            |
+| postCode | String | Post or Zip code of location                                                                                  |
+| state    | String | The state or region of the location (eg. "Auckland")                                                          |
 
 
 ## PhoneNumber
