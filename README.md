@@ -30,7 +30,7 @@ For local development (with hot reloading):
 docker compose up
 ```
 
-Preview Centrapay Docs at http://0.0.0.0:3000.
+Preview Centrapay Docs at http://0.0.0.0:4321.
 Preview the Legacy Docs at http://0.0.0.0:4000.
 
 To build and preview Centrapay Docs using the static files that are deployed to production (without hot-reloading):
