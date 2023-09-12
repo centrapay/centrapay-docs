@@ -337,7 +337,7 @@
   },"56": {
     "doc": "Data Types",
     "title": "Location",
-    "content": "A location’s represented as an Object with properties to denote the location both absolute and by locality. Required Fields . | Name | Type | Description | . | street | String | Unit, number, and name of street address | . | city | String | City of location | . | country | String | ISO 3166 Country code. (eg. “NZ”) | . Optional Fields . | Name | Type | Description | . | lat | Number | Absolute latitude coordinate | . | lng | Number | Absolute longitude coordinate | . | suburb | String | Suburb of location | . | postCode | String | Post or Zip code of location | . | state | String | The state or region of the location (eg. “Auckland”) | . ",
+    "content": "A location’s represented as an Object with properties to denote the location both absolute and by locality. Required Fields . | Name | Type | Description | . | street | String | Unit, number, and name of street address | . | city | String | City of location | . | country | String | ISO 3166 Country code. (eg. “NZ”) | . Optional Fields . | Name | Type | Description | . | lat | Number | Absolute latitude coordinate. If you don’t provide this, we will automatically infer this from your address. | . | lng | Number | Absolute longitude coordinate. If you don’t provide this, we will automatically infer this from your address. | . | suburb | String | Suburb of location | . | postCode | String | Post or Zip code of location | . | state | String | The state or region of the location (eg. “Auckland”) | . ",
     "url": "/api/data-types#location",
     "relUrl": "/api/data-types#location"
   },"57": {
