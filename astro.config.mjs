@@ -43,5 +43,8 @@ export default defineConfig({
     plugins: [
       flexsearchPlugin(),
     ]
-  }
+  },
+  redirects: {
+    '/guides/merchant-terminals/': '/guides/payment-flows/',
+  },
 });
