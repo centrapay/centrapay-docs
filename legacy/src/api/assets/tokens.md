@@ -42,6 +42,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 | createdAt         | {% dt Timestamp %}                        | Timestamp at which the token collection was created.                                |
 | mediaUploadId     | String {% opt %}                          | The id of the [media upload] [] image of the collection.                            |
 | img               | String {% opt %}                          | The img URL of the collection.                                                      |
+| issuer            | String {% opt %}                          | The name of the [Business][] linked to the account.                                   |
 
 <a name="tokenExpiresAfter">
 ### Token Expires After **EXPERIMENTAL**
@@ -115,6 +116,7 @@ A redemption condition is created for each merchant that accepts tokens from a c
 	"createdAt": "2021-05-12T04:30:11.001Z",
 	"mediaUploadId": "12345",
 	"img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
+  "issuer": "Centrapay"
 }
 {% endjson %}
 
@@ -161,6 +163,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 		"createdAt": "2021-05-12T04:30:11.001Z",
 		"mediaUploadId": "12345",
     "img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
+    "issuer": "Centrapay"
 	}]
 }
 {% endjson %}
@@ -266,3 +269,4 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 
 [paginated]: {% link api/pagination.md %}
 [media upload]: {% link api/media-uploads.md %}
+[Business]: {% link api/accounts/businesses.md %}

@@ -122,7 +122,7 @@ Tokens have the following fields along with the base asset fields.
 | activeFrom    | {% dt Timestamp %} {% opt %} | The date when the asset becomes spendable.                                                                  |
 | expiresAt     | {% dt Timestamp %} {% opt %} | The date when the asset expires.                                                                            |
 | img           | String {% opt %}             | The img URL of the token.                                                                                   |
-| issuer        | String {% opt %}             | The identifier for the issuer of the token.                                                                 |
+| issuer        | String {% opt %}             | The name of the [Business][] that issued the token.                                                           |
 | issuerWebsite | String {% opt %}             | The URL of the issuer of the token.                                                                         |
 | issuerImg     | String {% opt %}             | The img URL of the issuer that the token belongs to.                                                        |
 | externalId    | String {% opt %}             | The asset identifier from the issuing system.                                                               |
@@ -364,3 +364,4 @@ Archive supported asset types by asset id. Currently only gift cards may be arch
 [paginated]: {% link api/pagination.md %}
 [Settlements]: {% link api/assets/wallets.md %}#settlement-wallets
 [token collection]: {% link api/assets/tokens.md %}#token-collection
+[Business]: {% link api/accounts/businesses.md %}
