@@ -82,14 +82,27 @@ which define the payment methods available for a Payment Request.
 | :------------ | :----- | :--------------------------------------------------------------------------------------- |
 | bankAccountId | String | The id of the bank account funds should be settled into. This must belong to the account |
 
-### Merchant Search Asset Filter
+### Merchant Search Result
 
-{% h4 Optional Fields %}
+|     Field      |               Type                |               Description               |
+| :------------- | :-------------------------------- | :-------------------------------------- |
+| id             | {% dt String %}                   | Merchant's unique identifier            |
+| name           | {% dt String %}                   | Merchant's name                         |
+| acceptedAssets | [Accepted Asset](#accepted-asset) | List of assets accepted by the merchant |
+| location       | {% dt Location %} {% opt %}       | Physical location of the merchant       |
 
-|   Field   |           Type            |                                                                  Description                                                                   |
-| :-------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| name      | {% dt String %}           | The [AssetType][] to filter merchants by.                                                                                                      |
-| productId | {% dt String %} {% opt %} | For [epay.nzd](/api/assets#gift-cards) assets `productId` is the asset's `productCode`.<br /> For [centrapay.token](/api/assets#tokens-experimental) assets `productId` is the  asset's `collectionId`. |
+### Accepted Asset
+
+|   Field   |             Type              |                                                                               Description                                                                               |
+| :-------- | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| assetType | {% dt String %}               | The [type][AssetType] of the asset                                                                                                                                     |
+| products  | [Product](#product) {% opt %} | List of products supported by the asset type. Only available for [epay.nzd](/api/assets#gift-cards) and [centrapay.token](/api/assets#tokens-experimental) asset types. |
+
+### Product
+
+| Field |      Type       |         Description         |
+| :---- | :-------------- | :-------------------------- |
+| id    | {% dt String %} | Product's unique identifier |
 
 ## Operations
 
@@ -281,43 +294,52 @@ Returns a [paginated][] list of Merchants attached to an Account.
 
 ### Search Merchants **EXPERIMENTAL**
 
-Returns a [paginated][] list of Merchants with [AssetType][] information
+Returns a [paginated][] response of [merchant search results](#merchant-search-result) that match the search query
 
 {% reqspec %}
   GET '/api/merchants/search'
   auth 'api-key'
   query_param 'origin', '123.42,32.22'
   query_param 'distance', '100'
-  query_param 'asset', '\'{"name": "centrapay.nzd.main", "productId": "37873"}\'', 'urlencode'
+  query_param 'asset', 'epay.nzd.main,37873'
   query_param 'pageKey' , '10'
   query_param 'paginationLimit', '10'
 {% endreqspec %}
 
 {% h4  Query Parameters %}
 
-|           Parameter           |                          Type                           |                                                       Description                                                       |
-| :---------------------------- | :------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
-| {% break _ origin %}          | {% dt String %} {% opt %}                               | The point to be searched around, formatted as a latitude,longitude                                                      |
-| {% break _ distance %}        | {% dt Number %} {% opt %}                               | The distance from the origin to be searched around in km                                                                |
-| {% break _ asset %}           | [Asset Filter](#merchant-search-asset-filter) {% opt %} | The asset `name` and `productId` to filter the merchants. This can be supplied multiple times to further filter results |
-| {% break _ name %}            | {% dt String %} {% opt %}                               | Name of the merchant                                                                                                    |
-| {% break _ pageKey %}         | {% dt String %} {% opt %}                               | pageKey of next merchant to fetch                                                                                       |
-| {% break _ paginationLimit %} | {% dt String %} {% opt %}                               | Maximum amount of merchants to return                                                                                   |
+|           Parameter           |           Type            |                                                       Description                                                       |
+| :---------------------------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
+| {% break _ origin %}          | {% dt String %} {% opt %} | The point to be searched around, formatted as a latitude,longitude                                                      |
+| {% break _ distance %}        | {% dt Number %} {% opt %} | The distance from the origin to be searched around in km                                                                |
+| {% break _ asset %}           | {% dt String %} {% opt %} | A string of the format `{assetType},{productId}` describing the asset where <br /><br /> `assetType` is the type of [asset][AssetType] to filter the merchants by and <br /> `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-cards) asset types or the asset's collectionId for [centrapay.token](/api/assets#tokens-experimental) asset types |
+| {% break _ name %}            | {% dt String %} {% opt %} | Name of the merchant                                                                                                    |
+| {% break _ pageKey %}         | {% dt String %} {% opt %} | pageKey of next merchant to fetch                                                                                       |
+| {% break _ paginationLimit %} | {% dt String %} {% opt %} | Maximum amount of merchants to return                                                                                   |
+
+{% h4 Response %}
+
+|    Field    |                       Type                        |                           Description                            |
+| :---------- | :------------------------------------------------ | :--------------------------------------------------------------- |
+| totalItems  | {% dt Number %}                                   | Total number of merchants that match the search query            |
+| items       | [Merchant Search Result](#merchant-search-result) | List of merchants returned that match the search query           |
+| nextPageKey | {% dt String %}                                   | Can be used to fetch the next page, not present on the last page |
 
 {% h4 Example response payload %}
 
 {% json %}
 {
+  totalItems: 100,
   items: [
     {
       "id": "M001",
       "name": "Store 1",
       "acceptedAssets": [
         {
-          "name": "centrapay.nzd.main"
+          "assetType": "centrapay.nzd.main"
         },
         {
-          "name": "epay.nzd.main",
+          "assetType": "epay.nzd.main",
           "products": [
             {
               "id": "37873"
@@ -328,7 +350,7 @@ Returns a [paginated][] list of Merchants with [AssetType][] information
           ]
         },
         {
-          "name": "centrapay.token.main",
+          "assetType": "centrapay.token.main",
           "products": [
             {
               "id": "Xv990BzkgfoDS7bBls50pd"
