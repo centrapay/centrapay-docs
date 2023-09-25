@@ -296,6 +296,8 @@ Returns a [paginated][] list of Merchants attached to an Account.
 
 Returns a [paginated][] response of [merchant search results](#merchant-search-result) that match the search query
 
+This endpoint does not require [Auth][]
+
 {% reqspec %}
   GET '/api/merchants/search'
   auth 'api-key'
@@ -435,3 +437,4 @@ Returns a [paginated][] list of Merchants which belong to the authenticated subj
 [paginated]: {% link api/pagination.md %}
 [Account]: {% link api/accounts/accounts.md %}
 [AssetType]: {% link api/assets/asset-types.md %}
+[Auth]: {% link api/auth.md %}
