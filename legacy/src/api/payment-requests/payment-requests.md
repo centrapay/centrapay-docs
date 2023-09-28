@@ -45,22 +45,23 @@ version (documented on this page) and the "legacy" version (documented at
 
 {% h4 Mandatory Fields %}
 
-|       Field        |        Type        |                                                   Description                                                   |
-| ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| id                 | String             | The payment request id.                                                                                         |
-| shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                              |
-| url                | String             | The URL for a Centrapay webpage that allows the user to pay the Payment Request.                                |
-| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be less than 100000000 and positive.                           |
-| paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                     |
-| merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                 |
-| merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                   |
-| configId           | String             | The [Merchant Config][] id used to configure the payment options.                                               |
-| status             | String             | "new", "paid", "cancelled", or "expired".                                                                       |
-| liveness           | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test". |
-| createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                           |
-| updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                           |
-| expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                               |
-| merchantConditions | Array              | A dynamic list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment. Conditions are calculated when [polling a Payment Request](#get-a-payment-request).       |
+|       Field        |        Type        |                                                                                             Description                                                                                              |
+| ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                 | String             | The payment request id.                                                                                                                                                                              |
+| shortCode          | String             | A shorter id that can be used to identify the payment request for up to two years.                                                                                                                   |
+| url                | String             | The URL for a Centrapay webpage that allows the user to pay the Payment Request.                                                                                                                     |
+| value              | {% dt Monetary %}  | The canonical value of the payment request. Must be less than 100000000 and positive.                                                                                                                |
+| paymentOptions     | Array              | The [Payment Options](#payment-option), indicating valid asset for payment.                                                                                                                          |
+| merchantId         | String             | The id of the [Merchant][] the Payment Request is on behalf of.                                                                                                                                      |
+| merchantName       | String             | The name of the Merchant the Payment Request is on behalf of.                                                                                                                                        |
+| configId           | String             | The [Merchant Config][] id used to configure the payment options.                                                                                                                                    |
+| status             | String             | "new", "paid", "cancelled", or "expired".                                                                                                                                                            |
+| liveness           | String             | Indicates liveness of assets that are accepted, determined by the payment options. Values are "main" or "test".                                                                                      |
+| createdAt          | {% dt Timestamp %} | When the payment request was created.                                                                                                                                                                |
+| updatedAt          | {% dt Timestamp %} | When the payment request was updated.                                                                                                                                                                |
+| expiresAt          | {% dt Timestamp %} | When the payment request expires.                                                                                                                                                                    |
+| merchantConditions | Array              | A dynamic list of [Payment Conditions](#payment-condition) that require operator approval to complete a payment. Conditions are calculated when [polling a Payment Request](#get-a-payment-request). |
+| remainingAmount    | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                                                       |
 
 {% h4 Optional Fields %}
 
@@ -88,7 +89,6 @@ version (documented on this page) and the "legacy" version (documented at
 | preAuthExpiresAt     | {% dt Timestamp %} | Pre Auth completions and releases will be accepted until this time.                                                                                                      |
 | preAuthStatus        | String             | Describes which state a Pre Auth Payment Request is in. Valid values are "authorized", or "released".                                                                    |
 | taxNumber            | [Tax Number][]     | The value-added tax configuration for the [Business][] that the [Merchant][] belongs to.                                                                                 |
-| remainingAmount      | {% dt BigNumber %} | The amount of the payment request which has not been paid for.                                                                                                           |
 | basketAmount         | {% dt BigNumber %} | The total amount of the transaction including non Centrapay payment methods.                                                                                             |
 | partialAllowed       | Boolean            | Flag to indicate that the payment request can be paid for partially                                                                                                      |
 
