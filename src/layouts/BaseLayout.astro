@@ -4,7 +4,7 @@ import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
 import Footer from '../components/Footer.vue';
 import '../assets/css/tailwind.css';
 import '@fontsource/inter';
-import { getCollection } from 'astro:content';
+import { getCollection } from '../utils/getCollection';
 import Navigation from '../navigation/Navigation';
 import sideNavConfig from '../navigation/sideNavConfig'
 
@@ -26,6 +26,7 @@ const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 const content = await Promise.all([
   ...await getCollection('guides'),
   ...await getCollection('connections'),
+  ...await getCollection('api')
 ])
 const navigation = Navigation.create({ nav: sideNavConfig, content });
 ---

@@ -2,7 +2,17 @@
 
 set -euo pipefail
 
-url="${1:-}"
+mode="development"
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    --prod)
+      shift
+      mode="production"
+    ;;
+  esac
+  shift
+done
 
 cd legacy
 
@@ -11,8 +21,8 @@ bundle exec jekyll build
 
 cd ../
 
-if [[ -n "$url" ]]; then
-  yarn build --site "$url"
+if [ "$mode" == "development" ]; then
+  yarn build --mode "$mode" --site "http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com"
 else
   yarn build
 fi

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedGuideCard from '../components/FeaturedGuideCard.astro';
 import FeaturedContentCard from '../components/FeaturedContentCard.astro';
-import { getCollection } from 'astro:content';
+import { getCollection } from '../utils/getCollection';
 import Prose from '../components/Prose.vue';
 
 export async function getStaticPaths() {

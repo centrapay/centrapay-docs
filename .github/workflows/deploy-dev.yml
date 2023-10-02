@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 18
       - run: yarn install --frozen-lock-file
-      - run: ./build.sh http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com
+      - run: ./build.sh
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:

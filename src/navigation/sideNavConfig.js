@@ -18,4 +18,12 @@ export default [
       { title: 'Farmlands' },
     ]
   },
+  import.meta.env.MODE === 'development' && {
+    title: 'API',
+    subTitle: 'For developers',
+    icon: 'Settings',
+    children: [
+      { title: 'Getting Started' },
+    ]
+  },
 ];
