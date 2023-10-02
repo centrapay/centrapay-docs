@@ -1,10 +1,11 @@
 import { z, defineCollection } from 'astro:content';
 
-const guidesCollection = defineCollection({
+const collection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
     img: z.string().optional(),
+    draft: z.boolean().optional().default(false),
     nav: z.object({
       title: z.string().optional(),
       path: z.string(),
@@ -14,6 +15,7 @@ const guidesCollection = defineCollection({
 });
 
 export const collections = {
-  'guides': guidesCollection,
-  'connections': guidesCollection,
+  'guides': collection,
+  'connections': collection,
+  'api': collection
 };
