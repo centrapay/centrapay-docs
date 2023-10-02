@@ -6,9 +6,9 @@ mode="development"
 
 while [ $# -gt 0 ]; do
   case $1 in
-    --prod)
+    --mode)
       shift
-      mode="production"
+      mode="$1"
     ;;
   esac
   shift
@@ -24,7 +24,7 @@ cd ../
 if [ "$mode" == "development" ]; then
   yarn build --mode "$mode" --site "http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com"
 else
-  yarn build
+  yarn build --mode "$mode"
 fi
 
 rsync -a dist/* _site/

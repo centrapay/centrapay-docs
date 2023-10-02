@@ -27,7 +27,7 @@ jobs:
       - run: yarn install --frozen-lock-file
       - run: yarn lint
       - run: yarn test
-      - run: ./build.sh --prod
+      - run: ./build.sh --mode production
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.JEKYLL_PAT }}
