@@ -1,0 +1,122 @@
+---
+title: HTTP Status Codes
+description: Introduction to HTTP Status Codes
+draft: true
+nav:
+  path: API
+  order: 3
+---
+
+Centrapay APIs respond with 200, 400, 401, 403, 404, or 429 HTTP status codes.
+In rare cases endpoints may respond with 5xx status codes.
+
+Some legacy or deprecated endpoints may have exceptions to the guidelines
+documented here. Any such exceptions will be documented on the endpoints.
+
+## 200 Ok
+
+Everything's ok. Enjoy your well formed response!
+
+## 400 Malformed Request
+
+This is a syntax failure. When you get these back, your application needs to change the way it
+behaves in order to get back the resource that you're after.
+
+Don't try again, this is never going to work.
+
+```json [Response]
+{
+  "statusCode": 400,
+  "message": "amount is required"
+}
+```
+
+### Debugging
+* Make sure you set "content-type: application/json".
+* The response body should indicate where the error is
+* Make sure your HTTP body fields are set correctly.
+* Check your HTTP verb is correct (POST, PUT, GET etc.).
+* Check query parameters are set correctly.
+* Check path parameters are set correctly.
+
+## 401 Unauthorized
+
+API key or JWT is missing, expired or invalid. Go look at our [Auth](https://docs.centrapay.com/api/auth) documentation.
+
+```json [Response]
+{
+  "statusCode": 401,
+  "error": "Unauthorized",
+  "message": "Missing authentication"
+}
+```
+
+## 403 Forbidden
+
+A 403 status indicates resource missing, permission denied or
+business rule violation.
+
+### Resource missing or permission denied
+
+```json [Response]
+{
+  "statusCode": 403,
+  "error": "Forbidden",
+  "message": "Forbidden"
+}
+```
+
+* Check the resource id is correct
+* Check your user or API key has membership for the account that owns the resource you are accessing.
+* Check the role of your user or API key has permission (See [Auth Permissions](https://docs.centrapay.com/api/auth#permissions)).
+
+### Business rule violated
+
+When the resource exists and access is authorized but some other business rule
+is violated then a 403 is returned. Additional information will be included in
+the "message" field of the response body. The possible values for the "message"
+field will be documented on each endpoint.
+
+```json [Response]
+{
+  "statusCode": 403,
+  "error": "Forbidden",
+  "message": "INSUFFICIENT_BALANCE"
+}
+```
+
+## 404 Route Not Found
+
+Variant on a 400, there's a bug in your code that means you've got a typo in
+the URL or HTTP method. Please check against examples in our documentation.
+
+```json [Response]
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "Not Found"
+}
+```
+
+## 429 Too Many Requests
+
+Centrapay API rate limits have been exceeded.
+
+```json [Response]
+{
+  "statusCode": 429,
+  "error": "Too Many Requests",
+  "message": "RATE_LIMIT_EXCEEDED"
+}
+```
+
+### Debugging
+* Check the `Retry-After` HTTP response header for the number of seconds
+  before the next request will be accepted.
+* Contact integrations@centrapay.com to increase your limits.
+
+## 5xx Server Error
+
+If you get a 500 level error, something has gone wrong on our end. Retrying
+should solve the issue. Usually a Centrapay Engineer will investigate but
+bug reports are also welcome at integrations@centrapay.com.
