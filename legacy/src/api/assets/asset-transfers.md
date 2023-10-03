@@ -83,15 +83,7 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 | message     | String             | A message which shows up in the SMS of the receiver. {% maxlen 100 %}           |
 | value       | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type.   |
 | senderName  | String             | Human readable name for the sender. {% maxlen 30 %}                             |
-| senderAlias | String             | Phone number, email or handle of sender to return asset to. See (★) note below. |
 | suppressNotifications | Boolean  | Suppress notifications from Centrapay (SMS/Email).                              |
-
-★ Only provide a senderAlias value if you are invoking asset transfer with api
-key. In case that recipient doesn't claim asset in 2 weeks or asset was sent to
-an invalid Alias (wrong phone number etc) we will use senderAlias to return the
-asset. If asset cannot be returned to a sender it will be returned to asset
-owner.
-
 
 {% h4 Example response payload %}
 
