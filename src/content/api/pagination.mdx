@@ -1,0 +1,90 @@
+---
+title: Pagination
+description: Introduction to Pagination
+draft: true
+nav:
+  path: API
+  order: 5
+---
+
+Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory
+usage and speed up page rendering.
+
+To retrieve the next page, a `pageKey` can be supplied. Typically this will be the `nextPageKey`
+returned from your previous query.
+
+Please note that when making a request, the values of `pageKey` must be URL-encoded. This ensures proper handling of special characters and encoding requirements.
+
+Some of our endpoints have been designed to be forwards compatible with pagination. When we do
+bring support to GET endpoints for listing, these conventions will be followed.
+
+## Request
+
+### Optional Fields
+
+|  Field  |  Type  |               Description                |
+| ------- | ------ | ---------------------------------------- |
+| pageKey | String | Used to retrieve the next page of items. |
+
+### Example
+
+A GET endpoint for listing with a `pageKey`.
+
+```bash [Request]
+curl -X GET https://service.centrapay.com/api/examples \
+  -H "X-Api-Key: $api_key" \
+  -d '{
+    "pageKey": "Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
+  }'
+```
+
+## Response
+
+### Required Fields
+
+| Field | Type  |              Description               |
+| ----- | ----- | -------------------------------------- |
+| items | Array | A list of items from the current page. |
+
+### Optional Fields
+
+| Field       | Type    | Description                                                       |
+| ----------- | ------- | ----------------------------------------------------------------- |
+| nextPageKey | String  | Can be used to fetch the next page, not present on the last page. |
+
+### Example
+
+Example response with more content.
+
+```json [Response]
+{
+  "nextPageKey": "5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d",
+  "items": [
+    {
+      "value": "16",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "value": "32",
+      "assetType": "centrapay.nzd.main"
+    },
+    {
+      "value": "64",
+      "assetType": "centrapay.nzd.main"
+    }
+  ]
+}
+```
+
+Example response with the final page.
+
+```json [Response]
+{
+  "items": [
+    {
+      "value": "128",
+      "assetType": "centrapay.nzd.main"
+    }
+  ]
+}
+```
