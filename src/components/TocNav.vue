@@ -1,6 +1,6 @@
 <template>
   <nav
-    v-if="headings && headings.length"
+    v-if="visibleHeadings && visibleHeadings.length"
     aria-labelledby="on-this-page-title"
     class="w-56"
   >
@@ -12,7 +12,7 @@
     </h2>
     <ol class="mt-4 text-sm">
       <li
-        v-for="heading in headings"
+        v-for="heading in visibleHeadings"
         :key="heading.slug"
         :class="heading.depth === 3 ? 'pl-5' : ''"
       >
@@ -48,6 +48,7 @@ const props = defineProps({
 });
 
 const visibleHeadingId = ref('');
+const visibleHeadings = props.headings.filter(heading => heading.depth <= 3);
 let observer = null;
 
 onMounted(() => {
