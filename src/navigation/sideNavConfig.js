@@ -22,8 +22,5 @@ export default [
     title: 'API',
     subTitle: 'For developers',
     icon: 'Settings',
-    children: [
-      { title: 'Getting Started' },
-    ]
   },
 ];
