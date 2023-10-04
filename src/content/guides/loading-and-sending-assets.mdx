@@ -18,7 +18,7 @@ If your asset type is not included on the list, contact integrations@centrapay.c
 
 You can send Assets such as Tokens and Giftcards by calling our [Asset Transfers](https://docs.centrapay.com/api/asset-transfers#asset-transfer-create) endpoint. You will need to have the recipient’s phone number for `recipientAlias` to identify the reciever.
 
-Optionally the `senderAlias` field can be used if you’re loading an asset on behalf of someone else. If the `recipientAlias` doesn’t end up creating a Centrapay account, then it will be sent to this number.
+If the `recipientAlias` doesn’t end up creating a Centrapay account within 2 weeks, then it will be sent back to you.
 
 ## Example: Bulk distribution of Giftcards
 
