@@ -1,4 +1,4 @@
-export default [
+const navigationItems = [
   {
     title: 'Reference',
     subTitle: 'Learn about core features',
@@ -18,9 +18,14 @@ export default [
       { title: 'Farmlands' },
     ]
   },
-  import.meta.env.MODE === 'development' && {
+];
+
+if (import.meta.env.MODE === 'development') {
+  navigationItems.push({
     title: 'API',
     subTitle: 'For developers',
     icon: 'Settings',
-  },
-];
+  });
+}
+
+export default navigationItems;
