@@ -158,6 +158,19 @@ Tokens have the following fields along with the base asset fields.
 }
 {% endjson %}
 
+{% h4 Example response payload (public view - authorization not required) %}
+
+{% json %}
+{
+  "id": "L75M3L56N2PtBSt8g7uXLU",
+  "issuer": "Centraperk Cafe",
+  "description": "Free Coffee",
+  "expiresAt": "2020-12-31T00:00:00.000Z",
+	"img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
+	"liveness": "test"
+}
+{% endjson %}
+
 ### List Assets for Account
 
 Returns a [paginated][] list of Assets for an account. This will not return archived assets.

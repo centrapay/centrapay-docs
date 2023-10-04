@@ -168,6 +168,19 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 }
 {% endjson %}
 
+{% h4 Example response payload (public view - authorization not required) %}
+
+{% json %}
+{
+  "id": "M7Kn2stAxNa6ri7h",
+  "status": "created",
+  "assetId": "YGRo6TYYSxH3js7",
+  "message": "Happy birthday",
+  "senderName": "My Cafe",
+	"createdAt": "2020-05-01T12:30:00.000Z"
+}
+{% endjson %}
+
 ## Resolve claimable assets **EXPERIMENTAL**
 
 When you send another centrapay user cash or assets, they're automatically assigned to them.
