@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "vitest --watch=false"
+    "test": "vitest --watch=false",
+    "integration": "rsync -a dist/* _site/ && vitest --watch=false --config vitest.integration.config.js"
   },
   "devDependencies": {
     "@astrojs/markdoc": "^0.5.1",
@@ -33,6 +34,7 @@
     "linkinator": "^5.0.2",
     "mdast-util-to-string": "^3.1.1",
     "mermaid": "^9.3.0",
+    "path": "^0.12.7",
     "remark-html": "^15.0.2",
     "remark-parse": "^10.0.1",
     "remark-sectionize": "^1.1.1",
@@ -41,6 +43,7 @@
     "unist-util-find-after": "^4.0.1",
     "unist-util-visit": "^4.1.2",
     "vitest": "^0.28.3",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "jsdom": "^22.1.0"
   }
 }

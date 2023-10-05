@@ -39,3 +39,11 @@ To build and preview Centrapay Docs using the static files that are deployed to 
 docker compose run script yarn build
 docker compose run script yarn preview
 ```
+
+## Integration Tests
+
+```
+docker compose run ruby-script bundle exec jekyll build
+docker compose run script yarn build --mode development
+docker compose run integration yarn integration
+```

@@ -5,6 +5,8 @@ services:
     volumes: [ node-modules:/work/node_modules ]
   script:
     volumes: [ node-modules:/work/node_modules ]
+  integration:
+    volumes: [ node-modules:/work/node_modules ]
   legacy:
     volumes: [ bundle:/usr/local/bundle ]
   ruby-script:
