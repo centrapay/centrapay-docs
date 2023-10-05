@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <div class="px-16 py-8 flex flex-col items-center space-y-6 h-full justify-center">
+    <div class="flex flex-col items-center space-y-2">
+      <p class="text-content-accent type-body-2 font-bold">
+        404
+      </p>
+      <h1 class="type-headline-2 text-gray-900">
+        Page not found
+      </h1>
+      <p class="type-body-2 text-content-tertiary text-center">
+        Sorry, we couldn’t find the page you’re looking for.
+      </p>
+    </div>
+    <div class="flex space-x-2 items-center">
+      <a href="/">
+        <div
+          class="btn bg-interactive-primary border rounded-md"
+        >
+          <span class="type-caption-2 text-content-inverse-primary">
+            Go back home
+          </span>
+        </div>
+      </a>
+      <button
+        id="freshdesk"
+        type="button"
+        class="btn bg-interactive-tertiary border rounded-md"
+      >
+        <span class="type-caption-2 text-content-tertiary">
+          Contact support
+        </span>
+      </button>
+    </div>
+  </div>
+</BaseLayout>
