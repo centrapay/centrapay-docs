@@ -15,9 +15,10 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
+const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} img={previewImg}>
   <div class="relative mx-auto desktop-gutters flex justify-center">
     <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
       <article>
