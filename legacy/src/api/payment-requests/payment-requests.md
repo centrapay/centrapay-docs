@@ -274,7 +274,8 @@ Payment Activities are created when a Payment Request has been **created**, **pa
 | ----------------- | ------------------------------------------------------------------------------------------ |
 | request           | [Payment Request][] was created.                                                           |
 | preAuthRequest    | [Payment Request][] was created with the `preAuth` flag set to "true".                     |
-| payment           | [Payment Request][] was paid.                                                              |
+| paid              | [Payment Request][] was paid.                                                              |
+| payment           | A payment was made towards the [Payment Request][].                                        |
 | refund            | Funds were returned to the shopper.                                                        |
 | cancellation      | [Payment Request][] was cancelled by the merchant or the shopper.                          |
 | expiry            | [Payment Request][] wasn't paid before time out.                                           |
