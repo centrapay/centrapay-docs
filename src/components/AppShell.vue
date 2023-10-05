@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full">
+  <div class="flex h-screen w-screen">
     <TransitionRoot
       as="template"
       :show="mainMenuOpen"
@@ -116,7 +116,7 @@
       </div>
     </div>
 
-    <main class="flex flex-col min-h-screen pt-16 md:pl-64 xl:pl-80">
+    <main class="flex flex-col min-h-full w-full pt-16 md:pl-64 xl:pl-80">
       <slot />
     </main>
   </div>
