@@ -1,0 +1,43 @@
+---
+title: Media Uploads
+description: Media Uploads API Reference
+draft: true
+nav:
+  path: API
+  order: 7
+---
+import Properties from '../../components/Properties.vue';
+import Property from '../../components/Property.vue';
+
+## Model
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    The Media Upload's unique identifier.
+  </Property>
+  <Property name="accountId" type="string">
+    The Media Upload's owning Centrapay Account id.
+  </Property>
+  <Property name="mimeType" type="string">
+    The media (MIME) type of the upload.
+  </Property>
+  <Property name="fileName" type="string">
+    The file name of the upload.
+  </Property>
+  <Property name="createdAt" type="Timestamp">
+    When the Media Upload was created.
+  </Property>
+  <Property name="updatedAt" type="Timestamp">
+    When the Media Upload was updated.
+  </Property>
+  <Property name="createdBy" type="CRN">
+    The User or API Key that created the Media Upload.
+  </Property>
+  <Property name="updatedBy" type="CRN">
+    The User or API Key that updated the Media Upload.
+  </Property>
+</Properties>
+
+---

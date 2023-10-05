@@ -1,12 +1,5 @@
 const colors = require('./src/assets/css/colors');
-
-const disabledCss = {
-  'code::before': false,
-  'code::after': false,
-  pre: false,
-  code: false,
-  'pre code': false,
-};
+const typographyStyles = require('./typography');
 
 const tailwindConfig = {
   content: [
@@ -16,10 +9,8 @@ const tailwindConfig = {
     fontFamily: {
       'sans': [ 'Inter', 'Sans-Serif' ],
     },
+    typography: typographyStyles,
     extend: {
-      typography: {
-        DEFAULT: { css: disabledCss },
-      },
       colors: {
         ...colors.light,
         current: 'currentColor',
