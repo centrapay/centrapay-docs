@@ -79,7 +79,7 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
       <AppShell client:load path={Astro.url.pathname} baseUrl={Astro.url.origin} navigation={navigation}>
         <slot />
         <button
-          id="freshdesk"
+          id="freshdesk-button"
           type="button"
           class="btn space-x-0 bg-interactive-quaternary fixed right-6 bottom-6 border rounded-full shadow-lg flex justify-center w-16 h-16 hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
         >
@@ -94,10 +94,10 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
     </div>
     <script>
       window.FreshworksWidget('hide', 'launcher');
-      const freshdeskButton = document.querySelectorAll('button#freshdesk')[0];
-      freshdeskButton.addEventListener('click', () => {
+      const freshdeskButtons = document.querySelectorAll('[id^=freshdesk]');
+      freshdeskButtons.forEach(button => button.addEventListener('click', () => {
         window.FreshworksWidget('open');
-      });
+      }));
 
       const graphs = document.getElementsByClassName('mermaid');
       if (graphs.length > 0) {
