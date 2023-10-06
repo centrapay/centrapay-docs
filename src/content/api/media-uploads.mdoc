@@ -1,0 +1,46 @@
+---
+title: Media Uploads
+description: Media Uploads API Reference
+draft: true
+nav:
+  path: API
+  order: 7
+---
+
+## Model
+
+### Properties
+
+{% properties %}
+{% property name="id" type="string" %}
+The Media Upload's unique identifier.
+{% /property %}
+
+{% property name="accountId" type="string" %}
+The Media Upload's owning Centrapay Account id.
+{% /property %}
+
+{% property name="mimeType" type="string" %}
+The media (MIME) type of the upload.
+{% /property %}
+
+{% property name="fileName" type="string" %}
+The file name of the upload.
+{% /property %}
+
+{% property name="createdAt" type="timestamp" %}
+When the Media Upload was created.
+{% /property %}
+
+{% property name="createdBy" type="crn" %}
+The User or API Key that created the Media Upload.
+{% /property %}
+
+{% property name="updatedAt" type="timestamp" %}
+When the Media Upload was updated.
+{% /property %}
+
+{% property name="updatedBy" type="crn" %}
+The User or API Key that updated the Media Upload.
+{% /property %}
+{% /properties %}
