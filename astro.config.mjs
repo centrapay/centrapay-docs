@@ -1,34 +1,28 @@
 import { defineConfig } from 'astro/config';
 import flexsearchPlugin from './src/plugins/flexsearch';
 
-// https://astro.build/config
 import tailwind from '@astrojs/tailwind';
-
-// https://astro.build/config
-import vue from '@astrojs/vue';
 
 // Remark
 import remarkSectionize from 'remark-sectionize';
 import { mermaid } from './src/plugins/mermaid';
 
 // https://astro.build/config
+import vue from '@astrojs/vue';
 import mdx from '@astrojs/mdx';
+import markdoc from '@astrojs/markdoc';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://docs.centrapay.com',
   integrations: [
     vue(),
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    mdx()
+    tailwind({ applyBaseStyles: false }),
+    mdx(),
+    markdoc()
   ],
   markdown: {
-    remarkPlugins: [
-      remarkSectionize,
-      mermaid,
-    ],
+    remarkPlugins: [remarkSectionize, mermaid],
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
       // https://github.com/shikijs/shiki/blob/main/docs/themes.md
