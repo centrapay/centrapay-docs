@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest --watch=false",
-    "integration": "rsync -a dist/* _site/ && vitest --watch=false --config vitest.integration.config.js"
+    "integration": "cp -r dist/* _site/ && vitest --watch=false --config vitest.integration.config.js"
   },
   "devDependencies": {
     "@astrojs/markdoc": "^0.5.1",

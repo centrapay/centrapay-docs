@@ -46,14 +46,3 @@ services:
         echo "
         To execute a script, run:
         docker-compose run ruby-script {command}"
-  integration:
-    build:
-      context: .
-      dockerfile: Dockerfile.integration
-    init: true
-    working_dir: /work
-    volumes: [ ".:/work" ]
-    command: |
-      echo '
-        Skipping integration tests. To execute integration tests, run:
-        docker compose run integration yarn integration'

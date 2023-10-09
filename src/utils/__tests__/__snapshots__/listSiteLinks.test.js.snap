@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`listSiteLinks > should not include anchor tags that do not go anywhere 1`] = `
+Set {
+  "/utils/__tests__/examples/empty-anchor/api",
+}
+`;
+
+exports[`listSiteLinks > should not include any external links 1`] = `
+Set {
+  "/utils/__tests__/examples/external-links/api",
+  "/utils/__tests__/examples/external-links/api#heading-1",
+}
+`;
+
+exports[`listSiteLinks > should return a unique set of links and anchor tags 1`] = `
+Set {
+  "/utils/__tests__/examples/duplicate-paths/api",
+  "/utils/__tests__/examples/duplicate-paths/api#heading-1",
+  "/utils/__tests__/examples/duplicate-paths/api#heading-2",
+  "/utils/__tests__/examples/duplicate-paths/api#heading-3",
+  "/utils/__tests__/examples/duplicate-paths/api#heading-4",
+  "/utils/__tests__/examples/duplicate-paths/api#heading-5",
+}
+`;

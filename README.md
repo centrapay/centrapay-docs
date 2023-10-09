@@ -45,5 +45,5 @@ docker compose run script yarn preview
 ```
 docker compose run ruby-script bundle exec jekyll build
 docker compose run script yarn build --mode development
-docker compose run integration yarn integration
+docker compose run script yarn integration
 ```
