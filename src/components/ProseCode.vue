@@ -1,6 +1,6 @@
 <template>
   <div
-    class="my-8 rounded-lg"
+    class="mb-8 rounded-lg"
   >
     <div class="border border-outline-opaque rounded-xl overflow-hidden">
       <div class="flex w-full justify-between items-center border-b border-outline-opaque rounded-xl rounded-b-none bg-surface-secondary text-content-secondary shadow-sm py-2 px-4">
