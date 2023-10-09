@@ -1,0 +1,21 @@
+---
+
+const { type = "default", text, link } = Astro.props;
+const badgeText = text ? text : type;
+
+const coloursMap = {
+  experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
+  GET: 'border-green-400 bg-green-100 text-content-primary',
+  POST: 'border-cyan-400 bg-cyan-100 text-content-primary',
+  PUT: 'border-orange-400 bg-orange-100 text-content-primary',
+  DELETE: 'border-red-400 bg-rose-100 text-content-primary',
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary'
+}
+
+const badgeClass =`${coloursMap[type]} type-caption-2 px-2 py-0.5 rounded-full border self-center`
+
+---
+{link ?
+  <a class={badgeClass} href={link}>{badgeText}</a> :
+  <span class={badgeClass}>{badgeText}</span>
+}

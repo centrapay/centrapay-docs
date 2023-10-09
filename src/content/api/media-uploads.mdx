@@ -10,6 +10,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodeGroup from '../../components/CodeGroup.astro';
+import Badge from '../../components/Badge.astro';
 
 ## Model
 
@@ -58,9 +59,8 @@ import CodeGroup from '../../components/CodeGroup.astro';
 <Endpoint
   method="POST"
   path="/api/media-uploads"
-  experimental
 >
-  ## Create a presigned URL for Media Upload
+  ## Create a presigned URL for Media Upload <Badge type="experimental"/>
 
   This endpoint allows you to upload a media file to Centrapay. It returns a presigned URL that can be used to download the media file.
 
@@ -106,9 +106,8 @@ import CodeGroup from '../../components/CodeGroup.astro';
 <Endpoint
   method="GET"
   path="/api/media-uploads/{mediaUploadId}/location"
-  experimental
 >
-  ## Get Media Upload Location
+  ## Get Media Upload Location <Badge type="experimental"/>
 
   This endpoint allows you to retrieve the upload location of a media file.
 
@@ -127,5 +126,4 @@ import CodeGroup from '../../components/CodeGroup.astro';
     }
     ```
   </CodeGroup>
-
 </Endpoint>

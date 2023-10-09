@@ -32,7 +32,7 @@ const colors = {
     'content-inverse-secondary': '#E5E7EB',
     'content-inverse-tertiary': '#D1D5DB',
     'content-disabled': '#9CA3AF',
-    'content-accent': '#FF5C00',
+    'content-accent': '#C6440E',
     'content-on-color': '#FFFFFF',
     'content-negative': '#B91C1C',
     'content-warning': '#D97706',
