@@ -44,3 +44,77 @@ When the Media Upload was updated.
 The User or API Key that updated the Media Upload.
 {% /property %}
 {% /properties %}
+
+{% endpoint method="POST" path="/api/media-uploads" %}
+## Create a presigned URL for Media Upload EXPERIMENTAL
+{% row %}
+{% column %}
+### Attributes
+{% properties %}
+{% property name="accountId" type="string" %}
+The Media Upload's owning Centrapay Account id.
+{% /property %}
+
+{% property name="mimeType" type="string" %}
+The media (MIME) type of the upload.
+{% /property %}
+
+{% property name="fileName" type="string" %}
+The file name of the upload.
+{% /property %}
+{% /properties %}
+{% /column %}
+
+{% column sticky=true %}
+
+{% code %}
+```bash
+curl -X POST https://service.centrapay.com/api/media-uploads \
+  -H "X-Api-Key: $api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "accountId": "Jaim1Cu1Q55uooxSens6yk",
+    "mimeType": "image/png",
+    "fileName": "image.png"
+  }'
+```
+{% /code %}
+
+{% code %}
+```json
+{
+  "id": "DKTs3U38hdhfEqwF1JKoT2",
+  "uploadUrl": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+}
+```
+{% /code %}
+
+{% /column %}
+{% /row %}
+{% /endpoint %}
+
+
+{% endpoint method="GET" path="/api/media-uploads/{mediaUploadId}/location" %}
+## Get Media Upload Location EXPERIMENTAL
+{% row %}
+{% column/ %}
+{% column sticky=true %}
+
+{% code %}
+```bash
+curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/location \
+  -H "X-Api-Key: $api_key"
+```
+{% /code %}
+
+{% code %}
+```json
+{
+  "url": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+}
+```
+{% /code %}
+
+{% /column %}
+{% /row %}
+{% /endpoint %}

@@ -1,0 +1,8 @@
+
+---
+const { sticky = false } = Astro.props;
+---
+
+<div class=`${sticky ? '[&>:first-child]:mt-0 [&>:last-child]:mb-0 xl:sticky xl:top-24' : '[&>:first-child]:mt-0 [&>:last-child]:mb-0'}`>
+  <slot />
+</div>

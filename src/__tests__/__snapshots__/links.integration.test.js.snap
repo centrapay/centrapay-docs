@@ -302,6 +302,7 @@ exports[`the build should not break any links 1`] = `
   "/api/managed-integrations#paypal-referral",
   "/api/managed-integrations#top",
   "/api/media-uploads",
+  "/api/media-uploads#attributes",
   "/api/media-uploads#contents",
   "/api/media-uploads#create-a-presigned-url-for-media-upload-experimental",
   "/api/media-uploads#get-media-upload-location-experimental",
