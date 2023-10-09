@@ -25,7 +25,6 @@
                     :path="navPath"
                     :base-url="baseUrl"
                     :navigation="navigation"
-                    @link-clicked="mainMenuOpen = false"
                   />
                 </nav>
               </div>
