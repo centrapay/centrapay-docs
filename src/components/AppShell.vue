@@ -20,14 +20,11 @@
           >
             <DialogPanel class="relative flex w-full flex-1 flex-col bg-surface-primary">
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-                <nav class="space-y-1 px-2">
-                  <SiteNavigation
-                    :path="navPath"
-                    :base-url="baseUrl"
-                    :navigation="navigation"
-                    @link-clicked="mainMenuOpen = false"
-                  />
-                </nav>
+                <SiteNavigation
+                  :path="navPath"
+                  :base-url="baseUrl"
+                  :navigation="navigation"
+                />
               </div>
             </DialogPanel>
           </TransitionChild>
