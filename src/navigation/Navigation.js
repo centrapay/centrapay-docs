@@ -11,11 +11,16 @@ class NavGroup {
 
   static create({ nav, content, parentPath = [] }) {
     const path = [...parentPath, nav.title];
-    const childNavGroups = nav.children?.map(n => NavGroup.create({
-      nav: n,
-      content,
-      parentPath: path
-    })) || [];
+    const childNavGroups = nav.children?.map(n =>
+    {
+      return NavGroup.create({
+        nav: n,
+        content,
+        parentPath: path
+      });
+    }
+    ) || [];
+
     const childPages = content.filter(c => c.data.nav.path === path.join('/'))
       .map(Page.fromContent)
       .sort((a, b) => a.nav.order - b.nav.order);

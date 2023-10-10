@@ -10,7 +10,7 @@
           :navigation-item="item"
           :path="path"
         />
-        <SiteNavigationLink
+        <PageLinks
           v-else
           :navigation-item="item"
           :path="path"
@@ -42,7 +42,7 @@
 
 <script setup>
 import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
-import SiteNavigationLink from './SiteNavigationLink.vue';
+import PageLinks from './PageLinks.vue';
 import Settings from './icons/Settings.vue';
 
 const props = defineProps({
