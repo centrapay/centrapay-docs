@@ -226,6 +226,14 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 		"externalId": "23403283262",
   	})
   }
+  example {
+    title 'Create a token with accountId'
+    body ({
+    "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+		"accountId": "WRhAxxWpTKb5U7pXyxQjjP",
+  	})
+  }
 {% endreqspec %}
 
 {% h4 Fields %}
@@ -235,6 +243,7 @@ Note: The `pageKey` value, if provided, needs to be URL-encoded.
 | collectionId   | String           | The [token collection](#token-collection) that will govern the branding and redemption rules for the token. |
 | idempotencyKey | String           | Client-supplied identifier that prevents double creation.                                                   |
 | externalId     | String {% opt %} | The asset identifier from the issuing system.                                                               |
+| accountId      | String {% opt %} | The account to create the token for. Defaults to the account on the token collection.                       |
 
 {% h4 Example response payload %}
 
