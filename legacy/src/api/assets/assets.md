@@ -158,7 +158,14 @@ Tokens have the following fields along with the base asset fields.
 }
 {% endjson %}
 
-{% h4 Example response payload (public view - authorization not required) %}
+### Get Asset Public Summary
+
+{% reqspec %}
+  GET '/api/assets/{assetId}/public-summary'
+  path_param 'assetId', 'L75M3L56N2PtBSt8g7uXLU'
+{% endreqspec %}
+
+{% h4 Example response payload %}
 
 {% json %}
 {

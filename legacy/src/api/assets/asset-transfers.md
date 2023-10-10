@@ -168,7 +168,14 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 }
 {% endjson %}
 
-{% h4 Example response payload (public view - authorization not required) %}
+## Get an Asset Transfer Public Summary
+
+{% reqspec %}
+  GET '/api/asset-transfers/{assetTransferId}/public-summary'
+  path_param 'assetTransferId', 'M7Kn2stAxNa6ri7h'
+{% endreqspec %}
+
+{% h4 Example response payload %}
 
 {% json %}
 {
