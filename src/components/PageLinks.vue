@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div :class="{ 'border-l-2 border-brand-accent': selected }">
+    <div :class="{ 'border-l-2 border-brand-accent': selected && !navigationItem.headings.length }">
       <a
         :href="href"
         class="group mt-2 w-full flex items-center pl-12 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-        :class="{ 'bg-gray-100': selected }"
+        :class="{ 'bg-gray-100': selected && !navigationItem.headings.length }"
       >
         <span
           role="menuitem"
@@ -20,32 +20,29 @@
         </span>
       </a>
     </div>
-    <DisclosureTransition>
-      <ul
-        v-for="heading in navigationItem.headings"
-        v-show="selected"
-        :key="heading.text"
-      >
-        <li>
-          <a
-            :href="`#${heading.slug}`"
-            class="text-xs text-content-secondary group mt-2 w-full flex items-center pl-16 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
-            :class="{
-              'bg-gray-50': visibleHeadingId === heading.slug,
-            }"
-            @click="handleHeadingClick(heading.slug)"
-          >
-            {{ heading.text }}
-          </a>
-        </li>
-      </ul>
-    </DisclosureTransition>
+    <ul
+      v-for="heading in navigationItem.headings"
+      v-show="selected"
+      :key="heading.text"
+    >
+      <li :class="{ 'border-l-2 border-brand-accent': visibleHeadingId === heading.slug }">
+        <a
+          :href="`#${heading.slug}`"
+          class="text-xs text-content-secondary group mt-2 w-full flex items-center pl-16 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+          :class="{
+            'bg-gray-100': visibleHeadingId === heading.slug,
+          }"
+          @click="handleHeadingClick(heading.slug)"
+        >
+          {{ heading.text }}
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import DisclosureTransition from './DisclosureTransition.vue';
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: '' },
