@@ -10,25 +10,28 @@
     >
       On this page
     </h2>
-    <ol class="mt-4 text-sm">
+    <ol class="mt-4">
       <li
         v-for="heading in visibleHeadings"
         :key="heading.slug"
-        :class="heading.depth === 3 ? 'pl-5' : ''"
       >
         <a
           :href="`#${heading.slug}`"
-          @click="handleTocClick(heading.slug)"
+          class="flex border-l-2 text-sm p-squish-2 truncate hover:text-content-primary hover:border-content-primary"
+          :class="[
+            visibleHeadingIds.includes(heading.slug) ?
+              'text-content-primary border-brand-accent':
+              'text-content-tertiary'
+          ]"
         >
-          <h3
-            class="border-l-2 p-squish-2 hover:text-content-primary hover:border-content-primary"
-            :class="[
-              visibleHeadingId === heading.slug ? 'text-content-primary border-brand-accent': 'font-normal text-content-tertiary',
-              heading.depth === 3 ? 'pl-5' : ''
-            ]"
+          <span
+            :class="{
+              'pl-4': heading.depth === 3,
+              'font-bold': heading.depth === 2
+            }"
           >
             {{ heading.text }}
-          </h3>
+          </span>
         </a>
       </li>
     </ol>
@@ -47,30 +50,30 @@ const props = defineProps({
   headings: { type: Object, required: true },
 });
 
-const visibleHeadingId = ref('');
+const visibleHeadingIds = ref([]);
 const visibleHeadings = props.headings.filter(heading => heading.depth <= 3);
 let observer = null;
 
 onMounted(() => {
   const observerOptions = {
     threshold: 0,
-    rootMargin: '-20% 0px -80% 0px',
   };
 
   observer = new IntersectionObserver(contentSections => {
     contentSections.forEach(contentSection => {
       const headingId = contentSection.target.firstElementChild.id;
       if (contentSection.isIntersecting) {
-        visibleHeadingId.value = headingId;
+        visibleHeadingIds.value.push(headingId);
+      } else {
+        const index = visibleHeadingIds.value.indexOf(headingId);
+        if (index > -1) {
+          visibleHeadingIds.value.splice(index, 1);
+        }
       }
     });
   }, observerOptions);
 
   const sections = document.querySelectorAll('section');
-  if (sections.length) {
-    const firstHeadingId = sections[0].firstElementChild.id;
-    visibleHeadingId.value = firstHeadingId;
-  }
   sections.forEach(contentSection => {
     observer.observe(contentSection);
   });
@@ -79,9 +82,5 @@ onMounted(() => {
 onUnmounted(() => {
   observer.disconnect();
 });
-
-function handleTocClick (headingId) {
-  visibleHeadingId.value = headingId;
-};
 
 </script>
