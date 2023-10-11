@@ -158,10 +158,10 @@ Tokens have the following fields along with the base asset fields.
 }
 {% endjson %}
 
-### Get Asset Public Summary
+### Get Asset Summary
 
 {% reqspec %}
-  GET '/api/assets/{assetId}/public-summary'
+  GET '/api/assets/{assetId}/summary'
   path_param 'assetId', 'L75M3L56N2PtBSt8g7uXLU'
 {% endreqspec %}
 

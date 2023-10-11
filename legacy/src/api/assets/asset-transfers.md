@@ -168,10 +168,10 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 }
 {% endjson %}
 
-## Get an Asset Transfer Public Summary
+## Get an Asset Transfer Summary
 
 {% reqspec %}
-  GET '/api/asset-transfers/{assetTransferId}/public-summary'
+  GET '/api/asset-transfers/{assetTransferId}/summary'
   path_param 'assetTransferId', 'M7Kn2stAxNa6ri7h'
 {% endreqspec %}
 
