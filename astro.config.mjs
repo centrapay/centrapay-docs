@@ -10,7 +10,6 @@ import { mermaid } from './src/plugins/mermaid';
 // https://astro.build/config
 import vue from '@astrojs/vue';
 import mdx from '@astrojs/mdx';
-import markdoc from '@astrojs/markdoc';
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +18,6 @@ export default defineConfig({
     vue(),
     tailwind({ applyBaseStyles: false }),
     mdx(),
-    markdoc()
   ],
   markdown: {
     remarkPlugins: [remarkSectionize, mermaid],

@@ -20,22 +20,6 @@
   resolved "https://registry.yarnpkg.com/@astrojs/internal-helpers/-/internal-helpers-0.2.1.tgz#4e2e6aabaa9819f17119aa10f413c4d6122c94cf"
   integrity sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==
 
-"@astrojs/markdoc@^0.5.1":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@astrojs/markdoc/-/markdoc-0.5.2.tgz#82a21f4918220d06febba2898360bc971d79e8c6"
-  integrity sha512-8zVsC0oauNTfZBww+GZDTP2HD0vJqlu+D734oEnqVySOnbKHVIWAoCqxUzEph8Af6rxWzakBNxj09zCIZlHPuQ==
-  dependencies:
-    "@astrojs/internal-helpers" "0.2.1"
-    "@astrojs/prism" "3.0.0"
-    "@markdoc/markdoc" "^0.3.0"
-    esbuild "^0.19.2"
-    github-slugger "^2.0.0"
-    gray-matter "^4.0.3"
-    htmlparser2 "^9.0.0"
-    kleur "^4.1.5"
-    shiki "^0.14.3"
-    zod "3.21.1"
-
 "@astrojs/markdown-remark@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@astrojs/markdown-remark/-/markdown-remark-3.1.0.tgz#5ae8ecb06ca941dd29b7945cec911afa11764782"
@@ -96,7 +80,7 @@
     unist-util-visit "^4.1.2"
     vfile "^5.3.7"
 
-"@astrojs/prism@3.0.0", "@astrojs/prism@^3.0.0":
+"@astrojs/prism@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@astrojs/prism/-/prism-3.0.0.tgz#c9443e4cbf435acf0b5adc2c627d9789991514e7"
   integrity sha512-g61lZupWq1bYbcBnYZqdjndShr/J3l/oFobBKPA3+qMat146zce3nz2kdO4giGbhYDt4gYdhmoBz0vZJ4sIurQ==
@@ -914,13 +898,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@markdoc/markdoc@^0.3.0":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@markdoc/markdoc/-/markdoc-0.3.2.tgz#5a77a85dfcdd25a43969369473b638dbfdb87df4"
-  integrity sha512-D0SaanaSkTIARvQu+zQqPEpKcvYUBR/mfac9e8JzS89P7eXhiNWPonUN7avRS1saZHpIQWIRote97qT+jGk5Gw==
-  optionalDependencies:
-    "@types/markdown-it" "12.2.3"
-
 "@mdx-js/mdx@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-2.3.0.tgz#d65d8c3c28f3f46bb0e7cb3bf7613b39980671a9"
@@ -1075,19 +1052,6 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.30.tgz#44cb52f32a809734ca562e685c6473b5754a7818"
   integrity sha512-sqm9g7mHlPY/43fcSNrCYfOeX9zkTTK+euO5E6+CVijSMm5tTjkVdwdqRkY3ljjIAf8679vps5jKUoJBCLsMDA==
 
-"@types/linkify-it@*":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@types/linkify-it/-/linkify-it-3.0.3.tgz#15a0712296c5041733c79efe233ba17ae5a7587b"
-  integrity sha512-pTjcqY9E4nOI55Wgpz7eiI8+LzdYnw3qxXCfHyBDdPbYvbyLgWLJGh8EdPvqawwMK1Uo1794AUkkR38Fr0g+2g==
-
-"@types/markdown-it@12.2.3":
-  version "12.2.3"
-  resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-12.2.3.tgz#0d6f6e5e413f8daaa26522904597be3d6cd93b51"
-  integrity sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ==
-  dependencies:
-    "@types/linkify-it" "*"
-    "@types/mdurl" "*"
-
 "@types/mdast@^3.0.0":
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/@types/mdast/-/mdast-3.0.10.tgz#4724244a82a4598884cbbe9bcfd73dff927ee8af"
@@ -1101,11 +1065,6 @@
   integrity sha512-IlKct1rUTJ1T81d8OHzyop15kGv9A/ff7Gz7IJgrk6jDb4Udw77pCJ+vq8oxZf4Ghpm+616+i1s/LNg/Vh7d+g==
   dependencies:
     "@types/unist" "*"
-
-"@types/mdurl@*":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/mdurl/-/mdurl-1.0.3.tgz#d0aefccdd1a96f4bec76047d6b314601f0b0f3de"
-  integrity sha512-T5k6kTXak79gwmIOaDF2UUQXFbnBE0zBUzF20pz7wDYu0RQMzWg+Ml/Pz50214NsFHBITkoi5VtdjFZnJ2ijjA==
 
 "@types/mdx@^2.0.0":
   version "2.0.3"
@@ -3926,7 +3885,7 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-kleur@^4.0.3, kleur@^4.1.4, kleur@^4.1.5:
+kleur@^4.0.3, kleur@^4.1.4:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==

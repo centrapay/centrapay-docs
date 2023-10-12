@@ -10,7 +10,6 @@
     "integration": "cp -r dist/* _site/ && vitest --watch=false --config vitest.integration.config.js"
   },
   "devDependencies": {
-    "@astrojs/markdoc": "^0.5.1",
     "@astrojs/mdx": "^1.0.3",
     "@astrojs/tailwind": "^5.0.0",
     "@astrojs/vue": "^3.0.0",
