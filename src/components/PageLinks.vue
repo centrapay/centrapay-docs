@@ -26,16 +26,16 @@
       :key="heading.text"
     >
       <li
-        class="border-l-2 py-1"
-        :class="visibleHeadingIds.includes(heading.slug) ? 'border-brand-accent bg-gray-50' : 'border-interactive-tertiary'"
+        class="border-l-2 transition delay-200 duration-1000 ease-in-out"
+        :class="visibleHeadingIds.includes(heading.slug) ?
+          'border-brand-accent bg-gray-50' :
+          'border-interactive-tertiary'"
       >
         <a
           :href="`#${heading.slug}`"
-          class="text-xs text-content-secondary group w-full flex items-center pl-16 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+          class="text-xs text-content-secondary hover:text-content-primary group w-full flex items-center pl-16 pr-1 py-2 space-x-3 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
         >
-          <span>
-            {{ heading.text }}
-          </span>
+          {{ heading.text }}
         </a>
       </li>
     </ul>
