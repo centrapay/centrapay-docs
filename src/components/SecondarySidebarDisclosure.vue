@@ -23,7 +23,7 @@
           as="ul"
           role="menu"
         >
-          <SiteNavigationLink
+          <PageLinks
             v-for="item in navigationItem.children"
             :key="item.title"
             :path="props.path"
@@ -39,10 +39,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
-import SiteNavigationLink from './SiteNavigationLink.vue';
 import Carat from './icons/Carat.vue';
 import DisclosureTransition from './DisclosureTransition.vue';
 import containsPagePath from '../utils/containsPagePath';
+import PageLinks from './PageLinks.vue';
 
 const props = defineProps({
   navigationItem: { type: Object, required: true },

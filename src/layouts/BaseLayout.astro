@@ -6,7 +6,7 @@ import '../assets/css/tailwind.css';
 import '@fontsource/inter';
 import { getCollection } from '../utils/getCollection';
 import Navigation from '../navigation/Navigation';
-import sideNavConfig from '../navigation/sideNavConfig'
+import sideNavConfig from '../navigation/sideNavConfig';
 
 export function getStaticPaths() {
   return [
@@ -23,11 +23,18 @@ const {
 } = Astro.props;
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 
-const content = await Promise.all([
+const collections = await Promise.all([
   ...await getCollection('guides'),
   ...await getCollection('connections'),
   ...await getCollection('api')
 ])
+
+const content = await Promise.all(collections.map(async page => {
+	const { headings } = await page.render();
+  page.headings = headings.filter(heading => heading.depth === 2);
+  return page;
+}));
+
 const navigation = Navigation.create({ nav: sideNavConfig, content });
 ---
 <!DOCTYPE html>

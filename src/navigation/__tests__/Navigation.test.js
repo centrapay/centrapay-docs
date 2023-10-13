@@ -275,17 +275,69 @@ describe('Navigation', () => {
                   {
                     title: 'Merchants',
                     children: [
-                      expect.objectContaining({
+                      {
                         nav: {
                           path: 'API/API Integration/Merchants',
                         },
-                      }),
+                      },
                     ],
                   },
                 ],
               },
             ],
           },
+        ],
+      });
+    });
+
+    test('Headings are rendered', () => {
+      expect(
+        Navigation.create({
+          nav: [
+            {
+              title: 'Reference',
+              children: [
+                {
+                  title: 'Merchant Integrations',
+                },
+              ]
+            },
+          ],
+          content: [
+            {
+              data: {
+                nav: {
+                  path: 'Reference/Merchant Integrations',
+                },
+              },
+              headings: [
+                { depth: 2, slug: 'restrictions', text: 'Restrictions' },
+                { depth: 2, slug: 'pre-auth-flow', text: 'Pre Auth Flow' },
+              ]
+            },
+          ],
+        })
+      ).toEqual({
+        items: [
+          {
+            title: 'Reference',
+            children: [
+              {
+                title: 'Merchant Integrations',
+                children: [
+                  expect.objectContaining({
+                    nav: {
+                      path: 'Reference/Merchant Integrations',
+                    },
+                    headings: [
+                      { depth: 2, slug: 'restrictions', text: 'Restrictions' },
+                      { depth: 2, slug: 'pre-auth-flow', text: 'Pre Auth Flow' },
+                    ]
+                  }),
+                ],
+              },
+            ]
+          }
         ],
       });
     });
