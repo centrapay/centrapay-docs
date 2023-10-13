@@ -10,25 +10,28 @@
     >
       On this page
     </h2>
-    <ol class="mt-4 text-sm">
+    <ol class="mt-4">
       <li
         v-for="heading in visibleHeadings"
         :key="heading.slug"
-        :class="heading.depth === 3 ? 'pl-5' : ''"
       >
         <a
           :href="`#${heading.slug}`"
+          class="flex border-l-2 text-sm p-squish-2 truncate hover:text-content-primary hover:border-content-primary"
+          :class="[
+            visibleHeadingId === heading.slug ?
+              'text-content-primary border-brand-accent':
+              'text-content-tertiary'
+          ]"
           @click="handleTocClick(heading.slug)"
         >
-          <h3
-            class="border-l-2 p-squish-2 hover:text-content-primary hover:border-content-primary"
-            :class="[
-              visibleHeadingId === heading.slug ? 'text-content-primary border-brand-accent': 'font-normal text-content-tertiary',
-              heading.depth === 3 ? 'pl-5' : ''
-            ]"
+          <span
+            :class="{
+              'pl-4': heading.depth === 3,
+            }"
           >
             {{ heading.text }}
-          </h3>
+          </span>
         </a>
       </li>
     </ol>
