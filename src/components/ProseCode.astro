@@ -1,7 +1,40 @@
 ---
-import ProseCode from "./ProseCode.vue";
+console.log({ props: Astro.props });
+import { Code } from 'astro:components'
 ---
+<Code code={`const foo = 'bar';`} lang="js" />
 
-<ProseCode client:load>
-  <slot />
-</ProseCode>
+<div
+  class="my-8 rounded-lg"
+>
+  <div class="border border-outline-opaque rounded-xl overflow-hidden">
+    <div class="flex w-full justify-between items-center border-b border-outline-opaque rounded-xl rounded-b-none bg-surface-secondary text-content-secondary shadow-sm py-2 px-4">
+      <span class="truncate type-body-3">
+        Example
+      </span>
+    </div>
+    <div class="flex max-h-96 overflow-y-auto">
+      <pre
+        id="code"
+        class="astro-code flex text-sm"
+      >
+      <slot />
+    </pre>
+    </div>
+  </div>
+</div>
+
+<style>
+  pre.astro-code {
+    @apply
+      flex
+      h-full
+      w-full
+      m-0
+      rounded-none
+      py-3
+      py-4
+    ;
+    scrollbar-color: white;
+  }
+</style>

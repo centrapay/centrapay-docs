@@ -7,15 +7,37 @@ nav:
   order: 1
 ---
 
-The Centrapay API is an [RMM](https://en.wikipedia.org/wiki/Richardson_Maturity_Model)
-level 2 RESTful web service which expresses operations in terms of HTTP verbs on
-resource-oriented URLs. API endpoint definitions in these docs are grouped by resource
-type along with definitions for the associated resource types.
+```js filename="index.js"
+console.log(1)
+```
 
-Most API calls require [authentication](https://docs.centrapay.com/api/auth) using an API key or
-JWT. HTTP requests and responses usually have JSON payloads and use
-"application/json" as the content type.
+```bash [Request]
+curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
+  -H "Authorization: $jwt" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "assetType": "centrapay.nzd.main",
+    "assetId": "WRhAxxWpTKb5U7pXyxQjjY"
+  }'
+```
 
-Some API features may be flagged as **EXPERIMENTAL**. These API features may be
-removed or changed without warning and should not be relied on in a production
-setting.
+```json [Response]
+{
+  "activityNumber": "2",
+  "assetType": "centrapay.nzd.main",
+  "createdAt": "2021-06-08T04:04:27.426Z",
+  "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+  "merchantConfigId": "5ee168e8597be5002af7b454",
+  "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+  "merchantName": "Centrapay Café",
+  "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+  "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+  "shortCode": "CP-C7F-ZS5-015",
+  "type": "payment",
+  "value": {
+    "currency": "NZD",
+    "amount": "10000"
+  }
+}
+```

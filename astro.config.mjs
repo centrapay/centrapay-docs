@@ -5,6 +5,7 @@ import tailwind from '@astrojs/tailwind';
 
 // Remark
 import remarkSectionize from 'remark-sectionize';
+import rehypeHighlight from 'rehype-highlight';
 import { mermaid } from './src/plugins/mermaid';
 
 // https://astro.build/config
@@ -21,15 +22,7 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [remarkSectionize, mermaid],
-    shikiConfig: {
-      // Choose from Shiki's built-in themes (or add your own)
-      // https://github.com/shikijs/shiki/blob/main/docs/themes.md
-      theme: 'github-light',
-      // Add custom languages
-      // Note: Shiki has countless langs built-in, including .astro!
-      // https://github.com/shikijs/shiki/blob/main/docs/languages.md
-      langs: [],
-    },
+    rehypePlugins: [rehypeHighlight],
   },
   vite: {
     plugins: [

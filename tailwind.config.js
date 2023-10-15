@@ -6,6 +6,9 @@ const disabledCss = {
   pre: false,
   code: false,
   'pre code': false,
+  'code::before': false,
+  'code::after': false,
+  '*:not(pre) > * > code': false,
 };
 
 const tailwindConfig = {
@@ -18,7 +21,7 @@ const tailwindConfig = {
     },
     extend: {
       typography: {
-        DEFAULT: { css: disabledCss },
+        // DEFAULT: { css: disabledCss },
       },
       colors: {
         ...colors.light,
