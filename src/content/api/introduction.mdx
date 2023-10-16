@@ -6,16 +6,40 @@ nav:
   path: API
   order: 1
 ---
+import CodeExample from '../../components/CodeExample.astro';
 
-The Centrapay API is an [RMM](https://en.wikipedia.org/wiki/Richardson_Maturity_Model)
-level 2 RESTful web service which expresses operations in terms of HTTP verbs on
-resource-oriented URLs. API endpoint definitions in these docs are grouped by resource
-type along with definitions for the associated resource types.
-
-Most API calls require [authentication](https://docs.centrapay.com/api/auth) using an API key or
-JWT. HTTP requests and responses usually have JSON payloads and use
-"application/json" as the content type.
-
-Some API features may be flagged as **EXPERIMENTAL**. These API features may be
-removed or changed without warning and should not be relied on in a production
-setting.
+<CodeExample title="Request" tag="POST" label="/api/payment-requests">
+```bash
+curl -X POST https://service.centrapay.com/api/payment-requests \
+  -H "X-Api-Key: $api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "barcode": "123456789",
+    "conditionsEnabled": true,
+    "configId": "5ee168e8597be5002af7b454",
+    "lineItems": [
+      {
+        "name": "Hard Hat",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "4000",
+        "tax": "15",
+        "discount": "400"
+      },
+      {
+        "name": "Tool Belt",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "6000",
+        "tax": "15",
+        "discount": "600"
+      }
+    ],
+    "preAuth": true,
+    "value": {
+      "amount": "10000",
+      "currency": "NZD"
+    }
+  }'
+```
+</CodeExample>

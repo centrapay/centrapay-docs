@@ -26,7 +26,7 @@
       </div>
       <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'ml-3 icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
     </DisclosureButton>
-    <DisclosureTransition>
+    <Transition>
       <div v-show="open">
         <DisclosurePanel
           static
@@ -53,7 +53,7 @@
           </li>
         </DisclosurePanel>
       </div>
-    </DisclosureTransition>
+    </Transition>
   </Disclosure>
 </template>
 
@@ -63,7 +63,7 @@ import { DisclosureButton,   Disclosure,
   DisclosurePanel, } from '@headlessui/vue';
 import Carat from './icons/Carat.vue';
 import SecondarySidebarDisclosure from './SecondarySidebarDisclosure.vue';
-import DisclosureTransition from './DisclosureTransition.vue';
+import Transition from './Transition.vue';
 import containsPagePath from '../utils/containsPagePath';
 import PageLinks from './PageLinks.vue';
 

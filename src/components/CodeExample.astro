@@ -1,0 +1,45 @@
+---
+const { title, tag, label } = Astro.props;
+import ClipboardButton from './ClipboardButton.vue';
+import Clipboard from './icons/Clipboard.vue';
+---
+
+<div data-code-block class="flex flex-col mb-8">
+  <div class="flex w-full rounded-t-3xl rounded-b-none bg-surface-inverse-secondary shadow-sm p-4">
+    <span class="truncate type-subtitle-2 text-content-inverse-primary">
+      { title }
+    </span>
+  </div>
+  <div class="flex flex-row items-center border-y border-outline-inverse-opaque bg-surface-inverse-tertiary p-squish-2 space-x-2">
+    <span class="text-content-inverse-primary">{ tag }</span>
+    <span class="text-content-inverse-primary">{ label }</span>
+  </div>
+  <div data-code class="max-h-96 overflow-y-auto">
+    <slot />
+  </div>
+  <div class="not-prose flex justify-end w-full px-4 py-1 border-t border-outline-inverse-opaque rounded-b-3xl rounded-t-none bg-surface-inverse-secondary shadow-sm">
+    <ClipboardButton client:load/>
+  </div>
+</div>
+
+<script>
+function getElement(
+  selector,
+  Constructor,
+  parent: ParentNode = document,
+) {
+  const element = parent.querySelector(selector);
+  if (!(element instanceof Constructor)) {
+    throw new Error(`Element is not of type ${Constructor.name}: ${selector}`);
+  }
+  return element;
+}
+
+for (const codeBlock of document.querySelectorAll('[data-code-block]')) {
+  const code = getElement('[data-code]', HTMLElement, codeBlock);
+  const button = getElement('[data-copy-button]', HTMLButtonElement, codeBlock);
+  button.addEventListener('click', () => {
+    navigator.clipboard.writeText(code.innerText);
+  });
+}
+</script>

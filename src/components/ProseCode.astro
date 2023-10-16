@@ -1,7 +1,12 @@
 ---
-import ProseCode from "./ProseCode.vue";
+const { class: className, ...rest } = Astro.props;
 ---
 
-<ProseCode client:load>
-  <slot />
-</ProseCode>
+<div class={className} {...rest}>
+  <pre
+    id="code"
+    class="flex text-sm py-3 px-4"
+  >
+    <slot />
+  </pre>
+</div>

@@ -16,7 +16,7 @@
         {{ navigationItem.title }}
       </span>
     </DisclosureButton>
-    <DisclosureTransition>
+    <Transition>
       <div v-show="open">
         <DisclosurePanel
           static
@@ -32,7 +32,7 @@
           />
         </DisclosurePanel>
       </div>
-    </DisclosureTransition>
+    </Transition>
   </Disclosure>
 </template>
 
@@ -40,7 +40,7 @@
 import { ref, computed } from 'vue';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import Carat from './icons/Carat.vue';
-import DisclosureTransition from './DisclosureTransition.vue';
+import Transition from './Transition.vue';
 import containsPagePath from '../utils/containsPagePath';
 import PageLinks from './PageLinks.vue';
 
