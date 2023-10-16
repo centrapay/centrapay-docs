@@ -1,0 +1,18 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import Row from './Row.astro';
+import Column from './Column.astro';
+
+const { method, path, experimental = false } = Astro.props;
+---
+
+<Row>
+  <Column>
+    <Eyebrow method={method} path={path}/>
+    <slot/>
+  </Column>
+
+  <Column sticky>
+    <slot name="code-examples"/>
+  </Column>
+</Row>

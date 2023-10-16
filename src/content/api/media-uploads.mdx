@@ -8,6 +8,8 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
 
 ## Model
 
@@ -46,3 +48,80 @@ import Property from '../../components/Property.astro';
     The User or API Key that updated the Media Upload.
   </Property>
 </Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/media-uploads"
+  experimental
+>
+  ## Create a presigned URL for Media Upload
+
+  This endpoint allows you to upload a media file to Centrapay. It returns a presigned URL that can be used to download the media file.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string">
+      The Media Upload's owning Centrapay Account id.
+    </Property>
+
+    <Property name="mimeType" type="string">
+      The media (MIME) type of the upload.
+    </Property>
+
+    <Property name="fileName" type="string">
+      The file name of the upload.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/media-uploads \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "mimeType": "image/png",
+        "fileName": "image.png"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "uploadUrl": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/media-uploads/{mediaUploadId}/location"
+  experimental
+>
+  ## Get Media Upload Location
+
+  This endpoint allows you to retrieve the upload location of a media file.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/location \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "url": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
