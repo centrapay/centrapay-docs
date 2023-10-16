@@ -1,0 +1,12 @@
+---
+const { id } = Astro.props;
+---
+
+<div class="not-prose">
+  <h3
+    id={id}
+    class="type-subtitle-1 mt-4"
+  >
+    <slot/>
+</h3>
+</div>

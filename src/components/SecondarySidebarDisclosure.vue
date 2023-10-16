@@ -10,7 +10,7 @@
     >
       <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
       <span
-        class="flex-1 text-content-tertiary leading-5 text-sm font-medium"
+        class="flex-1 text-content-tertiary leading-5 text-sm"
         :class="{ 'text-black': open }"
       >
         {{ navigationItem.title }}
