@@ -14,14 +14,16 @@ class Page {
     this.title = props.title;
     this.nav = props.nav;
     this.path = props.path;
+    this.headings = props.headings;
   }
 
   static fromContent(content) {
-    const { collection, slug, data: frontmatter } = content;
+    const { collection, slug, data: frontmatter, headings } = content;
     return new Page({
       path: `/${collection}/${slug}`,
       title: frontmatter.title,
       nav: frontmatter.nav,
+      headings,
     });
   }
 

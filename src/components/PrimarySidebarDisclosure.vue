@@ -43,7 +43,7 @@
               :navigation-item="navigationChild"
               :path="path"
             />
-            <SiteNavigationLink
+            <PageLinks
               v-else
               :navigation-item="navigationChild"
               :path="path"
@@ -62,10 +62,10 @@ import { defineAsyncComponent, ref, computed } from 'vue';
 import { DisclosureButton,   Disclosure,
   DisclosurePanel, } from '@headlessui/vue';
 import Carat from './icons/Carat.vue';
-import SiteNavigationLink from './SiteNavigationLink.vue';
 import SecondarySidebarDisclosure from './SecondarySidebarDisclosure.vue';
 import DisclosureTransition from './DisclosureTransition.vue';
 import containsPagePath from '../utils/containsPagePath';
+import PageLinks from './PageLinks.vue';
 
 const props = defineProps({
   navigationItem: { type: Object, required: true },
