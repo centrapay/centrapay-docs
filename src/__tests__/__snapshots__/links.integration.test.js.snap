@@ -27,6 +27,7 @@ exports[`the build should not break any links 1`] = `
   "/api/accounts#models",
   "/api/accounts#operations",
   "/api/accounts#subscription",
+  "/api/accounts#subscription-model",
   "/api/accounts#top",
   "/api/accounts#update-an-account",
   "/api/accounts#update-subscriptions",
