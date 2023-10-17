@@ -46,6 +46,9 @@ Asset Transfer goes through different lifecycle stages.
 Transfer an asset to a recipient. Some assets can be transfered only in whole
 (eg giftcards or tokens) while others can be transfered only in part (eg money).
 
+Some assets can be transferred without supplying a recipient. A `url` field will be
+returned in these cases. The `url` will go to a page to claim the asset.
+
 {% reqspec %}
   POST '/api/asset-transfers'
   auth 'api-key'
@@ -64,6 +67,12 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
       recipientAlias: '+642212312'
     })
   }
+  example {
+    title 'Without Recipient'
+    body ({
+      assetId: 'sai2Pai7ohgongo',
+    })
+  }
 {% endreqspec %}
 
 
@@ -72,18 +81,18 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 | Parameter      | Type   | Description                                                |
 |:---------------|:-------|:-----------------------------------------------------------|
 | assetId        | String | Id of a discrete asset to transfer or wallet to draw from. |
-| recipientAlias | String | Phone number, email or handle of receiver.                 |
 
 
 {% h4 Optional Parameters %}
 
-| Parameter   | Type               | Description                                                                     |
-| :---------- | :-----             | :---------                                                                      |
-| description | String             | Shows up in transaction history against the transfer. {% maxlen 200 %}          |
-| message     | String             | A message which shows up in the SMS of the receiver. {% maxlen 100 %}           |
-| value       | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type.   |
-| senderName  | String             | Human readable name for the sender. {% maxlen 30 %}                             |
-| suppressNotifications | Boolean  | Suppress notifications from Centrapay (SMS/Email).                              |
+|       Parameter       |        Type        |                                  Description                                  |
+| :-------------------- | :----------------- | :---------------------------------------------------------------------------- |
+| recipientAlias        | String             | Phone number, email or handle of receiver.                                    |
+| description           | String             | Shows up in transaction history against the transfer. {% maxlen 200 %}        |
+| message               | String             | A message which shows up in the SMS of the receiver. {% maxlen 100 %}         |
+| value                 | {% dt BigNumber %} | Amount to send. Required for money transfers. Units depend on the asset type. |
+| senderName            | String             | Human readable name for the sender. {% maxlen 30 %}                           |
+| suppressNotifications | Boolean            | Suppress notifications from Centrapay (SMS/Email).                            |
 
 {% h4 Example response payload %}
 
@@ -102,7 +111,8 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z",
-  "suppressNotifications": false
+  "suppressNotifications": false,
+  "url": "https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h"
 }
 {% endjson %}
 
@@ -115,6 +125,7 @@ The above example has $10 left on a $60 dollar giftcard at the time of transfer.
 | 403    | {% break _ INSUFFICIENT_WALLET_BALANCE %} | The value of the asset-transfer exceeds the balance on the wallet                |
 | 403    | {% break _ QUOTA_EXCEEDED %}              | The transfer exceeds one or more spend quota limits. See [Quota Error Response]. |
 | 403    | {% break _ ASSET_NOT_ACTIVE %}            | The asset is not active and cannot be transferred.                               |
+| 403    | {% break _ RECIPIENT_MISSING %}           | The asset must be transferred with a recipient supplied.                         |
 
 
 ## Get an Asset Transfer
