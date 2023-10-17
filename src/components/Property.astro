@@ -20,7 +20,9 @@ const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + form
     <dd>
       <Badge text={formattedType} link={link}>
     </dd>
-    { required ? <dd> <Badge type="required"> </dd> : undefined }
+    { required &&
+      <dt class="sr-only">Required</dt>
+      <dd> <Badge type="required"> </dd> }
     <dt class="sr-only">
       Description
     </dt>
