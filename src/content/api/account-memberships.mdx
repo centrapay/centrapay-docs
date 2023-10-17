@@ -1,0 +1,272 @@
+---
+title: Account Memberships
+description: Account Memberships model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 8
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+import Badge from '../../components/Badge.astro';
+
+An Account Membership represents a user having access to a Centrapay
+[Account](https://docs.centrapay.com/api/accounts). An Account Membership has a role which grants the user access to
+some or all of the operations and resources within the account.
+
+## Model
+
+A Member contains extended information about a user's access to an account.
+
+### Attributes
+
+<Properties>
+  <Property name="accountId" type="string">
+    The id of the [Account](https://docs.centrapay.com/api/accounts) the Membership is scoped to.
+  </Property>
+
+  <Property name="accountType" type="string">
+    The type of the [Account](https://docs.centrapay.com/api/accounts) the Membership is scoped to.
+  </Property>
+
+  <Property name="accountName" type="string">
+    The name of the [Account](https://docs.centrapay.com/api/accounts) the Membership is scoped to.
+  </Property>
+
+  <Property name="userId" type="string">
+    The id of the user the Membership belongs to.
+  </Property>
+
+  <Property name="role" type="string">
+    The role governing Membership permissions.
+  </Property>
+
+  <Property name="subject" type="crn">
+    User or API key resource name for the membership.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Membership was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    Resource that created the  member.
+  </Property>
+
+  <Property name="modifiedAt" type="timestamp">
+    When the Membership was last modified.
+  </Property>
+
+  <Property name="modifiedBy" type="crn">
+    Resource that last modified the account member.
+  </Property>
+
+  <Property name="testAccount" type="boolean">
+    A flag which is present if the [Account](https://docs.centrapay.com/api/accounts) is test.
+  </Property>
+
+  <Property name="firstName" type="string">
+    First name of the user the membership belongs to.
+  </Property>
+
+  <Property name="lastName" type="string">
+    Last name of the user the membership belongs to.
+  </Property>
+
+  <Property name="email" type="string">
+    Email of the user the membership belongs to.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/accounts/{accountId}/members"
+>
+  ## Add Member <Badge type="experimental"/>
+
+  This endpoint allows you to add or update the membership of a user to an account.
+
+  ### Attributes
+  <Properties>
+    <Property name="userId" type="string" required>
+      The id of the user the Membership belongs to.
+    </Property>
+
+    <Property name="role" type="string" required>
+      The role governing Membership permissions.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+        "role": "account-owner"
+      }'
+    ```
+
+    ```json
+    {
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "accountType": "org",
+      "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+      "role": "account-owner",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/members"
+>
+  ## List members
+
+  This endpoint allows you to retrieve the list memberships to an account.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    [
+      {
+        "accountName": "Centrapay Cafe",
+        "accountType": "org",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "userId": "b657195e-dc2f-11ea-8566-e7710d592c99",
+        "createdAt": "2020-06-01T21:57:25.888Z",
+        "role": "account-owner",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@centrapay.com"
+      },
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountType": "org",
+        "accountId": "0f9nvqdcn5eaaDLefkg1Xt",
+        "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
+        "createdAt": "2020-06-02T10:l4:33.021Z",
+        "role": "account-owner",
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jane.doe@centrapay.com"
+      }
+    ]
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="DELETE"
+  path="/api/accounts/{accountId}/members/{userId}"
+>
+  ## Revoke Member
+
+  This endpoint allows you to revoke a users membership to an account.
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  | Status |           Code           |                          Description                           |
+  | :----- | :----------------------- | :------------------------------------------------------------- |
+  | 403    | LAST_OWNER_NOT_REVOKABLE | The last remaining membership to an account cannot be revoked. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X DELETE https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members/45dwes-rf4h55-tyf45s-6st4gd \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/account-memberships"
+>
+  ## List Account Memberships for Authenticated Subject
+
+  This endpoint allows you to retrieve the accounts that the authenticated subject is a member of.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/account-memberships \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    [
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountId": "5uooxSens6ykJaim1Cu1Q5",
+        "accountType": "org",
+        "role": "account-owner"
+      }
+    ]
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/users/{userId}/account-memberships"
+>
+  ## List Account Memberships for a User
+
+  This endpoint allows you to retrieve the accounts that a user is a member of.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/users/1234/account-memberships \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    [
+      {
+        "accountName": "Centrapay Cafe",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "accountType": "org",
+        "role": "account-owner"
+      },
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountId": "5uooxSens6ykJaim1Cu1Q5",
+        "accountType": "org",
+        "role": "account-owner"
+      }
+    ]
+    ```
+  </CodeGroup>
+</Endpoint>
