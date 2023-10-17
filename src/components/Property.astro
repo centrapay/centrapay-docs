@@ -2,7 +2,7 @@
 ---
 import Badge from '../components/Badge.astro';
 
-const { name, type } = Astro.props;
+const { name, type, required } = Astro.props;
 const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber'];
 const formattedType = type.toLowerCase();
 const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType :undefined;
@@ -17,9 +17,10 @@ const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + form
       {name}
     </dd>
     <dt class="sr-only">Type</dt>
-    <dd class="font-mono text-xs text-zinc-400 dark:text-zinc-500">
+    <dd>
       <Badge text={formattedType} link={link}>
     </dd>
+    { required ? <dd> <Badge type="required"> </dd> : undefined }
     <dt class="sr-only">
       Description
     </dt>
