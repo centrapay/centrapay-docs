@@ -8,7 +8,7 @@
       >
         <span
           role="menuitem"
-          class="flex-1 leading-5 font-medium"
+          class="flex-1 leading-5"
           :class="{
             'text-black': selected,
             'text-md text-content-tertiary': level === 1,
