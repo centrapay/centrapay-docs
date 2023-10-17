@@ -1,0 +1,263 @@
+---
+title: Accounts
+description: Account model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 7
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+
+An Account represents a permission boundary around Centrapay resources.
+Accounts can have [API Keys](https://docs.centrapay.com/api/api-keys) and [Account Memberships](https://docs.centrapay.com/api/account-memberships) which grant access to the resources.
+
+Accounts are classified as either "individual" or "org". Individual accounts
+can only have a single member and Centrapay users can only be a member of a single
+individual account.
+
+## Account Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier.
+  </Property>
+
+  <Property name="type" type="string">
+    Account type, must be either 'org' or 'individual'.
+  </Property>
+
+  <Property name="name" type="string">
+    The display name of the Account.
+  </Property>
+
+  <Property name="region" type="string">
+    The region that the Account will operate in.
+  </Property>
+
+  <Property name="test" type="boolean">
+    A flag which is only present if the Account is for testing.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Account was created.
+  </Property>
+
+  <Property name="modifiedAt" type="timestamp">
+    When the Account was updated.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Account.
+  </Property>
+
+  <Property name="modifiedBy" type="crn">
+    The User or API Key that updated the Account.
+  </Property>
+
+  <Property name="subscriptions" type="array">
+    A list of [Subscriptions](#subscription-model) on the Account.
+  </Property>
+</Properties>
+
+## Subscription Model
+
+### Attributes
+
+<Properties>
+  <Property name="name" type="string">
+    The name of the Subscription.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/accounts"
+>
+  ## Create an Account
+
+  This endpoint allows you to create an Account.
+
+  ### Attributes
+  <Properties>
+    <Property name="name" type="string" required>
+      The name of the Account.
+    </Property>
+
+    <Property name="type" type="string" required>
+      Account type, must be either "org" or "individual".
+    </Property>
+
+    <Property name="owner" type="string">
+      Id of user to add as member with "account-owner" role.
+    </Property>
+
+    <Property name="test" type="boolean">
+      A flag indicating if the Account is for testing.
+    </Property>
+
+    <Property name="region" type="string">
+      The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US".
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/accounts \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "Centrapay Cafe",
+        "type": "org"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "Jaim1Cu1Q55uooxSens6yk",
+      "name": "Centrapay Cafe",
+      "type": "org",
+      "region": "NZ",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "version": "1",
+      "subscriptions": [],
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}"
+>
+  ## Get an Account
+
+  This endpoint allows you to retrieve an Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "id": "Jaim1Cu1Q55uooxSens6yk",
+      "name": "Centrapay Cafe",
+      "type": "org",
+      "region": "NZ",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "version": "1",
+      "subscriptions": [],
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/accounts/{accountId}"
+>
+  ## Update an Account
+
+  This endpoint allows you to update an account.
+
+  ### Attributes
+  <Properties>
+    <Property name="name" type="string" required>
+      The name of the Account.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "Shortland St Cafe"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "Jaim1Cu1Q55uooxSens6yk",
+      "name": "Shortland St Cafe",
+      "type": "org",
+      "region": "NZ",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "modifiedAt": "2020-06-12T02:35:12.112Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "version": "2",
+      "subscriptions": [],
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/accounts/{accountId}/subscriptions"
+>
+  ## Update Subscriptions
+
+  This endpoint allows you to update the subscriptions on an account.
+
+  ### Attributes
+  <Properties>
+    <Property name="subscriptions" type="array" required>
+      The list of subscriptions to assign to the account.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/subscriptions \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "subscriptions": [
+          "quartz"
+        ]
+      }'
+    ```
+
+    ```json
+    {
+      "subscriptions": [ "quartz" ]
+    }
+    ```
+  </CodeGroup>
+
+  ### Errors
+  | Status |         Code         |                    Description                     |
+  | :----- | :------------------- | :------------------------------------------------- |
+  | 403    | INVALID_ACCOUNT_ID   | The account does not exist.                        |
+  | 403    | INVALID_SUBSCRIPTION | One of the subscriptions in the list is not valid. |
+
+</Endpoint>

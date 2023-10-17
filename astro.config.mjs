@@ -38,5 +38,6 @@ export default defineConfig({
   },
   redirects: {
     '/guides/merchant-terminals/': '/guides/payment-flows/',
+    '/accounts/': '/api/accounts/',
   },
 });
