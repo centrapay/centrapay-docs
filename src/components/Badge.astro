@@ -1,6 +1,6 @@
 ---
 
-const { type = "default", text, link } = Astro.props;
+const { type = "default", text, link, inverse = false } = Astro.props;
 const badgeText = text ? text : type;
 
 const coloursMap = {
@@ -13,7 +13,17 @@ const coloursMap = {
   default: 'text-content-primary border-outline-opaque bg-surface-tertiary'
 }
 
-const badgeClass =`${coloursMap[type]} type-caption-2 px-2 py-0.5 rounded-full border self-center`
+const inverseColoursMap = {
+  experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
+  GET: 'border-green-500 bg-green-800 text-content-inverse-primary',
+  POST: 'border-cyan-500 bg-cyan-800 text-content-inverse-primary',
+  PUT: 'border-orange-500 bg-orange-800 text-content-inverse-primary',
+  DELETE: 'border-red-500 bg-rose-800 text-content-inverse-primary',
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary'
+}
+
+const map = inverse ? inverseColoursMap : coloursMap;
+const badgeClass =`${map[type]} type-caption-2 px-2 py-0.5 rounded-full border self-center`
 
 ---
 {link ?

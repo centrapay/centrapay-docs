@@ -1,0 +1,75 @@
+---
+const { title = 'Example', method, path } = Astro.props;
+import Badge from "./Badge.astro";
+---
+
+<div
+  data-code-block
+  class="flex flex-col mb-8"
+>
+  <div class="flex w-full rounded-t-3xl rounded-b-none border-b border-outline-inverse-opaque bg-surface-inverse-secondary shadow-sm p-4">
+    <span class="truncate type-subtitle-2 text-content-inverse-primary">
+      { title }
+    </span>
+  </div>
+  { (method && path) &&
+    <div class="flex flex-row items-center border-b border-outline-inverse-opaque bg-surface-inverse-tertiary p-squish-2 space-x-2">
+      <Badge
+        type={method}
+        inverse
+      />
+      <span class="text-content-inverse-primary type-caption-2 truncate">{ path }</span>
+    </div>
+  }
+  <div
+    data-code
+    class="max-h-96 overflow-y-auto"
+  >
+    <slot />
+  </div>
+  <div class="flex justify-end py-2 px-4 bg-surface-inverse-primary rounded-b-3xl border-t border-outline-inverse-opaque">
+    <button
+      id="copy-button"
+      data-copy-button
+      class="type-overline py-2 px-3 bg-interactive-secondary hover:bg-interactive-secondary-hover text-content-inverse-primary transition hover:scale-105 active:scale-100 active:transition-none"
+    >
+      Copy
+    </button>
+  </div>
+</div>
+
+<script>
+  function getElement(
+    selector,
+    Constructor,
+    parent: ParentNode = document,
+  ) {
+    const element = parent.querySelector(selector);
+    if (!(element instanceof Constructor)) {
+      throw new Error(`Element is not of type ${Constructor.name}: ${selector}`);
+    }
+    return element;
+  }
+
+  for (const codeBlock of document.querySelectorAll('[data-code-block]')) {
+    const code = getElement('[data-code]', HTMLElement, codeBlock);
+    const button = getElement('[data-copy-button]', HTMLButtonElement, codeBlock);
+    button.addEventListener('click', () => {
+      navigator.clipboard.writeText(code.innerText);
+      button.innerText = "Copied";
+      button.classList.add('copy-button-active');
+      window.setTimeout(() => {
+        button.innerText = "Copy";
+        button.classList.remove('copy-button-active');
+      }, 2000);
+    });
+  }
+</script>
+
+<style>
+  .copy-button-active {
+    @apply
+      bg-interactive-secondary-active
+    ;
+  }
+</style>
