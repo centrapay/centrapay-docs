@@ -47,7 +47,7 @@ Transfer an asset to a recipient. Some assets can be transfered only in whole
 (eg giftcards or tokens) while others can be transfered only in part (eg money).
 
 Some assets can be transferred without supplying a recipient. A `url` field will be
-returned in these cases. The `url` will go to a page to claim the asset.
+returned in these cases. The `url` will link to a page to claim the asset.
 
 {% reqspec %}
   POST '/api/asset-transfers'
@@ -94,7 +94,7 @@ returned in these cases. The `url` will go to a page to claim the asset.
 | senderName            | String             | Human readable name for the sender. {% maxlen 30 %}                           |
 | suppressNotifications | Boolean            | Suppress notifications from Centrapay (SMS/Email).                            |
 
-{% h4 Example response payload %}
+{% h4 Example response payload (With Recipient) %}
 
 {% json %}
 {
@@ -111,12 +111,30 @@ returned in these cases. The `url` will go to a page to claim the asset.
   "recipientAlias": "+64212312345",
   "createdAt": "2020-05-01T12:30:00.000Z",
   "updatedAt": "2020-05-02T01:03:37.222Z",
-  "suppressNotifications": false,
-  "url": "https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h"
+  "suppressNotifications": false
 }
 {% endjson %}
 
 The above example has $10 left on a $60 dollar giftcard at the time of transfer.
+
+{% h4 Example response payload (Without Recipient) %}
+
+{% json %}
+{
+  "id": "M7Kn2stAxNa6ri7h",
+  "status": "created",
+  "value": "1000",
+  "assetId": "YGRo6TYYSxH3js7",
+  "assetType": "centrapay.token.main",
+  "description": "Centrapay Token",
+  "message": "Happy birthday",
+  "senderName": "CentraCafe",
+  "createdAt": "2020-05-01T12:30:00.000Z",
+  "updatedAt": "2020-05-02T01:03:37.222Z",
+  "suppressNotifications": false,
+  "url": "https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h"
+}
+{% endjson %}
 
 {% h4 Error Responses %}
 
