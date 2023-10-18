@@ -9,7 +9,6 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import CodeGroup from '../../components/CodeGroup.astro';
 import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
@@ -102,34 +101,32 @@ A Member contains extended information about a user's access to an account.
     </Property>
   </Properties>
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="POST" path="/api/accounts/{accountId}/members">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-          "role": "account-owner"
-        }'
-      ```
-    </CodePanel>
-
-    <CodePanel title="Response">
-      ```json
-      {
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "accountType": "org",
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/accounts/{accountId}/members">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
         "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-        "role": "account-owner",
-        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-        "createdAt": "2020-06-12T01:17:46.499Z",
-        "modifiedAt": "2020-06-12T01:17:46.499Z",
-        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-      }
-      ```
-      </CodePanel>
-  </CodeGroup>
+        "role": "account-owner"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "accountType": "org",
+      "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+      "role": "account-owner",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+    </CodePanel>
 </Endpoint>
 
 ---
@@ -145,43 +142,41 @@ A Member contains extended information about a user's access to an account.
   ### Attributes
   No attributes.
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/members">
-      ```bash
-      curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/members">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
 
-    <CodePanel title="Response">
-      ```json
-      [
-        {
-          "accountName": "Centrapay Cafe",
-          "accountType": "org",
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "userId": "b657195e-dc2f-11ea-8566-e7710d592c99",
-          "createdAt": "2020-06-01T21:57:25.888Z",
-          "role": "account-owner",
-          "firstName": "John",
-          "lastName": "Doe",
-          "email": "john.doe@centrapay.com"
-        },
-        {
-          "accountName": "Centrapay Tea Warehouse",
-          "accountType": "org",
-          "accountId": "0f9nvqdcn5eaaDLefkg1Xt",
-          "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
-          "createdAt": "2020-06-02T10:l4:33.021Z",
-          "role": "account-owner",
-          "firstName": "Jane",
-          "lastName": "Doe",
-          "email": "jane.doe@centrapay.com"
-        }
-      ]
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "accountName": "Centrapay Cafe",
+        "accountType": "org",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "userId": "b657195e-dc2f-11ea-8566-e7710d592c99",
+        "createdAt": "2020-06-01T21:57:25.888Z",
+        "role": "account-owner",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@centrapay.com"
+      },
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountType": "org",
+        "accountId": "0f9nvqdcn5eaaDLefkg1Xt",
+        "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
+        "createdAt": "2020-06-02T10:l4:33.021Z",
+        "role": "account-owner",
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jane.doe@centrapay.com"
+      }
+    ]
+    ```
+  </CodePanel>
 </Endpoint>
 
 ---
@@ -202,14 +197,12 @@ A Member contains extended information about a user's access to an account.
   | :----- | :----------------------- | :------------------------------------------------------------- |
   | 403    | LAST_OWNER_NOT_REVOKABLE | The last remaining membership to an account cannot be revoked. |
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="DELETE" path="/api/accounts/{accountId}/members/{userId}">
-      ```bash
-      curl -X DELETE https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members/45dwes-rf4h55-tyf45s-6st4gd \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Request" method="DELETE" path="/api/accounts/{accountId}/members/{userId}">
+    ```bash
+    curl -X DELETE https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members/45dwes-rf4h55-tyf45s-6st4gd \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
 </Endpoint>
 
 ---
@@ -225,27 +218,25 @@ A Member contains extended information about a user's access to an account.
   ### Attributes
   No attributes.
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="GET" path="/api/account-memberships">
-      ```bash
-      curl https://service.centrapay.com/api/account-memberships \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/account-memberships">
+    ```bash
+    curl https://service.centrapay.com/api/account-memberships \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
 
-    <CodePanel title="Response">
-      ```json
-      [
-        {
-          "accountName": "Centrapay Tea Warehouse",
-          "accountId": "5uooxSens6ykJaim1Cu1Q5",
-          "accountType": "org",
-          "role": "account-owner"
-        }
-      ]
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountId": "5uooxSens6ykJaim1Cu1Q5",
+        "accountType": "org",
+        "role": "account-owner"
+      }
+    ]
+    ```
+  </CodePanel>
 </Endpoint>
 
 ---
@@ -261,31 +252,29 @@ A Member contains extended information about a user's access to an account.
   ### Attributes
   No attributes.
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="GET" path="/api/users/{userId}/account-memberships">
-      ```bash
-      curl https://service.centrapay.com/api/users/1234/account-memberships \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/users/{userId}/account-memberships">
+    ```bash
+    curl https://service.centrapay.com/api/users/1234/account-memberships \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
 
-    <CodePanel title="Response">
-      ```json
-      [
-        {
-          "accountName": "Centrapay Cafe",
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "accountType": "org",
-          "role": "account-owner"
-        },
-        {
-          "accountName": "Centrapay Tea Warehouse",
-          "accountId": "5uooxSens6ykJaim1Cu1Q5",
-          "accountType": "org",
-          "role": "account-owner"
-        }
-      ]
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "accountName": "Centrapay Cafe",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "accountType": "org",
+        "role": "account-owner"
+      },
+      {
+        "accountName": "Centrapay Tea Warehouse",
+        "accountId": "5uooxSens6ykJaim1Cu1Q5",
+        "accountType": "org",
+        "role": "account-owner"
+      }
+    ]
+    ```
+  </CodePanel>
 </Endpoint>

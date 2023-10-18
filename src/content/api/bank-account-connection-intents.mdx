@@ -1,0 +1,170 @@
+---
+title: Bank Account Connection Intents
+description: Bank Account Connection Intent model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 18
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+import Badge from '../../components/Badge.astro';
+
+A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts.
+
+---
+
+## Model
+
+<Properties>
+  <Property name="id" type="string">
+    The Bank Account Connection Intent's unique identifier.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The id of the owning Centrapay [Account](/api/accounts/).
+  </Property>
+
+  <Property name="type" type="string">
+    The type of Bank Account Connection Intent. See [Bank Account Connection Intent Types](#bank-account-connection-intent-types).
+  </Property>
+
+  <Property name="status" type="string">
+    The current status of the Bank Account Connection Intent. Supported values are `created`, `authorized` and `failed`.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Bank Account Connection Intent was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Bank Account Connection Intent.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Bank Account Connection Intent was updated.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Bank Account Connection Intent.
+  </Property>
+
+  <Property name="authorizationUrl" type="string">
+    A URL to the third-party beginning the authorization flow.
+  </Property>
+
+  <Property name="test" type="boolean">
+    A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts) used for testing.
+  </Property>
+</Properties>
+
+### Bank Account Connection Intent Types
+
+|      Name       |                                                                                               description                                                                                                |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| quartz-accounts | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. |
+| quartz-payment  | Initiates an authorization flow for authorizing access to create payments.                                                                                                                               |
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-account-connection-intents"
+>
+  ## Create Bank Account Connection Intent <Badge type="experimental"/>
+
+  This endpoint allows you to create a Bank Account Connection Intent.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string" required>
+      The id of the owning [Account](/api/accounts/).
+    </Property>
+
+    <Property name="type" type="string" required>
+      The type of Bank Account Connection Intent.
+    </Property>
+
+    <Property name="bankAccountId" type="string">
+      The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `quartz-payment`.
+    </Property>
+
+    <Property name="test" type="boolean">
+      A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts/) used for testing.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Property name="403" type="LIVENESS_MISMATCH" error>
+      Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-account-connection-intents \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "uooxSens6ykJaim1Cu1Q55",
+        "type": "quartz-accounts",
+        "test": true
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "3KVjuKW2CZCJeJVqPxwkX7",
+      "accountId": "B4u4WZCu3joZFVWT3XjWW3",
+      "type": "quartz-accounts",
+      "status": "created",
+      "createdAt": "2022-03-31 02:56:29 UTC",
+      "createdBy": "crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey",
+      "updatedAt": "2022-03-31 02:56:29 UTC",
+      "updatedBy": "crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey",
+      "authorizationUrl": "https://example.com/authorization-url",
+      "test": true
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize"
+>
+  ## Authorize Bank Account Connection Intent <Badge type="experimental"/>
+
+  This endpoint allows you to authorize a Bank Account Connection Intent.
+
+  ### Attributes
+  <Properties>
+    <Property name="code" type="string" required>
+      Authorization code returned from third-party.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-account-connection-intents/3KVjuKW2CZCJeJVqPxwkX7/authorize \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "code": "hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {}
+    ```
+  </CodePanel>
+</Endpoint>

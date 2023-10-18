@@ -9,7 +9,6 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import CodeGroup from '../../components/CodeGroup.astro';
 import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
@@ -80,29 +79,27 @@ import CodePanel from '../../components/CodePanel.astro';
     </Property>
   </Properties>
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="POST" path="/api/media-uploads">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/media-uploads \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "mimeType": "image/png",
-          "fileName": "image.png"
-        }'
-      ```
-    </CodePanel>
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/media-uploads">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/media-uploads \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "mimeType": "image/png",
+        "fileName": "image.png"
+      }'
+    ```
+  </CodePanel>
 
-    <CodePanel title="Response">
-      ```json
-      {
-        "id": "DKTs3U38hdhfEqwF1JKoT2",
-        "uploadUrl": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
-      }
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "uploadUrl": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+    }
+    ```
+  </CodePanel>
 
 </Endpoint>
 
@@ -119,20 +116,18 @@ import CodePanel from '../../components/CodePanel.astro';
   ### Attributes
   No attributes.
 
-  <CodeGroup slot="code-examples">
-    <CodePanel title="Request" method="GET" path="/api/media-uploads/{mediaUploadId}/location">
-      ```bash
-      curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/location \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/media-uploads/{mediaUploadId}/location">
+    ```bash
+    curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/location \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
 
-    <CodePanel title="Response">
-      ```json
-      {
-        "url": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
-      }
-      ```
-    </CodePanel>
-  </CodeGroup>
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "url": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
+    }
+    ```
+  </CodePanel>
 </Endpoint>
