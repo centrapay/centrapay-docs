@@ -1,11 +1,12 @@
 import { defineConfig } from 'astro/config';
 import flexsearchPlugin from './src/plugins/flexsearch';
-
 import tailwind from '@astrojs/tailwind';
 
-// Remark
-import remarkSectionize from 'remark-sectionize';
+// Remark plugins
 import { mermaid } from './src/plugins/mermaid';
+
+// Rehype plugins
+import rehypeSectionize from '@hbsnow/rehype-sectionize';
 
 // https://astro.build/config
 import vue from '@astrojs/vue';
@@ -20,7 +21,8 @@ export default defineConfig({
     mdx(),
   ],
   markdown: {
-    remarkPlugins: [remarkSectionize, mermaid],
+    remarkPlugins: [ mermaid ],
+    rehypePlugins: [ rehypeSectionize ],
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
       // https://github.com/shikijs/shiki/blob/main/docs/themes.md
