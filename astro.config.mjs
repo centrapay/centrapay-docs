@@ -41,5 +41,9 @@ export default defineConfig({
   redirects: {
     '/guides/merchant-terminals/': '/guides/payment-flows/',
     '/accounts/': '/api/accounts/',
+    '/fiat/': '/api/bank-accounts/',
+    '/fiat/bank-accounts/': '/api/bank-accounts/',
+    '/fiat/bank-authorities': '/api/bank-accounts/',
+    '/fiat/authorities': '/api/bank-accounts/',
   },
 });

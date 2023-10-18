@@ -1,0 +1,374 @@
+---
+title: Bank Account Approvals
+description: Bank Account Approval model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 17
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+import CodePanel from '../../components/CodePanel.astro';
+import Badge from '../../components/Badge.astro';
+
+A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts).
+This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts) owner
+that allows access to a third-party system. See [Bank Account Approval Types](#bank-account-approval-types).
+
+---
+
+## Bank Account Approval Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Bank Account Approval's unique identifier.
+  </Property>
+
+  <Property name="bankAccountId" type="string">
+    The id of the associated [Bank Account](/api/bank-accounts/).
+  </Property>
+
+  <Property name="accountId" type="string">
+    The id of the owning Centrapay [Account](/api/accounts/).
+  </Property>
+
+  <Property name="type" type="string">
+    The type of Bank Account Approval. See [Bank Account Approval Types](#bank-account-approval-types).
+  </Property>
+
+  <Property name="status" type="string">
+    The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Bank Account Approval was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Bank Account Approval.
+  </Property>
+
+  <Property name="modifiedAt" type="timestamp">
+    When the Bank Account Approval was updated.
+  </Property>
+
+  <Property name="modifiedBy" type="crn">
+    The User or API Key that updated the Bank Account Approval.
+  </Property>
+
+  <Property name="approvalActivities" type="array">
+    An array of [Bank Account Approval Activity] associated with the Bank Account Approval.
+  </Property>
+
+  <Property name="mediaUploadId" type="string">
+    The id of the associated [Media Upload](/api/media-uploads). Required for type `settlement`.
+  </Property>
+
+  <Property name="refreshToken" type="string">
+    A long lived access token for access to a third-party system. Required for type `account-consent` and `payment-consent`.
+  </Property>
+
+  <Property name="consentId" type="string">
+    A unique identifier for an authorization in a third-party system.
+  </Property>
+</Properties>
+
+### Bank Account Approval Types
+
+|      Name       |                                                                                                                                      description                                                                                                                                      |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| settlement      | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](https://docs.centrapay.com/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved. |
+| account-consent | An `approved` Bank Account Approval of type `account-consent` provides an access token to read account details from a third-party.                                                                                                                                                    |
+| payment-consent | An `approved` Bank Account Approval of type `payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                      |
+
+---
+
+## Bank Account Approval Activity Model
+
+### Attributes
+
+<Properties>
+  <Property name="activityNumber" type="number">
+    Unique sequential Bank Account Approval Activity number.
+  </Property>
+
+  <Property name="approvalId" type="string">
+    The id of the associated [Bank Account Approval](#bank-account-approval-model).
+  </Property>
+
+  <Property name="activityType" type="string">
+    The type of the Bank Account Approval Activity.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Bank Account Approval Activity was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Bank Account Approval Activity.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-account-approvals"
+>
+  ## Request Bank Account Approval <Badge type="experimental"/>
+
+  This endpoint allows you to request a Bank Account Approval.
+
+  ### Attributes
+  <Properties>
+    <Property name="mediaUploadId" type="string" required>
+      The id of the associated [Media Upload][/api/media-uploads].
+    </Property>
+
+    <Property name="bankAccountId" type="string" required>
+      The id of the associated [Bank Account](/api/bank-accounts).
+    </Property>
+
+    <Property name="type" type="string" required>
+      The [Bank Account Approval Type](#bank-account-approval-types). A Bank Account Approval can only be requested for type `settlement`.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Property name="403" type="APPROVAL_ALREADY_IN_PROGRESS" error>
+      There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/accounts/{accountId}/members">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-account-approvals \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "mediaUploadId": "uooxSens6ykJaim1Cu1Q55",
+        "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
+        "type": "settlement"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DcTs3U38HdhfEqwF1GKoT3",
+      "mediaUploadId": "uooxSens6ykJaim1Cu1Q55",
+      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "type": "settlement",
+      "status": "created",
+      "createdAt": "2021-11-08T21:52:39.915Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2021-11-08T21:52:39.915Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-account-approvals/{bankAccountApprovalId}"
+>
+  ## Get Bank Account Approval <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve a Bank Account Approval.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-account-approvals/{bankAccountApprovalId}">
+    ```bash
+    curl https://service.centrapay.com/api/bank-account-approvals/bbab9a768921019cb856 \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-account-approvals/{bankAccountApprovalId}">
+    ```json
+    {
+      "id": "bbab9a768921019cb856",
+      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "type": "account-consent",
+      "status": "approved",
+      "createdAt": "2021-11-08T21:52:39.915Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2021-11-08T21:52:39.915Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "refreshToken": "y04Njk3LTRjNmZkYjBhMzRiZSIsIm5vbmNlIjoiOTg3MTJjMGNkZmFiNWZjNzMwM2MxMzNl",
+      "consentId": "d24dbe-e2bc46ac-d924e38af112"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-account-approvals/{bankAccountApprovalId}/accept"
+>
+  ## Accept Bank Account Approval <Badge type="experimental"/>
+
+  This endpoint allows you to accept a Bank Account Approval.
+
+  ### Attributes
+  <Properties>
+    <Property name="reason" type="string">
+      The reason for accepting the Bank Account Approval.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Property name="403" type="APPROVAL_ALREADY_REVIEWED" error>
+      The Bank Account Approval has already been accepted or declined.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/accept">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/accept \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "reason": "All details match"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {}
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-account-approvals/{bankAccountApprovalId}/decline"
+>
+  ## Decline Bank Account Approval <Badge type="experimental"/>
+
+  This endpoint allows you to decline a Bank Account Approval.
+
+  ### Attributes
+  <Properties>
+    <Property name="reason" type="string" required>
+      The reason for declining the Bank Account Approval.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Property name="403" type="APPROVAL_ALREADY_REVIEWED" error>
+      The Bank Account Approval has already been accepted or declined.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/decline">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/decline \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "reason": "No details match"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {}
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-accounts/{bankAccountId}/approvals"
+>
+  ## List Bank Account Approvals <Badge type="experimental"/>
+
+  This endpoint allows you to list the Bank Account Approvals for a Bank Account.
+
+  ### Attributes
+  No attributes.
+
+
+    <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}/approvals">
+      ```bash
+      curl https://service.centrapay.com/api/bank-accounts/5vpkxjn6z787LiAKCqwuf9/approvals \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "id": "PJ6jTgDNv1xfFAooCoWZLe",
+          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
+          "createdAt": "2022-08-21T21:41:46.361Z",
+          "modifiedAt": "2022-08-21T21:41:46.361Z",
+          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
+          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "type": "account-consent",
+          "status": "approved",
+          "refreshToken": "tXC4dFm3yNAQbLrm4JxY6pynGoEG8vSJ",
+          "consentId": "fFAoo-CoWZLea8-4dFm3yNAoWZLe"
+        },
+        {
+          "id": "WiFna4hCc7k4KYUxncFPg4",
+          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
+          "createdAt": "2022-08-11T20:53:57.337Z",
+          "modifiedAt": "2022-08-11T20:53:57.337Z",
+          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
+          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "type": "payment-consent",
+          "status": "approved",
+          "refreshToken": "dAGLl8AfnNCGEKEmBm1FryaDyW1JBh28",
+          "consentId": "4KYUx-ncFPg4a8-Ll8AfnNCcFPg4"
+        },
+        {
+          "id": "SoQkkv4rWRwrknrdkYbBuB",
+          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
+          "createdAt": "2022-08-21T21:41:22.345Z",
+          "modifiedAt": "2022-08-21T21:41:22.345Z",
+          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
+          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
+          "type": "account-consent",
+          "status": "declined",
+          "refreshToken": "rX3MNTxFwKIU2lhyZOrq87Aw74ASSHUM",
+          "consentId": "rknrd-kYbBuBa8-MNTxFwKIYbBuB"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>

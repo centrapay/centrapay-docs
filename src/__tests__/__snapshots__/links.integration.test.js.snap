@@ -85,6 +85,7 @@ exports[`the build should not break any links 1`] = `
   "/api/bank-account-approvals#accept-a-bank-account-approval-experimental",
   "/api/bank-account-approvals#bank-account-approval",
   "/api/bank-account-approvals#bank-account-approval-activity",
+  "/api/bank-account-approvals#bank-account-approval-model",
   "/api/bank-account-approvals#bank-account-approval-types",
   "/api/bank-account-approvals#bank-account-approvals",
   "/api/bank-account-approvals#contents",
