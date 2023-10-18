@@ -1,0 +1,727 @@
+---
+title: Bank Accounts
+description: Bank Account model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 16
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+import Badge from '../../components/Badge.astro';
+
+Bank Accounts are used to get money in and out of a Centrapay Account. Money is
+moved by creating "Top Up" or "Withdrawal" [Funds Transfers](https://docs.centrapay.com/api/funds-transfers).
+
+Bank Accounts must be "direct debit authorized" before they can be used for a
+Top Up and they must be "verified" before top up funds are released. Bank
+Accounts do not require "direct debit authorization" or "verification" in order
+to perform a Withdrawal. A 4-digit code from any recent Centrapay-initiated
+bank transaction can be used to verify a bank account.
+
+## Bank Account Model
+
+### Attributes
+<Properties>
+  <Property name="id" type="string">
+    The Bank Account's unique identifier.
+  </Property>
+
+  <Property name="bankAccountNumber" type="string">
+    The user's Bank Account number.
+  </Property>
+
+  <Property name="bankAccountName" type="string">
+    The name on the Bank Account provided by the user.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The id of the owning Centrapay [Account](/api/accounts).
+  </Property>
+
+  <Property name="status" type="string">
+    The current status of the Bank Account.
+  </Property>
+
+  <Property name="verified" type="boolean">
+    Flag indicating the Bank Account is verified, allowing it to be used to Top Up.
+  </Property>
+
+  <Property name="type" type="string">
+    The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
+  </Property>
+
+  <Property name="directDebitAuthorized" type="boolean">
+    Flag indicating the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+  </Property>
+
+  <Property name="approvals" type="array">
+    A list of [Bank Account Approval Type Summaries](#bank-account-approval-type-summary-model).
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Bank Account was created.
+  </Property>
+
+  <Property name="modifiedAt" type="timestamp">
+    When the Bank Account was updated..
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Bank Account.
+  </Property>
+
+  <Property name="modifiedBy" type="crn">
+    The User or API Key that updated the Bank Account.
+  </Property>
+
+  <Property name="phoneNumber" type="string">
+    The user's phone number.
+  </Property>
+
+  <Property name="fullName" type="string">
+    The first and last name of the user.
+  </Property>
+
+  <Property name="emailAddress" type="string">
+    The user's email address.
+  </Property>
+
+  <Property name="test" type="boolean">
+    A flag which is present if the Bank Account is for testing.
+  </Property>
+</Properties>
+
+### Bank Account Type <Badge type="experimental"/>
+
+Types of bank accounts to allow access to different [Asset Types](https://docs.centrapay.com/api/asset-types).
+
+|   Type    |                          Description                           |
+| --------- | -------------------------------------------------------------- |
+| centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
+| quartz    | Allows usage of the `quartz.nzd` asset type.                   |
+
+---
+
+## Bank Account Approval Type Summary Model <Badge type="experimental"/>
+
+A summary of the [Bank Account Approvals](https://docs.centrapay.com/api/bank-account-approvals) for a Bank Account.
+There is one object per type of Bank Account Approval, which provides a summary of the approval status.
+
+### Attributes
+<Properties>
+  <Property name="type" type="string">
+    The type of Bank Account Approval Summary.
+  </Property>
+
+  <Property name="status" type="string">
+    The summarized status of the Bank Account Approvals. Supported values are `pending`, `approved` and `declined`.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Bank Account Approval Summary was updated.
+  </Property>
+</Properties>
+
+---
+
+## Bank Account Balance Model <Badge type="experimental"/>
+
+The Bank Account balance, retrieved using Open Banking flows. The supported Bank Account type is `quartz`.
+
+### Attributes
+<Properties>
+  <Property name="bankAccountId" type="string">
+    The unique identifier of the Centrapay Bank Account.
+  </Property>
+
+  <Property name="balance" type="bignumber">
+    The Open Banking Bank Account balance.
+  </Property>
+
+  <Property name="currency" type="string">
+    	Currency code (eg. “NZD”).
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-accounts"
+>
+  ## Create Bank Account
+
+  A Bank Account can be created with or without direct debit authorized.  By including
+  `directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/)
+  and has authority to operate this account.
+
+  `phone`,`fullName` and `emailAddress` are all required to create a direct-debit authority. This is required to be able to Top Up a Bank Account.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string" required>
+      The id of the owning Centrapay [Account](/api/accounts).
+    </Property>
+
+    <Property name="bankAccountNumber" type="string" required>
+      The user's Bank Account number.
+    </Property>
+
+    <Property name="bankAccountName" type="string" required>
+      The name on the Bank Account provided by the user.
+    </Property>
+
+    <Property name="phoneNumber" type="string">
+    The user's phone number.
+    </Property>
+
+    <Property name="fullName" type="string">
+      The first and last name of the user.
+    </Property>
+
+    <Property name="emailAddress" type="string">
+      The user's email address.
+    </Property>
+
+    <Property name="type" type="string">
+      The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
+    </Property>
+
+    <Property name="test" type="boolean">
+      A flag which is present if the Bank Account is for testing.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |                Code                |                                           Description                                            |
+  | :----- | :--------------------------------- | :----------------------------------------------------------------------------------------------- |
+  | 403    | BANK_ACCOUNT_LIMIT_EXCEEDED        | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
+  | 403    | BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED | The global maximum Bank Accounts for the provided Bank Account number has been reached.          |
+  | 403    | DUPLICATE_BANK_ACCOUNT             | The Centrapay account already holds this Bank Account.                                           |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-accounts \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "directDebitAuthority": {
+          "phoneNumber": "+64212345678",
+          "fullName": "John Doe",
+          "emailAddress": "john.doe@gmail.com"
+        }
+      }'
+    ```
+
+    ```json
+    {
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "bankAccountNumber": "12-1234-1234567-123",
+      "bankAccountName": "John Doe",
+      "directDebitAuthorized": true,
+      "status": "created",
+      "verified": false,
+      "type": "centrapay",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "approvals": []
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-accounts/{bankAccountId}/direct-debit-authorities"
+>
+  ## Add Direct Debit Authority to a Bank Account
+
+  By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+
+  ### Attributes
+  <Properties>
+    <Property name="phoneNumber" type="string" required>
+    The user's phone number.
+    </Property>
+
+    <Property name="fullName" type="string" required>
+      The first and last name of the user.
+    </Property>
+
+    <Property name="emailAddress" type="string" required>
+      The user's email address.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |              Code               |                                           Description                                            |
+  | :----- | :------------------------------ | :----------------------------------------------------------------------------------------------- |
+  | 403    | DIRECT_DEBIT_ALREADY_AUTHORIZED | This bank authority cannot be changed as all fields have been set.                               |
+  | 403    | DIRECT_DEBIT_LIMIT_EXCEEDED     | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "phoneNumber": "+64212345678",
+        "fullName": "John Doe",
+        "emailAddress": "john@doe.org"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "bankAccountNumber": "12-1234-1234567-123",
+      "bankAccountName": "John Doe",
+      "directDebitAuthorized": true,
+      "status": "created",
+      "verified": false,
+      "type": "centrapay",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "approvals": []
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-accounts/{bankAccountId}"
+>
+  ## Get Bank Account
+
+  This endpoint allows you to retrieve information about a Bank Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97 \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "id": "d4a7cbd6818a87c51b97",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "status": "created",
+      "bankAccountNumber": "12-1234-1234567-123",
+      "bankAccountName": "John Doe",
+      "directDebitAuthorized": false,
+      "bankRegion": "nz",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "createdAt": "2022-07-18T02:26:39.477Z",
+      "verified": false,
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2022-07-18T02:26:39.477Z",
+      "approvals": [
+          {
+            "type": "account-consent",
+            "status": "approved",
+            "updatedAt": "2021-11-08T21:52:39.915Z"
+          }
+      ],
+      "type": "quartz",
+      "test": true,
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-accounts/{bankAccountId}/balance"
+>
+  ## Get Bank Account Balance <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve the [balance](#bank-account-balance-model) of a Bank Account.
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  | Status |            Code            |                                         Description                                         |
+  | :----- | :------------------------- | :------------------------------------------------------------------------------------------ |
+  | 403    | BANK_BALANCE_NOT_SUPPORTED | The [Bank Account Type][] does not support retrieval of a balance using Open Banking flows. |
+  | 403    | BANK_AUTHORIZATION_INVALID | The access token to retrieve the [Bank Account Balance][] is no longer valid.               |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97/balance \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "bankAccountId": "d4a7cbd6818a87c51b97",
+      "balance": 1000,
+      "currency": "NZD"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-accounts/{bankAccountId}/verify"
+>
+  ## Verify Bank Account
+
+  Verification codes show up on statements when a user makes withdrawals and deposits. To verify an account, you need to direct the user to make a Top Up or Withdrawal and then check their statement.
+
+  ### Attributes
+  <Properties>
+    <Property name="verificationCode" type="string" required>
+    	The code on the user’s bank statement.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |                    Code                     |                                   Description                                   |
+  | :----- | :------------------------------------------ | :------------------------------------------------------------------------------ |
+  | 403    | BANK_ACCOUNT_ALREADY_VERIFIED               | The bank account is already verified.                                           |
+  | 403    | VERIFICATION_CODE_INVALID                   | The verification code is incorrect.                                             |
+  | 403    | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account's maximum failed verification attempts has been reached.       |
+  | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "verificationCode": "1111"
+      }'
+    ```
+
+    ```json
+    {
+      "verificationCode": "1111"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-authorities/{bankAccountId}/verify"
+>
+  ## Verify Bank Authority <Badge type="deprecated"/>
+
+  If you're creating new interfaces, please work with [Verify Bank Account](#verify-bank-account).
+
+  ### Attributes
+  <Properties>
+    <Property name="verificationCode" type="string" required>
+    	The code on the user’s bank statement.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |                    Code                     |                                   Description                                   |
+  | :----- | :------------------------------------------ | :------------------------------------------------------------------------------ |
+  | 403    | BANK_ACCOUNT_ALREADY_VERIFIED               | The bank account is already verified.                                           |
+  | 403    | VERIFICATION_CODE_INVALID                   | The verification code is incorrect.                                             |
+  | 403    | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account's maximum failed verification attempts has been reached.       |
+  | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "verificationCode": "1111"
+      }'
+    ```
+
+    ```json
+    {
+      "verificationCode": "1111"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/bank-accounts"
+>
+  ## List Bank Accounts
+
+  This endpoint allows you to list the Bank Accounts for an account.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    [
+      {
+        "id": "XZbPLViMzekVBbF7QMqgaY",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "status": "created",
+        "bankAccountNumber": "02-0500-0568903-097",
+        "bankAccountName": "Pocket Money",
+        "directDebitAuthorized": false,
+        "bankRegion": "nz",
+        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+        "createdAt": "2022-04-19T05:43:40.425Z",
+        "verified": false,
+        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+        "modifiedAt": "2022-04-19T05:43:40.425Z",
+        "approvals": [
+
+        ],
+        "type": "quartz",
+        "test": true
+      },
+      {
+        "id": "3Kfdm8cuW1W6f8AoWJREs4",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "status": "created",
+        "bankAccountNumber": "00-1213-1231299-999",
+        "bankAccountName": "Jean",
+        "directDebitAuthorized": false,
+        "bankRegion": "nz",
+        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+        "createdAt": "2022-02-22T03:27:57.138Z",
+        "verified": false,
+        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+        "modifiedAt": "2022-02-22T03:27:57.138Z",
+        "approvals": [
+          {
+            "type": "settlement",
+            "status": "pending",
+            "updatedAt": "2021-11-08T21:52:39.915Z"
+          }
+        ],
+        "type": "centrapay"
+      }
+    ]
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-authorities"
+>
+  ## List Bank Authorities <Badge type="deprecated"/>
+
+  If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/bank-authorities \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    [
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "status": "created",
+        "verified": false,
+        "directDebitAuthorized": true,
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "approvals": [
+
+        ]
+      },
+      {
+        "id": "b5URhAxxWpTKyxQjjY7pXW",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "Jane Doe",
+        "status": "active",
+        "verified": true,
+        "directDebitAuthorized": true,
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "approvals": [
+          {
+            "type": "settlement",
+            "status": "pending",
+            "updatedAt": "2021-11-08T21:52:39.915Z"
+          }
+        ]
+      }
+    ]
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/bank-authorities"
+>
+  ## Create Bank Authority <Badge type="deprecated"/>
+
+  If you're creating new interfaces, please work with [Create Bank Account](#create-bank-account).
+
+  Creating a Bank Authority both creates a new Bank Account and a direct debit authority. By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string" required>
+      The id of the owning Centrapay [Account](/api/accounts).
+    </Property>
+
+    <Property name="fullName" type="string" required>
+      The first and last name of the user.
+    </Property>
+
+    <Property name="phoneNumber" type="string" required>
+      The user's phone number.
+    </Property>
+
+    <Property name="emailAddress" type="string" required>
+      The user's email address.
+    </Property>
+
+    <Property name="bankAccountNumber" type="string" required>
+      The user's Bank Account number.
+    </Property>
+
+    <Property name="bankAccountName" type="string" required>
+      The name on the Bank Account provided by the user.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |                    Code                    |                                               Description                                               |
+  | :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+  | 403    | BANK_AUTHORITY_LIMIT_EXCEEDED              | The account already has the max amount of bank accounts.                                                |
+  | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/bank-authorities \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "fullName": "John Doe",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "phoneNumber": "+64212345",
+        "emailAddress": "John.doe@email.com",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "bankAccountNumber": "12-1234-1234567-123",
+      "bankAccountName": "John Doe",
+      "status": "created",
+      "verified": false,
+      "directDebitAuthorized": true,
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "approvals": []
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/bank-authorities/{bankAccountId}"
+>
+  ## Get Bank Authority <Badge type="deprecated"/>
+
+  If you're creating new interfaces, please work with [Get Bank Account](#get-bank-account).
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  | Status |                    Code                    |                                               Description                                               |
+  | :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+  | 403    | BANK_AUTHORITY_LIMIT_EXCEEDED              | The account already has the max amount of bank accounts.                                                |
+  | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "bankAccountNumber": "12-1234-1234567-123",
+      "bankAccountName": "John Doe",
+      "status": "created",
+      "directDebitAuthorized": true,
+      "verified": false,
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "modifiedAt": "2020-06-12T01:17:46.499Z",
+      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "approvals": []
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
