@@ -4,19 +4,20 @@ description: Bank Account Connection Intent model and related endpoints
 draft: true
 nav:
   path: API
-  order: 17
+  order: 18
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import CodeGroup from '../../components/CodeGroup.astro';
+import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 
 A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts.
 
-## Bank Account Connection Intent Model
+---
 
-### Attributes
+## Model
+
 <Properties>
   <Property name="id" type="string">
     The Bank Account Connection Intent's unique identifier.
@@ -102,7 +103,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
   </Properties>
 
-  <CodeGroup slot="code-examples">
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
     ```bash
     curl -X POST https://service.centrapay.com/api/bank-account-connection-intents \
       -H "X-Api-Key: $api_key" \
@@ -113,7 +114,9 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
         "test": true
       }'
     ```
+  </CodePanel>
 
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {
       "id": "3KVjuKW2CZCJeJVqPxwkX7",
@@ -128,7 +131,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
       "test": true
     }
     ```
-  </CodeGroup>
+  </CodePanel>
 </Endpoint>
 
 ---
@@ -148,7 +151,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
   </Properties>
 
-  <CodeGroup slot="code-examples">
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
     ```bash
     curl -X POST https://service.centrapay.com/api/bank-account-connection-intents/3KVjuKW2CZCJeJVqPxwkX7/authorize \
       -H "X-Api-Key: $api_key" \
@@ -157,9 +160,11 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
         "code": "hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x"
       }'
     ```
+  </CodePanel>
 
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {}
     ```
-  </CodeGroup>
+  </CodePanel>
 </Endpoint>
