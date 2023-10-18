@@ -91,7 +91,7 @@
   },"15": {
     "doc": "Asset Transfers",
     "title": "Create an Asset Transfer",
-    "content": "Transfer an asset to a recipient. Some assets can be transfered only in whole (eg giftcards or tokens) while others can be transfered only in part (eg money). POST /api/asset-transfers Whole asset transfer . curl -X POST https://service.centrapay.com/api/asset-transfers \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"assetId\": \"YGRo6TYYSxH3js7\", \"recipientAlias\": \"+642212312\" }' . Partial asset transfer . curl -X POST https://service.centrapay.com/api/asset-transfers \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"assetId\": \"sai2Pai7ohgongo\", \"value\": \"6000\", \"recipientAlias\": \"+642212312\" }' . Required Fields . | Parameter | Type | Description | . | assetId | String | Id of a discrete asset to transfer or wallet to draw from. | . | recipientAlias | String | Phone number, email or handle of receiver. | . Optional Parameters . | Parameter | Type | Description | . | description | String | Shows up in transaction history against the transfer. 200 character limit. | . | message | String | A message which shows up in the SMS of the receiver. 100 character limit. | . | value | BigNumber | Amount to send. Required for money transfers. Units depend on the asset type. | . | senderName | String | Human readable name for the sender. 30 character limit. | . | suppressNotifications | Boolean | Suppress notifications from Centrapay (SMS/Email). | . Example response payload . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"1000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"claimedByAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64212312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\", \"suppressNotifications\": false } . The above example has $10 left on a $60 dollar giftcard at the time of transfer. Error Responses . | Status | Code | Description | . | 403 | INSUFFICIENT_WALLET_BALANCE | The value of the asset-transfer exceeds the balance on the wallet | . | 403 | QUOTA_EXCEEDED | The transfer exceeds one or more spend quota limits. See Quota Error Response. | . | 403 | ASSET_NOT_ACTIVE | The asset is not active and cannot be transferred. | . ",
+    "content": "Transfer an asset to a recipient. Some assets can be transfered only in whole (eg giftcards or tokens) while others can be transfered only in part (eg money). Some assets can be transferred without supplying a recipient. A url field will be returned in these cases. The url will link to a page to claim the asset. POST /api/asset-transfers Whole asset transfer . curl -X POST https://service.centrapay.com/api/asset-transfers \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"assetId\": \"YGRo6TYYSxH3js7\", \"recipientAlias\": \"+642212312\" }' . Partial asset transfer . curl -X POST https://service.centrapay.com/api/asset-transfers \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"assetId\": \"sai2Pai7ohgongo\", \"value\": \"6000\", \"recipientAlias\": \"+642212312\" }' . Without Recipient . curl -X POST https://service.centrapay.com/api/asset-transfers \\ -H \"X-Api-Key: $api_key\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"assetId\": \"sai2Pai7ohgongo\" }' . Required Fields . | Parameter | Type | Description | . | assetId | String | Id of a discrete asset to transfer or wallet to draw from. | . Optional Parameters . | Parameter | Type | Description | . | recipientAlias | String | Phone number, email or handle of receiver. | . | description | String | Shows up in transaction history against the transfer. 200 character limit. | . | message | String | A message which shows up in the SMS of the receiver. 100 character limit. | . | value | BigNumber | Amount to send. Required for money transfers. Units depend on the asset type. | . | senderName | String | Human readable name for the sender. 30 character limit. | . | suppressNotifications | Boolean | Suppress notifications from Centrapay (SMS/Email). | . Example response payload (With Recipient) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"1000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"epay.nzd.main\", \"description\": \"$60 Giftcard\", \"message\": \"Happy birthday\", \"senderName\": \"My Cafe\", \"recipientAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"claimedByAccountId\": \"9EDxUT91TMsUjoqoQeBuLQ\", \"recipientAlias\": \"+64212312345\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\", \"suppressNotifications\": false } . The above example has $10 left on a $60 dollar giftcard at the time of transfer. Example response payload (Without Recipient) . { \"id\": \"M7Kn2stAxNa6ri7h\", \"status\": \"created\", \"value\": \"1000\", \"assetId\": \"YGRo6TYYSxH3js7\", \"assetType\": \"centrapay.token.main\", \"description\": \"Centrapay Token\", \"message\": \"Happy birthday\", \"senderName\": \"CentraCafe\", \"createdAt\": \"2020-05-01T12:30:00.000Z\", \"updatedAt\": \"2020-05-02T01:03:37.222Z\", \"suppressNotifications\": false, \"url\": \"https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h\" } . Error Responses . | Status | Code | Description | . | 403 | INSUFFICIENT_WALLET_BALANCE | The value of the asset-transfer exceeds the balance on the wallet | . | 403 | QUOTA_EXCEEDED | The transfer exceeds one or more spend quota limits. See Quota Error Response. | . | 403 | ASSET_NOT_ACTIVE | The asset is not active and cannot be transferred. | . | 403 | RECIPIENT_MISSING | The asset must be transferred with a recipient supplied. | . ",
     "url": "/api/asset-transfers#create-an-asset-transfer",
     "relUrl": "/api/asset-transfers#create-an-asset-transfer"
   },"16": {
@@ -515,23 +515,23 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"86": {
+    "doc": "Settlements",
+    "title": "Settlements",
+    "content": " ",
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
+  },"87": {
     "doc": "Assets",
     "title": "Assets",
     "content": " ",
     "url": "/api/section/assets",
     "relUrl": "/api/section/assets"
-  },"87": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
   },"88": {
-    "doc": "Integrations",
-    "title": "Integrations",
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
     "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"89": {
     "doc": "Accounts",
     "title": "Accounts",
@@ -539,17 +539,17 @@
     "url": "/api/section/accounts",
     "relUrl": "/api/section/accounts"
   },"90": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Merchants",
+    "title": "Merchants",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
   },"91": {
-    "doc": "Bank Accounts",
-    "title": "Bank Accounts",
+    "doc": "Batches",
+    "title": "Batches",
     "content": " ",
-    "url": "/api/section/bank-accounts",
-    "relUrl": "/api/section/bank-accounts"
+    "url": "/api/section/batches",
+    "relUrl": "/api/section/batches"
   },"92": {
     "doc": "Scanned Codes",
     "title": "Scanned Codes",
@@ -557,17 +557,17 @@
     "url": "/api/section/scanned-codes",
     "relUrl": "/api/section/scanned-codes"
   },"93": {
-    "doc": "Settlements",
-    "title": "Settlements",
+    "doc": "Integrations",
+    "title": "Integrations",
     "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
   },"94": {
-    "doc": "Batches",
-    "title": "Batches",
+    "doc": "Bank Accounts",
+    "title": "Bank Accounts",
     "content": " ",
-    "url": "/api/section/batches",
-    "relUrl": "/api/section/batches"
+    "url": "/api/section/bank-accounts",
+    "relUrl": "/api/section/bank-accounts"
   },"95": {
     "doc": "API Reference",
     "title": "API Reference",
