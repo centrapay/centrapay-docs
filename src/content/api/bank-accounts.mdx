@@ -8,6 +8,7 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
@@ -158,7 +159,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   `directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/)
   and has authority to operate this account.
 
-  `phone`,`fullName` and `emailAddress` are all required to create a direct-debit authority. This is required to be able to Top Up a Bank Account.
+  `phone`, `fullName` and `emailAddress` are all required to create a direct-debit authority. This is required to be able to Top Up a Bank Account.
 
   ### Attributes
   <Properties>
@@ -196,11 +197,19 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Properties>
 
   ### Errors
-  | Status |                Code                |                                           Description                                            |
-  | :----- | :--------------------------------- | :----------------------------------------------------------------------------------------------- |
-  | 403    | BANK_ACCOUNT_LIMIT_EXCEEDED        | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
-  | 403    | BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED | The global maximum Bank Accounts for the provided Bank Account number has been reached.          |
-  | 403    | DUPLICATE_BANK_ACCOUNT             | The Centrapay account already holds this Bank Account.                                           |
+  <Properties>
+    <Error code="403" message="BANK_ACCOUNT_LIMIT_EXCEEDED">
+      The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED">
+      The global maximum Bank Accounts for the provided Bank Account number has been reached.
+    </Error>
+
+    <Error code="403" message="DUPLICATE_BANK_ACCOUNT">
+      The Centrapay account already holds this Bank Account.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts">
     ```bash
@@ -268,10 +277,15 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Properties>
 
   ### Errors
-  | Status |              Code               |                                           Description                                            |
-  | :----- | :------------------------------ | :----------------------------------------------------------------------------------------------- |
-  | 403    | DIRECT_DEBIT_ALREADY_AUTHORIZED | This bank authority cannot be changed as all fields have been set.                               |
-  | 403    | DIRECT_DEBIT_LIMIT_EXCEEDED     | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
+  <Properties>
+    <Error code="403" message="DIRECT_DEBIT_ALREADY_AUTHORIZED">
+      This bank authority cannot be changed as all fields have been set.
+    </Error>
+
+    <Error code="403" message="DIRECT_DEBIT_LIMIT_EXCEEDED">
+      The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/direct-debit-authorities">
     ```bash
@@ -372,10 +386,15 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   No attributes.
 
   ### Errors
-  | Status |            Code            |                                         Description                                         |
-  | :----- | :------------------------- | :------------------------------------------------------------------------------------------ |
-  | 403    | BANK_BALANCE_NOT_SUPPORTED | The [Bank Account Type][] does not support retrieval of a balance using Open Banking flows. |
-  | 403    | BANK_AUTHORIZATION_INVALID | The access token to retrieve the [Bank Account Balance][] is no longer valid.               |
+  <Properties>
+    <Error code="403" message="BANK_BALANCE_NOT_SUPPORTED">
+      The [Bank Account Type](#bank-account-type) does not support retrieval of a balance using Open Banking flows.
+    </Error>
+
+    <Error code="403" message="BANK_AUTHORIZATION_INVALID">
+      The access token to retrieve the [Bank Account Balance](#bank-account-balance-model) is no longer valid.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}/balance">
     ```bash
@@ -414,12 +433,23 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Properties>
 
   ### Errors
-  | Status |                    Code                     |                                   Description                                   |
-  | :----- | :------------------------------------------ | :------------------------------------------------------------------------------ |
-  | 403    | BANK_ACCOUNT_ALREADY_VERIFIED               | The bank account is already verified.                                           |
-  | 403    | VERIFICATION_CODE_INVALID                   | The verification code is incorrect.                                             |
-  | 403    | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account's maximum failed verification attempts has been reached.       |
-  | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
+  <Properties>
+    <Error code="403" message="BANK_ACCOUNT_ALREADY_VERIFIED">
+      The bank account is already verified.
+    </Error>
+
+    <Error code="403" message="VERIFICATION_CODE_INVALID">
+      The verification code is incorrect.
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED">
+      The bank account's maximum failed verification attempts has been reached.
+    </Error>
+
+    <Error code="403" message="ACCOUNT_MISMATCH">
+      The top up / withdrawal and the bank account do not belong to the same account.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/verify">
     ```bash
@@ -460,12 +490,23 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Properties>
 
   ### Errors
-  | Status |                    Code                     |                                   Description                                   |
-  | :----- | :------------------------------------------ | :------------------------------------------------------------------------------ |
-  | 403    | BANK_ACCOUNT_ALREADY_VERIFIED               | The bank account is already verified.                                           |
-  | 403    | VERIFICATION_CODE_INVALID                   | The verification code is incorrect.                                             |
-  | 403    | BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED | The bank account's maximum failed verification attempts has been reached.       |
-  | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
+  <Properties>
+    <Error code="403" message="BANK_ACCOUNT_ALREADY_VERIFIED">
+      The bank account is already verified.
+    </Error>
+
+    <Error code="403" message="VERIFICATION_CODE_INVALID">
+      The verification code is incorrect.
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED">
+      The bank account's maximum failed verification attempts has been reached.
+    </Error>
+
+    <Error code="403" message="ACCOUNT_MISMATCH">
+      The top up / withdrawal and the bank account do not belong to the same account.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-authorities/{bankAccountId}/verify">
     ```bash
@@ -657,10 +698,15 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Properties>
 
   ### Errors
-  | Status |                    Code                    |                                               Description                                               |
-  | :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-  | 403    | BANK_AUTHORITY_LIMIT_EXCEEDED              | The account already has the max amount of bank accounts.                                                |
-  | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
+  <Properties>
+    <Error code="403" message="BANK_AUTHORITY_LIMIT_EXCEEDED">
+      The account already has the max amount of bank accounts.
+    </Error>
+
+    <Error code="403" message="BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED">
+      There are already two bank accounts for the provided bank account number, which is the maximum allowed.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-authorities">
     ```bash
@@ -713,10 +759,15 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   No attributes.
 
   ### Errors
-  | Status |                    Code                    |                                               Description                                               |
-  | :----- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-  | 403    | BANK_AUTHORITY_LIMIT_EXCEEDED              | The account already has the max amount of bank accounts.                                                |
-  | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
+  <Properties>
+    <Error code="403" message="BANK_AUTHORITY_LIMIT_EXCEEDED">
+      The account already has the max amount of bank accounts.
+    </Error>
+
+    <Error code="403" message="BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED">
+      There are already two bank accounts for the provided bank account number, which is the maximum allowed.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-authorities/{bankAccountId}">
     ```bash

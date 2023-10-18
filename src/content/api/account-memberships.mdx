@@ -8,6 +8,7 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
@@ -193,9 +194,11 @@ A Member contains extended information about a user's access to an account.
   No attributes.
 
   ### Errors
-  | Status |           Code           |                          Description                           |
-  | :----- | :----------------------- | :------------------------------------------------------------- |
-  | 403    | LAST_OWNER_NOT_REVOKABLE | The last remaining membership to an account cannot be revoked. |
+  <Properties>
+    <Error code="403" message="LAST_OWNER_NOT_REVOKABLE">
+      The last remaining membership to an account cannot be revoked.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="DELETE" path="/api/accounts/{accountId}/members/{userId}">
     ```bash

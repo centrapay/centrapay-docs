@@ -8,6 +8,7 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
@@ -143,10 +144,15 @@ A Business represents a company registered with the New Zealand Companies Office
   </Properties>
 
   ### Errors
-  | Status |      Code       |                                         Description                                          |
-  | :----- | :-------------- | :------------------------------------------------------------------------------------------- |
-  | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
-  | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
+  <Properties>
+    <Error code="403" message="INVALID_ACCOUNT">
+      Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region.
+    </Error>
+
+    <Error code="403" message="INVALID_NZBN">
+      The NZBN provided does not match any NZ business.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/businesses">
     ```bash
@@ -210,10 +216,15 @@ A Business represents a company registered with the New Zealand Companies Office
   </Properties>
 
   ### Errors
-  | Status |      Code       |                                         Description                                          |
-  | :----- | :-------------- | :------------------------------------------------------------------------------------------- |
-  | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
-  | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
+  <Properties>
+    <Error code="403" message="INVALID_ACCOUNT">
+      Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region.
+    </Error>
+
+    <Error code="403" message="INVALID_NZBN">
+      The NZBN provided does not match any NZ business.
+    </Error>
+  </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/businesses/{businessId}">
     ```bash
