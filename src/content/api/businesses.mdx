@@ -1,0 +1,419 @@
+---
+title: Businesses
+description: Business model and related endpoints.
+draft: true
+nav:
+  path: API
+  order: 9
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+import Badge from '../../components/Badge.astro';
+
+A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](https://docs.centrapay.com/api/accounts).
+
+## Business Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The Centrapay accountId for an org account.
+  </Property>
+
+  <Property name="accountName" type="string">
+    The Centrapay account name for an org account.
+  </Property>
+
+  <Property name="nzbn" type="string">
+    The unique NZBN identifier.
+  </Property>
+
+  <Property name="name" type="string">
+    Legal name recorded in the Companies Register.
+  </Property>
+
+  <Property name="tradingName" type="string">
+    Trading name recorded in the Companies Register.
+  </Property>
+
+  <Property name="companyNumber" type="string">
+    Company number recorded in the Companies Register.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Business was created.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Business was updated.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Business.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Business.
+  </Property>
+
+  <Property name="taxNumber" type="object">
+    The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
+  </Property>
+
+  <Property name="onboardingStatus" type="crn">
+    The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+  </Property>
+
+  <Property name="onboardingStatusReason" type="string">
+    The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+  </Property>
+</Properties>
+
+### Onboarding Statuses
+
+|    Status    |                                                                 Description                                                                 |                                   Allowed Reasons                                   |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------- |
+| applied      | Identifies businesses that have registered to be activated for the Centrapay service.                                                       |                                                                                     |
+| provisioning | Identifies businesses that are in the process of being activated for the Centrapay service.                                                 |                                                                                     |
+| active       | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                     |
+| deactivated  | Identifies businesses that have been de-registered for the Centrapay service.                                                               | data-quality-issues,change-of-ownership, centrapay-discontinued, duplicate, blocked |
+| on-hold      | Identifies businesses that have been placed on hold.                                                                                        | seasonal-business-closure,  no-response                                             |
+
+### Onboarding Status Reasons
+
+|          Reason           |                           Description                            |
+| :------------------------ | :--------------------------------------------------------------- |
+| duplicate                 | The business already exists in the Centrapay system.             |
+| data-quality-issues       | Data quality issues are preventing the business from onboarding. |
+| no-response               | No response has been received from the business.                 |
+| change-of-ownership       | The business has changed ownership.                              |
+| centrapay-discontinued    | The business is no longer using Centrapay.                       |
+| seasonal-business-closure | The business has closed temporarily.                             |
+
+---
+
+## Tax Number Model
+
+### Attributes
+
+<Properties>
+  <Property name="value" type="string">
+    The tax number.
+  </Property>
+
+  <Property name="type" type="string">
+    Type of value-added tax. Can be `nz-gst`.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/businesses"
+>
+  ## Create Business <Badge type="experimental"/>
+
+  This endpoint allows you to create a new Business. If `accountId` is not provided when creating a Business, then a new org account will be created and associated to the Business.
+
+  ### Attributes
+  <Properties>
+    <Property name="nzbn" type="string" required>
+      The unique NZBN identifier.
+    </Property>
+
+    <Property name="accountId" type="string">
+      The Centrapay accountId.
+    </Property>
+
+    <Property name="test" type="string">
+      The created Centrapay org account will have the test flag.
+    </Property>
+
+    <Property name="taxNumber" type="object">
+      The value-added tax configuration.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |      Code       |                                         Description                                          |
+  | :----- | :-------------- | :------------------------------------------------------------------------------------------- |
+  | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
+  | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/businesses \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "nzbn": "9429046246448",
+        "taxNumber": {
+          "value": "123-456-789",
+          "type": "nz-gst"
+        }
+      }'
+    ```
+
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "accountName": "Centrapay",
+      "nzbn": "9429046246448",
+      "name": "CENTRAPAY LIMITED",
+      "tradingName": "CentraPay",
+      "companyNumber": "6340244",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "taxNumber": {
+        "value": "123-456-789",
+        "type": "nz-gst",
+      },
+      "onboardingStatus": "applied"
+    }
+    ```
+  </CodeGroup>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/businesses/{businessId}"
+>
+  ## Update Business <Badge type="experimental"/>
+
+  This endpoint allows you to update a Business.
+
+  ### Attributes
+  <Properties>
+    <Property name="taxNumber" type="object">
+      The value-added tax configuration.
+    </Property>
+
+    <Property name="farmlandsBusinessNumber" type="string">
+      The number associated with your Farmlands business.
+    </Property>
+  </Properties>
+
+  ### Errors
+  | Status |      Code       |                                         Description                                          |
+  | :----- | :-------------- | :------------------------------------------------------------------------------------------- |
+  | 403    | INVALID_ACCOUNT | Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region. |
+  | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2 \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "taxNumber": {
+          "value": "123-456-789",
+          "type": "nz-gst"
+        },
+        "farmlandsBusinessNumber": "12345678"
+      }'
+    ```
+
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "accountName": "Centrapay",
+      "nzbn": "9429046246448",
+      "name": "CENTRAPAY LIMITED",
+      "tradingName": "CentraPay",
+      "companyNumber": "6340244",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "taxNumber": {
+        "value": "123-456-789",
+        "type": "nz-gst",
+      },
+      "farmlandsBusinessNumber": "12345678",
+      "onboardingStatus": "applied"
+    }
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/business"
+>
+  ## Get Business by Account Id <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve a Business by account id.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "accountName": "Centrapay",
+      "nzbn": "9429046246448",
+      "name": "CENTRAPAY LIMITED",
+      "tradingName": "CentraPay",
+      "companyNumber": "6340244",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+    }
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/nzbn-search"
+>
+  ## Search NZ Company Register <Badge type="experimental"/>
+
+  This endpoint returns a list of companies that match the queried param on company name, nzbn number or company number. Results are [paginated](https://docs.centrapay.com/api/pagination) and ordered by relevance.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -G https://service.centrapay.com/api/nzbn-search \
+      -H "X-Api-Key: $api_key" \
+      -d q=centrapay
+    ```
+
+    ```json
+    {
+      "items": [
+        {
+          "nzbn": "9429046246448",
+          "companyName": "CENTRAPAY LIMITED",
+          "companyNumber": "6340244"
+        }
+      ]
+    }
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/nzbn/{nzbn}"
+>
+  ## Get Business Details from NZ Company Register <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve a Business by account id.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl https://service.centrapay.com/api/nzbn/9429046246448 \
+      -H "X-Api-Key: $api_key"
+    ```
+
+    ```json
+    {
+      "nzbn": "9429046246448",
+      "companyName": "CENTRAPAY LIMITED",
+      "tradingName": "CentraPay",
+      "companyNumber": "6340244",
+      "directors": [
+        {
+          "firstName": "John",
+          "lastName": "DOE",
+          "addressLines": [
+            "7 Tara Street",
+            "Downmore",
+            "Auckland"
+          ]
+        },
+        {
+          "firstName": "Jane",
+          "lastName": "DOE",
+          "addressLines": [
+            "82 Greatwood Road",
+            "Northclover",
+            "Auckland"
+          ]
+        }
+      ]
+    }
+    ```
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/businesses/{businessId}/set-onboarding-status"
+>
+  ## Set Business Onboarding Status
+
+  This endpoint returns allows you to set the [onboarding status](#onboarding-statuses) of a Business.
+
+  ### Attributes
+  <Properties>
+    <Property name="onboardingStatus" type="crn">
+      The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    </Property>
+
+    <Property name="onboardingStatusReason" type="string">
+      The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2/set-onboarding-status \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "onboardingStatus": "deactivated",
+        "onboardingStatusReason": "change-of-ownership"
+      }'
+    ```
+
+    ```json
+    {
+      "type": "set-onboarding-status",
+      "onboardingStatus": "deactivated",
+      "onboardingStatusReason": "change-of-ownership",
+      "businessId": "DKTs3U38hdhfEqwF1JKoT2",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "activityNumber": 2
+    }
+    ```
+  </CodeGroup>
+</Endpoint>

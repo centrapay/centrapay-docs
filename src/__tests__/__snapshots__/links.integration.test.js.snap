@@ -180,6 +180,7 @@ exports[`the build should not break any links 1`] = `
   "/api/businesses#search-nz-company-register-experimental",
   "/api/businesses#set-business-onboarding-status",
   "/api/businesses#tax-number",
+  "/api/businesses#tax-number-model",
   "/api/businesses#top",
   "/api/businesses#update-a-business-experimental",
   "/api/data-types",
