@@ -18,7 +18,7 @@ export const mermaid = () => tree => {
 
     node.type = 'html';
     node.value = `
-      <div class="mermaid my-8 rounded-lg border border-outline-opaque bg-surface-secondary" data-content="${node.value}">
+      <div class="mermaid mt-8 mb-8 rounded-lg border border-outline-opaque bg-surface-secondary" data-content="${node.value}">
         <p>Loading Diagram...</p>
       </div>
     `;

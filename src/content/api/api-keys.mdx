@@ -6,97 +6,207 @@ nav:
   path: API
   order: 6
 ---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodeGroup from '../../components/CodeGroup.astro';
+import CodePanel from '../../components/CodePanel.astro';
 
 API keys provide enduring access to a single Centrapay [Account](https://docs.centrapay.com/api/accounts).
 
-## Models
+## Model
 
-### API Key
+### Attributes
 
-#### Required Fields
+<Properties>
+  <Property name="accountId" type="string">
+    The id of the Centrapay [Account](https://docs.centrapay.com/api/accounts) the API Key is scoped to.
+  </Property>
 
-|   Field   |                  Type                  |                                                          Description                                                          |
-| :-------- | :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| accountId | String                                 | The id of the Centrapay [Account](https://docs.centrapay.com/api/accounts) the API Key is scoped to.                          |
-| name      | String                                 | The alphanumeric name of the API key, must be unique within the account.                                                      |
-| role      | String                                 | Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details. |
-| enabled   | Boolean                                | Flag indicating the API Key is usable for authentication.                                                                     |
-| createdAt | [Timestamp](/api/data-types#timestamp) | When the API Key was created.                                                                                                 |
+  <Property name="name" type="string">
+    The alphanumeric name of the API key, must be unique within the account.
+  </Property>
 
-## Operations
+  <Property name="role" type="string">
+    Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.
+  </Property>
 
-### Create an API Key
+  <Property name="enabled" type="boolean">
+    Flag indicating the API Key is usable for authentication.
+  </Property>
 
-```bash [Request]
-curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "MyAPIkey",
-    "role": "merchant-terminal"
-  }'
-```
+  <Property name="createdAt" type="timestamp">
+    When the API Key was created.
+  </Property>
 
-```bash [Response]
-{
-  "name": "MyAPIkey",
-  "createdAt": "2020-06-01T22:32:56.631Z",
-  "enabled": true,
-  "role": "merchant-terminal",
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "secret": "EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
-}
-```
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the API Key.
+  </Property>
 
-### List API Keys
+  <Property name="modifiedAt" type="timestamp">
+    When the API Key was modified.
+  </Property>
 
-```bash [Request]
-curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
-  -H "X-Api-Key: $api_key"
-```
+  <Property name="modifiedBy" type="crn">
+    The User or API Key that modified the API Key.
+  </Property>
 
-```bash [Response]
-[
-  {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "name": "MyOtherAPIkey",
-    "createdAt": "2020-06-01T21:57:25.888Z",
-    "enabled": false,
-    "role": "merchant-terminal"
-  },
-  {
-    "accountId": "Jaim1Cu1Q55uooxSens6yk",
-    "name": "MyAPIkey",
-    "createdAt": "2020-06-01T22:34:31.308Z",
-    "enabled": true,
-    "role": "merchant-terminal"
-  }
-]
-```
+  <Property name="version" type="string">
+    An API Key version that is incremented when the API Key is updated.
+  </Property>
+</Properties>
 
-### Update an API Key
+---
 
-```bash [Request]
-curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "enabled": false
-  }'
-```
+<Endpoint
+  method="POST"
+  path="/api/accounts/{accountId}/api-keys"
+>
+  ## Create an API Key
 
-#### Required Fields
+  This endpoint allows you to create an API key.
 
-| Field   | Type    | Description            |
-| :------ | :------ | :--------------------- |
-| enabled | Boolean | Enable/Disable API key |
+  ### Attributes
 
-```bash [Response]
-{
-  "accountId": "Jaim1Cu1Q55uooxSens6yk",
-  "name": "MyAPIkey",
-  "createdAt": "2020-06-01T22:34:31.308Z",
-  "enabled": false,
-  "role": "merchant-terminal"
-}
-```
+  <Properties>
+    <Property name="name" type="string" required>
+      The alphanumeric name of the API key, must be unique within the account.
+    </Property>
+
+    <Property name="role" type="string" required>
+      Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    <CodePanel title="Request" method="POST" path="/api/accounts/{accountId}/api-keys">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "name": "MyAPIkey",
+          "role": "merchant-terminal"
+        }'
+      ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```bash
+      {
+        "name": "MyAPIkey",
+        "createdAt": "2020-06-01T22:32:56.631Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+        "modifiedAt": "2020-06-01T22:32:56.631Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+        "enabled": true,
+        "role": "merchant-terminal",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "version": "1",
+        "secret": "EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
+      }
+      ```
+    </CodePanel>
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/api-keys"
+>
+
+  ## List API Keys
+
+  This endpoint allows you to list all API Keys for an Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodeGroup slot="code-examples">
+    <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/api-keys">
+      ```bash
+      curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```bash
+      [
+        {
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "name": "MyOtherAPIkey",
+          "createdAt": "2020-06-01T21:57:25.888Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+          "modifiedAt": "2020-06-01T21:57:25.888Z",
+          "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+          "enabled": false,
+          "version": "1",
+          "role": "merchant-terminal"
+        },
+        {
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "name": "MyAPIkey",
+          "createdAt": "2020-06-01T22:34:31.308Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+          "modifiedAt": "2020-06-01T22:34:31.308Z",
+          "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+          "enabled": true,
+          "version": "1",
+          "role": "merchant-terminal"
+        }
+      ]
+      ```
+    </CodePanel>
+  </CodeGroup>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/accounts/{accountId}/api-keys/{apiKeyName}"
+>
+
+  ## Update an API Key
+
+  This endpoint allows you to enable or disable an API key.
+
+  ### Attributes
+  <Properties>
+    <Property name="enabled" type="boolean" required>
+      Flag indicating the API Key is usable for authentication.
+    </Property>
+  </Properties>
+
+  <CodeGroup slot="code-examples">
+    <CodePanel title="Request" method="PUT" path="/api/accounts/{accountId}/api-keys/{apiKeyName}">
+    ```bash [Request]
+    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "enabled": false
+      }'
+    ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```bash
+      {
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "name": "MyAPIkey",
+        "createdAt": "2020-06-01T22:34:31.308Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
+        "modifiedAt": "2020-07-02T22:34:31.308Z",
+        "modifiedBy": "crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyAPIkey",
+        "enabled": false,
+        "version": "2",
+        "role": "merchant-terminal"
+      }
+      ```
+    </CodePanel>
+  </CodeGroup>
+</Endpoint>

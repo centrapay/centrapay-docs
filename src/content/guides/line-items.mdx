@@ -5,6 +5,7 @@ nav:
   path: Reference/Merchant Integrations
   order: 8
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
 [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) are used to communicate the details of a purchase to a patron.
 
@@ -12,18 +13,20 @@ nav:
 
 1. The price of a Line Item MUST represent the amount that a patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
 
-    ```json [Example]
+  <CodePanel title="Example">
+    ```json
     [
       {
-        name: 'Cinema Tickets',
-        sku: '123456789',
-        qty: '2',
-        price: '3600', // 2 x $20 + $6 (15% tax) - $10 (discount)
-        tax: '15.0',
-        discount: '1000' # $10
+        "name": "Cinema Tickets",
+        "sku": "123456789",
+        "qty": "2",
+        "price": "3600", // 2 x $20 + $6 (15% tax) - $10 (discount)
+        "tax": "15.0",
+        "discount": "1000" // $10
       }
     ]
     ```
+  </CodePanel>
 
 2. The price for each Line Item MUST be provided in cents.
 3. The total for all Line Item prices MUST sum to the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) amount.
@@ -31,31 +34,33 @@ nav:
 5. The discount for each Line Item MUST be provided in cents and is tax exclusive.
 6. A discount that applies to multiple line items may be represented as a separate line item with a negative amount.
 
-    ```json [Example]
+  <CodePanel title="Example">
+    ```json
     [
       {
-        name: 'Cinema Tickets',
-        sku: '123456789',
-        qty: '2',
-        price: '4600' // 2 x $20 + $6 (15% tax),
-        tax: '15.0'
+        "name": "Cinema Tickets",
+        "sku": "123456789",
+        "qty": "2",
+        "price": "4600" // 2 x $20 + $6 (15% tax),
+        "tax": "15.0"
       },
       {
-        name: 'Popcorn',
-        sku: '987654321',
-        qty: '1',
-        price: '1150', // $10 popcorn + $1.50 (15% tax)
-        tax: '15.0'
+        "name": "Popcorn",
+        "sku": "987654321",
+        "qty": "1",
+        "price": "1150", // $10 popcorn + $1.50 (15% tax)
+        "tax": "15.0"
       },
       {
-        name: 'Combo Discount',
-        sku: '123456789',
-        qty: '1',
-        price: '-1500', // $15 (discount)
-        tax: '15.0'
+        "name": "Combo Discount",
+        "sku": "123456789",
+        "qty": "1",
+        "price": "-1500", // $15 (discount)
+        "tax": "15.0"
       }
     ]
     ```
+  </CodePanel>
 
 ## Determining Paid For Line Items
 
@@ -65,23 +70,25 @@ This information should also be displayed to a consumer when possible. If any li
 Integrators must iterate through the `assetTotals` array and display any line items purchased to the merchant. Line items that have been purchased via Centrapay must no longer be able to be purchased using another form of payment.
 This is especially important for any assets which are only redeemable against specific line items. For example, there could be a case where someone used a digital token to pay for a line item, and then a physical voucher to pay for that same line item, which would mean the second voucher could go towards purchasing something other than the intended line item.
 
-```json [Example]
+<CodePanel title="Example">
+```json
   {
-    type: 'centrapay.token.main',
-    description: 'Centrapay Token',
-    settlementDate: '2021-06-28T04:04:27.426Z',
-    total: {
-      amount: '450',
-      currency: 'NZD'
+    "type": "centrapay.token.main",
+    "description": "Centrapay Token",
+    "settlementDate": "2021-06-28T04:04:27.426Z",
+    "total": {
+      "amount": "450",
+      "currency": "NZD"
     },
-    lineItems: [
+    "lineItems": [
       {
-        name: 'Coffee Grounds',
-        sku: 'GH1234',
-        qty: '1',
-        price: '450',
-        tax: '15.00'
+        "name": "Coffee Grounds",
+        "sku": "GH1234",
+        "qty": "1",
+        "price": "450",
+        "tax": "15.00"
       }
     ]
   }
 ```
+</CodePanel>

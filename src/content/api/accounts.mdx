@@ -10,6 +10,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodeGroup from '../../components/CodeGroup.astro';
+import CodePanel from '../../components/CodePanel.astro';
 
 An Account represents a permission boundary around Centrapay resources.
 Accounts can have [API Keys](https://docs.centrapay.com/api/api-keys) and [Account Memberships](https://docs.centrapay.com/api/account-memberships) which grant access to the resources.
@@ -108,30 +109,34 @@ individual account.
   </Properties>
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/accounts \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Centrapay Cafe",
-        "type": "org"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/accounts">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/accounts \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "name": "Centrapay Cafe",
+          "type": "org"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Centrapay Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "1",
-      "subscriptions": [],
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "Jaim1Cu1Q55uooxSens6yk",
+        "name": "Centrapay Cafe",
+        "type": "org",
+        "region": "NZ",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "version": "1",
+        "subscriptions": [],
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -150,25 +155,29 @@ individual account.
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}">
+      ```bash
+      curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Centrapay Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "1",
-      "subscriptions": [],
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "Jaim1Cu1Q55uooxSens6yk",
+        "name": "Centrapay Cafe",
+        "type": "org",
+        "region": "NZ",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "version": "1",
+        "subscriptions": [],
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -191,29 +200,33 @@ individual account.
   </Properties>
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Shortland St Cafe"
-      }'
-    ```
+    <CodePanel title="Request" method="PUT" path="/api/accounts/{accountId}">
+      ```bash
+      curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "name": "Shortland St Cafe"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Shortland St Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T02:35:12.112Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "2",
-      "subscriptions": [],
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "Jaim1Cu1Q55uooxSens6yk",
+        "name": "Shortland St Cafe",
+        "type": "org",
+        "region": "NZ",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "modifiedAt": "2020-06-12T02:35:12.112Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "version": "2",
+        "subscriptions": [],
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -236,22 +249,26 @@ individual account.
   </Properties>
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/subscriptions \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "subscriptions": [
-          "quartz"
-        ]
-      }'
-    ```
+    <CodePanel title="Request" method="PUT" path="/api/accounts/{accountId}/subscriptions">
+      ```bash
+      curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/subscriptions \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "subscriptions": [
+            "quartz"
+          ]
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "subscriptions": [ "quartz" ]
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "subscriptions": [ "quartz" ]
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
   ### Errors
