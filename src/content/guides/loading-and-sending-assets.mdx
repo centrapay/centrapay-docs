@@ -6,6 +6,8 @@ nav:
   order: 4
 ---
 
+import CodePanel from '../../components/CodePanel.astro';
+
 [Assets](https://docs.centrapay.com/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account and then distributed to another Centrapay user’s phone number via SMS.
 
 ## Loading Giftcards
@@ -27,14 +29,16 @@ Sometimes you might want to load and distribute Giftcards to a large number of r
 - A CSV to manage Giftcards to load
 - A script to load and send Giftcards
 
-Here’s an example of the CSV named `input.csv`:
+Here's an example of the CSV named `input.csv`:
 
-```bash
+<CodePanel title="Example">
+```text
 recipientAlias,cardNumber,pin,message
 +64221231234,23403321042,1111,Hello Bob! Here's your giftcard
 +64221231235,23403321042,1111,Hello Alice! Here's your giftcard
 +64221231236,23403321042,1111,Hello Eve! Here's your giftcard
 ```
+</CodePanel>
 
 > Phone numbers must start with +64
 
@@ -45,6 +49,7 @@ Here’s an example of the script to parse the CSV and send Giftcards. To run th
 - An [API Key](https://docs.centrapay.com/api/api-keys) to call our APIs
 - Your [Account id](https://docs.centrapay.com/api/accounts) for the initial load of each Giftcard
 
+<CodePanel title="Example">
 ```javascript
 #!/usr/bin/env node
 
@@ -131,3 +136,4 @@ run()
   .then(console.log)
   .catch(console.error);
 ```
+</CodePanel>

@@ -6,6 +6,7 @@ nav:
   title: Barcode Flow
   order: 4
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
 Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 
@@ -41,7 +42,8 @@ sequenceDiagram
 1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="POST" path="/api/payment-requests">
+    ```bash
     curl -X POST https://service.centrapay.com/api/payment-requests \
       -H "X-Api-Key: $api_key" \
       -H "Content-Type: application/json" \
@@ -54,8 +56,10 @@ sequenceDiagram
         }
       }'
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -83,15 +87,19 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
+    ```bash
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
       -H "Authorization: $jwt"
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -118,10 +126,12 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 4. While the POS continues to poll, the patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/pay">
+    ```bash
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
       -H "Authorization: $jwt" \
       -H "Content-Type: application/json" \
@@ -130,8 +140,10 @@ sequenceDiagram
         "assetId": "WRhAxxWpTKb5U7pXyxQjjY"
       }'
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "activityNumber": "2",
       "assetType": "centrapay.nzd.main",
@@ -151,16 +163,20 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 
     When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
+    ```bash
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
       -H "Authorization: $jwt"
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -188,6 +204,7 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 ## Quick Pay Flow
 
@@ -220,7 +237,8 @@ sequenceDiagram
 1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="POST" path="/api/payment-requests">
+    ```bash
     curl -X POST https://service.centrapay.com/api/payment-requests \
       -H "X-Api-Key: $api_key" \
       -H "Content-Type: application/json" \
@@ -233,8 +251,10 @@ sequenceDiagram
         }
       }'
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -262,15 +282,19 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) payment confirmation.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
+    ```bash
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
       -H "Authorization: $jwt"
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -297,15 +321,19 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 4. When Centrapay receives the first attempt to poll the Payment Request, it will automatically trigger payment. After payment is successful and the Payment Request status is `paid`; the POS stops polling and displays confirmation of the successful payment.
 
-    ```bash [Request]
+  <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
+    ```bash
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
       -H "Authorization: $jwt"
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -333,6 +361,7 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>
 
 ## Checking Barcode Details
 
@@ -357,8 +386,8 @@ sequenceDiagram
 
 1. The patron presents a barcode for the POS to scan.
 2. The POS [decodes the scanned barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
-
-    ```bash [Request]
+  <CodePanel title="Request" method="POST" path="/api/decode">
+    ```bash
     curl -X POST https://service.centrapay.com/api/decode \
       -H "Authorization: $jwt" \
       -H "Content-Type: application/json" \
@@ -368,8 +397,10 @@ sequenceDiagram
         "scannedBy": "merchant"
       }'
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "code": "123456789",
       "displayName": "PayPal",
@@ -378,10 +409,12 @@ sequenceDiagram
       "scannedBy": "merchant"
     }
     ```
+  </CodePanel>
 
 3. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
 
-    ```bash [Request]
+  <CodePanel title="Request" method="POST" path="/api/payment-requests">
+    ```bash
     curl -X POST https://service.centrapay.com/api/payment-requests \
       -H "X-Api-Key: $api_key" \
       -H "Content-Type: application/json" \
@@ -394,8 +427,10 @@ sequenceDiagram
         }
       }'
     ```
+  </CodePanel>
 
-    ```json [Response]
+  <CodePanel title="Response">
+    ```json
     {
       "barcode": "123456789",
       "configId": "5ee168e8597be5002af7b454",
@@ -423,3 +458,4 @@ sequenceDiagram
       }
     }
     ```
+  </CodePanel>

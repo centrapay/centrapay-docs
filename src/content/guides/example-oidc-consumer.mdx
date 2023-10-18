@@ -5,6 +5,7 @@ nav:
   path: Reference/App Integrations
   order: 1
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
 This guide demonstrates how to integrate a browser based application with the Centrapay OAuth server using the [oidc-client-js](https://github.com/IdentityModel/oidc-client-js) JavaScript library.
 
@@ -12,120 +13,130 @@ A good starting point for learning more about OIDC is Okta’s [OAuth OIDC Illu
 
 ## OIDC User Manager Configuration
 
-```javascript
-import Oidc from 'oidc-client';
+<CodePanel title="Example">
+  ```javascript
+  import Oidc from 'oidc-client';
 
-Oidc.Log.logger = console;
+  Oidc.Log.logger = console;
 
-const yourCentrapayOauthClientId = '7mapl0nqonkgl5vfeb3cf86miu';
-const yourAppOidcRedirectUri = window.location.origin + '/oidc-callback';
-const userPhoneNumber = '+6421234567890';
-const userManager = new Oidc.UserManager({
-  /*
-   * Required configs
-   */
-  authority: 'https://auth.centrapay.com/',
-  response_type: 'code',
-  scope: 'openid',
-  client_id: yourCentrapayOauthClientId,
-  redirect_uri: yourAppOidcLoginRedirectUri,
-  loadUserInfo: false, // "/oauth2/userInfo" call unsupported by Centrapay OAuth server
-  post_logout_redirect_uri: yourAppOidcLogoutRedirectUri,
-  revokeAccessTokenOnSignout: true,
-  metadata: {
-    end_session_endpoint: 'https://auth.centrapay.com/logout'
-  }
-  /*
-   * Recommended configs
-   */
-  userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
-  automaticSilentRenew: true,
-  monitorSession: false, // Suppress session event double firing
-  extraQueryParams: { u: userPhoneNumber }, // Populate Centrapay login form
-});
-```
+  const yourCentrapayOauthClientId = '7mapl0nqonkgl5vfeb3cf86miu';
+  const yourAppOidcRedirectUri = window.location.origin + '/oidc-callback';
+  const userPhoneNumber = '+6421234567890';
+  const userManager = new Oidc.UserManager({
+    /*
+    * Required configs
+    */
+    authority: 'https://auth.centrapay.com/',
+    response_type: 'code',
+    scope: 'openid',
+    client_id: yourCentrapayOauthClientId,
+    redirect_uri: yourAppOidcLoginRedirectUri,
+    loadUserInfo: false, // "/oauth2/userInfo" call unsupported by Centrapay OAuth server
+    post_logout_redirect_uri: yourAppOidcLogoutRedirectUri,
+    revokeAccessTokenOnSignout: true,
+    metadata: {
+      end_session_endpoint: 'https://auth.centrapay.com/logout'
+    }
+    /*
+    * Recommended configs
+    */
+    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
+    automaticSilentRenew: true,
+    monitorSession: false, // Suppress session event double firing
+    extraQueryParams: { u: userPhoneNumber }, // Populate Centrapay login form
+  });
+  ```
+</CodePanel>
 
 ## Minimal OIDC Client Usage
 
-```javascript
-async function login() {
-  userManager.stopSilentRenew();
-  userManager.clearStaleState();
-  /* State attribute is stored and retrievable with OIDC callback state param */
-  await userManager.signinRedirect({ state: window.location.href });
-}
-
-async function handleOidcCallback() {
-  const result = await userManager.signinRedirectCallback().catch((err) => {
-    console.log('Something went wrong handling OIDC callback');
-  });
-  /* Restore previous location stored against state param */
-  window.location.replace(result.state || '/');
-}
-
-async function init() {
-  let user = null;
-  if (window.location.pathname == '/oidc-callback') {
-    await handleOidcCallback();
-  } else {
-    user = await userManager.getUser();
+<CodePanel title="Example">
+  ```javascript
+  async function login() {
+    userManager.stopSilentRenew();
+    userManager.clearStaleState();
+    /* State attribute is stored and retrievable with OIDC callback state param */
+    await userManager.signinRedirect({ state: window.location.href });
   }
-  if (!user) {
-    await login();
-  }
-  return user;
-}
 
-init().then(console.log);
-```
+  async function handleOidcCallback() {
+    const result = await userManager.signinRedirectCallback().catch((err) => {
+      console.log('Something went wrong handling OIDC callback');
+    });
+    /* Restore previous location stored against state param */
+    window.location.replace(result.state || '/');
+  }
+
+  async function init() {
+    let user = null;
+    if (window.location.pathname == '/oidc-callback') {
+      await handleOidcCallback();
+    } else {
+      user = await userManager.getUser();
+    }
+    if (!user) {
+      await login();
+    }
+    return user;
+  }
+
+  init().then(console.log);
+  ```
+</CodePanel>
 
 ## Trigger Token Refresh
 
 Manually trigger a token refresh when expired due to user being offline.
 
-```javascript
-async function refreshUser() {
-  const user await userManager.getUser();
-  if (user.expired) {
-    await userManager.signinSilent();
-    await userManager.signinSilentCallback();
-    console.log('User refreshed');
-  } else {
-    console.log('User not refreshed');
+<CodePanel title="Example">
+  ```javascript
+  async function refreshUser() {
+    const user await userManager.getUser();
+    if (user.expired) {
+      await userManager.signinSilent();
+      await userManager.signinSilentCallback();
+      console.log('User refreshed');
+    } else {
+      console.log('User not refreshed');
+    }
+    return await userManager.getUser();
   }
-  return await userManager.getUser();
-}
 
-refreshUser()
-  .then(console.log)
-  .catch(err => {
-    console.log({ msg: 'Something went wrong refreshing user token, login required', err });
-  });
-```
+  refreshUser()
+    .then(console.log)
+    .catch(err => {
+      console.log({ msg: 'Something went wrong refreshing user token, login required', err });
+    });
+  ```
+</CodePanel>
 
 ## Detect OIDC User Refresh
 
 Detect when OIDC user is refreshed via auto silent renew. The new user *may* have changed with updated claims, for example, if they have added an email address.
 
-```javascript
-userManager.events.addUserLoaded((user) => {
-  console.log({ msg: 'user auto renew completed', user });
-});
-```
+<CodePanel title="Example">
+  ```javascript
+  userManager.events.addUserLoaded((user) => {
+    console.log({ msg: 'user auto renew completed', user });
+  });
+  ```
+</CodePanel>
 
 ## OIDC Client Logout
 
+<CodePanel title="Example">
 ```javascript
-async function logout() {
-  /* State attribute is stored and retrievable with OIDC callback state param */
-  await userManager.signoutRedirect({ state: window.location.href });
-}
+  async function logout() {
+    /* State attribute is stored and retrievable with OIDC callback state param */
+    await userManager.signoutRedirect({ state: window.location.href });
+  }
 
-async function handleLogoutOidcCallback() {
-  const result = await userManager.signoutRedirectCallback().catch((err) => {
-    console.log('Something went wrong handling OIDC callback');
-  });
-  /* Restore previous location stored against state param */
-  window.location.replace(result.state || '/');
-}
-```
+  async function handleLogoutOidcCallback() {
+    const result = await userManager.signoutRedirectCallback().catch((err) => {
+      console.log('Something went wrong handling OIDC callback');
+    });
+    /* Restore previous location stored against state param */
+    window.location.replace(result.state || '/');
+  }
+  ```
+</CodePanel>

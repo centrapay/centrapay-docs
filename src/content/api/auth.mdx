@@ -6,6 +6,7 @@ nav:
   path: API
   order: 2
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
 ## Authenticating API Calls
 
@@ -17,27 +18,27 @@ Org [Accounts](https://docs.centrapay.com/api/accounts) accessed with a user acc
 "X-Centrapay-Account" header to be provided. The "X-Centrapay-Account" header
 specifies the unique identifier of the Centrapay Org Account.
 
-### Authenticate with API key
+<CodePanel title="Authenticate with API key" method="GET" path="/api/account-memberships">
+  ```bash
+  curl -X GET https://service.centrapay.com/api/account-memberships \
+    -H "X-Api-Key: $api_key"
+  ```
+</CodePanel>
 
-```bash [Request]
-curl -X GET https://service.centrapay.com/api/account-memberships \
-  -H "X-Api-Key: $api_key"
-```
+<CodePanel title="Authenticate with user access token" method="GET" path="/api/account-memberships">
+  ```bash
+  curl -X GET https://service.centrapay.com/api/account-memberships \
+    -H "Authorization: $jwt"
+  ```
+</CodePanel>
 
-### Authenticate with user access token
-
-```bash [Request]
-curl -X GET https://service.centrapay.com/api/account-memberships \
-  -H "Authorization: $jwt"
-```
-
-### Authenticate org account with user access token
-
-```bash [Request]
-curl -X GET https://service.centrapay.com/api/account-memberships \
-  -H "Authorization: $jwt" \
-  -H "X-Centrapay-Account: Jaim1Cu1Q55uooxSens6yk"
-```
+<CodePanel title="Authenticate org account with user access token" method="GET" path="/api/account-memberships">
+  ```bash
+  curl -X GET https://service.centrapay.com/api/account-memberships \
+    -H "Authorization: $jwt" \
+    -H "X-Centrapay-Account: Jaim1Cu1Q55uooxSens6yk"
+  ```
+</CodePanel>
 
 ## API Keys
 
