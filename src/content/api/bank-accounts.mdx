@@ -11,6 +11,7 @@ import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodeGroup from '../../components/CodeGroup.astro';
 import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
 
 Bank Accounts are used to get money in and out of a Centrapay Account. Money is
 moved by creating "Top Up" or "Withdrawal" [Funds Transfers](https://docs.centrapay.com/api/funds-transfers).
@@ -142,7 +143,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   </Property>
 
   <Property name="currency" type="string">
-    	Currency code (eg. “NZD”).
+    Currency code (eg. “NZD”).
   </Property>
 </Properties>
 
@@ -203,39 +204,43 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | DUPLICATE_BANK_ACCOUNT             | The Centrapay account already holds this Bank Account.                                           |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
+    <CodePanel title="Request" method="POST" path="/api/bank-accounts">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/bank-accounts \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "bankAccountNumber": "12-1234-1234567-123",
+          "bankAccountName": "John Doe",
+          "directDebitAuthority": {
+            "phoneNumber": "+64212345678",
+            "fullName": "John Doe",
+            "emailAddress": "john.doe@gmail.com"
+          }
+        }'
+      ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
         "accountId": "Jaim1Cu1Q55uooxSens6yk",
         "bankAccountNumber": "12-1234-1234567-123",
         "bankAccountName": "John Doe",
-        "directDebitAuthority": {
-          "phoneNumber": "+64212345678",
-          "fullName": "John Doe",
-          "emailAddress": "john.doe@gmail.com"
-        }
-      }'
-    ```
-
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": true,
-      "status": "created",
-      "verified": false,
-      "type": "centrapay",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
+        "directDebitAuthorized": true,
+        "status": "created",
+        "verified": false,
+        "type": "centrapay",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "approvals": []
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -272,34 +277,38 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | DIRECT_DEBIT_LIMIT_EXCEEDED     | The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts. |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "phoneNumber": "+64212345678",
-        "fullName": "John Doe",
-        "emailAddress": "john@doe.org"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/direct-debit-authorities">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "phoneNumber": "+64212345678",
+          "fullName": "John Doe",
+          "emailAddress": "john@doe.org"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": true,
-      "status": "created",
-      "verified": false,
-      "type": "centrapay",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "directDebitAuthorized": true,
+        "status": "created",
+        "verified": false,
+        "type": "centrapay",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "approvals": []
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -318,36 +327,40 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97 \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}">
+      ```bash
+      curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97 \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "d4a7cbd6818a87c51b97",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "status": "created",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": false,
-      "bankRegion": "nz",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2022-07-18T02:26:39.477Z",
-      "verified": false,
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2022-07-18T02:26:39.477Z",
-      "approvals": [
-          {
-            "type": "account-consent",
-            "status": "approved",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-      ],
-      "type": "quartz",
-      "test": true,
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "d4a7cbd6818a87c51b97",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "status": "created",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "directDebitAuthorized": false,
+        "bankRegion": "nz",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "createdAt": "2022-07-18T02:26:39.477Z",
+        "verified": false,
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "modifiedAt": "2022-07-18T02:26:39.477Z",
+        "approvals": [
+            {
+              "type": "account-consent",
+              "status": "approved",
+              "updatedAt": "2021-11-08T21:52:39.915Z"
+            }
+        ],
+        "type": "quartz",
+        "test": true,
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -372,18 +385,22 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | BANK_AUTHORIZATION_INVALID | The access token to retrieve the [Bank Account Balance][] is no longer valid.               |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97/balance \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}/balance">
+      ```bash
+      curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97/balance \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "bankAccountId": "d4a7cbd6818a87c51b97",
-      "balance": 1000,
-      "currency": "NZD"
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "bankAccountId": "d4a7cbd6818a87c51b97",
+        "balance": 1000,
+        "currency": "NZD"
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -414,20 +431,24 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "verificationCode": "1111"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/verify">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "verificationCode": "1111"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "verificationCode": "1111"
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "verificationCode": "1111"
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -458,20 +479,24 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | ACCOUNT_MISMATCH                            | The top up / withdrawal and the bank account do not belong to the same account. |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "verificationCode": "1111"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/bank-authorities/{bankAccountId}/verify">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "verificationCode": "1111"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "verificationCode": "1111"
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "verificationCode": "1111"
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -490,56 +515,60 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/bank-accounts">
+      ```bash
+      curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    [
-      {
-        "id": "XZbPLViMzekVBbF7QMqgaY",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "status": "created",
-        "bankAccountNumber": "02-0500-0568903-097",
-        "bankAccountName": "Pocket Money",
-        "directDebitAuthorized": false,
-        "bankRegion": "nz",
-        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "createdAt": "2022-04-19T05:43:40.425Z",
-        "verified": false,
-        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "modifiedAt": "2022-04-19T05:43:40.425Z",
-        "approvals": [
+    <CodePanel title="Response">
+      ```json
+      [
+        {
+          "id": "XZbPLViMzekVBbF7QMqgaY",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "status": "created",
+          "bankAccountNumber": "02-0500-0568903-097",
+          "bankAccountName": "Pocket Money",
+          "directDebitAuthorized": false,
+          "bankRegion": "nz",
+          "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+          "createdAt": "2022-04-19T05:43:40.425Z",
+          "verified": false,
+          "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+          "modifiedAt": "2022-04-19T05:43:40.425Z",
+          "approvals": [
 
-        ],
-        "type": "quartz",
-        "test": true
-      },
-      {
-        "id": "3Kfdm8cuW1W6f8AoWJREs4",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "status": "created",
-        "bankAccountNumber": "00-1213-1231299-999",
-        "bankAccountName": "Jean",
-        "directDebitAuthorized": false,
-        "bankRegion": "nz",
-        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "createdAt": "2022-02-22T03:27:57.138Z",
-        "verified": false,
-        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "modifiedAt": "2022-02-22T03:27:57.138Z",
-        "approvals": [
-          {
-            "type": "settlement",
-            "status": "pending",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-        ],
-        "type": "centrapay"
-      }
-    ]
-    ```
+          ],
+          "type": "quartz",
+          "test": true
+        },
+        {
+          "id": "3Kfdm8cuW1W6f8AoWJREs4",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "status": "created",
+          "bankAccountNumber": "00-1213-1231299-999",
+          "bankAccountName": "Jean",
+          "directDebitAuthorized": false,
+          "bankRegion": "nz",
+          "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+          "createdAt": "2022-02-22T03:27:57.138Z",
+          "verified": false,
+          "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
+          "modifiedAt": "2022-02-22T03:27:57.138Z",
+          "approvals": [
+            {
+              "type": "settlement",
+              "status": "pending",
+              "updatedAt": "2021-11-08T21:52:39.915Z"
+            }
+          ],
+          "type": "centrapay"
+        }
+      ]
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -558,45 +587,49 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/bank-authorities \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/bank-authorities">
+      ```bash
+      curl https://service.centrapay.com/api/bank-authorities \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    [
-      {
-        "id": "WRhAxxWpTKb5U7pXyxQjjY",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "John Doe",
-        "status": "created",
-        "verified": false,
-        "directDebitAuthorized": true,
-        "createdAt": "2020-06-12T01:17:46.499Z",
-        "approvals": [
+    <CodePanel title="Response">
+      ```json
+      [
+        {
+          "id": "WRhAxxWpTKb5U7pXyxQjjY",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "bankAccountNumber": "12-1234-1234567-123",
+          "bankAccountName": "John Doe",
+          "status": "created",
+          "verified": false,
+          "directDebitAuthorized": true,
+          "createdAt": "2020-06-12T01:17:46.499Z",
+          "approvals": [
 
-        ]
-      },
-      {
-        "id": "b5URhAxxWpTKyxQjjY7pXW",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "Jane Doe",
-        "status": "active",
-        "verified": true,
-        "directDebitAuthorized": true,
-        "createdAt": "2020-06-12T01:17:46.499Z",
-        "approvals": [
-          {
-            "type": "settlement",
-            "status": "pending",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-        ]
-      }
-    ]
-    ```
+          ]
+        },
+        {
+          "id": "b5URhAxxWpTKyxQjjY7pXW",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "bankAccountNumber": "12-1234-1234567-123",
+          "bankAccountName": "Jane Doe",
+          "status": "active",
+          "verified": true,
+          "directDebitAuthorized": true,
+          "createdAt": "2020-06-12T01:17:46.499Z",
+          "approvals": [
+            {
+              "type": "settlement",
+              "status": "pending",
+              "updatedAt": "2021-11-08T21:52:39.915Z"
+            }
+          ]
+        }
+      ]
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -647,36 +680,40 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-authorities \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "fullName": "John Doe",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "phoneNumber": "+64212345",
-        "emailAddress": "John.doe@email.com",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "John Doe"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/bank-authorities">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/bank-authorities \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "fullName": "John Doe",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "phoneNumber": "+64212345",
+          "emailAddress": "John.doe@email.com",
+          "bankAccountNumber": "12-1234-1234567-123",
+          "bankAccountName": "John Doe"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "status": "created",
-      "verified": false,
-      "directDebitAuthorized": true,
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "status": "created",
+        "verified": false,
+        "directDebitAuthorized": true,
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "approvals": []
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -701,27 +738,31 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
   | 403    | BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED | There are already two bank accounts for the provided bank account number, which is the maximum allowed. |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/bank-authorities/{bankAccountId}">
+      ```bash
+      curl https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "status": "created",
-      "directDebitAuthorized": true,
-      "verified": false,
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "bankAccountNumber": "12-1234-1234567-123",
+        "bankAccountName": "John Doe",
+        "status": "created",
+        "directDebitAuthorized": true,
+        "verified": false,
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "modifiedAt": "2020-06-12T01:17:46.499Z",
+        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "approvals": []
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>

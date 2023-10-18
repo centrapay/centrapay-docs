@@ -11,6 +11,7 @@ import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodeGroup from '../../components/CodeGroup.astro';
 import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
 
 A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](https://docs.centrapay.com/api/accounts).
 
@@ -149,39 +150,43 @@ A Business represents a company registered with the New Zealand Companies Office
   | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/businesses \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
+    <CodePanel title="Request" method="POST" path="/api/businesses">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/businesses \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "nzbn": "9429046246448",
+          "taxNumber": {
+            "value": "123-456-789",
+            "type": "nz-gst"
+          }
+        }'
+      ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "DKTs3U38hdhfEqwF1JKoT2",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "accountName": "Centrapay",
         "nzbn": "9429046246448",
+        "name": "CENTRAPAY LIMITED",
+        "tradingName": "CentraPay",
+        "companyNumber": "6340244",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "updatedAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
         "taxNumber": {
           "value": "123-456-789",
-          "type": "nz-gst"
-        }
-      }'
-    ```
-
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "taxNumber": {
-        "value": "123-456-789",
-        "type": "nz-gst",
-      },
-      "onboardingStatus": "applied"
-    }
-    ```
+          "type": "nz-gst",
+        },
+        "onboardingStatus": "applied"
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 
 </Endpoint>
@@ -214,40 +219,44 @@ A Business represents a company registered with the New Zealand Companies Office
   | 403    | INVALID_NZBN    | The NZBN provided does not match any NZ business.                                            |
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2 \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
+    <CodePanel title="Request" method="PUT" path="/api/businesses/{businessId}">
+      ```bash
+      curl -X PUT https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2 \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "taxNumber": {
+            "value": "123-456-789",
+            "type": "nz-gst"
+          },
+          "farmlandsBusinessNumber": "12345678"
+        }'
+      ```
+    </CodePanel>
+
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "DKTs3U38hdhfEqwF1JKoT2",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "accountName": "Centrapay",
+        "nzbn": "9429046246448",
+        "name": "CENTRAPAY LIMITED",
+        "tradingName": "CentraPay",
+        "companyNumber": "6340244",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "updatedAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
         "taxNumber": {
           "value": "123-456-789",
-          "type": "nz-gst"
+          "type": "nz-gst",
         },
-        "farmlandsBusinessNumber": "12345678"
-      }'
-    ```
-
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "taxNumber": {
-        "value": "123-456-789",
-        "type": "nz-gst",
-      },
-      "farmlandsBusinessNumber": "12345678",
-      "onboardingStatus": "applied"
-    }
-    ```
+        "farmlandsBusinessNumber": "12345678",
+        "onboardingStatus": "applied"
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 </Endpoint>
 
@@ -265,26 +274,30 @@ A Business represents a company registered with the New Zealand Companies Office
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/business">
+      ```bash
+      curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "id": "DKTs3U38hdhfEqwF1JKoT2",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk",
+        "accountName": "Centrapay",
+        "nzbn": "9429046246448",
+        "name": "CENTRAPAY LIMITED",
+        "tradingName": "CentraPay",
+        "companyNumber": "6340244",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "updatedAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 </Endpoint>
 
@@ -302,23 +315,27 @@ A Business represents a company registered with the New Zealand Companies Office
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -G https://service.centrapay.com/api/nzbn-search \
-      -H "X-Api-Key: $api_key" \
-      -d q=centrapay
-    ```
+    <CodePanel title="Request" method="GET" path="/api/nzbn-search">
+      ```bash
+      curl -G https://service.centrapay.com/api/nzbn-search \
+        -H "X-Api-Key: $api_key" \
+        -d q=centrapay
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "items": [
-        {
-          "nzbn": "9429046246448",
-          "companyName": "CENTRAPAY LIMITED",
-          "companyNumber": "6340244"
-        }
-      ]
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "items": [
+          {
+            "nzbn": "9429046246448",
+            "companyName": "CENTRAPAY LIMITED",
+            "companyNumber": "6340244"
+          }
+        ]
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 </Endpoint>
 
@@ -336,39 +353,43 @@ A Business represents a company registered with the New Zealand Companies Office
   No attributes.
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl https://service.centrapay.com/api/nzbn/9429046246448 \
-      -H "X-Api-Key: $api_key"
-    ```
+    <CodePanel title="Request" method="GET" path="/api/nzbn/{nzbn}">
+      ```bash
+      curl https://service.centrapay.com/api/nzbn/9429046246448 \
+        -H "X-Api-Key: $api_key"
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "nzbn": "9429046246448",
-      "companyName": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "directors": [
-        {
-          "firstName": "John",
-          "lastName": "DOE",
-          "addressLines": [
-            "7 Tara Street",
-            "Downmore",
-            "Auckland"
-          ]
-        },
-        {
-          "firstName": "Jane",
-          "lastName": "DOE",
-          "addressLines": [
-            "82 Greatwood Road",
-            "Northclover",
-            "Auckland"
-          ]
-        }
-      ]
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "nzbn": "9429046246448",
+        "companyName": "CENTRAPAY LIMITED",
+        "tradingName": "CentraPay",
+        "companyNumber": "6340244",
+        "directors": [
+          {
+            "firstName": "John",
+            "lastName": "DOE",
+            "addressLines": [
+              "7 Tara Street",
+              "Downmore",
+              "Auckland"
+            ]
+          },
+          {
+            "firstName": "Jane",
+            "lastName": "DOE",
+            "addressLines": [
+              "82 Greatwood Road",
+              "Northclover",
+              "Auckland"
+            ]
+          }
+        ]
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 </Endpoint>
 
@@ -394,26 +415,30 @@ A Business represents a company registered with the New Zealand Companies Office
   </Properties>
 
   <CodeGroup slot="code-examples">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2/set-onboarding-status \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "onboardingStatus": "deactivated",
-        "onboardingStatusReason": "change-of-ownership"
-      }'
-    ```
+    <CodePanel title="Request" method="POST" path="/api/businesses/{businessId}/set-onboarding-status">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2/set-onboarding-status \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "onboardingStatus": "deactivated",
+          "onboardingStatusReason": "change-of-ownership"
+        }'
+      ```
+    </CodePanel>
 
-    ```json
-    {
-      "type": "set-onboarding-status",
-      "onboardingStatus": "deactivated",
-      "onboardingStatusReason": "change-of-ownership",
-      "businessId": "DKTs3U38hdhfEqwF1JKoT2",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "activityNumber": 2
-    }
-    ```
+    <CodePanel title="Response">
+      ```json
+      {
+        "type": "set-onboarding-status",
+        "onboardingStatus": "deactivated",
+        "onboardingStatusReason": "change-of-ownership",
+        "businessId": "DKTs3U38hdhfEqwF1JKoT2",
+        "createdAt": "2020-06-12T01:17:46.499Z",
+        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+        "activityNumber": 2
+      }
+      ```
+    </CodePanel>
   </CodeGroup>
 </Endpoint>
