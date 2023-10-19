@@ -11,6 +11,7 @@ import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
+import Error from '../../components/Error.astro';
 
 A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts).
 This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts) owner
@@ -139,9 +140,9 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
   ### Errors
   <Properties>
-    <Property name="403" type="APPROVAL_ALREADY_IN_PROGRESS" error>
+    <Error code="403" message="APPROVAL_ALREADY_IN_PROGRESS">
       There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
-    </Property>
+    </Error>
   </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals">
@@ -235,9 +236,9 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
   ### Errors
   <Properties>
-    <Property name="403" type="APPROVAL_ALREADY_REVIEWED" error>
+    <Error code="403" message="APPROVAL_ALREADY_REVIEWED">
       The Bank Account Approval has already been accepted or declined.
-    </Property>
+    </Error>
   </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/accept">
@@ -278,9 +279,9 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
   ### Errors
   <Properties>
-    <Property name="403" type="APPROVAL_ALREADY_REVIEWED" error>
+    <Error code="403" message="APPROVAL_ALREADY_REVIEWED">
       The Bank Account Approval has already been accepted or declined.
-    </Property>
+    </Error>
   </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/decline">

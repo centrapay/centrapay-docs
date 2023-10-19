@@ -12,6 +12,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
+import Error from '../../components/Error.astro';
 
 Centrapay digital assets are resources that represent the ability for a
 Centrapay account to perform transactions where value is exchanged. Assets can
@@ -547,8 +548,8 @@ number.
 
   ### Errors
   <Properties>
-    <Property name="403" type="UNSUPPORTED_ASSET_TYPE" error>
+    <Error code="403" message="UNSUPPORTED_ASSET_TYPE">
       Asset type can not be archived
-    </Property>
+    </Error>
   </Properties>
 </Endpoint>
