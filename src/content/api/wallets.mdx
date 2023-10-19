@@ -1,0 +1,285 @@
+---
+title: Wallets
+description: Wallet models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 15
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Badge from '../../components/Badge.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A Wallet is an Asset that represents [Money](/api/assets#money). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
+
+## Settlement Wallets <Badge type="experimental" />
+
+A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a [Payment Request](https://docs.centrapay.com/api/payment-requests). This means you cannot topup, withdraw, or send money from this Wallet.
+
+## Wallet Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier of the Wallet.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The Wallets's owning Centrapay [Account](/api/accounts/) id.
+  </Property>
+
+  <Property name="category" type="string">
+    Asset category (`money`, `giftcard`, `token`).
+  </Property>
+
+  <Property name="type" type="string">
+    [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+  </Property>
+
+  <Property name="liveness" type="string">
+    Either `main` (live payments allowed) or `test`.
+  </Property>
+
+  <Property name="description" type="string">
+    Displayable asset description.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Timestamp at which the Wallet was created.
+  </Property>
+
+  <Property name="status" type="string">
+    `active` if the Wallet can be used for payments.
+  </Property>
+
+  <Property name="currency" type="string">
+    Currency code, eg "NZD".
+  </Property>
+
+  <Property name="balance" type="BigNumber">
+    Current balance in the currency's smallest denomination (ie. cents).
+  </Property>
+
+  <Property name="availableBalance" type="BigNumber">
+    The balance of the asset that is available for transfers or purchases.
+  </Property>
+
+  <Property name="settlement" type="boolean" experimental>
+    `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+  </Property>
+</Properties>
+
+---
+
+## Wallet Transaction Model
+
+### Attributes
+
+<Properties>
+  <Property name="activityNumber" type="BigNumber">
+    Unique sequential Wallet transaction number.
+  </Property>
+
+  <Property name="amount" type="BigNumber">
+    Absolute transaction amount in cents.
+  </Property>
+
+  <Property name="value" type="BigNumber">
+    Change to the Wallet's balance in cents when the transaction was applied.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Transaction timestamp as ISO 8601 date string.
+  </Property>
+
+  <Property name="activityType" type="string">
+    Hints to the type of transaction: undefined or `returned-asset-transfer`.
+  </Property>
+
+  <Property name="destWalletId" type="string">
+    Id of the destination Wallet if applicable.
+  </Property>
+
+  <Property name="srcWalletId" type="string">
+    Id of the source Wallet if applicable.
+  </Property>
+
+  <Property name="destParty" type="string">
+    Display value for party receiving funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  </Property>
+
+  <Property name="srcParty" type="string">
+    Display value for party providing funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  </Property>
+
+  <Property name="paymentRequestId" type="string">
+    Unique identifier of the related [Payment Request](https://docs.centrapay.com/api/payment-requests) if applicable.
+  </Property>
+
+  <Property name="topupId" type="string">
+    Unique identifier of the related topup [Funds Transfer](https://docs.centrapay.com/api/funds-transfers) request if applicable.
+  </Property>
+
+  <Property name="assetTransferId" type="string">
+    Unique identifier of the related [Asset Transfer](https://docs.centrapay.com/api/asset-transfers) request if applicable.
+  </Property>
+
+  <Property name="withdrawalId" type="string">
+    Unique identifier of the related [Withdrawal](https://docs.centrapay.com/api/funds-transfers) request if applicable.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/wallets"
+>
+  ## Create a Wallet
+
+  This endpoint allows you to create a Wallet.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string" required>
+      The Wallets's owning Centrapay [Account](/api/accounts/) id.
+    </Property>
+
+    <Property name="ledgerId" type="string" required>
+      [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+    </Property>
+
+    <Property name="settlement" type="boolean" experimental>
+      `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/wallets">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/wallets \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "ledgerId": "centrapay.nzd.main",
+        "settlement": "true"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
+      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "category": "money",
+      "type": "centrapay.nzd.main",
+      "liveness": "main",
+      "description": "NZD",
+      "createdAt": "2021-01-01T00:00:00.000Z",
+      "status": "active",
+      "currency": "NZD",
+      "balance": "0",
+      "availableBalance": "6000",
+      "settlement": true
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="ACCOUNT_MAX_WALLETS_REACHED">
+      The maximum number of wallets for the given ledger has been reached.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/wallets"
+>
+  ## List Wallets
+
+  This endpoint allows you to list authorized Wallets.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets">
+    ```bash
+    curl https://service.centrapay.com/api/wallets \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "id": "WRhAxxWpTKb5U7pXyxQjjY",
+        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "ledgerId": "centrapay.nzd.main",
+        "currency": "NZD",
+        "balance": "2000",
+        "availableBalance": "6000"
+      },
+      {
+        "id": "NQ1yeromwnWPD2hY41L2yS",
+        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "ledgerId": "centrapay.nzd.test",
+        "currency": "NZD",
+        "balance": "20",
+        "availableBalance": "6000"
+      }
+    ]
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/wallets/{walletId}/transactions"
+>
+  ## List Wallet Transactions
+
+  This endpoint allows you to list Wallet Transactions.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets/{walletId}/transactions">
+    ```bash
+    curl https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "activityNumber": "1",
+          "amount": "5000",
+          "value": "5000",
+          "createdAt": "2020-06-17T18:00:23.000Z",
+          "srcParty": "12-4000-100001-00",
+          "destWalletId": "EBVSreNmpsE2Pazw3SipXC",
+          "topupId": "77hqHDzw6KaaG2P2hoshUB"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
