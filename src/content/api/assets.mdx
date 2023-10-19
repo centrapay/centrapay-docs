@@ -1,0 +1,554 @@
+---
+title: Assets
+description: Asset models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 9
+---
+
+import Badge from '../../components/Badge.astro';
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+Centrapay digital assets are resources that represent the ability for a
+Centrapay account to perform transactions where value is exchanged. Assets can
+be spent to satisfy [Payment Requests](https://docs.centrapay.com/api/payment-requests), withdrawn to a bank account via
+[Funds Transfers](https://docs.centrapay.com/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](https://docs.centrapay.com/api/asset-transfers).
+
+Assets are categorized as either Money, Gift Cards or Tokens. Depending on its
+asset category, an asset will have different attributes available and different
+rules governing how it can be obtained, shared or spent.
+
+## Asset Model
+
+All assets have the following fields along with the additional fields that are
+specific to its category. Assets which don't have a category are considered <Badge type="experimental" />
+ and the model may change.
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Asset's unique identifier.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The Asset's owning Centrapay Account id.
+  </Property>
+
+  <Property name="category" type="string">
+    Asset category ("money", "giftcard", "token").
+  </Property>
+
+  <Property name="type" type="string">
+    [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+  </Property>
+
+  <Property name="liveness" type="string">
+    Either "main" (live payments allowed) or "test".
+  </Property>
+
+  <Property name="description" type="string">
+    Either "main" (live payments allowed) or "test".
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Date when the asset was created or issued.
+  </Property>
+
+  <Property name="status" type="string">
+    "active" if the asset can be used for payments.
+  </Property>
+
+  <Property name="meta" type="object" experimental="true">
+    Additional data that may only appear in the [Get Asset](#get-asset) response.
+  </Property>
+</Properties>
+
+---
+
+## Money Model
+
+Money assets, being backed by real currency, are the most flexible asset types.
+Money is accepted for most payment requests, can be sent in arbitrary amounts
+and does not expire.
+
+Money assets have the following attributes along with the base asset fields.
+
+### Attributes
+
+<Properties>
+  <Property name="currency" type="string">
+    Currency code, eg "NZD"
+  </Property>
+
+  <Property name="balance" type="BigNumber">
+    Current balance in the currency's smallest denomination (ie. cents).
+  </Property>
+
+  <Property name="availableBalance" type="BigNumber">
+    The balance of the asset that is available for transfers or purchases.
+  </Property>
+
+  <Property name="settlement" type="boolean" experimental>
+    The asset is configured for [Settlements](https://docs.centrapay.com/api/wallets#settlement-wallets).
+  </Property>
+</Properties>
+
+---
+
+## Gift Card Model
+
+Gift cards are similar to money but have greater spending restrictions and are
+not always backed by real currency. Gift cards usually have an expiry date, are
+typically tied to a small number of merchants, and can only be sent in their
+entirety.
+
+Gift cards have the following attributes along with the base asset fields.
+
+### Attributes
+
+<Properties>
+  <Property name="issuer" type="string">
+    The identifier for the issuer of the gift card.
+  </Property>
+
+  <Property name="currency" type="string">
+    Currency code, eg "NZD"
+  </Property>
+
+  <Property name="balance" type="BigNumber">
+    Current balance in the currency's smallest denomination (ie. cents).
+  </Property>
+
+  <Property name="availableBalance" type="BigNumber">
+    The balance of the asset that is available for transfers or purchases.
+  </Property>
+
+  <Property name="initialBalance" type="BigNumber">
+    The balance when the asset was created.
+  </Property>
+
+  <Property name="externalId" type="string">
+    The asset identifier from the issuing system.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    The date when the asset expires.
+  </Property>
+
+  <Property name="balanceUpdatedAt" type="timestamp">
+    The date when the balance was last observed to be updated.
+  </Property>
+
+  <Property name="productCode" type="String" experimental>
+    The unique code which must match a merchant's payment option for redemption.
+  </Property>
+
+  <Property name="img" type="String" experimental>
+    The img URL of the gift card.
+  </Property>
+
+  <Property name="brandName" type="String" experimental>
+    The name of the brand that the gift card belongs to.
+  </Property>
+
+  <Property name="brandImg" type="String" experimental>
+    The img URL of the brand that the gift card belongs to.
+  </Property>
+
+  <Property name="brandWebsite" type="String" experimental>
+    The URL of the brand that the gift card belongs to.
+  </Property>
+
+  <Property name="issuerWebsite" type="String" experimental>
+    The URL of the issuer of the gift card.
+  </Property>
+</Properties>
+
+---
+
+## Token Model <Badge type="experimental"/>
+
+Tokens are assets which can only be spent in full. Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.
+
+Tokens have the following attributes along with the base asset fields.
+
+### Attributes
+
+<Properties>
+  <Property name="collectionId" type="string">
+    The [token collection](https://docs.centrapay.com/api/tokens#token-collection) that will govern the branding and redemption rules for the token.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The identity that created the activity.
+  </Property>
+
+  <Property name="activeFrom" type="timestamp">
+    The date when the asset becomes spendable.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    The date when the asset expires.
+  </Property>
+
+  <Property name="img" type="string">
+    The img URL of the token.
+  </Property>
+
+  <Property name="issuer" type="string">
+    The name of the [Business](https://docs.centrapay.com/api/businesses) that issued the token.
+  </Property>
+
+  <Property name="issuerWebsite" type="String">
+    The URL of the issuer of the gift card.
+  </Property>
+
+  <Property name="issuerImg" type="string">
+    The img URL of the issuer that the token belongs to.
+  </Property>
+
+  <Property name="externalId" type="String">
+    The asset identifier from the issuing system.
+  </Property>
+</Properties>
+
+---
+
+## Asset Transaction Model
+
+The `destParty` and `srcParty` are optionally provided only on transactions of
+type `transfer`. Values may include a merchant name, user handle, masked user
+email, masked user phone, or bank account.
+
+The `otherParty` is optionally provided only on transactions of type
+`increment-balance` and `decrement-balance`. Values may include bank account
+number.
+
+### Attributes
+
+<Properties>
+  <Property name="ref" type="string">
+    ID of the Centrapay resource that initiated the transaction.
+  </Property>
+
+  <Property name="refType" type="string">
+    Name of the Centrapay resource that initiated the transaction.
+  </Property>
+
+  <Property name="type" type="string">
+    Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`.
+  </Property>
+
+  <Property name="kind" type="string">
+    Human readable value indicating the reason for the transaction.
+  </Property>
+
+  <Property name="srcAssetId" type="string">
+    ID of the source asset.
+  </Property>
+
+  <Property name="destAssetId" type="string">
+    ID of the destination asset.
+  </Property>
+
+  <Property name="srcParty" type="string">
+    Display value for party providing funds.
+  </Property>
+
+  <Property name="destParty" type="string">
+    Display value for party receiving funds.
+  </Property>
+
+  <Property name="otherParty" type="string">
+    Display value for party providing or receiving funds.
+  </Property>
+
+  <Property name="amount" type="string">
+    Amount of transaction in cents.
+  </Property>
+
+  <Property name="activityType" type="string">
+    Indicating whether the asset gained or lost value. Supported types are `value-in` and `value-out`.
+  </Property>
+
+  <Property name="activityNumber" type="string">
+    Unique sequential Asset transaction number.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/assets/{assetId}"
+>
+  ## Get Asset
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}">
+  ```bash
+  curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU \
+    -H "X-Api-Key: $api_key"
+  ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+  ```json
+  {
+    "id": "L75M3L56N2PtBSt8g7uXLU",
+    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "category": "giftcard",
+    "type": "epay.nzd.main",
+    "issuer": "ezipay",
+    "externalId": "23403283262",
+    "description": "$60 Acme Giftcard",
+    "productCode": "23403",
+    "initialBalance": "6000",
+    "balance": "6000",
+    "availableBalance": "6000",
+    "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+    "expiresAt": "2020-12-31T00:00:00.000Z",
+    "createdAt": "2020-05-01T12:30:00.000Z"
+  }
+  ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/assets/{assetId}/summary"
+>
+  ## Get Asset Summary
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}/summary">
+    ```bash
+    curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/summary
+    ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+    ```json
+    {
+      "id": "L75M3L56N2PtBSt8g7uXLU",
+      "issuer": "Centraperk Cafe",
+      "description": "Free Coffee",
+      "expiresAt": "2020-12-31T00:00:00.000Z",
+      "img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
+      "liveness": "test"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/assets"
+>
+  ## List Assets for Account
+
+  Returns a [paginated](https://docs.centrapay.com/api/pagination) list of Assets for an account. This will not return archived assets.
+
+  ### Attributes
+  <Properties>
+    <Property name="externalId" type="string">
+      The asset identifier from the issuing system.
+    </Property>
+  </Properties>
+
+  <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/assets">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "id": "L75M3L56N2PtBSt8g7uXLU",
+          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+          "category": "giftcard",
+          "type": "epay.nzd.main",
+          "issuer": "ezipay",
+          "externalId": "23403283262",
+          "description": "$60 Acme Giftcard",
+          "productCode": "23403",
+          "initialBalance": "6000",
+          "balance": "6000",
+          "availableBalance": "6000",
+          "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+          "expiresAt": "2020-12-31T00:00:00.000Z",
+          "createdAt": "2020-05-01T12:30:00.000Z"
+        },
+        {
+          "id": "WRhAxxWpTKb5U7pXyxQjjY",
+          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+          "category": "money",
+          "type": "centrapay.nzd.main",
+          "liveness": "main",
+          "description": "NZD",
+          "createdAt": "2021-01-01T00:00:00.000Z",
+          "status": "active",
+          "currency": "NZD",
+          "balance": "2000"
+        },
+        {
+          "id": "Aj7rtHmd7rDeWoJgw9MPHe",
+          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+          "type": "cca.coke.main",
+          "description": "Coke™ Token",
+          "category": "token",
+          "value": [
+            {
+              "currency": "NZD",
+              "amount": "400"
+            }
+          ],
+          "expiresAt": "2020-12-31T00:00:00.000Z",
+          "createdAt": "2020-05-01T12:30:00.000Z"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/assets/{assetId}/transactions"
+>
+  ## List Asset Transactions <Badge type="experimental"/>
+
+  Returns a [paginated](https://docs.centrapay.com/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
+
+  ### Attributes
+  No Attributes.
+
+  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}/transactions">
+    ```bash
+    curl https://service.centrapay.com/api/assets/WRhAxxWpTKb5U7pXyxQjjY/transactions \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "ref": "adRGJqMyMhmGfnDXasRZ",
+          "type": "transfer",
+          "kind": "refund",
+          "refType": "payment-request",
+          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "srcParty": "Coffee Ltd",
+          "destParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
+          "createdAt": "2022-03-31T20:36:08.562Z",
+          "createdBy": "crn::service:payments-api",
+          "srcAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
+          "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "amount": "2000",
+          "activityType": "value-in",
+          "activityNumber": "3"
+        },
+        {
+          "ref": "adRGJqMyMhmGfnDXasRZ",
+          "type": "transfer",
+          "kind": "payment",
+          "refType": "payment-request",
+          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "srcParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
+          "destParty": "Coffee Ltd",
+          "createdAt": "2022-03-31T20:35:54.717Z",
+          "createdBy": "crn::service:payments-api",
+          "srcAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "destAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
+          "amount": "3000",
+          "activityType": "value-out",
+          "activityNumber": "2"
+        },
+        {
+          "ref": "H4SZKwMcU9VCmnGEqDA7Mn",
+          "type": "increment-balance",
+          "kind": "topup",
+          "refType": "topup",
+          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "createdAt": "2022-03-31T02:37:47.207Z",
+          "createdBy": "crn::application:rhea",
+          "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
+          "amount": "7600",
+          "activityType": "value-in",
+          "activityNumber": "1"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/assets/{assetId}/archive"
+>
+  ## Archive Asset
+
+  Archive supported asset types by asset id. Currently only gift cards may be archived.
+
+  ### Attributes
+  No Attributes.
+
+  <CodePanel title="Request" method="POST" path="/api/assets/{assetId}/archive">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+    ```json
+    {
+      "id": "L75M3L56N2PtBSt8g7uXLU",
+      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "category": "giftcard",
+      "type": "epay.nzd.main",
+      "issuer": "ezipay",
+      "externalId": "23403283262",
+      "description": "$60 Acme Giftcard",
+      "initialBalance": "6000",
+      "balance": "0",
+      "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
+      "expiresAt": "2020-12-31T00:00:00.000Z",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "status": "archived"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Property name="403" type="UNSUPPORTED_ASSET_TYPE" error>
+      Asset type can not be archived
+    </Property>
+  </Properties>
+</Endpoint>

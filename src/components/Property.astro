@@ -2,7 +2,7 @@
 ---
 import Badge from '../components/Badge.astro';
 
-const { name, type, required } = Astro.props;
+const { name, type, required, experimental, error } = Astro.props;
 const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber'];
 const formattedType = type.toLowerCase();
 const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType :undefined;
@@ -18,11 +18,14 @@ const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + form
     </dd>
     <dt class="sr-only">Type</dt>
     <dd>
-      <Badge text={formattedType} link={link}>
+      <Badge text={ error ? type : formattedType} link={link}>
     </dd>
     { required &&
       <dt class="sr-only">Required</dt>
       <dd> <Badge type="required"> </dd> }
+    { experimental &&
+      <dt class="sr-only">Experimental</dt>
+      <dd> <Badge type="experimental"> </dd> }
     <dt class="sr-only">
       Description
     </dt>
