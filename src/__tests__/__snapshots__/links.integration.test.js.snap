@@ -263,6 +263,7 @@ exports[`the build should not break any links 1`] = `
   "/api/invitations#models",
   "/api/invitations#operations",
   "/api/invitations#params",
+  "/api/invitations#params-model",
   "/api/invitations#revoke-an-invitation-experimental",
   "/api/invitations#top",
   "/api/legacy-payment-requests",
