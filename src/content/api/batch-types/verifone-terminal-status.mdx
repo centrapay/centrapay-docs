@@ -1,0 +1,125 @@
+---
+title: Verifone Terminal Status Batch
+description: Verifone Terminal Status Batch Models
+draft: true
+nav:
+  path: Exclude
+  order: 1
+---
+import Properties from '../../../components/Properties.astro';
+import Property from '../../../components/Property.astro';
+import Endpoint from '../../../components/Endpoint.astro';
+import Badge from '../../../components/Badge.astro';
+import CodePanel from '../../../components/CodePanel.astro';
+
+Performs a bulk update to the current status for connected Verifone NZ payment terminals. See the [Batch](/api/batches) resource for how to submit an instance of this batch.
+
+|        Type Name         |           File Format           |             Record Type             |
+| :----------------------- | :------------------------------ | :---------------------------------- |
+| verifone-terminal-status | [JSONL](https://jsonlines.org/) | [Terminal Status](#terminal-status) |
+
+## Terminal Status
+
+### Attributes
+<Properties>
+  <Property name="status" type="string">
+    Current terminal status: "active" or "inactive".
+  </Property>
+
+  <Property name="statusMessage" type="string">
+    Reason for status. Eg: "config update required".
+  </Property>
+
+  <Property name="terminalId" type="string">
+    Logical terminal id. Eg: "325-136-329".
+  </Property>
+
+  <Property name="deviceId" type="string">
+    Hardware serial number. Eg: "T404395000002".
+  </Property>
+
+  <Property name="merchantId" type="string">
+    Centrapay [Merchant](https://docs.centrapay.com/api/merchants) id.
+  </Property>
+
+  <Property name="merchantConfigId" type="string">
+    Centrapay [Merchant Config](https://docs.centrapay.com/api/merchant-configs) id.
+  </Property>
+
+  <Property name="merchantName" type="string">
+    Name of merchant. Eg: "Centra Café".
+  </Property>
+
+  <Property name="description" type="string">
+    Description of the device. Eg "Front Till".
+  </Property>
+
+  <Property name="model" type="string">
+    Hardware model. Eg: "VX820".
+  </Property>
+
+  <Property name="firstSeen" type="timestamp">
+    Date when terminal status was first observed.
+  </Property>
+
+  <Property name="lastSeen" type="timestamp">
+    Date when terminal status was last observed.
+  </Property>
+
+  <Property name="configVersion" type="string">
+    Version of loaded terminal configuration. Eg: "20220214.1".
+  </Property>
+
+  <Property name="configUpdatedAt" type="timestamp">
+    Date when terminal configuration was loaded.
+  </Property>
+
+  <Property name="softwareVersion" type="string">
+    Version of terminal software. Eg: "1.7.134".
+  </Property>
+
+  <Property name="softwareUpdatedAt" type="timestamp">
+    Date when terminal software was updated.
+  </Property>
+</Properties>
+
+---
+
+## Example JSONL File
+
+A complete batch example with all batch types included. For more legible examples please refer to [Example Models](#example-models).
+
+<CodePanel title="Example JSONL">
+  ```json
+  {"merchantId":"06baa0708ee0e000696","merchantConfigId":"baa09e8158300063fc","merchantName":"Centra Café","description":"Till #1","model":"VX820","terminalId":"325-136-331","deviceId":"T404395000004","status":"inactive","statusMessage":"update required","firstSeen":"2020-01-14T09:00:00Z","lastSeen":"2022-03-14T09:00:00Z","configVersion": 20210914.1,"configUpdatedAt":"2021-09-15 09:00:00 UTC","softwareVersion":"1.7.134","softwareUpdatedAt":"2021-11-14 09:00:00 UTC"}
+  {"merchantId":"06baa0708ee0e000696","merchantConfigId":"baa09e8158300063fc","merchantName":"Centra Café","description":"Till #2","model":"VX820","terminalId":"325-136-329","deviceId":"T404395000002","status":"active","statusMessage":"ok","firstSeen":"2020-01-14T09:00:00Z","lastSeen":"2022-03-14T09:00:00Z","configVersion": 20220214.1,"configUpdatedAt":"2022-02-14 09:00:00 UTC","softwareVersion":"1.7.134","softwareUpdatedAt":"2021-11-14 09:00:00 UTC"}
+  ```
+</CodePanel>
+
+---
+
+## Pretty Printed Example
+
+> Below our records have newlines for legibility. When submitting a batch file you must only use newlines to separate records.
+
+<CodePanel title="Pretty Printed Example">
+  ```json
+  {
+    "merchantId": "06baa0708ee0e000696",
+    "merchantConfigId": "baa09e8158300063fc",
+    "merchantName": "Centra Café",
+    "description": "Till #2",
+    "model": "VX820",
+    "terminalId": "325-136-329",
+    "deviceId": "T404395000002",
+    "status": "active",
+    "statusMessage": "incompatible hardware",
+    "firstSeen": "2020-01-14T09:00:00Z",
+    "lastSeen": "2022-03-14T09:00:00Z",
+    "configVersion": 20220214.1,
+    "configUpdatedAt": "2022-02-14 09:00:00 UTC",
+    "softwareVersion": "1.7.134",
+    "softwareUpdatedAt": "2021-11-14 09:00:00 UTC"
+  }
+  ```
+</CodePanel>
