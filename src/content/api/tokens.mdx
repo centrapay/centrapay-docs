@@ -1,0 +1,488 @@
+---
+title: Tokens
+description: Token models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 14
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+Tokens are [Assets](/api/assets/) which can only be spent in full.
+
+Every [Token](#token-model) is associated with a [Collection](#token-collection-model), which defines the branding and general rules for the Tokens, such as active duration.
+
+A [Redemption Condition](#redemption-condition-model) is created for each [Merchant](https://docs.centrapay.com/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
+
+---
+
+## Token Collection Model
+
+### Attributes
+
+<Properties>
+  <Property name="name" type="string">
+    The display name of the Collection.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The [Account](/api/accounts/) that will own the Collection.
+  </Property>
+
+  <Property name="tokenExpiresAfter" type="object">
+    The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+  </Property>
+
+  <Property name="type" type="string">
+    The type of value exchanged when redeeming Tokens. Valid values: "product".
+  </Property>
+
+  <Property name="maxValue" type="monetary">
+    The maximum agreed value that any merchants will be settled for a Token redemption.
+  </Property>
+
+  <Property name="id" type="string">
+    The unique identifier of the Token Collection.
+  </Property>
+
+  <Property name="test" type="boolean">
+    `true` if the Token Collection is for testing purposes only.
+  </Property>
+
+  <Property name="status" type="string">
+    The status of the Token Collection. Valid values: "active".
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Timestamp at which the Token Collection was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The identity that created the Token Collection.
+  </Property>
+
+  <Property name="mediaUploadId" type="string">
+    The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+  </Property>
+
+  <Property name="img" type="string">
+    The img URL of the Collection.
+  </Property>
+
+  <Property name="issuer" type="string">
+    The name of the [Business](/api/businesses/) linked to the Account.
+  </Property>
+</Properties>
+
+---
+
+## Token Expires After Model
+
+### Attributes
+
+<Properties>
+  <Property name="period" type="string">
+    Supported values are `hour`, `day`, `week`, `month` and `year`.
+  </Property>
+
+  <Property name="duration" type="string">
+    Number of `period` until token expiration.
+  </Property>
+</Properties>
+
+---
+
+## Redemption Condition Model <Badge type="experimental" />
+
+### Attributes
+
+<Properties>
+  <Property name="merchantId" type="string">
+    The identifier of the [Merchant](https://docs.centrapay.com/api/merchants) that is accepting the collection.
+  </Property>
+
+  <Property name="allowedProducts" type="object">
+    List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+  </Property>
+
+  <Property name="id" type="string">
+    The unique identifier of the Redemption Condition.
+  </Property>
+
+  <Property name="collectionId" type="string">
+    The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the Token.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Timestamp at which the Redemption Condition was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The identity that created the activity.
+  </Property>
+</Properties>
+
+---
+
+## Allowed Products Model <Badge type="experimental" />
+
+### Attributes
+<Properties>
+  <Property name="sku" type="string">
+    The SKU of the product that is to be accepted.
+  </Property>
+
+  <Property name="name" type="string">
+    Display name of the product.
+  </Property>
+
+  <Property name="maxValue" type="monetary">
+    The maximum value that the product can be redeemed for.
+  </Property>
+</Properties>
+
+---
+
+## Token Model <Badge type="experimental" />
+
+### Attributes
+
+<Properties>
+  <Property name="collectionId" type="string">
+    The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token.
+  </Property>
+
+  <Property name="idempotencyKey" type="string">
+    Client-supplied identifier that prevents double creation.
+  </Property>
+
+  <Property name="externalId" type="string">
+    The asset identifier from the issuing system.
+  </Property>
+
+  <Property name="accountId" type="string">
+      The Account to create the token for. Defaults to the Account on the Token Collection.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/collections"
+>
+  ## Create Token Collection <Badge type="experimental" />
+
+  This endpoint allows you to create a [Token Collection](#token-collection-model).
+
+  ### Attributes
+  <Properties>
+      <Property name="name" type="string" required>
+        The display name of the Collection.
+      </Property>
+
+      <Property name="accountId" type="string" required>
+        The [Account](/api/accounts/) that will own the Collection.
+      </Property>
+
+      <Property name="tokenExpiresAfter" type="object" required>
+        The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+      </Property>
+
+      <Property name="type" type="string" required>
+        The type of value exchanged when redeeming Tokens. Valid values: "product".
+      </Property>
+
+      <Property name="maxValue" type="monetary">
+        The maximum agreed value that any merchants will be settled for a Token redemption.
+      </Property>
+
+      <Property name="mediaUploadId" type="string">
+        The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+      </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/collections">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/collections \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "Bread",
+        "accountId": "T3y6hogYA4d612BExypWYH",
+        "tokenExpiresAfter": {
+          "period": "month",
+          "duration": "1"
+        },
+        "maxValue": {
+          "currency": "NZD",
+          "amount": "400"
+        },
+        "type": "product",
+        "mediaUploadId": "12345"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "Xv990BzkgfoDS7bBls50pd",
+      "name": "Bread",
+      "accountId": "T3y6hogYA4d612BExypWYH",
+      "tokenExpiresAfter": {
+        "period": "month",
+        "duration": "1"
+      },
+      "maxValue": {
+        "currency": "NZD",
+        "amount": "400"
+      },
+      "test": true,
+      "type": "product",
+      "status": "active",
+      "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
+      "createdAt": "2021-05-12T04:30:11.001Z",
+      "mediaUploadId": "12345",
+      "img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
+      "issuer": "Centrapay"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/collections"
+>
+  ## List Token Collections <Badge type="experimental" />
+
+  Returns a [paginated](/api/pagination/) list of [Token Collections](#token-collection-model) for an Account.
+
+  ### Attributes
+  <Properties>
+    <Property name="pageKey" type="string">
+      Used to retrieve the next page of items.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/collections">
+    ```bash
+    curl -G https://service.centrapay.com/api/accounts/T3y6hogYA4d612BExypWYH/collections \
+      -H "X-Api-Key: $api_key" \
+      -d pageKey=Collection#2G5bXm4dnuDHnnKY8WeCPm|#Collection|8vq4kn03o0g1grrihk7ooloizpqt2y
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "nextPageKey": "Collection#E9eXsErwA444qFDoZt5iLA|#Collection",
+      "items": [
+        {
+          "id": "Xv990BzkgfoDS7bBls50pd",
+          "name": "Bread",
+          "accountId": "T3y6hogYA4d612BExypWYH",
+          "tokenExpiresAfter": {
+            "period": "month",
+            "duration": "1"
+          },
+          "maxValue": {
+            "currency": "NZD",
+            "amount": "400"
+          },
+          "test": true,
+          "type": "product",
+          "status": "active",
+          "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99",
+          "createdAt": "2021-05-12T04:30:11.001Z",
+          "mediaUploadId": "12345",
+          "img": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
+          "issuer": "Centrapay"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/collections/{collectionId}/redemption-conditions"
+>
+  ## Create Redemption Condition <Badge type="experimental" />
+
+  This endpoint allows you to create a [Redemption Condition](#redemption-condition-model).
+
+  ### Attributes
+  <Properties>
+    <Property name="merchantId" type="string">
+      The identifier of the [Merchant](https://docs.centrapay.com/api/merchants) that is accepting the collection.
+    </Property>
+
+    <Property name="allowedProducts" type="object">
+      List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+        "allowedProducts": [
+          {
+            "sku": "100001",
+            "name": "White Bread",
+            "maxValue": {
+              "currency": "NZD",
+              "amount": "400"
+            }
+          },
+          {
+            "sku": "100002",
+            "name": "Sourdough Bread",
+            "maxValue": {
+              "currency": "NZD",
+              "amount": "800"
+            }
+          }
+        ]
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "1234",
+      "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+      "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+      "allowedProducts": [
+        {
+          "sku": "100001",
+          "name": "White Bread",
+          "maxValue": {
+            "currency": "NZD",
+            "amount": "400"
+          }
+        },
+        {
+          "sku": "100002",
+          "name": "Sourdough Bread",
+          "maxValue": {
+            "currency": "NZD",
+            "amount": "800"
+          }
+        }
+      ],
+      "createdAt": "2022-05-12T04:30:11.001Z",
+      "createdBy": "crn::user:b657195e-dc2f-11ea-8566-e7710d592c99"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_AMOUNT">
+      One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection.
+    </Error>
+
+    <Error code="403" message="REDEMPTION_CONDITION_ALREADY_EXISTS">
+      A redemption condition for the collection and the merchant has already been created.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/tokens"
+>
+  ## Create Token <Badge type="experimental" />
+
+  This endpoint allows you to create a Token.
+
+  ### Attributes
+
+  <Properties>
+  <Property name="collectionId" type="string" required>
+    The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token.
+  </Property>
+
+  <Property name="idempotencyKey" type="string" required>
+    Client-supplied identifier that prevents double creation.
+  </Property>
+
+  <Property name="externalId" type="string">
+    The asset identifier from the issuing system.
+  </Property>
+
+  <Property name="accountId" type="string">
+      The Account to create the token for. Defaults to the Account on the Token Collection.
+  </Property>
+</Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/tokens">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/tokens \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+        "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+        "externalId": "23403283262"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "pe32dd90-b46c-11ea-92828sa",
+      "accountId": "WRhAxxWpTKb5U7pXyxQjjP",
+      "category": "token",
+      "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+      "status": "active",
+      "createdAt": "2021-01-17T18:00:23.000Z",
+      "activeFrom": "2021-01-17T18:00:23.000Z",
+      "expiresAt": "2022-01-18T18:00:23.000Z",
+      "liveness": "test",
+      "createdBy": "crn:1234abc:api-key:MyAssetIssuerKey",
+      "description": "My Cafe Token",
+      "issuerImg": "https://static.centrapay.com/assets/brands/centraperk/logo.png",
+      "img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
+      "issuer": "Centraperk Cafe",
+      "issuerWebsite": "www.centraperk-cafe.com",
+      "type": "centrapay.token.test",
+      "externalId": "23403283262"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+
+  <Properties>
+    <Error code="403" message="TOKEN_ALREADY_CREATED">
+      Token with supplied parameters already exists.
+    </Error>
+
+    <Error code="403" message="LIVENESS_MISMATCH">
+      The account is test and the collection's liveness is main or vice versa.
+    </Error>
+  </Properties>
+</Endpoint>
+
