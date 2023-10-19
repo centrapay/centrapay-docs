@@ -1,0 +1,17 @@
+@layer components {
+
+  *:not(pre) > code {
+    @apply
+      rounded-md
+      bg-surface-secondary
+      border
+      border-outline-opaque
+      px-[3px]
+      py-[1px]
+      text-content-primary
+      text-sm
+      font-normal
+    ;
+  }
+
+}
