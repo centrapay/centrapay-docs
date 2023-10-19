@@ -1,0 +1,464 @@
+---
+title: Funds Transfers
+description: Endpoints for managing Funds Transfers
+draft: true
+nav:
+  path: API
+  order: 19
+---
+
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+import Badge from '../../components/Badge.astro';
+
+A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet. Topping up a wallet consists of making a bank transfer from the user's bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet equal to the amount of the bank transfer.
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/topups"
+>
+  ## Create a Top Up
+
+  This endpoint allows you to create a topup.
+
+  ### Attributes
+  <Properties>
+    <Property name="amount" type="bignumber" required>
+      Total amount of the transaction in cents
+    </Property>
+
+    <Property name="assetId" type="string" required>
+      The id of the asset
+    </Property>
+
+    <Property name="bankAccountId" type="string" required>
+      The id of the bank account
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
+      The wallet and the bank account for the top up request do not belong to the same account.
+    </Error>
+
+    <Error code="403" message="MAX_INFLIGHT_TOPUPS_EXCEEDED">
+      The bank account already has ten pending top ups, which is the maximum a bank authority can have at any one time.
+    </Error>
+
+    <Error code="403" message="MAX_INFLIGHT_TOPUP_AMOUNT_EXCEEDED">
+      The top up can not be created because it is above the max amount of funds a bank account can have pending at any one time. The max amount is $1000.00 for verified bank accounts and $100.00 for non-verified bank accounts.
+    </Error>
+
+    <Error code="403" message="QUOTA_EXCEEDED">
+      The topup exceeds one or more top up quota limits. See [Quota Error Response](https://docs.centrapay.com/api/quotas#quota-error-response).
+    </Error>
+
+    <Error code="403" message="DIRECT_DEBIT_NOT_AUTHORIZED">
+      Bank account requires authorization for top up. See bank accounts [direct debit endpoint](https://docs.centrapay.com/api/bank-accounts#direct-debit-authority).
+    </Error>
+
+    <Error code="403" message="INVALID_WALLET_TYPE">
+      The wallet type does not support top ups. See [settlement wallets](https://docs.centrapay.com/api/wallets#settlement-wallets).
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_TOPUP">
+      The bank account type is not configured for topups. Only `centrapay` type bank accounts are configured.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/topups">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/topups \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "amount": "10000",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+      "accountId": "aBc932S9182qwCDqwer",
+      "type": "topup",
+      "amount": "10000",
+      "status": "created",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "updatedAt": "2020-05-01T12:30:00.000Z"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/topups/{topupId}"
+>
+  ## Get Top Up
+
+  This endpoint allows you to retrieve a Top Up by id.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups/{topupId}">
+    ```bash
+    curl https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+      "accountId": "aBc932S9182qwCDqwer",
+      "type": "topup",
+      "amount": "10000",
+      "status": "created",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "updatedAt": "2020-05-01T12:30:00.000Z"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/topups"
+>
+  ## List Top Ups For Authorized Accounts
+
+  This endpoint allows you to list the Top Ups for authorized accounts.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups">
+    ```bash
+    curl https://service.centrapay.com/api/topups \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "id": "5thg2RPBZEfYTPJdQ63Cre",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+        "accountId": "aBc932S9182qwCDqwer",
+        "type": "topup",
+        "amount": "10000",
+        "status": "created",
+        "createdAt": "2020-05-01T12:30:00.000Z",
+        "updatedAt": "2020-05-01T12:30:00.000Z"
+      },
+      {
+        "id": "hg2RfYTQ635tPBZEPJdCre",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+        "accountId": "aBc932S9182qwCDqwer",
+        "type": "topup",
+        "amount": "10000",
+        "status": "created",
+        "createdAt": "2020-05-01T12:30:00.000Z",
+        "updatedAt": "2020-05-01T12:30:00.000Z"
+      }
+    ]
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/topups"
+>
+  ## List Top Ups For an Account <Badge type="experimental"/>
+
+  This endpoint allows you to list the Top Ups for an account.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/topups">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topups \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "id": "5thg2RPBZEfYTPJdQ63Cre",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+        "accountId": "aBc932S9182qwCDqwer",
+        "type": "topup",
+        "amount": "10000",
+        "status": "created",
+        "createdAt": "2020-05-01T12:30:00.000Z",
+        "updatedAt": "2020-05-01T12:30:00.000Z"
+      },
+      {
+        "id": "hg2RfYTQ635tPBZEPJdCre",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+        "accountId": "aBc932S9182qwCDqwer",
+        "type": "topup",
+        "amount": "10000",
+        "status": "created",
+        "createdAt": "2020-05-01T12:30:00.000Z",
+        "updatedAt": "2020-05-01T12:30:00.000Z"
+      }
+    ]
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/withdrawals"
+>
+  ## Create Withdrawal <Badge type="experimental"/>
+
+  This endpoint allows you to create a withdrawal.
+
+  ### Attributes
+  <Properties>
+    <Property name="amount" type="bignumber" required>
+      Total amount of the transaction in cents
+    </Property>
+
+    <Property name="assetId" type="string" required>
+      The id of the asset
+    </Property>
+
+    <Property name="bankAccountId" type="string" required>
+      The id of the bank account
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
+      The wallet and the bank account for the withdrawal request do not belong to the same account.
+    </Error>
+
+    <Error code="403" message="INSUFFICIENT_WALLET_BALANCE">
+      The wallet balance is less than the required amount.
+    </Error>
+
+    <Error code="403" message="INVALID_WALLET_TYPE">
+      The wallet type does not support withdrawals. See [settlement wallets](https://docs.centrapay.com/api/wallets#settlement-wallets).
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL">
+      The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/withdrawals">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/withdrawals \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "amount": "10000",
+        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+      "accountId": "aBc932S9182qwCDqwer",
+      "type": "withdrawal",
+      "amount": "10000",
+      "status": "created",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "updatedAt": "2020-05-01T12:30:00.000Z"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/withdrawals/{withdrawalId}"
+>
+  ## Get Withdrawal <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve a Withdrawal by id.
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
+      The wallet and the bank account for the withdrawal request do not belong to the same account.
+    </Error>
+
+    <Error code="403" message="INSUFFICIENT_WALLET_BALANCE">
+      The wallet balance is less than the required amount.
+    </Error>
+
+    <Error code="403" message="INVALID_WALLET_TYPE">
+      The wallet type does not support withdrawals. See [settlement wallets](https://docs.centrapay.com/api/wallets#settlement-wallets).
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL">
+      The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/withdrawals/{withdrawalId}">
+    ```bash
+    curl https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjjY \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+      "accountId": "aBc932S9182qwCDqwer",
+      "type": "withdrawal",
+      "amount": "10000",
+      "status": "created",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "updatedAt": "2020-05-01T12:30:00.000Z"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/withdrawals"
+>
+  ## List Withdrawals for an Account <Badge type="experimental"/>
+
+  This endpoint allows you to list the withdrawals for an Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/withdrawals">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/withdrawals \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+
+    ```json
+    {
+      "items": [
+        {
+          "id": "5thg2RPBZEfYTPJdQ63Cre",
+          "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+          "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+          "accountId": "aBc932S9182qwCDqwer",
+          "type": "withdrawal",
+          "amount": "10000",
+          "status": "created",
+          "createdAt": "2020-05-01T12:30:00.000Z",
+          "updatedAt": "2020-05-01T12:30:00.000Z"
+        },
+        {
+          "id": "hg2RfYTQ635tPBZEPJdCre",
+          "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
+          "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
+          "accountId": "aBc932S9182qwCDqwer",
+          "type": "withdrawal",
+          "amount": "10000",
+          "status": "done",
+          "createdAt": "2020-05-01T12:30:00.000Z",
+          "updatedAt": "2020-05-01T12:30:00.000Z"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/funds-transfers/{fundsTransferId}/abort"
+>
+  ## Abort Funds Transfer
+
+  This endpoint allows you to abort a Funds Transfer.
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="ABORT_WITHDRAWAL_NOT_SUPPORTED">
+      Aborting funds transfers of type `withdrawal` is not supported.
+    </Error>
+
+    <Error code="403" message="FUNDS_TRANSFER_ALREADY_COMPLETE">
+      The funds transfer is already complete.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/funds-transfers/{fundsTransferId}/abort">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/funds-transfers/5thg2RPBZEfYTPJdQ63Cre/abort \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {}
+    ```
+  </CodePanel>
+</Endpoint>

@@ -8,6 +8,7 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
@@ -98,9 +99,9 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 
   ### Errors
   <Properties>
-    <Property name="403" type="LIVENESS_MISMATCH" error>
+    <Error code="403" message="LIVENESS_MISMATCH">
       Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
-    </Property>
+    </Error>
   </Properties>
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
