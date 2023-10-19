@@ -1,0 +1,195 @@
+---
+title: Batches
+description: Batch model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 20
+---
+
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+import Badge from '../../components/Badge.astro';
+
+Batches enable bulk loading of resource onto the Centrapay platform.
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Batch's unique identifier.
+  </Property>
+
+  <Property name="status" type="string">
+    The current [Lifecycle Stage](#batch-lifecycle) of the batch.
+  </Property>
+
+  <Property name="type" type="string">
+    [Batch Type](#batch-types) id used to describe the batch content.
+  </Property>
+
+  <Property name="totalCount" type="bignumber">
+    The number of items processed.
+  </Property>
+
+  <Property name="errorCount" type="bignumber">
+    Total [Error](#error) counted.
+  </Property>
+
+  <Property name="errors" type="array">
+    [Error](#error) list for the batch.
+  </Property>
+
+  <Property name="test" type="boolean">
+    true if the batch is for testing purposes only.
+  </Property>
+
+</Properties>
+
+### Batch Lifecycle
+
+Different stages of a Batch's lifecycle.
+
+![Batch Lifecycle](/batch-lifecycle.png)
+
+|  Status  |                              Description                                |
+| :------- | :---------------------------------------------------------------------- |
+| created  | The batch has successfully been submitted.                              |
+| copied   | The file has been transferred to Centrapay.                             |
+| chunked  | The batch has been broken up for processing.                            |
+| complete | The batch has been processed and may include errors.                    |
+| error    | There is an error accessing or reading the file, preventing processing. |
+
+### Batch Types
+
+The following table describes the Batch Types supported for loading.
+
+|                                              Type                                               |           Description           |
+| :---------------------------------------------------------------------------------------------- | :------------------------------ |
+| [farmlands-external-asset](https://docs.centrapay.com/api/batch-types/farmlands-external-asset) | Farmlands External Asset Batch. |
+| [verifone-terminal-status](https://docs.centrapay.com/api/batch-types/verifone-terminal-status) | Verifone Terminal Status Batch. |
+
+### Error
+
+|   Field    |   Type    |                         Description                          |
+| :--------- | :-------- | :----------------------------------------------------------- |
+| message    | String    | A description of what caused the Error.                      |
+| externalId | String    | Field used in debugging in reference to an id from the file. |
+| index      | BigNumber | Item offset where the Error was identified in the file.      |
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/batches"
+>
+  ## Create Batch
+
+  Initialize loading of entities from a batch file.
+
+  ### Attributes
+  <Properties>
+    <Property name="type" type="string" required>
+      [Batch Type](#batch-types) used to describe the batch content.
+    </Property>
+
+    <Property name="url" type="string" required>
+      The url where the file is located.
+    </Property>
+
+    <Property name="accountId" type="string" required>
+      Centrapay Account Id that submitted the Batch.
+    </Property>
+
+    <Property name="test" type="boolean">
+      true if the batch is for testing purposes only.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="LIVENESS_MISMATCH">
+      accountId `test` flag is not the same as submitted Batch’s `test` flag.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/batches">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/batches \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "type": "farmlands-external-asset",
+        "url": "https://azurebuckets.com/1234",
+        "accountId": "C4QnjXvj8At6SMsEN4LRi9",
+        "test": true
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "AVH5uG4gRLYK6YR8JyrViN",
+      "accountId": "1mdj7bj95gjo92r0ux6wfy69gj3h77",
+      "status": "created",
+      "type": "farmlands-external-asset",
+      "url": "https://azurebuckets.com/1234",
+      "test": true,
+      "count": "0",
+      "errorCount": "0",
+      "errors": [
+
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/batches/{batchId}"
+>
+  ## Get Batch
+
+  This endpoint allows you to retrieve a Batch by id.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/batches/{batchId}">
+    ```bash
+    curl https://service.centrapay.com/api/batches/AVH5uG4gRLYK6YR8JyrViN \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "AVH5uG4gRLYK6YR8JyrViN",
+      "accountId": "1mdj7bj95gjo92r0ux6wfy69gj3h77",
+      "status": "complete",
+      "type": "farmlands-external-asset",
+      "url": "https://azurebuckets.com/1234",
+      "test": true,
+      "count": "160000",
+      "errorCount": "1",
+      "errors": [
+        {
+          "externalId": "69d64d80-f9bd-4057-bc5b-1c55685d995b",
+          "index": "1954",
+          "message": "INVALID_BARCODE_LENGTH"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
