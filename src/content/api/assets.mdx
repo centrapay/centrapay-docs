@@ -292,14 +292,14 @@ number.
   ### Attributes
   No attributes.
 
-  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}">
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}">
   ```bash
   curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU \
     -H "X-Api-Key: $api_key"
   ```
   </CodePanel>
 
-  <CodePanel title="Response">
+  <CodePanel slot="code-examples" title="Response">
   ```json
   {
     "id": "L75M3L56N2PtBSt8g7uXLU",
@@ -333,13 +333,13 @@ number.
   ### Attributes
   No attributes.
 
-  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}/summary">
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/summary">
     ```bash
     curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/summary
     ```
   </CodePanel>
 
-  <CodePanel title="Response">
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {
       "id": "L75M3L56N2PtBSt8g7uXLU",
@@ -370,14 +370,14 @@ number.
     </Property>
   </Properties>
 
-  <CodePanel title="Request" method="GET" path="/api/accounts/{accountId}/assets">
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/assets">
     ```bash
     curl https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets \
       -H "X-Api-Key: $api_key"
     ```
   </CodePanel>
 
-  <CodePanel title="Response">
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {
       "items": [
@@ -443,14 +443,14 @@ number.
   ### Attributes
   No Attributes.
 
-  <CodePanel title="Request" method="GET" path="/api/assets/{assetId}/transactions">
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/transactions">
     ```bash
     curl https://service.centrapay.com/api/assets/WRhAxxWpTKb5U7pXyxQjjY/transactions \
       -H "X-Api-Key: $api_key"
     ```
   </CodePanel>
 
-  <CodePanel title="Response">
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {
       "items": [
@@ -518,14 +518,14 @@ number.
   ### Attributes
   No Attributes.
 
-  <CodePanel title="Request" method="POST" path="/api/assets/{assetId}/archive">
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/assets/{assetId}/archive">
     ```bash
     curl -X POST https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive \
       -H "X-Api-Key: $api_key"
     ```
   </CodePanel>
 
-  <CodePanel title="Response">
+  <CodePanel slot="code-examples" title="Response">
     ```json
     {
       "id": "L75M3L56N2PtBSt8g7uXLU",
