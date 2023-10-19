@@ -1,0 +1,417 @@
+---
+title: Integration Requests
+description: Integration Request models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 21
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+An Integration Request allows Centrapay users to request the creation of an [Integration](/api/integrations/) on a Centrapay Account.
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier of the Integration Request.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The Integration Request's owning Centrapay [Account](/api/accounts/) id.
+  </Property>
+
+  <Property name="merchantId" type="string">
+    The [Merchant](https://docs.centrapay.com/api/merchants) id for the Integration Request.
+  </Property>
+
+  <Property name="type" type="object">
+    The type of the Integration Request. Refer to [Integration Types](#integration-types).
+  </Property>
+
+  <Property name="status" type="string">
+    The current status of the Integration Request. Supported values are `active`, `available`, `pending`, `rejected` and `disabled`.
+  </Property>
+
+  <Property name="terminalId" type="string">
+    Epay terminalId for the Integration Request. Required if type is `epay`.
+  </Property>
+
+  <Property name="terminal" type="object">
+    The terminal configuration. Required for all terminal vendors except Vista. Refer to [Terminal](#terminal).
+  </Property>
+
+  <Property name="product" type="object">
+    The requested Epay gift card types to support. Refer to [Product](#product).
+  </Property>
+</Properties>
+
+### Terminal
+
+<Properties>
+  <Property name="terminalId" type="string">
+    The software or logical id of the payment terminal.
+  </Property>
+  <Property name="deviceId" type="string">
+    The hardware id or serial number of the payment terminal.
+  </Property>
+</Properties>
+
+---
+
+### Product
+
+<Properties>
+  <Property name="name" type="string">
+    The name of the requested Epay product.
+  </Property>
+</Properties>
+
+### Integration Types
+
+|   Name   |                        Description                         |
+| -------- | ---------------------------------------------------------- |
+| epay     | Asset provider [ePay](https://www.epay.com/)               |
+| invenco  | Terminal vendor [invenco](https://www.invenco.com/)        |
+| skyzer   | Terminal vendor [skyzer](https://www.skyzer.co.nz)         |
+| smartpay | Terminal vendor [smartpay](https://www.smartpay.co.nz)     |
+| verifone | Terminal vendor [Verifone](https://www.verifone.com/en/us) |
+| vista    | Terminal vendor [vista](https://www.vista.co)              |
+| windcave | Terminal vendor [Windcave](https://www.windcave.com/)      |
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/integration-requests"
+>
+  ## Create an Integration Request <Badge type="experimental"/>
+
+  This endpoint allows you to create an Integration Request.
+
+  ### Attributes
+  <Properties>
+    <Property name="merchantId" type="string" required>
+      The [Merchant](https://docs.centrapay.com/api/merchants) id for the Integration Request.
+    </Property>
+
+    <Property name="type" type="object" required>
+      The type of the Integration Request. Refer to [Integration Types](#integration-types).
+    </Property>
+
+    <Property name="terminal" type="object">
+      The terminal configuration. Required for all terminal vendors except Vista. Refer to [Terminal](#terminal).
+    </Property>
+
+    <Property name="product" type="object">
+      The requested Epay gift card types to support. Refer to [Product](#product).
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/integration-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "merchantId": "5ee0c486308f590260d9a07f",
+        "type": "verifone",
+        "terminal": {
+          "terminalId": "002039390093939",
+          "deviceId": "002-039-390"
+        }
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "type": "verifone",
+      "status": "pending",
+      "createdAt": "2020-06-12 01:17:46 UTC",
+      "updatedAt": "2020-06-12 01:17:46 UTC",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "terminal": {
+        "terminalId": "002039390093939",
+        "deviceId": "002-039-390"
+      }
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/integration-requests/{integrationRequestId}"
+>
+  ## Get an Integration Request <Badge type="experimental"/>
+
+  This endpoint allows you to get an Integration Request.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}">
+    ```bash
+    curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "type": "epay",
+      "status": "pending",
+      "terminalId": "11000021",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "product": {
+        "name": "koha-card"
+      }
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/integration-requests"
+>
+  ## Search Merchants
+
+  Returns a [paginated](/api/pagination/) response of Integration Requests.
+
+  ### Query Parameters
+  <Properties>
+    <Property name="accountId" type="string">
+      The Integration Request's owning Centrapay Account id. Required unless caller has global read access permission.
+    </Property>
+
+    <Property name="type" type="string">
+      The type of Integration Request.
+    </Property>
+
+    <Property name="pending" type="boolean">
+      When set to `true`, only include Integration Requests with pending status.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests">
+    ```bash
+    curl -G https://service.centrapay.com/api/integration-requests \
+      -H "X-Api-Key: $api_key" \
+      -d type=epay \
+      -d pending=true \
+      -d accountId=Jaim1Cu1Q55uooxSens6yk
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "id": "DKTs3U38hdhfEqwF1JKoT2",
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "type": "epay",
+          "status": "pending",
+          "terminalId": "11000021",
+          "createdAt": "2020-06-12T01:17:46.499Z",
+          "updatedAt": "2020-06-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "product": {
+            "name": "koha-card"
+          }
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/integration-requests/{integrationRequestId}/configs"
+>
+  ## Configure Integration Request <Badge type="experimental"/>
+
+  This endpoint allows you to supply configuration values for the Integration Request.
+
+  ### Attributes
+  <Properties>
+    <Property name="terminalId" type="string">
+      Epay terminalId for the Integration Request. Required if type is `epay`.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/integration-requests/{integrationRequestId}/configs">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "terminalId": "11000021"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "type": "epay",
+      "status": "pending",
+      "terminalId": "11000021",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "product": {
+        "name": "koha-card"
+      }
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/integration-requests/{integrationRequestId}/configs"
+>
+  ## Get Integration Request Configuration <Badge type="experimental"/>
+
+  This endpoint allows you to get the configuration values for the Integration Request.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}/configs">
+    ```bash
+    curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "terminalId": "11000021"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/integration-requests/{integrationRequestId}/activate"
+>
+  ## Activate Integration Request <Badge type="experimental"/>
+
+  This endpoint allows you to activate an Integration Request.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}/activate">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/activate \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "type": "epay",
+      "status": "active",
+      "terminalId": "11000021",
+      "createdAt": "2020-06-12T01:17:46.499Z",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "product": {
+        "name": "koha-card"
+      }
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INTEGRATION_PARAM_MISSING">
+      Integration Request needs updating with the required parameters before activating.
+    </Error>
+
+    <Error code="403" message="INTEGRATION_ALREADY_ACTIVATED">
+      Integration Request is already activated.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="DELETE"
+  path="/api/integration-requests/{integrationRequestId}"
+>
+  ## Delete Integration Request <Badge type="experimental"/>
+
+  This endpoint allows you to delete an Integration Request.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}">
+    ```bash
+    curl -X DELETE https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {}
+    ```
+  </CodePanel>
+
+</Endpoint>
