@@ -1,0 +1,433 @@
+---
+title: Invitations
+description: Invitation model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 24
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+
+## Invitation Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Invitation's unique identifier.
+  </Property>
+
+  <Property name="code" type="string">
+    The Invitation code.
+  </Property>
+
+  <Property name="type" type="string">
+    The type of invitation. Supported values are `account-membership`.
+  </Property>
+
+  <Property name="resourceId" type="string">
+    The id of the related resource.
+  </Property>
+
+  <Property name="resourceType" type="string">
+    The type of the related resource. Supported values are `account`.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    When the Invitation expires.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Invitation was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Invitation.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Invitation was updated.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Invitation.
+  </Property>
+
+    <Property name="accepted" type="boolean">
+    A flag indicating whether the Invitation has been accepted.
+  </Property>
+
+  <Property name="acceptedAt" type="timestamp">
+    When the Invitation was accepted.
+  </Property>
+
+  <Property name="acceptedBy" type="crn">
+    The User or API Key that accepted the Invitation.
+  </Property>
+
+  <Property name="acceptedByAccountId" type="string">
+    The [Account](/api/accounts) id of the user accepting the Invitation.
+  </Property>
+
+  <Property name="recipientAlias" type="string">
+    The email address of the user accepting the Invitation.
+  </Property>
+
+  <Property name="params" type="object">
+    [Params](#params-model) dependent on the Invitation type.
+  </Property>
+
+  <Property name="status" type="string">
+    The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.
+  </Property>
+</Properties>
+
+---
+
+## Params Model
+
+### Attributes
+
+<Properties>
+  <Property name="role" type="string">
+    The role assigned to the recipient, for invitations of type `account-membership`.
+  </Property>
+
+  <Property name="accountName" type="string">
+    The name of the account that the recipient is invited to, for invitations of type `account-membership`
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/invitations"
+>
+  ## Create Invitation <Badge type="experimental"/>
+
+  This endpoint allows you to create an Invitation.
+
+  ### Attributes
+  <Properties>
+    <Property name="type" type="string" required>
+      The type of invitation. Supported values are `account-membership`.
+    </Property>
+
+    <Property name="resourceId" type="string" required>
+      The id of the related resource.
+    </Property>
+
+    <Property name="resourceType" type="string" required>
+      The type of the related resource. Supported values are `account`.
+    </Property>
+
+    <Property name="recipientAlias" type="string" required>
+      The email address of the user accepting the Invitation.
+    </Property>
+
+    <Property name="params" type="object" required>
+      [Params](#params-model) depending on the Invitation type.
+    </Property>
+
+    <Property name="role" type="string" required>
+      The role that will be assigned to the user when the Invitation is accepted.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_ACCOUNT_TYPE">
+      The resourceId is associated with an account with a non `org` type.
+    </Error>
+
+    <Error code="403" message="RECIPIENT_ALREADY_INVITED">
+      An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/invitations \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "type": "account-membership",
+        "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+        "resourceType": "account",
+        "recipientAlias": "user@org.com",
+        "params": {
+          "role": "cashier"
+        }
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+      "resourceType": "account",
+      "expiresAt": "2021-08-26T00:02:49.488Z",
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2021-08-25T00:02:49.488Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "recipientAlias": "user@org.com",
+      "params": {
+        "role": "cashier",
+        "accountName": "Centrapay Cafe"
+      },
+      "status": "created"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/invitations/code/{code}"
+>
+  ## Get Invitation By Code <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve an Invitation by code.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/invitations/code/{code}">
+    ```bash
+    curl https://service.centrapay.com/api/invitations/code/WIj211vFs9cNACwBb04vQw \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "5ee0c486308f590260d9a07f",
+      "resourceType": "account",
+      "expiresAt": "2021-08-26T00:02:49.488Z",
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2021-08-25T00:02:49.488Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/invitations"
+>
+  ## List Invitations by Account Id <Badge type="experimental"/>
+
+  This endpoint allows you list Invitations for an Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/invitations">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/{accountId}/invitations \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "id": "DKTs3U38hdhfEqwF1JKoT2",
+          "code": "WIj211vFs9cNACwBb04vQw",
+          "type": "account-membership",
+          "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+          "resourceType": "account",
+          "expiresAt": "2021-08-26T00:02:49.488Z",
+          "createdAt": "2021-08-25T00:02:49.488Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedAt": "2021-08-25T00:02:49.488Z",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "recipientAlias": "user@org.com",
+          "params": {
+            "role": "account-owner",
+            "accountName": "Centrapay Cafe"
+          },
+          "status": "created"
+        },
+        {
+          "id": "JKKDMU38hd01hfEqwF1oT2",
+          "code": "WIj211vFs9cNACwBb04vQw",
+          "type": "account-membership",
+          "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+          "resourceType": "account",
+          "expiresAt": "2021-08-26T00:02:49.488Z",
+          "createdAt": "2021-08-25T00:02:49.488Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedAt": "2021-08-25T00:02:49.488Z",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "recipientAlias": "john.doe@org.com",
+          "params": {
+            "role": "cashier",
+            "accountName": "Centrapay Tea Warehouse"
+          },
+          "status": "sent"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/invitations/{invitationId}/accept"
+>
+  ## Accept Invitation <Badge type="experimental"/>
+
+  This endpoint allows you to accept an Invitation.
+
+  ### Attributes
+  <Properties>
+    <Property name="code" type="string" required>
+      The Invitation code.
+    </Property>
+
+    <Property name="accountId" type="string" required>
+      The [Account](/api/accounts) id of the user accepting the Invitation.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVITATION_EXPIRED">
+      The Invitation is expired.
+    </Error>
+
+    <Error code="403" message="INVITATION_ALREADY_ACCEPTED">
+      The Invitation has already been accepted.
+    </Error>
+
+    <Error code="403" message="RECIPIENT_ALIAS_MISMATCH">
+      The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation.
+    </Error>
+
+    <Error code="403" message="INVITATION_REVOKED">
+      The Invitation was revoked.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations/{invitationId}/accept">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/accept \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "code": "WIj211vFs9cNACwBb04vQw",
+        "accountId": "Jaim1Cu1Q55uooxSens6yk"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "5ee0c486308f590260d9a07f",
+      "resourceType": "account",
+      "expiresAt": "2021-08-26T00:02:49.488Z",
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "accepted": true,
+      "acceptedAt": "2021-08-25T10:12:22.122Z",
+      "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
+      "acceptedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "updatedAt": "2021-08-25T10:12:22.122Z",
+      "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/invitations/{invitationId}/revoke"
+>
+  ## Revoke Invitation <Badge type="experimental"/>
+
+  This endpoint allows you to revoke an Invitation.
+
+  ### Attributes
+  No attributes
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVITATION_EXPIRED">
+      The Invitation is expired.
+    </Error>
+
+    <Error code="403" message="INVITATION_ACCEPTED">
+      The Invitation has already been accepted.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations/{invitationId}/revoke">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/revoke \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "DKTs3U38hdhfEqwF1JKoT2",
+      "code": "WIj211vFs9cNACwBb04vQw",
+      "type": "account-membership",
+      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
+      "resourceType": "account",
+      "recipientAlias": "user@org.com",
+      "params": {
+        "role": "cashier",
+        "accountName": "Centrapay Cafe"
+      },
+      "createdAt": "2021-08-25T00:02:49.488Z",
+      "expiresAt": "2021-08-26T00:02:49.488Z",
+      "createdBy": "crn::user:1234",
+      "updatedAt": "2021-08-25T00:00:00.000Z",
+      "updatedBy": "crn::user:1234",
+      "status": "revoked"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
