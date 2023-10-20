@@ -155,6 +155,7 @@ exports[`the build should not break any links 1`] = `
   "/api/batch-types/verifone-terminal-status",
   "/api/batch-types/verifone-terminal-status#contents",
   "/api/batch-types/verifone-terminal-status#example-jsonl-file",
+  "/api/batch-types/verifone-terminal-status#example-models",
   "/api/batch-types/verifone-terminal-status#models",
   "/api/batch-types/verifone-terminal-status#pretty-printed-example",
   "/api/batch-types/verifone-terminal-status#terminal-status",
