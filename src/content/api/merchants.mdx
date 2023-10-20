@@ -1,0 +1,627 @@
+---
+title: Merchants
+description: Merchant models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 25
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Badge from '../../components/Badge.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A merchant is an initiator of [Payment Requests](https://docs.centrapay.com/api/payment-requests). A Merchant has [Merchant Configs](https://docs.centrapay.com/api/merchant-configs)
+which define the payment methods available for a Payment Request.
+
+## Merchant Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    Merchant's unique identifier.
+  </Property>
+
+  <Property name="accountId" type="string">
+    Id of Merchant's owning Centrapay account.
+  </Property>
+
+  <Property name="name" type="string">
+    Merchant name.
+  </Property>
+
+  <Property name="country" type="string">
+    Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Merchant was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Merchant.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Merchant was updated.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Merchant.
+  </Property>
+
+  <Property name="test" type="boolean" experimental>
+    Flag indicating merchant is for testing.
+  </Property>
+
+  <Property name="settlementConfig" type="object" experimental>
+    Merchant [Settlement Config](#settlement-config-model).
+  </Property>
+
+  <Property name="location" type="location" experimental>
+    Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+  </Property>
+
+  <Property name="onboardingStatus" type="string">
+    The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+  </Property>
+
+  <Property name="onboardingStatusReason" type="string">
+    The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+  </Property>
+</Properties>
+
+### Onboarding Statuses
+
+|    Status    |                                                                Description                                                                 |                                      Allowed Reasons                                      |
+| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| applied      | Identifies merchants that have registered to be activated for the Centrapay service.                                                       |                                                                                           |
+| provisioning | Identifies merchants that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
+| active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
+| deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
+| on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal, no-response                             |
+
+### Onboarding Status Reasons
+
+|          Reason           |                           Description                            |
+| :------------------------ | :--------------------------------------------------------------- |
+| duplicate                 | The merchant already exists in the Centrapay system.             |
+| data-quality-issues       | Data quality issues are preventing the merchant from onboarding. |
+| no-response               | No response has been received from the merchant.                 |
+| change-of-ownership       | The merchant has changed ownership.                              |
+| centrapay-discontinued    | The merchant is no longer using Centrapay.                       |
+| seasonal-business-closure | The merchant has closed temporarily.                             |
+| incompatible-terminal     | The merchant does not have any compatible terminals.             |
+
+---
+
+## Settlement Config Model
+
+### Attributes
+
+<Properties>
+  <Property name="bankAccountId" type="string">
+    The id of the bank account funds should be settled into. This must belong to the account
+  </Property>
+</Properties>
+
+---
+
+## Merchant Search Result Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    Merchant's unique identifier
+  </Property>
+
+  <Property name="name" type="string">
+    Merchant's name
+  </Property>
+
+  <Property name="acceptedAssets" type="array">
+    List of assets accepted by the merchant. See [Accepted Asset Model](#accepted-asset-model).
+  </Property>
+
+  <Property name="location" type="location">
+    Physical location of the merchant
+  </Property>
+</Properties>
+
+---
+
+## Accepted Asset Model
+
+### Attributes
+
+<Properties>
+  <Property name="assetType" type="string">
+    The [type](/api/asset-types) of the asset
+  </Property>
+
+  <Property name="products" type="object">
+    List of [Products](#product-model) supported by the asset type. Only available for [epay.nzd](/api/assets#gift-cards) and [centrapay.token](/api/assets#token-model) asset types.
+  </Property>
+</Properties>
+
+---
+
+## Product Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    Product's unique identifier.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/merchants"
+>
+  ## Create Merchant
+
+  This endpoint allows you to create a Merchant.
+
+  ### Attributes
+  <Properties>
+    <Property name="accountId" type="string" required>
+      Id of Merchant's owning Centrapay account.
+    </Property>
+
+    <Property name="name" type="string" required>
+      Merchant name.
+    </Property>
+
+    <Property name="country" type="string" required>
+      Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+    </Property>
+
+    <Property name="test" type="boolean" experimental required>
+      Flag indicating merchant is for testing.
+    </Property>
+
+    <Property name="settlementConfig" type="object" experimental>
+      Merchant [Settlement Config](#settlement-config-model).
+    </Property>
+
+    <Property name="location" type="location" experimental>
+      Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="BANK_ACCOUNT_MISMATCH">
+      The bank account in the settlement config does not belong to the same account.
+    </Error>
+
+    <Error code="403" message="ACCOUNT_REGION_MISMATCH">
+      The merchant's "country" does not match the "region" on the Account.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/merchants">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/merchants \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "accountId": "C4QnjXvj8At6SMsEN4LRi9",
+        "name": "Centrapay Cafe Auckland",
+        "country": "NZ",
+        "test": false
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "5ee0c486308f590260d9a07f",
+      "accountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "name": "Centrapay Cafe Auckland",
+      "country": "NZ",
+      "test": false,
+      "onboardingStatus": "applied",
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/merchants/{merchantId}"
+>
+  ## Get Merchant
+
+  This endpoint allows you to retrieve a Merchant by id.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}">
+    ```bash
+    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "5ee0c486308f590260d9a07f",
+      "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
+      "name": "Parisian - Brown",
+      "test": false,
+      "country": "AD",
+      "onboardingStatus": "applied",
+      "createdAt": "2021-11-12T01:17:46.499Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/merchants"
+>
+  ## List Merchants for Account
+
+  This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/merchants">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/merchants \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "country": "BT",
+          "id": "5f6bf6ff81552101f8ff6122",
+          "name": "Adams, Runolfsdottir and Botsford",
+          "test": true,
+          "onboardingStatus": "applied",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "updatedAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+        },
+        {
+          "accountId": "Jaim1Cu1Q55uooxSens6yk",
+          "country": "GM",
+          "id": "5f6bf6ff81552101f8ff6123",
+          "name": "Vandervort Inc",
+          "test": false,
+          "onboardingStatus": "applied",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "updatedAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/merchants/{merchantId}"
+>
+  ## Update Merchant
+
+  This endpoint allows you to update a Merchant.
+
+  ### Attributes
+  <Properties>
+    <Property name="name" type="string">
+      Merchant name.
+    </Property>
+
+    <Property name="settlementConfig" type="object" experimental>
+      Merchant [Settlement Config](#settlement-config-model).
+    </Property>
+
+    <Property name="location" type="location" experimental>
+      Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="BANK_ACCOUNT_MISMATCH">
+      The bank account in the settlement config does not belong to the same account.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/merchants/{merchantId}">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "Centrapay Café",
+        "location": {
+          "lat": "-36.8483579",
+          "lng": "174.7725834",
+          "city": "Auckland",
+          "postCode": "1010",
+          "country": "NZ"
+        },
+        "settlementConfig": {
+          "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
+        }
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "5ee0c486308f590260d9a07f",
+      "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
+      "name": "Centrapay Café",
+      "test": false,
+      "country": "NZ",
+      "onboardingStatus": "applied",
+      "location": {
+        "lat": "-36.8483579",
+        "lng": "174.7725834",
+        "city": "Auckland",
+        "postCode": "1010",
+        "country": "NZ"
+      },
+      "settlementConfig": {
+        "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
+      },
+      "createdAt": "2021-09-12T01:11:22.491Z",
+      "updatedAt": "2021-11-12T01:17:46.499Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/merchants/{merchantId}/set-onboarding-status"
+>
+  ## Set Merchant Onboarding Status
+
+  This endpoint allows you to set the onboarding status of a Merchant.
+
+  ### Attributes
+  <Properties>
+    <Property name="onboardingStatus" type="string" required>
+      The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    </Property>
+
+    <Property name="onboardingStatusReason" type="string">
+      The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold` or `deactivated`. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/merchants/{merchantId}/set-onboarding-status">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/set-onboarding-status \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "onboardingStatus": "deactivated",
+        "onboardingStatusReason": "change-of-ownership"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "set-onboarding-status",
+      "onboardingStatus": "deactivated",
+      "onboardingStatusReason": "change-of-ownership",
+      "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+      "createdAt": "2021-09-12T01:11:22.491Z",
+      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "activityNumber": "2"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/merchants/search"
+>
+  ## Search Merchants
+
+  Returns a [paginated](/api/pagination) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth).
+
+  ### Query Parameters
+  <Properties>
+    <Property name="origin" type="string">
+      The point to be searched around, formatted as a latitude,longitude
+    </Property>
+
+    <Property name="distance" type="number">
+      The distance from the origin to be searched around in km
+    </Property>
+
+    <Property name="asset" type="string">
+      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-cards) asset types or the asset's collectionId for [centrapay.token](/api/assets#tokens-experimental) asset types.
+    </Property>
+
+    <Property name="name" type="string">
+      Name of the merchant
+    </Property>
+
+    <Property name="pageKey" type="string">
+      pageKey of next merchant to fetch
+    </Property>
+
+    <Property name="paginationLimit" type="string">
+      Maximum amount of merchants to return
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/search">
+    ```bash
+    curl -G https://service.centrapay.com/api/merchants/search \
+      -H "X-Api-Key: $api_key" \
+      -d origin=123.42,32.22 \
+      -d distance=100 \
+      -d asset=epay.nzd.main,37873 \
+      -d pageKey=10 \
+      -d paginationLimit=10
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "totalItems": 100,
+      "items": [
+        {
+          "id": "M001",
+          "name": "Store 1",
+          "acceptedAssets": [
+            {
+              "assetType": "centrapay.nzd.main"
+            },
+            {
+              "assetType": "epay.nzd.main",
+              "products": [
+                {
+                  "id": "37873"
+                },
+                {
+                  "id": "38183"
+                }
+              ]
+            },
+            {
+              "assetType": "centrapay.token.main",
+              "products": [
+                {
+                  "id": "Xv990BzkgfoDS7bBls50pd"
+                }
+              ]
+            }
+          ],
+          "location": {
+            "lat": "123.45",
+            "lng": "32.21",
+            "city": "Auckland",
+            "country": "NZ",
+            "postCode": "1234",
+            "state": "Auckland",
+            "street": "2 Street Street",
+            "suburb": "Place"
+          }
+        }
+      ],
+      "nextPageKey": "20"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/merchants"
+>
+  ## List Merchants <Badge type="deprecated"/>
+
+  Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants">
+    ```bash
+    curl https://service.centrapay.com/api/merchants \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+          "country": "BT",
+          "id": "5f6bf6ff81552101f8ff6122",
+          "name": "Adams, Runolfsdottir and Botsford",
+          "test": true,
+          "onboardingStatus": "applied",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "updatedAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+        },
+        {
+          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+          "country": "GM",
+          "id": "5f6bf6ff81552101f8ff6123",
+          "name": "Vandervort Inc",
+          "test": false,
+          "onboardingStatus": "applied",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "updatedAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+        },
+        {
+          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
+          "country": "MZ",
+          "id": "5f6bf6ff81552101f8ff6124",
+          "name": "West, O'Reilly and Huels",
+          "test": true,
+          "onboardingStatus": "applied",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "updatedAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
