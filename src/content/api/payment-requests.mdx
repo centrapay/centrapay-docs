@@ -1,0 +1,1651 @@
+---
+title: Payment Requests
+description: Payment request models and related endpoints
+draft: true
+nav:
+  path: API
+  order: 27
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+Payment Requests represent the intention for a merchant to receive payment for goods and services. Payment Requests define the amount to be paid and the Asset Types that are acceptable for payment.
+
+A Payment Request is shared with, and paid by, a patron. The [Payment Flows Guide](/guides/payment-flows/) has more details regarding negotiation of Payment Requests.
+
+Payment Requests have the following statuses:
+- `new`: after being created.
+- `paid`: after being paid with one or more transactions.
+- `cancelled`: after being cancelled or voided by the merchant.
+- `expired`: after expiry time is reached without being paid or cancelled.
+
+Payment requests can also be refunded for a short period of time after being paid.
+
+Payment request state transitions can be notified to webhooks.
+
+Centrapay Payment Requests are serviced via two sets of endpoints; the “next” version (documented on this page) and the “legacy” version (documented at [Legacy Payment Requests](https://docs.centrapay.com/api/legacy-payment-requests)).
+
+---
+
+## Payment Request Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Payment Request id.
+  </Property>
+  <Property name="shortCode" type="string">
+    A shorter id that can be used to identify the Payment Request for up to two years.
+  </Property>
+  <Property name="url" type="string">
+    The URL for a Centrapay webpage that allows the user to pay the Payment Request.
+  </Property>
+  <Property name="value" type="monetary">
+    The canonical value of the Payment Request. Must be less than 100000000 and positive.
+  </Property>
+  <Property name="paymentOptions" type="array">
+    The [Payment Options](#payment-option-model), indicating valid asset for payment.
+  </Property>
+  <Property name="merchantId" type="string">
+    The id of the [Merchant](/api/merchants) the Payment Request is on behalf of.
+  </Property>
+  <Property name="merchantName" type="string">
+    The name of the Merchant the Payment Request is on behalf of.
+  </Property>
+  <Property name="configId" type="string">
+    The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
+  </Property>
+  <Property name="status" type="string">
+    Valid values: `new`, `paid`, `cancelled`, or `expired`.
+  </Property>
+  <Property name="liveness" type="string">
+    Indicates liveness of assets that are accepted, determined by the payment options. Values are `main` or `test`.
+  </Property>
+  <Property name="createdAt" type="timestamp">
+    When the Payment Request was created.
+  </Property>
+  <Property name="updatedAt" type="timestamp">
+    When the Payment Request was updated.
+  </Property>
+  <Property name="expiresAt" type="timestamp">
+    When the Payment Request expires.
+  </Property>
+  <Property name="merchantConditions" type="array">
+    A dynamic list of [Payment Conditions](#payment-condition-model) that require operator approval to complete a payment. Conditions are calculated when [polling a Payment Request](#get-a-payment-request).
+  </Property>
+  <Property name="remainingAmount" type="bignumber">
+    The amount of the Payment Request which has not been paid for.
+  </Property>
+  <Property name="patronCodeId" type="string">
+    The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the Payment Request is attached to.
+  </Property>
+  <Property name="barcode" type="string">
+    [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request.
+  </Property>
+  <Property name="barcodeType" type="string">
+    Indicates the provider of a barcode, e.g. `ticketek`.
+  </Property>
+  <Property name="collectionId" type="string">
+    The identifier of the [Token Collection](/api/tokens).
+  </Property>
+  <Property name="expirySeconds" type="number">
+    The expiry seconds used to configure the Payment Request expiry.
+  </Property>
+  <Property name="lineItems" type="array" experimental>
+    The [Line Items](#line-item-model) being paid for.
+  </Property>
+  <Property name="purchaseOrderRef" type="string">
+    A reference to a purchase order for this Payment Request.
+  </Property>
+  <Property name="invoiceRef" type="string">
+    A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
+  </Property>
+  <Property name="redirectUrl" type="string" experimental>
+    URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+  </Property>
+  <Property name="externalRef" type="string">
+    An external reference to the Payment Request.
+  </Property>
+  <Property name="terminalId" type="string">
+    The software or logical id of the payment terminal.
+  </Property>
+  <Property name="deviceId" type="string">
+    The hardware id or serial number of the payment terminal.
+  </Property>
+  <Property name="operatorId" type="string">
+    POS operator Id.
+  </Property>
+  <Property name="createdByAccountId" type="string">
+    Id of the [Centrapay Account](/api/accounts) creating the Payment Request.
+  </Property>
+  <Property name="createdByAccountName" type="string">
+    Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
+  </Property>
+  <Property name="conditionsEnabled" type="boolean">
+    Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
+  </Property>
+  <Property name="patronNotPresent" type="boolean">
+    Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model).
+  </Property>
+  <Property name="cancellationReason" type="string">
+    The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
+  </Property>
+  <Property name="preAuth" type="boolean">
+    Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
+  </Property>
+  <Property name="preAuthExpiresAt" type="timestamp">
+    Pre Auth completions and releases will be accepted until this time.
+  </Property>
+  <Property name="preAuthStatus" type="string">
+    Describes which state a Pre Auth Payment Request is in. Valid values are `authorized` or `released`.
+  </Property>
+  <Property name="taxNumber" type="object">
+    The value-added tax configuration for the [Business](/api/businesses) that the [Merchant](/api/merchants) belongs to. See [Tax Number](/api/businesses#tax-number-model).
+  </Property>
+  <Property name="partialAllowed" type="boolean">
+    Flag to indicate that the Payment Request can be paid for partially.
+  </Property>
+  <Property name="paidBy" type="object">
+    Shows the [Paid By](#paid-by-model) when a Payment Request is paid for with multiple Assets.
+  </Property>
+  <Property name="basketAmount" type="bignumber">
+    The total amount of the transaction including non Centrapay payment methods.
+  </Property>
+</Properties>
+
+---
+
+## Payment Option Model
+
+### Attributes
+
+<Properties>
+  <Property name="assetType" type="string">
+    An [Asset Type](/api/asset-types) reference.
+  </Property>
+  <Property name="amount" type="bignumber">
+    The value required to pay using the canonical units for the Asset Type.
+  </Property>
+  <Property name="bitcoinAddress" type="string">
+    ⭐️ Address to send Bitcoin, when the `assetType` is `bitcoin.*`.
+  </Property>
+  <Property name="productCodes" type="array">
+    Supported product codes for the Payment Request, when the `assetType` is `epay.nzd.*`.
+  </Property>
+  <Property name="acceptedCollections" type="array">
+    [Accepted Collections](#accepted-collections) for the Payment Request, when the “assetType” is `centrapay.token.*`.
+  </Property>
+</Properties>
+
+⭐️ For Payment Options which specify an address, there’s a requirement to make a transaction on an external ledger. Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay-a-payment-request) using the legacy payment API.
+
+
+### Accepted Collections
+
+If a Payment Request contains a `centrapay.token.*` Payment Option, an array of Accepted Collections will be present inside the `centrapay.token` Payment Option.
+The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
+
+#### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The id of a collection that the Merchant accepts for the given Payment Request.
+  </Property>
+  <Property name="lineItems" type="array">
+    The [Line Items](#line-item-model) that can be purchased by a [Centrapay Token](/api/tokens) with matching collection id.
+  </Property>
+</Properties>
+
+---
+
+## Payment Condition Model
+
+Some [Asset Types](/api/asset-types) require conditional approval to pay. Possible Payment Conditions include confirming proof of ID
+or confirming a promotional item was purchased.
+
+The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) to indicate that
+Payment Conditions can be accepted. If a Payment Condition arises, the absence of the `conditionsEnabled` flag will result in the
+Payment Request being cancelled.
+
+Conditions can either be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition). If a condition is declined,
+the Payment Request will be cancelled.
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="bignumber">
+    An enumerated identifier for the Payment Condition.
+  </Property>
+  <Property name="name" type="string">
+    The name of the condition.
+  </Property>
+  <Property name="message" type="string">
+    The human-readable description of the condition.
+  </Property>
+  <Property name="status" type="string">
+    The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`.
+  </Property>
+</Properties>
+
+---
+
+## Line Item Model
+
+An order item for which payment is requested.
+The currency and units for a Line Item price will be consistent with the Payment Request value and the sum of Line Item prices should equal the Payment Request value.
+
+Line items can include a discount amount.
+A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
+
+### Attributes
+
+<Properties>
+  <Property name="name" type="string">
+    The product description.
+  </Property>
+  <Property name="sku" type="string">
+    The product (stock keeping unit) code.
+  </Property>
+  <Property name="qty" type="bignumber">
+    The product quantity (eg. item count, weight, volume etc).
+  </Property>
+  <Property name="price" type="bignumber">
+    The total price in cents for the line item (eg. `price = product price * qty - discounts + tax`).
+  </Property>
+  <Property name="tax" type="bignumber">
+    Tax rate (percentage).
+  </Property>
+  <Property name="discount" type="bignumber">
+    Discount amount in cents (tax exclusive).
+  </Property>
+  <Property name="productId" type="string">
+    Manufacturer’s product identifier (eg GTIN/EAN).
+  </Property>
+  <Property name="restricted" type="boolean">
+    Disallow payment with a “restricted” [Asset Type](/api/asset-types).
+  </Property>
+  <Property name="classification" type="object">
+    [Product Classification](#product-classification).
+  </Property>
+</Properties>
+
+### Product Classification
+
+#### Attributes
+
+<Properties>
+  <Property name="type" type="string">
+    The classification type.
+    Currently only `GS1` is supported.
+    See [GS1 Global Product Classification](https://www.gs1.org/standards/gpc).
+    When `GS1` is used as the product classification type then the product code should be the GPC product brick identifier.
+  </Property>
+  <Property name="code" type="string">
+    The classification code.
+  </Property>
+  <Property name="name" type="string">
+    The classification title.
+  </Property>
+  <Property name="props" type="object">
+    The product classification properties.
+    Classification properties allow optional additional product characterizing attrubutes to be supplied.
+    In the case of GS1 product classifications this corresponds to the GPC brick attributes.
+  </Property>
+</Properties>
+
+---
+
+## Paid By Model
+
+The Paid By provides a summary of the transactions after the Payment Request was paid.
+
+### Attributes
+
+<Properties>
+  <Property name="assetTotals" type="array">
+    The sum of paid amounts [Asset Totals](#asset-total-model) for each transacted Asset Type.
+  </Property>
+</Properties>
+
+## Asset Totals
+
+#### Attributes
+
+<Properties>
+  <Property name="type" type="string">
+    The Asset Type used for the payment.
+  </Property>
+  <Property name="description" type="string">
+    A human readable description of the Asset Type used.
+  </Property>
+  <Property name="settlementDate" type="timestamp">
+    The estimated date that the Merchant can expect settlement of funds.
+  </Property>
+  <Property name="total" type="monetary">
+    The total monetary value of the Asset Type used to pay a Payment Request.
+  </Property>
+  <Property name="lineItems" type="array" experimental>
+    The [Line Items](#line-item-model) paid for by the Asset Type.
+  </Property>
+</Properties>
+
+---
+
+## Payment Activity Model
+
+A Payment Activity records a transaction that has happened on a Payment Request.
+Payment Activities are created when a Payment Request has been `created`, `paid`, `refunded`, `cancelled`, or `expired`.
+
+### Attributes
+
+<Properties>
+  <Property name="type" type="string">
+    The [Payment Activity Type](#payment-activity-types).
+  </Property>
+  <Property name="value" type="monetary">
+    The value of the Payment Activity. Must be less than 100000000 and positive.
+  </Property>
+  <Property name="paymentRequestId" type="string">
+    The Payment Request’s id.
+  </Property>
+  <Property name="merchantId" type="string">
+    The Payment Request’s [Merchant](/api/merchants) id.
+  </Property>
+  <Property name="merchantConfigId" type="string">
+    The Payment Request’s [Merchant Config](/api/merchant-configs) id.
+  </Property>
+  <Property name="merchantAccountId" type="string">
+    The Payment Request’s Merchant [Account](/api/accounts) id.
+  </Property>
+  <Property name="merchantName" type="string">
+    The Payment Request’s Merchant name.
+  </Property>
+  <Property name="createdAt" type="timestamp">
+    When the activity was created.
+  </Property>
+  <Property name="createdBy" type="crn">
+    The identity that created the activity.
+  </Property>
+  <Property name="paymentRequestCreatedBy" type="crn">
+    The identity that created the Payment Request.
+  </Property>
+  <Property name="activityNumber" type="bignumber">
+    Unique sequential number for the activity.
+  </Property>
+  <Property name="shortCode" type="string">
+    A shorter id that can be used for up to two years.
+  </Property>
+  <Property name="assetType" type="string">
+    The Asset Type for the `payment` or `refund` activity.
+  </Property>
+  <Property name="external" type="boolean">
+    `true` if the Payment Activity is recording a transaction that occurred outside the Centrapay system.
+  </Property>
+  <Property name="cancellationReason" type="string">
+    The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
+  </Property>
+  <Property name="conditionId" type="number">
+    The id of a Condition if the activity was for a Condition being accepted or declined.
+  </Property>
+  <Property name="idempotencyKey" type="string">
+    Required when confirming a Payment Request. This is an identifier from your system to enforce uniqueness.
+  </Property>
+  <Property name="confirmationIdempotencyKey" type="string">
+    Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
+  </Property>
+  <Property name="preAuth" type="boolean">
+    `true` if the related Payment Request is a Pre Auth.
+  </Property>
+</Properties>
+
+### Payment Activity Types
+
+|       Name        |                                                 Description                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| request           | [Payment Request](#payment-request-model) was created.                                                      |
+| preAuthRequest    | [Payment Request](#payment-request-model) was created with the `preAuth` flag set to "true".                |
+| paid              | [Payment Request](#payment-request-model) was paid.                                                         |
+| payment           | A payment was made towards the [Payment Request](#payment-request-model).                                   |
+| refund            | Funds were returned to the shopper.                                                                         |
+| cancellation      | [Payment Request](#payment-request-model) was cancelled by the merchant or the shopper.                     |
+| expiry            | [Payment Request](#payment-request-model) wasn't paid before time out.                                      |
+| accept-condition  | A [Payment Condition](#payment-condition-model) was accepted.                                               |
+| decline-condition | A [Payment Condition](#payment-condition-model) was declined.                                               |
+| authorization     | A Pre Auth [Payment Request](#payment-request-model) was approved and confirmations can be made against it. |
+| confirmation      | Funds on a Pre Auth have been drawn down on.                                                                |
+| release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.                  |
+
+---
+
+## Cancellation Reasons
+
+|            Reason            |                                                                                                     Description                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CANCELLED_BY_MERCHANT        | The merchant cancelled the Payment Request by calling the cancel or void endpoint.                                                                                                                                   |
+| CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                                                                                                |
+| PATRON_CODE_INVALID          | The patron code on the Payment Request was invalid.                                                                                                                                                                  |
+| PAYMENT_FAILED               | The Payment Request failed for an unknown reason.                                                                                                                                                                    |
+| PATRON_CODE_EXPIRED          | The patron code on the Payment Request has expired.                                                                                                                                                                  |
+| DECLINED_BY_PATRON           | The payment was declined by the patron during approval steps.                                                                                                                                                        |
+| DECLINED_BY_MERCHANT         | The payment was declined by the merchant during approval steps.                                                                                                                                                      |
+| PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
+| PAYMENT_REQUEST_EXPIRED      | The Payment Request has expired.                                                                                                                                                                                     |
+| NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
+| INACTIVE_ASSET               | The asset used to pay the Payment Request is inactive.                                                                                                                                                               |
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests"
+>
+  ## Create a Payment Request
+
+  This endpoint allows you to create a Payment Request.
+
+  ### Attributes
+  <Properties>
+    <Property name="configId" type="string" required>
+      The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
+    </Property>
+    <Property name="value" type="monetary" required>
+      The canonical value of the Payment Request. Must be less than 100000000 and positive.
+    </Property>
+    <Property name="barcode" type="string">
+      [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request. Required when `preAuth` is `true`.
+    </Property>
+    <Property name="barcodeType" type="string">
+      Indicates the provider of a barcode, e.g. `ticketek`.
+    </Property>
+    <Property name="collectionId" type="string">
+      The identifier of the [Token Collection](/api/tokens).
+    </Property>
+    <Property name="expirySeconds" type="number">
+      The expiry seconds used to configure the Payment Request expiry.
+    </Property>
+    <Property name="lineItems" type="array" experimental>
+      The [Line Items](#line-item-model) being paid for.
+    </Property>
+    <Property name="purchaseOrderRef" type="string">
+      A reference to a purchase order for this Payment Request.
+    </Property>
+    <Property name="invoiceRef" type="string">
+      A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
+    </Property>
+    <Property name="redirectUrl" type="string" experimental>
+      URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+    </Property>
+    <Property name="externalRef" type="string">
+      An external reference to the Payment Request.
+    </Property>
+    <Property name="terminalId" type="string">
+      The software or logical id of the payment terminal.
+    </Property>
+    <Property name="deviceId" type="string">
+      The hardware id or serial number of the payment terminal.
+    </Property>
+    <Property name="operatorId" type="string">
+      POS operator Id.
+    </Property>
+    <Property name="createdByAccountName" type="string">
+      Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
+    </Property>
+    <Property name="conditionsEnabled" type="boolean">
+      Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
+    </Property>
+    <Property name="patronNotPresent" type="boolean">
+      Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model).
+    </Property>
+    <Property name="preAuth" type="boolean">
+      Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
+    </Property>
+    <Property name="partialAllowed" type="boolean">
+      Flag to indicate that the Payment Request can be paid for partially.
+    </Property>
+    <Property name="basketAmount" type="bignumber">
+      The total amount of the transaction including non Centrapay payment methods. Required when `partialAllowed` is `true`.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "configId": "5efbe2fb96c08357bb2b9242",
+        "expirySeconds": "120",
+        "value": {
+          "amount": "1",
+          "currency": "NZD"
+        }
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "VYowvZmuw3hbp1va9xqWx7",
+      "shortCode": "CP-X4V-6N",
+      "url": "https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7",
+      "merchantId": "5efbe17d96c083633e2b9241",
+      "merchantName": "NZD Test Merchant",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "value": {
+        "amount": "1",
+        "currency": "NZD"
+      },
+      "paymentOptions": [
+        {
+          "assetType": "centrapay.nzd.test",
+          "amount": "1"
+        },
+        {
+          "assetType": "cca.coke.test",
+          "amount": "1"
+        },
+        {
+          "assetType": "farmlands.nzd.test",
+          "amount": "1"
+        },
+        {
+          "assetType": "quartz.nzd.test",
+          "amount": "1"
+        },
+        {
+          "assetType": "uplinkapi.test",
+          "amount": "1"
+        },
+        {
+          "assetType": "epay.nzd.test",
+          "amount": "1",
+          "productCodes": [
+            "23403"
+          ]
+        }
+      ],
+      "status": "new",
+      "createdAt": "2023-10-23T22:56:46.145Z",
+      "updatedAt": "2023-10-23T22:56:46.145Z",
+      "expiresAt": "2023-10-23T22:58:46.145Z",
+      "liveness": "test",
+      "expirySeconds": 120,
+      "merchantConditions": [],
+      "createdByAccountId": "BtCjTpNwFcbuJQUP1c4qXp",
+      "createdByAccountName": "Smoke Test Merchant Prod",
+      "taxNumber": {
+        "value": "123-456-789",
+        "type": "nz-gst"
+      },
+      "remainingAmount": "1"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
+      The sum value of the line items did not equal the value of the Payment Request.
+    </Error>
+    <Error code="400" message="CHECKSUM_FAILED">
+      Luhn checksum digit doesn't pass.
+    </Error>
+    <Error code="403" message="REDIRECT_URL_INVALID">
+      The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+    </Error>
+    <Error code="403" message="PATRON_CODE_INVALID">
+      [Patron Code](https://docs.centrapay.com/api/patron-codes) doesn't exist or has expired.
+    </Error>
+    <Error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS">
+      No payment options match the requested payment parameters.
+    </Error>
+    <Error code="403" message="TOKEN_COLLECTION_NOT_FOUND">
+      The token collection does not exist.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/payment-requests/{paymentRequestId}"
+>
+  ## Get a Payment Request
+
+  This endpoint allows you to retrieve a Payment Request.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
+    ```bash
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "9990001234567895",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Centrapay Café",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
+      "value": {
+        "currency": "NZD",
+        "amount": "8991"
+      },
+      "paymentOptions": [
+        {
+          "amount": "8991",
+          "assetType": "centrapay.nzd.test"
+        },
+        {
+          "amount": "6190",
+          "assetType": "centrapay.token.test",
+          "acceptedCollections": [
+            {
+              "id": "QWNB6jurnBczmvXDVfRuMK",
+              "lineItems": [
+                {
+                  "name": "Coffee Grounds",
+                  "sku": "GH1234",
+                  "qty": "1",
+                  "price": "4195",
+                  "tax": "15.00"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "lineItems": [
+        {
+          "name": "Coffee Grounds",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4195",
+          "tax": "15.00"
+        },
+        {
+          "name": "Centrapay Cafe Mug",
+          "sku": "SB456",
+          "qty": "25",
+          "price": "1995",
+          "tax": "15.00",
+          "discount": "199"
+        }
+      ],
+      "merchantConditions": [
+        {
+          "id": "1",
+          "name": "photo-id-check",
+          "message": "Please check ID",
+          "status": "awaiting-merchant"
+        }
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "liveness": "test",
+      "expirySeconds": 120
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/payment-requests/short-code/{shortCode}"
+>
+  ## Get a Payment Request by Short Code
+
+  This endpoint returns the latest Payment Request that matches the given short code.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/short-code/{shortCode}">
+    ```bash
+    curl https://service.centrapay.com/api/payment-requests/short-code/CP-C7F-ZS5 \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "9990001234567895",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Centrapay Café",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "value": {
+        "currency": "NZD",
+        "amount": "100"
+      },
+      "paymentOptions": [
+        {
+          "amount": "100",
+          "assetType": "centrapay.nzd.test"
+        }
+      ],
+      "merchantConditions": [
+
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "liveness": "test",
+      "expirySeconds": 120
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="400" message="CHECKSUM_FAILED">
+      Luhn checksum digit doesn't pass.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/me/patron-code-payment-request"
+>
+  ## Get a Payment Request linked to a Patron Code
+
+  This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](https://docs.centrapay.com/api/patron-codes).
+  The Payment Request may have been created with a reference to any Patron Code owned by the user's
+  account.
+
+  This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
+  them to find the Payment Request and proceed to pay.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/me/patron-code-payment-request">
+    ```bash
+    curl https://service.centrapay.com/api/me/patron-code-payment-request \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
+      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
+      "barcode": "9990001234567895",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantName": "Centrapay Café",
+      "configId": "5efbe2fb96c08357bb2b9242",
+      "value": {
+        "currency": "NZD",
+        "amount": "100"
+      },
+      "paymentOptions": [
+        {
+          "amount": "100",
+          "assetType": "centrapay.nzd.test"
+        }
+      ],
+      "merchantConditions": [
+
+      ],
+      "status": "new",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "expiresAt": "2021-06-08T04:06:27.426Z",
+      "liveness": "test",
+      "expirySeconds": 120
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/pay"
+>
+  ## Pay a Payment Request
+
+  To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types) and one of `assetId`, `transactionId` or `authorization`.
+  - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
+  - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
+  - Use `authorization` to authorize an external transaction.
+
+  ### Attributes
+  <Properties>
+    <Property name="assetType" type="string" required>
+      An [Asset Type](/api/asset-types) reference.
+    </Property>
+    <Property name="assetId" type="string">
+      The id of the Asset being used to make payment.
+    </Property>
+    <Property name="transactionId" type="string">
+      Used to verify an external transaction eg Bitcoin.
+    </Property>
+    <Property name="authorization" type="string">
+      Used to authorize an external transaction.
+    </Property>
+    <Property name="mode" type="string">
+      The mode of payment. Valid values: `parital-payment`.
+    </Property>
+    <Property name="amount" type="string">
+      The value required to pay using the canonical units for the Asset Type.
+    </Property>
+  </Properties>
+
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/pay">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
+      -H "Authorization: $jwt" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "assetType": "centrapay.nzd.main",
+        "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
+        "amount": "200",
+        "mode": "partial-payment"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "payment",
+      "value": {
+        "currency": "NZD",
+        "amount": "1000"
+      },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
+      "merchantName": "Centrapay Café",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "mode": "partial-payment"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_ASSET_TYPE">
+      Either the merchant is not configured with the provided asset type or the asset type does not exist.
+    </Error>
+    <Error code="403" message="REQUEST_EXPIRED">
+      Action cannot be completed because the request has expired.
+    </Error>
+    <Error code="403" message="REQUEST_PAID">
+      Action cannot be completed because the request has been paid.
+    </Error>
+    <Error code="403" message="REQUEST_CANCELLED">
+      Action cannot be completed because the request has already been cancelled.
+    </Error>
+    <Error code="403" message="INACTIVE_ASSET">
+      The asset is not spendable. It may have been disabled, expired, or already spent.
+    </Error>
+    <Error code="403" message="INVALID_MERCHANT_CONFIG">
+      The merchant is not configured properly to satisfy the Payment Request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service.
+    </Error>
+    <Error code="403" message="QUOTA_EXCEEDED">
+      The payment pay request exceeds the allowed spend quota supplied.
+    </Error>
+    <Error code="403" message="INSUFFICIENT_ASSET_VALUE">
+      The asset has insufficient funds to pay the Payment Request or the transaction amount received by Centrapay is less than the total of the payment.
+    </Error>
+    <Error code="403" message="ASSET_REDEMPTION_DENIED">
+      The asset redemption has been unsuccessful due to an error with provided payment parameters, the Merchant, or the Asset.
+    </Error>
+    <Error code="403" message="PAYMENT_DECLINED">
+      The payment parameters were valid but payment was declined because additional payment restrictions were violated.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/refund"
+>
+  ## Refund a Payment Request
+
+  This endpoint allows you to refund a Payment Request.
+
+  ### Attributes
+  <Properties>
+    <Property name="value" type="monetary" required>
+      The canonical value of the Payment Request. Must be less than 100000000 and positive.
+    </Property>
+    <Property name="externalRef" type="string" required>
+      An external reference to the refund.
+    </Property>
+    <Property name="invoiceRef" type="string">
+      A reference to an invoice for the refund. Must be less than or equal to 128 characters.
+    </Property>
+    <Property name="confirmationIdempotencyKey" type="string">
+      Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
+    </Property>
+    <Property name="lineItems" type="array" experimental>
+      The [Line Items](#line-item-model) being refunded.
+    </Property>
+    <Property name="merchantConfigId" type="string">
+      The [Merchant Config](/api/merchant-configs) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/refund">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/{paymentRequestId}/refund \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "value": {
+          "amount": "100",
+          "currency": "NZD"
+        },
+        "externalRef": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "refund",
+      "value": {
+        "currency": "NZD",
+        "amount": "100"
+      },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3",
+      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
+      The sum value of the line items did not equal the value of the refund.
+    </Error>
+    <Error code="403" message="NOT_PAID">
+      The Payment Request has not been paid.
+    </Error>
+    <Error code="403" message="ALREADY_REFUNDED">
+      The Payment Request already been refunded.
+      If you want to perfom additional refunds then an `externalRef` is required.
+    </Error>
+    <Error code="403" message="INVALID_AMOUNT">
+      The refund requested is greater than the refundable amount.
+    </Error>
+    <Error code="403" message="REPEAT_REFERENCE">
+      A refund has already been requested with the same external reference.
+      Refunding the payment request twice with the same external reference is not allowed.
+      If the amount of the refund is the same we assume it is a repeat request and return 200.
+    </Error>
+    <Error code="403" message="PARTIAL_REFUNDS_NOT_ALLOWED">
+      The Asset does not support partial refunds.
+    </Error>
+    <Error code="403" message="INACTIVE_ASSET">
+      The Asset is not refundable. It may have been disabled, expired, or already refunded.
+    </Error>
+    <Error code="403" message="REFUND_NOT_SUPPORTED">
+      The Asset type does not support refunds.
+    </Error>
+    <Error code="403" message="REFUND_WINDOW_EXCEEDED">
+      The time since the payment exceeds the window of time a payment request can be refunded in.
+    </Error>
+    <Error code="403" message="PRE_AUTH_PENDING">
+      The Pre Auth Payment Request has yet to be authorized.
+    </Error>
+    <Error code="403" message="CONFIRMATION_NOT_FOUND">
+      The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/void"
+>
+  ## Void a Payment Request
+
+  Voiding a payment request will cancel the request and trigger any refunds if necessary.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/void">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/void \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "refund",
+      "value": {
+        "currency": "NZD",
+        "amount": "1000"
+      },
+      "assetType": "centrapay.nzd.main",
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-032",
+      "merchantName": "Centrapay Café",
+      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5efbe2fb96c08357bb2b9242",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="VOID_WINDOW_EXCEEDED">
+      The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use [Refund](#refund-a-payment-request) endpoint to reverse the payment.
+    </Error>
+    <Error code="403" message="ALREADY_REFUNDED">
+      The Payment Request already been refunded.
+    </Error>
+    <Error code="403" message="REPEAT_REFERENCE">
+      A refund has already been requested with the same external reference.
+      Refunding the payment request twice with the same external reference is not allowed.
+      If the amount of the refund is the same we assume it is a repeat request and return 200.
+    </Error>
+    <Error code="403" message="INACTIVE_ASSET">
+      The Asset is not refundable. It may have been disabled, expired, or already refunded.
+    </Error>
+    <Error code="403" message="REFUND_NOT_SUPPORTED">
+      The Asset type does not support refunds.
+    </Error>
+    <Error code="403" message="REQUEST_EXPIRED">
+      The Payment Request has expired.
+    </Error>
+    <Error code="403" message="PRE_AUTH_ALREADY_CONFIRMED">
+      The Pre Auth Payment Request already has confirmations. Use [Refund](#refund-a-payment-request) endpoint to reverse the transaction.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/release"
+>
+  ## Release Pre Auth funds
+
+  This endpoint allows you to release funds held for a Pre Auth Payment Request.
+
+  When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
+  If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/release">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/release \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "release",
+      "value": {
+        "currency": "NZD",
+        "amount": "100"
+      },
+      "assetType": "centrapay.nzd.main",
+      "preAuth": true,
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5-015",
+      "merchantName": "Centrapay Café",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "createdAt": "2021-06-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "3"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
+      The Payment Request is not related to a Pre Auth.
+    </Error>
+    <Error code="403" message="PRE_AUTH_RELEASED">
+      `preAuthExpiresAt` has passed.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/confirm"
+>
+  ## Confirm Pre Auth Payment Request
+
+  This endpoint allows you to make a confirmation against a Pre Auth Payment Request.
+
+  An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
+  If our endpoint does not respond, you must retry until you get back a 200 or 403.
+  If we recive 2 requests with the same `idempotencyKey`, we won't process the second and return the first response.
+
+  ### Attributes
+  <Properties>
+    <Property name="idempotencyKey" type="string" required>
+      This is an identifier from your system to enforce uniqueness.
+    </Property>
+    <Property name="invoiceRef" type="string" required>
+      A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
+    </Property>
+    <Property name="lineItems" type="array" required experimental>
+      The [Line Items](#line-item-model) being confirmed.
+    </Property>
+    <Property name="value" type="monetary">
+      The canonical value of the confirmation. Must be less than 100000000 and positive.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/confirm">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "value": {
+          "amount": "6190",
+          "currency": "NZD"
+        },
+        "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+        "invoiceRef": "2022-08-03T16:56:50-06:00",
+        "lineItems": [
+          {
+            "name": "Coffee Grounds",
+            "sku": "GH1234",
+            "qty": "1",
+            "price": "4195",
+            "tax": "15.00"
+          },
+          {
+            "name": "Centrapay Cafe Mug",
+            "sku": "SB456",
+            "qty": "25",
+            "price": "1995",
+            "tax": "15.00",
+            "discount": "199",
+            "restricted": true,
+            "productId": "19412345123459",
+            "classification": {
+              "type": "GS1",
+              "code": "10001874",
+              "name": "CROCKERY",
+              "props": {
+                "20001479": "30008960"
+              }
+            }
+          }
+        ]
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "shortCode": "CP-C7F-ZS5",
+      "value": {
+        "amount": "6190",
+        "currency": "NZD"
+      },
+      "preAuth": true,
+      "type": "confirmation",
+      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
+      "createdAt": "2021-06-08T04:04:27.426Z",
+      "updatedAt": "2021-06-08T04:04:27.426Z",
+      "lineItems": [
+        {
+          "name": "Coffee Grounds",
+          "sku": "GH1234",
+          "qty": "1",
+          "price": "4195",
+          "tax": "15.00"
+        },
+        {
+          "name": "Centrapay Cafe Mug",
+          "sku": "SB456",
+          "qty": "25",
+          "price": "1995",
+          "tax": "15.00",
+          "discount": "199"
+        }
+      ],
+      "invoiceRef": "2022-08-03T16:56:50-06:00",
+      "createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "createdByAccountName": "Bob's Burgers Intergration"
+    }
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
+      The Payment Request is not related to a Pre Auth.
+    </Error>
+    <Error code="403" message="PRE_AUTH_RELEASED">
+      The Payment Request has been released or Pre Auth has expired. Remaining funds have been returned to the Patron.
+    </Error>
+    <Error code="403" message="PRE_AUTH_PENDING">
+      The Payment Request has not been authorized.
+    </Error>
+    <Error code="403" message="REQUEST_CANCELLED">
+      The Payment Request has been cancelled.
+    </Error>
+    <Error code="403" message="INVALID_AMOUNT">
+      The confirmation is greater then the remaining funds on the authroization.
+    </Error>
+    <Error code="403" message="IDEMPOTENT_OPERATION_FAILED">
+      There has already been a confirmation against the Payment Request with the same idempotencyKey but different content.
+    </Error>
+  </Properties>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/payment-activities"
+>
+  ## List Payment Activities for a Merchant
+
+  This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Merchant.
+  Results are [paginated](/api/pagination/) and ordered by descending activity created date.
+
+  ### Attributes
+  <Properties>
+    <Property name="merchantId" type="string" required>
+      The id of the [Merchant](/api/merchants/) the Payment Request is on behalf of.
+    </Property>
+    <Property name="pageKey" type="string" required>
+      Used to retrieve the next page of items.
+      Note: The `pageKey` value, if provided, needs to be URL-encoded.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-activities">
+    ```bash
+    curl -G https://service.centrapay.com/api/payment-activities \
+      -H "X-Api-Key: $api_key" \
+      -d merchantId=5ee0c486308f590260d9a07f \
+      -d pageKey=PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "nextPageKey": "PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z",
+      "items": [
+        {
+          "type": "refund",
+          "value": {
+            "currency": "NZD",
+            "amount": "600"
+          },
+          "assetType": "centrapay.nzd.main",
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-032",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:17:00.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "3"
+        },
+        {
+          "type": "payment",
+          "value": {
+            "currency": "NZD",
+            "amount": "6190"
+          },
+          "assetType": "centrapay.nzd.main",
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-027",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:16:00.000Z",
+          "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "2"
+        },
+        {
+          "type": "request",
+          "value": {
+            "currency": "NZD",
+            "amount": "6190"
+          },
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-015",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:15:46.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "1"
+        },
+        {
+          "type": "Authorization",
+          "value": {
+            "currency": "NZD",
+            "amount": "100"
+          },
+          "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
+          "shortCode": "CP-W4R-01J",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-05-12T01:15:46.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "2",
+          "preAuth": true
+        },
+        {
+          "type": "preAuthRequest",
+          "value": {
+            "currency": "NZD",
+            "amount": "100"
+          },
+          "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
+          "shortCode": "CP-W4R-01J",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-05-12T01:15:46.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "1",
+          "preAuth": true
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/payment-requests/{paymentRequestId}/activities"
+>
+  ## List Payment Activities for a Payment Request
+
+  This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
+  Results are ordered by descending activity created date.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}/activities">
+    ```bash
+    curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/activities \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "type": "refund",
+          "value": {
+            "currency": "NZD",
+            "amount": "600"
+          },
+          "assetType": "centrapay.nzd.main",
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-032",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:17:00.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "3"
+        },
+        {
+          "type": "payment",
+          "value": {
+            "currency": "NZD",
+            "amount": "6190"
+          },
+          "assetType": "centrapay.nzd.main",
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-027",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:16:00.000Z",
+          "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "2"
+        },
+        {
+          "type": "request",
+          "value": {
+            "currency": "NZD",
+            "amount": "6190"
+          },
+          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+          "shortCode": "CP-C7F-ZS5-015",
+          "merchantName": "Centrapay Café",
+          "merchantId": "5ee0c486308f590260d9a07f",
+          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+          "merchantConfigId": "5ee168e8597be5002af7b454",
+          "createdAt": "2021-06-12T01:15:46.000Z",
+          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+          "activityNumber": "1"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept"
+>
+  ## Accept a Payment Condition
+
+  Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
+  Returns a [Payment Activity](#payment-activity-model).
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "accept-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Centrapay Café"
+    }
+    ```
+  </CodePanel>
+
+    ### Errors
+  <Properties>
+    <Error code="403" message="PATRON_NOT_AUTHORIZED">
+      The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition.
+    </Error>
+    <Error code="403" message="MERCHANT_NOT_AUTHORIZED">
+      The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition.
+    </Error>
+    <Error code="403" message="CONDITION_ALREADY_SET">
+      The Payment Condition has already been accepted or declined.
+    </Error>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline"
+>
+  ## Decline a Payment Condition
+
+  Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
+  Returns a [Payment Activity](#payment-activity-model).
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/decline \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "type": "decline-condition",
+      "value": {
+        "currency": "NZD",
+        "amount": 100
+      },
+      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
+      "conditionId": "1",
+      "createdAt": "2022-05-12T01:17:00.000Z",
+      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
+      "activityNumber": "2",
+      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
+      "merchantId": "5ee0c486308f590260d9a07f",
+      "merchantConfigId": "5ee168e8597be5002af7b454",
+      "merchantName": "Centrapay Café"
+    }
+    ```
+  </CodePanel>
+
+    ### Errors
+  <Properties>
+    <Error code="403" message="PATRON_NOT_AUTHORIZED">
+      The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to decline the condition.
+    </Error>
+    <Error code="403" message="MERCHANT_NOT_AUTHORIZED">
+      The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to decline the condition.
+    </Error>
+    <Error code="403" message="CONDITION_ALREADY_SET">
+      The Payment Condition has already been accepted or declined.
+    </Error>
+  </Properties>
+</Endpoint>
