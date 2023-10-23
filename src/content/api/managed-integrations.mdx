@@ -1,0 +1,251 @@
+---
+title: Managed Integrations
+description: Managed Integration model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 23
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Badge from '../../components/Badge.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A Managed Integration is an [Integration](/api/integrations)  which a third party can control.
+
+## Managed Integration Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Managed Integration's unique identifier.
+  </Property>
+
+  <Property name="type" type="string">
+    The type of Managed Integration. Supported types are `paypal-referral`.
+  </Property>
+
+  <Property name="enabled" type="boolean">
+    Flag indicating whether the Managed Integration should become active or inactive.
+  </Property>
+
+  <Property name="status" type="string">
+    Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`.
+  </Property>
+
+  <Property name="externalId" type="string">
+    Field used to reference an id from an external system.
+  </Property>
+
+  <Property name="params" type="object">
+    [Params](#params) depending on the Managed Integration type.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Managed Integration was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Managed Integration.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Managed Integration was updated.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Managed Integration.
+  </Property>
+
+    <Property name="claimedByAccountId" type="string">
+    Centrapay account id used to claim the Managed Integration.
+  </Property>
+
+  <Property name="claimedBy" type="crn">
+    The User or API Key that claimed the Managed Integration.
+  </Property>
+
+  <Property name="claimedAt" type="timestamp">
+    When the Managed Integration was claimed.
+  </Property>
+
+  <Property name="invitation" type="object">
+    A summary of the associated [Invitation](/api/invitations). See [Invitation Summary](#invitation-summary-model).
+  </Property>
+
+  <Property name="inProgress" type="boolean">
+    Flag indicating whether a status transition is in progress.
+  </Property>
+
+  <Property name="test" type="boolean">
+    A flag which is present if the Managed Integration is for testing.
+  </Property>
+</Properties>
+
+---
+
+## Invitation Summary Model
+
+A summary of the [Invitation](/api/invitations) for a Managed Integration.
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Invitation's unique identifier.
+  </Property>
+
+  <Property name="code" type="string">
+    The Invitation code.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    When the Invitation expires.
+  </Property>
+</Properties>
+
+---
+
+## Params
+
+### paypal-referral
+
+<Properties>
+  <Property name="centrapayMerchantId" type="string">
+    The ID of the Centrapay merchant that will be onboarded.
+  </Property>
+
+  <Property name="email" type="string">
+    The email address to send the PayPal referral to.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="PUT"
+  path="/api/managed-integrations/{type}/{externalId}"
+>
+  ## Create or Update Managed Integration
+
+  This endpoint allows you to create or update a Managed Integration.
+
+  ### Attributes
+  <Properties>
+    <Property name="enabled" type="boolean" required>
+      Flag indicating whether the Managed Integration should become active or inactive.
+    </Property>
+
+    <Property name="params" type="object" required>
+      [Params](#params) depending on the Managed Integration type.
+    </Property>
+
+    <Property name="test" type="boolean">
+      Flag indicating the Managed Integration is for testing, this cannot be changed once the resource has been created.
+    </Property>
+  </Properties>
+
+  ### Errors
+  <Properties>
+    <Error code="400" message="INVALID_PARAMS">
+      Invalid [Params](#params) provided for Managed Integration type.
+    </Error>
+
+    <Error code="403" message="MERCHANT_LIVENESS_MISMATCH">
+      The `test` flag on the merchant doesn't match the `test` flag on the `paypal-referral` managed integration.
+    </Error>
+
+    <Error code="403" message="MERCHANT_NOT_FOUND">
+      The merchant is not found with the `centrapayMerchantId` on the `paypal-referral` managed integration.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/managed-integrations/{type}/{externalId}">
+    ```bash
+    curl -X PUT https://service.centrapay.com/api/managed-integrations/paypal-referral/DKTs3U38hdhfEqwF1JKoT2 \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "enabled": true,
+        "params": {
+          "centrapayMerchantId": "5ffcaf432003060007b98343",
+          "email": "test@centrapay.com"
+        }
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "5ee0c486308f590260d9a07f",
+      "type": "paypal-referral",
+      "externalId": "DKTs3U38hdhfEqwF1JKoT2",
+      "enabled": true,
+      "params": {
+        "centrapayMerchantId": "5ffcaf432003060007b98343",
+        "email": "test@centrapay.com"
+      },
+      "status": "provisioning",
+      "claimedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "claimedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "claimedAt": "2020-06-12T01:17:46.499Z",
+      "inProgress": true,
+      "createdAt": "2020-06-11T01:17:46.499Z",
+      "createdBy": "crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/managed-integrations/{id}"
+>
+  ## Get Managed Integration
+
+  This endpoint allows you to retrieve a Managed Integration by id.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/managed-integrations/{id}">
+    ```bash
+    curl https://service.centrapay.com/api/managed-integrations/dh375hdh08f590260d9a07f \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "5ee0c486308f590260d9a07f",
+      "type": "paypal-referral",
+      "externalId": "DKTs3U38hdhfEqwF1JKoT2",
+      "enabled": true,
+      "params": {
+        "centrapayMerchantId": "5ffcaf432003060007b98343",
+        "email": "test@centrapay.com"
+      },
+      "status": "provisioning",
+      "claimedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
+      "claimedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "claimedAt": "2020-06-12T01:17:46.499Z",
+      "inProgress": true,
+      "createdAt": "2020-06-11T01:17:46.499Z",
+      "createdBy": "crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+      "updatedAt": "2020-06-12T01:17:46.499Z",
+      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
