@@ -1,0 +1,158 @@
+---
+title: Profiles
+description: Profile model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 29
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Badge from '../../components/Badge.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A profile represents a Centrapay user's attributes.
+
+
+## Model
+
+### Attributes
+<Properties>
+  <Property name="userId" type="string">
+    The Centrapay user id.
+  </Property>
+
+  <Property name="givenName" type="string">
+    First name.
+  </Property>
+
+  <Property name="familyName" type="string">
+    Last name.
+  </Property>
+
+  <Property name="featureUpdates" type="boolean">
+    Whether a user would like to receive emails for feature updates.
+  </Property>
+
+  <Property name="marketingUpdates" type="boolean">
+    Whether a user would like to receive emails for marketing updates.
+  </Property>
+
+  <Property name="email" type="string">
+    Email address.
+  </Property>
+
+  <Property name="emailVerified" type="boolean">
+    Flag indicating the verification status of the email address.
+  </Property>
+
+  <Property name="phoneNumber" type="string">
+    The user's phone number.
+  </Property>
+
+  <Property name="phoneVerified" type="boolean">
+    Flag indicating the verification status of the phone number.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/me/profile/update"
+>
+  ## Update Profile <Badge type="experimental"/>
+
+  Update a user’s mutable attributes. At least one field must be provided in the request.
+
+  ### Attributes
+  <Properties>
+    <Property name="givenName" type="string">
+      First name.
+    </Property>
+
+    <Property name="familyName" type="string">
+      Last name.
+    </Property>
+
+    <Property name="featureUpdates" type="boolean">
+      Whether a user would like to receive emails for feature updates.
+    </Property>
+
+    <Property name="marketingUpdates" type="boolean">
+      Whether a user would like to receive emails for marketing updates.
+    </Property>
+
+    <Property name="email" type="string">
+      Email address.
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/me/profile/update">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/me/profile/update \
+      -H "Authorization: $jwt" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "givenName": "John",
+        "familyName": "Doe",
+        "featureUpdates": false,
+        "marketingUpdates": true,
+        "email": "john.doe@centrapay.com"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "givenName": "John",
+      "familyName": "Doe",
+      "featureUpdates": false,
+      "marketingUpdates": true,
+      "email": "john.doe@centrapay.com"
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/users/{userId}/profile"
+>
+  ## Get Profile <Badge type="experimental"/>
+
+  This endpoint allows you to retrieve a user's Profile.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/users/{userId}/profile">
+    ```bash
+    curl https://service.centrapay.com/api/users/da75ad90-9a5b-4df0-8374-f48b3a8fbfcc/profile \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "userId": "9f4b3bae-dc30-11ea-ab70-2743d9be3dd5",
+      "givenName": "John",
+      "familyName": "Doe",
+      "featureUpdates": true,
+      "marketingUpdates": true,
+      "email": "john.doe@centrapay.com",
+      "emailVerified": true,
+      "phoneNumber": "+64271112222",
+      "phoneVerified": true
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
