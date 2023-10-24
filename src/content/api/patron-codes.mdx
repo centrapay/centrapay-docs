@@ -1,0 +1,206 @@
+---
+title: Patron Codes
+description: Patron Code model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 31
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A Patron Code is an alternative to presenting a QR code where that option isn’t available.
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The Patron Code's unique identifier.
+  </Property>
+
+  <Property name="barcode" type="string">
+    ✩ Field to display in barcode format.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    Date when the Patron Code was created.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    Date when the Patron Code will expire.
+  </Property>
+
+  <Property name="appName" type="string" deprecated>
+    The app used to create the Patron Code.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The account id of the creator of the patron code.
+  </Property>
+
+  <Property name="testScenarioName" type="string">
+    The [Test Scenario Name](#test-scenario-name) of the Patron Code.
+  </Property>
+</Properties>
+
+✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
+code, then a luhn checksum digit.
+
+
+<CodePanel slot="code-examples" title="Barcode Breakdown">
+  ```
+  9 9 9 0 0 0 1 2 3 4 5 6 7 8 9 5  ❖  complete barcode
+  9 9 9 0 0 0 - - - - - - - - - -  ❖  centrapay prefix
+  - - - - - - 1 2 3 4 5 6 7 8 9 -  ❖  code
+  - - - - - - - - - - - - - - - 5  ❖  luhn checksum
+  ```
+</CodePanel>
+
+The Centrapay Prefix may present any of the following prefixes:
+
+* 121921
+* 123000
+* 282828
+* 293000
+* 321000
+* 321123
+* 636863
+* 713131
+* 765432
+* 777000
+* 839234
+* 848484
+* 888444
+* 929394
+* 987600
+* 999000
+
+### Test Scenario Name
+
+This field is used to inject behavior into a [Payment Request](https://docs.centrapay.com/api/payment-requests) when the
+generated barcode is supplied on creation. If a Test Scenario Name is
+defined on a Patron Code, it is considered a test resource and can only
+be used with Payment Requests that will have a liveness of 'test'. The [Asset Type](/api/asset-types)
+`centrapay.nzd.test` is required to run test scenarios.
+
+|              name              |                                    description                                     |
+| :----------------------------- | :--------------------------------------------------------------------------------- |
+| force-condition-check-photo-id | The Payment Request will have a required [Merchant Condition](https://docs.centrapay.com/api/payment-requests#merchant-condition) to check photo id. |
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/patron-codes"
+>
+  ## Create Patron Code
+
+  This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](https://docs.centrapay.com/api/payment-requests#patron-code) using the transacting APIs.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/patron-codes">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/patron-codes \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "V17FByEP9gm1shSG6a1Zzx",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "barcode": "9990001234567895",
+      "createdAt": "2021-06-08T22:55:00.000Z",
+      "expiresAt": "2021-06-08T23:00:00.000Z",
+      "appName": "centrapay"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/patron-codes/{patronCodeId}"
+>
+  ## Get Patron Code
+
+  This endpoint allows you to retrieve a Patron Code by id.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/patron-codes/{patronCodeId}">
+    ```bash
+    curl https://service.centrapay.com/api/patron-codes/V17FByEP9gm1shSG6a1Zzx \
+      -H "Authorization: $jwt"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "V17FByEP9gm1shSG6a1Zzx",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "barcode": "9990001234567895",
+      "createdAt": "2021-06-08T22:55:00.000Z",
+      "expiresAt": "2021-06-08T23:00:00.000Z",
+      "appName": "centrapay"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/patron-codes/barcode/{barcode}"
+>
+  ## Get Patron Code By Barcode
+
+  This endpoint allows you to retrieve a Patron Code by barcode.
+
+  ### Attributes
+  No attributes.
+
+  ### Errors
+  <Properties>
+    <Error code="400" message="CHECKSUM_FAILED">
+      Luhn checksum digit doesn't pass.
+    </Error>
+
+    <Error code="403" message="PATRON_CODE_INVALID">
+      Patron Code doesn't exist or it has expired.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/patron-codes/barcode/{barcode}">
+    ```bash
+    curl https://service.centrapay.com/api/patron-codes/barcode/9990001234567895 \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "V17FByEP9gm1shSG6a1Zzx",
+      "accountId": "Jaim1Cu1Q55uooxSens6yk",
+      "barcode": "9990001234567895",
+      "createdAt": "2021-06-08T22:55:00.000Z",
+      "expiresAt": "2021-06-08T23:00:00.000Z",
+      "appName": "centrapay"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
