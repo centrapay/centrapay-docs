@@ -46,5 +46,6 @@ export default defineConfig({
     '/fiat/bank-authorities': '/api/bank-accounts/',
     '/fiat/authorities': '/api/bank-accounts/',
     '/api/batch-types/farmlands': '/api/batch-types/farmlands-external-asset/',
+    '/profile': '/api/profiles',
   },
 });
