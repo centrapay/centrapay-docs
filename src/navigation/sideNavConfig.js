@@ -18,10 +18,7 @@ const navigationItems = [
       { title: 'Farmlands' },
     ]
   },
-];
-
-if (import.meta.env.MODE === 'development') {
-  navigationItems.push({
+  {
     title: 'API',
     subTitle: 'For developers',
     icon: 'Settings',
@@ -34,7 +31,7 @@ if (import.meta.env.MODE === 'development') {
       { title: 'Payment Requests', order: 15 },
       { title: 'Scanned Codes', order: 18 },
     ]
-  });
-}
+  },
+];
 
 export default navigationItems;
