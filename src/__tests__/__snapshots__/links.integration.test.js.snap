@@ -423,6 +423,7 @@ exports[`the build should not break any links 1`] = `
   "/api/quotas#operations",
   "/api/quotas#quota",
   "/api/quotas#quotas",
+  "/api/quotas#supported-quota-types",
   "/api/quotas#top",
   "/api/scanned-codes",
   "/api/scanned-codes#contents",
