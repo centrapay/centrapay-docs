@@ -10,7 +10,8 @@ const coloursMap = {
   POST: 'border-cyan-400 bg-cyan-100 text-content-primary',
   PUT: 'border-orange-400 bg-orange-100 text-content-primary',
   DELETE: 'border-red-400 bg-rose-100 text-content-primary',
-  default: 'text-content-primary border-outline-opaque bg-surface-tertiary'
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary',
+  deprecated: 'text-content-on-color border-outline-opaque bg-red-800',
 }
 
 const inverseColoursMap = {
@@ -19,7 +20,8 @@ const inverseColoursMap = {
   POST: 'border-cyan-500 bg-cyan-800 text-content-inverse-primary',
   PUT: 'border-orange-500 bg-orange-800 text-content-inverse-primary',
   DELETE: 'border-red-500 bg-rose-800 text-content-inverse-primary',
-  default: 'text-content-primary border-outline-opaque bg-surface-tertiary'
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary',
+  deprecated: 'text-content-on-color border-outline-opaque bg-red-800',
 }
 
 const map = inverse ? inverseColoursMap : coloursMap;
