@@ -1,0 +1,136 @@
+---
+title: Quotas
+description: Quota model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 30
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Badge from '../../components/Badge.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account.
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="type" type="string">
+    The quota's type. See [Supported Quota Types](#supported-quota-types).
+  </Property>
+
+  <Property name="limit" type="bignumber">
+    The quota's upper usage limit.
+  </Property>
+
+  <Property name="usage" type="bignumber">
+    The quota's current usage.
+  </Property>
+
+  <Property name="assetType" type="string">
+    The type of asset the quota is scoped to, eg `centrapay.nzd.main`.
+  </Property>
+
+  <Property name="period" type="string">
+    The recurring, time-bound quota's duration: `daily`, `monthly` or `yearly`.
+  </Property>
+
+  <Property name="interval" type="string">
+    The specific day, month or year the quota applies to, eg: `2020-01-01`, `2020-01`, `2020`.
+  </Property>
+</Properties>
+
+### Supported Quota Types
+
+| Type  | Description                                                         | Scoped | Periods            |
+|:------|:--------------------------------------------------------------------|:------:|:-------------------|
+| spend | Value of wallet-based payments or asset transfers from the account. |   Yes  | `monthly` `yearly` |
+| topup | Value of topups from bank accounts linked to the account.           |   Yes  | `monthly` `yearly` |
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/accounts/{accountId}/quotas"
+>
+  ## Get Account Quotas <Badge type="experimental" />
+
+  Retrieve quota limits and usages for the current intervals. Ie, all quotas for the current day, current month and current year as well as any quotas that are not associated with a temporal period.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/quotas">
+    ```bash
+    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  ### Errors
+
+  If a quota limit is exceeded by an action that enforces quota limits, an error response will be returned. The quotas field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    [
+      {
+        "limit": "1000",
+        "interval": "2021-03",
+        "period": "monthly",
+        "usage": "500",
+        "type": "spend",
+        "assetType": "centrapay.nzd.main"
+      },
+      {
+        "limit": "9999",
+        "interval": "2021",
+        "period": "yearly",
+        "usage": "1555",
+        "type": "spend",
+        "assetType": "centrapay.nzd.main"
+      },
+      {
+        "limit": "1000",
+        "interval": "2021-03",
+        "period": "monthly",
+        "usage": "500",
+        "type": "topup",
+        "assetType": "centrapay.nzd.main"
+      },
+      {
+        "limit": "9999",
+        "interval": "2021",
+        "period": "yearly",
+        "usage": "5000",
+        "type": "topup",
+        "assetType": "centrapay.nzd.main"
+      }
+    ]
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Error Response">
+    ```json
+    {
+      "message": "QUOTA_EXCEEDED",
+      "quotas": [
+        {
+          "limit": "9999",
+          "interval": "2021",
+          "period": "yearly",
+          "usage": "10000",
+          "type": "topup",
+          "assetType": "centrapay.nzd.main"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
