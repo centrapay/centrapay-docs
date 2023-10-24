@@ -303,6 +303,7 @@ exports[`the build should not break any links 1`] = `
   "/api/managed-integrations#get-a-managed-integration-experimental",
   "/api/managed-integrations#invitation-summary",
   "/api/managed-integrations#invitation-summary-experimental",
+  "/api/managed-integrations#invitation-summary-model",
   "/api/managed-integrations#managed-integration",
   "/api/managed-integrations#managed-integration-1",
   "/api/managed-integrations#models",
