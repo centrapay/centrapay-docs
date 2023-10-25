@@ -1,0 +1,108 @@
+---
+title: Scanned Codes
+description: Scanned Code model and related endpoints
+draft: true
+nav:
+  path: API
+  order: 30
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Badge from '../../components/Badge.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](https://docs.centrapay.com/api/payment-requests).
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="code" type="string">
+    The utf8 representation of data decoded from what was scanned.
+  </Property>
+
+  <Property name="scannedBy" type="string">
+    The party that scanned the code. Can be `merchant`.
+  </Property>
+
+  <Property name="provider" type="string">
+    The integrator that owns the code. This can be used to calculate discounts on [Line Items](https://docs.centrapay.com/api/payment-requests#line-item). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
+  </Property>
+
+  <Property name="displayName" type="string">
+    A formatted name that can be displayed in a client.
+  </Property>
+
+  <Property name="merchantConfigId" type="string">
+    The ID of the [Merchant Config](/api/merchant-configs).
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/decode"
+>
+  ## Decode Scanned Code
+
+  This endpoint allows you to decode a scanned code.
+
+  ### Attributes
+  <Properties>
+    <Property name="code" type="string" required>
+      The utf8 representation of data decoded from what was scanned.
+    </Property>
+
+    <Property name="scannedBy" type="string" required>
+      The party that scanned the code. Can be `merchant`.
+    </Property>
+
+    <Property name="merchantConfigId" type="string" required>
+      The ID of the [Merchant Config](/api/merchant-configs).
+    </Property>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/decode">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/decode \
+      -H "Authorization: $jwt" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "code": "123456789",
+        "scannedBy": "merchant",
+        "merchantConfigId": "P9gm1s1Cu1Q5uooxs"
+      }'
+    ```
+  </CodePanel>
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="UNKNOWN_CODE">
+      The code doesn’t exist or is no longer active in our system.
+    </Error>
+
+    <Error code="403" message="MERCHANT_CONFIG_NOT_FOUND">
+      The supplied merchant config does not exist.
+    </Error>
+
+    <Error code="403" message="INVALID_MERCHANT_CONFIG">
+      The merchant config does not have a payment option that can satisfy the scanned code.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "code": "123456789",
+      "scannedBy": "merchant",
+      "merchantConfigId": "P9gm1s1Cu1Q5uooxs",
+      "provider": "farmlands",
+      "displayName": "Farmlands Card"
+    }
+    ```
+  </CodePanel>
+</Endpoint>
