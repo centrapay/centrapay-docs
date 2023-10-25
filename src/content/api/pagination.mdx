@@ -9,6 +9,7 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import CodePanel from '../../components/CodePanel.astro';
+import Endpoint from '../../components/Endpoint.astro';
 
 Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory
 usage and speed up page rendering.
@@ -21,20 +22,10 @@ Please note that when making a request, the values of `pageKey` must be URL-enco
 Some of our endpoints have been designed to be forwards compatible with pagination. When we do
 bring support to GET endpoints for listing, these conventions will be followed.
 
-## Model
-
-### Request
+## Pagination Model
 
 <Properties>
-  <Property name="pageKey" type="string">
-    Used to retrieve the next page of items.
-  </Property>
-</Properties>
-
-### Response
-
-<Properties>
-  <Property name="items" type="array" required>
+  <Property name="items" type="array">
     A list of items from the current page.
   </Property>
   <Property name="nextPageKey" type="string">
@@ -44,49 +35,45 @@ bring support to GET endpoints for listing, these conventions will be followed.
 
 ---
 
-## Example
 
-<CodePanel title="A GET endpoint for listing with a pageKey" method="POST" path="/api/examples">
-  ```bash
-  curl -X GET https://service.centrapay.com/api/examples \
-    -H "X-Api-Key: $api_key" \
-    -d '{
-      "pageKey": "Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
-    }'
-  ```
-</CodePanel>
+<Endpoint>
 
-<CodePanel title="Response with more content">
-  ```json
-  {
-    "nextPageKey": "5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d",
-    "items": [
-      {
-        "value": "16",
-        "assetType": "centrapay.nzd.main"
-      },
-      {
-        "value": "32",
-        "assetType": "centrapay.nzd.main"
-      },
-      {
-        "value": "64",
-        "assetType": "centrapay.nzd.main"
-      }
-    ]
-  }
-  ```
-</CodePanel>
+  ## Example
+  <Properties>
+    <Property name="pageKey" type="string">
+      Used to retrieve the next page of items.
+    </Property>
+  </Properties>
 
-<CodePanel title="Response with the final page">
-```json
-{
-  "items": [
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/examples">
+    ```bash
+    curl -X GET https://service.centrapay.com/api/examples \
+      -H "X-Api-Key: $api_key" \
+      -d '{
+        "pageKey": "Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
+      }'
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
     {
-      "value": "128",
-      "assetType": "centrapay.nzd.main"
+      "nextPageKey": "5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d",
+      "items": [
+        {
+          "value": "16",
+          "assetType": "centrapay.nzd.main"
+        },
+        {
+          "value": "32",
+          "assetType": "centrapay.nzd.main"
+        },
+        {
+          "value": "64",
+          "assetType": "centrapay.nzd.main"
+        }
+      ]
     }
-  ]
-}
-```
-</CodePanel>
+    ```
+  </CodePanel>
+</Endpoint>
