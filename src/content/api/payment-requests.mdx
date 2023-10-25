@@ -26,7 +26,7 @@ Payment requests can also be refunded for a short period of time after being pai
 
 Payment request state transitions can be notified to webhooks.
 
-Centrapay Payment Requests are serviced via two sets of endpoints; the “next” version (documented on this page) and the “legacy” version (documented at [Legacy Payment Requests](/api/legacy-payment-requests)).
+Centrapay Payment Requests are serviced via two sets of endpoints; the “next” version (documented on this page) and the “legacy” version (documented at [Legacy Payment Requests](/api/legacy-payment-requests/)).
 
 ---
 
@@ -51,13 +51,13 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
     The [Payment Options](#payment-option-model), indicating valid asset for payment.
   </Property>
   <Property name="merchantId" type="string">
-    The id of the [Merchant](/api/merchants) the Payment Request is on behalf of.
+    The id of the [Merchant](/api/merchants/) the Payment Request is on behalf of.
   </Property>
   <Property name="merchantName" type="string">
     The name of the Merchant the Payment Request is on behalf of.
   </Property>
   <Property name="configId" type="string">
-    The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
+    The [Merchant Config](/api/merchant-configs/) id used to configure the payment options.
   </Property>
   <Property name="status" type="string">
     Valid values: `new`, `paid`, `cancelled`, or `expired`.
@@ -81,16 +81,16 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
     The amount of the Payment Request which has not been paid for.
   </Property>
   <Property name="patronCodeId" type="string">
-    The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the Payment Request is attached to.
+    The id of a [Patron Code](/api/patron-codes/) the Payment Request is attached to.
   </Property>
   <Property name="barcode" type="string">
-    [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request.
+    [Scanned Code](/api/scanned-codes/) used to create the Payment Request.
   </Property>
   <Property name="barcodeType" type="string">
     Indicates the provider of a barcode, e.g. `ticketek`.
   </Property>
   <Property name="collectionId" type="string">
-    The identifier of the [Token Collection](/api/tokens).
+    The identifier of the [Token Collection](/api/tokens/).
   </Property>
   <Property name="expirySeconds" type="number">
     The expiry seconds used to configure the Payment Request expiry.
@@ -120,10 +120,10 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
     POS operator Id.
   </Property>
   <Property name="createdByAccountId" type="string">
-    Id of the [Centrapay Account](/api/accounts) creating the Payment Request.
+    Id of the [Centrapay Account](/api/accounts/) creating the Payment Request.
   </Property>
   <Property name="createdByAccountName" type="string">
-    Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
+    Name of the [Centrapay Account](/api/accounts/) creating the Payment Request.
   </Property>
   <Property name="conditionsEnabled" type="boolean">
     Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
@@ -135,7 +135,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
     The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
   </Property>
   <Property name="preAuth" type="boolean">
-    Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
+    Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types/).
   </Property>
   <Property name="preAuthExpiresAt" type="timestamp">
     Pre Auth completions and releases will be accepted until this time.
@@ -144,7 +144,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
     Describes which state a Pre Auth Payment Request is in. Valid values are `authorized` or `released`.
   </Property>
   <Property name="taxNumber" type="object">
-    The value-added tax configuration for the [Business](/api/businesses) that the [Merchant](/api/merchants) belongs to. See [Tax Number](/api/businesses#tax-number-model).
+    The value-added tax configuration for the [Business](/api/businesses/) that the [Merchant](/api/merchants/) belongs to. See [Tax Number](/api/businesses#tax-number-model).
   </Property>
   <Property name="partialAllowed" type="boolean">
     Flag to indicate that the Payment Request can be paid for partially.
@@ -165,7 +165,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
 
 <Properties>
   <Property name="assetType" type="string">
-    An [Asset Type](/api/asset-types) reference.
+    An [Asset Type](/api/asset-types/) reference.
   </Property>
   <Property name="amount" type="bignumber">
     The value required to pay using the canonical units for the Asset Type.
@@ -187,7 +187,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
 ### Accepted Collections
 
 If a Payment Request contains a `centrapay.token.*` Payment Option, an array of Accepted Collections will be present inside the `centrapay.token` Payment Option.
-The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
+The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens/) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
 
 #### Attributes
 
@@ -196,7 +196,7 @@ The Accepted Collections returned can be used to determine if a [Centrapay Token
     The id of a collection that the Merchant accepts for the given Payment Request.
   </Property>
   <Property name="lineItems" type="array">
-    The [Line Items](#line-item-model) that can be purchased by a [Centrapay Token](/api/tokens) with matching collection id.
+    The [Line Items](#line-item-model) that can be purchased by a [Centrapay Token](/api/tokens/) with matching collection id.
   </Property>
 </Properties>
 
@@ -204,7 +204,7 @@ The Accepted Collections returned can be used to determine if a [Centrapay Token
 
 ## Payment Condition Model
 
-Some [Asset Types](/api/asset-types) require conditional approval to pay. Possible Payment Conditions include confirming proof of ID
+Some [Asset Types](/api/asset-types/) require conditional approval to pay. Possible Payment Conditions include confirming proof of ID
 or confirming a promotional item was purchased.
 
 The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) to indicate that
@@ -266,7 +266,7 @@ A discount that applies to multiple Line Items may be represented as a separate 
     Manufacturer’s product identifier (eg GTIN/EAN).
   </Property>
   <Property name="restricted" type="boolean">
-    Disallow payment with a “restricted” [Asset Type](/api/asset-types).
+    Disallow payment with a “restricted” [Asset Type](/api/asset-types/).
   </Property>
   <Property name="classification" type="object">
     [Product Classification](#product-classification).
@@ -353,13 +353,13 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     The Payment Request’s id.
   </Property>
   <Property name="merchantId" type="string">
-    The Payment Request’s [Merchant](/api/merchants) id.
+    The Payment Request’s [Merchant](/api/merchants/) id.
   </Property>
   <Property name="merchantConfigId" type="string">
-    The Payment Request’s [Merchant Config](/api/merchant-configs) id.
+    The Payment Request’s [Merchant Config](/api/merchant-configs/) id.
   </Property>
   <Property name="merchantAccountId" type="string">
-    The Payment Request’s Merchant [Account](/api/accounts) id.
+    The Payment Request’s Merchant [Account](/api/accounts/) id.
   </Property>
   <Property name="merchantName" type="string">
     The Payment Request’s Merchant name.
@@ -450,19 +450,19 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   ### Attributes
   <Properties>
     <Property name="configId" type="string" required>
-      The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
+      The [Merchant Config](/api/merchant-configs/) id used to configure the payment options.
     </Property>
     <Property name="value" type="monetary" required>
       The canonical value of the Payment Request. Must be less than 100000000 and positive.
     </Property>
     <Property name="barcode" type="string">
-      [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request. Required when `preAuth` is `true`.
+      [Scanned Code](/api/scanned-codes/) used to create the Payment Request. Required when `preAuth` is `true`.
     </Property>
     <Property name="barcodeType" type="string">
       Indicates the provider of a barcode, e.g. `ticketek`.
     </Property>
     <Property name="collectionId" type="string">
-      The identifier of the [Token Collection](/api/tokens).
+      The identifier of the [Token Collection](/api/tokens/).
     </Property>
     <Property name="expirySeconds" type="number">
       The expiry seconds used to configure the Payment Request expiry.
@@ -477,7 +477,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
     </Property>
     <Property name="redirectUrl" type="string" experimental>
-      URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+      URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs/).
     </Property>
     <Property name="externalRef" type="string">
       An external reference to the Payment Request.
@@ -492,7 +492,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       POS operator Id.
     </Property>
     <Property name="createdByAccountName" type="string">
-      Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
+      Name of the [Centrapay Account](/api/accounts/) creating the Payment Request.
     </Property>
     <Property name="conditionsEnabled" type="boolean">
       Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
@@ -501,7 +501,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model).
     </Property>
     <Property name="preAuth" type="boolean">
-      Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
+      Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types/).
     </Property>
     <Property name="partialAllowed" type="boolean">
       Flag to indicate that the Payment Request can be paid for partially.
@@ -596,10 +596,10 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       Luhn checksum digit doesn't pass.
     </Error>
     <Error code="403" message="REDIRECT_URL_INVALID">
-      The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+      The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs/).
     </Error>
     <Error code="403" message="PATRON_CODE_INVALID">
-      [Patron Code](https://docs.centrapay.com/api/patron-codes) doesn't exist or has expired.
+      [Patron Code](/api/patron-codes/) doesn't exist or has expired.
     </Error>
     <Error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS">
       No payment options match the requested payment parameters.
@@ -780,7 +780,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 >
   ## Get a Payment Request linked to a Patron Code
 
-  This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](https://docs.centrapay.com/api/patron-codes).
+  This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](/api/patron-codes/).
   The Payment Request may have been created with a reference to any Patron Code owned by the user's
   account.
 
@@ -840,15 +840,15 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 >
   ## Pay a Payment Request
 
-  To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types) and one of `assetId`, `transactionId` or `authorization`.
-  - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
+  To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types/) and one of `assetId`, `transactionId` or `authorization`.
+  - Use `assetId` if the [Asset Type](/api/asset-types/) is managed by Centrapay.
   - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
   - Use `authorization` to authorize an external transaction.
 
   ### Attributes
   <Properties>
     <Property name="assetType" type="string" required>
-      An [Asset Type](/api/asset-types) reference.
+      An [Asset Type](/api/asset-types/) reference.
     </Property>
     <Property name="assetId" type="string">
       The id of the Asset being used to make payment.
@@ -970,7 +970,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The [Line Items](#line-item-model) being refunded.
     </Property>
     <Property name="merchantConfigId" type="string">
-      The [Merchant Config](/api/merchant-configs) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
+      The [Merchant Config](/api/merchant-configs/) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
     </Property>
   </Properties>
 

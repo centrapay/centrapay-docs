@@ -26,7 +26,7 @@ Secure and instant means of sending full invoice details to Farmlands. Improved
 
 Farmlands integrations use Centrapay’s [Quick Pay Barcode Flow For Merchants](/guides/merchant-integration-barcode-flow#quick-pay-flow) to connect to Cardholders and accept Farmlands transactions.
 
-> See also: [Requesting Payment](/guides/requesting-payment)
+> See also: [Requesting Payment](/guides/requesting-payment/)
 
 ```mermaid
 sequenceDiagram
@@ -331,7 +331,7 @@ sequenceDiagram
 
 The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
 
-1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
+1. Each Card Partner site must be correctly set up as a [Merchant](/api/merchants/) in Centrapay’s system.
 2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
 3. Card Partners must meet [basic payment requirements](#basic-requirements), including supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds) in order to implement the Barcode Payment Flow.
 4. Card Partners should extend the Barcode payment Flow to meet any additional requirements, these optional extensions include:
@@ -341,7 +341,7 @@ The Payment Flow can only be used by existing Farmlands Card Partners. Card Part
 
 ### Merchant Configuration
 
-Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](https://docs.centrapay.com/api/merchants) with its own [Merchant Config](https://docs.centrapay.com/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](https://docs.centrapay.com/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
+Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](/api/merchants/) with its own [Merchant Config](/api/merchant-configs/). The Merchant Config contains a Farmlands [Payment Option](/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
 
 The POS needs to provide the unique Merchant Config ID for the Merchant when [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) on their behalf.
 
@@ -349,7 +349,7 @@ The POS needs to provide the unique Merchant Config ID for the Merchant when [cr
 
 ### Authentication
 
-Requests to Centrapay’s APIs are [authenticated](https://docs.centrapay.com/api/auth) by providing an API key in the `X-Api-Key` header. [API Keys](https://docs.centrapay.com/api/api-keys) provide enduring access to a single Centrapay account.
+Requests to Centrapay’s APIs are [authenticated](/api/auth/) by providing an API key in the `X-Api-Key` header. [API Keys](/api/api-keys/) provide enduring access to a single Centrapay account.
 
 <CodePanel title="Request" method="GET" path="/api/account-memberships">
 ```bash
@@ -364,7 +364,7 @@ curl https://service.centrapay.com/api/account-memberships \
 
 The Payment Flow needs the following requirements to be met.
 
-- Card Partners MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+- Card Partners MUST use the unique [Merchant Config](/api/merchant-configs/) ID that was set up for the site that is accepting the payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
 - Card Partners MUST support [Payment Conditions](#payment-conditions).
 - The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
 - The POS MUST include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
@@ -383,7 +383,7 @@ Card Partners must extend the Barcode Flow to support this by [creating Payment 
 
 The Payment Request must always be polled after accepting or declining a condition.
 
-> See also: [Payment Conditions](/guides/payment-conditions)
+> See also: [Payment Conditions](/guides/payment-conditions/)
 
 ### Pre Auth
 
@@ -797,7 +797,7 @@ To confirm if there are funds requiring release you can [list payment activities
     ```
   </CodePanel>
 
-> See also: [Requesting Pre Auth](/guides/requesting-pre-auth)
+> See also: [Requesting Pre Auth](/guides/requesting-pre-auth/)
 
 ### Cardholder Not Present
 
@@ -845,7 +845,7 @@ curl -X POST https://service.centrapay.com/api/payment-requests \
 ```
 </CodePanel>
 
-> See also: [Patron Not Present](/guides/patron-not-present)
+> See also: [Patron Not Present](/guides/patron-not-present/)
 
 ### Validating Farmlands Barcodes
 
@@ -878,9 +878,9 @@ curl -X POST https://service.centrapay.com/api/decode \
 
 ### Handling Payment Errors
 
-The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling/) when dealing with inconsistencies in [Payment Request](/api/payment-requests#payment-request) statuses due to network issues or race conditions.
 
-> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
+> See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling/)
 
 ### Refunds
 
@@ -994,7 +994,7 @@ You need to go through the following steps in order to test your integration in 
 
 For Centrapay to allow integrations to have production assets turned on, we require partners to complete a Certification Process.
 
-The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale) requirements, and the following additional requirements.
+The Certification Process includes checking that Farmlands POS integrators are meeting Centrapay’s [Point Of Sale](/guides/point-of-sale/) requirements, and the following additional requirements.
 
 **POS Requirements**
 
@@ -1003,8 +1003,8 @@ The Certification Process includes checking that Farmlands POS integrators are m
 
 **Barcode Flow Requirements**
 
-- The POS MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
-- The POS MUST provide an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
+- The POS MUST use the unique [Merchant Config](/api/merchant-configs/) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
+- The POS MUST provide an invoice number and full details for all [Line Items](/api/payment-requests#line-item) when [creating a Payment Request](/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
 - [Payment Conditions](#payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
 - The POS MUST always poll the Payment Request after accepting or declining a condition.
 

@@ -13,7 +13,7 @@ import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
-A merchant is an initiator of [Payment Requests](https://docs.centrapay.com/api/payment-requests). A Merchant has [Merchant Configs](https://docs.centrapay.com/api/merchant-configs)
+A merchant is an initiator of [Payment Requests](/api/payment-requests/). A Merchant has [Merchant Configs](/api/merchant-configs/)
 which define the payment methods available for a Payment Request.
 
 ## Merchant Model
@@ -34,7 +34,7 @@ which define the payment methods available for a Payment Request.
   </Property>
 
   <Property name="country" type="string">
-    Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+    Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts/).
   </Property>
 
   <Property name="createdAt" type="timestamp">
@@ -140,7 +140,7 @@ which define the payment methods available for a Payment Request.
 
 <Properties>
   <Property name="assetType" type="string">
-    The [type](/api/asset-types) of the asset
+    The [type](/api/asset-types/) of the asset
   </Property>
 
   <Property name="products" type="object">
@@ -181,7 +181,7 @@ which define the payment methods available for a Payment Request.
     </Property>
 
     <Property name="country" type="string" required>
-      Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+      Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts/).
     </Property>
 
     <Property name="test" type="boolean" experimental required>
@@ -286,7 +286,7 @@ which define the payment methods available for a Payment Request.
 >
   ## List Merchants for Account
 
-  This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
+  This endpoint allows you to retrieve a [paginated](/api/pagination/) list of Merchants attached to an Account.
 
   ### Attributes
   No attributes.
@@ -469,7 +469,7 @@ which define the payment methods available for a Payment Request.
 >
   ## Search Merchants
 
-  Returns a [paginated](/api/pagination) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth).
+  Returns a [paginated](/api/pagination/) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth/).
 
   ### Query Parameters
   <Properties>
@@ -482,7 +482,7 @@ which define the payment methods available for a Payment Request.
     </Property>
 
     <Property name="asset" type="string">
-      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-cards) asset types or the asset's collectionId for [centrapay.token](/api/assets#tokens-experimental) asset types.
+      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types/) to filter the merchants by and `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-cards) asset types or the asset's collectionId for [centrapay.token](/api/assets#tokens-experimental) asset types.
     </Property>
 
     <Property name="name" type="string">
@@ -568,7 +568,7 @@ which define the payment methods available for a Payment Request.
 >
   ## List Merchants <Badge type="deprecated"/>
 
-  Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
+  Returns a [paginated](/api/pagination/) list of Merchants which belong to the authenticated subject.
 
   ### Attributes
   No attributes.

@@ -13,8 +13,8 @@ import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 import Error from '../../components/Error.astro';
 
-A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts).
-This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts) owner
+A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts/).
+This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts/) owner
 that allows access to a third-party system. See [Bank Account Approval Types](#bank-account-approval-types).
 
 ---
@@ -65,7 +65,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
   </Property>
 
   <Property name="mediaUploadId" type="string">
-    The id of the associated [Media Upload](/api/media-uploads). Required for type `settlement`.
+    The id of the associated [Media Upload](/api/media-uploads/). Required for type `settlement`.
   </Property>
 
   <Property name="refreshToken" type="string">
@@ -79,11 +79,11 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
 ### Bank Account Approval Types
 
-|      Name       |                                                                                                                                      description                                                                                                                                      |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| settlement      | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](https://docs.centrapay.com/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved. |
-| account-consent | An `approved` Bank Account Approval of type `account-consent` provides an access token to read account details from a third-party.                                                                                                                                                    |
-| payment-consent | An `approved` Bank Account Approval of type `payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                      |
+|      Name       |                                                                                                                                                      description                                                                                                                                                       |
+| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| settlement      | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads/) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts/) to be approved. |
+| account-consent | An `approved` Bank Account Approval of type `account-consent` provides an access token to read account details from a third-party.                                                                                                                                                                                     |
+| payment-consent | An `approved` Bank Account Approval of type `payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                                                       |
 
 ---
 
@@ -126,11 +126,11 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
   ### Attributes
   <Properties>
     <Property name="mediaUploadId" type="string" required>
-      The id of the associated [Media Upload](/api/media-uploads).
+      The id of the associated [Media Upload](/api/media-uploads/).
     </Property>
 
     <Property name="bankAccountId" type="string" required>
-      The id of the associated [Bank Account](/api/bank-accounts).
+      The id of the associated [Bank Account](/api/bank-accounts/).
     </Property>
 
     <Property name="type" type="string" required>

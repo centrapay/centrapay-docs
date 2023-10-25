@@ -15,7 +15,7 @@ import Badge from '../../components/Badge.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Centrapay Payment Requests are serviced via two sets of endpoints; the "next"
-version (documented [Payment Requests](/api/payment-requests)) and the "legacy" version
+version (documented [Payment Requests](/api/payment-requests/)) and the "legacy" version
 (documented on this page). These endpoints are <Badge type="deprecated"/>.
 
 > Use of legacy endpoints for new integrations is discouraged where alternative endpoints have been provided.
@@ -52,7 +52,7 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
     The URL for a Centrapay webpage that allows the user to pay the Payment Request.
   </Property>
   <Property name="patronCode" type="string">
-    The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the payment request is attached to.
+    The id of a [Patron Code](/api/patron-codes/) the payment request is attached to.
   </Property>
   <Property name="status" type="string">
     `new`, `paid`, `cancelled`, or `expired`.
@@ -103,7 +103,7 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
 
 <Properties>
   <Property name="ledger" type="string">
-    Related to the [Asset Type](/api/asset-types) for the payment. See [ledger and authorization values](#ledger-and-authorization-values).
+    Related to the [Asset Type](/api/asset-types/) for the payment. See [ledger and authorization values](#ledger-and-authorization-values).
   </Property>
   <Property name="amount" type="number">
     The amount in the minimum divisible units of the denominated asset that would satisfy the payment.
@@ -170,7 +170,7 @@ is returned with the payment request info as `payments[].ledger`.
       The amount in the minimum divisible units of the denominated asset that would satisfy the payment.
     </Property>
     <Property name="asset" type="string" required>
-      The [Asset Type](/api/asset-types) for the payment.
+      The [Asset Type](/api/asset-types/) for the payment.
     </Property>
     <Property name="merchantId" type="string" required>
       The ID of the Merchant creating the request.
@@ -188,7 +188,7 @@ is returned with the payment request info as `payments[].ledger`.
       The URL that will receive the webhook POST requests.
     </Property>
     <Property name="patronCode" type="string">
-      The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the payment request is attached to.
+      The id of a [Patron Code](/api/patron-codes/) the payment request is attached to.
     </Property>
     <Property name="paymentExpirySeconds" type="string">
       The expiry seconds used to configure the Payment Request expiry.
@@ -339,7 +339,7 @@ is returned with the payment request info as `payments[].ledger`.
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
     </Property>
     <Property name="ledger" type="string" required>
-      Relates to the [Asset Type](/api/asset-types) for the payment. See [ledger and authorization values](#ledger-and-authorization-values) for expected values.
+      Relates to the [Asset Type](/api/asset-types/) for the payment. See [ledger and authorization values](#ledger-and-authorization-values) for expected values.
     </Property>
     <Property name="authorization" type="string" required>
       An identifier that can be used to pay or verify payment. See [ledger and authorization values](#ledger-and-authorization-values) for expected values.

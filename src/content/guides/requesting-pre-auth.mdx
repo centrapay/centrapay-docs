@@ -12,14 +12,14 @@ Centrapay’s Pre Auth extension allows a patron to authorize payment up to a li
 
 Pre Auth payments are not supported in all cases.
 
-1. Not all asset types support Pre Auth - Payment options for [Asset Types](https://docs.centrapay.com/api/asset-types) that do not support Pre Auth will be excluded when a [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) is created with the `preAuth` flag.
+1. Not all asset types support Pre Auth - Payment options for [Asset Types](/api/asset-types/) that do not support Pre Auth will be excluded when a [Payment Request](/api/payment-requests#payment-request) is created with the `preAuth` flag.
 2. Pre Auth is incompatible with Multi-Asset payments - Only one asset type can be authorized for a Pre Auth.
 
 ## Pre Auth Flow
 
 Pre Auth payments go through an orthogonal payment flow compared to Centrapay’s standard payment flow.
 
-> See also: [Requesting Payment](/guides/requesting-payment).
+> See also: [Requesting Payment](/guides/requesting-payment/).
 
 ```mermaid
 sequenceDiagram
@@ -53,7 +53,7 @@ sequenceDiagram
 
 ### Authorize
 
-An authorization is created when the [Payment Request is created](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment).
+An authorization is created when the [Payment Request is created](/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment/).
 
 Once the authorization is successful, the Payment Request `preAuthStatus` is set to `authorized`.
 
@@ -137,7 +137,7 @@ Authorizations automatically expire after 3 months. Any unreleased funds are sub
 
 ### Refund
 
-[Refunds](/guides/initiating-refunds) can be made against authorizations, confirmations, released authorizations and expired authorizations.
+[Refunds](/guides/initiating-refunds/) can be made against authorizations, confirmations, released authorizations and expired authorizations.
 
 Refunds made against confirmations must include the `confirmationIdempotencyKey` field that is the same as the `idempotencyKey` used for original confirmation.
 
