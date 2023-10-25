@@ -1,0 +1,118 @@
+---
+title: Settlements
+description: Settlement models and related endpointss
+draft: true
+nav:
+  path: API
+  order: 34
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+import CodePanel from '../../components/CodePanel.astro';
+
+A Settlement is created from completed [Payment Requests](/api/payment-requests/) over a specified period for each supported [Asset Type](/api/asset-types/) for each [Merchant](/api/merchants/).
+
+Settlements can only be created if the Merchant has a [Settlement Config](/api/merchants#settlement-config-model).
+
+---
+
+## Model
+
+### Attributes
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier for the Settlement.
+  </Property>
+
+  <Property name="status" type="string">
+    The status of the Settlement.
+  </Property>
+
+  <Property name="assetType" type="string">
+    The [Asset Type](/api/asset-types/) being settled.
+  </Property>
+
+  <Property name="currency" type="string">
+    The settlement currency.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Settlement was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Settlement.
+  </Property>
+
+  <Property name="settledAt" type="timestamp">
+    The time when settlement was completed.
+  </Property>
+
+  <Property name="settledBy" type="crn">
+    The User or API Key that completed the Settlement.
+  </Property>
+
+  <Property name="settlementAmount" type="bignumber">
+    The total amount of the settlement.
+  </Property>
+
+  <Property name="settlementBankAccountId" type="string">
+    The ID of the [Bank Account](/api/bank-accounts/) used for settlement.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  method="GET"
+  path="/api/merchants/{merchantId}/settlements"
+>
+  ## List Settlements
+
+  This endpoint allows you to list Settlements.
+
+  ### Attributes
+  No attributes.
+
+  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/settlements">
+    ```bash
+    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/settlements \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "items": [
+        {
+          "id": "89028sh9308f590260d9a07f",
+          "status": "confirmed",
+          "assetType": "centrapay.nzd.main",
+          "currency": "NZD",
+          "createdAt": "2021-11-12T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "settledAt": "2021-11-13T11:59:59.999Z",
+          "settledBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "settlementAmount": "2500",
+          "settlementBankAccountId": "67e0c486308f590260d9a139"
+        },
+        {
+          "id": "9ds2cs89028sh90260d9f91h",
+          "status": "awaiting-confirmation",
+          "assetType": "centrapay.nzd.main",
+          "currency": "NZD",
+          "createdAt": "2021-11-13T01:17:46.499Z",
+          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
+          "settlementAmount": "2200",
+          "settlementBankAccountId": "67e0c486308f590260d9a139"
+        }
+      ]
+    }
+    ```
+  </CodePanel>
+
+</Endpoint>
