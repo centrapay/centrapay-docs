@@ -15,7 +15,7 @@ When a merchant terminal has a customer-facing display it can prompt the custome
 ### Dynamic Merchant QR Code
 
 1. Merchant terminal [creates a payment request](/api/payment-requests#create-a-payment-request) via Centrapay API and shows QR code on customer-facing display.
-2. Customer device scans the QR code, fetches the [payment request details](/api/payment-requests#get-a-payment-request), and [completes payment](/api/legacy-payment-requests#requests-pay) as normal.
+2. Customer device scans the QR code, fetches the [payment request details](/api/payment-requests#get-a-payment-request), and [completes payment](/api/payment-requests#pay-a-payment-request) as normal.
 3. Merchant terminal displays transaction result using the [payment request details](/api/payment-requests#get-a-payment-request).
 
 ### Static Merchant QR Code
@@ -45,7 +45,7 @@ This is a variant on Dynamic Patron Code. If you’ve setup a long lived Centrap
 2. Merchant checks the barcode for support using the [Scanned Codes](/api/scanned-codes#decode-scanned-code) endpoints.
 3. Merchant then [creates a Payment Request](/api/payment-requests#create-a-payment-request) using the barcode as a parameter.
 4. Merchant [polls for the Payment Request](/api/payment-requests#get-a-payment-request) created with the barcode checking the status.
-5. Merchant will have to call endpoints to [accept a Payment Condition](/api/payment-requests#accept-payment-condition) if there are [Payment Conditions](/api/payment-requests#payment-condition) on the Payment Request and the condition has an `awaiting-merchant` status.
+5. Merchant will have to call endpoints to [accept a Payment Condition](/api/payment-requests/#accept-a-payment-condition) if there are [Payment Conditions](/api/payment-requests#payment-condition-model) on the Payment Request and the condition has an `awaiting-merchant` status.
 6. Once the status on the Payment Request is “paid” then the process is complete.
 
 ```mermaid

@@ -123,7 +123,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-4. While the POS continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
+4. While the POS continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/pay">
     ```bash

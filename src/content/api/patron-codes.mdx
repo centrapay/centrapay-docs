@@ -88,9 +88,9 @@ defined on a Patron Code, it is considered a test resource and can only
 be used with Payment Requests that will have a liveness of 'test'. The [Asset Type](/api/asset-types)
 `centrapay.nzd.test` is required to run test scenarios.
 
-|              name              |                                    description                                     |
+|              Name              |                                    Description                                     |
 | :----------------------------- | :--------------------------------------------------------------------------------- |
-| force-condition-check-photo-id | The Payment Request will have a required [Merchant Condition](/api/payment-requests#merchant-condition) to check photo id. |
+| force-condition-check-photo-id | The Payment Request will have a required [Merchant Condition](/api/payment-requests#payment-request-model) to check photo id. |
 
 ---
 
@@ -100,7 +100,7 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 >
   ## Create Patron Code
 
-  This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests#patron-code) using the transacting APIs.
+  This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests#get-a-payment-request-linked-to-a-patron-code) using the transacting APIs.
 
   ### Attributes
   No attributes.

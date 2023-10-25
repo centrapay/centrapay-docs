@@ -18,10 +18,10 @@ The test assets can be created via either the Centrapay API or the Centrapay app
 
 To create test dollars via the Centrapay API:
 
-1. Add email to Centrapay profile: If not already configured, set an email on your Centrapay user profile via the [update profile endpoint](/api/profiles#updating-a-user-profile).
-2. Create a test bank account: Create a bank account, using “00-“ as the bank account number prefx, via the [create bank account endpoint](/api/bank-accounts#bank-account-create).
-3. Create a test topup: Use the test bank account id to topup up via the [topup endpoint](/api/funds-transfers#creating-a-top-up). The topup *must* be created with a Centrapay user (ie: authenticated with JWT, not an API key) in order for the transaction email notification to be delivered.
-4. Verify the bank account: Post the 4-digit code from the test transaction confirmation email, along with the test bank account id, to the [verify bank account endpoint](/api/bank-accounts#verify-a-bank-account).
+1. Add email to Centrapay profile: If not already configured, set an email on your Centrapay user profile via the [update profile endpoint](/api/profiles/#update-profile).
+2. Create a test bank account: Create a bank account, using “00-“ as the bank account number prefx, via the [create bank account endpoint](/api/bank-accounts/#create-bank-account).
+3. Create a test topup: Use the test bank account id to topup up via the [topup endpoint](/api/funds-transfers/#create-a-top-up). The topup *must* be created with a Centrapay user (ie: authenticated with JWT, not an API key) in order for the transaction email notification to be delivered.
+4. Verify the bank account: Post the 4-digit code from the test transaction confirmation email, along with the test bank account id, to the [verify bank account endpoint](/api/bank-accounts/#verify-bank-account).
 
 ## Via Centrapay App
 

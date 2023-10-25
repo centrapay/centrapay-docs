@@ -227,7 +227,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
     ```bash
@@ -259,7 +259,7 @@ sequenceDiagram
     </CodePanel>
 
 
-    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
+    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](/api/payment-requests/) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
 
     <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -341,7 +341,7 @@ The Payment Flow can only be used by existing Farmlands Card Partners. Card Part
 
 ### Merchant Configuration
 
-Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](/api/merchants) with its own [Merchant Config](/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
+Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](/api/merchants) with its own [Merchant Config](/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](/api/merchant-configs#payment-option-config-model) that allows the site to accept Farmlands Payments.
 
 The POS needs to provide the unique Merchant Config ID for the Merchant when [creating Payment Requests](/api/payment-requests#create-a-payment-request) on their behalf.
 
@@ -366,8 +366,8 @@ The Payment Flow needs the following requirements to be met.
 
 - Card Partners MUST use the unique [Merchant Config](/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
 - Card Partners MUST support [Payment Conditions](#payment-conditions).
-- The POS MUST display a message to prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
-- The POS MUST include full details for all [Line Items](/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
+- The POS MUST display a message to prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) any pending Payment Conditions.
+- The POS MUST include full details for all [Line Items](/api/payment-requests#line-item-model) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
 
     > See the [Pre Auth extension](#pre-auth) to accept payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately.
 
@@ -435,7 +435,7 @@ Note over POS: ✅ Display Release confirmation
 ```
 
 1. The Cardholder presents their Farmlands Card for the POS to scan.
-2. The POS authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item).
+2. The POS authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item-model).
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash
@@ -600,7 +600,7 @@ Note over POS: ✅ Display Release confirmation
     ```
   </CodePanel>
 
-4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
     ```bash
@@ -631,7 +631,7 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
+    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](/api/payment-requests/) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
 
     <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -700,7 +700,7 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request) against the [Payment Request](/api/payment-requests#payment-request). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
+5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](/api/payment-requests#confirm-pre-auth-payment-request) against the [Payment Request](/api/payment-requests/). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/confirm">
     ```bash
@@ -760,8 +760,8 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-6. The POS [releases any remaining authorised funds](/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) against the [Payment Request](/api/payment-requests#payment-request) back to the Cardholder.
-To confirm if there are funds requiring release you can [list payment activities](/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](/api/payment-requests#payment-activity).
+6. The POS [releases any remaining authorised funds](/api/payment-requests#release-pre-auth-funds) against the [Payment Request](/api/payment-requests/) back to the Cardholder.
+To confirm if there are funds requiring release you can [list payment activities](/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](/api/payment-requests#payment-activity-model).
 
 > Only call release if there are funds requiring release.
 
@@ -878,7 +878,7 @@ curl -X POST https://service.centrapay.com/api/decode \
 
 ### Handling Payment Errors
 
-The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](/api/payment-requests/) statuses due to network issues or race conditions.
 
 > See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
 
@@ -886,9 +886,9 @@ The POS must follow Centrapay’s guidelines on [handling errors](/guides/mercha
 
 > Farmlands Card Partners must support refunds.
 
-Cardholder purchases are refunded by [refunding the Payment Request](/api/payment-requests#refund).
+Cardholder purchases are refunded by [refunding the Payment Request](/api/payment-requests#refund-a-payment-request).
 
-When the Cardholder presents a transaction reference (e.g. a [Payment Request](/api/payment-requests#payment-request) short code or `externalRef`) on their paper receipt, the POS should use this reference to look up the Payment Request ID and initiate the refund.
+When the Cardholder presents a transaction reference (e.g. a [Payment Request](/api/payment-requests/) short code or `externalRef`) on their paper receipt, the POS should use this reference to look up the Payment Request ID and initiate the refund.
 
 ```mermaid
 sequenceDiagram
@@ -907,8 +907,8 @@ sequenceDiagram
 	Note over POS: ✅ Display Refund Confirmation
 ```
 
-1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](/api/payment-requests#payment-request) ID using the transaction reference.
-2. The POS [refunds the Payment Request](/api/payment-requests#refund) using its ID.
+1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](/api/payment-requests/) ID using the transaction reference.
+2. The POS [refunds the Payment Request](/api/payment-requests#refund-a-payment-request) using its ID.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/refund">
     ```bash
@@ -964,13 +964,13 @@ sequenceDiagram
 
 ### Short Codes
 
-[Payment Requests](/api/payment-requests#payment-request) have a short code field that is human- and OCR-friendly. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
+[Payment Requests](/api/payment-requests/) have a short code field that is human- and OCR-friendly. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
 
 Short codes can be used for [initiating refunds](#refunds) by making them available to the Cardholder on a paper printout.
 
 Card Partners should store the short code for each transaction. This helps with reconciliation if a transaction query occurs.
 
-> Some [Payment Activities](/api/payment-requests#payment-activity-experimental) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
+> Some [Payment Activities](/api/payment-requests#payment-activity-model) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
 
 ## Testing Your Integration
 
@@ -1004,15 +1004,15 @@ The Certification Process includes checking that Farmlands POS integrators are m
 **Barcode Flow Requirements**
 
 - The POS MUST use the unique [Merchant Config](/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
-- The POS MUST provide an invoice number and full details for all [Line Items](/api/payment-requests#line-item) when [creating a Payment Request](/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
+- The POS MUST provide an invoice number and full details for all [Line Items](/api/payment-requests#line-item-model) when [creating a Payment Request](/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
 - [Payment Conditions](#payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
 - The POS MUST always poll the Payment Request after accepting or declining a condition.
 
 **Line Item Requirements**
 
-- Full details for [Line Items](/api/payment-requests#line-item) MUST include the description, SKU, quantity, price, tax and the discount provided to the Cardholder.
+- Full details for [Line Items](/api/payment-requests#line-item-model) MUST include the description, SKU, quantity, price, tax and the discount provided to the Cardholder.
 - The price of a Line Item MUST represent the amount that a Cardholder will pay for that Line Item, including tax and any discounts applied.
-- The total for all Line Item prices MUST sum to the [Payment Request](/api/payment-requests#payment-request) amount.
+- The total for all Line Item prices MUST sum to the [Payment Request](/api/payment-requests/) amount.
 - The price and discount for each Line Item MUST be provided in cents.
 - The currency for each Line Item MUST be consistent with the Payment Request value.
 
@@ -1023,18 +1023,18 @@ The Certification Process includes checking that Farmlands POS integrators are m
 **Pre Auth Requirements**
 
 - The [Pre Auth extension](#pre-auth) MUST be supported when invoice numbers are not available at the time of purchase.
-- [Payment Request](/api/payment-requests#payment-request) short codes MUST be included when completion is performed through existing reconciliation channels.
+- [Payment Request](/api/payment-requests/) short codes MUST be included when completion is performed through existing reconciliation channels.
 - Pre Auth Confirmations MUST be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorised funds twice.
-- Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item).
-- Authorised funds that will not be confirmed MUST be [released](/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) in order to return the funds to the Cardholder (e.g. orders that are cancelled before fulfilment).
-- Confirmed funds MUST be [refunded](/api/payment-requests#refund) in order to return them to the Cardholder. They cannot be released.
+- Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item-model).
+- Authorised funds that will not be confirmed MUST be [released](/api/payment-requests#release-pre-auth-funds) in order to return the funds to the Cardholder (e.g. orders that are cancelled before fulfilment).
+- Confirmed funds MUST be [refunded](/api/payment-requests#refund-a-payment-request) in order to return them to the Cardholder. They cannot be released.
 
 **Refund Requirements**
 
-- [Refunds](/api/payment-requests#refund) can be partial or full. Partial refunds can be performed multiple times but the total refunded amount cannot exceed the paid amount.
+- [Refunds](/api/payment-requests#refund-a-payment-request) can be partial or full. Partial refunds can be performed multiple times but the total refunded amount cannot exceed the paid amount.
 - You MUST include an `externalRef` field, unique to each refund transaction, in order to ensure that a refund request can be retried safely.
 - At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
-- You MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item).
+- You MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item-model).
 - [Short codes](#short-codes) for refunds MUST be included when sending a PDF invoice or EDI file to Farmlands for settlement.
 
     > Refunds have their own short code that is different to the Payment Request short code.
