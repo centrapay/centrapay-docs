@@ -61,7 +61,7 @@ sequenceDiagram
 
 <img src="/farmlands-card.png" alt="The back of an example Farmlands card, displaying a barcode and a 9-digit card number" style="height: 288px;"/>
 
-2. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
+2. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash
@@ -159,7 +159,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-3. The POS [polls the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second for status changes.
+3. The POS [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
 
   <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -227,7 +227,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
     ```bash
@@ -259,7 +259,7 @@ sequenceDiagram
     </CodePanel>
 
 
-    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
+    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](/api/payment-requests#payment-request) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
 
     <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -331,7 +331,7 @@ sequenceDiagram
 
 The Payment Flow can only be used by existing Farmlands Card Partners. Card Partners must complete the following steps to accept Farmlands transactions.
 
-1. Each Card Partner site must be correctly set up as a [Merchant](https://docs.centrapay.com/api/merchants) in Centrapay’s system.
+1. Each Card Partner site must be correctly set up as a [Merchant](/api/merchants) in Centrapay’s system.
 2. Centrapay needs to supply Card Partners with API keys to allow them to authenticate their API requests.
 3. Card Partners must meet [basic payment requirements](#basic-requirements), including supporting [Payment Conditions](#payment-conditions) and [Refunds](#refunds) in order to implement the Barcode Payment Flow.
 4. Card Partners should extend the Barcode payment Flow to meet any additional requirements, these optional extensions include:
@@ -341,15 +341,15 @@ The Payment Flow can only be used by existing Farmlands Card Partners. Card Part
 
 ### Merchant Configuration
 
-Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](https://docs.centrapay.com/api/merchants) with its own [Merchant Config](https://docs.centrapay.com/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](https://docs.centrapay.com/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
+Each Card Partner site that needs to accept Farmlands Card payments must be set up as a separate Centrapay [Merchant](/api/merchants) with its own [Merchant Config](/api/merchant-configs). The Merchant Config contains a Farmlands [Payment Option](/api/merchant-configs#payment-option-config) that allows the site to accept Farmlands Payments.
 
-The POS needs to provide the unique Merchant Config ID for the Merchant when [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) on their behalf.
+The POS needs to provide the unique Merchant Config ID for the Merchant when [creating Payment Requests](/api/payment-requests#create-a-payment-request) on their behalf.
 
 > Merchants and Merchant Configs are managed by Centrapay. Farmlands will provide Card Partners with these details.
 
 ### Authentication
 
-Requests to Centrapay’s APIs are [authenticated](https://docs.centrapay.com/api/auth) by providing an API key in the `X-Api-Key` header. [API Keys](https://docs.centrapay.com/api/api-keys) provide enduring access to a single Centrapay account.
+Requests to Centrapay’s APIs are [authenticated](/api/auth) by providing an API key in the `X-Api-Key` header. [API Keys](/api/api-keys) provide enduring access to a single Centrapay account.
 
 <CodePanel title="Request" method="GET" path="/api/account-memberships">
 ```bash
@@ -364,14 +364,14 @@ curl https://service.centrapay.com/api/account-memberships \
 
 The Payment Flow needs the following requirements to be met.
 
-- Card Partners MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+- Card Partners MUST use the unique [Merchant Config](/api/merchant-configs) ID that was set up for the site that is accepting the payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
 - Card Partners MUST support [Payment Conditions](#payment-conditions).
-- The POS MUST display a message to prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
-- The POS MUST include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
+- The POS MUST display a message to prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) any pending Payment Conditions.
+- The POS MUST include full details for all [Line Items](/api/payment-requests#line-item) and an invoice number when creating a Payment Request where the purchase is being fulfilled immediately.
 
     > See the [Pre Auth extension](#pre-auth) to accept payments when there is no invoice number available at the point of sale or the purchase cannot be fulfilled immediately.
 
-- The POS MUST stop [polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) when its status is no longer `new`.
+- The POS MUST stop [polling the Payment Request](/api/payment-requests#get-a-payment-request) when its status is no longer `new`.
 
 ### Payment Conditions
 
@@ -379,7 +379,7 @@ The Payment Flow needs the following requirements to be met.
 
 This extension enables the POS to enforce requiring an ID check for high-risk transactions.
 
-Card Partners must extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true. The response will include the `merchantConditions` that must be accepted, and each condition will include a `message` field that the POS can display to the cashier.
+Card Partners must extend the Barcode Flow to support this by [creating Payment Requests](/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true. The response will include the `merchantConditions` that must be accepted, and each condition will include a `message` field that the POS can display to the cashier.
 
 The Payment Request must always be polled after accepting or declining a condition.
 
@@ -391,7 +391,7 @@ Farmlands Card Partners must support this extension when there is not an invoice
 
 This extension enables the POS to create an authorisation that ensures funds are available and places a hold on them.
 
-Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `preAuth` flag set to true.
+Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](/api/payment-requests#create-a-payment-request) with the `preAuth` flag set to true.
 
 **Pre Auth Sequence**
 
@@ -435,7 +435,7 @@ Note over POS: ✅ Display Release confirmation
 ```
 
 1. The Cardholder presents their Farmlands Card for the POS to scan.
-2. The POS authorises a Pre Auth payment by [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+2. The POS authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item).
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash
@@ -532,7 +532,7 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-3. The POS [polls the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second for status changes.
+3. The POS [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
 
   <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -600,7 +600,7 @@ Note over POS: ✅ Display Release confirmation
     ```
   </CodePanel>
 
-4. [Polling the Payment Request](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](https://docs.centrapay.com/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](https://docs.centrapay.com/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-payment-condition-for-a-payment-request-experimental) or [decline](/api/payment-requests#decline-payment-condition-for-a-payment-request-experimental) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
     ```bash
@@ -631,7 +631,7 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
+    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](/api/payment-requests#payment-request) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
 
     <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -700,7 +700,7 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](https://docs.centrapay.com/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
+5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request) against the [Payment Request](/api/payment-requests#payment-request). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/confirm">
     ```bash
@@ -760,8 +760,8 @@ Note over POS: ✅ Display Release confirmation
     ```
     </CodePanel>
 
-6. The POS [releases any remaining authorised funds](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) against the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) back to the Cardholder.
-To confirm if there are funds requiring release you can [list payment activities](https://docs.centrapay.com/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](https://docs.centrapay.com/api/payment-requests#payment-activity).
+6. The POS [releases any remaining authorised funds](/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) against the [Payment Request](/api/payment-requests#payment-request) back to the Cardholder.
+To confirm if there are funds requiring release you can [list payment activities](/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](/api/payment-requests#payment-activity).
 
 > Only call release if there are funds requiring release.
 
@@ -805,7 +805,7 @@ Farmlands Card Partners must support this extension if they accept payments when
 
 Please refer to your Farmlands Card Partner Acceptance Terms and Conditions to understand the risks involved with these transactions.
 
-Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to `true`.
+Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to `true`.
 
 <CodePanel title="Request" method="POST" path="/api/payment-requests">
 ```bash
@@ -849,7 +849,7 @@ curl -X POST https://service.centrapay.com/api/payment-requests \
 
 ### Validating Farmlands Barcodes
 
-Farmlands Card Partners may optionally [decode a scanned Farmlands Barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) to confirm that it is valid and apply Farmlands discounts before [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+Farmlands Card Partners may optionally [decode a scanned Farmlands Barcode](/api/scanned-codes#decode-scanned-code) to confirm that it is valid and apply Farmlands discounts before [creating a Payment Request](/api/payment-requests#create-a-payment-request).
 
 <CodePanel title="Request" method="POST" path="/api/decode">
 ```bash
@@ -878,7 +878,7 @@ curl -X POST https://service.centrapay.com/api/decode \
 
 ### Handling Payment Errors
 
-The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) statuses due to network issues or race conditions.
+The POS must follow Centrapay’s guidelines on [handling errors](/guides/merchant-integration-error-handling) when dealing with inconsistencies in [Payment Request](/api/payment-requests#payment-request) statuses due to network issues or race conditions.
 
 > See also: [Merchant Integration Error Handling](/guides/merchant-integration-error-handling)
 
@@ -886,9 +886,9 @@ The POS must follow Centrapay’s guidelines on [handling errors](/guides/mercha
 
 > Farmlands Card Partners must support refunds.
 
-Cardholder purchases are refunded by [refunding the Payment Request](https://docs.centrapay.com/api/payment-requests#refund).
+Cardholder purchases are refunded by [refunding the Payment Request](/api/payment-requests#refund).
 
-When the Cardholder presents a transaction reference (e.g. a [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) short code or `externalRef`) on their paper receipt, the POS should use this reference to look up the Payment Request ID and initiate the refund.
+When the Cardholder presents a transaction reference (e.g. a [Payment Request](/api/payment-requests#payment-request) short code or `externalRef`) on their paper receipt, the POS should use this reference to look up the Payment Request ID and initiate the refund.
 
 ```mermaid
 sequenceDiagram
@@ -907,8 +907,8 @@ sequenceDiagram
 	Note over POS: ✅ Display Refund Confirmation
 ```
 
-1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) ID using the transaction reference.
-2. The POS [refunds the Payment Request](https://docs.centrapay.com/api/payment-requests#refund) using its ID.
+1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](/api/payment-requests#payment-request) ID using the transaction reference.
+2. The POS [refunds the Payment Request](/api/payment-requests#refund) using its ID.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/refund">
     ```bash
@@ -964,13 +964,13 @@ sequenceDiagram
 
 ### Short Codes
 
-[Payment Requests](https://docs.centrapay.com/api/payment-requests#payment-request) have a short code field that is human- and OCR-friendly. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
+[Payment Requests](/api/payment-requests#payment-request) have a short code field that is human- and OCR-friendly. When combined with the date or merchant id, short codes can unambiguously identify the correct Payment Request.
 
 Short codes can be used for [initiating refunds](#refunds) by making them available to the Cardholder on a paper printout.
 
 Card Partners should store the short code for each transaction. This helps with reconciliation if a transaction query occurs.
 
-> Some [Payment Activities](https://docs.centrapay.com/api/payment-requests#payment-activity-experimental) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
+> Some [Payment Activities](/api/payment-requests#payment-activity-experimental) are repeatable (e.g. Pre Auth Confirmations and Refunds) so these have their own unique short code in order to disambiguate them. The short codes for these activities are different from the original Payment Request short code.
 
 ## Testing Your Integration
 
@@ -1003,16 +1003,16 @@ The Certification Process includes checking that Farmlands POS integrators are m
 
 **Barcode Flow Requirements**
 
-- The POS MUST use the unique [Merchant Config](https://docs.centrapay.com/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
-- The POS MUST provide an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) when [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
+- The POS MUST use the unique [Merchant Config](/api/merchant-configs) ID corresponding to the site accepting the Farmlands Card payment when [creating a Payment Request](/api/payment-requests#create-a-payment-request).
+- The POS MUST provide an invoice number and full details for all [Line Items](/api/payment-requests#line-item) when [creating a Payment Request](/api/payment-requests#create-a-payment-request) if the purchase is being fulfilled immediately.
 - [Payment Conditions](#payment-conditions) MUST be supported when creating a Payment Request. This is to enforce requiring an ID check for high-risk transactions and any future security enhancements.
 - The POS MUST always poll the Payment Request after accepting or declining a condition.
 
 **Line Item Requirements**
 
-- Full details for [Line Items](https://docs.centrapay.com/api/payment-requests#line-item) MUST include the description, SKU, quantity, price, tax and the discount provided to the Cardholder.
+- Full details for [Line Items](/api/payment-requests#line-item) MUST include the description, SKU, quantity, price, tax and the discount provided to the Cardholder.
 - The price of a Line Item MUST represent the amount that a Cardholder will pay for that Line Item, including tax and any discounts applied.
-- The total for all Line Item prices MUST sum to the [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) amount.
+- The total for all Line Item prices MUST sum to the [Payment Request](/api/payment-requests#payment-request) amount.
 - The price and discount for each Line Item MUST be provided in cents.
 - The currency for each Line Item MUST be consistent with the Payment Request value.
 
@@ -1023,18 +1023,18 @@ The Certification Process includes checking that Farmlands POS integrators are m
 **Pre Auth Requirements**
 
 - The [Pre Auth extension](#pre-auth) MUST be supported when invoice numbers are not available at the time of purchase.
-- [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) short codes MUST be included when completion is performed through existing reconciliation channels.
+- [Payment Request](/api/payment-requests#payment-request) short codes MUST be included when completion is performed through existing reconciliation channels.
 - Pre Auth Confirmations MUST be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorised funds twice.
-- Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
-- Authorised funds that will not be confirmed MUST be [released](https://docs.centrapay.com/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) in order to return the funds to the Cardholder (e.g. orders that are cancelled before fulfilment).
-- Confirmed funds MUST be [refunded](https://docs.centrapay.com/api/payment-requests#refund) in order to return them to the Cardholder. They cannot be released.
+- Pre Auth Confirmations MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item).
+- Authorised funds that will not be confirmed MUST be [released](/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request-experimental) in order to return the funds to the Cardholder (e.g. orders that are cancelled before fulfilment).
+- Confirmed funds MUST be [refunded](/api/payment-requests#refund) in order to return them to the Cardholder. They cannot be released.
 
 **Refund Requirements**
 
-- [Refunds](https://docs.centrapay.com/api/payment-requests#refund) can be partial or full. Partial refunds can be performed multiple times but the total refunded amount cannot exceed the paid amount.
+- [Refunds](/api/payment-requests#refund) can be partial or full. Partial refunds can be performed multiple times but the total refunded amount cannot exceed the paid amount.
 - You MUST include an `externalRef` field, unique to each refund transaction, in order to ensure that a refund request can be retried safely.
 - At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
-- You MUST include an invoice number and full details for all [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
+- You MUST include an invoice number and full details for all [Line Items](/api/payment-requests#line-item).
 - [Short codes](#short-codes) for refunds MUST be included when sending a PDF invoice or EDI file to Farmlands for settlement.
 
     > Refunds have their own short code that is different to the Payment Request short code.

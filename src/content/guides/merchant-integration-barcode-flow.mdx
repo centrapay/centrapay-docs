@@ -8,7 +8,7 @@ nav:
 ---
 import CodePanel from '../../components/CodePanel.astro';
 
-Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
+Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](/api/payment-requests#create-a-payment-request).
 
 ## Barcode Flow
 
@@ -40,7 +40,7 @@ sequenceDiagram
 ```
 
 1. The patron presents a Barcode for the POS to scan.
-2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
+2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash
@@ -89,7 +89,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) Payment Confirmation.
+3. The POS [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
   <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -128,7 +128,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-4. While the POS continues to poll, the patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app.
+4. While the POS continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/pay">
     ```bash
@@ -210,7 +210,7 @@ sequenceDiagram
 
 Quick Pay is used to immediately confirm the payment without requiring patron approval.
 
-The patron’s barcode must be linked to an asset type that allows Quick Pay in order to use this flow. See [Asset Types](https://docs.centrapay.com/api/asset-types) for the list of asset types that support Quick Pay.
+The patron’s barcode must be linked to an asset type that allows Quick Pay in order to use this flow. See [Asset Types](/api/asset-types) for the list of asset types that support Quick Pay.
 
 ```mermaid
 sequenceDiagram
@@ -235,7 +235,7 @@ sequenceDiagram
 ```
 
 1. The patron presents a Barcode for the POS to scan.
-2. The POS [creates a Centrapay Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the Barcode.
+2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash
@@ -284,7 +284,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) payment confirmation.
+3. The POS [polls the Payment Request for](/api/payment-requests#get-a-payment-request) payment confirmation.
 
   <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -365,7 +365,7 @@ sequenceDiagram
 
 ## Checking Barcode Details
 
-The POS can optionally [decode a scanned barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request. For example, the POS can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
+The POS can optionally [decode a scanned barcode](/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request. For example, the POS can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
 
 ```mermaid
 sequenceDiagram
@@ -385,7 +385,7 @@ sequenceDiagram
 ```
 
 1. The patron presents a barcode for the POS to scan.
-2. The POS [decodes the scanned barcode](https://docs.centrapay.com/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
+2. The POS [decodes the scanned barcode](/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
   <CodePanel title="Request" method="POST" path="/api/decode">
     ```bash
     curl -X POST https://service.centrapay.com/api/decode \
@@ -411,7 +411,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-3. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
+3. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests">
     ```bash

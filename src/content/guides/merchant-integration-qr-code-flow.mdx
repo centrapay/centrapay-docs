@@ -8,7 +8,7 @@ nav:
 ---
 import CodePanel from '../../components/CodePanel.astro';
 
-Connecting with patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](https://docs.centrapay.com/api/payment-requests) and present a QR Code for the patron to scan.
+Connecting with patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](/api/payment-requests) and present a QR Code for the patron to scan.
 
 The sequence diagram below indicates the expected flow of behavior between the patron, the Point of Sale (POS) and Centrapay.
 
@@ -38,7 +38,7 @@ sequenceDiagram
 	Note over Patron: ✅ Display Successful Payment
 ```
 
-1. The POS [creates a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request) and presents a QR code to the Patron on a customer-facing display.
+1. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) and presents a QR code to the Patron on a customer-facing display.
 
   > The QR code decodes to a URL of the form `https://service.centrapay.com/api/payment-requests/{paymentRequestId}/pay`
 
@@ -86,7 +86,7 @@ sequenceDiagram
   </CodePanel>
 
 2. The patron scans the QR code using a Centrapay-enabled app.
-3. The POS [polls the Payment Request for](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) Payment Confirmation.
+3. The POS [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
   <CodePanel title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -123,7 +123,7 @@ sequenceDiagram
     ```
   </CodePanel>
 
-4. While the POS continues to poll, the patron [pays the Payment Request](https://docs.centrapay.com/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
+4. While the POS continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request-experimental) via their Centrapay integrated app. When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
 
   <CodePanel title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/pay">
     ```bash

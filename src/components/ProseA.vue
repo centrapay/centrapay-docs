@@ -28,7 +28,7 @@ const props = defineProps({
   },
 });
 
-const isApiReferenceLink = props.href.startsWith('https://docs.centrapay.com/api');
+const isApiReferenceLink = props.href.startsWith('/api');
 
-const isExternalLink = (!props.href.startsWith('/') && !props.href.startsWith('#') && !props.href.startsWith('https://docs.centrapay.com'));
+const isExternalLink = (!props.href.startsWith('/') && !props.href.startsWith('#'));
 </script>

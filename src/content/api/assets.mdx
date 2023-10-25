@@ -16,8 +16,8 @@ import Error from '../../components/Error.astro';
 
 Centrapay digital assets are resources that represent the ability for a
 Centrapay account to perform transactions where value is exchanged. Assets can
-be spent to satisfy [Payment Requests](https://docs.centrapay.com/api/payment-requests), withdrawn to a bank account via
-[Funds Transfers](https://docs.centrapay.com/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](https://docs.centrapay.com/api/asset-transfers).
+be spent to satisfy [Payment Requests](/api/payment-requests), withdrawn to a bank account via
+[Funds Transfers](/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](/api/asset-transfers).
 
 Assets are categorized as either Money, Gift Cards or Tokens. Depending on its
 asset category, an asset will have different attributes available and different
@@ -45,7 +45,7 @@ specific to its category. Assets which don't have a category are considered <Bad
   </Property>
 
   <Property name="type" type="string">
-    [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+    [Asset Type](/api/asset-types) id used by payment option asset types.
   </Property>
 
   <Property name="liveness" type="string">
@@ -95,7 +95,7 @@ Money assets have the following attributes along with the base asset fields.
   </Property>
 
   <Property name="settlement" type="boolean" experimental>
-    The asset is configured for [Settlements](https://docs.centrapay.com/api/wallets#settlement-wallets).
+    The asset is configured for [Settlements](/api/wallets#settlement-wallets).
   </Property>
 </Properties>
 
@@ -182,7 +182,7 @@ Tokens have the following attributes along with the base asset fields.
 
 <Properties>
   <Property name="collectionId" type="string">
-    The [token collection](https://docs.centrapay.com/api/tokens#token-collection) that will govern the branding and redemption rules for the token.
+    The [token collection](/api/tokens#token-collection) that will govern the branding and redemption rules for the token.
   </Property>
 
   <Property name="createdBy" type="crn">
@@ -202,7 +202,7 @@ Tokens have the following attributes along with the base asset fields.
   </Property>
 
   <Property name="issuer" type="string">
-    The name of the [Business](https://docs.centrapay.com/api/businesses) that issued the token.
+    The name of the [Business](/api/businesses) that issued the token.
   </Property>
 
   <Property name="issuerWebsite" type="String">
@@ -362,7 +362,7 @@ number.
 >
   ## List Assets for Account
 
-  Returns a [paginated](https://docs.centrapay.com/api/pagination) list of Assets for an account. This will not return archived assets.
+  Returns a [paginated](/api/pagination) list of Assets for an account. This will not return archived assets.
 
   ### Attributes
   <Properties>
@@ -439,7 +439,7 @@ number.
 >
   ## List Asset Transactions <Badge type="experimental"/>
 
-  Returns a [paginated](https://docs.centrapay.com/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
+  Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
 
   ### Attributes
   No Attributes.

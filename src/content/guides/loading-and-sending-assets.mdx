@@ -8,17 +8,17 @@ nav:
 
 import CodePanel from '../../components/CodePanel.astro';
 
-[Assets](https://docs.centrapay.com/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account and then distributed to another Centrapay user’s phone number via SMS.
+[Assets](/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account and then distributed to another Centrapay user’s phone number via SMS.
 
 ## Loading Giftcards
 
-You can load Giftcards by calling our [External Assets](https://docs.centrapay.com/api/external-assets) endpoint. You will need to use the giftcard number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
+You can load Giftcards by calling our [External Assets](/api/external-assets) endpoint. You will need to use the giftcard number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
 
 If your asset type is not included on the list, contact integrations@centrapay.com.
 
 ## Sending Assets
 
-You can send Assets such as Tokens and Giftcards by calling our [Asset Transfers](https://docs.centrapay.com/api/asset-transfers#asset-transfer-create) endpoint. You will need to have the recipient’s phone number for `recipientAlias` to identify the reciever.
+You can send Assets such as Tokens and Giftcards by calling our [Asset Transfers](/api/asset-transfers#asset-transfer-create) endpoint. You will need to have the recipient’s phone number for `recipientAlias` to identify the reciever.
 
 If the `recipientAlias` doesn’t end up creating a Centrapay account within 2 weeks, then it will be sent back to you.
 
@@ -46,8 +46,8 @@ Here’s an example of the script to parse the CSV and send Giftcards. To run th
 
 - Node JS in your environment
 - A copy of [Axios](https://www.npmjs.com/package/axios) for HTTP requests
-- An [API Key](https://docs.centrapay.com/api/api-keys) to call our APIs
-- Your [Account id](https://docs.centrapay.com/api/accounts) for the initial load of each Giftcard
+- An [API Key](/api/api-keys) to call our APIs
+- Your [Account id](/api/accounts) for the initial load of each Giftcard
 
 <CodePanel title="Example">
 ```javascript
