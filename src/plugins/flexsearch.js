@@ -56,6 +56,9 @@ async function createFlexsearchIndexData() {
     const vfile = await processor.process(content);
     // Add all other headings and their descriptions to the index
     vfile.data.sections.forEach(({ title, description }) => {
+      if([ 'Attributes', 'Errors' ].includes(title)) {
+        return;
+      }
       indexData[id++] = {
         path,
         title,
