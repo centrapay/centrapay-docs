@@ -4,13 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-function extractAnchors(filePath, urlPath) {
+function extractHeadings(filePath, urlPath) {
   const fileContents = fs.readFileSync(filePath, 'utf-8');
   const dom = new JSDOM(fileContents);
-  const links = Array.from(dom.window.document.querySelectorAll('a'))
-    .map(link => link.href)
-    .filter(href => href && href.startsWith('about:blank#') && href !== 'about:blank#')
-    .map(href => `${urlPath}${href.split('about:blank')[1]}`);
+  const links = Array.from(dom.window.document.querySelectorAll('h2'))
+    .filter(heading => heading.id)
+    .map(heading => `${urlPath}#${heading.id}`);
   return links;
 }
 
@@ -24,10 +23,7 @@ function listSiteLinks(directory) {
       links = new Set([...links, ...listSiteLinks(filePath)]);
     } else if (stat.isFile() && filePath.endsWith('index.html')) {
       const urlPath = filePath.substring(filePath.indexOf('/'), filePath.lastIndexOf('/'));
-      links = new Set([...links, urlPath, ...extractAnchors(filePath, urlPath)]);
-    } else if (stat.isFile() && filePath.endsWith('.html')) {
-      const urlPath = filePath.substring(filePath.indexOf('/'), filePath.lastIndexOf('.'));
-      links = new Set([...links, urlPath, ...extractAnchors(filePath, urlPath)]);
+      links = new Set([...links, urlPath, ...extractHeadings(filePath, urlPath)]);
     }
   }
   return links;

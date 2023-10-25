@@ -1,4 +1,4 @@
-name: Build and deploy Jekyll site to GitHub Pages
+name: Build and deploy site to GitHub Pages
 
 on:
   push:
@@ -9,27 +9,16 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-          working-directory: legacy
-      - uses: actions/cache@v1
-        with:
-          path: legacy/vendor/bundle
-          key: ${{ runner.os }}-gems-v2-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-v2
-      - run: gem install bundler
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: yarn install --frozen-lock-file
       - run: yarn lint
       - run: yarn test
-      - run: ./build.sh --mode production
+      - run: ./build.sh
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          GITHUB_TOKEN: ${{ secrets.JEKYLL_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: _site
+          FOLDER: dist

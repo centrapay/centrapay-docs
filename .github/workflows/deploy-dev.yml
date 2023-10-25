@@ -10,23 +10,12 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-          working-directory: legacy
-      - uses: actions/cache@v1
-        with:
-          path: legacy/vendor/bundle
-          key: ${{ runner.os }}-gems-v2-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-v2
-      - run: gem install bundler
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: yarn install --frozen-lock-file
-      - run: ./build.sh
+      - run: ./build.sh --mode development
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:

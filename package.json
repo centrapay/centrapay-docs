@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest --watch=false",
-    "integration": "cp -r dist/* _site/ && vitest --watch=false --config vitest.integration.config.js"
+    "integration": "vitest --watch=false --config vitest.integration.config.js"
   },
   "devDependencies": {
     "@astrojs/mdx": "^1.0.3",
