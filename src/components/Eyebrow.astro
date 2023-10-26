@@ -6,7 +6,8 @@ const { method, path } = Astro.props;
 
 <div>
   <div class="flex items-center gap-x-3">
-    <Badge type={method} />
+    { method &&
+    <Badge type={method} /> }
     <span class="text-xs text-zinc-400">{ path }</span>
   </div>
 </div>
