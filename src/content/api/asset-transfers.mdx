@@ -210,6 +210,53 @@ Asset Transfer goes through different lifecycle stages.
 
 <Endpoint
   method="POST"
+  path="/api/asset-transfers/{assetTransferId}/claim"
+>
+  ## Claim Asset Transfer <Badge type="experimental"/>
+
+  Claim the asset transfer for the caller's authorised account.
+
+  ### Attributes
+  No Attributes.
+
+  ### Errors
+  <Properties>
+    <Error code="403" message="ASSET_TRANSFER_INVALID_RECIPIENT">
+      The asset transfer already has a recipient defined through the `recipientAlias` field and cannot be claimed with this API.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers/{assetTransferId}/claim">
+  ```bash
+  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim
+  ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+  ```json
+  {
+    "id": "M7Kn2stAxNa6ri7h",
+    "status": "claimed",
+    "value": "6000",
+    "assetId": "YGRo6TYYSxH3js7",
+    "description": "$60 Giftcard",
+    "message": "Happy birthday",
+    "senderName": "My Cafe",
+    "senderAccountId": "aBc932S9182qwCDqwer",
+    "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+    "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+    "createdAt": "2020-05-01T12:30:00.000Z",
+    "updatedAt": "2020-05-02T01:03:37.222Z",
+    "suppressNotifications": false
+  }
+  ```
+  </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
   path="/api/me/resolve-claimable-assets"
 >
   ## Resolve Claimable Assets <Badge type="experimental"/>
