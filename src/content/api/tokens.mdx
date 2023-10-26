@@ -17,7 +17,7 @@ Tokens are [Assets](/api/assets/) which can only be spent in full.
 
 Every [Token](#token-model) is associated with a [Collection](#token-collection-model), which defines the branding and general rules for the Tokens, such as active duration.
 
-A [Redemption Condition](#redemption-condition-model) is created for each [Merchant](https://docs.centrapay.com/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
+A [Redemption Condition](#redemption-condition-model) is created for each [Merchant](/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
 
 ---
 
@@ -103,7 +103,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
 
 <Properties>
   <Property name="merchantId" type="string">
-    The identifier of the [Merchant](https://docs.centrapay.com/api/merchants) that is accepting the collection.
+    The identifier of the [Merchant](/api/merchants) that is accepting the collection.
   </Property>
 
   <Property name="allowedProducts" type="object">
@@ -326,7 +326,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
   ### Attributes
   <Properties>
     <Property name="merchantId" type="string">
-      The identifier of the [Merchant](https://docs.centrapay.com/api/merchants) that is accepting the collection.
+      The identifier of the [Merchant](/api/merchants) that is accepting the collection.
     </Property>
 
     <Property name="allowedProducts" type="object">

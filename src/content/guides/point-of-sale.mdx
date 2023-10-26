@@ -10,15 +10,15 @@ Integrating a point of sale (POS) terminal with Centrapay APIs allows merchants 
 
 ## Core Requirements
 
-Centrapay POS integrations must be able to [create](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), [void](https://docs.centrapay.com/api/payment-requests#void-a-payment-request-experimental) and [refund](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request-experimental) Payment Requests on behalf of Merchants.
+Centrapay POS integrations must be able to [create](/api/payment-requests#create-a-payment-request), [void](/api/payment-requests#void-a-payment-request) and [refund](/api/payment-requests#refund-a-payment-request) Payment Requests on behalf of Merchants.
 
 The POS authenticates against Centrapay APIs using a single “merchant terminal” API key.
 
 - [Requesting Payment](/guides/requesting-payment) MUST connect with the patron using either the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
-- [Merchant integration errors](https://docs.centrapay.com/guides/merchant-integration-error-handling) MUST be handled correctly.
-- [Initiating refunds](https://docs.centrapay.com/guides/initiating-refunds) MUST be performed using the `externalRef` or `shortCode` [Payment Request](https://docs.centrapay.com/api/payment-requests#payment-request) fields.
+- [Merchant integration errors](/guides/merchant-integration-error-handling) MUST be handled correctly.
+- [Initiating refunds](/guides/initiating-refunds) MUST be performed using the `externalRef` or `shortCode` [Payment Request](/api/payment-requests#payment-requests-model) fields.
 - At least one of `externalRef` and `shortCode` MUST be available to the patron (eg, on paper print-out).
-- Paid [Asset Types](https://docs.centrapay.com/api/asset-types) MUST be made available for merchant [Transaction Reporting](/guides/transaction-reporting).
+- Paid [Asset Types](/api/asset-types) MUST be made available for merchant [Transaction Reporting](/guides/transaction-reporting).
 
 ### Optional Protocol Extensions
 

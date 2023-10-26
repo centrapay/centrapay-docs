@@ -12,25 +12,25 @@ The following table describes the Asset Types supported for payments.
 The Category column refers to the Centrapay asset type representation if
 applicable. When blank, the Asset is not managed by a Centrapay Account.
 
-|   Asset Type    |                Description                |                          Category                                  |           Currencies          |    Flags    |
-| :---------------|:----------------------------------------- | :----------------------------------------------------------------- | :---------------------------- | :---------- |
-| bitcoin         | [Bitcoin](https://bitcoin.org/en/)        |                                                                    | `NZD` `AUD`                   | ⚡️          |
-| cca.coke        | Coke tokens                               | [Token](https://docs.centrapay.com/api/assets#tokens-experimental) | `NZD`                         | ⚡️ 🧪 🚫    |
-| centrapay.nzd   | Centrapay NZD wallet                      | [Money](https://docs.centrapay.com/api/assets#money)               | `NZD`                         | ⚡️ 🧪       |
-| centrapay.token | Centrapay tokens                          | [Token](https://docs.centrapay.com/api/assets#tokens-experimental) | `NZD`                         | ⚡️ 🧪       |
-| epay.nzd        | EPay NZ giftcards                         | [Giftcard](https://docs.centrapay.com/api/assets#gift-cards)       | `NZD`                         | ⚡️ 🧪       |
-| farmlands.nzd   | [Farmlands](https://www.farmlands.co.nz/) | [Money](https://docs.centrapay.com/api/assets#money)               | `NZD`                         | ⚡️ 🧪 💸 💼 |
-| paypal          | [PayPal](https://www.paypal.com/)         |                                                                    | `USD`                         | ⚡️ 🧪 💸    |
-| quartz.nzd      | Quartz NZD asset                          |                                                                    | `NZD`                         | ⚡️ 🧪       |
-| venmo           | [Venmo](https://venmo.com/)               |                                                                    | `USD`                         | ⚡️ 🧪 💸    |
-| uplinkapi       | Uplink API Test asset                     |                                                                    | `NZD`                         | 🧪       |
-| stadius         | [Stadius](https://stadius.io)             |                                                                    | `NZD` `AUD` `USD` `CAD` `EUR` | ⚡️ 🧪       |
+|   Asset Type    |                Description                |                Category                 |          Currencies           |  Flags   |
+| :-------------- | :---------------------------------------- | :-------------------------------------- | :---------------------------- | :------- |
+| bitcoin         | [Bitcoin](https://bitcoin.org/en/)        |                                         | `NZD` `AUD`                   | ⚡️       |
+| cca.coke        | Coke tokens                               | [Token](/api/assets#token-model)        | `NZD`                         | ⚡️ 🧪 🚫   |
+| centrapay.nzd   | Centrapay NZD wallet                      | [Money](/api/assets#money-model)        | `NZD`                         | ⚡️ 🧪     |
+| centrapay.token | Centrapay tokens                          | [Token](/api/assets#token-model)        | `NZD`                         | ⚡️ 🧪     |
+| epay.nzd        | EPay NZ giftcards                         | [Giftcard](/api/assets#gift-card-model) | `NZD`                         | ⚡️ 🧪     |
+| farmlands.nzd   | [Farmlands](https://www.farmlands.co.nz/) | [Money](/api/assets#money-model)        | `NZD`                         | ⚡️ 🧪 💸 💼 |
+| paypal          | [PayPal](https://www.paypal.com/)         |                                         | `USD`                         | ⚡️ 🧪 💸   |
+| quartz.nzd      | Quartz NZD asset                          |                                         | `NZD`                         | ⚡️ 🧪     |
+| venmo           | [Venmo](https://venmo.com/)               |                                         | `USD`                         | ⚡️ 🧪 💸   |
+| uplinkapi       | Uplink API Test asset                     |                                         | `NZD`                         | 🧪        |
+| stadius         | [Stadius](https://stadius.io)             |                                         | `NZD` `AUD` `USD` `CAD` `EUR` | ⚡️ 🧪     |
 
 
 ### Flags
 
  * ⚡️ : **Supports Live Assets** -- Add `.main` to the Asset Type e.g. `centrapay.nzd.main`.
  * 🧪 : **Supports Test Assets** -- Add `.test` to the Asset Type e.g. `centrapay.nzd.test`.
- * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items](https://docs.centrapay.com/api/payment-requests#line-item).
- * 💸 : **Supports Quick Pay** -- Can be used to quick pay a [Payment Request](https://docs.centrapay.com/api/payment-requests).
- * 💼 : **Requires Tax Number** -- [Tax Number](https://docs.centrapay.com/api/businesses#tax-number) must exist on the Merchant's Business to transact this asset type.
+ * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items](/api/payment-requests#line-item-model).
+ * 💸 : **Supports Quick Pay** -- Can be used to quick pay a [Payment Request](/api/payment-requests).
+ * 💼 : **Requires Tax Number** -- [Tax Number](/api/businesses#tax-number-model) must exist on the Merchant's Business to transact this asset type.
