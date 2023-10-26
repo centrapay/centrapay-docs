@@ -52,7 +52,7 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
     The URL for a Centrapay webpage that allows the user to pay the Payment Request.
   </Property>
   <Property name="patronCode" type="string">
-    The id of a [Patron Code](/api/patron-codes) the payment request is attached to.
+    The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the payment request is attached to.
   </Property>
   <Property name="status" type="string">
     `new`, `paid`, `cancelled`, or `expired`.
@@ -188,7 +188,7 @@ is returned with the payment request info as `payments[].ledger`.
       The URL that will receive the webhook POST requests.
     </Property>
     <Property name="patronCode" type="string">
-      The id of a [Patron Code](/api/patron-codes) the payment request is attached to.
+      The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the payment request is attached to.
     </Property>
     <Property name="paymentExpirySeconds" type="string">
       The expiry seconds used to configure the Payment Request expiry.

@@ -20,7 +20,7 @@ A collection is a grouping of tokens that share the same attributes and redempti
 
 ## Redemption Conditions
 
-A redemption condition allows a [Merchant](/api/merchants) to accept tokens from a token collection.
+A redemption condition allows a [Merchant](https://docs.centrapay.com/api/merchants) to accept tokens from a token collection.
 It contains redemption details specific to that merchant, e.g. redeemable product SKUs.
 
 
@@ -38,16 +38,16 @@ sequenceDiagram
 
 1. **Create a token collection**
 
-   You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
+   You can create Collections by calling our [Create Token Collection](https://docs.centrapay.com/api/tokens#create-token-collection-experimental) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
 2. **Create a redemption condition** for each merchant, using the collection Id from step 1.
 
-   Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
+   Redemption Conditions are created by calling the [Create Redemption Condition](https://docs.centrapay.com/api/tokens#create-redemption-condition-experimental) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request).
 
 3. **Create tokens.**
 
-   Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
+   Tokens can be created for the collection by calling the [Create Token](https://docs.centrapay.com/api/tokens#create-token-experimental) endpoint.
 
 4. **Transfer the tokens to users.**
 
-   You can send Tokens to users by calling our [Asset Transfers](/api/asset-transfers#create-an-asset-transfer) endpoint.
+   You can send Tokens to users by calling our [Asset Transfers](https://docs.centrapay.com/api/asset-transfers#asset-transfer-create) endpoint.
