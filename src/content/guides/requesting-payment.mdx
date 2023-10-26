@@ -6,15 +6,15 @@ nav:
   order: 2
 ---
 
-Centrapay’s payment protocol requires a merchant integration to connect with the patron in order to create a [Payment Request](/api/payment-requests); and poll it for payment confirmation.
+Centrapay’s payment protocol requires a merchant integration to connect with the patron in order to create a [Payment Request](https://docs.centrapay.com/api/payment-requests); and poll it for payment confirmation.
 
 Additionally, merchant integrations can opt into protocol extensions when creating a Payment Request in order to unlock acceptance of a wider set of payment options.
 
 ## Connecting With Patrons
 
-The [Payment Request](/api/payment-requests) object is a core part of Centrapay’s payment protocol. It represents the intention of a merchant to receive payment, defines the amount to be paid, and the acceptable [Asset Types](/api/asset-types) for payment.
+The [Payment Request](https://docs.centrapay.com/api/payment-requests) object is a core part of Centrapay’s payment protocol. It represents the intention of a merchant to receive payment, defines the amount to be paid, and the acceptable [Asset Types](https://docs.centrapay.com/api/asset-types) for payment.
 
-In order to [create a Payment Request](/api/payment-requests#create-a-payment-request), a merchant integration must connect with the patron. Centrapay supports two different options to connect with patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
+In order to [create a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request), a merchant integration must connect with the patron. Centrapay supports two different options to connect with patrons. We recommend that merchant integrations implement both options to support the complete set of apps within Centrapay’s ecosystem.
 1. [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow)
 2. [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow)
 
@@ -41,7 +41,7 @@ Short codes can be used for [Initiating Refunds](/guides/initiating-refunds).
 
 ## Polling for Payment Confirmation
 
-After connecting with the patron, the POS must [poll the Payment Request status](/api/payment-requests#get-a-payment-request) every second until the status has changed.
+After connecting with the patron, the POS must [poll the Payment Request status](https://docs.centrapay.com/api/payment-requests#get-a-payment-request) every second until the status has changed.
 
 ```mermaid
 sequenceDiagram

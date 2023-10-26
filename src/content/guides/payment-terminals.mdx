@@ -6,18 +6,18 @@ nav:
   order: 1
 ---
 
-Integrating a merchant terminal with Centrapay APIs requires creating, cancelling, voiding and refunding [Payment Requests](/api/payment-requests) on behalf of Merchants using a “merchant terminal” API key.
+Integrating a merchant terminal with Centrapay APIs requires creating, cancelling, voiding and refunding [Payment Requests](https://docs.centrapay.com/api/payment-requests) on behalf of Merchants using a “merchant terminal” API key.
 
 ## API Keys
 
 To create API keys, you first need to get in touch with Centrapay to be issued an Integrator Account and an “Account owner” API key. An “Account owner” is a special kind of role that allows you to manage your account.
 
-You can use this key to [Create an API Key](/api/api-keys#create-an-api-key) with the “merchant terminal” role. A “merchant terminal” key has a role that can create, cancel, void and refund Payment Requests on behalf of merchants.
+You can use this key to [Create an API Key](https://docs.centrapay.com/api/api-keys#create-an-api-key) with the “merchant terminal” role. A “merchant terminal” key has a role that can create, cancel, void and refund Payment Requests on behalf of merchants.
 
 > You are responsible for the safety of your API keys
 
 ## Merchant Configs
-Centrapay [Merchant Configs](/api/merchant-configs) represent an available set of configured payment methods that can be utilized by one or more payment terminals by a Merchant.
+Centrapay [Merchant Configs](https://docs.centrapay.com/api/merchant-configs) represent an available set of configured payment methods that can be utilized by one or more payment terminals by a Merchant.
 
 Merchants and merchant configs are managed by Centrapay. The only details required to create payment requests on their behalf are the `merchantId` and `merchantConfigId` (aka `clientId`). Centrapay will send you these details through whatever channel works for you. Please get in touch to let us know.
 

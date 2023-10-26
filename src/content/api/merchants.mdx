@@ -13,7 +13,7 @@ import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
-A merchant is an initiator of [Payment Requests](/api/payment-requests). A Merchant has [Merchant Configs](/api/merchant-configs)
+A merchant is an initiator of [Payment Requests](https://docs.centrapay.com/api/payment-requests). A Merchant has [Merchant Configs](https://docs.centrapay.com/api/merchant-configs)
 which define the payment methods available for a Payment Request.
 
 ## Merchant Model
@@ -144,7 +144,7 @@ which define the payment methods available for a Payment Request.
   </Property>
 
   <Property name="products" type="object">
-    List of [Products](#product-model) supported by the asset type. Only available for [epay.nzd](/api/assets#gift-card-model) and [centrapay.token](/api/assets#token-model) asset types.
+    List of [Products](#product-model) supported by the asset type. Only available for [epay.nzd](/api/assets#gift-cards) and [centrapay.token](/api/assets#token-model) asset types.
   </Property>
 </Properties>
 
@@ -482,7 +482,7 @@ which define the payment methods available for a Payment Request.
     </Property>
 
     <Property name="asset" type="string">
-      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-card-model) asset types or the asset's collectionId for [centrapay.token](/api/assets#token-model) asset types.
+      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's productCode for [epay.nzd](/api/assets#gift-cards) asset types or the asset's collectionId for [centrapay.token](/api/assets#tokens-experimental) asset types.
     </Property>
 
     <Property name="name" type="string">
