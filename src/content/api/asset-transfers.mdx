@@ -22,6 +22,85 @@ their phone number.
 After an asset transfer is completed the recipientAlias, lastSentTo and
 message fields are scrubbed to avoid storing PII.
 
+## Model
+
+### Attributes
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier.
+  </Property>
+
+  <Property name="status" type="string">
+    The status of the Asset Transfer. See [Asset Transfer lifecycle](#asset-transfer-lifecycle) for possible values.
+  </Property>
+
+  <Property name="value" type="bignumber">
+    Amount to send. Required for money transfers. Units depend on the asset type.
+  </Property>
+
+  <Property name="assetId" type="string">
+    Id of a discrete asset to transfer or wallet to draw from.
+  </Property>
+
+  <Property name="assetType" type="string">
+    The [Asset Type](/api/asset-types/) being transferred.
+  </Property>
+
+  <Property name="description" type="string">
+    Shows up in transaction history against the transfer. 200 character limit.
+  </Property>
+
+  <Property name="message" type="string">
+    Shows up in transaction history against the transfer. 100 character limit.
+  </Property>
+
+  <Property name="lastSentTo" type="string">
+    The phone number or email address of the last recipient.
+  </Property>
+
+  <Property name="senderAlias" type="string">
+    Phone number, email or handle of sender.
+  </Property>
+
+  <Property name="senderName" type="string">
+    Human readable name for the sender. 30 character limit.
+  </Property>
+
+  <Property name="recipientAccountId" type="string">
+    The Centrapay Account id of the recipient.
+  </Property>
+
+  <Property name="senderAccountId" type="string">
+    The Centrapay Account id of the sender.
+  </Property>
+
+  <Property name="claimedByAccountId" type="string">
+    The Centrapay Account that claimed the Asset Transfer.
+  </Property>
+
+  <Property name="recipientAlias" type="string">
+    Phone number, email or handle of receiver.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Asset Transfer was created.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Asset Transfer was updated.
+  </Property>
+
+  <Property name="suppressNotification" type="boolean">
+    Suppress notifications from Centrapay (SMS/Email).
+  </Property>
+
+  <Property name="url" type="string">
+    A URL where the asset can be claimed if a recipient is not supplied.
+  </Property>
+</Properties>
+
+---
+
 ## Asset Transfer lifecycle
 
 Asset Transfer goes through different lifecycle stages.
