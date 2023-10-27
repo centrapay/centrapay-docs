@@ -28,6 +28,7 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             children: [],
           },
         ],
@@ -56,6 +57,7 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             children: [
               expect.objectContaining({
                 nav: {
@@ -110,6 +112,7 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             children: [
               expect.objectContaining({
                 title: 'content 1',
@@ -121,6 +124,7 @@ describe('Navigation', () => {
           },
           {
             title: 'Reference',
+            order: 0,
             children: [
               expect.objectContaining({
                 title: 'content 2',
@@ -177,9 +181,11 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             children: [
               {
                 title: 'API Guide',
+                order: 0,
                 children: [
                   expect.objectContaining({
                     nav: {
@@ -190,6 +196,7 @@ describe('Navigation', () => {
               },
               {
                 title: 'API Integration',
+                order: 0,
                 children: [
                   expect.objectContaining({
                     nav: {
@@ -253,9 +260,11 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             children: [
               {
                 title: 'API Guide',
+                order: 0,
                 children: [
                   expect.objectContaining({
                     nav: {
@@ -266,6 +275,7 @@ describe('Navigation', () => {
               },
               {
                 title: 'API Integration',
+                order: 0,
                 children: [
                   expect.objectContaining({
                     nav: {
@@ -274,6 +284,7 @@ describe('Navigation', () => {
                   }),
                   {
                     title: 'Merchants',
+                    order: 0,
                     children: [
                       expect.objectContaining({
                         nav: {
@@ -321,9 +332,11 @@ describe('Navigation', () => {
         items: [
           {
             title: 'Reference',
+            order: 0,
             children: [
               {
                 title: 'Merchant Integrations',
+                order: 0,
                 children: [
                   expect.objectContaining({
                     nav: {
@@ -357,9 +370,119 @@ describe('Navigation', () => {
         items: [
           {
             title: 'API',
+            order: 0,
             href: 'https://www.example.com',
             icon: 'api-icon',
             children: [],
+          },
+        ],
+      });
+    });
+
+    test('Nav group ordering', () => {
+      expect(
+        Navigation.create({
+          nav: [
+            {
+              title: 'API',
+              children: [
+                {
+                  title: 'Guides',
+                  order: 3
+                },
+                {
+                  title: 'Integrations',
+                  order: 2
+                },
+              ],
+            },
+          ],
+          content: [
+            {
+              data: {
+                title: 'API 1',
+                nav: {
+                  path: 'API',
+                  order: 1
+                },
+              },
+            },
+            {
+              data: {
+                title: 'Guide 2',
+                nav: {
+                  path: 'API/Guides',
+                  order: 2
+                },
+              },
+            },
+            {
+              data: {
+                title: 'Guide 1',
+                nav: {
+                  path: 'API/Guides',
+                  order: 1
+                },
+              },
+            },
+            {
+              data: {
+                title: 'Integration 1',
+                nav: {
+                  path: 'API/Integrations',
+                  order: 1,
+                },
+              },
+            },
+          ],
+        })
+      ).toEqual({
+        items: [
+          {
+            title: 'API',
+            order: 0,
+            children: [
+              expect.objectContaining({
+                title: 'API 1',
+                nav: {
+                  path: 'API',
+                  order: 1,
+                },
+              }),
+              {
+                title: 'Integrations',
+                order: 2,
+                children: [
+                  expect.objectContaining({
+                    title: 'Integration 1',
+                    nav: {
+                      order: 1,
+                      path: 'API/Integrations',
+                    },
+                  }),
+                ],
+              },
+              {
+                title: 'Guides',
+                order: 3,
+                children: [
+                  expect.objectContaining({
+                    title: 'Guide 1',
+                    nav: {
+                      order: 1,
+                      path: 'API/Guides',
+                    },
+                  }),
+                  expect.objectContaining({
+                    title: 'Guide 2',
+                    nav: {
+                      order: 2,
+                      path: 'API/Guides',
+                    },
+                  }),
+                ],
+              },
+            ],
           },
         ],
       });

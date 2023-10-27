@@ -2,6 +2,7 @@ import Page from './Page';
 
 class NavGroup {
   constructor(props) {
+    this.order = props.order,
     this.title = props.title;
     this.subTitle = props.subTitle;
     this.children = props.children;
@@ -25,10 +26,11 @@ class NavGroup {
       subTitle: nav.subTitle,
       icon: nav.icon,
       href: nav.href,
+      order: nav.order || 0,
       children: [
         ...childPages,
         ...childNavGroups,
-      ],
+      ].sort((a, b) => a.order - b.order),
     });
   }
 }
