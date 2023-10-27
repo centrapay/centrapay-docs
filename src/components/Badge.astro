@@ -25,10 +25,12 @@ const inverseColoursMap = {
 }
 
 const map = inverse ? inverseColoursMap : coloursMap;
-const badgeClass =`${map[type]} type-caption-2 px-2 py-0.5 rounded-full border self-center`
+const badgeClass =`${map[type]} type-caption-2 px-2 py-0.5 rounded-full border`;
 
 ---
-{link ?
-  <a class={badgeClass} href={link}>{badgeText}</a> :
-  <span class={badgeClass}>{badgeText}</span>
-}
+<span class="not-prose flex items-center">
+  {link ?
+    <a class={badgeClass + ' underline'} href={link}>{badgeText}</a> :
+    <span class={badgeClass}>{badgeText}</span>
+  }
+</span>
