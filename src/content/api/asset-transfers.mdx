@@ -26,7 +26,7 @@ message fields are scrubbed to avoid storing PII.
 
 Asset Transfer goes through different lifecycle stages.
 
-<img src="https://docs.centrapay.com/images/asset-lifecycle.png" style="display: block; margin: auto;" />
+![Asset Transfer Lifecycle](/asset-lifecycle.png)
 
 |   State   |                                                    Description                                                     |
 | :-------- | :----------------------------------------------------------------------------------------------------------------- |
@@ -341,26 +341,3 @@ Asset Transfer goes through different lifecycle stages.
   </CodePanel>
 
 </Endpoint>
-
-```mermaid
-stateDiagram
-
-    classDef final fill:#edebeb
-    classDef inProgress fill:#fafafa
-
-    subgraph Asset Transfer Lifecycle
-    direction TB
-    created:::inProgress --> failed:::final
-    created --> claimed:::final
-    created --> sent:::inProgress
-    sent --> claimed
-    sent --> cancelled:::final
-    sent --> expired:::inProgress
-    expired --> returned:::final
-    end
-    subgraph Legend
-        direction LR
-        start1[ ]:::inProgress - In Progress
-        start2[ ]:::final - Final State
-    end 
-```
