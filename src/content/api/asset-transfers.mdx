@@ -105,15 +105,16 @@ message fields are scrubbed to avoid storing PII.
 
 Asset Transfer goes through different lifecycle stages.
 
-<img src="https://docs.centrapay.com/images/asset-lifecycle.png" style="display: block; margin: auto;" />
+![Asset Transfer Lifecycle](/asset-lifecycle.png)
 
-| State    | Description                                                                                                        |
-|:---------|:-------------------------------------------------------------------------------------------------------------------|
-| created  | Asset transfer successfully created                                                                                |
-| sent     | Asset transfer notification (sms, email) was sent to a new user                                                    |
-| expired  | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
-| returned | Asset transfer expired and was returned to original owner                                                          |
-| claimed  | Asset transfer was successfully completed                                                                          |
+|   State   |                                                    Description                                                     |
+| :-------- | :----------------------------------------------------------------------------------------------------------------- |
+| created   | Asset transfer successfully created                                                                                |
+| sent      | Asset transfer notification (sms, email) was sent to a new user                                                    |
+| expired   | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
+| returned  | Asset transfer expired and was returned to original owner                                                          |
+| claimed   | Asset transfer was successfully completed                                                                          |
+| cancelled | Asset transfer was cancelled.                                                                                      |
 
 ---
 
@@ -418,4 +419,51 @@ Asset Transfer goes through different lifecycle stages.
   }
   ```
   </CodePanel>
+</Endpoint>
+
+---
+
+<Endpoint
+  method="POST"
+  path="/api/asset-transfers/{assetTransferId}/cancel"
+>
+  ## Cancel an Asset Transfer
+
+  ### Attributes
+  No attributes
+  
+  ### Errors
+  <Properties>
+    <Error code="403" message="INVALID_ASSET_TRANSFER_STATUS">
+      The asset transfer status is invalid and cannot be cancelled.
+    </Error>
+  </Properties>
+
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers/{assetTransferId}/cancel">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/cancel \
+      -H "X-Api-Key: $api_key"
+    ```
+  </CodePanel>
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "id": "M7Kn2stAxNa6ri7h",
+      "status": "cancelled",
+      "assetId": "YGRo6TYYSxH3js7",
+      "value": "6000",
+      "description": "$60 Giftcard",
+      "message": "Happy birthday",
+      "senderName": "My Cafe",
+      "senderAccountId": "aBc932S9182qwCDqwer",
+      "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+      "recipientAlias": "+64*****2345",
+      "createdAt": "2020-05-01T12:30:00.000Z",
+      "updatedAt": "2020-05-02T01:03:37.222Z",
+      "suppressNotifications": false
+    }
+    ```
+  </CodePanel>
+
 </Endpoint>
