@@ -8,32 +8,15 @@ const formattedType = type.toLowerCase();
 const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType :undefined;
 ---
 
-<li class="m-0 px-0 py-4 first:pt-0 last:pb-0">
-  <dl class="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
-    <dt class="sr-only">
-      Name
-    </dt>
-    <dd>
-      {name}
-    </dd>
-    <dt class="sr-only">Type</dt>
-    <dd>
-      <Badge text={formattedType} link={link}>
-    </dd>
-    { required &&
-      <dt class="sr-only">Required</dt>
-      <dd> <Badge type="required"> </dd> }
-    { experimental &&
-      <dt class="sr-only">Experimental</dt>
-      <dd> <Badge type="experimental"> </dd> }
-    { deprecated &&
-      <dt class="sr-only">Deprecated</dt>
-      <dd> <Badge type="deprecated"> </dd> }
-    <dt class="sr-only">
-      Description
-    </dt>
-    <dd class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+<div class="m-0 px-0 py-4 first:pt-0 last:pb-0 space-y-2">
+  <div class="m-0 flex flex-wrap items-center gap-x-3">
+    <h4 class="my-0" id={name}>{name}</h4>
+      <Badge text={formattedType} link={link} />
+      { required && <Badge type="required" /> }
+      { experimental && <Badge type="experimental" /> }
+      { deprecated && <Badge type="deprecated" /> }
+  </div>
+    <div class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
       <slot />
-    </dd>
-  </dl>
-</li>
+    </div>
+</div>
