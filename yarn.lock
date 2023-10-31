@@ -6369,6 +6369,14 @@ unist-util-find-after@^4.0.1:
     "@types/unist" "^2.0.0"
     unist-util-is "^5.0.0"
 
+unist-util-find-before@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-find-before/-/unist-util-find-before-4.0.0.tgz#f5c028e7eab5e59616f3624ac25931ff6b9c17d2"
+  integrity sha512-bdXFv1xM0O19Gn8B7mJjXuVOyVSdE7eQZs4Ulo4EWOBb8OihHLpCDhOLwDGjrpMZCRPlmpUhxMMqlDohvswEsA==
+  dependencies:
+    "@types/unist" "^3.0.0"
+    unist-util-is "^6.0.0"
+
 unist-util-generated@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/unist-util-generated/-/unist-util-generated-2.0.0.tgz#86fafb77eb6ce9bfa6b663c3f5ad4f8e56a60113"

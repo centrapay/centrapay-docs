@@ -8,18 +8,39 @@ import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
 import { toString } from 'mdast-util-to-string';
 import { findAfter } from 'unist-util-find-after';
+import { findBefore } from 'unist-util-find-before';
 
 function slugify(str) {
   return str.toLowerCase().replace(/\s/g, '-');
 }
 
+function stripBadge(str) {
+  return str.replace(/<Badge.*>/, '').trim();
+}
+
+function formatTitle(node, root) {
+  const nodeString = toString(node);
+
+  if (nodeString == 'Attributes') {
+    const parentHeading = stripBadge(toString(findBefore(root, node, 'heading')));
+    return stripBadge(`${parentHeading} ${nodeString}`);
+  }
+
+  if (nodeString == 'Errors') {
+    const headingNode = toString(findBefore(root, findBefore(root, node, 'heading'), 'heading'));
+    return stripBadge(`${headingNode} ${nodeString}`);
+  }
+
+  return stripBadge(nodeString);
+}
+
 function extractSections(root) {
   const sections = [];
-
   visit(root, 'heading', (node) => {
     sections.push({
-      title: toString(node),
+      title: formatTitle(node, root),
       description: toString(findAfter(root, node, 'paragraph')),
+      anchor: stripBadge(toString(node)),
     });
   });
 
@@ -49,18 +70,19 @@ async function createFlexsearchIndexData() {
     indexData[id++] = {
       href,
       path,
-      title: frontMatter.title,
+      title: stripBadge(frontMatter.title),
       description: frontMatter.description,
     };
 
     const vfile = await processor.process(content);
+
     // Add all other headings and their descriptions to the index
-    vfile.data.sections.forEach(({ title, description }) => {
+    vfile.data.sections.forEach(({ title, description, anchor }) => {
       indexData[id++] = {
         path,
         title,
         description,
-        href: `${href}#${slugify(title)}`,
+        href: `${href}#${slugify(anchor)}`,
       };
     });
   }
