@@ -1,29 +1,13 @@
-
 ---
 import Badge from '../components/Badge.astro';
 
 const { code, message } = Astro.props;
 ---
 
-<li class="m-0 px-0 py-4 first:pt-0 last:pb-0">
-  <dl class="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
-    <dt class="sr-only">
-      Error Code
-    </dt>
-    <dd>
-      {code}
-    </dd>
-    <dt class="sr-only">
-      Error Message
-    </dt>
-    <dd>
-      <Badge text={message}>
-    </dd>
-    <dt class="sr-only">
-      Description
-    </dt>
-    <dd class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-      <slot />
-    </dd>
-  </dl>
+<li class="not-prose m-0 p-0 flex flex-col py-4 space-y-2 type-content-primary">
+  <div class="flex flex-row items-center space-x-3">
+    <h4 class="font-mono" id={message}>{message}</h4>
+    <Badge text={code}></Badge>
+  </div>
+  <slot />
 </li>
