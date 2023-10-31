@@ -183,13 +183,14 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
 
 ⭐️ For Payment Options which specify an address, there’s a requirement to make a transaction on an external ledger. Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay-a-payment-request) using the legacy payment API.
 
+---
 
-### Accepted Collections
+## Accepted Collections
 
 If a Payment Request contains a `centrapay.token.*` Payment Option, an array of Accepted Collections will be present inside the `centrapay.token` Payment Option.
 The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
 
-#### Attributes
+### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -273,9 +274,11 @@ A discount that applies to multiple Line Items may be represented as a separate 
   </Property>
 </Properties>
 
-### Product Classification
+---
 
-#### Attributes
+## Product Classification
+
+### Attributes
 
 <Properties>
   <Property name="type" type="string">
