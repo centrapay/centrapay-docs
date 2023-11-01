@@ -63,7 +63,6 @@ exports[`the build should not break any links 1`] = `
   "/api/bank-account-connection-intents",
   "/api/bank-account-connection-intents#authorize-bank-account-connection-intent",
   "/api/bank-account-connection-intents#bank-account-connection-intent-model",
-  "/api/bank-account-connection-intents#create-bank-account-connection-intent",
   "/api/bank-accounts",
   "/api/bank-accounts#add-direct-debit-authority-to-a-bank-account",
   "/api/bank-accounts#bank-account-approval-type-summary-model",
