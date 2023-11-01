@@ -55,19 +55,19 @@ full payment after connecting to a Centrapay Payment Request. Instead of the
 cashier needing to cancel the Payment Request and start over, the patron can
 make a partial payment with available funds. Once the Centrapay payment is
 successful, the point of sale can take payment for the remaining amount using
-another method.  
+another method.
 **Related steps in diagram above:** 2→3→4→5→6
 
 ### Hybrid Partial Payment Scenario
 A combination of Merchant and App driven partial payments to cater for edge
-cases where needed.  
+cases where needed.
 **Related steps in diagram above:** 1→2→3→4→5→6
 
 ## Implementation
 
 ### Creating the Payment Request
 
-When [creating a Payment Request](https://docs.centrapay.com/api/payment-requests#create-a-payment-request),
+When [creating a Payment Request](/api/payment-requests#create-a-payment-request),
 opt into partial payment by:
 
 - Setting `partialAllowed` to true.
@@ -94,7 +94,7 @@ proceed as you normally would. If the status is `paid` you need to check the
 - If it is 0, then the entire amount requested via Centrapay has been paid.
 - If it is greater than 0, you will need to request the remaining amount from
 the patron via another payment option. If the patron cannot complete the
-transaction then the payment request should be [refunded](https://docs.centrapay.com/api/payment-requests#refund-a-payment-request).
+transaction then the payment request should be [refunded](/api/payment-requests#refund-a-payment-request).
 
 ## See also
 

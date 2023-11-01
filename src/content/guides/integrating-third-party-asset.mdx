@@ -22,7 +22,7 @@ The namespace is a unique string to identify your asset. Your namespace must con
 - Alphanumeric characters.
 - No punctuation except for `-`.
 - Must not end in reserved keywords `test` or `main`.
-- Must not conflict with [existing names](https://docs.centrapay.com/api/asset-types).
+- Must not conflict with [existing names](/api/asset-types).
 
 Your payment method namespace may have a connection to your brand or product. Centrapay reserves the right to decline a requested namespace.
 
@@ -35,7 +35,7 @@ The liveness of a payment method can be either main or test. This can be used to
 - Test and main assets must share the same namespace but end in `test` or `main`. For example, `centrapay.main` and `centrapay.test`.
 - Integrating a test asset is optional.
 - A set of uplink APIs must be provided for both main and test.
-- [Centrapay Merchants](https://docs.centrapay.com/api/merchants) need a test flag in order to accept test assets.
+- [Centrapay Merchants](/api/merchants) need a test flag in order to accept test assets.
 
 ### Description
 
@@ -47,7 +47,7 @@ An example description is `Centrapay NZD`, `Bitcoin`, or `Ethereum`.
 
 ### Supported Currencies
 
-[Payment Requests](https://docs.centrapay.com/api/payment-requests) have a value determined by the currency a Merchant accepts. You should supply a finite list of three-letter [ISO currency codes](https://en.wikipedia.org/wiki/ISO_4217) that is supported by your asset.
+[Payment Requests](/api/payment-requests) have a value determined by the currency a Merchant accepts. You should supply a finite list of three-letter [ISO currency codes](https://en.wikipedia.org/wiki/ISO_4217) that is supported by your asset.
 
 ### Example Definition
 
@@ -195,7 +195,7 @@ An idempotency key is used for `HTTP POST` requests. Centrapay **does not** guar
 | type           | String                                                          | required  | The type of transaction. Possible values are payment or refund.                                          |
 | failureReason  | String                                                          | optional  | Required if the status is failed. See [possible failure reasons](#failure-reasons).                      |
 | refundable     | Boolean                                                         | optional  | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
-| refundBefore   | [Timestap](https://docs.centrapay.com/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                      |
+| refundBefore   | [Timestap](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                      |
 
 ### Statuses
 

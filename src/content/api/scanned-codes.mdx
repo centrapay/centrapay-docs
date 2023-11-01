@@ -12,7 +12,7 @@ import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
-A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](https://docs.centrapay.com/api/payment-requests).
+A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](/api/payment-requests).
 
 ## Scanned Code Model
 
@@ -28,7 +28,7 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
   </Property>
 
   <Property name="provider" type="string">
-    The integrator that owns the code. This can be used to calculate discounts on [Line Items](https://docs.centrapay.com/api/payment-requests#line-item). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
+    The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
   </Property>
 
   <Property name="displayName" type="string">
