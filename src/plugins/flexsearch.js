@@ -27,12 +27,14 @@ function formatSearch({ node, root }) {
     return {
       title: `${parentHeading} ${nodeString}`,
       anchor: nodeString,
+      pageContext: parentHeading,
     };
   case 'Errors':
     const headingNode = stripBadge(toString(findBefore(root, findBefore(root, node, 'heading'), 'heading')));
     return {
       title: `${headingNode} ${nodeString}`,
       anchor: nodeString,
+      pageContext: headingNode,
     };
   default:
     return {
@@ -82,9 +84,9 @@ async function createFlexsearchIndexData() {
     const vfile = await processor.process(content);
 
     // Add all other headings and their descriptions to the index
-    vfile.data.sections.forEach(({ title, description, anchor }) => {
+    vfile.data.sections.forEach(({ title, description, anchor, pageContext }) => {
       indexData[id++] = {
-        path,
+        path: pageContext ? path.concat(pageContext) : path,
         title,
         description,
         href: `${href}#${slugify(anchor)}`,
