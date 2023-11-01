@@ -428,7 +428,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
+  method="POST"
   path="/api/funds-transfers/{fundsTransferId}/abort"
 >
   ## Abort Funds Transfer
@@ -449,7 +449,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/funds-transfers/{fundsTransferId}/abort">
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/funds-transfers/{fundsTransferId}/abort">
     ```bash
     curl -X POST https://service.centrapay.com/api/funds-transfers/5thg2RPBZEfYTPJdQ63Cre/abort \
       -H "X-Api-Key: $api_key"
