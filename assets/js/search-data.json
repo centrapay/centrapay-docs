@@ -515,11 +515,11 @@
     "url": "/api/http-status-codes#5xx-server-error",
     "relUrl": "/api/http-status-codes#5xx-server-error"
   },"86": {
-    "doc": "Payment Requests",
-    "title": "Payment Requests",
+    "doc": "Integrations",
+    "title": "Integrations",
     "content": " ",
-    "url": "/api/section/payment-requests",
-    "relUrl": "/api/section/payment-requests"
+    "url": "/api/section/integrations",
+    "relUrl": "/api/section/integrations"
   },"87": {
     "doc": "Assets",
     "title": "Assets",
@@ -527,47 +527,47 @@
     "url": "/api/section/assets",
     "relUrl": "/api/section/assets"
   },"88": {
-    "doc": "Settlements",
-    "title": "Settlements",
-    "content": " ",
-    "url": "/api/section/settlements",
-    "relUrl": "/api/section/settlements"
-  },"89": {
     "doc": "Batches",
     "title": "Batches",
     "content": " ",
     "url": "/api/section/batches",
     "relUrl": "/api/section/batches"
-  },"90": {
+  },"89": {
     "doc": "Accounts",
     "title": "Accounts",
     "content": " ",
     "url": "/api/section/accounts",
     "relUrl": "/api/section/accounts"
+  },"90": {
+    "doc": "Payment Requests",
+    "title": "Payment Requests",
+    "content": " ",
+    "url": "/api/section/payment-requests",
+    "relUrl": "/api/section/payment-requests"
   },"91": {
-    "doc": "Integrations",
-    "title": "Integrations",
-    "content": " ",
-    "url": "/api/section/integrations",
-    "relUrl": "/api/section/integrations"
-  },"92": {
-    "doc": "Scanned Codes",
-    "title": "Scanned Codes",
-    "content": " ",
-    "url": "/api/section/scanned-codes",
-    "relUrl": "/api/section/scanned-codes"
-  },"93": {
-    "doc": "Merchants",
-    "title": "Merchants",
-    "content": " ",
-    "url": "/api/section/merchants",
-    "relUrl": "/api/section/merchants"
-  },"94": {
     "doc": "Bank Accounts",
     "title": "Bank Accounts",
     "content": " ",
     "url": "/api/section/bank-accounts",
     "relUrl": "/api/section/bank-accounts"
+  },"92": {
+    "doc": "Merchants",
+    "title": "Merchants",
+    "content": " ",
+    "url": "/api/section/merchants",
+    "relUrl": "/api/section/merchants"
+  },"93": {
+    "doc": "Scanned Codes",
+    "title": "Scanned Codes",
+    "content": " ",
+    "url": "/api/section/scanned-codes",
+    "relUrl": "/api/section/scanned-codes"
+  },"94": {
+    "doc": "Settlements",
+    "title": "Settlements",
+    "content": " ",
+    "url": "/api/section/settlements",
+    "relUrl": "/api/section/settlements"
   },"95": {
     "doc": "API Reference",
     "title": "API Reference",
