@@ -100,16 +100,11 @@
     <!-- Static sidebar for desktop -->
     <div class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col">
       <div class="flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
-        <nav
-          class="flex-1 space-y-1 bg-white px-2"
-          aria-label="Sidebar"
-        >
-          <SiteNavigation
-            :base-url="baseUrl"
-            :path="navPath"
-            :navigation="navigation"
-          />
-        </nav>
+        <SiteNavigation
+          :base-url="baseUrl"
+          :path="navPath"
+          :navigation="navigation"
+        />
       </div>
     </div>
 
