@@ -1,5 +1,8 @@
 <template>
-  <nav class="space-y-1 px-2">
+  <nav
+    class="space-y-1 px-4"
+    aria-label="Sidebar"
+  >
     <ul role="menubar">
       <div
         v-for="item in navigation.items"
