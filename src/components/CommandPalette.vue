@@ -54,8 +54,8 @@
                     Nothing found.
                   </div>
                   <ComboboxOption
-                    v-for="result in results"
-                    :key="result.href"
+                    v-for="(result, resultIndex) in results"
+                    :key="resultIndex"
                     v-slot="{ active }"
                     as="template"
                     :value="result"
