@@ -80,10 +80,10 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
     The amount of the Payment Request which has not been paid for.
   </Property>
   <Property name="patronCodeId" type="string">
-    The id of a [Patron Code](https://docs.centrapay.com/api/patron-codes) the Payment Request is attached to.
+    The id of a [Patron Code](/api/patron-codes) the Payment Request is attached to.
   </Property>
   <Property name="barcode" type="string">
-    [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request.
+    [Scanned Code](/api/scanned-codes) used to create the Payment Request.
   </Property>
   <Property name="barcodeType" type="string">
     Indicates the provider of a barcode, e.g. `ticketek`.
@@ -309,7 +309,7 @@ The Paid By provides a summary of the transactions after the Payment Request was
 
 <Properties>
   <Property name="assetTotals" type="array">
-    The sum of paid amounts [Asset Totals](#asset-total-model) for each transacted Asset Type.
+    The sum of paid amounts [Asset Totals](#asset-totals) for each transacted Asset Type.
   </Property>
 </Properties>
 
@@ -458,7 +458,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The canonical value of the Payment Request. Must be less than 100000000 and positive.
     </Property>
     <Property name="barcode" type="string">
-      [Scanned Code](https://docs.centrapay.com/api/scanned-codes) used to create the Payment Request. Required when `preAuth` is `true`.
+      [Scanned Code](/api/scanned-codes) used to create the Payment Request. Required when `preAuth` is `true`.
     </Property>
     <Property name="barcodeType" type="string">
       Indicates the provider of a barcode, e.g. `ticketek`.
@@ -601,7 +601,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
     </Error>
     <Error code="403" message="PATRON_CODE_INVALID">
-      [Patron Code](https://docs.centrapay.com/api/patron-codes) doesn't exist or has expired.
+      [Patron Code](/api/patron-codes) doesn't exist or has expired.
     </Error>
     <Error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS">
       No payment options match the requested payment parameters.
@@ -782,7 +782,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 >
   ## Get a Payment Request linked to a Patron Code
 
-  This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](https://docs.centrapay.com/api/patron-codes).
+  This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](/api/patron-codes).
   The Payment Request may have been created with a reference to any Patron Code owned by the user's
   account.
 

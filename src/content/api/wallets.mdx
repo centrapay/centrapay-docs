@@ -12,11 +12,11 @@ import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
-A Wallet is an Asset that represents [Money](/api/assets#money). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
+A Wallet is an Asset that represents [Money](/api/assets#money-model). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
 
 ## Settlement Wallets <Badge type="experimental" />
 
-A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a [Payment Request](https://docs.centrapay.com/api/payment-requests). This means you cannot topup, withdraw, or send money from this Wallet.
+A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot topup, withdraw, or send money from this Wallet.
 
 ## Wallet Model
 
@@ -36,7 +36,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   </Property>
 
   <Property name="type" type="string">
-    [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+    [Asset Type](/api/asset-types) id used by payment option asset types.
   </Property>
 
   <Property name="liveness" type="string">
@@ -116,19 +116,19 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   </Property>
 
   <Property name="paymentRequestId" type="string">
-    Unique identifier of the related [Payment Request](https://docs.centrapay.com/api/payment-requests) if applicable.
+    Unique identifier of the related [Payment Request](/api/payment-requests) if applicable.
   </Property>
 
   <Property name="topupId" type="string">
-    Unique identifier of the related topup [Funds Transfer](https://docs.centrapay.com/api/funds-transfers) request if applicable.
+    Unique identifier of the related topup [Funds Transfer](/api/funds-transfers) request if applicable.
   </Property>
 
   <Property name="assetTransferId" type="string">
-    Unique identifier of the related [Asset Transfer](https://docs.centrapay.com/api/asset-transfers) request if applicable.
+    Unique identifier of the related [Asset Transfer](/api/asset-transfers) request if applicable.
   </Property>
 
   <Property name="withdrawalId" type="string">
-    Unique identifier of the related [Withdrawal](https://docs.centrapay.com/api/funds-transfers) request if applicable.
+    Unique identifier of the related [Withdrawal](/api/funds-transfers) request if applicable.
   </Property>
 </Properties>
 
@@ -149,7 +149,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
     </Property>
 
     <Property name="ledgerId" type="string" required>
-      [Asset Type](https://docs.centrapay.com/api/asset-types) id used by payment option asset types.
+      [Asset Type](/api/asset-types) id used by payment option asset types.
     </Property>
 
     <Property name="settlement" type="boolean" experimental>
