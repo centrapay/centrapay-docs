@@ -4,7 +4,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-dist=_site/
+dist=dist/
 find $dist || exit 1
 
 find $dist -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;

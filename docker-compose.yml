@@ -13,13 +13,6 @@ services:
     ports: [ "4321:4321", "24678:24678" ]
     environment:
       - "ENV=development"
-  legacy:
-    image: ruby:2.7
-    init: true
-    working_dir: /work/legacy
-    volumes: [ ".:/work" ]
-    command: "bundle exec jekyll serve --livereload --host=0.0.0.0"
-    ports: [ "4000:4000", "35729:35729" ]
   script:
     image: node:18-alpine
     init: true
@@ -33,16 +26,3 @@ services:
         echo "
         To execute a script, run:
         docker-compose run script {command}"
-  ruby-script:
-    image: ruby:2.7
-    init: true
-    working_dir: /work/legacy
-    volumes: [ ".:/work" ]
-    stop_signal: SIGKILL
-    command:
-      - bash
-      - -c
-      - |
-        echo "
-        To execute a script, run:
-        docker-compose run ruby-script {command}"
