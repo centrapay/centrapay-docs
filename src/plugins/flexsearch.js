@@ -18,30 +18,35 @@ function stripBadge(str) {
   return str.replace(/<Badge.*>/, '').trim();
 }
 
-function formatTitle(node, root) {
-  const nodeString = toString(node);
+function formatSearch({ node, root }) {
+  const nodeString = stripBadge(toString(node));
 
-  if (nodeString == 'Attributes') {
+  switch (nodeString) {
+  case 'Attributes':
     const parentHeading = stripBadge(toString(findBefore(root, node, 'heading')));
-    return stripBadge(`${parentHeading} ${nodeString}`);
+    return {
+      title: `${parentHeading} ${nodeString}`,
+      anchor: nodeString,
+    };
+  case 'Errors':
+    const headingNode = stripBadge(toString(findBefore(root, findBefore(root, node, 'heading'), 'heading')));
+    return {
+      title: `${headingNode} ${nodeString}`,
+      anchor: nodeString,
+    };
+  default:
+    return {
+      title: nodeString,
+      description: toString(findAfter(root, node, 'paragraph')),
+      anchor: nodeString,
+    };
   }
-
-  if (nodeString == 'Errors') {
-    const headingNode = toString(findBefore(root, findBefore(root, node, 'heading'), 'heading'));
-    return stripBadge(`${headingNode} ${nodeString}`);
-  }
-
-  return stripBadge(nodeString);
 }
 
 function extractSections(root) {
   const sections = [];
   visit(root, 'heading', (node) => {
-    sections.push({
-      title: formatTitle(node, root),
-      description: toString(findAfter(root, node, 'paragraph')),
-      anchor: stripBadge(toString(node)),
-    });
+    sections.push(formatSearch({ node, root }));
   });
 
   return sections;
