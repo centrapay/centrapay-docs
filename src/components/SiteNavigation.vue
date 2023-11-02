@@ -1,27 +1,34 @@
 <template>
-  <nav
-    class="space-y-1 px-4"
-    aria-label="Sidebar"
+  <div
+    id="sidebar"
+    class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col"
   >
-    <ul role="menubar">
-      <div
-        v-for="item in navigation.items"
-        :key="item.title"
+    <div class="sidebar-content flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
+      <nav
+        class="space-y-1 px-4"
+        aria-label="Sidebar"
       >
-        <PrimarySidebarDisclosure
-          v-if="item.children?.length"
-          :navigation-item="item"
-          :path="path"
-        />
-        <PageLinks
-          v-else
-          :navigation-item="item"
-          :path="path"
-          :level="1"
-        />
-      </div>
-    </ul>
-  </nav>
+        <ul role="menubar">
+          <div
+            v-for="item in navigation.items"
+            :key="item.title"
+          >
+            <PrimarySidebarDisclosure
+              v-if="item.children?.length"
+              :navigation-item="item"
+              :path="path"
+            />
+            <PageLinks
+              v-else
+              :navigation-item="item"
+              :path="path"
+              :level="1"
+            />
+          </div>
+        </ul>
+      </nav>
+    </div>
+  </div>
 </template>
 
 <script setup>

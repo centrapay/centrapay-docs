@@ -98,15 +98,11 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col">
-      <div class="flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
-        <SiteNavigation
-          :base-url="baseUrl"
-          :path="navPath"
-          :navigation="navigation"
-        />
-      </div>
-    </div>
+    <SiteNavigation
+      :base-url="baseUrl"
+      :path="navPath"
+      :navigation="navigation"
+    />
 
     <main class="flex flex-col min-h-full w-full pt-16 md:pl-64 xl:pl-80">
       <slot />

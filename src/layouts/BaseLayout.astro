@@ -104,6 +104,29 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
       </AppShell>
     </div>
     <script>
+      const sidebar = document.querySelector('#sidebar > .sidebar-content');
+      var scrollTop = 0;
+      if (sidebar) {
+        sidebar.addEventListener('scroll', function() {
+          scrollTop = sidebar.scrollTop;
+          console.log({ scrollListener: scrollTop });
+          localStorage.setItem('sidebar-scroll', scrollTop.toString());
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const scrollPosition = localStorage.getItem('sidebar-scroll');
+        console.log({ scrollPosition });
+        if (scrollPosition && sidebar) {
+          sidebar.scrollTo(0, Number(scrollPosition));
+        }
+      });
+
+      window.onbeforeunload = function() {
+        console.log({ scrollTop });
+        localStorage.setItem('sidebar-scroll', scrollTop.toString());
+      };
+
       window.FreshworksWidget('hide', 'launcher');
       const freshdeskButtons = document.querySelectorAll('[id^=freshdesk]');
       freshdeskButtons.forEach(button => button.addEventListener('click', () => {
