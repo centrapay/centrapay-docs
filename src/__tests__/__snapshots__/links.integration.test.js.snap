@@ -137,7 +137,7 @@ exports[`the build should not break any links 1`] = `
   "/api/integration-requests#get-an-integration-request",
   "/api/integration-requests#get-integration-request-configuration",
   "/api/integration-requests#integration-request-model",
-  "/api/integration-requests#search-merchants",
+  "/api/integration-requests#search-integration-requests",
   "/api/integrations",
   "/api/introduction",
   "/api/invitations",
