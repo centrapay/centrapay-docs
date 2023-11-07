@@ -50,6 +50,26 @@ An Integration Request allows Centrapay users to request the creation of an [Int
   <Property name="product" type="object">
     The requested Epay gift card types to support. Refer to [Product](#product).
   </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Integration Request was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Integration Request.
+  </Property>
+
+  <Property name="updatedAt" type="timestamp">
+    When the Integration Request was updated.
+  </Property>
+
+  <Property name="updatedBy" type="crn">
+    The User or API Key that updated the Integration Request.
+  </Property>
+
+  <Property name="notifiedAt" type="timestamp">
+    When the Integration Request was submitted to the terminal provider in order to enable the terminal for Centrapay acceptance.
+  </Property>
 </Properties>
 
 ### Terminal
@@ -187,7 +207,8 @@ An Integration Request allows Centrapay users to request the creation of an [Int
       "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
       "product": {
         "name": "koha-card"
-      }
+      },
+      "notifiedAt": "2020-06-13T05:00:00.000Z"
     }
     ```
   </CodePanel>
@@ -200,7 +221,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
   method="GET"
   path="/api/integration-requests"
 >
-  ## Search Merchants
+  ## Search Integration Requests
 
   Returns a [paginated](/api/pagination/) response of Integration Requests.
 
