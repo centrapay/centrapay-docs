@@ -46,11 +46,9 @@ bring support to GET endpoints for listing, these conventions will be followed.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/examples">
     ```bash
-    curl -X GET https://service.centrapay.com/api/examples \
+    curl -G https://service.centrapay.com/api/examples \
       -H "X-Api-Key: $api_key" \
-      -d '{
-        "pageKey": "Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
-      }'
+      -d pageKey="Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
     ```
   </CodePanel>
 
