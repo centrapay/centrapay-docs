@@ -32,22 +32,32 @@ sequenceDiagram
   Token Issuer ->> Centrapay: Create Collection
   Note left of Token Issuer: Confirm redeemable product<br/>IDs with merchant
   Token Issuer ->> Centrapay: Create Redemption Condition
-  Token Issuer ->> Centrapay: Create Token
-  Token Issuer ->> Centrapay: Transfer Token
+  alt
+    Note right of Token Issuer: Create token then send to user
+    Token Issuer ->> Centrapay: Create Token
+    Token Issuer ->> Centrapay: Transfer Token
+  else
+    Note right of Token Issuer: Or create token in user's account
+    Token Issuer ->> Centrapay: Create Token
+  end
 ```
 
 1. **Create a token collection**
 
    You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
-2. **Create a redemption condition** for each merchant, using the collection Id from step 1.
+2. **Create a redemption condition** for each merchant, using the collection Id from step 1
 
    Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
 
-3. **Create tokens.**
+3. **Create tokens**
 
    Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
 
-4. **Transfer the tokens to users.**
+4. **Transfer the tokens to users**
 
    You can send Tokens to users by calling our [Asset Transfers](/api/asset-transfers#create-an-asset-transfer) endpoint.
+
+5. **Create tokens directly into users' accounts**
+
+   If you wish to create tokens directly into a user's account, simply provide the user's `accountId` in your [Create Token](/api/tokens#create-token) request.
