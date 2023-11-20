@@ -315,7 +315,8 @@ Asset Transfer goes through different lifecycle stages.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers/{assetTransferId}/claim">
   ```bash
-  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim
+  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim \
+    -H "X-Api-Key: $api_key"
   ```
   </CodePanel>
 
