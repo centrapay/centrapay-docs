@@ -1,8 +1,49 @@
-<div class="my-6">
+---
+const { heading = 'Attributes' } = Astro.props;
+---
+
+<div data-attributes class="my-6">
+  <div class="flex justify-between items-center not-prose py-2">
+    <h3 class="scroll-mt-10 type-subtitle-1">{ heading }</h3>
+    <button data-expand-button class="text-content-tertiary type-overline">
+      Expand all
+    </button>
+  </div>
   <ul
+    data-attribute-list
     role="list"
-    class="m-0 list-none divide-y divide-zinc-900/5 p-0"
+    class="m-0 list-none border-y border-zinc-900/5 divide-y divide-zinc-900/5 p-0 pt-4"
   >
     <slot />
   </ul>
 </div>
+
+<script>
+  function getElement(
+    selector,
+    Constructor,
+    parent: ParentNode = document,
+  ) {
+    const element = parent.querySelector(selector);
+    if (!(element instanceof Constructor)) {
+      throw new Error(`Element is not of type ${Constructor.name}: ${selector}`);
+    }
+    return element;
+  }
+
+  for (const attributesSection of document.querySelectorAll('[data-attributes]')) {
+    const button = getElement('[data-expand-button]', HTMLButtonElement, attributesSection);
+    const attributeList = getElement('[data-attribute-list]', HTMLUListElement, attributesSection);
+    button.addEventListener('click', () => {
+      button.textContent = button.innerText === 'EXPAND ALL' ? 'COLLAPSE ALL' : 'EXPAND ALL';
+      const expandables = attributeList.querySelectorAll('[data-expandable-slot]');
+      for (const expandable of expandables) {
+        if (expandable.classList.contains('hidden')) {
+          expandable.classList.remove('hidden');
+        } else {
+          expandable.classList.add('hidden');
+        }
+      }
+    });
+  }
+</script>

@@ -20,8 +20,6 @@ individual account.
 
 ## Account Model
 
-### Attributes
-
 <Properties>
   <Property name="id" type="string">
     The unique identifier.
@@ -64,9 +62,9 @@ individual account.
   </Property>
 </Properties>
 
-## Subscription Model
+---
 
-### Attributes
+## Subscription Model
 
 <Properties>
   <Property name="name" type="string">
@@ -84,7 +82,6 @@ individual account.
 
   This endpoint allows you to create an Account.
 
-  ### Attributes
   <Properties>
     <Property name="name" type="string" required>
       The name of the Account.
@@ -148,9 +145,6 @@ individual account.
 
   This endpoint allows you to retrieve an Account.
 
-  ### Attributes
-  No attributes.
-
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}">
     ```bash
     curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
@@ -187,7 +181,6 @@ individual account.
 
   This endpoint allows you to update an account.
 
-  ### Attributes
   <Properties>
     <Property name="name" type="string" required>
       The name of the Account.
@@ -234,7 +227,6 @@ individual account.
 
   This endpoint allows you to update the subscriptions on an account.
 
-  ### Attributes
   <Properties>
     <Property name="subscriptions" type="array" required>
       The list of subscriptions to assign to the account.
@@ -262,8 +254,7 @@ individual account.
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ACCOUNT_ID">
       The account does not exist.
     </Error>
