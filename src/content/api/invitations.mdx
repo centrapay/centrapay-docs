@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
@@ -152,22 +153,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/invitations \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "type": "account-membership",
-        "resourceId": "Hopo4g34sLVdjEMBs2p19F",
-        "resourceType": "account",
-        "recipientAlias": "user@org.com",
-        "params": {
-          "role": "cashier"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="invitations-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -207,12 +193,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   ### Attributes
   No attributes.
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/invitations/code/{code}">
-    ```bash
-    curl https://service.centrapay.com/api/invitations/code/WIj211vFs9cNACwBb04vQw \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="invitations-get-by-code" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -246,12 +227,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
   ### Attributes
   No attributes.
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/invitations">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/{accountId}/invitations \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="invitations-list-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -340,17 +316,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations/{invitationId}/accept">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/accept \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "code": "WIj211vFs9cNACwBb04vQw",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="invitations-accept" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -399,12 +365,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/invitations/{invitationId}/revoke">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/invitations/DKTs3U38hdhfEqwF1JKoT2/revoke \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="invitations-revoke" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

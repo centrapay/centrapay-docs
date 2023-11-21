@@ -1,0 +1,15 @@
+---
+const { title = 'Request', filename } = Astro.props;
+import { Code } from 'astro:components';
+import CodePanel from './CodePanel.astro';
+import Endpoint from '../utils/Endpoint.js';
+
+const file = await import(`../content/api/_endpoints/${filename}.js`);
+console.log({ file });
+const endpoint = Endpoint.create(file.default);
+const theme = 'material-theme-darker';
+---
+
+<CodePanel title={title} method={endpoint.method} path={endpoint.path}>
+  <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} theme={theme}/>
+</CodePanel>

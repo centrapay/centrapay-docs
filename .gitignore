@@ -3,6 +3,7 @@
 
 # build output
 dist/
+code-snippets/
 
 # generated types
 .astro/

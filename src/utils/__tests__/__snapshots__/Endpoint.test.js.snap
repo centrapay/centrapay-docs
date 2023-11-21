@@ -1,0 +1,17 @@
+// Vitest Snapshot v1
+
+exports[`Endpoint > createRequest > creates a curl snippet 1`] = `
+{
+  "code": "curl -X POST \\\\
+ https://service.centrapay.com/api/test \\\\
+ -H 'content-type: application/json' \\\\
+ -H 'x-api-key: <TOKEN>' \\\\
+ -d '
+{
+ \\"foo\\": \\"bar\\",
+ \\"bar\\": \\"baz\\"
+}
+'",
+  "lang": "shell",
+}
+`;
