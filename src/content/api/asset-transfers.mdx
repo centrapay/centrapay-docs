@@ -16,7 +16,7 @@ import Error from '../../components/Error.astro';
 An asset transfer is an asynchronous exchange of an asset or an amount to a recipient.
 
 A recipient is an existing Centrapay user or someone who can create an account to claim the asset transfer by verifying
-their phone number.
+their phone number or email.
 
 After an asset transfer is completed the recipientAlias, lastSentTo and
 message fields are scrubbed to avoid storing PII.
@@ -184,7 +184,7 @@ Asset Transfer goes through different lifecycle stages.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/assets/asset-transfers">
+  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers">
   ```bash
   curl -X POST https://service.centrapay.com/api/asset-transfers \
     -H "X-Api-Key: $api_key" \
