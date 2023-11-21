@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import flexsearchPlugin from './src/plugins/flexsearch';
+import flexsearch from './src/plugins/flexsearch';
 import tailwind from '@astrojs/tailwind';
 
 // Remark plugins
@@ -19,6 +19,7 @@ export default defineConfig({
     vue(),
     tailwind({ applyBaseStyles: false }),
     mdx(),
+    flexsearch(),
   ],
   markdown: {
     remarkPlugins: [ mermaid ],
@@ -32,11 +33,6 @@ export default defineConfig({
       // https://github.com/shikijs/shiki/blob/main/docs/languages.md
       langs: [],
     },
-  },
-  vite: {
-    plugins: [
-      flexsearchPlugin(),
-    ]
   },
   redirects: {
     '/guides/merchant-terminals/': '/guides/payment-flows/',

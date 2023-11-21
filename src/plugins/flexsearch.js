@@ -1,45 +1,47 @@
 import glob from 'glob';
 import fs from 'fs/promises';
 import { promisify } from 'util';
-import { unified } from 'unified';
-import grayMatter from 'gray-matter';
-import remarkHtml from 'remark-html';
-import remarkParse from 'remark-parse';
+import { rehype } from 'rehype';
 import { visit } from 'unist-util-visit';
 import { toString } from 'mdast-util-to-string';
 import { findAfter } from 'unist-util-find-after';
-import { findBefore } from 'unist-util-find-before';
 
 function slugify(str) {
   return str.toLowerCase().replace(/\s/g, '-');
 }
 
-function stripBadge(str) {
-  return str.replace(/<Badge.*>/, '').trim();
+function isH3(node) {
+  return node.tagName === 'h3';
 }
 
-function formatSearch({ node, root }) {
-  const nodeString = stripBadge(toString(node));
+function isH2(node) {
+  return node.tagName === 'h2';
+}
 
+function isParagraph(node) {
+  return node.tagName === 'p';
+}
+
+function formatSearch({ node, root, currentH2Heading }) {
+  const nodeString = toString(node);
   switch (nodeString) {
   case 'Attributes':
-    const parentHeading = stripBadge(toString(findBefore(root, node, 'heading')));
-    return {
-      title: `${parentHeading} ${nodeString}`,
-      anchor: nodeString,
-      pageContext: parentHeading,
-    };
   case 'Errors':
-    const headingNode = stripBadge(toString(findBefore(root, findBefore(root, node, 'heading'), 'heading')));
     return {
-      title: `${headingNode} ${nodeString}`,
-      anchor: nodeString,
-      pageContext: headingNode,
+      title: `${currentH2Heading} ${nodeString}`,
+      anchor: node.properties.id || nodeString,
+      pageContext: currentH2Heading,
     };
   default:
+    let description;
+    try {
+      description = toString(findAfter(root, node, isParagraph));
+    } catch (err) {
+      description = undefined;
+    }
     return {
       title: nodeString,
-      description: toString(findAfter(root, node, 'paragraph')),
+      description,
       anchor: nodeString,
     };
   }
@@ -47,14 +49,21 @@ function formatSearch({ node, root }) {
 
 function extractSections(root) {
   const sections = [];
-  visit(root, 'heading', (node) => {
-    sections.push(formatSearch({ node, root }));
+  let currentH2Heading = '';
+  visit(root, 'element', (node) => {
+    if (isH2(node)) {
+      currentH2Heading = toString(node);
+      sections.push(formatSearch({ node, root }));
+    }
+    if (isH3(node)) {
+      sections.push(formatSearch({ node, root, currentH2Heading }));
+    }
   });
 
   return sections;
 }
 
-function remarkExtractSections() {
+function rehypeExtractSections() {
   return (node, file) => {
     file.data.sections = extractSections(node);
   };
@@ -63,30 +72,18 @@ function remarkExtractSections() {
 async function createFlexsearchIndexData() {
   let id = 0;
   const indexData = {};
-  const processor = unified()
-    .use(remarkParse)
-    .use(remarkExtractSections)
-    .use(remarkHtml);
+  const processor = rehype().use(rehypeExtractSections);
 
-  for (const filepath of await promisify(glob)('src/content/**/*.{md,mdx}')) {
-    const href = filepath.replace(/(src\/content)|\.(mdx?)/g, '');
-    const { data: frontMatter, content } = grayMatter(await fs.readFile(filepath));
-    const path = [...frontMatter.nav.path.split('/'), frontMatter.nav.title ?? frontMatter.title];
-
-    // Add the top level heading and it's description to the index
-    indexData[id++] = {
-      href,
-      path,
-      title: stripBadge(frontMatter.title),
-      description: frontMatter.description,
-    };
+  for (const filepath of await promisify(glob)('dist/**/index.html')) {
+    const href = filepath.replace(/(dist)|index\.html/g, '');
+    const content = await fs.readFile(filepath, 'utf-8');
 
     const vfile = await processor.process(content);
 
     // Add all other headings and their descriptions to the index
     vfile.data.sections.forEach(({ title, description, anchor, pageContext }) => {
       indexData[id++] = {
-        path: pageContext ? path.concat(pageContext) : path,
+        // path: pageContext ? path.concat(pageContext) : path,
         title,
         description,
         href: `${href}#${slugify(anchor)}`,
@@ -94,12 +91,14 @@ async function createFlexsearchIndexData() {
     });
   }
 
-  await fs.writeFile('public/index-data.json', JSON.stringify(indexData));
+  await fs.writeFile('dist/index-data.json', JSON.stringify(indexData));
 }
 
-export default function flexsearchPlugin() {
+export default function flexsearch() {
   return {
     name: 'flexsearch',
-    options: async () => await createFlexsearchIndexData(),
+    hooks: {
+      'astro:build:done': async () => await createFlexsearchIndexData(),
+    }
   };
 };
