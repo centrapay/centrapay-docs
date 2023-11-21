@@ -42,97 +42,99 @@ sequenceDiagram
   end
 ```
 
-1. **Create a token collection**
+1. **Create Collection**
 
    You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
-<CodePanel title="Request" method="POST" path="/api/collections">
-```bash
-curl -X POST https://service.centrapay.com/api/collections \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Bread",
-    "accountId": "T3y6hogYA4d612BExypWYH",
-    "tokenExpiresAfter": {
-      "period": "month",
-      "duration": "1"
-    },
-    "maxValue": {
-      "currency": "NZD",
-      "amount": "400"
-    },
-    "type": "product"
-  }'
-```
-</CodePanel>
+    <CodePanel title="Request" method="POST" path="/api/collections">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/collections \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "name": "Bread",
+          "accountId": "T3y6hogYA4d612BExypWYH",
+          "tokenExpiresAfter": {
+            "period": "month",
+            "duration": "1"
+          },
+          "maxValue": {
+            "currency": "NZD",
+            "amount": "400"
+          },
+          "type": "product"
+        }'
+      ```
+    </CodePanel>
 
-2. **Create a redemption condition** for each merchant, using the collection Id from step 1
+2. **Create Redemption Condition** for each merchant, using the collection Id from step 1
 
    Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
 
-<CodePanel title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
-```bash
-curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "merchantId": "36EALpZ89XpShxM2Ee9sXT",
-    "allowedProducts": [
-      {
-        "sku": "100001",
-        "name": "White Bread",
-        "maxValue": {
-          "currency": "NZD",
-          "amount": "400"
-        }
-      },
-      {
-        "sku": "100002",
-        "name": "Sourdough Bread",
-        "maxValue": {
-          "currency": "NZD",
-          "amount": "800"
-        }
-      }
-    ]
-  }'
-```
-</CodePanel>
+    <CodePanel title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+          "allowedProducts": [
+            {
+              "sku": "100001",
+              "name": "White Bread",
+              "maxValue": {
+                "currency": "NZD",
+                "amount": "400"
+              }
+            },
+            {
+              "sku": "100002",
+              "name": "Sourdough Bread",
+              "maxValue": {
+                "currency": "NZD",
+                "amount": "800"
+              }
+            }
+          ]
+        }'
+      ```
+    </CodePanel>
 
 3a. **Create tokens then send to users**
 
-   Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
+  <ul>
+    Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
 
-<CodePanel title="Request" method="POST" path="/api/tokens">
-```bash
-curl -X POST https://service.centrapay.com/api/tokens \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
-    "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
-  }'
-```
-</CodePanel>
+      <CodePanel title="Request" method="POST" path="/api/tokens">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/tokens \
+        -H "X-Api-Key: $api_key" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+          "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+        }'
+      ```
+      </CodePanel>
 
-To send tokens to users, see [Sending Assets](/guides/loading-and-sending-assets/#sending-assets)
-
-
+    To send tokens to users, see [Sending Assets](/guides/loading-and-sending-assets/#sending-assets)
+  </ul>
 
 3b. **Create tokens into user accounts**
 
-   To create tokens directly into a user account, call our [Create Token](/api/tokens#create-token) endpoint and include the user’s accountId in your request.
+  <ul>
+    To create tokens directly into a user account, call our [Create Token](/api/tokens#create-token) endpoint and include the user’s accountId in your request.
 
-<CodePanel title="Request" method="POST" path="/api/tokens">
-```bash
-curl -X POST https://service.centrapay.com/api/tokens \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
-    "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
-    "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
-  }'
-```
-</CodePanel>
+    <CodePanel title="Request" method="POST" path="/api/tokens">
+    ```bash
+    curl -X POST https://service.centrapay.com/api/tokens \
+      -H "X-Api-Key: $api_key" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+        "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+        "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
+      }'
+    ```
+    </CodePanel>
+  </ul>
