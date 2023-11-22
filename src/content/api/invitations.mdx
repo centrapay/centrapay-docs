@@ -17,7 +17,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ## Invitation Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -93,7 +92,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
 ## Params Model
 
-### Attributes
 
 <Properties>
   <Property name="role" type="string">
@@ -115,7 +113,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
   This endpoint allows you to create an Invitation.
 
-  ### Attributes
   <Properties>
     <Property name="type" type="string" required>
       The type of invitation. Supported values are `account-membership`.
@@ -142,8 +139,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ACCOUNT_TYPE">
       The resourceId is associated with an account with a non `org` type.
     </Error>
@@ -190,8 +186,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
   This endpoint allows you to retrieve an Invitation by code.
 
-  ### Attributes
-  No attributes.
 
   <RequestCodePanel slot="code-examples" filename="invitations-get-by-code" />
 
@@ -224,8 +218,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
   This endpoint allows you list Invitations for an Account.
 
-  ### Attributes
-  No attributes.
 
   <RequestCodePanel slot="code-examples" filename="invitations-list-by-accountId" />
 
@@ -286,7 +278,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
   This endpoint allows you to accept an Invitation.
 
-  ### Attributes
   <Properties>
     <Property name="code" type="string" required>
       The Invitation code.
@@ -297,8 +288,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVITATION_EXPIRED">
       The Invitation is expired.
     </Error>
@@ -351,11 +341,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 
   This endpoint allows you to revoke an Invitation.
 
-  ### Attributes
-  No attributes
-
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVITATION_EXPIRED">
       The Invitation is expired.
     </Error>

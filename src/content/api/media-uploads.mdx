@@ -13,7 +13,6 @@ import CodePanel from '../../components/CodePanel.astro';
 
 ## Media Upload Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -63,7 +62,6 @@ import CodePanel from '../../components/CodePanel.astro';
 
   This endpoint allows you to upload a media file to Centrapay. It returns a presigned URL that can be used to download the media file.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       The Media Upload's owning Centrapay Account id.
@@ -112,8 +110,6 @@ import CodePanel from '../../components/CodePanel.astro';
 
   This endpoint allows you to retrieve the upload location of a media file.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/media-uploads/{mediaUploadId}/location">
     ```bash

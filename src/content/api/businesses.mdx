@@ -16,7 +16,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
 ## Business Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -101,7 +100,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
 ## Tax Number Model
 
-### Attributes
 
 <Properties>
   <Property name="value" type="string">
@@ -123,7 +121,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint allows you to create a new Business. If `accountId` is not provided when creating a Business, then a new org account will be created and associated to the Business.
 
-  ### Attributes
   <Properties>
     <Property name="nzbn" type="string" required>
       The unique NZBN identifier.
@@ -142,8 +139,7 @@ A Business represents a company registered with the New Zealand Companies Office
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ACCOUNT">
       Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region.
     </Error>
@@ -203,7 +199,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint allows you to update a Business.
 
-  ### Attributes
   <Properties>
     <Property name="taxNumber" type="object">
       The value-added tax configuration.
@@ -214,8 +209,7 @@ A Business represents a company registered with the New Zealand Companies Office
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ACCOUNT">
       Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region.
     </Error>
@@ -275,8 +269,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint allows you to retrieve a Business by account id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/business">
     ```bash
@@ -314,8 +306,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint returns a list of companies that match the queried param on company name, nzbn number or company number. Results are [paginated](/api/pagination) and ordered by relevance.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/nzbn-search">
     ```bash
@@ -350,8 +340,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint allows you to retrieve a Business by account id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/nzbn/{nzbn}">
     ```bash
@@ -402,7 +390,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
   This endpoint returns allows you to set the [onboarding status](#onboarding-statuses) of a Business.
 
-  ### Attributes
   <Properties>
     <Property name="onboardingStatus" type="crn">
       The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.

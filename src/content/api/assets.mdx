@@ -28,7 +28,6 @@ All assets have the following fields along with the additional fields that are
 specific to its category. Assets which don't have a category are considered <Badge type="experimental" />
  and the model may change.
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -78,7 +77,6 @@ and does not expire.
 
 Money assets have the following attributes along with the base asset fields.
 
-### Attributes
 
 <Properties>
   <Property name="currency" type="string">
@@ -109,7 +107,6 @@ entirety.
 
 Gift cards have the following attributes along with the base asset fields.
 
-### Attributes
 
 <Properties>
   <Property name="issuer" type="string">
@@ -177,7 +174,6 @@ Tokens are assets which can only be spent in full. Every token is associated wit
 
 Tokens have the following attributes along with the base asset fields.
 
-### Attributes
 
 <Properties>
   <Property name="collectionId" type="string">
@@ -229,7 +225,6 @@ The `otherParty` is optionally provided only on transactions of type
 `increment-balance` and `decrement-balance`. Values may include bank account
 number.
 
-### Attributes
 
 <Properties>
   <Property name="ref" type="string">
@@ -289,8 +284,6 @@ number.
 >
   ## Get Asset
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}">
   ```bash
@@ -330,8 +323,6 @@ number.
 >
   ## Get Asset Summary
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/summary">
     ```bash
@@ -363,7 +354,6 @@ number.
 
   Returns a [paginated](/api/pagination) list of Assets for an account. This will not return archived assets.
 
-  ### Attributes
   <Properties>
     <Property name="externalId" type="string">
       The asset identifier from the issuing system.
@@ -440,8 +430,6 @@ number.
 
   Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
 
-  ### Attributes
-  No Attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/transactions">
     ```bash
@@ -515,8 +503,6 @@ number.
 
   Archive supported asset types by asset id. Currently only gift cards may be archived.
 
-  ### Attributes
-  No Attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/assets/{assetId}/archive">
     ```bash
@@ -545,8 +531,7 @@ number.
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="UNSUPPORTED_ASSET_TYPE">
       Asset type can not be archived
     </Error>

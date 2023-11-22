@@ -14,7 +14,6 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
 ## API Key Model
 
-### Attributes
 
 <Properties>
   <Property name="accountId" type="string">
@@ -64,7 +63,6 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
   This endpoint allows you to create an API key.
 
-  ### Attributes
 
   <Properties>
     <Property name="name" type="string" required>
@@ -117,8 +115,6 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
   This endpoint allows you to list all API Keys for an Account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/api-keys">
     ```bash
@@ -168,7 +164,6 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
   This endpoint allows you to enable or disable an API key.
 
-  ### Attributes
   <Properties>
     <Property name="enabled" type="boolean" required>
       Flag indicating the API Key is usable for authentication.

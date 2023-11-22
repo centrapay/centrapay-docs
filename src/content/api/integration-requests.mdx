@@ -16,7 +16,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
 ## Integration Request Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -115,7 +114,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to create an Integration Request.
 
-  ### Attributes
   <Properties>
     <Property name="merchantId" type="string" required>
       The [Merchant](/api/merchants) id for the Integration Request.
@@ -182,8 +180,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to get an Integration Request.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}">
     ```bash
@@ -285,7 +281,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to supply configuration values for the Integration Request.
 
-  ### Attributes
   <Properties>
     <Property name="terminalId" type="string">
       Epay terminalId for the Integration Request. Required if type is `epay`.
@@ -335,8 +330,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to get the configuration values for the Integration Request.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}/configs">
     ```bash
@@ -365,8 +358,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to activate an Integration Request.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}/activate">
     ```bash
@@ -395,8 +386,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INTEGRATION_PARAM_MISSING">
       Integration Request needs updating with the required parameters before activating.
     </Error>
@@ -418,8 +408,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to delete an Integration Request.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}">
     ```bash

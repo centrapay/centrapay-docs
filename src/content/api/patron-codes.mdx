@@ -15,7 +15,6 @@ A Patron Code is an alternative to presenting a QR code where that option isn’
 
 ## Patron Code Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -101,8 +100,6 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
   This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests#get-a-payment-request-linked-to-a-patron-code) using the transacting APIs.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/patron-codes">
     ```bash
@@ -135,8 +132,6 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
   This endpoint allows you to retrieve a Patron Code by id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/patron-codes/{patronCodeId}">
     ```bash
@@ -169,11 +164,8 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
   This endpoint allows you to retrieve a Patron Code by barcode.
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="CHECKSUM_FAILED">
       Luhn checksum digit doesn't pass.
     </Error>

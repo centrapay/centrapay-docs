@@ -31,7 +31,6 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
 
 ## Payment Request Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -160,7 +159,6 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
 
 ## Payment Option Model
 
-### Attributes
 
 <Properties>
   <Property name="assetType" type="string">
@@ -189,7 +187,6 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
 If a Payment Request contains a `centrapay.token.*` Payment Option, an array of Accepted Collections will be present inside the `centrapay.token` Payment Option.
 The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -214,7 +211,6 @@ Payment Request being cancelled.
 Conditions can either be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition). If a condition is declined,
 the Payment Request will be cancelled.
 
-### Attributes
 
 <Properties>
   <Property name="id" type="bignumber">
@@ -241,7 +237,6 @@ The currency and units for a Line Item price will be consistent with the Payment
 Line items can include a discount amount.
 A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
 
-### Attributes
 
 <Properties>
   <Property name="name" type="string">
@@ -277,7 +272,6 @@ A discount that applies to multiple Line Items may be represented as a separate 
 
 ## Product Classification
 
-### Attributes
 
 <Properties>
   <Property name="type" type="string">
@@ -305,7 +299,6 @@ A discount that applies to multiple Line Items may be represented as a separate 
 
 The Paid By provides a summary of the transactions after the Payment Request was paid.
 
-### Attributes
 
 <Properties>
   <Property name="assetTotals" type="array">
@@ -315,7 +308,6 @@ The Paid By provides a summary of the transactions after the Payment Request was
 
 ## Asset Totals
 
-### Attributes
 
 <Properties>
   <Property name="type" type="string">
@@ -342,7 +334,6 @@ The Paid By provides a summary of the transactions after the Payment Request was
 A Payment Activity records a transaction that has happened on a Payment Request.
 Payment Activities are created when a Payment Request has been `created`, `paid`, `refunded`, `cancelled`, or `expired`.
 
-### Attributes
 
 <Properties>
   <Property name="type" type="string">
@@ -449,7 +440,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint allows you to create a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="configId" type="string" required>
       The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
@@ -589,8 +579,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
       The sum value of the line items did not equal the value of the Payment Request.
     </Error>
@@ -623,8 +612,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint allows you to retrieve a Payment Request.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}">
     ```bash
@@ -721,8 +708,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint returns the latest Payment Request that matches the given short code.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/short-code/{shortCode}">
     ```bash
@@ -765,8 +750,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="CHECKSUM_FAILED">
       Luhn checksum digit doesn't pass.
     </Error>
@@ -789,8 +773,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
   them to find the Payment Request and proceed to pay.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/me/patron-code-payment-request">
     ```bash
@@ -847,7 +829,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
   - Use `authorization` to authorize an external transaction.
 
-  ### Attributes
   <Properties>
     <Property name="assetType" type="string" required>
       An [Asset Type](/api/asset-types) reference.
@@ -908,8 +889,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ASSET_TYPE">
       Either the merchant is not configured with the provided asset type or the asset type does not exist.
     </Error>
@@ -954,7 +934,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint allows you to refund a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="value" type="monetary" required>
       The canonical value of the Payment Request. Must be less than 100000000 and positive.
@@ -1015,8 +994,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
       The sum value of the line items did not equal the value of the refund.
     </Error>
@@ -1067,8 +1045,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   Voiding a payment request will cancel the request and trigger any refunds if necessary.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/void">
     ```bash
@@ -1100,8 +1076,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="VOID_WINDOW_EXCEEDED">
       The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use [Refund](#refund-a-payment-request) endpoint to reverse the payment.
     </Error>
@@ -1142,8 +1117,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
   If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/release">
     ```bash
@@ -1176,8 +1149,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
       The Payment Request is not related to a Pre Auth.
     </Error>
@@ -1202,7 +1174,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   If our endpoint does not respond, you must retry until you get back a 200 or 403.
   If we recive 2 requests with the same `idempotencyKey`, we won't process the second and return the first response.
 
-  ### Attributes
   <Properties>
     <Property name="idempotencyKey" type="string" required>
       This is an identifier from your system to enforce uniqueness.
@@ -1299,8 +1270,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
       The Payment Request is not related to a Pre Auth.
     </Error>
@@ -1334,7 +1304,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Merchant.
   Results are [paginated](/api/pagination/) and ordered by descending activity created date.
 
-  ### Attributes
   <Properties>
     <Property name="merchantId" type="string" required>
       The id of the [Merchant](/api/merchants/) the Payment Request is on behalf of.
@@ -1465,8 +1434,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
   Results are ordered by descending activity created date.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/payment-requests/{paymentRequestId}/activities">
     ```bash
@@ -1549,8 +1516,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept">
     ```bash
@@ -1581,8 +1546,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-    ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="PATRON_NOT_AUTHORIZED">
       The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition.
     </Error>
@@ -1606,8 +1570,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline">
     ```bash
@@ -1638,8 +1600,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     ```
   </CodePanel>
 
-    ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="PATRON_NOT_AUTHORIZED">
       The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to decline the condition.
     </Error>

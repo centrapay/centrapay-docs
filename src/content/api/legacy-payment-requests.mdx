@@ -23,7 +23,6 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
 
 ## Payment Request Model <Badge type="deprecated"/>
 
-### Attributes
 
 <Properties>
   <Property name="requestId" type="string">
@@ -98,7 +97,6 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
 
 ## Payment Options Model <Badge type="deprecated"/>
 
-### Attributes
 
 <Properties>
   <Property name="ledger" type="string">
@@ -122,7 +120,6 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
 
 ## Paid By Model <Badge type="deprecated"/>
 
-### Attributes
 
 <Properties>
   <Property name="transactionId" type="string">
@@ -163,7 +160,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   This endpoint allows you to create a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="amount" type="number" required>
       The amount in the minimum divisible units of the denominated asset that would satisfy the payment.
@@ -246,8 +242,7 @@ is returned with the payment request info as `payments[].ledger`.
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="CHECKSUM_FAILED">
       `patronCode` luhn checksum digit doesn’t pass.
     </Error>
@@ -274,7 +269,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   This endpoint allows you to receive Payment Request information.
 
-  ### Attributes
   <Properties>
     <Property name="requestId" type="string" required>
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
@@ -332,7 +326,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   This endpoint allows you to pay a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="requestId" type="string" required>
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
@@ -383,8 +376,7 @@ is returned with the payment request info as `payments[].ledger`.
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="REQUEST_EXPIRED">
       Action cannot be completed because the request has expired.
     </Error>
@@ -426,7 +418,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   This endpoint allows you to cancel a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="requestId" type="string" required>
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
@@ -460,8 +451,7 @@ is returned with the payment request info as `payments[].ledger`.
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="REQUEST_NOT_FOUND">
       The provided request doesn’t exist.
     </Error>
@@ -485,7 +475,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   This endpoint allows you to void a Payment Request.
 
-  ### Attributes
   <Properties>
     <Property name="requestId" type="string" required>
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
@@ -510,12 +499,9 @@ is returned with the payment request info as `payments[].ledger`.
     ```
   </CodePanel>
 
-  ### Errors
-
-  Voiding a payment request can cause it to be cancelled or refunded. Therefore, this endpoint can give the same error responses as [requests.cancel](#cancel-a-payment-request) and [transactions.refund](#refund-a-transaction).
+  <Properties heading="Errors">
+    Voiding a payment request can cause it to be cancelled or refunded. Therefore, this endpoint can give the same error responses as [requests.cancel](#cancel-a-payment-request) and [transactions.refund](#refund-a-transaction).
   After 24 hours voiding a payment request will be disallowed, however a refund can still be made against the payment request if it has been paid successfully.
-
-  <Properties>
     <Error code="400" message="REQUEST_NOT_FOUND">
       The provided request doesn’t exist.
     </Error>
@@ -560,7 +546,6 @@ is returned with the payment request info as `payments[].ledger`.
 
   The legacy refund endpoint cannot be used to refund Pre Auth Payment Requests with Confirmations. Please use the [current refund endpoint](/api/payment-requests#refund-a-payment-request) instead.
 
-  ### Attributes
   <Properties>
     <Property name="transactionId" type="string" required>
       The transaction to refund. The transaction id for a payment can be obtained from a webhook notification or from [requests.info](#get-a-payment-request).

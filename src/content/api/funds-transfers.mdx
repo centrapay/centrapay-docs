@@ -25,7 +25,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to create a topup.
 
-  ### Attributes
   <Properties>
     <Property name="amount" type="bignumber" required>
       Total amount of the transaction in cents
@@ -40,8 +39,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
       The wallet and the bank account for the top up request do not belong to the same account.
     </Error>
@@ -111,8 +109,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to retrieve a Top Up by id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups/{topupId}">
     ```bash
@@ -148,8 +144,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the Top Ups for authorized accounts.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups">
     ```bash
@@ -198,8 +192,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the Top Ups for an account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/topups">
     ```bash
@@ -249,7 +241,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to create a withdrawal.
 
-  ### Attributes
   <Properties>
     <Property name="amount" type="bignumber" required>
       Total amount of the transaction in cents
@@ -264,8 +255,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
       The wallet and the bank account for the withdrawal request do not belong to the same account.
     </Error>
@@ -324,11 +314,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to retrieve a Withdrawal by id.
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH">
       The wallet and the bank account for the withdrawal request do not belong to the same account.
     </Error>
@@ -381,8 +368,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the withdrawals for an Account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/withdrawals">
     ```bash
@@ -434,11 +419,8 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to abort a Funds Transfer.
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="ABORT_WITHDRAWAL_NOT_SUPPORTED">
       Aborting funds transfers of type `withdrawal` is not supported.
     </Error>

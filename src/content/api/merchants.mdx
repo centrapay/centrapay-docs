@@ -17,7 +17,6 @@ which define the payment methods available for a Payment Request.
 
 ## Merchant Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -99,7 +98,6 @@ which define the payment methods available for a Payment Request.
 
 ## Settlement Config Model
 
-### Attributes
 
 <Properties>
   <Property name="bankAccountId" type="string">
@@ -111,7 +109,6 @@ which define the payment methods available for a Payment Request.
 
 ## Merchant Search Result Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -135,7 +132,6 @@ which define the payment methods available for a Payment Request.
 
 ## Accepted Asset Model
 
-### Attributes
 
 <Properties>
   <Property name="assetType" type="string">
@@ -151,7 +147,6 @@ which define the payment methods available for a Payment Request.
 
 ## Product Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -169,7 +164,6 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to create a Merchant.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       Id of Merchant's owning Centrapay account.
@@ -196,8 +190,7 @@ which define the payment methods available for a Payment Request.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_ACCOUNT_MISMATCH">
       The bank account in the settlement config does not belong to the same account.
     </Error>
@@ -249,8 +242,6 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to retrieve a Merchant by id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}">
     ```bash
@@ -287,8 +278,6 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/merchants">
     ```bash
@@ -341,7 +330,6 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to update a Merchant.
 
-  ### Attributes
   <Properties>
     <Property name="name" type="string">
       Merchant name.
@@ -356,8 +344,7 @@ which define the payment methods available for a Payment Request.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_ACCOUNT_MISMATCH">
       The bank account in the settlement config does not belong to the same account.
     </Error>
@@ -422,7 +409,6 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to set the onboarding status of a Merchant.
 
-  ### Attributes
   <Properties>
     <Property name="onboardingStatus" type="string" required>
       The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
@@ -569,8 +555,6 @@ which define the payment methods available for a Payment Request.
 
   Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants">
     ```bash

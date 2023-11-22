@@ -16,7 +16,6 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 ## Merchant Config Model
 
-### Attributes
 
 <Properties>
   <Property name="paymentOptions" type="array">
@@ -48,7 +47,6 @@ A Merchant Config defines the available payment options for paying a [Payment Re
 
 ## Payment Option Config Model
 
-### Attributes
 <Properties>
   <Property name="type" type="string" required>
     Type of payment method. See supported payment types below.
@@ -97,7 +95,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to create a Merchant Config for a Merchant.
 
-  ### Attributes
   <Properties>
     <Property name="paymentOptions" type="array" required>
       A list of [Payment Option Configs](#payment-option-config-model).
@@ -108,8 +105,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_WALLET_TYPE">
       `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
     </Error>
@@ -182,8 +178,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to retrieve a Merchant Config by id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/configs/{configId}">
     ```bash
@@ -222,8 +216,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to retrieve a list of Merchant Configs.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/configs">
     ```bash
@@ -277,7 +269,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to update a Merchant Config.
 
-  ### Attributes
   <Properties>
     <Property name="paymentOptions" type="array" required>
       A list of [Payment Option Configs](#payment-option-config-model).
@@ -288,8 +279,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_WALLET_TYPE">
       `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
     </Error>
