@@ -68,7 +68,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
   </Property>
 
   <Property name="refreshToken" type="string">
-    A long lived access token for access to a third-party system. Required for type `account-consent` and `payment-consent`.
+    A long lived access token for access to a third-party system. Required for type `account-information-consent` and `enduring-payment-consent`.
   </Property>
 
   <Property name="consentId" type="string">
@@ -78,11 +78,11 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
 ### Bank Account Approval Types
 
-|      Name       |                                                                                                                                      description                                                                                                                                      |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| settlement      | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved. |
-| account-consent | An `approved` Bank Account Approval of type `account-consent` provides an access token to read account details from a third-party.                                                                                                                                                    |
-| payment-consent | An `approved` Bank Account Approval of type `payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                      |
+|      Name                    |                                                                                                                                      description                                                                                                                                      |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| settlement                   | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved. |
+| account--information-consent | An `approved` Bank Account Approval of type `account-information-consent` provides an access token to read account details from a third-party.                                                                                                                                                    |
+| enduring-payment-consent     | An `approved` Bank Account Approval of type `enduring-payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                      |
 
 ---
 
@@ -202,7 +202,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
       "id": "bbab9a768921019cb856",
       "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
       "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "type": "account-consent",
+      "type": "account-information-consent",
       "status": "approved",
       "createdAt": "2021-11-08T21:52:39.915Z",
       "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
@@ -335,7 +335,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
           "accountId": "TEZiZWAtX6v1hJucU4fGKx",
           "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
           "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "account-consent",
+          "type": "account-information-consent",
           "status": "approved",
           "refreshToken": "tXC4dFm3yNAQbLrm4JxY6pynGoEG8vSJ",
           "consentId": "fFAoo-CoWZLea8-4dFm3yNAoWZLe"
@@ -348,7 +348,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
           "accountId": "TEZiZWAtX6v1hJucU4fGKx",
           "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
           "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "payment-consent",
+          "type": "enduring-payment-consent",
           "status": "approved",
           "refreshToken": "dAGLl8AfnNCGEKEmBm1FryaDyW1JBh28",
           "consentId": "4KYUx-ncFPg4a8-Ll8AfnNCcFPg4"
@@ -361,7 +361,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
           "accountId": "TEZiZWAtX6v1hJucU4fGKx",
           "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
           "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "account-consent",
+          "type": "account-information-consent",
           "status": "declined",
           "refreshToken": "rX3MNTxFwKIU2lhyZOrq87Aw74ASSHUM",
           "consentId": "rknrd-kYbBuBa8-MNTxFwKIYbBuB"
