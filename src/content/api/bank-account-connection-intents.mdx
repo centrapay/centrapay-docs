@@ -62,10 +62,10 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 
 ### Bank Account Connection Intent Types
 
-|      Name       |                                                                                               description                                                                                                |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| quartz-accounts | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. |
-| quartz-payment  | Initiates an authorization flow for authorizing access to create payments.                                                                                                                               |
+|      Name                   |                                                                                               description                                                                                                |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| account-information-consent | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. |
+| enduring-payment-consent    | Initiates an authorization flow for authorizing access to create payments.                                                                                                                               |
 
 ---
 
@@ -88,7 +88,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
 
     <Property name="bankAccountId" type="string">
-      The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `quartz-payment`.
+      The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `enduring-payment-consent`.
     </Property>
 
     <Property name="test" type="boolean">
@@ -110,7 +110,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
       -H "Content-Type: application/json" \
       -d '{
         "accountId": "uooxSens6ykJaim1Cu1Q55",
-        "type": "quartz-accounts",
+        "type": "account-information-consent",
         "test": true
       }'
     ```
@@ -121,7 +121,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     {
       "id": "3KVjuKW2CZCJeJVqPxwkX7",
       "accountId": "B4u4WZCu3joZFVWT3XjWW3",
-      "type": "quartz-accounts",
+      "type": "account-information-consent",
       "status": "created",
       "createdAt": "2022-03-31 02:56:29 UTC",
       "createdBy": "crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey",
