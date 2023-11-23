@@ -62,6 +62,51 @@ describe('transformToHarRequest', () => {
     expect(transformToHarRequest(data)).toEqual(expected);
   });
 
+  it('transforms request with query string', () => {
+    const data = {
+      method: 'GET',
+      path: '/example',
+      request: {
+        queryString: {
+          foo: 'bar',
+          baz: 'boo',
+        }
+      },
+    };
+
+    const expected = {
+      method: 'GET',
+      url: 'https://service.centrapay.com/example',
+      httpVersion: 'HTTP/2.0',
+      queryString: [
+        {
+          name: 'foo',
+          value: 'bar'
+        },
+        {
+          name: 'baz',
+          value: 'boo'
+        }
+      ],
+    };
+    expect(transformToHarRequest(data)).toEqual(expected);
+  });
+
+  it('can set custom base URL', () => {
+    const data = {
+      method: 'GET',
+      baseUrl: 'https://my.custom.url.me',
+      path: '/example',
+    };
+
+    const expected = {
+      method: 'GET',
+      url: 'https://my.custom.url.me/example',
+      httpVersion: 'HTTP/2.0',
+    };
+    expect(transformToHarRequest(data)).toEqual(expected);
+  });
+
   it('transforms request without headers', () => {
     const data = {
       method: 'GET',

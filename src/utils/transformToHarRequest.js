@@ -12,10 +12,15 @@ export default function transformToHarRequest(data) {
 
   const harObject = {
     method: data.method,
-    url: new URL(data.path, 'https://service.centrapay.com/').href,
+    url: new URL(data.path, data.baseUrl || 'https://service.centrapay.com/').href,
     httpVersion: 'HTTP/2.0',
-    headers: data.request?.headers && Object.entries(data.request.headers).map(([name, value]) => ({ name, value })),
   };
+  if (data.request?.headers) {
+    harObject.headers = Object.entries(data.request.headers).map(([name, value]) => ({ name, value }));
+  }
+  if (data.request?.queryString) {
+    harObject.queryString = Object.entries(data.request.queryString).map(([name, value]) => ({ name, value }));
+  }
   if (data.request?.payload) {
     harObject.postData = {
       mimeType: 'application/json',
