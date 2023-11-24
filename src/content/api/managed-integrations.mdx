@@ -16,7 +16,6 @@ A Managed Integration is an [Integration](/api/integrations)  which a third part
 
 ## Managed Integration Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -90,7 +89,6 @@ A Managed Integration is an [Integration](/api/integrations)  which a third part
 
 A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -132,7 +130,6 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   This endpoint allows you to create or update a Managed Integration.
 
-  ### Attributes
   <Properties>
     <Property name="enabled" type="boolean" required>
       Flag indicating whether the Managed Integration should become active or inactive.
@@ -147,8 +144,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="400" message="INVALID_PARAMS">
       Invalid [Params](#params) provided for Managed Integration type.
     </Error>
@@ -213,8 +209,6 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   This endpoint allows you to retrieve a Managed Integration by id.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/managed-integrations/{id}">
     ```bash

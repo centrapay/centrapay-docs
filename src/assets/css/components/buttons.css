@@ -1,7 +1,6 @@
 @layer components {
 
-  .btn,
-  button {
+  .btn {
     @apply
       rounded-full
       p-squish-2

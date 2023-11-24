@@ -16,7 +16,6 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
 
 ## Scanned Code Model
 
-### Attributes
 
 <Properties>
   <Property name="code" type="string">
@@ -50,7 +49,6 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
 
   This endpoint allows you to decode a scanned code.
 
-  ### Attributes
   <Properties>
     <Property name="code" type="string" required>
       The utf8 representation of data decoded from what was scanned.
@@ -78,8 +76,7 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="UNKNOWN_CODE">
       The code doesn’t exist or is no longer active in our system.
     </Error>

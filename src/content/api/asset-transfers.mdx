@@ -23,7 +23,6 @@ message fields are scrubbed to avoid storing PII.
 
 ## Asset Transfer Model
 
-### Attributes
 <Properties>
   <Property name="id" type="string">
     The unique identifier.
@@ -130,7 +129,6 @@ Asset Transfer goes through different lifecycle stages.
   Some assets can be transferred without supplying a recipient. A `url` field will be
   returned in these cases. The `url` will link to a page to claim the asset.
 
-  ### Attributes
   <Properties>
     <Property name="assetId" type="string" required>
       Id of a discrete asset to transfer or wallet to draw from.
@@ -161,8 +159,7 @@ Asset Transfer goes through different lifecycle stages.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INSUFFICIENT_WALLET_BALANCE">
       The value of the asset-transfer exceeds the balance on the wallet.
     </Error>
@@ -226,8 +223,6 @@ Asset Transfer goes through different lifecycle stages.
 >
   ## Get an Asset Transfer
 
-  ### Attributes
-  No Attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/asset-transfers/{assetTransferId}">
   ```bash
@@ -266,8 +261,6 @@ Asset Transfer goes through different lifecycle stages.
 >
   ## Get Asset Transfer Summary
 
-  ### Attributes
-  No Attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/asset-transfers/{assetTransferId}/summary">
   ```bash
@@ -300,11 +293,8 @@ Asset Transfer goes through different lifecycle stages.
 
   Claim the asset transfer for the caller's authorised account.
 
-  ### Attributes
-  No Attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="ASSET_TRANSFER_INVALID_RECIPIENT">
       The asset transfer already has a recipient defined through the `recipientAlias` field and cannot be claimed with this API.
     </Error>
@@ -356,8 +346,6 @@ Asset Transfer goes through different lifecycle stages.
 
   New accounts should call this endpoint to allocate assets that you've been sent.
 
-  ### Attributes
-  No Attributes.
 
   <CodePanel slot="code-examples" title="Request" method="POST" path="/api/me/resolve-claimable-assets">
     ```bash
@@ -384,7 +372,6 @@ Asset Transfer goes through different lifecycle stages.
 
   Returns a [paginated](/api/pagination/) list of Asset Transfers.
 
-  ### Attributes
   <Properties>
     <Property name="recipientAccountId" type="string">
       The Centrapay Account id of the recipient.
@@ -437,11 +424,7 @@ Asset Transfer goes through different lifecycle stages.
 >
   ## Cancel an Asset Transfer
 
-  ### Attributes
-  No attributes
-
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="INVALID_ASSET_TRANSFER_STATUS">
       The asset transfer status is invalid and cannot be cancelled.
     </Error>

@@ -4,10 +4,12 @@ import Badge from '../components/Badge.astro';
 const { code, message } = Astro.props;
 ---
 
-<li class="not-prose m-0 p-0 flex flex-col py-4 space-y-2 type-content-primary">
+<li class="not-prose m-0 p-0 flex flex-col py-4 first:pt-0 type-content-primary">
   <div class="flex flex-row items-center space-x-3">
     <h4 class="font-mono" id={message}>{message}</h4>
     <Badge text={code}></Badge>
   </div>
-  <slot />
+  <div data-expandable-slot class="transition-opacity duration-500 collapsed">
+    <slot />
+  </div>
 </li>

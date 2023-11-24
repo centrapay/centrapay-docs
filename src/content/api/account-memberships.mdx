@@ -20,7 +20,6 @@ some or all of the operations and resources within the account.
 
 A Member contains extended information about a user's access to an account.
 
-### Attributes
 
 <Properties>
   <Property name="accountId" type="string">
@@ -90,7 +89,6 @@ A Member contains extended information about a user's access to an account.
 
   This endpoint allows you to add or update the membership of a user to an account.
 
-  ### Attributes
   <Properties>
     <Property name="userId" type="string" required>
       The id of the user the Membership belongs to.
@@ -139,8 +137,6 @@ A Member contains extended information about a user's access to an account.
 
   This endpoint allows you to retrieve the list memberships to an account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/members">
     ```bash
@@ -189,11 +185,8 @@ A Member contains extended information about a user's access to an account.
 
   This endpoint allows you to revoke a users membership to an account.
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="LAST_OWNER_NOT_REVOKABLE">
       The last remaining membership to an account cannot be revoked.
     </Error>
@@ -217,8 +210,6 @@ A Member contains extended information about a user's access to an account.
 
   This endpoint allows you to retrieve the accounts that the authenticated subject is a member of.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/account-memberships">
     ```bash
@@ -251,8 +242,6 @@ A Member contains extended information about a user's access to an account.
 
   This endpoint allows you to retrieve the accounts that a user is a member of.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/users/{userId}/account-memberships">
     ```bash

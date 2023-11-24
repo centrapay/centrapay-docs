@@ -31,7 +31,7 @@ import Badge from "./Badge.astro";
     <button
       id="copy-button"
       data-copy-button
-      class="type-overline py-2 px-3 bg-interactive-secondary hover:bg-interactive-secondary-hover text-content-inverse-primary transition hover:scale-105 active:scale-100 active:transition-none"
+      class="btn type-overline py-2 px-3 bg-interactive-secondary hover:bg-interactive-secondary-hover text-content-inverse-primary transition hover:scale-105 active:scale-100 active:transition-none"
     >
       Copy
     </button>
@@ -39,17 +39,7 @@ import Badge from "./Badge.astro";
 </div>
 
 <script>
-  function getElement(
-    selector,
-    Constructor,
-    parent: ParentNode = document,
-  ) {
-    const element = parent.querySelector(selector);
-    if (!(element instanceof Constructor)) {
-      throw new Error(`Element is not of type ${Constructor.name}: ${selector}`);
-    }
-    return element;
-  }
+  import getElement from '../utils/getElement';
 
   for (const codeBlock of document.querySelectorAll('[data-code-block]')) {
     const code = getElement('[data-code]', HTMLElement, codeBlock);

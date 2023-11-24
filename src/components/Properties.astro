@@ -1,8 +1,59 @@
-<div class="my-6">
+---
+const { heading = 'Attributes' } = Astro.props;
+---
+
+<div data-attributes class="my-6">
+  <div class="flex justify-between items-center not-prose py-2">
+    <h3 class="type-subtitle-1">{ heading }</h3>
+    <button data-expand-button class="text-content-tertiary type-overline hover:text-content-secondary">
+      Expand all
+    </button>
+  </div>
   <ul
+    data-attribute-list
     role="list"
-    class="m-0 list-none divide-y divide-zinc-900/5 p-0"
+    class="m-0 list-none border-y border-outline-transparent divide-y divide-outline-transparent p-0 pt-4"
   >
     <slot />
   </ul>
 </div>
+
+<script>
+  import getElement from '../utils/getElement';
+
+  for (const attributesSection of document.querySelectorAll('[data-attributes]')) {
+    const button = getElement('[data-expand-button]', HTMLButtonElement, attributesSection);
+    const attributeList = getElement('[data-attribute-list]', HTMLUListElement, attributesSection);
+    button.addEventListener('click', () => {
+      button.textContent = button.innerText === 'EXPAND ALL' ? 'COLLAPSE ALL' : 'EXPAND ALL';
+      const expandables = attributeList.querySelectorAll('[data-expandable-slot]');
+      for (const expandable of expandables) {
+        if (expandable.classList.contains('collapsed')) {
+          expandable.classList.remove('collapsed');
+          expandable.classList.add('expanded');
+        } else {
+          expandable.classList.remove('expanded');
+          expandable.classList.add('collapsed');
+        }
+      }
+    });
+  }
+</script>
+
+<style is:global>
+  .expanded {
+    @apply
+      pt-2
+      opacity-100
+      scale-y-100
+    ;
+  }
+
+  .collapsed {
+    @apply
+      h-0
+      opacity-0
+      scale-y-0
+    ;
+  }
+</style>

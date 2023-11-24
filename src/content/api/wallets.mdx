@@ -20,7 +20,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
 ## Wallet Model
 
-### Attributes
 
 <Properties>
   <Property name="id" type="string">
@@ -76,7 +75,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
 ## Wallet Transaction Model
 
-### Attributes
 
 <Properties>
   <Property name="activityNumber" type="BigNumber">
@@ -142,7 +140,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
   This endpoint allows you to create a Wallet.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       The Wallets's owning Centrapay [Account](/api/accounts/) id.
@@ -189,8 +186,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
     ```
   </CodePanel>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="ACCOUNT_MAX_WALLETS_REACHED">
       The maximum number of wallets for the given ledger has been reached.
     </Error>
@@ -208,8 +204,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
   This endpoint allows you to list authorized Wallets.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets">
     ```bash
@@ -253,8 +247,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
   This endpoint allows you to list Wallet Transactions.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets/{walletId}/transactions">
     ```bash

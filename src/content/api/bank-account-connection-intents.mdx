@@ -77,7 +77,6 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 
   This endpoint allows you to create a Bank Account Connection Intent.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       The id of the owning [Account](/api/accounts/).
@@ -96,8 +95,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="LIVENESS_MISMATCH">
       Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
     </Error>
@@ -144,7 +142,6 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 
   This endpoint allows you to authorize a Bank Account Connection Intent.
 
-  ### Attributes
   <Properties>
     <Property name="code" type="string" required>
       Authorization code returned from third-party.

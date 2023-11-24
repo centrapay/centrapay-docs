@@ -23,7 +23,6 @@ bank transaction can be used to verify a bank account.
 
 ## Bank Account Model
 
-### Attributes
 <Properties>
   <Property name="id" type="string">
     The Bank Account's unique identifier.
@@ -110,7 +109,6 @@ Types of bank accounts to allow access to different [Asset Types](/api/asset-typ
 A summary of the [Bank Account Approvals](/api/bank-account-approvals) for a Bank Account.
 There is one object per type of Bank Account Approval, which provides a summary of the approval status.
 
-### Attributes
 <Properties>
   <Property name="type" type="string">
     The type of Bank Account Approval Summary.
@@ -131,7 +129,6 @@ There is one object per type of Bank Account Approval, which provides a summary 
 
 The Bank Account balance, retrieved using Open Banking flows. The supported Bank Account type is `quartz`.
 
-### Attributes
 <Properties>
   <Property name="bankAccountId" type="string">
     The unique identifier of the Centrapay Bank Account.
@@ -160,7 +157,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   `phone`, `fullName` and `emailAddress` are all required to create a direct-debit authority. This is required to be able to Top Up a Bank Account.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       The id of the owning Centrapay [Account](/api/accounts).
@@ -195,8 +191,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_ACCOUNT_LIMIT_EXCEEDED">
       The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
     </Error>
@@ -260,7 +255,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
 
-  ### Attributes
   <Properties>
     <Property name="phoneNumber" type="string" required>
     The user's phone number.
@@ -275,8 +269,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="DIRECT_DEBIT_ALREADY_AUTHORIZED">
       This bank authority cannot be changed as all fields have been set.
     </Error>
@@ -331,8 +324,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   This endpoint allows you to retrieve information about a Bank Account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}">
     ```bash
@@ -381,11 +372,8 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   This endpoint allows you to retrieve the [balance](#bank-account-balance-model) of a Bank Account.
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_BALANCE_NOT_SUPPORTED">
       The [Bank Account Type](#bank-account-type) does not support retrieval of a balance using Open Banking flows.
     </Error>
@@ -424,15 +412,13 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   Verification codes show up on statements when a user makes withdrawals and deposits. To verify an account, you need to direct the user to make a Top Up or Withdrawal and then check their statement.
 
-  ### Attributes
   <Properties>
     <Property name="verificationCode" type="string" required>
     	The code on the user’s bank statement.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_ACCOUNT_ALREADY_VERIFIED">
       The bank account is already verified.
     </Error>
@@ -481,15 +467,13 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   If you're creating new interfaces, please work with [Verify Bank Account](#verify-bank-account).
 
-  ### Attributes
   <Properties>
     <Property name="verificationCode" type="string" required>
     	The code on the user’s bank statement.
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_ACCOUNT_ALREADY_VERIFIED">
       The bank account is already verified.
     </Error>
@@ -538,8 +522,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   This endpoint allows you to list the Bank Accounts for an account.
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/bank-accounts">
     ```bash
@@ -608,8 +590,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
 
-  ### Attributes
-  No attributes.
 
   <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-authorities">
     ```bash
@@ -669,7 +649,6 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   Creating a Bank Authority both creates a new Bank Account and a direct debit authority. By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
 
-  ### Attributes
   <Properties>
     <Property name="accountId" type="string" required>
       The id of the owning Centrapay [Account](/api/accounts).
@@ -696,8 +675,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Property>
   </Properties>
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_AUTHORITY_LIMIT_EXCEEDED">
       The account already has the max amount of bank accounts.
     </Error>
@@ -754,11 +732,8 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   If you're creating new interfaces, please work with [Get Bank Account](#get-bank-account).
 
-  ### Attributes
-  No attributes.
 
-  ### Errors
-  <Properties>
+  <Properties heading="Errors">
     <Error code="403" message="BANK_AUTHORITY_LIMIT_EXCEEDED">
       The account already has the max amount of bank accounts.
     </Error>
