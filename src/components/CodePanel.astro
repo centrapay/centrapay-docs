@@ -66,10 +66,19 @@ import Badge from "./Badge.astro";
   }
 </script>
 
-<style>
+<style is:global>
   .copy-button-active {
     @apply
       bg-interactive-secondary-active
+    ;
+  }
+
+  .astro-code {
+    @apply
+      px-4
+      py-3
+      text-sm
+      flex
     ;
   }
 </style>
