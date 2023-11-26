@@ -18,7 +18,8 @@ describe('createEndpoint', () => {
     });
     expect(endpoint.method).toBe('POST');
     expect(endpoint.path).toBe('/api/test');
-    expect(endpoint.requests.curl).toMatchSnapshot();
+    expect(endpoint.requests.curl.lang).toBe('shell');
+    expect(endpoint.requests.curl.code).toMatchSnapshot();
   });
 
   it('creates a curl snippet without payload', () => {
@@ -32,7 +33,7 @@ describe('createEndpoint', () => {
         },
       }
     });
-    expect(endpoint.requests.curl).toMatchSnapshot();
+    expect(endpoint.requests.curl.code).toMatchSnapshot();
   });
 
   it('creates a curl snippet without headers or payload', () => {
@@ -40,8 +41,32 @@ describe('createEndpoint', () => {
       method: 'POST',
       path: '/api/test',
     });
-    expect(endpoint.requests.curl).toMatchSnapshot();
+    expect(endpoint.requests.curl.code).toMatchSnapshot();
   });
+
+  it('can have a custom base URL', () => {
+    const endpoint = createEndpoint({
+      method: 'GET',
+      baseUrl: 'https://my.custom.url.me',
+      path: '/example',
+    });
+    expect(endpoint.requests.curl.code).toContain('https://my.custom.url.me');
+  });
+
+  it('transforms request with query string', () => {
+    const endpoint = createEndpoint({
+      method: 'GET',
+      path: '/example',
+      request: {
+        queryString: {
+          foo: 'bar',
+          baz: 'boo',
+        }
+      },
+    });
+    expect(endpoint.requests.curl.code).toContain('foo=bar&baz=boo');
+  });
+
 
   const invalidScenarios = [
     {

@@ -5,7 +5,7 @@ nav:
   path: Reference/Digital Assets
   order: 3
 ---
-import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 Digital tokens are assets that can be exchanged for specific products or deals. Think a "Free coffee" coupon or a "50% off" voucher.
 Unlike assets such as gift cards or currency, tokens can only be spent in their entirety, all at once.
@@ -43,90 +43,23 @@ sequenceDiagram
 
     You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
-    <CodePanel title="Request" method="POST" path="/api/collections">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/collections \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "name": "Bread",
-          "accountId": "T3y6hogYA4d612BExypWYH",
-          "tokenExpiresAfter": {
-            "period": "month",
-            "duration": "1"
-          },
-          "maxValue": {
-            "currency": "NZD",
-            "amount": "400"
-          },
-          "type": "product"
-        }'
-      ```
-    </CodePanel>
+    <RequestCodePanel filename="collections-create" />
 
 2. **Create Redemption Condition** for each merchant, using the collection Id from step 1
 
     Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
 
-    <CodePanel title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "merchantId": "36EALpZ89XpShxM2Ee9sXT",
-          "allowedProducts": [
-            {
-              "sku": "100001",
-              "name": "White Bread",
-              "maxValue": {
-                "currency": "NZD",
-                "amount": "400"
-              }
-            },
-            {
-              "sku": "100002",
-              "name": "Sourdough Bread",
-              "maxValue": {
-                "currency": "NZD",
-                "amount": "800"
-              }
-            }
-          ]
-        }'
-      ```
-    </CodePanel>
+    <RequestCodePanel filename="collections-redemption-conditions-create" />
 
 3. **Create Token**
 
     Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
 
-      <CodePanel title="Request" method="POST" path="/api/tokens">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/tokens \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
-          "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b"
-        }'
-      ```
-      </CodePanel>
+    <RequestCodePanel filename="tokens-create" />
 
     To create tokens directly into a user account, call our [Create Token](/api/tokens#create-token) endpoint and include the user’s `accountId` in your request.
 
-    <CodePanel title="Request" method="POST" path="/api/tokens">
-      ```bash
-      curl -X POST https://service.centrapay.com/api/tokens \
-        -H "X-Api-Key: $api_key" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
-          "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
-          "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
-        }'
-      ```
-    </CodePanel>
+    <RequestCodePanel filename="tokens-create-with-accountId" />
 
 
 
