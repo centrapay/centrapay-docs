@@ -6,6 +6,7 @@ nav:
   order: 2
 ---
 import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 By integrating with Centrapay as a third-party asset provider, you can take advantage of our connections with terminals, point-of-sale systems, and merchant networks, thereby expanding the reach of your digital asset to a wider audience.
 
@@ -85,11 +86,7 @@ Verify the JWT using the public key returned for the JSON Web Key Set (JWKS) end
 
 Keys used for signing JWTs may be rotated without warning, therefore it is required that signatures are resolved dynamically against the JWKS endpoint. You may choose to cache the result, but respect the directives in the http cache-control headers.
 
-<CodePanel title="JWKS Request" method="GET" path="/api/.well-known/jwks.json">
-  ```bash
-  curl https://auth.centrapay.com/api/.well-known/jwks.json
-  ```
-</CodePanel>
+<RequestCodePanel filename="jwks-get" />
 
 <CodePanel title="JWKS Response">
   ```json
@@ -234,22 +231,7 @@ sequenceDiagram
 	note over T: Display Successful Payment
 ```
 
-<CodePanel title="Request" method="POST" path="/pay">
-```bash
-curl -X POST https://your.endpoint/pay \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"currency": "NZD",
-		"amount": "1000",
-		"authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-		"merchantName": "Centrapay Cafe",
-		"merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-		"idempotencyKey": "VMXMkUttDGTVz4ESv5ND56",
-		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
-  }'
-```
-</CodePanel>
+<RequestCodePanel filename="third-party-payment-pay" />
 
 <CodePanel title="Response">
 ```json
@@ -282,19 +264,7 @@ This endpoint is used to refund a Payment Request with status `paid`. Refunds mu
 
 It is expected that partial refunds are supported.
 
-<CodePanel title="Request" method="POST" path="/refund">
-```bash
-curl -X POST https://your.endpoint/refund \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"currency": "NZD",
-		"amount": "1000",
-		"paymentTransactionId": "HFCD73hsbJHBDd9gs3t",
-		"idempotencyKey": "dDHF8743fVzdsg84f6"
-	}'
-```
-</CodePanel>
+<RequestCodePanel filename="third-party-payment-refund" />
 
 <CodePanel title="Response">
 ```json
@@ -328,17 +298,7 @@ Once the Cancel endpoint is called, the transaction status should be `failed`. T
 
 **Example Request**
 
-<CodePanel title="Request" method="POST" path="/cancel">
-```bash
-curl -X POST https://your.endpoint/cancel \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"transactionId": "UttDGTHjr7DgKoKwWpTKb",
-		"failureReason": "PAYMENT_REQUEST_EXPIRED"
-	}'
-```
-</CodePanel>
+<RequestCodePanel filename="third-party-payment-cancel" />
 
 <CodePanel title="Response">
 ```json
@@ -368,12 +328,7 @@ curl -X POST https://your.endpoint/cancel \
 
 After initiating a payment transaction, the status may be `pending`. This endpoint will be used to poll the status of the transaction attempt. Polling will continue until either the transaction attempt status is `successful` or `failed`, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
 
-<CodePanel title="Request" method="GET" path="/get?transactionId=${transactionId}">
-```bash
-curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
-	-H "Authorization: ${jwt}"
-```
-</CodePanel>
+<RequestCodePanel filename="third-party-transaction-get" />
 
 <CodePanel title="Response">
 ```json

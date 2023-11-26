@@ -7,6 +7,7 @@ nav:
 ---
 
 import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 [Assets](/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account. They can then be sent to another Centrapay account using one of the methods described below.
 
@@ -22,46 +23,17 @@ The recipient will be notified via the provided channel.
 
 Use the recipient's phone number for the `recipientAlias` field
 
-  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
-  ```bash
-  curl -X POST https://service.centrapay.com/api/asset-transfers \
-    -H "X-Api-Key: $api_key" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "assetId": "YGRo6TYYSxH3js7",
-      "recipientAlias": "+642212312"
-    }'
-  ```
-  </CodePanel>
+  <RequestCodePanel filename="asset-transfers-create-with-phone" />
 
 Use the recipient’s email for the `recipientAlias` field.
 
-  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
-  ```bash
-  curl -X POST https://service.centrapay.com/api/asset-transfers \
-    -H "X-Api-Key: $api_key" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "assetId": "YGRo6TYYSxH3js7",
-      "recipientAlias": "john.doe@centrapay.com"
-    }'
-  ```
-  </CodePanel>
+  <RequestCodePanel filename="asset-transfers-create-with-email" />
 
 ### Sending via Link
 If a `recipientAlias` isn’t provided when creating the asset transfer, a link will be returned in the `url` field, which can then be shared via whichever channel you prefer.
 Clicking on the link will open a page to view and claim the asset transfer.
 
-  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
-  ```bash
-  curl -X POST https://service.centrapay.com/api/asset-transfers \
-    -H "X-Api-Key: $api_key" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "assetId": "YGRo6TYYSxH3js7"
-    }'
-  ```
-  </CodePanel>
+  <RequestCodePanel filename="asset-transfers-create" />
 
   <CodePanel title="Response">
   ```json
