@@ -5,7 +5,7 @@
     :default-open="defaultOpen"
   >
     <DisclosureButton
-      class="group mt-2 w-full flex items-center pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+      class="btn group mt-2 w-full flex items-center pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
       :class="{ 'bg-gray-100': disclosureSelected }"
     >
       <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
