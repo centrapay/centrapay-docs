@@ -7,6 +7,7 @@ nav:
   order: 4
 ---
 import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](/api/payment-requests#create-a-payment-request).
 
@@ -42,21 +43,7 @@ sequenceDiagram
 1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "barcode": "123456789",
-        "configId": "5ee168e8597be5002af7b454",
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" optionalFields={["barcode"]} />
 
   <CodePanel title="Response">
     ```json
@@ -237,21 +224,7 @@ sequenceDiagram
 1. The patron presents a Barcode for the POS to scan.
 2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "barcode": "123456789",
-        "configId": "5ee168e8597be5002af7b454",
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" optionalFields={["barcode"]} />
 
   <CodePanel title="Response">
     ```json
@@ -413,21 +386,7 @@ sequenceDiagram
 
 3. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "barcode": "123456789",
-        "configId": "5ee168e8597be5002af7b454",
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" optionalFields={["barcode"]} />
 
   <CodePanel title="Response">
     ```json

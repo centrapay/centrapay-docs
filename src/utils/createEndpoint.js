@@ -38,8 +38,20 @@ function createSnippet(data) {
   return new HTTPSnippet(harObject);
 }
 
-function createRequests(data) {
-  const snippet = createSnippet(data);
+function createPayload({ payload, optionalFields = [] }) {
+  const { required, optional } = payload;
+  const result = { ...required };
+  optionalFields.forEach(field => {
+    if (optional[field] !== undefined) {
+      result[field] = optional[field];
+    }
+  });
+  return result;
+}
+
+function createRequests({ endpoint, optionalFields }) {
+  const payload = createPayload({ payload: endpoint.request.payload, optionalFields });
+  const snippet = createSnippet({ ...endpoint, request: { ...endpoint.request, payload }});
   const requests = {};
   Object.entries(supportedClients).forEach(([clientId, details]) => {
     requests[clientId] = {
@@ -50,11 +62,11 @@ function createRequests(data) {
   return requests;
 }
 
-export default function createEndpoint(data) {
-  validateData(data);
+export default function createEndpoint({ endpoint, optionalFields }) {
+  validateData(endpoint);
   return {
-    path: data.path,
-    method: data.method,
-    requests: createRequests(data),
+    path: endpoint.path,
+    method: endpoint.method,
+    requests: createRequests({ endpoint, optionalFields }),
   };
 }

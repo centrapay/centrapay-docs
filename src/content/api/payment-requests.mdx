@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Payment Requests represent the intention for a merchant to receive payment for goods and services. Payment Requests define the amount to be paid and the Asset Types that are acceptable for payment.
@@ -503,21 +504,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "configId": "5efbe2fb96c08357bb2b9242",
-        "expirySeconds": "120",
-        "value": {
-          "amount": "1",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="payment-requests-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

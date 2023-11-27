@@ -8,6 +8,7 @@ nav:
   order: 2
 ---
 import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 Centrapay and Farmlands have entered a partnership to enable a digital way for Farmlands Card Partners to accept Farmlands Card as payment at the point of sale. This solution will position Card Partners to be able to also accept a digital form of the Farmlands Card in the future.
 
@@ -63,42 +64,7 @@ sequenceDiagram
 
 2. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "barcode": "123456789",
-        "conditionsEnabled": true,
-        "configId": "5ee168e8597be5002af7b454",
-        "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-        "lineItems": [
-          {
-            "name": "Hard Hat",
-            "sku": "GH1234",
-            "qty": "1",
-            "price": "4000",
-            "tax": "15",
-            "discount": "400"
-          },
-          {
-            "name": "Tool Belt",
-            "sku": "GH1234",
-            "qty": "1",
-            "price": "6000",
-            "tax": "15",
-            "discount": "600"
-          }
-        ],
-        "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" optionalFields={["barcode", "conditionsEnabled", "invoiceRef", "lineItems", "purchaseOrderRef"]} />
 
   <CodePanel title="Response">
     ```json
@@ -437,41 +403,7 @@ Note over POS: ✅ Display Release confirmation
 1. The Cardholder presents their Farmlands Card for the POS to scan.
 2. The POS authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item-model).
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "barcode": "123456789",
-        "conditionsEnabled": true,
-        "configId": "5ee168e8597be5002af7b454",
-        "lineItems": [
-          {
-            "name": "Hard Hat",
-            "sku": "GH1234",
-            "qty": "1",
-            "price": "4000",
-            "tax": "15",
-            "discount": "400"
-          },
-          {
-            "name": "Tool Belt",
-            "sku": "GH1234",
-            "qty": "1",
-            "price": "6000",
-            "tax": "15",
-            "discount": "600"
-          }
-        ],
-        "preAuth": true,
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" optionalFields={["barcode", "conditionsEnabled", "lineItems", "preAuth"]} />
 
   <CodePanel title="Response">
     ```json
@@ -807,43 +739,7 @@ Please refer to your Farmlands Card Partner Acceptance Terms and Conditions to u
 
 Card Partners can extend the Barcode Flow to support this by [creating Payment Requests](/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to `true`.
 
-<CodePanel title="Request" method="POST" path="/api/payment-requests">
-```bash
-curl -X POST https://service.centrapay.com/api/payment-requests \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "barcode": "123456789",
-    "conditionsEnabled": true,
-    "configId": "5ee168e8597be5002af7b454",
-    "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-    "lineItems": [
-      {
-        "name": "Hard Hat",
-        "sku": "GH1234",
-        "qty": "1",
-        "price": "4000",
-        "tax": "15",
-        "discount": "400"
-      },
-      {
-        "name": "Tool Belt",
-        "sku": "GH1234",
-        "qty": "1",
-        "price": "6000",
-        "tax": "15",
-        "discount": "600"
-      }
-    ],
-    "patronNotPresent": true,
-    "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-    "value": {
-      "amount": "10000",
-      "currency": "NZD"
-    }
-  }'
-```
-</CodePanel>
+<RequestCodePanel filename="payment-requests-create" optionalFields={["barcode", "conditionsEnabled", "invoiceRef", "lineItems", "patronNotPresent", "purchaseOrderRef"]} />
 
 > See also: [Patron Not Present](/guides/patron-not-present)
 

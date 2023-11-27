@@ -7,6 +7,7 @@ nav:
   order: 3
 ---
 import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 Connecting with patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](/api/payment-requests) and present a QR Code for the patron to scan.
 
@@ -42,20 +43,7 @@ sequenceDiagram
 
   > The QR code decodes to a URL of the form `https://service.centrapay.com/api/payment-requests/{paymentRequestId}/pay`
 
-  <CodePanel title="Request" method="POST" path="/api/payment-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/payment-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "configId": "5ee168e8597be5002af7b454",
-        "value": {
-          "amount": "10000",
-          "currency": "NZD"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel filename="payment-requests-create" />
 
   <CodePanel title="Response">
     ```json

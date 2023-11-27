@@ -5,24 +5,10 @@ nav:
   path: Reference/Merchant Integrations
   order: 12
 ---
-import CodePanel from '../../components/CodePanel.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 
 eCommerce websites accepting payments via Centrapay may want to redirect their users back to their website after they pay/cancel the payment request. In order to do this, the eCommerce website must add `allowedRedirectUrls` to it’s [Merchant Config](/api/merchant-configs).
 
 After `allowedRedirectUrls` have been added to the Merchant Config, the eCommerce website can simply pass in their `redirectUrl` when creating a [Payment Request](/api/payment-requests).
 
-<CodePanel title="Request" method="POST" path="/api/payment-requests">
-```bash
-curl -X POST https://service.centrapay.com/api/payment-requests \
-  -H "X-Api-Key: $api_key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "configId": "5efbe2fb96c08357bb2b9242",
-    "value": {
-      "amount": "8991",
-      "currency": "NZD"
-    },
-    "redirectUrl": "https://www.example.com/store/checkout"
-  }'
-```
-</CodePanel>
+<RequestCodePanel filename="payment-requests-create" optionalFields={["redirectUrl"]} />
