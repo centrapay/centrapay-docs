@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Badge from '../../components/Badge.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Wallet is an Asset that represents [Money](/api/assets#money-model). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
@@ -154,18 +155,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/wallets">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/wallets \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "ledgerId": "centrapay.nzd.main",
-        "settlement": "true"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="wallets-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -204,13 +194,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
   This endpoint allows you to list authorized Wallets.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets">
-    ```bash
-    curl https://service.centrapay.com/api/wallets \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="wallets-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -247,13 +231,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
   This endpoint allows you to list Wallet Transactions.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/wallets/{walletId}/transactions">
-    ```bash
-    curl https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="wallets-list-transactions" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
