@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 An Integration Request allows Centrapay users to request the creation of an [Integration](/api/integrations/) on a Centrapay Account.
@@ -132,21 +133,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/integration-requests \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "merchantId": "5ee0c486308f590260d9a07f",
-        "type": "verifone",
-        "terminal": {
-          "terminalId": "002039390093939",
-          "deviceId": "002-039-390"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -180,13 +167,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to get an Integration Request.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}">
-    ```bash
-    curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -236,15 +217,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests">
-    ```bash
-    curl -G https://service.centrapay.com/api/integration-requests \
-      -H "X-Api-Key: $api_key" \
-      -d type=epay \
-      -d pending=true \
-      -d accountId=Jaim1Cu1Q55uooxSens6yk
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-search" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -287,16 +260,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/integration-requests/{integrationRequestId}/configs">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "terminalId": "11000021"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-configs-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -330,13 +294,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to get the configuration values for the Integration Request.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/integration-requests/{integrationRequestId}/configs">
-    ```bash
-    curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-configs-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -358,13 +316,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to activate an Integration Request.
 
-
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}/activate">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/activate \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-activate" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -408,13 +360,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
   This endpoint allows you to delete an Integration Request.
 
-
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/integration-requests/{integrationRequestId}">
-    ```bash
-    curl -X DELETE https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="integration-requests-delete" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
