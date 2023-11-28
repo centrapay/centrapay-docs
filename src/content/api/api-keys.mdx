@@ -8,6 +8,7 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 API keys provide enduring access to a single Centrapay [Account](/api/accounts).
@@ -74,17 +75,7 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/accounts/{accountId}/api-keys">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "MyAPIkey",
-        "role": "merchant-terminal"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="api-keys-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```bash
@@ -115,13 +106,7 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
   This endpoint allows you to list all API Keys for an Account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/api-keys">
-    ```bash
-    curl -X GET https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="api-keys-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```bash
@@ -170,16 +155,7 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/accounts/{accountId}/api-keys/{apiKeyName}">
-  ```bash [Request]
-  curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys/MyAPIkey \
-    -H "X-Api-Key: $api_key" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "enabled": false
-    }'
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="api-keys-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```bash

@@ -29,6 +29,9 @@ function createSnippet(data) {
   if (data.request?.headers) {
     harObject.headers = Object.entries(data.request.headers).map(([name, value]) => ({ name, value }));
   }
+  if (data.request?.queryString) {
+    harObject.queryString = Object.entries(data.request.queryString).map(([name, value]) => ({ name, value }));
+  }
   if (data.request?.payload) {
     harObject.postData = {
       mimeType: 'application/json',
