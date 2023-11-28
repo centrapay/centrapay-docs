@@ -10,6 +10,7 @@ import Badge from '../../components/Badge.astro';
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Error from '../../components/Error.astro';
 
@@ -181,17 +182,7 @@ Asset Transfer goes through different lifecycle stages.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers">
-  ```bash
-  curl -X POST https://service.centrapay.com/api/asset-transfers \
-    -H "X-Api-Key: $api_key" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "assetId": "YGRo6TYYSxH3js7",
-      "recipientAlias": "+642212312"
-    }'
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-create" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -223,13 +214,7 @@ Asset Transfer goes through different lifecycle stages.
 >
   ## Get an Asset Transfer
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/asset-transfers/{assetTransferId}">
-  ```bash
-  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h \
-    -H "X-Api-Key: $api_key"
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-get" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -261,12 +246,7 @@ Asset Transfer goes through different lifecycle stages.
 >
   ## Get Asset Transfer Summary
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/asset-transfers/{assetTransferId}/summary">
-  ```bash
-  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/summary
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-get-summary" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -303,12 +283,7 @@ Asset Transfer goes through different lifecycle stages.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers/{assetTransferId}/claim">
-  ```bash
-  curl https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/claim \
-    -H "X-Api-Key: $api_key"
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-claim" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -346,13 +321,7 @@ Asset Transfer goes through different lifecycle stages.
 
   New accounts should call this endpoint to allocate assets that you've been sent.
 
-
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/me/resolve-claimable-assets">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/me/resolve-claimable-assets \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-resolve-claimable-assets" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -382,13 +351,7 @@ Asset Transfer goes through different lifecycle stages.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/asset-transfers">
-    ```bash
-    curl -G https://service.centrapay.com/api/asset-transfers \
-      -H "X-Api-Key: $api_key" \
-      -d recipientAccountId=oS3Xom2au3Ooy9aihai
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -430,12 +393,7 @@ Asset Transfer goes through different lifecycle stages.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/asset-transfers/{assetTransferId}/cancel">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/asset-transfers/M7Kn2stAxNa6ri7h/cancel \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="asset-transfers-cancel" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
