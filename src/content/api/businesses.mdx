@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](/api/accounts).
@@ -149,20 +150,7 @@ A Business represents a company registered with the New Zealand Companies Office
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/businesses">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/businesses \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "nzbn": "9429046246448",
-        "taxNumber": {
-          "value": "123-456-789",
-          "type": "nz-gst"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="businesses-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -219,20 +207,7 @@ A Business represents a company registered with the New Zealand Companies Office
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/businesses/{businessId}">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2 \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "taxNumber": {
-          "value": "123-456-789",
-          "type": "nz-gst"
-        },
-        "farmlandsBusinessNumber": "12345678"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="businesses-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -270,12 +245,7 @@ A Business represents a company registered with the New Zealand Companies Office
   This endpoint allows you to retrieve a Business by account id.
 
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/business">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/business \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="businesses-get-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -307,13 +277,7 @@ A Business represents a company registered with the New Zealand Companies Office
   This endpoint returns a list of companies that match the queried param on company name, nzbn number or company number. Results are [paginated](/api/pagination) and ordered by relevance.
 
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/nzbn-search">
-    ```bash
-    curl -G https://service.centrapay.com/api/nzbn-search \
-      -H "X-Api-Key: $api_key" \
-      -d q=centrapay
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="nzbn-search" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -341,12 +305,7 @@ A Business represents a company registered with the New Zealand Companies Office
   This endpoint allows you to retrieve a Business by account id.
 
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/nzbn/{nzbn}">
-    ```bash
-    curl https://service.centrapay.com/api/nzbn/9429046246448 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="nzbn-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -400,17 +359,7 @@ A Business represents a company registered with the New Zealand Companies Office
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/businesses/{businessId}/set-onboarding-status">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/businesses/DKTs3U38hdhfEqwF1JKoT2/set-onboarding-status \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "onboardingStatus": "deactivated",
-        "onboardingStatusReason": "change-of-ownership"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="businesses-set-onboarding-status" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
