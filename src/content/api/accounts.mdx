@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 An Account represents a permission boundary around Centrapay resources.
@@ -104,17 +105,7 @@ individual account.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/accounts">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/accounts \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Centrapay Cafe",
-        "type": "org"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="accounts-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -145,12 +136,7 @@ individual account.
 
   This endpoint allows you to retrieve an Account.
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="accounts-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -187,16 +173,7 @@ individual account.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/accounts/{accountId}">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Shortland St Cafe"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="accounts-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -233,18 +210,7 @@ individual account.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/accounts/{accountId}/subscriptions">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/subscriptions \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "subscriptions": [
-          "quartz"
-        ]
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="accounts-subscriptions-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
