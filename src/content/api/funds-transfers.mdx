@@ -10,6 +10,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 
@@ -69,18 +70,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/topups">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/topups \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "amount": "10000",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="topups-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -109,18 +99,12 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to retrieve a Top Up by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups/{topupId}">
-    ```bash
-    curl https://service.centrapay.com/api/topups/WRhAxxWpTKb5U7pXyxQjjY \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="topups-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
     {
-      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
       "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
       "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
       "accountId": "aBc932S9182qwCDqwer",
@@ -144,13 +128,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the Top Ups for authorized accounts.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/topups">
-    ```bash
-    curl https://service.centrapay.com/api/topups \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="topups-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -192,13 +170,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the Top Ups for an account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/topups">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/topups \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="topups-list-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -273,18 +245,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/withdrawals">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/withdrawals \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "amount": "10000",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="withdrawals-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -333,17 +294,12 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/withdrawals/{withdrawalId}">
-    ```bash
-    curl https://service.centrapay.com/api/withdrawals/WRhAxxWpTKb5U7pXyxQjjY \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="withdrawals-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
     {
-      "id": "hg2RfYTQ635tPBZEPJdCre",
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
       "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
       "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
       "accountId": "aBc932S9182qwCDqwer",
@@ -368,13 +324,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   This endpoint allows you to list the withdrawals for an Account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/withdrawals">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/aBc932S9182qwCDqwer/withdrawals \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="withdrawals-list-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
 
@@ -430,12 +380,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/funds-transfers/{fundsTransferId}/abort">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/funds-transfers/5thg2RPBZEfYTPJdQ63Cre/abort \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="funds-transfers-abort" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
