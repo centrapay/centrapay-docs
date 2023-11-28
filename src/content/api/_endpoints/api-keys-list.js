@@ -1,5 +1,5 @@
 export default {
-  method: 'POST',
+  method: 'GET',
   path: '/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys',
   request: {
     headers: {
