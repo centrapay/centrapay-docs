@@ -10,6 +10,7 @@ import Badge from '../../components/Badge.astro';
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Error from '../../components/Error.astro';
 
@@ -284,13 +285,7 @@ number.
 >
   ## Get Asset
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}">
-  ```bash
-  curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU \
-    -H "X-Api-Key: $api_key"
-  ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="assets-get" />
 
   <CodePanel slot="code-examples" title="Response">
   ```json
@@ -323,12 +318,7 @@ number.
 >
   ## Get Asset Summary
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/summary">
-    ```bash
-    curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/summary
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="assets-get-summary" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -360,12 +350,7 @@ number.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/assets">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="assets-list-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -430,13 +415,7 @@ number.
 
   Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/assets/{assetId}/transactions">
-    ```bash
-    curl https://service.centrapay.com/api/assets/WRhAxxWpTKb5U7pXyxQjjY/transactions \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="assets-list-transactions" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -503,13 +482,7 @@ number.
 
   Archive supported asset types by asset id. Currently only gift cards may be archived.
 
-
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/assets/{assetId}/archive">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="assets-archive" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
