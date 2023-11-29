@@ -11,6 +11,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Centrapay Payment Requests are serviced via two sets of endpoints; the "next"
@@ -196,16 +197,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/payments/api/requests.create">
-    ```bash
-    curl -X POST https://service.centrapay.com/payments/api/requests.create \
-      -H "X-Api-Key: $api_key" \
-      -d merchantId=b0792018-6efc-4bca-a148-83bc57ff75b9 \
-      -d clientId=b80c361f-805a-405c-b0af-366d3b5bd4ef \
-      -d amount=300 \
-      -d asset=NZD
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -275,13 +267,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/payments/api/requests.info">
-    ```bash
-    curl -G https://service.centrapay.com/payments/api/requests.info \
-      -H "X-Api-Key: $api_key" \
-      -d requestId=TyqV56mEkNLUeiY2QskHNR
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -338,15 +324,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/payments/api/requests.pay">
-    ```bash
-    curl -X POST https://service.centrapay.com/payments/api/requests.pay \
-      -H "X-Api-Key: $api_key" \
-      -d authorization=4a936ad82d8e51ae0afc317e944bfa569d935a45206b49b67117ee8aaa04a3b1 \
-      -d ledger=g.crypto.bitcoin.mainnet \
-      -d requestId=7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-pay" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -424,13 +402,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/payments/api/requests.cancel">
-    ```bash
-    curl -X POST https://service.centrapay.com/payments/api/requests.cancel \
-      -H "X-Api-Key: $api_key" \
-      -d requestId=a95b3b0d-1278-4613-8772-20d146065a2e
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-cancel" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -481,13 +453,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/payments/api/requests.void">
-    ```bash
-    curl -X POST https://service.centrapay.com/payments/api/requests.void \
-      -H "X-Api-Key: $api_key" \
-      -d requestId=a95b3b0d-1278-4613-8772-20d146065a2e
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-void" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -558,14 +524,7 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/payments/api/transactions.refund">
-    ```bash
-    curl -X POST https://service.centrapay.com/payments/api/transactions.refund \
-      -H "X-Api-Key: $api_key" \
-      -d transactionId=7d2b1d52-b609-4ccd-b4cc-c4a9af881bd9 \
-      -d amount=100
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-refund" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
