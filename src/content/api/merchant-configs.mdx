@@ -9,7 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Merchant Config defines the available payment options for paying a [Payment Request](/api/payment-requests).
@@ -116,29 +116,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/merchants/{merchantId}/configs">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "paymentOptions": [
-          {
-            "type": "centrapay.nzd.main",
-            "walletId": "1234c486308f3f0a23f0f92b"
-          },
-          {
-            "type": "epay.nzd.main",
-            "terminalId": "11000021"
-          },
-          {
-            "type": "farmlands.nzd.main",
-            "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-          }
-        ]
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchant-configs-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -178,13 +156,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to retrieve a Merchant Config by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/configs/{configId}">
-    ```bash
-    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchant-configs-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -216,13 +188,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
   This endpoint allows you to retrieve a list of Merchant Configs.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/configs">
-    ```bash
-    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchant-configs-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -289,28 +255,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/merchants/{merchantId}/configs/{configId}">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "paymentOptions": [
-          {
-            "type": "bitcoin.main"
-          },
-          {
-            "type": "centrapay.nzd.test",
-            "walletId": "1234c486308f3f0a23f0f92b"
-          },
-          {
-            "type": "farmlands.nzd.main",
-            "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-          }
-        ]
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchant-configs-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -338,5 +283,3 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     ```
     </CodePanel>
 </Endpoint>
-
----
