@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
 
@@ -108,6 +106,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 <Endpoint
   method="POST"
   path="/api/invitations"
+  filename="invitations-create"
 >
   ## Create Invitation <Badge type="experimental"/>
 
@@ -148,32 +147,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="invitations-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "code": "WIj211vFs9cNACwBb04vQw",
-      "type": "account-membership",
-      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
-      "resourceType": "account",
-      "expiresAt": "2021-08-26T00:02:49.488Z",
-      "createdAt": "2021-08-25T00:02:49.488Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedAt": "2021-08-25T00:02:49.488Z",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "recipientAlias": "user@org.com",
-      "params": {
-        "role": "cashier",
-        "accountName": "Centrapay Cafe"
-      },
-      "status": "created"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -181,31 +154,11 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 <Endpoint
   method="GET"
   path="/api/invitations/code/{code}"
+  filename="invitations-get-by-code"
 >
   ## Get Invitation By Code <Badge type="experimental"/>
 
   This endpoint allows you to retrieve an Invitation by code.
-
-
-  <RequestCodePanel slot="code-examples" filename="invitations-get-by-code" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "code": "WIj211vFs9cNACwBb04vQw",
-      "type": "account-membership",
-      "resourceId": "5ee0c486308f590260d9a07f",
-      "resourceType": "account",
-      "expiresAt": "2021-08-26T00:02:49.488Z",
-      "createdAt": "2021-08-25T00:02:49.488Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedAt": "2021-08-25T00:02:49.488Z",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -213,59 +166,11 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/invitations"
+  filename="invitations-list-by-accountId"
 >
   ## List Invitations by Account Id <Badge type="experimental"/>
 
   This endpoint allows you list Invitations for an Account.
-
-
-  <RequestCodePanel slot="code-examples" filename="invitations-list-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "id": "DKTs3U38hdhfEqwF1JKoT2",
-          "code": "WIj211vFs9cNACwBb04vQw",
-          "type": "account-membership",
-          "resourceId": "Hopo4g34sLVdjEMBs2p19F",
-          "resourceType": "account",
-          "expiresAt": "2021-08-26T00:02:49.488Z",
-          "createdAt": "2021-08-25T00:02:49.488Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedAt": "2021-08-25T00:02:49.488Z",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "recipientAlias": "user@org.com",
-          "params": {
-            "role": "account-owner",
-            "accountName": "Centrapay Cafe"
-          },
-          "status": "created"
-        },
-        {
-          "id": "JKKDMU38hd01hfEqwF1oT2",
-          "code": "WIj211vFs9cNACwBb04vQw",
-          "type": "account-membership",
-          "resourceId": "Hopo4g34sLVdjEMBs2p19F",
-          "resourceType": "account",
-          "expiresAt": "2021-08-26T00:02:49.488Z",
-          "createdAt": "2021-08-25T00:02:49.488Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedAt": "2021-08-25T00:02:49.488Z",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "recipientAlias": "john.doe@org.com",
-          "params": {
-            "role": "cashier",
-            "accountName": "Centrapay Tea Warehouse"
-          },
-          "status": "sent"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -273,6 +178,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 <Endpoint
   method="POST"
   path="/api/invitations/{invitationId}/accept"
+  filename="invitations-accept"
 >
   ## Accept Invitation <Badge type="experimental"/>
 
@@ -305,30 +211,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       The Invitation was revoked.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="invitations-accept" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "code": "WIj211vFs9cNACwBb04vQw",
-      "type": "account-membership",
-      "resourceId": "5ee0c486308f590260d9a07f",
-      "resourceType": "account",
-      "expiresAt": "2021-08-26T00:02:49.488Z",
-      "createdAt": "2021-08-25T00:02:49.488Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "accepted": true,
-      "acceptedAt": "2021-08-25T10:12:22.122Z",
-      "acceptedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878",
-      "acceptedByAccountId": "Jaim1Cu1Q55uooxSens6yk",
-      "updatedAt": "2021-08-25T10:12:22.122Z",
-      "updatedBy": "crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -336,6 +218,7 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 <Endpoint
   method="POST"
   path="/api/invitations/{invitationId}/revoke"
+  filename="invitations-revoke"
 >
   ## Revoke Invitation <Badge type="experimental"/>
 
@@ -350,30 +233,4 @@ An Invitation can be used to allow users to claim ownership of a resource on the
       The Invitation has already been accepted.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="invitations-revoke" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "code": "WIj211vFs9cNACwBb04vQw",
-      "type": "account-membership",
-      "resourceId": "Hopo4g34sLVdjEMBs2p19F",
-      "resourceType": "account",
-      "recipientAlias": "user@org.com",
-      "params": {
-        "role": "cashier",
-        "accountName": "Centrapay Cafe"
-      },
-      "createdAt": "2021-08-25T00:02:49.488Z",
-      "expiresAt": "2021-08-26T00:02:49.488Z",
-      "createdBy": "crn::user:1234",
-      "updatedAt": "2021-08-25T00:00:00.000Z",
-      "updatedBy": "crn::user:1234",
-      "status": "revoked"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
