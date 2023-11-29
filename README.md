@@ -1,6 +1,6 @@
-# Centrapay Documentation
+Centrapay Documentation
 
-## Dependencies
+Dependencies
 
 Install app dependencies:
 
@@ -8,7 +8,7 @@ Install app dependencies:
 docker compose run script yarn
 ```
 
-## Local Docker Usage
+Local Docker Usage
 
 For local development (with hot reloading):
 
@@ -25,7 +25,7 @@ docker compose run script yarn build
 docker compose run script yarn preview
 ```
 
-## Integration Tests
+Integration Tests
 
 ```
 yarn integration

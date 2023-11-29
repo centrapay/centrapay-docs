@@ -15,6 +15,7 @@ globals:
 extends:
   - "plugin:vue/recommended"
   - "plugin:cypress/recommended"
+  - "plugin:mdx/recommended"
 
 plugins:
   - "no-only-tests"
@@ -48,6 +49,13 @@ rules:
   require-await: [ error ]
 
 overrides:
+  - files: [ "**/*.md", "**/*.mdx" ]
+    extends: "plugin:mdx/recommended"
+    parserOptions:
+      ecmaVersion: 6
+      sourceType: "module"
+      ecmaFeatures:
+        modules: true
   - files: [ "**/*.test.js" ]
     globals:
       global: readonly
