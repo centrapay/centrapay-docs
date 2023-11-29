@@ -8,6 +8,7 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 import Error from '../../components/Error.astro';
@@ -140,18 +141,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-account-approvals \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "mediaUploadId": "uooxSens6ykJaim1Cu1Q55",
-        "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
-        "type": "settlement"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -182,13 +172,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
   This endpoint allows you to retrieve a Bank Account Approval.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-account-approvals/{bankAccountApprovalId}">
-    ```bash
-    curl https://service.centrapay.com/api/bank-account-approvals/bbab9a768921019cb856 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -232,16 +216,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/accept">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/accept \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "reason": "All details match"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-accept" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -273,16 +248,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-approvals/{bankAccountApprovalId}/decline">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/decline \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "reason": "No details match"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-decline" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -302,14 +268,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 
   This endpoint allows you to list the Bank Account Approvals for a Bank Account.
 
-
-
-    <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}/approvals">
-      ```bash
-      curl https://service.centrapay.com/api/bank-accounts/5vpkxjn6z787LiAKCqwuf9/approvals \
-        -H "X-Api-Key: $api_key"
-      ```
-    </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

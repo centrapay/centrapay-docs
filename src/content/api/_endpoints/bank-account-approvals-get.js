@@ -1,6 +1,6 @@
 export default {
   method: 'GET',
-  path: '/api/accounts/Jaim1Cu1Q55uooxSens6yk/api-keys',
+  path: '/api/bank-account-approvals/bbab9a768921019cb856',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',

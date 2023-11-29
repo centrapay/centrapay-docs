@@ -71,6 +71,7 @@ exports[`the build should not break any links 1`] = `
   "/api/bank-accounts#bank-account-model",
   "/api/bank-accounts#create-bank-account",
   "/api/bank-accounts#create-bank-authority",
+  "/api/bank-accounts#direct-debit-authority-model",
   "/api/bank-accounts#get-bank-account",
   "/api/bank-accounts#get-bank-account-balance",
   "/api/bank-accounts#get-bank-authority",
