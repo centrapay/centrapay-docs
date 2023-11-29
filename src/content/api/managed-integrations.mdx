@@ -8,8 +8,8 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
-import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Managed Integration is an [Integration](/api/integrations)  which a third party can control.
@@ -158,20 +158,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/managed-integrations/{type}/{externalId}">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/managed-integrations/paypal-referral/DKTs3U38hdhfEqwF1JKoT2 \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "enabled": true,
-        "params": {
-          "centrapayMerchantId": "5ffcaf432003060007b98343",
-          "email": "test@centrapay.com"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="managed-integrations-create-or-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -209,13 +196,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   This endpoint allows you to retrieve a Managed Integration by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/managed-integrations/{id}">
-    ```bash
-    curl https://service.centrapay.com/api/managed-integrations/dh375hdh08f590260d9a07f \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="managed-integrations-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

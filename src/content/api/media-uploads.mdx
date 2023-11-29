@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 ## Media Upload Model
@@ -76,18 +77,7 @@ import CodePanel from '../../components/CodePanel.astro';
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/media-uploads">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/media-uploads \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "mimeType": "image/png",
-        "fileName": "image.png"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="media-uploads-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -110,13 +100,7 @@ import CodePanel from '../../components/CodePanel.astro';
 
   This endpoint allows you to retrieve the upload location of a media file.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/media-uploads/{mediaUploadId}/location">
-    ```bash
-    curl https://service.centrapay.com/api/media-uploads/DKTs3U38hdhfEqwF1JKoT2/location \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="media-uploads-get-location" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
