@@ -10,8 +10,8 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
-import Badge from '../../components/Badge.astro';
 
 Batches enable bulk loading of resource onto the Centrapay platform.
 
@@ -114,19 +114,7 @@ The following table describes the Batch Types supported for loading.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/batches">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/batches \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "type": "farmlands-external-asset",
-        "url": "https://azurebuckets.com/1234",
-        "accountId": "C4QnjXvj8At6SMsEN4LRi9",
-        "test": true
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="batches-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -157,13 +145,7 @@ The following table describes the Batch Types supported for loading.
 
   This endpoint allows you to retrieve a Batch by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/batches/{batchId}">
-    ```bash
-    curl https://service.centrapay.com/api/batches/AVH5uG4gRLYK6YR8JyrViN \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="batches-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
