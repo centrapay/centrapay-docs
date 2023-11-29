@@ -35,7 +35,7 @@ const featuredContent = [
     description: 'Powerful, Easy-to-use payment APIs',
     img: '/api-reference-cover.jpg',
   },
-]
+];
 
 const description = 'Learn to connect with Centrapay experiences.';
 const img = '/homepage-preview.png';
@@ -66,27 +66,27 @@ const img = '/homepage-preview.png';
       <h2 class="type-headline-2">Featured Docs</h2>
     </Prose>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-8">
-        { featuredGuides.map((guide) => (
-          <FeaturedGuideCard
+      { featuredGuides.map((guide) => (
+        <FeaturedGuideCard
           title={guide.data.title}
-            description={guide.data.description}
-            img={guide.data.img}
-            slug={guide.slug}
-          />
-        ))
+          description={guide.data.description}
+          img={guide.data.img}
+          slug={guide.slug}
+        />
+      ))
       }
     </div>
     <div class="grid md:grid-cols-4 gap-4 lg:gap-6 mt-12 justify-center">
       { featuredContent.map((content, index) => (
-          <div class='md:col-span-2'>
-            <FeaturedContentCard
-              title={content.title}
-              description={content.description}
-              img={content.img}
-              href={content.href}
-            />
-          </div>
-        ))
+        <div class='md:col-span-2'>
+          <FeaturedContentCard
+            title={content.title}
+            description={content.description}
+            img={content.img}
+            href={content.href}
+          />
+        </div>
+      ))
       }
     </div>
   </div>
