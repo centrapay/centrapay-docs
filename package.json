@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.mjs,.ts,.vue .",
+    "lint": "eslint --ext .js,.mjs,.ts,.vue,.astro .",
     "linkinator": "linkinator dist/ --recurse --verbosity error --skip 'twitter.com|www.farmlands.co.nz|www.instagram.com|yourapp.example.com|centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com/api'",
     "dev": "astro dev",
     "build": "astro build",
@@ -15,12 +15,14 @@
     "@astrojs/vue": "^3.0.0",
     "@babel/eslint-parser": "^7.14.7",
     "@babel/eslint-plugin": "^7.14.5",
+    "@babel/preset-react": "^7.23.3",
     "@fontsource/inter": "^4.5.15",
     "@hbsnow/rehype-sectionize": "^1.0.7",
     "@headlessui/vue": "^1.6.0",
     "@tailwindcss/typography": "^0.5.8",
     "astro": "^3.2.2",
     "eslint": "^7.20.0",
+    "eslint-plugin-astro": "^0.29.1",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-no-only-tests": "^2.4.0",

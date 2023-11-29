@@ -23,6 +23,8 @@ parser: vue-eslint-parser
 
 parserOptions:
   parser: "@babel/eslint-parser"
+  babelOptions:
+    presets: ["@babel/preset-react"]
   ecmaVersion: 2020
   sourceType: module
   requireConfigFile: false
@@ -48,6 +50,8 @@ rules:
   require-await: [ error ]
 
 overrides:
+  - files: ["*.astro"]
+    parser: "astro-eslint-parser"
   - files: [ "**/*.test.js" ]
     globals:
       global: readonly
