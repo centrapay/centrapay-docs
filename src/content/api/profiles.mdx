@@ -7,9 +7,9 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
-import Error from '../../components/Error.astro';
 import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A profile represents a Centrapay user's attributes.
@@ -87,20 +87,7 @@ A profile represents a Centrapay user's attributes.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/me/profile/update">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/me/profile/update \
-      -H "Authorization: $jwt" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "givenName": "John",
-        "familyName": "Doe",
-        "featureUpdates": false,
-        "marketingUpdates": true,
-        "email": "john.doe@centrapay.com"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="profiles-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -126,13 +113,7 @@ A profile represents a Centrapay user's attributes.
 
   This endpoint allows you to retrieve a user's Profile.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/users/{userId}/profile">
-    ```bash
-    curl https://service.centrapay.com/api/users/da75ad90-9a5b-4df0-8374-f48b3a8fbfcc/profile \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="profiles-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
