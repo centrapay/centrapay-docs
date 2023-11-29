@@ -7,9 +7,9 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
-import Error from '../../components/Error.astro';
 import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account.
@@ -60,13 +60,7 @@ Centrapay account quotas are enforced on usage types such as spending or topping
 
   Retrieve quota limits and usages for the current intervals. Ie, all quotas for the current day, current month and current year as well as any quotas that are not associated with a temporal period.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/quotas">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="quotas-get-by-accountId" />
 
   ### Errors
 
