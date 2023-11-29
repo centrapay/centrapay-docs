@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 External assets are [Assets](/api/assets/) which are issued by a third-party.
@@ -53,21 +54,7 @@ External assets are [Assets](/api/assets/) which are issued by a third-party.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/external-assets">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/external-assets \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "category": "giftcard",
-        "type": "epay.nzd.test",
-        "issuer": "ezipay",
-        "externalId": "23403321042",
-        "pin": "3771"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="external-assets-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 
@@ -101,18 +102,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-account-connection-intents \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "uooxSens6ykJaim1Cu1Q55",
-        "type": "account-information-consent",
-        "test": true
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-connection-intents-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -148,16 +138,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-account-connection-intents">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-account-connection-intents/3KVjuKW2CZCJeJVqPxwkX7/authorize \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "code": "hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-account-connection-intents-authorize" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
