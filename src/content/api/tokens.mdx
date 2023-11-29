@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Tokens are [Assets](/api/assets/) which can only be spent in full.
@@ -200,27 +201,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
       </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/collections">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/collections \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Bread",
-        "accountId": "T3y6hogYA4d612BExypWYH",
-        "tokenExpiresAfter": {
-          "period": "month",
-          "duration": "1"
-        },
-        "maxValue": {
-          "currency": "NZD",
-          "amount": "400"
-        },
-        "type": "product",
-        "mediaUploadId": "12345"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="collections-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -265,13 +246,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/collections">
-    ```bash
-    curl -G https://service.centrapay.com/api/accounts/T3y6hogYA4d612BExypWYH/collections \
-      -H "X-Api-Key: $api_key" \
-      -d pageKey=Collection#2G5bXm4dnuDHnnKY8WeCPm|#Collection|8vq4kn03o0g1grrihk7ooloizpqt2y
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="collections-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -325,34 +300,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "merchantId": "36EALpZ89XpShxM2Ee9sXT",
-        "allowedProducts": [
-          {
-            "sku": "100001",
-            "name": "White Bread",
-            "maxValue": {
-              "currency": "NZD",
-              "amount": "400"
-            }
-          },
-          {
-            "sku": "100002",
-            "name": "Sourdough Bread",
-            "maxValue": {
-              "currency": "NZD",
-              "amount": "800"
-            }
-          }
-        ]
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="collections-redemption-conditions-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -425,18 +373,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
   </Property>
 </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/tokens">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/tokens \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "collectionId": "Jaim1Cu1Q55uooxSens6yk",
-        "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
-        "externalId": "23403283262"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="tokens-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
