@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Bank Accounts are used to get money in and out of a Centrapay Account. Money is
@@ -52,6 +53,12 @@ bank transaction can be used to verify a bank account.
     The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
   </Property>
 
+  <Property name="directDebitAuthority" type="object">
+    A [direct-debit authority](#direct-debit-authority-model). By including
+`directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/)
+and has authority to operate this account.
+  </Property>
+
   <Property name="directDebitAuthorized" type="boolean">
     Flag indicating the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
   </Property>
@@ -76,18 +83,6 @@ bank transaction can be used to verify a bank account.
     The User or API Key that updated the Bank Account.
   </Property>
 
-  <Property name="phoneNumber" type="string">
-    The user's phone number.
-  </Property>
-
-  <Property name="fullName" type="string">
-    The first and last name of the user.
-  </Property>
-
-  <Property name="emailAddress" type="string">
-    The user's email address.
-  </Property>
-
   <Property name="test" type="boolean">
     A flag which is present if the Bank Account is for testing.
   </Property>
@@ -101,6 +96,28 @@ Types of bank accounts to allow access to different [Asset Types](/api/asset-typ
 | --------- | -------------------------------------------------------------- |
 | centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
 | quartz    | Allows usage of the `quartz.nzd` asset type.                   |
+
+---
+
+## Direct Debit Authority Model
+
+A direct-debit authority is required to be able to Top Up a Bank Account. By including
+`directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/)
+and has authority to operate this account.
+
+<Properties>
+  <Property name="phoneNumber" type="string">
+    The user's phone number.
+  </Property>
+
+  <Property name="fullName" type="string">
+    The first and last name of the user.
+  </Property>
+
+  <Property name="emailAddress" type="string">
+    The user's email address.
+  </Property>
+</Properties>
 
 ---
 
@@ -170,16 +187,10 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
       The name on the Bank Account provided by the user.
     </Property>
 
-    <Property name="phoneNumber" type="string">
-    The user's phone number.
-    </Property>
-
-    <Property name="fullName" type="string">
-      The first and last name of the user.
-    </Property>
-
-    <Property name="emailAddress" type="string">
-      The user's email address.
+    <Property name="directDebitAuthority" type="object">
+    A [direct-debit authority](#direct-debit-authority-model). By including
+`directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/)
+and has authority to operate this account.
     </Property>
 
     <Property name="type" type="string">
@@ -205,23 +216,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "John Doe",
-        "directDebitAuthority": {
-          "phoneNumber": "+64212345678",
-          "fullName": "John Doe",
-          "emailAddress": "john.doe@gmail.com"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -279,18 +274,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/direct-debit-authorities">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/direct-debit-authorities \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "phoneNumber": "+64212345678",
-        "fullName": "John Doe",
-        "emailAddress": "john@doe.org"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-add-direct-debit-authority" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -324,18 +308,12 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   This endpoint allows you to retrieve information about a Bank Account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}">
-    ```bash
-    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
     {
-      "id": "d4a7cbd6818a87c51b97",
+      "id": "WRhAxxWpTKb5U7pXyxQjjY",
       "accountId": "Jaim1Cu1Q55uooxSens6yk",
       "status": "created",
       "bankAccountNumber": "12-1234-1234567-123",
@@ -383,17 +361,12 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-accounts/{bankAccountId}/balance">
-    ```bash
-    curl https://service.centrapay.com/api/bank-accounts/d4a7cbd6818a87c51b97/balance \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-get-balance" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
     {
-      "bankAccountId": "d4a7cbd6818a87c51b97",
+      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
       "balance": 1000,
       "currency": "NZD"
     }
@@ -414,7 +387,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   <Properties>
     <Property name="verificationCode" type="string" required>
-    	The code on the user’s bank statement.
+      The code on the user’s bank statement.
     </Property>
   </Properties>
 
@@ -436,16 +409,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-accounts/{bankAccountId}/verify">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/verify \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "verificationCode": "1111"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-verify" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -469,7 +433,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   <Properties>
     <Property name="verificationCode" type="string" required>
-    	The code on the user’s bank statement.
+      The code on the user’s bank statement.
     </Property>
   </Properties>
 
@@ -491,16 +455,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-authorities/{bankAccountId}/verify">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY/verify \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "verificationCode": "1111"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-authorities-verify" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -522,13 +477,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   This endpoint allows you to list the Bank Accounts for an account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/bank-accounts">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-accounts-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -590,13 +539,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 
   If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-authorities">
-    ```bash
-    curl https://service.centrapay.com/api/bank-authorities \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-authorities-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -685,21 +628,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/bank-authorities">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/bank-authorities \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "fullName": "John Doe",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "phoneNumber": "+64212345",
-        "emailAddress": "John.doe@email.com",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "John Doe"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-authorities-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -743,12 +672,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/bank-authorities/{bankAccountId}">
-    ```bash
-    curl https://service.centrapay.com/api/bank-authorities/WRhAxxWpTKb5U7pXyxQjjY \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="bank-authorities-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
