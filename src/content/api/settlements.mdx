@@ -8,7 +8,7 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import Badge from '../../components/Badge.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Settlement is created from completed [Payment Requests](/api/payment-requests/) over a specified period for each supported [Asset Type](/api/asset-types/) for each [Merchant](/api/merchants/).
@@ -72,13 +72,7 @@ Settlements can only be created if the Merchant has a [Settlement Config](/api/m
 
   This endpoint allows you to list Settlements.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}/settlements">
-    ```bash
-    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/settlements \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="settlements-list-by-merchantId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
