@@ -9,6 +9,7 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A Patron Code is an alternative to presenting a QR code where that option isn’t available.
@@ -100,13 +101,7 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
   This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests#get-a-payment-request-linked-to-a-patron-code) using the transacting APIs.
 
-
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/patron-codes">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/patron-codes \
-      -H "Authorization: $jwt"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="patron-codes-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -132,13 +127,7 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 
   This endpoint allows you to retrieve a Patron Code by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/patron-codes/{patronCodeId}">
-    ```bash
-    curl https://service.centrapay.com/api/patron-codes/V17FByEP9gm1shSG6a1Zzx \
-      -H "Authorization: $jwt"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="patron-codes-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -175,12 +164,7 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/patron-codes/barcode/{barcode}">
-    ```bash
-    curl https://service.centrapay.com/api/patron-codes/barcode/9990001234567895 \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="patron-codes-get-by-barcode" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json

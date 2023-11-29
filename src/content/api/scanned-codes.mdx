@@ -8,8 +8,8 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
-import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](/api/payment-requests).
@@ -63,16 +63,17 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/decode">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/decode \
-      -H "Authorization: $jwt" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "code": "123456789",
-        "scannedBy": "merchant",
-        "merchantConfigId": "P9gm1s1Cu1Q5uooxs"
-      }'
+  <RequestCodePanel slot="code-examples" filename="scanned-codes-decode" />
+
+  <CodePanel slot="code-examples" title="Response">
+    ```json
+    {
+      "code": "123456789",
+      "scannedBy": "merchant",
+      "merchantConfigId": "P9gm1s1Cu1Q5uooxs",
+      "provider": "farmlands",
+      "displayName": "Farmlands Card"
+    }
     ```
   </CodePanel>
 
@@ -89,16 +90,4 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
       The merchant config does not have a payment option that can satisfy the scanned code.
     </Error>
   </Properties>
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "code": "123456789",
-      "scannedBy": "merchant",
-      "merchantConfigId": "P9gm1s1Cu1Q5uooxs",
-      "provider": "farmlands",
-      "displayName": "Farmlands Card"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
