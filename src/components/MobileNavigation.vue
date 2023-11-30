@@ -27,11 +27,9 @@
 <script setup>
 import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
 import PageLinks from './PageLinks.vue';
-import Settings from './icons/Settings.vue';
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: '' },
   navigation: { type: Object, required: true },
-  baseUrl: { type: String, required: true },
 });
 </script>

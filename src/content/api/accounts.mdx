@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 An Account represents a permission boundary around Centrapay resources.
 Accounts can have [API Keys](/api/api-keys/) and [Account Memberships](/api/account-memberships/) which grant access to the resources.
@@ -78,6 +76,7 @@ individual account.
 <Endpoint
   method="POST"
   path="/api/accounts"
+  filename="accounts-create"
 >
   ## Create an Account
 
@@ -104,26 +103,6 @@ individual account.
       The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US".
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="accounts-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Centrapay Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "1",
-      "subscriptions": [],
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -131,30 +110,11 @@ individual account.
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}"
+  filename="accounts-get"
 >
   ## Get an Account
 
   This endpoint allows you to retrieve an Account.
-
-  <RequestCodePanel slot="code-examples" filename="accounts-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Centrapay Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "1",
-      "subscriptions": [],
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -162,6 +122,7 @@ individual account.
 <Endpoint
   method="PUT"
   path="/api/accounts/{accountId}"
+  filename="accounts-update"
 >
   ## Update an Account
 
@@ -172,26 +133,6 @@ individual account.
       The name of the Account.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="accounts-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "Shortland St Cafe",
-      "type": "org",
-      "region": "NZ",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "modifiedAt": "2020-06-12T02:35:12.112Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "version": "2",
-      "subscriptions": [],
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -199,6 +140,7 @@ individual account.
 <Endpoint
   method="PUT"
   path="/api/accounts/{accountId}/subscriptions"
+  filename="accounts-subscriptions-update"
 >
   ## Update Subscriptions
 
@@ -210,16 +152,6 @@ individual account.
     </Property>
   </Properties>
 
-  <RequestCodePanel slot="code-examples" filename="accounts-subscriptions-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "subscriptions": [ "quartz" ]
-    }
-    ```
-  </CodePanel>
-
   <Properties heading="Errors">
     <Error code="403" message="INVALID_ACCOUNT_ID">
       The account does not exist.
@@ -229,5 +161,4 @@ individual account.
       One of the subscriptions in the list is not valid.
     </Error>
   </Properties>
-
 </Endpoint>

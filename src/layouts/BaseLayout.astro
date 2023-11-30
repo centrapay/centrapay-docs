@@ -1,5 +1,5 @@
 ---
-import AppShell from '../components/AppShell.vue';
+import AppShell from '../components/AppShell.astro';
 import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
 import Footer from '../components/Footer.vue';
 import '../assets/css/tailwind.css';
@@ -87,7 +87,7 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
     <header>
     </header>
     <div class="flex flex-col h-screen w-screen">
-      <AppShell client:load path={Astro.url.pathname} baseUrl={Astro.url.origin} navigation={navigation}>
+      <AppShell path={Astro.url.pathname} navigation={navigation}>
         <slot />
         <button
           id="freshdesk-button"
