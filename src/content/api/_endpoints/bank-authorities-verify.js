@@ -10,4 +10,7 @@ export default {
       verificationCode: '1111'
     },
   },
+  response: {
+    verificationCode: '1111'
+  },
 };
