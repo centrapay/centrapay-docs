@@ -48,6 +48,11 @@ rules:
   require-await: [ error ]
 
 overrides:
+  - files: ["*.astro"]
+    parser: "astro-eslint-parser"
+    parserOptions:
+      babelOptions:
+        presets: ["@babel/preset-react"]
   - files: [ "**/*.test.js" ]
     globals:
       global: readonly

@@ -17,7 +17,7 @@ export function getStaticPaths() {
     {
       params: {path: undefined }
     }
-  ]
+  ];
 }
 
 const {
@@ -31,10 +31,10 @@ const collections = await Promise.all([
   ...await getCollection('guides'),
   ...await getCollection('connections'),
   ...await getCollection('api')
-])
+]);
 
 const content = await Promise.all(collections.map(async page => {
-	const { headings } = await page.render();
+  const { headings } = await page.render();
   page.headings = headings.filter(heading => heading.depth === 2);
   return page;
 }));

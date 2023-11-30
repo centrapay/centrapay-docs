@@ -10,6 +10,7 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
+import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 A merchant is an initiator of [Payment Requests](/api/payment-requests). A Merchant has [Merchant Configs](/api/merchant-configs)
@@ -200,19 +201,7 @@ which define the payment methods available for a Payment Request.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/merchants">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/merchants \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "accountId": "C4QnjXvj8At6SMsEN4LRi9",
-        "name": "Centrapay Cafe Auckland",
-        "country": "NZ",
-        "test": false
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-create" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -242,13 +231,7 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to retrieve a Merchant by id.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/{merchantId}">
-    ```bash
-    curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-get" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -278,13 +261,7 @@ which define the payment methods available for a Payment Request.
 
   This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/accounts/{accountId}/merchants">
-    ```bash
-    curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/merchants \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-list-by-accountId" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -350,26 +327,7 @@ which define the payment methods available for a Payment Request.
     </Error>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="PUT" path="/api/merchants/{merchantId}">
-    ```bash
-    curl -X PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Centrapay Café",
-        "location": {
-          "lat": "-36.8483579",
-          "lng": "174.7725834",
-          "city": "Auckland",
-          "postCode": "1010",
-          "country": "NZ"
-        },
-        "settlementConfig": {
-          "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
-        }
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-update" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -419,17 +377,7 @@ which define the payment methods available for a Payment Request.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="POST" path="/api/merchants/{merchantId}/set-onboarding-status">
-    ```bash
-    curl -X POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/set-onboarding-status \
-      -H "X-Api-Key: $api_key" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "onboardingStatus": "deactivated",
-        "onboardingStatusReason": "change-of-ownership"
-      }'
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-set-onboarding-status" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -483,17 +431,7 @@ which define the payment methods available for a Payment Request.
     </Property>
   </Properties>
 
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants/search">
-    ```bash
-    curl -G https://service.centrapay.com/api/merchants/search \
-      -H "X-Api-Key: $api_key" \
-      -d origin=123.42,32.22 \
-      -d distance=100 \
-      -d asset=epay.nzd.main,37873 \
-      -d pageKey=10 \
-      -d paginationLimit=10
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-search" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
@@ -555,13 +493,7 @@ which define the payment methods available for a Payment Request.
 
   Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
 
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/merchants">
-    ```bash
-    curl https://service.centrapay.com/api/merchants \
-      -H "X-Api-Key: $api_key"
-    ```
-  </CodePanel>
+  <RequestCodePanel slot="code-examples" filename="merchants-list" />
 
   <CodePanel slot="code-examples" title="Response">
     ```json
