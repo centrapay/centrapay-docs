@@ -1,0 +1,49 @@
+---
+import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
+import PageLinks from './PageLinks.vue';
+const { path, navigation } = Astro.props;
+---
+<div
+  id="sidebar"
+  class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col"
+>
+  <div class="sidebar-content flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
+    <nav
+      class="space-y-1 px-4"
+      aria-label="Sidebar"
+    >
+      <ul role="menubar">
+        {
+          navigation.items.map((section) => (
+            section.children?.length ?
+              <PrimarySidebarDisclosure
+                client:load
+                navigationItem={section}
+                path={path}
+              /> :
+              <PageLinks
+                client:load
+                navigationItem={section}
+                path={path}
+                level="1"
+              />
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script is:inline>
+  const leftSidebar = document.querySelector('#sidebar > .sidebar-content');
+  const leftSidebarScroll = localStorage.getItem('sidebar-scroll');
+
+  if (leftSidebarScroll !== null) {
+    const scroller = leftSidebarScroll > 1000 ? 1000 : leftSidebarScroll;
+    leftSidebar.scrollTop = parseInt(scroller, 10);
+  }
+
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('sidebar-scroll', leftSidebar.scrollTop);
+  });
+</script>

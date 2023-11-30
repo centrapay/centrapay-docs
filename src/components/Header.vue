@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen w-screen">
+  <div>
     <TransitionRoot
       as="template"
       :show="mainMenuOpen"
@@ -20,9 +20,8 @@
           >
             <DialogPanel class="relative flex w-full flex-1 flex-col bg-surface-primary">
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-                <SiteNavigation
+                <MobileNavigation
                   :path="navPath"
-                  :base-url="baseUrl"
                   :navigation="navigation"
                 />
               </div>
@@ -96,21 +95,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Static sidebar for desktop -->
-    <div class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col">
-      <div class="flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
-        <SiteNavigation
-          :base-url="baseUrl"
-          :path="navPath"
-          :navigation="navigation"
-        />
-      </div>
-    </div>
-
-    <main class="flex flex-col min-h-full w-full pt-16 md:pl-64 xl:pl-80">
-      <slot />
-    </main>
   </div>
 </template>
 
@@ -120,7 +104,7 @@ import SearchLogo from '../components/icons/Search.vue';
 import CentrapayLogo from '../components/icons/CentrapayLogo.vue';
 import CloseOutline from '../components/icons/CloseOutline.vue';
 import NavigationMenu from '../components/icons/NavigationMenu.vue';
-import SiteNavigation from '../components/SiteNavigation.vue';
+import MobileNavigation from '../components/MobileNavigation.vue';
 import CommandPalette from '../components/CommandPalette.vue';
 import {
   Dialog,
@@ -131,7 +115,6 @@ import {
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
-  baseUrl: { type: String, required: true },
   navigation: { type: Object, required: true },
 });
 
