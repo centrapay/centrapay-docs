@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](/api/accounts).
 
@@ -117,6 +115,7 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="POST"
   path="/api/businesses"
+  filename="businesses-create"
 >
   ## Create Business <Badge type="experimental"/>
 
@@ -149,32 +148,6 @@ A Business represents a company registered with the New Zealand Companies Office
       The NZBN provided does not match any NZ business.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="businesses-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "taxNumber": {
-        "value": "123-456-789",
-        "type": "nz-gst",
-      },
-      "onboardingStatus": "applied"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -182,6 +155,7 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="PUT"
   path="/api/businesses/{businessId}"
+  filename="businesses-update"
 >
   ## Update Business <Badge type="experimental"/>
 
@@ -206,32 +180,6 @@ A Business represents a company registered with the New Zealand Companies Office
       The NZBN provided does not match any NZ business.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="businesses-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "taxNumber": {
-        "value": "123-456-789",
-        "type": "nz-gst",
-      },
-      "farmlandsBusinessNumber": "12345678",
-      "onboardingStatus": "applied"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -239,31 +187,11 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/business"
+  filename="businesses-get-by-accountId"
 >
   ## Get Business by Account Id <Badge type="experimental"/>
 
   This endpoint allows you to retrieve a Business by account id.
-
-
-  <RequestCodePanel slot="code-examples" filename="businesses-get-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "accountName": "Centrapay",
-      "nzbn": "9429046246448",
-      "name": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -271,27 +199,11 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="GET"
   path="/api/nzbn-search"
+  filename="nzbn-search"
 >
   ## Search NZ Company Register <Badge type="experimental"/>
 
   This endpoint returns a list of companies that match the queried param on company name, nzbn number or company number. Results are [paginated](/api/pagination) and ordered by relevance.
-
-
-  <RequestCodePanel slot="code-examples" filename="nzbn-search" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "nzbn": "9429046246448",
-          "companyName": "CENTRAPAY LIMITED",
-          "companyNumber": "6340244"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -299,44 +211,11 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="GET"
   path="/api/nzbn/{nzbn}"
+  filename="nzbn-get"
 >
   ## Get Business Details from NZ Company Register <Badge type="experimental"/>
 
   This endpoint allows you to retrieve a Business by account id.
-
-
-  <RequestCodePanel slot="code-examples" filename="nzbn-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "nzbn": "9429046246448",
-      "companyName": "CENTRAPAY LIMITED",
-      "tradingName": "CentraPay",
-      "companyNumber": "6340244",
-      "directors": [
-        {
-          "firstName": "John",
-          "lastName": "DOE",
-          "addressLines": [
-            "7 Tara Street",
-            "Downmore",
-            "Auckland"
-          ]
-        },
-        {
-          "firstName": "Jane",
-          "lastName": "DOE",
-          "addressLines": [
-            "82 Greatwood Road",
-            "Northclover",
-            "Auckland"
-          ]
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -344,6 +223,7 @@ A Business represents a company registered with the New Zealand Companies Office
 <Endpoint
   method="POST"
   path="/api/businesses/{businessId}/set-onboarding-status"
+  filename="businesses-set-onboarding-status"
 >
   ## Set Business Onboarding Status
 
@@ -358,20 +238,4 @@ A Business represents a company registered with the New Zealand Companies Office
       The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="businesses-set-onboarding-status" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "set-onboarding-status",
-      "onboardingStatus": "deactivated",
-      "onboardingStatusReason": "change-of-ownership",
-      "businessId": "DKTs3U38hdhfEqwF1JKoT2",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "activityNumber": 2
-    }
-    ```
-  </CodePanel>
 </Endpoint>

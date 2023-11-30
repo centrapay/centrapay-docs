@@ -9,4 +9,13 @@ export default {
       q: 'centrapay',
     },
   },
+  response: {
+    items: [
+      {
+        nzbn: '9429046246448',
+        companyName: 'CENTRAPAY LIMITED',
+        companyNumber: '6340244'
+      }
+    ]
+  }
 };
