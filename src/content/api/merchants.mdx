@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Badge from '../../components/Badge.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A merchant is an initiator of [Payment Requests](/api/payment-requests). A Merchant has [Merchant Configs](/api/merchant-configs)
 which define the payment methods available for a Payment Request.
@@ -148,7 +146,6 @@ which define the payment methods available for a Payment Request.
 
 ## Product Model
 
-
 <Properties>
   <Property name="id" type="string">
     Product's unique identifier.
@@ -160,6 +157,7 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="POST"
   path="/api/merchants"
+  filename="merchants-create"
 >
   ## Create Merchant
 
@@ -200,25 +198,6 @@ which define the payment methods available for a Payment Request.
       The merchant's "country" does not match the "region" on the Account.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchants-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee0c486308f590260d9a07f",
-      "accountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "name": "Centrapay Cafe Auckland",
-      "country": "NZ",
-      "test": false,
-      "onboardingStatus": "applied",
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -226,29 +205,11 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="GET"
   path="/api/merchants/{merchantId}"
+  filename="merchants-get"
 >
   ## Get Merchant
 
   This endpoint allows you to retrieve a Merchant by id.
-
-  <RequestCodePanel slot="code-examples" filename="merchants-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee0c486308f590260d9a07f",
-      "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
-      "name": "Parisian - Brown",
-      "test": false,
-      "country": "AD",
-      "onboardingStatus": "applied",
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -256,45 +217,11 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/merchants"
+  filename="merchants-list-by-accountId"
 >
   ## List Merchants for Account
 
   This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
-
-  <RequestCodePanel slot="code-examples" filename="merchants-list-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "country": "BT",
-          "id": "5f6bf6ff81552101f8ff6122",
-          "name": "Adams, Runolfsdottir and Botsford",
-          "test": true,
-          "onboardingStatus": "applied",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "updatedAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-        },
-        {
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "country": "GM",
-          "id": "5f6bf6ff81552101f8ff6123",
-          "name": "Vandervort Inc",
-          "test": false,
-          "onboardingStatus": "applied",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "updatedAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -302,6 +229,7 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="PUT"
   path="/api/merchants/{merchantId}"
+  filename="merchants-update"
 >
   ## Update Merchant
 
@@ -326,35 +254,6 @@ which define the payment methods available for a Payment Request.
       The bank account in the settlement config does not belong to the same account.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchants-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee0c486308f590260d9a07f",
-      "accountId": "yqwyya0rzz3vvshqw0474u89xtj5fn",
-      "name": "Centrapay Café",
-      "test": false,
-      "country": "NZ",
-      "onboardingStatus": "applied",
-      "location": {
-        "lat": "-36.8483579",
-        "lng": "174.7725834",
-        "city": "Auckland",
-        "postCode": "1010",
-        "country": "NZ"
-      },
-      "settlementConfig": {
-        "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY"
-      },
-      "createdAt": "2021-09-12T01:11:22.491Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -362,6 +261,7 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="POST"
   path="/api/merchants/{merchantId}/set-onboarding-status"
+  filename="merchants-set-onboarding-status"
 >
   ## Set Merchant Onboarding Status
 
@@ -376,22 +276,6 @@ which define the payment methods available for a Payment Request.
       The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold` or `deactivated`. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchants-set-onboarding-status" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "set-onboarding-status",
-      "onboardingStatus": "deactivated",
-      "onboardingStatusReason": "change-of-ownership",
-      "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-      "createdAt": "2021-09-12T01:11:22.491Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "activityNumber": "2"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -399,6 +283,7 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="GET"
   path="/api/merchants/search"
+  filename="merchants-search"
 >
   ## Search Merchants
 
@@ -430,57 +315,6 @@ which define the payment methods available for a Payment Request.
       Maximum amount of merchants to return
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchants-search" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "totalItems": 100,
-      "items": [
-        {
-          "id": "M001",
-          "name": "Store 1",
-          "acceptedAssets": [
-            {
-              "assetType": "centrapay.nzd.main"
-            },
-            {
-              "assetType": "epay.nzd.main",
-              "products": [
-                {
-                  "id": "37873"
-                },
-                {
-                  "id": "38183"
-                }
-              ]
-            },
-            {
-              "assetType": "centrapay.token.main",
-              "products": [
-                {
-                  "id": "Xv990BzkgfoDS7bBls50pd"
-                }
-              ]
-            }
-          ],
-          "location": {
-            "lat": "123.45",
-            "lng": "32.21",
-            "city": "Auckland",
-            "country": "NZ",
-            "postCode": "1234",
-            "state": "Auckland",
-            "street": "2 Street Street",
-            "suburb": "Place"
-          }
-        }
-      ],
-      "nextPageKey": "20"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -488,55 +322,9 @@ which define the payment methods available for a Payment Request.
 <Endpoint
   method="GET"
   path="/api/merchants"
+  filename="merchants-list"
 >
   ## List Merchants <Badge type="deprecated"/>
 
   Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
-
-  <RequestCodePanel slot="code-examples" filename="merchants-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-          "country": "BT",
-          "id": "5f6bf6ff81552101f8ff6122",
-          "name": "Adams, Runolfsdottir and Botsford",
-          "test": true,
-          "onboardingStatus": "applied",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "updatedAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-        },
-        {
-          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-          "country": "GM",
-          "id": "5f6bf6ff81552101f8ff6123",
-          "name": "Vandervort Inc",
-          "test": false,
-          "onboardingStatus": "applied",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "updatedAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-        },
-        {
-          "accountId": "3xsjxxwmnpkunjbcpekyekc84rzxr4",
-          "country": "MZ",
-          "id": "5f6bf6ff81552101f8ff6124",
-          "name": "West, O'Reilly and Huels",
-          "test": true,
-          "onboardingStatus": "applied",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "updatedAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
