@@ -10,4 +10,5 @@ export default {
       code: 'hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x'
     },
   },
+  response: {},
 };
