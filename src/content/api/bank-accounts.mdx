@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 Bank Accounts are used to get money in and out of a Centrapay Account. Money is
 moved by creating "Top Up" or "Withdrawal" [Funds Transfers](/api/funds-transfers).
@@ -165,6 +163,7 @@ The Bank Account balance, retrieved using Open Banking flows. The supported Bank
 <Endpoint
   method="POST"
   path="/api/bank-accounts"
+  filename="bank-accounts-create"
 >
   ## Create Bank Account
 
@@ -215,29 +214,6 @@ and has authority to operate this account.
       The Centrapay account already holds this Bank Account.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": true,
-      "status": "created",
-      "verified": false,
-      "type": "centrapay",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -245,6 +221,7 @@ and has authority to operate this account.
 <Endpoint
   method="POST"
   path="/api/bank-accounts/{bankAccountId}/direct-debit-authorities"
+  filename="bank-accounts-add-direct-debit-authority"
 >
   ## Add Direct Debit Authority to a Bank Account
 
@@ -273,29 +250,6 @@ and has authority to operate this account.
       The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-add-direct-debit-authority" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": true,
-      "status": "created",
-      "verified": false,
-      "type": "centrapay",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -303,41 +257,11 @@ and has authority to operate this account.
 <Endpoint
   method="GET"
   path="/api/bank-accounts/{bankAccountId}"
+  filename="bank-accounts-get"
 >
   ## Get Bank Account
 
   This endpoint allows you to retrieve information about a Bank Account.
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "status": "created",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "directDebitAuthorized": false,
-      "bankRegion": "nz",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "createdAt": "2022-07-18T02:26:39.477Z",
-      "verified": false,
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2022-07-18T02:26:39.477Z",
-      "approvals": [
-          {
-            "type": "account-information-consent",
-            "status": "approved",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-      ],
-      "type": "quartz",
-      "test": true,
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -345,11 +269,11 @@ and has authority to operate this account.
 <Endpoint
   method="GET"
   path="/api/bank-accounts/{bankAccountId}/balance"
+  filename="bank-accounts-get-balance"
 >
   ## Get Bank Account Balance <Badge type="experimental"/>
 
   This endpoint allows you to retrieve the [balance](#bank-account-balance-model) of a Bank Account.
-
 
   <Properties heading="Errors">
     <Error code="403" message="BANK_BALANCE_NOT_SUPPORTED">
@@ -360,19 +284,6 @@ and has authority to operate this account.
       The access token to retrieve the [Bank Account Balance](#bank-account-balance-model) is no longer valid.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-get-balance" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "balance": 1000,
-      "currency": "NZD"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -380,6 +291,7 @@ and has authority to operate this account.
 <Endpoint
   method="POST"
   path="/api/bank-accounts/{bankAccountId}/verify"
+  filename="bank-accounts-verify"
 >
   ## Verify Bank Account
 
@@ -408,17 +320,6 @@ and has authority to operate this account.
       The top up / withdrawal and the bank account do not belong to the same account.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-verify" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "verificationCode": "1111"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -426,6 +327,7 @@ and has authority to operate this account.
 <Endpoint
   method="POST"
   path="/api/bank-authorities/{bankAccountId}/verify"
+  filename="bank-authorities-verify"
 >
   ## Verify Bank Authority <Badge type="deprecated"/>
 
@@ -454,17 +356,6 @@ and has authority to operate this account.
       The top up / withdrawal and the bank account do not belong to the same account.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-authorities-verify" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "verificationCode": "1111"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -472,61 +363,11 @@ and has authority to operate this account.
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/bank-accounts"
+  filename="bank-accounts-list"
 >
   ## List Bank Accounts
 
   This endpoint allows you to list the Bank Accounts for an account.
-
-  <RequestCodePanel slot="code-examples" filename="bank-accounts-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "XZbPLViMzekVBbF7QMqgaY",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "status": "created",
-        "bankAccountNumber": "02-0500-0568903-097",
-        "bankAccountName": "Pocket Money",
-        "directDebitAuthorized": false,
-        "bankRegion": "nz",
-        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "createdAt": "2022-04-19T05:43:40.425Z",
-        "verified": false,
-        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "modifiedAt": "2022-04-19T05:43:40.425Z",
-        "approvals": [
-
-        ],
-        "type": "quartz",
-        "test": true
-      },
-      {
-        "id": "3Kfdm8cuW1W6f8AoWJREs4",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "status": "created",
-        "bankAccountNumber": "00-1213-1231299-999",
-        "bankAccountName": "Jean",
-        "directDebitAuthorized": false,
-        "bankRegion": "nz",
-        "createdBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "createdAt": "2022-02-22T03:27:57.138Z",
-        "verified": false,
-        "modifiedBy": "crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7",
-        "modifiedAt": "2022-02-22T03:27:57.138Z",
-        "approvals": [
-          {
-            "type": "settlement",
-            "status": "pending",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-        ],
-        "type": "centrapay"
-      }
-    ]
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -534,50 +375,11 @@ and has authority to operate this account.
 <Endpoint
   method="GET"
   path="/api/bank-authorities"
+  filename="bank-authorities-list"
 >
   ## List Bank Authorities <Badge type="deprecated"/>
 
   If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
-
-  <RequestCodePanel slot="code-examples" filename="bank-authorities-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "WRhAxxWpTKb5U7pXyxQjjY",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "John Doe",
-        "status": "created",
-        "verified": false,
-        "directDebitAuthorized": true,
-        "createdAt": "2020-06-12T01:17:46.499Z",
-        "approvals": [
-
-        ]
-      },
-      {
-        "id": "b5URhAxxWpTKyxQjjY7pXW",
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "bankAccountNumber": "12-1234-1234567-123",
-        "bankAccountName": "Jane Doe",
-        "status": "active",
-        "verified": true,
-        "directDebitAuthorized": true,
-        "createdAt": "2020-06-12T01:17:46.499Z",
-        "approvals": [
-          {
-            "type": "settlement",
-            "status": "pending",
-            "updatedAt": "2021-11-08T21:52:39.915Z"
-          }
-        ]
-      }
-    ]
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -585,6 +387,7 @@ and has authority to operate this account.
 <Endpoint
   method="POST"
   path="/api/bank-authorities"
+  filename="bank-authorities-create"
 >
   ## Create Bank Authority <Badge type="deprecated"/>
 
@@ -627,28 +430,6 @@ and has authority to operate this account.
       There are already two bank accounts for the provided bank account number, which is the maximum allowed.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-authorities-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "status": "created",
-      "verified": false,
-      "directDebitAuthorized": true,
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -656,6 +437,7 @@ and has authority to operate this account.
 <Endpoint
   method="GET"
   path="/api/bank-authorities/{bankAccountId}"
+  filename="bank-authorities-get"
 >
   ## Get Bank Authority <Badge type="deprecated"/>
 
@@ -671,26 +453,4 @@ and has authority to operate this account.
       There are already two bank accounts for the provided bank account number, which is the maximum allowed.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-authorities-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "bankAccountNumber": "12-1234-1234567-123",
-      "bankAccountName": "John Doe",
-      "status": "created",
-      "directDebitAuthorized": true,
-      "verified": false,
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2020-06-12T01:17:46.499Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "approvals": []
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>

@@ -12,4 +12,7 @@ export default {
       ]
     },
   },
+  response: {
+    subscriptions: [ 'quartz' ]
+  }
 };
