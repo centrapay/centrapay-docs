@@ -10,8 +10,6 @@ import Badge from '../../components/Badge.astro';
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 import Error from '../../components/Error.astro';
 
 Centrapay digital assets are resources that represent the ability for a
@@ -27,7 +25,7 @@ rules governing how it can be obtained, shared or spent.
 
 All assets have the following fields along with the additional fields that are
 specific to its category. Assets which don't have a category are considered <Badge type="experimental" />
- and the model may change.
+and the model may change.
 
 
 <Properties>
@@ -282,32 +280,9 @@ number.
 <Endpoint
   method="GET"
   path="/api/assets/{assetId}"
+  filename="assets-get"
 >
   ## Get Asset
-
-  <RequestCodePanel slot="code-examples" filename="assets-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-    "id": "L75M3L56N2PtBSt8g7uXLU",
-    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-    "category": "giftcard",
-    "type": "epay.nzd.main",
-    "issuer": "ezipay",
-    "externalId": "23403283262",
-    "description": "$60 Acme Giftcard",
-    "productCode": "23403",
-    "initialBalance": "6000",
-    "balance": "6000",
-    "availableBalance": "6000",
-    "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
-    "expiresAt": "2020-12-31T00:00:00.000Z",
-    "createdAt": "2020-05-01T12:30:00.000Z"
-  }
-  ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -315,23 +290,9 @@ number.
 <Endpoint
   method="GET"
   path="/api/assets/{assetId}/summary"
+  filename="assets-get-summary"
 >
   ## Get Asset Summary
-
-  <RequestCodePanel slot="code-examples" filename="assets-get-summary" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "L75M3L56N2PtBSt8g7uXLU",
-      "issuer": "Centraperk Cafe",
-      "description": "Free Coffee",
-      "expiresAt": "2020-12-31T00:00:00.000Z",
-      "img": "https://static.centrapay.com/assets/brands/centraperk/cafe-token.png",
-      "liveness": "test"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -339,6 +300,7 @@ number.
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/assets"
+  filename="assets-list-by-accountId"
 >
   ## List Assets for Account
 
@@ -349,60 +311,6 @@ number.
       The asset identifier from the issuing system.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="assets-list-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "id": "L75M3L56N2PtBSt8g7uXLU",
-          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-          "category": "giftcard",
-          "type": "epay.nzd.main",
-          "issuer": "ezipay",
-          "externalId": "23403283262",
-          "description": "$60 Acme Giftcard",
-          "productCode": "23403",
-          "initialBalance": "6000",
-          "balance": "6000",
-          "availableBalance": "6000",
-          "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
-          "expiresAt": "2020-12-31T00:00:00.000Z",
-          "createdAt": "2020-05-01T12:30:00.000Z"
-        },
-        {
-          "id": "WRhAxxWpTKb5U7pXyxQjjY",
-          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-          "category": "money",
-          "type": "centrapay.nzd.main",
-          "liveness": "main",
-          "description": "NZD",
-          "createdAt": "2021-01-01T00:00:00.000Z",
-          "status": "active",
-          "currency": "NZD",
-          "balance": "2000"
-        },
-        {
-          "id": "Aj7rtHmd7rDeWoJgw9MPHe",
-          "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-          "type": "cca.coke.main",
-          "description": "Coke™ Token",
-          "category": "token",
-          "value": [
-            {
-              "currency": "NZD",
-              "amount": "400"
-            }
-          ],
-          "expiresAt": "2020-12-31T00:00:00.000Z",
-          "createdAt": "2020-05-01T12:30:00.000Z"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -410,66 +318,11 @@ number.
 <Endpoint
   method="GET"
   path="/api/assets/{assetId}/transactions"
+  filename="assets-list-transactions"
 >
   ## List Asset Transactions <Badge type="experimental"/>
 
   Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
-
-  <RequestCodePanel slot="code-examples" filename="assets-list-transactions" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "ref": "adRGJqMyMhmGfnDXasRZ",
-          "type": "transfer",
-          "kind": "refund",
-          "refType": "payment-request",
-          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "srcParty": "Coffee Ltd",
-          "destParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
-          "createdAt": "2022-03-31T20:36:08.562Z",
-          "createdBy": "crn::service:payments-api",
-          "srcAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
-          "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "amount": "2000",
-          "activityType": "value-in",
-          "activityNumber": "3"
-        },
-        {
-          "ref": "adRGJqMyMhmGfnDXasRZ",
-          "type": "transfer",
-          "kind": "payment",
-          "refType": "payment-request",
-          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "srcParty": "crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald",
-          "destParty": "Coffee Ltd",
-          "createdAt": "2022-03-31T20:35:54.717Z",
-          "createdBy": "crn::service:payments-api",
-          "srcAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "destAssetId": "Jd9a89ZESjjCuUD9DJD9Al",
-          "amount": "3000",
-          "activityType": "value-out",
-          "activityNumber": "2"
-        },
-        {
-          "ref": "H4SZKwMcU9VCmnGEqDA7Mn",
-          "type": "increment-balance",
-          "kind": "topup",
-          "refType": "topup",
-          "assetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "createdAt": "2022-03-31T02:37:47.207Z",
-          "createdBy": "crn::application:rhea",
-          "destAssetId": "WRhAxxWpTKb5U7pXyxQjjY",
-          "amount": "7600",
-          "activityType": "value-in",
-          "activityNumber": "1"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -477,32 +330,11 @@ number.
 <Endpoint
   method="POST"
   path="/api/assets/{assetId}/archive"
+  filename="assets-archive"
 >
   ## Archive Asset
 
   Archive supported asset types by asset id. Currently only gift cards may be archived.
-
-  <RequestCodePanel slot="code-examples" filename="assets-archive" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "L75M3L56N2PtBSt8g7uXLU",
-      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "category": "giftcard",
-      "type": "epay.nzd.main",
-      "issuer": "ezipay",
-      "externalId": "23403283262",
-      "description": "$60 Acme Giftcard",
-      "initialBalance": "6000",
-      "balance": "0",
-      "balanceUpdatedAt": "2021-01-01T00:00:00.000Z",
-      "expiresAt": "2020-12-31T00:00:00.000Z",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "status": "archived"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="UNSUPPORTED_ASSET_TYPE">
