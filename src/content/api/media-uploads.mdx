@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 ## Media Upload Model
 
@@ -58,6 +56,7 @@ import CodePanel from '../../components/CodePanel.astro';
 <Endpoint
   method="POST"
   path="/api/media-uploads"
+  filename="media-uploads-create"
 >
   ## Create a presigned URL for Media Upload <Badge type="experimental"/>
 
@@ -76,18 +75,6 @@ import CodePanel from '../../components/CodePanel.astro';
       The file name of the upload.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="media-uploads-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "uploadUrl": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -95,18 +82,9 @@ import CodePanel from '../../components/CodePanel.astro';
 <Endpoint
   method="GET"
   path="/api/media-uploads/{mediaUploadId}/location"
+  filename="media-uploads-get-location"
 >
   ## Get Media Upload Location <Badge type="experimental"/>
 
   This endpoint allows you to retrieve the upload location of a media file.
-
-  <RequestCodePanel slot="code-examples" filename="media-uploads-get-location" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "url": "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
