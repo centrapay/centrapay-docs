@@ -12,6 +12,10 @@ function validateData(data) {
     throw new Error('A data object is required');
   }
 
+  if (data.request !== undefined && typeof data.request !== 'object') {
+    throw new Error('Request must be an object');
+  }
+
   const requiredFields = [ 'method', 'path'];
   requiredFields.forEach(field => {
     if (!(field in data)) {
@@ -53,11 +57,16 @@ function createRequests(data) {
   return requests;
 }
 
+function createResponse(data) {
+  return JSON.stringify(data.response, null, 2);
+}
+
 export default function createEndpoint(data) {
   validateData(data);
   return {
     path: data.path,
     method: data.method,
     requests: createRequests(data),
+    response: createResponse(data),
   };
 }

@@ -1,6 +1,13 @@
 // Vitest Snapshot v1
 
-exports[`createEndpoint > creates a curl snippet with payload 1`] = `
+exports[`createEndpoint > creates a valid JSON response 1`] = `
+"{
+  \\"foo\\": \\"bar\\",
+  \\"bar\\": \\"baz\\"
+}"
+`;
+
+exports[`createEndpoint > request > creates a curl snippet with payload 1`] = `
 "curl -X POST \\\\
  https://service.centrapay.com/api/test \\\\
  -H 'content-type: application/json' \\\\
@@ -13,12 +20,12 @@ exports[`createEndpoint > creates a curl snippet with payload 1`] = `
 '"
 `;
 
-exports[`createEndpoint > creates a curl snippet without headers or payload 1`] = `
+exports[`createEndpoint > request > creates a curl snippet without headers or payload 1`] = `
 "curl -X POST \\\\
  https://service.centrapay.com/api/test"
 `;
 
-exports[`createEndpoint > creates a curl snippet without payload 1`] = `
+exports[`createEndpoint > request > creates a curl snippet without payload 1`] = `
 "curl -X POST \\\\
  https://service.centrapay.com/api/test \\\\
  -H 'content-type: application/json' \\\\
