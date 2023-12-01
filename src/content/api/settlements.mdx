@@ -8,8 +8,6 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A Settlement is created from completed [Payment Requests](/api/payment-requests/) over a specified period for each supported [Asset Type](/api/asset-types/) for each [Merchant](/api/merchants/).
 
@@ -67,42 +65,9 @@ Settlements can only be created if the Merchant has a [Settlement Config](/api/m
 <Endpoint
   method="GET"
   path="/api/merchants/{merchantId}/settlements"
+  filename="settlements-list-by-merchantId"
 >
   ## List Settlements
 
   This endpoint allows you to list Settlements.
-
-  <RequestCodePanel slot="code-examples" filename="settlements-list-by-merchantId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "id": "89028sh9308f590260d9a07f",
-          "status": "confirmed",
-          "assetType": "centrapay.nzd.main",
-          "currency": "NZD",
-          "createdAt": "2021-11-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "settledAt": "2021-11-13T11:59:59.999Z",
-          "settledBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "settlementAmount": "2500",
-          "settlementBankAccountId": "67e0c486308f590260d9a139"
-        },
-        {
-          "id": "9ds2cs89028sh90260d9f91h",
-          "status": "awaiting-confirmation",
-          "assetType": "centrapay.nzd.main",
-          "currency": "NZD",
-          "createdAt": "2021-11-13T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "settlementAmount": "2200",
-          "settlementBankAccountId": "67e0c486308f590260d9a139"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
