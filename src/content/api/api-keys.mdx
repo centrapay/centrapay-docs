@@ -8,8 +8,6 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 
@@ -59,11 +57,11 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 <Endpoint
   method="POST"
   path="/api/accounts/{accountId}/api-keys"
+  filename="api-keys-create"
 >
   ## Create an API Key
 
   This endpoint allows you to create an API key.
-
 
   <Properties>
     <Property name="name" type="string" required>
@@ -74,25 +72,6 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
       Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="api-keys-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```bash
-    {
-      "name": "MyAPIkey",
-      "createdAt": "2020-06-01T22:32:56.631Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-      "modifiedAt": "2020-06-01T22:32:56.631Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-      "enabled": true,
-      "role": "merchant-terminal",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "version": "1",
-      "secret": "EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -100,42 +79,11 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/api-keys"
+  filename="api-keys-list"
 >
-
   ## List API Keys
 
   This endpoint allows you to list all API Keys for an Account.
-
-  <RequestCodePanel slot="code-examples" filename="api-keys-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```bash
-    [
-      {
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "name": "MyOtherAPIkey",
-        "createdAt": "2020-06-01T21:57:25.888Z",
-        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-        "modifiedAt": "2020-06-01T21:57:25.888Z",
-        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-        "enabled": false,
-        "version": "1",
-        "role": "merchant-terminal"
-      },
-      {
-        "accountId": "Jaim1Cu1Q55uooxSens6yk",
-        "name": "MyAPIkey",
-        "createdAt": "2020-06-01T22:34:31.308Z",
-        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-        "modifiedAt": "2020-06-01T22:34:31.308Z",
-        "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-        "enabled": true,
-        "version": "1",
-        "role": "merchant-terminal"
-      }
-    ]
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -143,8 +91,8 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 <Endpoint
   method="PUT"
   path="/api/accounts/{accountId}/api-keys/{apiKeyName}"
+  filename="api-keys-update"
 >
-
   ## Update an API Key
 
   This endpoint allows you to enable or disable an API key.
@@ -154,22 +102,4 @@ API keys provide enduring access to a single Centrapay [Account](/api/accounts).
       Flag indicating the API Key is usable for authentication.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="api-keys-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```bash
-    {
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "name": "MyAPIkey",
-      "createdAt": "2020-06-01T22:34:31.308Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey",
-      "modifiedAt": "2020-07-02T22:34:31.308Z",
-      "modifiedBy": "crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyAPIkey",
-      "enabled": false,
-      "version": "2",
-      "role": "merchant-terminal"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
