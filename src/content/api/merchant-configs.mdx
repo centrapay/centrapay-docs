@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A Merchant Config defines the available payment options for paying a [Payment Request](/api/payment-requests).
 
@@ -90,6 +88,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 <Endpoint
   method="POST"
   path="/api/merchants/{merchantId}/configs"
+  filename="merchant-configs-create"
 >
   ## Create Merchant Config
 
@@ -99,7 +98,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     <Property name="paymentOptions" type="array" required>
       A list of [Payment Option Configs](#payment-option-config-model).
     </Property>
-
     <Property name="allowedRedirectUrls" type="array" experimental>
       Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
     </Property>
@@ -109,41 +107,10 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     <Error code="403" message="INVALID_WALLET_TYPE">
       `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
     </Error>
-
     <Error code="403" message="LIVENESS_MISMATCH">
       Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
     </Error>
-
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchant-configs-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee168e8597be5002af7b454",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "paymentOptions": [
-        {
-          "type": "centrapay.nzd.main",
-          "walletId": "1234c486308f3f0a23f0f92b"
-        },
-        {
-          "type": "epay.nzd.main",
-          "terminalId": "11000021"
-        },
-        {
-          "type": "farmlands.nzd.main",
-          "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-        }
-      ]
-    }
-    ```
-    </CodePanel>
 </Endpoint>
 
 ---
@@ -151,31 +118,11 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 <Endpoint
   method="GET"
   path="/api/merchants/{merchantId}/configs/{configId}"
+  filename="merchant-configs-get"
 >
   ## Get Merchant Config
 
   This endpoint allows you to retrieve a Merchant Config by id.
-
-  <RequestCodePanel slot="code-examples" filename="merchant-configs-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee168e8597be5002af7b454",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "createdAt": "2021-11-12T01:17:46.499Z",
-      "updatedAt": "2021-11-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "paymentOptions": [
-        {
-          "type": "farmlands.nzd.main",
-          "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-        }
-      ]
-    }
-    ```
-    </CodePanel>
 </Endpoint>
 
 ---
@@ -183,46 +130,11 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 <Endpoint
   method="GET"
   path="/api/merchants/{merchantId}/configs"
+  filename="merchant-configs-list"
 >
   ## List Merchant Configs
 
   This endpoint allows you to retrieve a list of Merchant Configs.
-
-  <RequestCodePanel slot="code-examples" filename="merchant-configs-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "5ee168e8597be5002af7b454",
-        "merchantId": "5ee0c486308f590260d9a07f",
-        "createdAt": "2021-09-12T01:17:46.499Z",
-        "updatedAt": "2021-09-12T01:17:46.499Z",
-        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-        "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-        "paymentOptions": [
-          {
-            "type": "farmlands.nzd.main",
-            "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-          }
-        ]
-      },
-      {
-        "id": "5ee168e8597be5002af7baed",
-        "merchantId": "5ee0c486308f590260d9a07f",
-        "createdAt": "2021-11-12T01:17:46.499Z",
-        "updatedAt": "2021-11-12T01:17:46.499Z",
-        "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-        "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-        "paymentOptions": [
-          {
-            "type": "test"
-          }
-        ]
-      }
-    ]
-    ```
-    </CodePanel>
 </Endpoint>
 
 ---
@@ -230,6 +142,7 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 <Endpoint
   method="PUT"
   path="/api/merchants/{merchantId}/configs/{configId}"
+  filename="merchant-configs-update"
 >
   ## Update Merchant Config
 
@@ -239,7 +152,6 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     <Property name="paymentOptions" type="array" required>
       A list of [Payment Option Configs](#payment-option-config-model).
     </Property>
-
     <Property name="allowedRedirectUrls" type="array" experimental>
       Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
     </Property>
@@ -249,37 +161,8 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     <Error code="403" message="INVALID_WALLET_TYPE">
       `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
     </Error>
-
     <Error code="403" message="LIVENESS_MISMATCH">
       Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="merchant-configs-update" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "5ee168e8597be5002af7baed",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "createdAt": "2021-09-12T01:17:46.499Z",
-      "updatedAt": "2021-12-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "paymentOptions": [
-        {
-          "type": "bitcoin.main"
-        },
-        {
-          "type": "centrapay.nzd.test",
-          "walletId": "1234c486308f3f0a23f0f92b"
-        },
-        {
-          "type": "farmlands.nzd.main",
-          "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
-        }
-      ]
-    }
-    ```
-    </CodePanel>
 </Endpoint>
