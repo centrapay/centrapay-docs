@@ -12,4 +12,8 @@ export default {
       fileName: 'image.png'
     },
   },
+  response: {
+    id: 'DKTs3U38hdhfEqwF1JKoT2',
+    uploadUrl: 'https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743'
+  }
 };
