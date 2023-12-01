@@ -6,4 +6,11 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
   },
+  response: {
+    givenName: 'John',
+    familyName: 'Doe',
+    featureUpdates: false,
+    marketingUpdates: true,
+    email: 'john.doe@centrapay.com'
+  }
 };

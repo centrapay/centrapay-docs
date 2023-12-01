@@ -11,4 +11,13 @@ export default {
       onboardingStatusReason: 'change-of-ownership'
     },
   },
+  response: {
+    type: 'set-onboarding-status',
+    onboardingStatus: 'deactivated',
+    onboardingStatusReason: 'change-of-ownership',
+    merchantId: 'MhocUmpxxmgdHjr7DgKoKw',
+    createdAt: '2021-09-12T01:11:22.491Z',
+    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
+    activityNumber: '2'
+  }
 };
