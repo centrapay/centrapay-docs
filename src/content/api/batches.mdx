@@ -10,8 +10,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 Batches enable bulk loading of resource onto the Centrapay platform.
 
@@ -85,6 +83,7 @@ The following table describes the Batch Types supported for loading.
 <Endpoint
   method="POST"
   path="/api/batches"
+  filename="batches-create"
 >
   ## Create Batch
 
@@ -113,26 +112,6 @@ The following table describes the Batch Types supported for loading.
       accountId `test` flag is not the same as submitted Batch’s `test` flag.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="batches-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "AVH5uG4gRLYK6YR8JyrViN",
-      "accountId": "1mdj7bj95gjo92r0ux6wfy69gj3h77",
-      "status": "created",
-      "type": "farmlands-external-asset",
-      "url": "https://azurebuckets.com/1234",
-      "test": true,
-      "count": "0",
-      "errorCount": "0",
-      "errors": [
-
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -140,32 +119,9 @@ The following table describes the Batch Types supported for loading.
 <Endpoint
   method="GET"
   path="/api/batches/{batchId}"
+  filename="batches-get"
 >
   ## Get Batch
 
   This endpoint allows you to retrieve a Batch by id.
-
-  <RequestCodePanel slot="code-examples" filename="batches-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "AVH5uG4gRLYK6YR8JyrViN",
-      "accountId": "1mdj7bj95gjo92r0ux6wfy69gj3h77",
-      "status": "complete",
-      "type": "farmlands-external-asset",
-      "url": "https://azurebuckets.com/1234",
-      "test": true,
-      "count": "160000",
-      "errorCount": "1",
-      "errors": [
-        {
-          "externalId": "69d64d80-f9bd-4057-bc5b-1c55685d995b",
-          "index": "1954",
-          "message": "INVALID_BARCODE_LENGTH"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>

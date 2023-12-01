@@ -6,4 +6,7 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
   },
+  response: {
+    terminalId: '11000021'
+  }
 };

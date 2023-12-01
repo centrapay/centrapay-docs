@@ -10,8 +10,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 
 A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet. Topping up a wallet consists of making a bank transfer from the user's bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet equal to the amount of the bank transfer.
@@ -21,6 +19,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="POST"
   path="/api/topups"
+  filename="topups-create"
 >
   ## Create a Top Up
 
@@ -69,24 +68,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
       The bank account type is not configured for topups. Only `centrapay` type bank accounts are configured.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="topups-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "hg2RfYTQ635tPBZEPJdCre",
-      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-      "accountId": "aBc932S9182qwCDqwer",
-      "type": "topup",
-      "amount": "10000",
-      "status": "created",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-01T12:30:00.000Z"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -94,28 +75,11 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="GET"
   path="/api/topups/{topupId}"
+  filename="topups-get"
 >
   ## Get Top Up
 
   This endpoint allows you to retrieve a Top Up by id.
-
-  <RequestCodePanel slot="code-examples" filename="topups-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-      "accountId": "aBc932S9182qwCDqwer",
-      "type": "topup",
-      "amount": "10000",
-      "status": "created",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-01T12:30:00.000Z"
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -123,41 +87,11 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="GET"
   path="/api/topups"
+  filename="topups-list"
 >
   ## List Top Ups For Authorized Accounts
 
   This endpoint allows you to list the Top Ups for authorized accounts.
-
-  <RequestCodePanel slot="code-examples" filename="topups-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "5thg2RPBZEfYTPJdQ63Cre",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-        "accountId": "aBc932S9182qwCDqwer",
-        "type": "topup",
-        "amount": "10000",
-        "status": "created",
-        "createdAt": "2020-05-01T12:30:00.000Z",
-        "updatedAt": "2020-05-01T12:30:00.000Z"
-      },
-      {
-        "id": "hg2RfYTQ635tPBZEPJdCre",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-        "accountId": "aBc932S9182qwCDqwer",
-        "type": "topup",
-        "amount": "10000",
-        "status": "created",
-        "createdAt": "2020-05-01T12:30:00.000Z",
-        "updatedAt": "2020-05-01T12:30:00.000Z"
-      }
-    ]
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -165,42 +99,11 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/topups"
+  filename="topups-list-by-accountId"
 >
   ## List Top Ups For an Account <Badge type="experimental"/>
 
   This endpoint allows you to list the Top Ups for an account.
-
-  <RequestCodePanel slot="code-examples" filename="topups-list-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "5thg2RPBZEfYTPJdQ63Cre",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-        "accountId": "aBc932S9182qwCDqwer",
-        "type": "topup",
-        "amount": "10000",
-        "status": "created",
-        "createdAt": "2020-05-01T12:30:00.000Z",
-        "updatedAt": "2020-05-01T12:30:00.000Z"
-      },
-      {
-        "id": "hg2RfYTQ635tPBZEPJdCre",
-        "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-        "accountId": "aBc932S9182qwCDqwer",
-        "type": "topup",
-        "amount": "10000",
-        "status": "created",
-        "createdAt": "2020-05-01T12:30:00.000Z",
-        "updatedAt": "2020-05-01T12:30:00.000Z"
-      }
-    ]
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -208,6 +111,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="POST"
   path="/api/withdrawals"
+  filename="withdrawals-create"
 >
   ## Create Withdrawal <Badge type="experimental"/>
 
@@ -244,25 +148,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
       The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="withdrawals-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "hg2RfYTQ635tPBZEPJdCre",
-      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-      "accountId": "aBc932S9182qwCDqwer",
-      "type": "withdrawal",
-      "amount": "10000",
-      "status": "created",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-01T12:30:00.000Z"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -270,6 +155,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="GET"
   path="/api/withdrawals/{withdrawalId}"
+  filename="withdrawals-get"
 >
   ## Get Withdrawal <Badge type="experimental"/>
 
@@ -293,25 +179,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
       The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="withdrawals-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-      "accountId": "aBc932S9182qwCDqwer",
-      "type": "withdrawal",
-      "amount": "10000",
-      "status": "created",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-01T12:30:00.000Z"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -319,44 +186,11 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="GET"
   path="/api/accounts/{accountId}/withdrawals"
+  filename="withdrawals-list-by-accountId"
 >
   ## List Withdrawals for an Account <Badge type="experimental"/>
 
   This endpoint allows you to list the withdrawals for an Account.
-
-  <RequestCodePanel slot="code-examples" filename="withdrawals-list-by-accountId" />
-
-  <CodePanel slot="code-examples" title="Response">
-
-    ```json
-    {
-      "items": [
-        {
-          "id": "5thg2RPBZEfYTPJdQ63Cre",
-          "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-          "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-          "accountId": "aBc932S9182qwCDqwer",
-          "type": "withdrawal",
-          "amount": "10000",
-          "status": "created",
-          "createdAt": "2020-05-01T12:30:00.000Z",
-          "updatedAt": "2020-05-01T12:30:00.000Z"
-        },
-        {
-          "id": "hg2RfYTQ635tPBZEPJdCre",
-          "assetId": "Te2uDM7xhDLWGVJU3nzwnh",
-          "bankAccountId": "FRhAzzWpTKb5U7pZygQjjY",
-          "accountId": "aBc932S9182qwCDqwer",
-          "type": "withdrawal",
-          "amount": "10000",
-          "status": "done",
-          "createdAt": "2020-05-01T12:30:00.000Z",
-          "updatedAt": "2020-05-01T12:30:00.000Z"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -364,6 +198,7 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 <Endpoint
   method="POST"
   path="/api/funds-transfers/{fundsTransferId}/abort"
+  filename="funds-transfers-abort"
 >
   ## Abort Funds Transfer
 
@@ -379,12 +214,4 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
       The funds transfer is already complete.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="funds-transfers-abort" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {}
-    ```
-  </CodePanel>
 </Endpoint>

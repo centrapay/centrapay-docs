@@ -6,4 +6,5 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
   },
+  response: {},
 };
