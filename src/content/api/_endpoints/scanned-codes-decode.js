@@ -12,4 +12,11 @@ export default {
       merchantConfigId: 'P9gm1s1Cu1Q5uooxs'
     },
   },
+  response: {
+    code: '123456789',
+    scannedBy: 'merchant',
+    merchantConfigId: 'P9gm1s1Cu1Q5uooxs',
+    provider: 'farmlands',
+    displayName: 'Farmlands Card'
+  }
 };

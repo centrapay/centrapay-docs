@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](/api/payment-requests).
 
@@ -44,6 +42,7 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
 <Endpoint
   method="POST"
   path="/api/decode"
+  filename="scanned-codes-decode"
 >
   ## Decode Scanned Code
 
@@ -62,20 +61,6 @@ A scanned code is a barcode that a merchant scans. The code can be used to creat
       The ID of the [Merchant Config](/api/merchant-configs).
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="scanned-codes-decode" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "code": "123456789",
-      "scannedBy": "merchant",
-      "merchantConfigId": "P9gm1s1Cu1Q5uooxs",
-      "provider": "farmlands",
-      "displayName": "Farmlands Card"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="UNKNOWN_CODE">
