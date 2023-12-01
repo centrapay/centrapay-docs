@@ -6,4 +6,9 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
   },
+  response: {
+    bankAccountId: 'WRhAxxWpTKb5U7pXyxQjjY',
+    balance: 1000,
+    currency: 'NZD'
+  }
 };

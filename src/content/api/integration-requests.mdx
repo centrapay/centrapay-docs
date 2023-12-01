@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 An Integration Request allows Centrapay users to request the creation of an [Integration](/api/integrations/) on a Centrapay Account.
 
@@ -110,6 +108,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="POST"
   path="/api/integration-requests"
+  filename="integration-requests-create"
 >
   ## Create an Integration Request <Badge type="experimental"/>
 
@@ -132,29 +131,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
       The requested Epay gift card types to support. Refer to [Product](#product).
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "type": "verifone",
-      "status": "pending",
-      "createdAt": "2020-06-12 01:17:46 UTC",
-      "updatedAt": "2020-06-12 01:17:46 UTC",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "terminal": {
-        "terminalId": "002039390093939",
-        "deviceId": "002-039-390"
-      }
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -162,34 +138,11 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="GET"
   path="/api/integration-requests/{integrationRequestId}"
+  filename="integration-requests-get"
 >
   ## Get an Integration Request <Badge type="experimental"/>
 
   This endpoint allows you to get an Integration Request.
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "type": "epay",
-      "status": "pending",
-      "terminalId": "11000021",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "product": {
-        "name": "koha-card"
-      },
-      "notifiedAt": "2020-06-13T05:00:00.000Z"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -197,6 +150,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="GET"
   path="/api/integration-requests"
+  filename="integration-requests-search"
 >
   ## Search Integration Requests
 
@@ -216,32 +170,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
       When set to `true`, only include Integration Requests with pending status.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-search" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "id": "DKTs3U38hdhfEqwF1JKoT2",
-          "accountId": "Jaim1Cu1Q55uooxSens6yk",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "type": "epay",
-          "status": "pending",
-          "terminalId": "11000021",
-          "createdAt": "2020-06-12T01:17:46.499Z",
-          "updatedAt": "2020-06-12T01:17:46.499Z",
-          "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-          "product": {
-            "name": "koha-card"
-          }
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -249,6 +177,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="PUT"
   path="/api/integration-requests/{integrationRequestId}/configs"
+  filename="integration-requests-configs-create"
 >
   ## Configure Integration Request <Badge type="experimental"/>
 
@@ -259,29 +188,6 @@ An Integration Request allows Centrapay users to request the creation of an [Int
       Epay terminalId for the Integration Request. Required if type is `epay`.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-configs-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "type": "epay",
-      "status": "pending",
-      "terminalId": "11000021",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "product": {
-        "name": "koha-card"
-      }
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -289,21 +195,11 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="GET"
   path="/api/integration-requests/{integrationRequestId}/configs"
+  filename="integration-requests-configs-get"
 >
   ## Get Integration Request Configuration <Badge type="experimental"/>
 
   This endpoint allows you to get the configuration values for the Integration Request.
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-configs-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "terminalId": "11000021"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -311,32 +207,11 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="POST"
   path="/api/integration-requests/{integrationRequestId}/activate"
+  filename="integration-requests-activate"
 >
   ## Activate Integration Request <Badge type="experimental"/>
 
   This endpoint allows you to activate an Integration Request.
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-activate" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DKTs3U38hdhfEqwF1JKoT2",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "type": "epay",
-      "status": "active",
-      "terminalId": "11000021",
-      "createdAt": "2020-06-12T01:17:46.499Z",
-      "updatedAt": "2020-06-12T01:17:46.499Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "updatedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "product": {
-        "name": "koha-card"
-      }
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="INTEGRATION_PARAM_MISSING">
@@ -355,17 +230,9 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 <Endpoint
   method="DELETE"
   path="/api/integration-requests/{integrationRequestId}"
+  filename="integration-requests-delete"
 >
   ## Delete Integration Request <Badge type="experimental"/>
 
   This endpoint allows you to delete an Integration Request.
-
-  <RequestCodePanel slot="code-examples" filename="integration-requests-delete" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {}
-    ```
-  </CodePanel>
-
 </Endpoint>

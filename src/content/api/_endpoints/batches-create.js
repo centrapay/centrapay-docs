@@ -13,4 +13,15 @@ export default {
       test: true
     },
   },
+  response: {
+    id: 'AVH5uG4gRLYK6YR8JyrViN',
+    accountId: '1mdj7bj95gjo92r0ux6wfy69gj3h77',
+    status: 'created',
+    type: 'farmlands-external-asset',
+    url: 'https://azurebuckets.com/1234',
+    test: true,
+    count: '0',
+    errorCount: '0',
+    errors: []
+  }
 };

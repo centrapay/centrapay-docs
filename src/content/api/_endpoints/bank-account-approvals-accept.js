@@ -10,4 +10,5 @@ export default {
       reason: 'All details match'
     },
   },
+  response: {},
 };
