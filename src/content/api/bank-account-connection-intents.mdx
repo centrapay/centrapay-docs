@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 
 A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts.
@@ -73,6 +71,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 <Endpoint
   method="POST"
   path="/api/bank-account-connection-intents"
+  filename="bank-account-connection-intents-create"
 >
   ## Create Bank Account Connection Intent <Badge type="experimental"/>
 
@@ -101,25 +100,6 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
       Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-connection-intents-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "3KVjuKW2CZCJeJVqPxwkX7",
-      "accountId": "B4u4WZCu3joZFVWT3XjWW3",
-      "type": "account-information-consent",
-      "status": "created",
-      "createdAt": "2022-03-31 02:56:29 UTC",
-      "createdBy": "crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey",
-      "updatedAt": "2022-03-31 02:56:29 UTC",
-      "updatedBy": "crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey",
-      "authorizationUrl": "https://example.com/authorization-url",
-      "test": true
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -127,6 +107,7 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 <Endpoint
   method="POST"
   path="/api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize"
+  filename="bank-account-connection-intents-authorize"
 >
   ## Authorize Bank Account Connection Intent <Badge type="experimental"/>
 
@@ -137,12 +118,4 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
       Authorization code returned from third-party.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-connection-intents-authorize" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {}
-    ```
-  </CodePanel>
 </Endpoint>

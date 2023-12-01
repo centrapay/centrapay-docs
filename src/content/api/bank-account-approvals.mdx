@@ -8,8 +8,6 @@ nav:
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 import Badge from '../../components/Badge.astro';
 import Error from '../../components/Error.astro';
 
@@ -116,6 +114,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 <Endpoint
   method="POST"
   path="/api/bank-account-approvals"
+  filename="bank-account-approvals-create"
 >
   ## Request Bank Account Approval <Badge type="experimental"/>
 
@@ -140,26 +139,6 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
       There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "DcTs3U38HdhfEqwF1GKoT3",
-      "mediaUploadId": "uooxSens6ykJaim1Cu1Q55",
-      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "type": "settlement",
-      "status": "created",
-      "createdAt": "2021-11-08T21:52:39.915Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2021-11-08T21:52:39.915Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -167,31 +146,11 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 <Endpoint
   method="GET"
   path="/api/bank-account-approvals/{bankAccountApprovalId}"
+  filename="bank-account-approvals-get"
 >
   ## Get Bank Account Approval <Badge type="experimental"/>
 
   This endpoint allows you to retrieve a Bank Account Approval.
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "bbab9a768921019cb856",
-      "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "type": "account-information-consent",
-      "status": "approved",
-      "createdAt": "2021-11-08T21:52:39.915Z",
-      "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "modifiedAt": "2021-11-08T21:52:39.915Z",
-      "modifiedBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey",
-      "refreshToken": "y04Njk3LTRjNmZkYjBhMzRiZSIsIm5vbmNlIjoiOTg3MTJjMGNkZmFiNWZjNzMwM2MxMzNl",
-      "consentId": "d24dbe-e2bc46ac-d924e38af112"
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -199,6 +158,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 <Endpoint
   method="POST"
   path="/api/bank-account-approvals/{bankAccountApprovalId}/accept"
+  filename="bank-account-approvals-accept"
 >
   ## Accept Bank Account Approval <Badge type="experimental"/>
 
@@ -215,15 +175,6 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
       The Bank Account Approval has already been accepted or declined.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-accept" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {}
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -231,6 +182,7 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 <Endpoint
   method="POST"
   path="/api/bank-account-approvals/{bankAccountApprovalId}/decline"
+  filename="bank-account-approvals-decline"
 >
   ## Decline Bank Account Approval <Badge type="experimental"/>
 
@@ -247,15 +199,6 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
       The Bank Account Approval has already been accepted or declined.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-decline" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {}
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -263,58 +206,9 @@ that allows access to a third-party system. See [Bank Account Approval Types](#b
 <Endpoint
   method="GET"
   path="/api/bank-accounts/{bankAccountId}/approvals"
+  filename="bank-account-approvals-list"
 >
   ## List Bank Account Approvals <Badge type="experimental"/>
 
   This endpoint allows you to list the Bank Account Approvals for a Bank Account.
-
-  <RequestCodePanel slot="code-examples" filename="bank-account-approvals-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "id": "PJ6jTgDNv1xfFAooCoWZLe",
-          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
-          "createdAt": "2022-08-21T21:41:46.361Z",
-          "modifiedAt": "2022-08-21T21:41:46.361Z",
-          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
-          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "account-information-consent",
-          "status": "approved",
-          "refreshToken": "tXC4dFm3yNAQbLrm4JxY6pynGoEG8vSJ",
-          "consentId": "fFAoo-CoWZLea8-4dFm3yNAoWZLe"
-        },
-        {
-          "id": "WiFna4hCc7k4KYUxncFPg4",
-          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
-          "createdAt": "2022-08-11T20:53:57.337Z",
-          "modifiedAt": "2022-08-11T20:53:57.337Z",
-          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
-          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "enduring-payment-consent",
-          "status": "approved",
-          "refreshToken": "dAGLl8AfnNCGEKEmBm1FryaDyW1JBh28",
-          "consentId": "4KYUx-ncFPg4a8-Ll8AfnNCcFPg4"
-        },
-        {
-          "id": "SoQkkv4rWRwrknrdkYbBuB",
-          "bankAccountId": "5vpkxjn6z787LiAKCqwuf9",
-          "createdAt": "2022-08-21T21:41:22.345Z",
-          "modifiedAt": "2022-08-21T21:41:22.345Z",
-          "accountId": "TEZiZWAtX6v1hJucU4fGKx",
-          "createdBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "modifiedBy": "crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47",
-          "type": "account-information-consent",
-          "status": "declined",
-          "refreshToken": "rX3MNTxFwKIU2lhyZOrq87Aw74ASSHUM",
-          "consentId": "rknrd-kYbBuBa8-MNTxFwKIYbBuB"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
