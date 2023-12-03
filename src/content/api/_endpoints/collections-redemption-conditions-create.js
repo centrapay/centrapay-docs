@@ -28,4 +28,29 @@ export default {
       ]
     },
   },
+  response: {
+    id: '1234',
+    merchantId: '36EALpZ89XpShxM2Ee9sXT',
+    collectionId: 'NFhUgPQEYbk2EbTXAYArTX',
+    allowedProducts: [
+      {
+        sku: '100001',
+        name: 'White Bread',
+        maxValue: {
+          currency: 'NZD',
+          amount: '400'
+        }
+      },
+      {
+        sku: '100002',
+        name: 'Sourdough Bread',
+        maxValue: {
+          currency: 'NZD',
+          amount: '800'
+        }
+      }
+    ],
+    createdAt: '2022-05-12T04:30:11.001Z',
+    createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99'
+  }
 };
