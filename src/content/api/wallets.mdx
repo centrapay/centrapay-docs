@@ -10,8 +10,6 @@ import Property from '../../components/Property.astro';
 import Badge from '../../components/Badge.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 A Wallet is an Asset that represents [Money](/api/assets#money-model). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
 
@@ -136,6 +134,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 <Endpoint
   method="POST"
   path="/api/wallets"
+  filename="wallets-create"
 >
   ## Create a Wallet
 
@@ -155,27 +154,6 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
     </Property>
   </Properties>
 
-  <RequestCodePanel slot="code-examples" filename="wallets-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "WRhAxxWpTKb5U7pXyxQjjY",
-      "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-      "category": "money",
-      "type": "centrapay.nzd.main",
-      "liveness": "main",
-      "description": "NZD",
-      "createdAt": "2021-01-01T00:00:00.000Z",
-      "status": "active",
-      "currency": "NZD",
-      "balance": "0",
-      "availableBalance": "6000",
-      "settlement": true
-    }
-    ```
-  </CodePanel>
-
   <Properties heading="Errors">
     <Error code="403" message="ACCOUNT_MAX_WALLETS_REACHED">
       The maximum number of wallets for the given ledger has been reached.
@@ -189,36 +167,11 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 <Endpoint
   method="GET"
   path="/api/wallets"
+  filename="wallets-list"
 >
   ## List Wallets
 
   This endpoint allows you to list authorized Wallets.
-
-  <RequestCodePanel slot="code-examples" filename="wallets-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    [
-      {
-        "id": "WRhAxxWpTKb5U7pXyxQjjY",
-        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "ledgerId": "centrapay.nzd.main",
-        "currency": "NZD",
-        "balance": "2000",
-        "availableBalance": "6000"
-      },
-      {
-        "id": "NQ1yeromwnWPD2hY41L2yS",
-        "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
-        "ledgerId": "centrapay.nzd.test",
-        "currency": "NZD",
-        "balance": "20",
-        "availableBalance": "6000"
-      }
-    ]
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -226,29 +179,9 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 <Endpoint
   method="GET"
   path="/api/wallets/{walletId}/transactions"
+  filename="wallets-list-transactions"
 >
   ## List Wallet Transactions
 
   This endpoint allows you to list Wallet Transactions.
-
-  <RequestCodePanel slot="code-examples" filename="wallets-list-transactions" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "activityNumber": "1",
-          "amount": "5000",
-          "value": "5000",
-          "createdAt": "2020-06-17T18:00:23.000Z",
-          "srcParty": "12-4000-100001-00",
-          "destWalletId": "EBVSreNmpsE2Pazw3SipXC",
-          "topupId": "77hqHDzw6KaaG2P2hoshUB"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
