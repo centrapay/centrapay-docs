@@ -42,4 +42,37 @@ export default {
       ]
     },
   },
+  response: {
+    paymentRequestId: 'MhocUmpxxmgdHjr7DgKoKw',
+    shortCode: 'CP-C7F-ZS5',
+    value: {
+      amount: '6190',
+      currency: 'NZD'
+    },
+    preAuth: true,
+    type: 'confirmation',
+    idempotencyKey: 'e8df06e2-13a5-48b4-b670-3fd6d815fe0a',
+    createdAt: '2021-06-08T04:04:27.426Z',
+    updatedAt: '2021-06-08T04:04:27.426Z',
+    lineItems: [
+      {
+        name: 'Coffee Grounds',
+        sku: 'GH1234',
+        qty: '1',
+        price: '4195',
+        tax: '15.00'
+      },
+      {
+        name: 'Centrapay Cafe Mug',
+        sku: 'SB456',
+        qty: '25',
+        price: '1995',
+        tax: '15.00',
+        discount: '199'
+      }
+    ],
+    invoiceRef: '2022-08-03T16:56:50-06:00',
+    createdByAccountId: 'Jaim1Cu1Q55uooxSens6yk',
+    createdByAccountName: 'Bob\'s Burgers Intergration'
+  }
 };

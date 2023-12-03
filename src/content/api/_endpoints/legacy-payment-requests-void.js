@@ -9,4 +9,9 @@ export default {
       requestId: 'a95b3b0d-1278-4613-8772-20d146065a2e',
     },
   },
+  response: {
+    type: 'voidCancel',
+    status: 'Success',
+    message: 'string'
+  }
 };

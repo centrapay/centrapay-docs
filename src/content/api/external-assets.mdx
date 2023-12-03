@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 External assets are [Assets](/api/assets/) which are issued by a third-party.
 
@@ -19,6 +17,7 @@ External assets are [Assets](/api/assets/) which are issued by a third-party.
 <Endpoint
   method="POST"
   path="/api/external-assets"
+  filename="external-assets-create"
 >
   ## Load an External Asset
 
@@ -53,30 +52,6 @@ External assets are [Assets](/api/assets/) which are issued by a third-party.
       Description of the asset, eg: "$60 Acme Giftcard".
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="external-assets-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "L75M3L56N2PtBSt8g7uXLU",
-      "category": "giftcard",
-      "type": "epay.nzd.main",
-      "accountId": "Jaim1Cu1Q55uooxSens6yk",
-      "issuer": "ezipay",
-      "externalId": "************21042",
-      "description": "$60 Acme Giftcard",
-      "productCode": "23403",
-      "currency": "NZD",
-      "initialBalance": "7000",
-      "balance": "6000",
-      "availableBalance": "6000",
-      "balanceUpdatedAt": "2020-06-10T15:30:00.000Z",
-      "expiresAt": "2020-12-31T00:00:00.000Z",
-      "createdAt": "2020-05-01T12:30:00.000Z"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="UNKNOWN_ASSET">
