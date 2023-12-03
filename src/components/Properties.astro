@@ -10,7 +10,6 @@ const { heading = 'Attributes' } = Astro.props;
     </button>
   </div>
   <ul
-    data-attribute-list
     role="list"
     class="m-0 list-none border-y border-outline-transparent divide-y divide-outline-transparent p-0 pt-4"
   >
@@ -23,25 +22,40 @@ const { heading = 'Attributes' } = Astro.props;
 
   for (const attributesSection of document.querySelectorAll('[data-attributes]')) {
     const button = getElement('[data-expand-button]', HTMLButtonElement, attributesSection);
-    const attributeList = getElement('[data-attribute-list]', HTMLUListElement, attributesSection);
+    const expandables = Array.from(attributesSection.querySelectorAll('[data-expandable]'));
+    const carats = Array.from(attributesSection.querySelectorAll('[data-carat]'));
     button.addEventListener('click', () => {
-      button.textContent = button.innerText === 'EXPAND ALL' ? 'COLLAPSE ALL' : 'EXPAND ALL';
-      const expandables = attributeList.querySelectorAll('[data-expandable-slot]');
-      for (const expandable of expandables) {
-        if (expandable.classList.contains('collapsed')) {
-          expandable.classList.remove('collapsed');
-          expandable.classList.add('expanded');
-        } else {
-          expandable.classList.remove('expanded');
-          expandable.classList.add('collapsed');
-        }
+      if (button.innerText === 'EXPAND ALL') {
+        button.innerText = 'COLLAPSE ALL';
+        expandables.forEach(e => e.classList.replace('collapsed', 'expanded'));
+        carats.forEach(c => c.classList.add('expanded'));
+      } else {
+        button.innerText = 'EXPAND ALL';
+        expandables.forEach(e => e.classList.replace('expanded', 'collapsed'));
+        carats.forEach(c => c.classList.remove('expanded'));
       }
     });
+
+    const attributes = attributesSection.querySelectorAll('[data-attribute]');
+    for (const attribute of attributes) {
+      const carat = getElement('[data-carat]', SVGElement, attribute)
+      const expandable = getElement('[data-expandable]', HTMLDivElement, attribute);
+      attribute.addEventListener('click', () => {
+        if (expandable.classList.contains('expanded')) {
+          expandable.classList.replace('expanded', 'collapsed');
+          carat.classList.remove('expanded');
+        } else {
+          expandable.classList.replace('collapsed', 'expanded');
+          carat.classList.add('expanded');
+        }
+        button.innerText = expandables.every(e => e.classList.contains('expanded')) ? 'COLLAPSE ALL' : 'EXPAND ALL';
+      });
+    }
   }
 </script>
 
 <style is:global>
-  .expanded {
+  .expanded[data-expandable] {
     @apply
       pt-2
       opacity-100
@@ -49,11 +63,21 @@ const { heading = 'Attributes' } = Astro.props;
     ;
   }
 
-  .collapsed {
+  .collapsed[data-expandable] {
     @apply
       h-0
       opacity-0
       scale-y-0
     ;
+  }
+
+  .expanded[data-carat] {
+    @apply
+    rotate-90
+    ;
+  }
+
+  .group:hover #carat {
+    @apply visible;
   }
 </style>
