@@ -11,7 +11,6 @@ import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
 import CodePanel from '../../components/CodePanel.astro';
 
 Centrapay Payment Requests are serviced via two sets of endpoints; the "next"
@@ -156,6 +155,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="POST"
   path="/payments/api/requests.create"
+  filename="legacy-payment-requests-create"
 >
   ## Create a Payment Request <Badge type="deprecated"/>
 
@@ -197,43 +197,6 @@ is returned with the payment request info as `payments[].ledger`.
     </Property>
   </Properties>
 
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "clientId": "b80c361f-805a-405c-b0af-366d3b5bd4ef",
-      "denomination": {
-        "amount": 350,
-        "asset": "NZD"
-      },
-      "notifyUrl": "http://example.com/payments/api/service.notify",
-      "payments": [
-        {
-          "account": "bc1qs3z0uh5e9k9tlhcswqg76vxkewjsjq2htlpv2f",
-          "amount": 0.0027625,
-          "ledger": "g.crypto.bitcoin.mainnet",
-          "methods": [
-            "qr_code"
-          ]
-        }
-      ],
-      "qrCode": "cp_9e98c00c-1556-4c95-ba78-2dd1fc97fc5b",
-      "status": "new",
-      "paidBy": {
-        "transactionId": "d52cc472-613c-4f25-ae2d-e880a0a24646",
-        "amount": 1020
-      },
-      "description": "Coffee",
-      "externalReference": "03.01.09.chancellor",
-      "merchantId": "b0792018-6efc-4bca-a148-83bc57ff75b9",
-      "requestId": "9e98c00c-1556-4c95-ba78-2dd1fc97fc5b",
-      "createdAt": "2019-12-10T22:30:51.500Z",
-      "updatedAt": "2019-12-10T22:31:04.983Z"
-    }
-    ```
-  </CodePanel>
-
   <Properties heading="Errors">
     <Error code="400" message="CHECKSUM_FAILED">
       `patronCode` luhn checksum digit doesn’t pass.
@@ -256,6 +219,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="GET"
   path="/payments/api/requests.info"
+  filename="legacy-payment-requests-get"
 >
   ## Get a Payment Request <Badge type="deprecated"/>
 
@@ -266,40 +230,6 @@ is returned with the payment request info as `payments[].ledger`.
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "requestId": "TyqV56mEkNLUeiY2QskHNR",
-      "shortCode": "CP-C7F-ZS5",
-      "merchantId": "5efbe17d96c083633e2b9241",
-      "merchantName": "NZD Test Merchant",
-      "clientId": "5efbe2fb96c08357bb2b9242",
-      "denomination": {
-        "asset": "NZD",
-        "amount": 100
-      },
-      "payments": [
-        {
-          "ledger": "centrapay.nzd.test",
-          "amount": 100,
-          "methods": [
-            "qr_code"
-          ]
-        }
-      ],
-      "qrCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
-      "requestCode": "https://app.centrapay.com/pay/TyqV56mEkNLUeiY2QskHNR",
-      "status": "new",
-      "createdAt": "2021-11-29T23:04:54.253Z",
-      "updatedAt": "2021-11-29T23:04:54.253Z",
-      "liveness": "test",
-      "paymentExpirySeconds": 120
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -307,6 +237,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="POST"
   path="/payments/api/requests.pay"
+  filename="legacy-payment-requests-pay"
 >
   ## Pay a Payment Request <Badge type="deprecated"/>
 
@@ -323,36 +254,6 @@ is returned with the payment request info as `payments[].ledger`.
       An identifier that can be used to pay or verify payment. See [ledger and authorization values](#ledger-and-authorization-values) for expected values.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-pay" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "createdAt": "2019-12-10T22:30:51.500Z",
-      "currencyExchange": {
-        "asset": "BTC",
-        "rate": 0.000081
-      },
-      "merchant": {
-        "categoryCode": "7372",
-        "id": "b0792018-6efc-4bca-a148-83bc57ff75b9",
-        "location": "NZ",
-        "name": "Centrapay"
-      },
-      "payment": {
-        "amount": 350,
-        "asset": "NZD",
-        "message": "Payment processed"
-      },
-      "reference": "252e5e22-4b99-4108-90a8-228312c455a7",
-      "settlementDate": "2019-12-10",
-      "status": "Success",
-      "type": "txBitcoin",
-      "version": 1
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="REQUEST_EXPIRED">
@@ -391,6 +292,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="POST"
   path="/payments/api/requests.cancel"
+  filename="legacy-payment-requests-cancel"
 >
   ## Cancel a Payment Request <Badge type="deprecated"/>
 
@@ -401,27 +303,6 @@ is returned with the payment request info as `payments[].ledger`.
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-cancel" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "merchantName": "Coffee Shop",
-      "status": "cancelled",
-      "denomination": {
-        "amount": 350,
-        "asset": "NZD"
-      },
-      "createdAt": "2019-12-10T22:30:51.500Z",
-      "updatedAt": "2019-12-10T22:31:04.983Z",
-      "externalReference": "03.01.09.chancellor",
-      "requestId": "a95b3b0d-1278-4613-8772-20d146065a2e",
-      "merchantId": "b0792018-6efc-4bca-a148-83bc57ff75b9",
-      "description": "Coffee"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="400" message="REQUEST_NOT_FOUND">
@@ -442,6 +323,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="POST"
   path="/payments/api/requests.void"
+  filename="legacy-payment-requests-void"
 >
   ## Void a Payment Request <Badge type="deprecated"/>
 
@@ -452,18 +334,6 @@ is returned with the payment request info as `payments[].ledger`.
       The payment requestId that is generated when [requests.create](#create-a-payment-request) is called.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-void" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "voidCancel",
-      "status": "Success",
-      "message": "string"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     Voiding a payment request can cause it to be cancelled or refunded. Therefore, this endpoint can give the same error responses as [requests.cancel](#cancel-a-payment-request) and [transactions.refund](#refund-a-transaction).
@@ -486,6 +356,7 @@ is returned with the payment request info as `payments[].ledger`.
 <Endpoint
   method="POST"
   path="/payments/api/transactions.refund"
+  filename="legacy-payment-requests-refund"
 >
   ## Refund a Transaction <Badge type="deprecated"/>
 
@@ -523,36 +394,6 @@ is returned with the payment request info as `payments[].ledger`.
       A reference supplied by the merchant that must be unique for each refund of that transaction, can be anything you want but it must be unique.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="legacy-payment-requests-refund" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "createdAt": "2019-12-10T22:30:51.500Z",
-      "currencyExchange": {
-        "asset": "BTC",
-        "rate": 0.000081
-      },
-      "merchant": {
-        "categoryCode": "7372",
-        "id": "b0792018-6efc-4bca-a148-83bc57ff75b9",
-        "location": "NZ",
-        "name": "Centrapay"
-      },
-      "payment": {
-        "amount": 350,
-        "asset": "NZD",
-        "message": "Payment processed"
-      },
-      "reference": "252e5e22-4b99-4108-90a8-228312c455a7",
-      "settlementDate": "2019-12-10",
-      "status": "Success",
-      "type": "txRefund",
-      "version": 1
-    }
-    ```
-  </CodePanel>
 
   ### Errors
 
