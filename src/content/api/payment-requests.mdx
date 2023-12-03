@@ -432,7 +432,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests"
   filename="payment-requests-create"
 >
@@ -529,7 +528,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="GET"
   path="/api/payment-requests/{paymentRequestId}"
   filename="payment-requests-get"
 >
@@ -541,7 +539,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="GET"
   path="/api/payment-requests/short-code/{shortCode}"
   filename="payment-requests-get-by-short-code"
 >
@@ -560,7 +557,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="GET"
   path="/api/me/patron-code-payment-request"
   filename="payment-requests-get-by-patron-code"
 >
@@ -577,7 +573,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/pay"
   filename="payment-requests-pay"
 >
@@ -647,7 +642,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/refund"
   filename="payment-requests-refund"
 >
@@ -720,7 +714,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/void"
   filename="payment-requests-void"
 >
@@ -759,7 +752,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/release"
   filename="payment-requests-release"
 >
@@ -784,7 +776,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/confirm"
   filename="payment-requests-confirm"
 >
@@ -837,7 +828,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="GET"
   path="/api/payment-activities"
   filename="payment-activities-list"
 >
@@ -860,7 +850,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="GET"
   path="/api/payment-requests/{paymentRequestId}/activities"
   filename="payment-requests-list-payment-activities"
 >
@@ -873,7 +862,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept"
   filename="payment-requests-conditions-accept"
 >
@@ -898,7 +886,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
-  method="POST"
   path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline"
   filename="payment-requests-conditions-decline"
 >

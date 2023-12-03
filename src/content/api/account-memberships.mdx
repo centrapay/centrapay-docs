@@ -81,7 +81,6 @@ A Member contains extended information about a user's access to an account.
 ---
 
 <Endpoint
-  method="POST"
   path="/api/accounts/{accountId}/members"
   filename="account-memberships-create"
 >
@@ -103,7 +102,6 @@ A Member contains extended information about a user's access to an account.
 ---
 
 <Endpoint
-  method="GET"
   path="/api/accounts/{accountId}/members"
   filename="account-memberships-list-by-accountId"
 >
@@ -115,7 +113,6 @@ A Member contains extended information about a user's access to an account.
 ---
 
 <Endpoint
-  method="DELETE"
   path="/api/accounts/{accountId}/members/{userId}"
   filename="account-memberships-delete"
 >
@@ -133,7 +130,6 @@ A Member contains extended information about a user's access to an account.
 ---
 
 <Endpoint
-  method="GET"
   path="/api/account-memberships"
   filename="account-memberships-list"
 >
@@ -145,7 +141,6 @@ A Member contains extended information about a user's access to an account.
 ---
 
 <Endpoint
-  method="GET"
   path="/api/users/{userId}/account-memberships"
   filename="account-memberships-list-by-user"
 >

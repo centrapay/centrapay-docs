@@ -17,7 +17,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="POST"
   path="/api/topups"
   filename="topups-create"
 >
@@ -73,7 +72,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
   path="/api/topups/{topupId}"
   filename="topups-get"
 >
@@ -85,7 +83,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
   path="/api/topups"
   filename="topups-list"
 >
@@ -97,7 +94,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
   path="/api/accounts/{accountId}/topups"
   filename="topups-list-by-accountId"
 >
@@ -109,7 +105,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="POST"
   path="/api/withdrawals"
   filename="withdrawals-create"
 >
@@ -153,7 +148,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
   path="/api/withdrawals/{withdrawalId}"
   filename="withdrawals-get"
 >
@@ -184,7 +178,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="GET"
   path="/api/accounts/{accountId}/withdrawals"
   filename="withdrawals-list-by-accountId"
 >
@@ -196,7 +189,6 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 ---
 
 <Endpoint
-  method="POST"
   path="/api/funds-transfers/{fundsTransferId}/abort"
   filename="funds-transfers-abort"
 >

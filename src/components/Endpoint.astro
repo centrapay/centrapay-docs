@@ -7,8 +7,7 @@ import { Code } from 'astro:components';
 import createEndpoint from '../utils/createEndpoint';
 
 const theme = 'material-theme-darker';
-// FIXME: Method can be removed when all endpoints have an endpoint file
-const { method, path, filename } = Astro.props;
+const { path, filename } = Astro.props;
 
 let endpoint;
 if (filename) {
@@ -19,7 +18,7 @@ if (filename) {
 
 <Row>
   <Column>
-    <Eyebrow method={method} path={path}/>
+    <Eyebrow method={endpoint.method} path={path}/>
     <slot/>
   </Column>
 
