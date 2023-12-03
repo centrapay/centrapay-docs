@@ -10,8 +10,6 @@ import Badge from '../../components/Badge.astro';
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 import Error from '../../components/Error.astro';
 
 An asset transfer is an asynchronous exchange of an asset or an amount to a recipient.
@@ -121,6 +119,7 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="POST"
   path="/api/asset-transfers"
+  filename="asset-transfers-create"
 >
   ## Create an Asset Transfer
 
@@ -181,29 +180,6 @@ Asset Transfer goes through different lifecycle stages.
       The [asset's type](/api/asset-types/) does not support transfers.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "created",
-    "value": "1000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "assetType": "epay.nzd.main",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "recipientAlias": "+64212312345",
-    "createdAt": "2020-05-01T12:30:00.000Z",
-    "updatedAt": "2020-05-02T01:03:37.222Z",
-    "suppressNotifications": false
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -211,31 +187,9 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="GET"
   path="/api/asset-transfers/{assetTransferId}"
+  filename="asset-transfers-get"
 >
   ## Get an Asset Transfer
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "claimed",
-    "value": "6000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "assetType": "epay.nzd.main",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "recipientAlias": "+64******2345",
-    "createdAt": "2020-05-01T12:30:00.000Z",
-    "updatedAt": "2020-05-02T01:03:37.222Z",
-    "suppressNotifications": false
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -243,24 +197,9 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="GET"
   path="/api/asset-transfers/{assetTransferId}/summary"
+  filename="asset-transfers-get-summary"
 >
   ## Get Asset Transfer Summary
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-get-summary" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "created",
-    "assetId": "YGRo6TYYSxH3js7",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "createdAt": "2020-05-01T12:30:00.000Z",
-    "url": "https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h"
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -268,6 +207,7 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="POST"
   path="/api/asset-transfers/{assetTransferId}/claim"
+  filename="asset-transfers-claim"
 >
   ## Claim Asset Transfer <Badge type="experimental"/>
 
@@ -282,28 +222,6 @@ Asset Transfer goes through different lifecycle stages.
       The asset transfer is not in a `sent` status and hence cannot be claimed.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-claim" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-    "id": "M7Kn2stAxNa6ri7h",
-    "status": "claimed",
-    "value": "6000",
-    "assetId": "YGRo6TYYSxH3js7",
-    "description": "$60 Giftcard",
-    "message": "Happy birthday",
-    "senderName": "My Cafe",
-    "senderAccountId": "aBc932S9182qwCDqwer",
-    "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-    "createdAt": "2020-05-01T12:30:00.000Z",
-    "updatedAt": "2020-05-02T01:03:37.222Z",
-    "suppressNotifications": false
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -311,6 +229,7 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="POST"
   path="/api/me/resolve-claimable-assets"
+  filename="asset-transfers-resolve-claimable-assets"
 >
   ## Resolve Claimable Assets <Badge type="experimental"/>
 
@@ -320,15 +239,6 @@ Asset Transfer goes through different lifecycle stages.
   If unclaimed, asset transfers are returned after 2 weeks.
 
   New accounts should call this endpoint to allocate assets that you've been sent.
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-resolve-claimable-assets" />
-
-  <CodePanel slot="code-examples" title="Response">
-  ```json
-  {
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -336,6 +246,7 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="GET"
   path="/api/asset-transfers"
+  filename="asset-transfers-list"
 >
   ## List Asset Transfers <Badge type="experimental"/>
 
@@ -350,33 +261,6 @@ Asset Transfer goes through different lifecycle stages.
       The Centrapay Account id of the sender.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-    "items": [
-      {
-        "id": "M7Kn2stAxNa6ri7h",
-        "status": "created",
-        "value": "6000",
-        "assetId": "YGRo6TYYSxH3js7",
-        "description": "$60 Giftcard",
-        "message": "Happy birthday",
-        "senderName": "My Cafe",
-        "senderAccountId": "aBc932S9182qwCDqwer",
-        "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-        "claimedByAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-        "recipientAlias": "+64*****2345",
-        "createdAt": "2020-05-01T12:30:00.000Z",
-        "updatedAt": "2020-05-02T01:03:37.222Z",
-        "suppressNotifications": false
-      }
-    ]
-  }
-  ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -384,6 +268,7 @@ Asset Transfer goes through different lifecycle stages.
 <Endpoint
   method="POST"
   path="/api/asset-transfers/{assetTransferId}/cancel"
+  filename="asset-transfers-cancel"
 >
   ## Cancel an Asset Transfer
 
@@ -392,27 +277,4 @@ Asset Transfer goes through different lifecycle stages.
       The asset transfer status is invalid and cannot be cancelled.
     </Error>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="asset-transfers-cancel" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "M7Kn2stAxNa6ri7h",
-      "status": "cancelled",
-      "assetId": "YGRo6TYYSxH3js7",
-      "value": "6000",
-      "description": "$60 Giftcard",
-      "message": "Happy birthday",
-      "senderName": "My Cafe",
-      "senderAccountId": "aBc932S9182qwCDqwer",
-      "recipientAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
-      "recipientAlias": "+64*****2345",
-      "createdAt": "2020-05-01T12:30:00.000Z",
-      "updatedAt": "2020-05-02T01:03:37.222Z",
-      "suppressNotifications": false
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
