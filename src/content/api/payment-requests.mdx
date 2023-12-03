@@ -9,8 +9,6 @@ import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
 import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
-import RequestCodePanel from '../../components/RequestCodePanel.astro';
-import CodePanel from '../../components/CodePanel.astro';
 
 Payment Requests represent the intention for a merchant to receive payment for goods and services. Payment Requests define the amount to be paid and the Asset Types that are acceptable for payment.
 
@@ -436,6 +434,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests"
+  filename="payment-requests-create"
 >
   ## Create a Payment Request
 
@@ -504,68 +503,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     </Property>
   </Properties>
 
-  <RequestCodePanel slot="code-examples" filename="payment-requests-create" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "VYowvZmuw3hbp1va9xqWx7",
-      "shortCode": "CP-X4V-6N",
-      "url": "https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7",
-      "merchantId": "5efbe17d96c083633e2b9241",
-      "merchantName": "NZD Test Merchant",
-      "configId": "5efbe2fb96c08357bb2b9242",
-      "value": {
-        "amount": "1",
-        "currency": "NZD"
-      },
-      "paymentOptions": [
-        {
-          "assetType": "centrapay.nzd.test",
-          "amount": "1"
-        },
-        {
-          "assetType": "cca.coke.test",
-          "amount": "1"
-        },
-        {
-          "assetType": "farmlands.nzd.test",
-          "amount": "1"
-        },
-        {
-          "assetType": "quartz.nzd.test",
-          "amount": "1"
-        },
-        {
-          "assetType": "uplinkapi.test",
-          "amount": "1"
-        },
-        {
-          "assetType": "epay.nzd.test",
-          "amount": "1",
-          "productCodes": [
-            "23403"
-          ]
-        }
-      ],
-      "status": "new",
-      "createdAt": "2023-10-23T22:56:46.145Z",
-      "updatedAt": "2023-10-23T22:56:46.145Z",
-      "expiresAt": "2023-10-23T22:58:46.145Z",
-      "liveness": "test",
-      "expirySeconds": 120,
-      "merchantConditions": [],
-      "createdByAccountId": "BtCjTpNwFcbuJQUP1c4qXp",
-      "createdByAccountName": "Smoke Test Merchant Prod",
-      "taxNumber": {
-        "value": "123-456-789",
-        "type": "nz-gst"
-      },
-      "remainingAmount": "1"
-    }
-    ```
-  </CodePanel>
-
   <Properties heading="Errors">
     <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
       The sum value of the line items did not equal the value of the Payment Request.
@@ -594,89 +531,11 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="GET"
   path="/api/payment-requests/{paymentRequestId}"
+  filename="payment-requests-get"
 >
   ## Get a Payment Request
 
   This endpoint allows you to retrieve a Payment Request.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-get" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5",
-      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-      "barcode": "9990001234567895",
-      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-      "merchantName": "Centrapay Café",
-      "configId": "5efbe2fb96c08357bb2b9242",
-      "purchaseOrderRef": "oF6kj1QlH5gK0y9rjRHFh2",
-      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423",
-      "value": {
-        "currency": "NZD",
-        "amount": "8991"
-      },
-      "paymentOptions": [
-        {
-          "amount": "8991",
-          "assetType": "centrapay.nzd.test"
-        },
-        {
-          "amount": "6190",
-          "assetType": "centrapay.token.test",
-          "acceptedCollections": [
-            {
-              "id": "QWNB6jurnBczmvXDVfRuMK",
-              "lineItems": [
-                {
-                  "name": "Coffee Grounds",
-                  "sku": "GH1234",
-                  "qty": "1",
-                  "price": "4195",
-                  "tax": "15.00"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "lineItems": [
-        {
-          "name": "Coffee Grounds",
-          "sku": "GH1234",
-          "qty": "1",
-          "price": "4195",
-          "tax": "15.00"
-        },
-        {
-          "name": "Centrapay Cafe Mug",
-          "sku": "SB456",
-          "qty": "25",
-          "price": "1995",
-          "tax": "15.00",
-          "discount": "199"
-        }
-      ],
-      "merchantConditions": [
-        {
-          "id": "1",
-          "name": "photo-id-check",
-          "message": "Please check ID",
-          "status": "awaiting-merchant"
-        }
-      ],
-      "status": "new",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "updatedAt": "2021-06-08T04:04:27.426Z",
-      "expiresAt": "2021-06-08T04:06:27.426Z",
-      "liveness": "test",
-      "expirySeconds": 120
-    }
-    ```
-  </CodePanel>
-
 </Endpoint>
 
 ---
@@ -684,46 +543,11 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="GET"
   path="/api/payment-requests/short-code/{shortCode}"
+  filename="payment-requests-get-by-short-code"
 >
   ## Get a Payment Request by Short Code
 
   This endpoint returns the latest Payment Request that matches the given short code.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-get-by-short-code" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5",
-      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-      "barcode": "9990001234567895",
-      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-      "merchantName": "Centrapay Café",
-      "configId": "5efbe2fb96c08357bb2b9242",
-      "value": {
-        "currency": "NZD",
-        "amount": "100"
-      },
-      "paymentOptions": [
-        {
-          "amount": "100",
-          "assetType": "centrapay.nzd.test"
-        }
-      ],
-      "merchantConditions": [
-
-      ],
-      "status": "new",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "updatedAt": "2021-06-08T04:04:27.426Z",
-      "expiresAt": "2021-06-08T04:06:27.426Z",
-      "liveness": "test",
-      "expirySeconds": 120
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="400" message="CHECKSUM_FAILED">
@@ -738,6 +562,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="GET"
   path="/api/me/patron-code-payment-request"
+  filename="payment-requests-get-by-patron-code"
 >
   ## Get a Payment Request linked to a Patron Code
 
@@ -747,42 +572,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
   them to find the Payment Request and proceed to pay.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-get-by-patron-code" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "id": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5",
-      "url": "https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw",
-      "patronCodeId": "V17FByEP9gm1shSG6a1Zzx",
-      "barcode": "9990001234567895",
-      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-      "merchantName": "Centrapay Café",
-      "configId": "5efbe2fb96c08357bb2b9242",
-      "value": {
-        "currency": "NZD",
-        "amount": "100"
-      },
-      "paymentOptions": [
-        {
-          "amount": "100",
-          "assetType": "centrapay.nzd.test"
-        }
-      ],
-      "merchantConditions": [
-
-      ],
-      "status": "new",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "updatedAt": "2021-06-08T04:04:27.426Z",
-      "expiresAt": "2021-06-08T04:06:27.426Z",
-      "liveness": "test",
-      "expirySeconds": 120
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -790,6 +579,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/pay"
+  filename="payment-requests-pay"
 >
   ## Pay a Payment Request
 
@@ -818,32 +608,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The value required to pay using the canonical units for the Asset Type.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-pay" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "payment",
-      "value": {
-        "currency": "NZD",
-        "amount": "1000"
-      },
-      "assetType": "centrapay.nzd.main",
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5-015",
-      "merchantName": "Centrapay Café",
-      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantConfigId": "5efbe2fb96c08357bb2b9242",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "2",
-      "mode": "partial-payment"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="INVALID_ASSET_TYPE">
@@ -885,6 +649,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/refund"
+  filename="payment-requests-refund"
 >
   ## Refund a Payment Request
 
@@ -910,32 +675,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The [Merchant Config](/api/merchant-configs) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-refund" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "refund",
-      "value": {
-        "currency": "NZD",
-        "amount": "100"
-      },
-      "assetType": "centrapay.nzd.main",
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5-015",
-      "merchantName": "Centrapay Café",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantConfigId": "5ee168e8597be5002af7b454",
-      "createdAt": "2021-06-12T01:17:00.000Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "3",
-      "invoiceRef": "sy8CRmo3sp3ArOpnfmb423"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED">
@@ -983,35 +722,11 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/void"
+  filename="payment-requests-void"
 >
   ## Void a Payment Request
 
   Voiding a payment request will cancel the request and trigger any refunds if necessary.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-void" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "refund",
-      "value": {
-        "currency": "NZD",
-        "amount": "1000"
-      },
-      "assetType": "centrapay.nzd.main",
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5-032",
-      "merchantName": "Centrapay Café",
-      "merchantId": "26d3Cp3rJmbMHnuNJmks2N",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantConfigId": "5efbe2fb96c08357bb2b9242",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "3"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="VOID_WINDOW_EXCEEDED">
@@ -1046,6 +761,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/release"
+  filename="payment-requests-release"
 >
   ## Release Pre Auth funds
 
@@ -1053,32 +769,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
   If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-release" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "release",
-      "value": {
-        "currency": "NZD",
-        "amount": "100"
-      },
-      "assetType": "centrapay.nzd.main",
-      "preAuth": true,
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5-015",
-      "merchantName": "Centrapay Café",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantConfigId": "5ee168e8597be5002af7b454",
-      "createdAt": "2021-06-12T01:17:00.000Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "3"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
@@ -1096,6 +786,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/confirm"
+  filename="payment-requests-confirm"
 >
   ## Confirm Pre Auth Payment Request
 
@@ -1119,46 +810,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The canonical value of the confirmation. Must be less than 100000000 and positive.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-confirm" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "shortCode": "CP-C7F-ZS5",
-      "value": {
-        "amount": "6190",
-        "currency": "NZD"
-      },
-      "preAuth": true,
-      "type": "confirmation",
-      "idempotencyKey": "e8df06e2-13a5-48b4-b670-3fd6d815fe0a",
-      "createdAt": "2021-06-08T04:04:27.426Z",
-      "updatedAt": "2021-06-08T04:04:27.426Z",
-      "lineItems": [
-        {
-          "name": "Coffee Grounds",
-          "sku": "GH1234",
-          "qty": "1",
-          "price": "4195",
-          "tax": "15.00"
-        },
-        {
-          "name": "Centrapay Cafe Mug",
-          "sku": "SB456",
-          "qty": "25",
-          "price": "1995",
-          "tax": "15.00",
-          "discount": "199"
-        }
-      ],
-      "invoiceRef": "2022-08-03T16:56:50-06:00",
-      "createdByAccountId": "Jaim1Cu1Q55uooxSens6yk",
-      "createdByAccountName": "Bob's Burgers Intergration"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="INVALID_PAYMENT_REQUEST_TYPE">
@@ -1188,6 +839,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="GET"
   path="/api/payment-activities"
+  filename="payment-activities-list"
 >
   ## List Payment Activities for a Merchant
 
@@ -1203,107 +855,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       Note: The `pageKey` value, if provided, needs to be URL-encoded.
     </Property>
   </Properties>
-
-  <RequestCodePanel slot="code-examples" filename="payment-activities-list" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "nextPageKey": "PaymentRequest#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8|2021-09-15T03:00:21.156Z",
-      "items": [
-        {
-          "type": "refund",
-          "value": {
-            "currency": "NZD",
-            "amount": "600"
-          },
-          "assetType": "centrapay.nzd.main",
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-032",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "3"
-        },
-        {
-          "type": "payment",
-          "value": {
-            "currency": "NZD",
-            "amount": "6190"
-          },
-          "assetType": "centrapay.nzd.main",
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-027",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:16:00.000Z",
-          "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2"
-        },
-        {
-          "type": "request",
-          "value": {
-            "currency": "NZD",
-            "amount": "6190"
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-015",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:15:46.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "1"
-        },
-        {
-          "type": "Authorization",
-          "value": {
-            "currency": "NZD",
-            "amount": "100"
-          },
-          "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
-          "shortCode": "CP-W4R-01J",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-05-12T01:15:46.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2",
-          "preAuth": true
-        },
-        {
-          "type": "preAuthRequest",
-          "value": {
-            "currency": "NZD",
-            "amount": "100"
-          },
-          "paymentRequestId": "5zXMDueDJRNNyP3UeWBgSA",
-          "shortCode": "CP-W4R-01J",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-05-12T01:15:46.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "1",
-          "preAuth": true
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -1311,75 +862,12 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="GET"
   path="/api/payment-requests/{paymentRequestId}/activities"
+  filename="payment-requests-list-payment-activities"
 >
   ## List Payment Activities for a Payment Request
 
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
   Results are ordered by descending activity created date.
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-list-payment-activities" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "items": [
-        {
-          "type": "refund",
-          "value": {
-            "currency": "NZD",
-            "amount": "600"
-          },
-          "assetType": "centrapay.nzd.main",
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-032",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:17:00.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "3"
-        },
-        {
-          "type": "payment",
-          "value": {
-            "currency": "NZD",
-            "amount": "6190"
-          },
-          "assetType": "centrapay.nzd.main",
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-027",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:16:00.000Z",
-          "createdBy": "crn::user:da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "2"
-        },
-        {
-          "type": "request",
-          "value": {
-            "currency": "NZD",
-            "amount": "6190"
-          },
-          "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-          "shortCode": "CP-C7F-ZS5-015",
-          "merchantName": "Centrapay Café",
-          "merchantId": "5ee0c486308f590260d9a07f",
-          "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-          "merchantConfigId": "5ee168e8597be5002af7b454",
-          "createdAt": "2021-06-12T01:15:46.000Z",
-          "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-          "activityNumber": "1"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
 
 ---
@@ -1387,35 +875,12 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept"
+  filename="payment-requests-conditions-accept"
 >
   ## Accept a Payment Condition
 
   Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-conditions-accept" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "accept-condition",
-      "value": {
-        "currency": "NZD",
-        "amount": 100
-      },
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "conditionId": "1",
-      "createdAt": "2022-05-12T01:17:00.000Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "2",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "merchantConfigId": "5ee168e8597be5002af7b454",
-      "merchantName": "Centrapay Café"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="PATRON_NOT_AUTHORIZED">
@@ -1435,35 +900,12 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 <Endpoint
   method="POST"
   path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline"
+  filename="payment-requests-conditions-decline"
 >
   ## Decline a Payment Condition
 
   Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
-
-  <RequestCodePanel slot="code-examples" filename="payment-requests-conditions-decline" />
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "type": "decline-condition",
-      "value": {
-        "currency": "NZD",
-        "amount": 100
-      },
-      "paymentRequestId": "MhocUmpxxmgdHjr7DgKoKw",
-      "conditionId": "1",
-      "createdAt": "2022-05-12T01:17:00.000Z",
-      "createdBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "paymentRequestCreatedBy": "crn::user:0af834c8-1110-11ec-9072-3e22fb52e878",
-      "activityNumber": "2",
-      "merchantAccountId": "C4QnjXvj8At6SMsEN4LRi9",
-      "merchantId": "5ee0c486308f590260d9a07f",
-      "merchantConfigId": "5ee168e8597be5002af7b454",
-      "merchantName": "Centrapay Café"
-    }
-    ```
-  </CodePanel>
 
   <Properties heading="Errors">
     <Error code="403" message="PATRON_NOT_AUTHORIZED">
