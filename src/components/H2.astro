@@ -3,14 +3,12 @@ import AnchorLink from './icons/AnchorLink.vue';
 const { id } = Astro.props;
 ---
 
-<div class="not-prose group flex items-center relative">
-  <a href=`#${id}` class="px-1.5 absolute right-full opacity-0 group-hover:opacity-100">
-    <AnchorLink class="w-4 h-4" />
-  </a>
+<a href=`#${id}` class="group flex items-center relative">
+  <AnchorLink class="w-4 h-4 mr-2 mt-10 absolute right-full opacity-0 group-hover:opacity-100" />
   <h2
     id={id}
-    class="scroll-mt-32 my-4 type-headline-4 flex flex-wrap gap-1"
+    class="w-full"
   >
     <slot/>
   </h2>
-</div>
+</a>
