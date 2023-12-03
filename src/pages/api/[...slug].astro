@@ -3,7 +3,7 @@ import { getCollection } from '../../utils/getCollection';
 import Prose from '../../components/Prose.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
-import H2 from '../../components/H2.astro';
+import ApiH2 from '../../components/ApiH2.astro';
 import H3 from '../../components/H3.astro';
 
 export async function getStaticPaths() {
@@ -31,7 +31,7 @@ const { title, description } = entry.data;
           </h1>
         </header>
         <Prose client:load>
-          <Content components={{ ...customComponents, h2: H2, h3: H3 }}/>
+          <Content components={{ ...customComponents, h2: ApiH2, h3: H3 }}/>
         </Prose>
       </article>
     </div>
