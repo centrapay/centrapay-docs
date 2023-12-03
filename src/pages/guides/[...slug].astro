@@ -4,6 +4,7 @@ import Prose from '../../components/Prose.vue';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
+import H2 from '../../components/H2.astro';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -41,7 +42,7 @@ const { title, description } = entry.data;
           </h1>
         </header>
         <Prose client:load>
-          <Content components={customComponents}/>
+          <Content components={{ ...customComponents, h2: H2 }}/>
         </Prose>
       </article>
     </div>
