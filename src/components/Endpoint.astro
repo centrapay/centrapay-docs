@@ -7,37 +7,34 @@ import { Code } from 'astro:components';
 import createEndpoint from '../utils/createEndpoint';
 
 const theme = 'material-theme-darker';
-// FIXME: Method can be removed when all endpoints have an endpoint file
-const { method, path, filename } = Astro.props;
+const { path, filename } = Astro.props;
 
-let endpoint;
-if (filename) {
-  const file = await import(`../content/api/_endpoints/${filename}.js`);
-  endpoint = createEndpoint(file.default);
+if (!filename) {
+  throw new Error(`Filename is required for Endpoint ${path}`);
+}
+
+const file = await import(`../content/api/_endpoints/${filename}.js`);
+const endpoint = createEndpoint(file.default);
+if (!endpoint) {
+  throw new Error(`Failed to create Endpoint ${path}`);
 }
 ---
 
 <Row>
   <Column>
-    <Eyebrow method={method} path={path}/>
+    <Eyebrow method={endpoint.method} path={path}/>
     <slot/>
   </Column>
 
-  { endpoint ?
-    <Column sticky>
-      <CodePanel title="Request" method={endpoint.method} path={endpoint.path}>
-        <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} theme={theme}/>
-      </CodePanel>
+  <Column sticky>
+    <CodePanel title="Request" method={endpoint.method} path={endpoint.path}>
+      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} theme={theme}/>
+    </CodePanel>
 
-      { endpoint.response &&
-        <CodePanel title="Response">
-          <Code code={endpoint.response} lang="json" theme={theme}/>
-        </CodePanel>
-      }
-    </Column>
-    :
-    <Column sticky>
-      <slot name="code-examples"/>
-    </Column>
-  }
+    { endpoint.response &&
+      <CodePanel title="Response">
+        <Code code={endpoint.response} lang="json" theme={theme}/>
+      </CodePanel>
+    }
+  </Column>
 </Row>

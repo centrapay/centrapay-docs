@@ -192,7 +192,6 @@ exports[`the build should not break any links 1`] = `
   "/api/merchants#settlement-config-model",
   "/api/merchants#update-merchant",
   "/api/pagination",
-  "/api/pagination#example",
   "/api/pagination#pagination-model",
   "/api/patron-codes",
   "/api/patron-codes#create-patron-code",

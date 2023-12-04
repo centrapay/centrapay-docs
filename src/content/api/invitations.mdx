@@ -104,7 +104,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 ---
 
 <Endpoint
-  method="POST"
   path="/api/invitations"
   filename="invitations-create"
 >
@@ -152,7 +151,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 ---
 
 <Endpoint
-  method="GET"
   path="/api/invitations/code/{code}"
   filename="invitations-get-by-code"
 >
@@ -164,7 +162,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 ---
 
 <Endpoint
-  method="GET"
   path="/api/accounts/{accountId}/invitations"
   filename="invitations-list-by-accountId"
 >
@@ -176,7 +173,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 ---
 
 <Endpoint
-  method="POST"
   path="/api/invitations/{invitationId}/accept"
   filename="invitations-accept"
 >
@@ -216,7 +212,6 @@ An Invitation can be used to allow users to claim ownership of a resource on the
 ---
 
 <Endpoint
-  method="POST"
   path="/api/invitations/{invitationId}/revoke"
   filename="invitations-revoke"
 >

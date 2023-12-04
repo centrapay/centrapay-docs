@@ -35,42 +35,13 @@ bring support to GET endpoints for listing, these conventions will be followed.
 ---
 
 
-<Endpoint>
-
-  ## Example
+<Endpoint
+  path="/api/examples"
+  filename="pagination-example"
+>
   <Properties>
     <Property name="pageKey" type="string">
       Used to retrieve the next page of items.
     </Property>
   </Properties>
-
-  <CodePanel slot="code-examples" title="Request" method="GET" path="/api/examples">
-    ```bash
-    curl -G https://service.centrapay.com/api/examples \
-      -H "X-Api-Key: $api_key" \
-      -d pageKey="Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8"
-    ```
-  </CodePanel>
-
-  <CodePanel slot="code-examples" title="Response">
-    ```json
-    {
-      "nextPageKey": "5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d",
-      "items": [
-        {
-          "value": "16",
-          "assetType": "centrapay.nzd.main"
-        },
-        {
-          "value": "32",
-          "assetType": "centrapay.nzd.main"
-        },
-        {
-          "value": "64",
-          "assetType": "centrapay.nzd.main"
-        }
-      ]
-    }
-    ```
-  </CodePanel>
 </Endpoint>
