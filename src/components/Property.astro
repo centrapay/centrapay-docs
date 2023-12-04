@@ -16,7 +16,7 @@ const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + form
     { experimental && <Badge type="experimental" /> }
     { deprecated && <Badge type="deprecated" /> }
   </div>
-  <div data-expandable-slot class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0 transition-opacity duration-500 collapsed">
+  <div data-expandable-slot class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0 transition-opacity duration-500 expanded">
     <slot />
   </div>
 </li>
