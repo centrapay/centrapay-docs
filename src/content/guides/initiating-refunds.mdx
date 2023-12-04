@@ -66,9 +66,3 @@ There are a number of reasons why refunds can fail. These are documented on the 
 Refunds that encounter unknown errors should be retried as per [Merchant Integration Error Handling](/guides/merchant-integration-error-handling).
 
 When retrying unknown errors is impossible, POS operators may need to select a different refund method.
-
-## Multi-Asset Selection
-
-[Payment Requests](/api/payment-requests/) may be paid by multiple assets. When refunding a multi-asset Payment Request, the refunded asset is not controllable by the merchant.
-
-The asset(s) to refund will be selected automatically based on the asset type refund priority. In general, the most flexible asset types will have the highest priority.  For example, assets that are acceptable at the broadest number of merchants (ie, cash equivalent assets) will be refunded first and the most restrictive assets will be refunded last.
