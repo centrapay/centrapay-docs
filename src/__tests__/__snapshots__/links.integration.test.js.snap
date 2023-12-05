@@ -308,7 +308,6 @@ exports[`the build should not break any links 1`] = `
   "/guides/farmlands-pos-integration#payment-flow-overview",
   "/guides/farmlands-pos-integration#testing-your-integration",
   "/guides/initiating-refunds",
-  "/guides/initiating-refunds#multi-asset-selection",
   "/guides/initiating-refunds#obtaining-a-payment-request-id",
   "/guides/initiating-refunds#on-this-page-title",
   "/guides/initiating-refunds#refund-error-handling",
