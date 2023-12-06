@@ -18,7 +18,8 @@ export default {
         amount: '400'
       },
       type: 'product',
-      mediaUploadId: '12345'
+      mediaUploadId: '12345',
+      externalId: 'ABC'
     },
   },
   response: {
@@ -40,6 +41,7 @@ export default {
     createdAt: '2021-05-12T04:30:11.001Z',
     mediaUploadId: '12345',
     img: 'https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743',
-    issuer: 'Centrapay'
+    issuer: 'Centrapay',
+    externalId: 'ABC'
   }
 };
