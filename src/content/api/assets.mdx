@@ -277,6 +277,134 @@ number.
 
 ---
 
+## Asset Activity Model
+
+Asset activities record an action that has taken place on an asset. 
+
+
+<Properties>
+  <Property name="assetId" type="string">
+    ID of the Asset the activity is for.
+  </Property>
+
+  <Property name="activityNumber" type="string">
+    Unique sequential Asset activity number.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Activity was created.
+  </Property>
+
+  <Property name="createdBy" type="string">
+    The service that created the activity.
+  </Property>
+
+  <Property name="idempotencyKey" type="string">
+    Client-supplied identifier that prevents double creation.
+  </Property>
+
+  <Property name="action" type="string">
+    type of action for token activities. Either `redeem` or `refund`
+  </Property>
+
+  <Property name="activityType" type="string">
+    The [Asset Activity Type](#asset-activity-types).
+  </Property>
+
+  <Property name="accountId" type="string">
+    The account that owns the asset
+  </Property>
+
+  <Property name="ref" type="string">
+    ID of the Centrapay resource that initiated the transaction. Valid for `value-in` or `value-out` activities
+  </Property>
+
+  <Property name="type" type="string">
+    Type of the Asset Transaction for `value-in` and `value-out` activities. Supported values are `increment-balance`, `decrement-balance` and `transfer`
+  </Property>
+
+  <Property name="kind" type="string">
+    Human readable value indicating the reason for the transaction. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="refType" type="string">
+    Name of the Centrapay resource that initiated the transaction. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="srcAssetId" type="string">
+    ID of the source asset. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="destAssetId" type="string">
+    ID of the destination asset. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="srcParty" type="string">
+    Display value for party providing funds. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="destParty" type="string">
+    Display value for party receiving funds. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="otherParty" type="string">
+    Display value for party providing or receiving funds. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="amount" type="string">
+    Amount of transaction in cents. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="bankAccountId" type="string">
+    BankAccountId of the bankAccount associated with the Asset. Valid for `value-in` and `value-out` activities on quartz assets
+  </Property>
+
+  <Property name="meta" type="string">
+    Extra unstructured information about the asset activity. Valid for `value-in` and `value-out` activities
+  </Property>
+
+  <Property name="lineItems" type="array">
+    The [Line Items](/api/payment-requests/#line-item-model) being paid for. Valid for `token-redeemed` activities
+  </Property>
+
+  <Property name="status" type="string">
+    The current status of the Asset. Valid for `created`, `sent` and `received` activities
+  </Property>
+  
+  <Property name="sender" type="string">
+    The name of the user who sent the asset. Valid for `sent` and `received` activities
+  </Property>
+
+  <Property name="recipientAlias" type="string">
+    The alias of the user who received the asset. Valid for `sent` and `received` activities
+  </Property>
+
+  <Property name="recipientAccountId" type="string">
+    The accountId of the user who received the asset. Valid for `sent` and `received` activities
+  </Property>
+
+  <Property name="senderAccountId" type="string">
+    The accountId of the user who sent the asset. Valid for `sent` and `received` activities
+  </Property>
+
+</Properties>
+
+### Asset Activity Types
+
+|       Name              |                                                 Description                                                        |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| token                   | [Token](#token-model) was refunded                                                                                 |
+| value-in                | [Asset](#asset-model) value has been increased                                                                     |
+| value-out               | [Asset](#asset-model) value has been decreased                                                                     |
+| archive-asset           | [Asset](#asset-model) was archived                                                                                 |
+| activate-asset          | [Asset](#asset-model) was activated                                                                                |
+| token-redeemed          | [Token](#token-model) was redeemed                                                                                 |
+| created                 | [Asset](#asset-model) was created                                                                                  |
+| received                | [Asset](#asset-model) was received                                                                                 |
+| sent                    | [Asset](#asset-model) was sent                                                                                     |
+
+---
+
 <Endpoint
   path="/api/assets/{assetId}"
   filename="assets-get"
@@ -335,5 +463,24 @@ number.
     <Error code="403" message="UNSUPPORTED_ASSET_TYPE">
       Asset type can not be archived
     </Error>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
+  path="/api/asset-activities"
+  filename="asset-activities-list"
+>
+  ## List Asset Activities
+
+  Returns a [paginated](/api/pagination) list of [Asset Activities](#asset-activity-model).
+  
+  ### Query Parameters
+
+  <Properties>
+    <Property name="bankAccountId" type="string">
+      The bankAccountId of the assets that activities should be returned for.
+    </Property>
   </Properties>
 </Endpoint>
