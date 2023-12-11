@@ -9,7 +9,7 @@ const { code, message } = Astro.props;
     <h4 class="font-mono" id={message}>{message}</h4>
     <Badge text={code}></Badge>
   </div>
-  <div data-expandable-slot class="transition-opacity duration-500 collapsed">
+  <div data-expandable-slot class="transition-opacity duration-500 expanded">
     <slot />
   </div>
 </li>
