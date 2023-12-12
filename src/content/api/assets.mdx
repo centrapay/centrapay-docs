@@ -214,69 +214,6 @@ Tokens have the following attributes along with the base asset fields.
 
 ---
 
-## Asset Transaction Model
-
-The `destParty` and `srcParty` are optionally provided only on transactions of
-type `transfer`. Values may include a merchant name, user handle, masked user
-email, masked user phone, or bank account.
-
-The `otherParty` is optionally provided only on transactions of type
-`increment-balance` and `decrement-balance`. Values may include bank account
-number.
-
-
-<Properties>
-  <Property name="ref" type="string">
-    ID of the Centrapay resource that initiated the transaction.
-  </Property>
-
-  <Property name="refType" type="string">
-    Name of the Centrapay resource that initiated the transaction.
-  </Property>
-
-  <Property name="type" type="string">
-    Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`.
-  </Property>
-
-  <Property name="kind" type="string">
-    Human readable value indicating the reason for the transaction.
-  </Property>
-
-  <Property name="srcAssetId" type="string">
-    ID of the source asset.
-  </Property>
-
-  <Property name="destAssetId" type="string">
-    ID of the destination asset.
-  </Property>
-
-  <Property name="srcParty" type="string">
-    Display value for party providing funds.
-  </Property>
-
-  <Property name="destParty" type="string">
-    Display value for party receiving funds.
-  </Property>
-
-  <Property name="otherParty" type="string">
-    Display value for party providing or receiving funds.
-  </Property>
-
-  <Property name="amount" type="string">
-    Amount of transaction in cents.
-  </Property>
-
-  <Property name="activityType" type="string">
-    Indicating whether the asset gained or lost value. Supported types are `value-in` and `value-out`.
-  </Property>
-
-  <Property name="activityNumber" type="string">
-    Unique sequential Asset transaction number.
-  </Property>
-</Properties>
-
----
-
 <Endpoint
   path="/api/assets/{assetId}"
   filename="assets-get"
@@ -308,17 +245,6 @@ number.
       The asset identifier from the issuing system.
     </Property>
   </Properties>
-</Endpoint>
-
----
-
-<Endpoint
-  path="/api/assets/{assetId}/transactions"
-  filename="assets-list-transactions"
->
-  ## List Asset Transactions <Badge type="experimental"/>
-
-  Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-model). This endpoint is currently only supported for `quartz` asset types.
 </Endpoint>
 
 ---
