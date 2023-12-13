@@ -573,6 +573,17 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
+  path="/api/payment-requests/{paymentRequestId}/summary"
+  filename="payment-requests-get-summary"
+>
+  ## Get Payment Request Summary
+
+  This endpoint allows you to retrieve the summary of a Payment Request while the status is `new`.
+</Endpoint>
+
+---
+
+<Endpoint
   path="/api/payment-requests/{paymentRequestId}/pay"
   filename="payment-requests-pay"
 >
