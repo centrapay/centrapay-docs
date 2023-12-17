@@ -57,6 +57,10 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
   <Property name="test" type="boolean">
     A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts) used for testing.
   </Property>
+
+  <Property name="name" type="string">
+      The name of the consent. Only present if type is `enduring-payment-consent`.
+    </Property>
 </Properties>
 
 ### Bank Account Connection Intent Types
@@ -91,6 +95,22 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
 
     <Property name="test" type="boolean">
       A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts/) used for testing.
+    </Property>
+
+    <Property name="name" type="string">
+      The name of the consent. Only valid if type is `enduring-payment-consent`.
+    </Property>
+
+    <Property name="expiresAt" type="timestamp">
+      The date that the consent is valid until. Only valid if type is `enduring-payment-consent`.
+    </Property>
+
+    <Property name="totalTransactions" type="number">
+      The total number of transactions the consent can be used for. Only valid if type is `enduring-payment-consent`.
+    </Property>
+
+    <Property name="totalAmount" type="monetary">
+      The total cent value of transactions the consent can be used for. Only valid if type is `enduring-payment-consent`.
     </Property>
   </Properties>
 
