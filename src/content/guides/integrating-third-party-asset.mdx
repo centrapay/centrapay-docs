@@ -124,8 +124,8 @@ To verify a request start by decoding the JWT.
 
 |        Field        |                                                Description                                                |
 | ------------------- | --------------------------------------------------------------------------------------------------------- |
-| iat                 | An Unix timestap of the request's creation.                                                               |
-| exp                 | An Unix timestap that the request is vaild until. Set to 5 minutes after iat.                             |
+| iat                 | An Unix timestamp of the request's creation.                                                               |
+| exp                 | An Unix timestamp that the request is valid until. Set to 5 minutes after iat.                             |
 | aud                 | The Uplink API URL belonging to the intended recipient of the request.                                    |
 | request_body_sha256 | A hash of the request payload, created using the [SHA256 algorithm](https://en.wikipedia.org/wiki/SHA-2). |
 
@@ -184,18 +184,18 @@ An idempotency key is used for `HTTP POST` requests. Centrapay **does not** guar
 
 | Name           | Type                                                            | Necessity | Description                                                                                              |
 | -------------- | --------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------- |
-| currency       | String                                                          | required  | The three letter [ISO curreny code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.             |
+| currency       | String                                                          | required  | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.             |
 | amount         | String                                                          | required  | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
 | authorization  | String                                                          | required  | A reference to the asset of the party paying the Payment Request.                                        |
 | merchantName   | String                                                          | required  | The name of the merchant who created the Payment Request.                                                |
 | merchantId     | String                                                          | required  | Your identifier for the merchant receiving payment.                                                      |
-| idempotencyKey | String                                                          | required  | A unique value that can be used to recognise subsequent retries of the same request.                     |
+| idempotencyKey | String                                                          | required  | A unique value that can be used to recognize subsequent retries of the same request.                     |
 | transactionId  | String                                                          | required  | An ID for the transaction in Centrapay’s system.                                                         |
 | status         | String                                                          | required  | The status of the asset transaction. See [possible status values](#statuses).                            |
 | type           | String                                                          | required  | The type of transaction. Possible values are payment or refund.                                          |
 | failureReason  | String                                                          | optional  | Required if the status is failed. See [possible failure reasons](#failure-reasons).                      |
 | refundable     | Boolean                                                         | optional  | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
-| refundBefore   | [Timestap](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                      |
+| refundBefore   | [Timestamp](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                      |
 
 ### Statuses
 
