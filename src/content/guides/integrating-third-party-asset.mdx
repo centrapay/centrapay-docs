@@ -162,12 +162,6 @@ The request_body_sha256 property should be used to verify that the request paylo
 
 If any of the above assertions are not met the request must be rejected.
 
-### Error Codes
-
-You may define the errors thrown from each endpoint. If an error is received, Centrapay will [get the Transaction Status](#get-transaction-endpoint) and decide whether to retry based on the response.
-
-Centrapay will retry a transaction attempt when a HTTP response status code ≥ 500 is thrown.
-
 ### Settlement
 
 It is the responsibility of the Asset Integrator to settle funds with a merchant.
@@ -175,6 +169,14 @@ It is the responsibility of the Asset Integrator to settle funds with a merchant
 ### Transaction Idempotency
 
 An idempotency key is used for `HTTP POST` requests. Centrapay **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Centrapay expects a `200 OK` response as described in the endpoint specification.
+
+### Errors
+
+A 2XX response should be returned from all endpoints for both successful and failed transaction attempts unless an unexpected error has occurred in your system.
+
+For failed transaction attempts, the response body should contain a failure reason. These are defined by each endpoint specification.
+
+Centrapay will retry a transaction attempt immediately when an HTTP response status code ≥ 500 is thrown. The [Get Transaction Endpoint](#get-transaction-endpoint) will be used to resolve transaction attempts if an error is thrown after retrying.
 
 ## Uplink API Spec
 
@@ -204,10 +206,6 @@ An idempotency key is used for `HTTP POST` requests. Centrapay **does not** guar
 | pending    | The transaction is processing.                                                                                                   |
 | successful | The transaction has been successfully processed.                                                                                 |
 | failed     | The transaction has been unable to be successfully processed. A failure reason is expected to be provided when status is failed. |
-
-### Failure Reasons
-
-See endpoint spec for possible failure reasons.
 
 ### Pay Endpoint
 
@@ -366,7 +364,11 @@ curl -X POST https://your.endpoint/cancel \
 
 ### Get Transaction Endpoint
 
-After initiating a payment transaction, the status may be `pending`. This endpoint will be used to poll the status of the transaction attempt. Polling will continue until either the transaction attempt status is `successful` or `failed`, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
+This endpoint is used to poll the Transaction Attempt status when it is pending or unknown due to an unexpected behavior.
+
+Polling will continue until either the transaction attempt status is successful or failed, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
+
+You should return an empty 2XX response if the transactionId does not exist in your system.
 
 <CodePanel title="Request" method="GET" path="/get?transactionId=${transactionId}">
 ```bash
