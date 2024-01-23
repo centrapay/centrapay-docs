@@ -168,7 +168,7 @@ It is the responsibility of the Asset Integrator to settle funds with a merchant
 
 ### Transaction Idempotency
 
-An idempotency key is used for `HTTP POST` requests. Centrapay **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Centrapay expects a `200 OK` response as described in the endpoint specification.
+The `transactionId` is used for idempotency for `HTTP POST` requests. Centrapay **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Centrapay expects a `200 OK` response as described in the endpoint specification.
 
 ### Errors
 
@@ -176,7 +176,7 @@ A 2XX response should be returned from all endpoints for both successful and fai
 
 For failed transaction attempts, the response body should contain a failure reason. These are defined by each endpoint specification.
 
-Centrapay will retry a transaction attempt immediately when an HTTP response status code ≥ 500 is thrown. The [Get Transaction Endpoint](#get-transaction-endpoint) will be used to resolve transaction attempts if an error is thrown after retrying.
+Centrapay will retry a transaction attempt immediately when an HTTP response status code ≥ 500 is thrown. The [Get Transaction Endpoint](#get-transaction-endpoint) will be used to resolve transaction attempts if an unexpected error is thrown after retrying.
 
 ## Uplink API Spec
 
@@ -184,20 +184,20 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 
 > Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
 
-| Name           | Type                                                            | Necessity | Description                                                                                              |
-| -------------- | --------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------- |
-| currency       | String                                                          | required  | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.             |
-| amount         | String                                                          | required  | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
-| authorization  | String                                                          | required  | A reference to the asset of the party paying the Payment Request.                                        |
-| merchantName   | String                                                          | required  | The name of the merchant who created the Payment Request.                                                |
-| merchantId     | String                                                          | required  | Your identifier for the merchant receiving payment.                                                      |
-| idempotencyKey | String                                                          | required  | A unique value that can be used to recognize subsequent retries of the same request.                     |
-| transactionId  | String                                                          | required  | An ID for the transaction in Centrapay’s system.                                                         |
-| status         | String                                                          | required  | The status of the asset transaction. See [possible status values](#statuses).                            |
-| type           | String                                                          | required  | The type of transaction. Possible values are payment or refund.                                          |
-| failureReason  | String                                                          | optional  | Required if the status is failed. See [possible failure reasons](#failure-reasons).                      |
-| refundable     | Boolean                                                         | optional  | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
-| refundBefore   | [Timestamp](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                      |
+| Name           | Type                                                            | Necessity  | Description                                                                                              |
+| -------------- | --------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------- |
+| currency       | String                                                          | required   | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.            |
+| amount         | String                                                          | required   | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
+| authorization  | String                                                          | required   | A reference to the asset of the party paying the Payment Request.                                        |
+| merchantName   | String                                                          | required   | The name of the merchant who created the Payment Request.                                                |
+| merchantId     | String                                                          | required   | Your identifier for the merchant receiving payment.                                                      |
+| transactionId  | String                                                          | required   | A unique ID for the transaction in Centrapay’s system. Also used for idempotency                         |
+| status         | String                                                          | required   | The status of the asset transaction. See [possible status values](#statuses).                            |
+| type           | String                                                          | required   | The type of transaction. Possible values are payment or refund.                                          |
+| failureReason  | String                                                          | optional   | Required if the status is failed. See [possible failure reasons](#failure-reasons).                      |
+| refundable     | Boolean                                                         | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
+| refundBefore   | [Timestamp](/api/data-types#timestamp)                          | optional   | The latest time at which a refund can be initiated.                                                      |
+| idempotencyKey | String                                                          | deprecated | A unique value that can be used to recognize subsequent retries of the same request.                     |
 
 ### Statuses
 
@@ -243,7 +243,7 @@ curl -X POST https://your.endpoint/pay \
 		"authorization": "WRhAxxWpTKb5U7pXyxQjjY",
 		"merchantName": "Centrapay Cafe",
 		"merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-		"idempotencyKey": "VMXMkUttDGTVz4ESv5ND56",
+		"idempotencyKey": "UttDGTHjr7DgKoKwWpTKb"
 		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
   }'
 ```
@@ -257,7 +257,6 @@ curl -X POST https://your.endpoint/pay \
   "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
   "merchantName": "Centrapay Cafe",
   "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "idempotencyKey": "VMXMkUttDGTVz4ESv5ND56",
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "successful",
@@ -289,6 +288,7 @@ curl -X POST https://your.endpoint/refund \
 		"currency": "NZD",
 		"amount": "1000",
 		"paymentTransactionId": "HFCD73hsbJHBDd9gs3t",
+		"transactionId": "dDHF8743fVzdsg84f6"
 		"idempotencyKey": "dDHF8743fVzdsg84f6"
 	}'
 ```
@@ -303,7 +303,6 @@ curl -X POST https://your.endpoint/refund \
   "merchantName": "Centrapay Cafe",
   "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
   "transactionId": "HFCD73hsbJHBDd9gs3t",
-  "idempotencyKey": "dDHF8743fVzdsg84f6",
   "type": "refund",
   "status": "successful"
 }
@@ -346,7 +345,6 @@ curl -X POST https://your.endpoint/cancel \
   "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
   "merchantName": "Centrapay Cafe",
   "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "idempotencyKey": "VMXMkUttDGTVz4ESv5ND56",
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "failed",
@@ -364,11 +362,11 @@ curl -X POST https://your.endpoint/cancel \
 
 ### Get Transaction Endpoint
 
-This endpoint is used to poll the Transaction Attempt status when it is pending or unknown due to an unexpected behavior.
+This endpoint is used resolve a Transaction Attempt when the transaction is pending or has an unknown state.
 
 Polling will continue until either the transaction attempt status is successful or failed, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
 
-You should return an empty 2XX response if the transactionId does not exist in your system.
+A 2XX response with an empty body should be returned if the transactionId does not exist in your system.
 
 <CodePanel title="Request" method="GET" path="/get?transactionId=${transactionId}">
 ```bash
@@ -385,7 +383,6 @@ curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
   "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
   "merchantName": "Centrapay Cafe",
   "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "idempotencyKey": "VMXMkUttDGTVz4ESv5ND56",
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "successful",
