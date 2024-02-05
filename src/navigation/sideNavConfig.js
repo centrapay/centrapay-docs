@@ -29,7 +29,7 @@ const navigationItems = [
       { title: 'Integrations', order: 11 },
       { title: 'Merchants', order: 14 },
       { title: 'Payment Requests', order: 15 },
-      { title: 'Scanned Codes', order: 18 },
+      { title: 'Scanned Codes', order: 19 },
     ]
   },
 ];
