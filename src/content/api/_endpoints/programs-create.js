@@ -21,7 +21,7 @@ export default {
     type: 'loyalty',
     description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!',
     mediaUploadId: '8aoMfscvtuewsuJzmzBzAs',
-    img: "https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743",
+    img: 'https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743',
     accountId: 'Jaim1Cu1Q55uooxSens6yk',
     brandId: 'EMbBZX4SbwqA1Ra6kkCNES',
     createdAt: '2021-08-25T00:02:49.488Z',
