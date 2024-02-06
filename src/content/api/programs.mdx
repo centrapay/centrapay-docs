@@ -7,225 +7,113 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
-import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+A Program can be used to provide a versatile foundation for diverse organisational requirements.
+Comprising three distinct types - `loyalty`, `acceptance` and `retail`.
 
-## Invitation Model
+- **Loyalty Programs** enable organisations to set up Promotions and Reward their customers.
+A Consumer can connect with a Loyalty Program to participate in Promotions and earn Rewards.
 
+- **Acceptance Programs** allow organisations to create a new [Asset Type](/api/asset-types) on Centrapay’s platform.
+Acceptance Programs allow Merchants to connect with Asset Issuers to accept their Asset Type in-store.
+
+- **Retail Programs** allow Merchants to connect with POS/Terminal providers to activate Centrapay payments on their devices.
+
+## Program Model
 
 <Properties>
   <Property name="id" type="string">
-    The Invitation's unique identifier.
+    The unique identifier of the Program.
   </Property>
 
-  <Property name="code" type="string">
-    The Invitation code.
+  <Property name="name" type="string">
+    The display name of the Program.
   </Property>
 
   <Property name="type" type="string">
-    The type of invitation. Supported values are `account-membership`.
+    The type of a Program. Current supported value is `loyalty`. 'retail' and 'acceptance' at a later date.
   </Property>
 
-  <Property name="resourceId" type="string">
-    The id of the related resource.
+  <Property name="description" type="string">
+    The displayable description for the Program.
   </Property>
 
-  <Property name="resourceType" type="string">
-    The type of the related resource. Supported values are `account`.
+  <Property name="mediaUploadId" type="string">
+    The id of the [Media Upload](/api/media-uploads/) image of the Program.
   </Property>
 
-  <Property name="expiresAt" type="timestamp">
-    When the Invitation expires.
+   <Property name="img" type="string">
+    The img URL of the Program.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The Centrapay accountId for an org account.
+  </Property>
+
+   <Property name="brandId" type="string">
+    The id of the Brand that should be associated with the Program.
   </Property>
 
   <Property name="createdAt" type="timestamp">
-    When the Invitation was created.
+    When the Program was created.
   </Property>
 
   <Property name="createdBy" type="crn">
-    The User or API Key that created the Invitation.
+    The User or API Key that created the Program.
   </Property>
 
-  <Property name="updatedAt" type="timestamp">
-    When the Invitation was updated.
-  </Property>
-
-  <Property name="updatedBy" type="crn">
-    The User or API Key that updated the Invitation.
-  </Property>
-
-    <Property name="accepted" type="boolean">
-    A flag indicating whether the Invitation has been accepted.
-  </Property>
-
-  <Property name="acceptedAt" type="timestamp">
-    When the Invitation was accepted.
-  </Property>
-
-  <Property name="acceptedBy" type="crn">
-    The User or API Key that accepted the Invitation.
-  </Property>
-
-  <Property name="acceptedByAccountId" type="string">
-    The [Account](/api/accounts) id of the user accepting the Invitation.
-  </Property>
-
-  <Property name="recipientAlias" type="string">
-    The email address of the user accepting the Invitation.
-  </Property>
-
-  <Property name="params" type="object">
-    [Params](#params-model) dependent on the Invitation type.
-  </Property>
-
-  <Property name="status" type="string">
-    The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.
-  </Property>
-</Properties>
-
----
-
-## Params Model
-
-
-<Properties>
-  <Property name="role" type="string">
-    The role assigned to the recipient, for invitations of type `account-membership`.
-  </Property>
-
-  <Property name="accountName" type="string">
-    The name of the account that the recipient is invited to, for invitations of type `account-membership`
+  <Property name="test" type="boolean">
+    `true` if the Program is for testing purposes only.
   </Property>
 </Properties>
 
 ---
 
 <Endpoint
-  path="/api/invitations"
-  filename="invitations-create"
+  path="/api/programs"
+  filename="programs-create"
 >
-  ## Create Invitation <Badge type="experimental"/>
+  ## Create Program <Badge type="experimental"/>
 
-  This endpoint allows you to create an Invitation.
+  This endpoint allows you to create a Program.
 
   <Properties>
+    <Property name="name" type="string" required>
+     The display name of the Program.
+    </Property>
+
     <Property name="type" type="string" required>
-      The type of invitation. Supported values are `account-membership`.
+      The type of a Program. Current supported value is `loyalty`. 'retail' and 'acceptance' at a later date.
     </Property>
 
-    <Property name="resourceId" type="string" required>
-      The id of the related resource.
+    <Property name="accountId" type="string" required>
+      The Centrapay accountId for an org account.
     </Property>
 
-    <Property name="resourceType" type="string" required>
-      The type of the related resource. Supported values are `account`.
+    <Property name="description" type="string">
+      The displayable description for the Program.
     </Property>
 
-    <Property name="recipientAlias" type="string" required>
-      The email address of the user accepting the Invitation.
+    <Property name="mediaUploadId" type="string">
+      The id of the [Media Upload](/api/media-uploads/) image of the Program.
     </Property>
 
-    <Property name="params" type="object" required>
-      [Params](#params-model) depending on the Invitation type.
+    <Property name="brandId" type="string">
+      The id of the Brand that should be associated with the Program.
     </Property>
-
-    <Property name="role" type="string" required>
-      The role that will be assigned to the user when the Invitation is accepted.
-    </Property>
-  </Properties>
-
-  <Properties heading="Errors">
-    <Error code="403" message="INVALID_ACCOUNT_TYPE">
-      The resourceId is associated with an account with a non `org` type.
-    </Error>
-
-    <Error code="403" message="RECIPIENT_ALREADY_INVITED">
-      An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
-    </Error>
   </Properties>
 </Endpoint>
 
 ---
 
 <Endpoint
-  path="/api/invitations/code/{code}"
-  filename="invitations-get-by-code"
+  path="/api/accounts/{accountId}/programs"
+  filename="programs-list-by-accountId"
 >
-  ## Get Invitation By Code <Badge type="experimental"/>
-
-  This endpoint allows you to retrieve an Invitation by code.
-</Endpoint>
-
----
-
-<Endpoint
-  path="/api/accounts/{accountId}/invitations"
-  filename="invitations-list-by-accountId"
->
-  ## List Invitations by Account Id <Badge type="experimental"/>
+  ## List Programs by Account Id <Badge type="experimental"/>
 
   This endpoint allows you list Invitations for an Account.
 </Endpoint>
 
----
-
-<Endpoint
-  path="/api/invitations/{invitationId}/accept"
-  filename="invitations-accept"
->
-  ## Accept Invitation <Badge type="experimental"/>
-
-  This endpoint allows you to accept an Invitation.
-
-  <Properties>
-    <Property name="code" type="string" required>
-      The Invitation code.
-    </Property>
-
-    <Property name="accountId" type="string" required>
-      The [Account](/api/accounts) id of the user accepting the Invitation.
-    </Property>
-  </Properties>
-
-  <Properties heading="Errors">
-    <Error code="403" message="INVITATION_EXPIRED">
-      The Invitation is expired.
-    </Error>
-
-    <Error code="403" message="INVITATION_ALREADY_ACCEPTED">
-      The Invitation has already been accepted.
-    </Error>
-
-    <Error code="403" message="RECIPIENT_ALIAS_MISMATCH">
-      The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation.
-    </Error>
-
-    <Error code="403" message="INVITATION_REVOKED">
-      The Invitation was revoked.
-    </Error>
-  </Properties>
-</Endpoint>
-
----
-
-<Endpoint
-  path="/api/invitations/{invitationId}/revoke"
-  filename="invitations-revoke"
->
-  ## Revoke Invitation <Badge type="experimental"/>
-
-  This endpoint allows you to revoke an Invitation.
-
-  <Properties heading="Errors">
-    <Error code="403" message="INVITATION_EXPIRED">
-      The Invitation is expired.
-    </Error>
-
-    <Error code="403" message="INVITATION_ACCEPTED">
-      The Invitation has already been accepted.
-    </Error>
-  </Properties>
-</Endpoint>
