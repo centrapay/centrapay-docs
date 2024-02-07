@@ -10,16 +10,7 @@ import Property from '../../components/Property.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-A Program can be used to provide a versatile foundation for diverse organisational requirements.
-Comprising three distinct types - `loyalty`, `acceptance` and `retail`.
-
-- **Loyalty Programs** enable organisations to set up Promotions and Reward their customers.
-A Consumer can connect with a Loyalty Program to participate in Promotions and earn Rewards.
-
-- **Acceptance Programs** allow organisations to create a new [Asset Type](/api/asset-types) on Centrapay’s platform.
-Acceptance Programs allow Merchants to connect with Asset Issuers to accept their Asset Type in-store.
-
-- **Retail Programs** allow Merchants to connect with POS/Terminal providers to activate Centrapay payments on their devices.
+A program is a container for one or more user-facing components, to be surfaced in both Centrapay and third-party applications
 
 ## Program Model
 
@@ -33,7 +24,7 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
   </Property>
 
   <Property name="type" type="string">
-    The type of a Program. Current supported value is `loyalty`. 'retail' and 'acceptance' at a later date.
+    The type of functionality contained in the Program. Valid values: `loyalty`.
   </Property>
 
   <Property name="description" type="string">
@@ -49,11 +40,11 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
   </Property>
 
   <Property name="accountId" type="string">
-    The Centrapay accountId for an org account.
+    The [Account](/api/accounts/) that will own the Program.
   </Property>
 
    <Property name="brandId" type="string">
-    The id of the Brand that should be associated with the Program.
+    The id of the Brand that will be associated with the Program.
   </Property>
 
   <Property name="createdAt" type="timestamp">
@@ -77,7 +68,7 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
 >
   ## Create Program <Badge type="experimental"/>
 
-  This endpoint allows you to create a Program.
+  This endpoint allows you to create a [Program](#program-model).
 
   <Properties>
     <Property name="name" type="string" required>
@@ -85,7 +76,7 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
     </Property>
 
     <Property name="type" type="string" required>
-      The type of a Program. Current supported value is `loyalty`. 'retail' and 'acceptance' at a later date.
+     The type of functionality contained in the Program. Valid values: `loyalty`.
     </Property>
 
     <Property name="accountId" type="string" required>
@@ -101,7 +92,7 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
     </Property>
 
     <Property name="brandId" type="string">
-      The id of the Brand that should be associated with the Program.
+      The id of the Brand that will be associated with the Program.
     </Property>
   </Properties>
 </Endpoint>
@@ -114,6 +105,5 @@ Acceptance Programs allow Merchants to connect with Asset Issuers to accept thei
 >
   ## List Programs by Account Id <Badge type="experimental"/>
 
-  This endpoint allows you list Invitations for an Account.
+  Returns a [paginated](/api/pagination/) list of [Programs](#program-model) for an Account.
 </Endpoint>
-
