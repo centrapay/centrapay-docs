@@ -1,0 +1,93 @@
+---
+title: Loyalty Programs
+description: Loyalty Program model and related endpoints
+nav:
+  path: API
+  order: 13
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+
+A loyalty program is a container for one or more user-facing components, to be surfaced in both Centrapay and third-party applications
+
+## Loyalty Program Model
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier of the Loyalty Program.
+  </Property>
+
+  <Property name="name" type="string">
+    The display name of the Loyalty Program.
+  </Property>
+
+  <Property name="description" type="string">
+    The displayable description for the Loyalty Program.
+  </Property>
+
+  <Property name="mediaUploadId" type="string">
+    The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+  </Property>
+
+   <Property name="img" type="string">
+    The img URL of the Loyalty Program.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The [Account](/api/accounts/) that will own the Loyalty Program.
+  </Property>
+
+  <Property name="createdAt" type="timestamp">
+    When the Loyalty Program was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Loyalty Program.
+  </Property>
+
+  <Property name="test" type="boolean">
+    `true` if the Loyalty Program is for testing purposes only.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  path="/api/loyalty-programs"
+  filename="loyalty-programs-create"
+>
+  ## Create Loyalty Program <Badge type="experimental"/>
+
+  This endpoint allows you to create a [ Loyalty Program ](#loyalty-program-model).
+
+  <Properties>
+    <Property name="name" type="string" required>
+     The display name of the Loyalty Program.
+    </Property>
+
+    <Property name="accountId" type="string" required>
+      The [Account](/api/accounts/) that will own the Loyalty Program.
+    </Property>
+
+    <Property name="description" type="string">
+      The displayable description for the Loyalty Program.
+    </Property>
+
+    <Property name="mediaUploadId" type="string">
+      The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+    </Property>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
+  path="/api/accounts/{accountId}/loyalty-programs"
+  filename="loyalty-programs-list-by-accountId"
+>
+  ## List Loyalty Programs by Account Id <Badge type="experimental"/>
+
+  Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
+</Endpoint>
