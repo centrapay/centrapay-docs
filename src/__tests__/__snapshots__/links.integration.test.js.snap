@@ -85,6 +85,7 @@ exports[`the build should not break any links 1`] = `
   "/api/bank-accounts#get-bank-authority",
   "/api/bank-accounts#list-bank-accounts",
   "/api/bank-accounts#list-bank-authorities",
+  "/api/bank-accounts#set-preferred-bank-account-name",
   "/api/bank-accounts#verify-bank-account",
   "/api/bank-accounts#verify-bank-authority",
   "/api/batch-types/farmlands",
