@@ -35,6 +35,10 @@ bank transaction can be used to verify a bank account.
     The name on the Bank Account provided by the user.
   </Property>
 
+  <Property name="preferredBankAccountName" type="string">
+    The preferred bank account name for the Bank Account provided by the user. This is only available on Bank Accounts of type [quartz](#bank-account-type).
+  </Property>
+
   <Property name="accountId" type="string">
     The id of the owning Centrapay [Account](/api/accounts).
   </Property>
@@ -320,6 +324,32 @@ and has authority to operate this account.
 ---
 
 <Endpoint
+  path="/api/accounts/{accountId}/bank-accounts"
+  filename="bank-accounts-list"
+>
+  ## List Bank Accounts
+
+  This endpoint allows you to list the Bank Accounts for an account.
+</Endpoint>
+
+---
+
+<Endpoint
+  path="/api/bank-accounts/{bankAccountId}/set-preferred-bank-account-name"
+  filename="bank-accounts-set-preferred-bank-account-name"
+>
+  ## Set Preferred Bank Account Name
+
+  <Properties heading="Errors">
+    <Error code="403" message="INVALID_BANK_ACCOUNT_TYPE">
+      The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
+    </Error>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
   path="/api/bank-authorities/{bankAccountId}/verify"
   filename="bank-authorities-verify"
 >
@@ -350,17 +380,6 @@ and has authority to operate this account.
       The top up / withdrawal and the bank account do not belong to the same account.
     </Error>
   </Properties>
-</Endpoint>
-
----
-
-<Endpoint
-  path="/api/accounts/{accountId}/bank-accounts"
-  filename="bank-accounts-list"
->
-  ## List Bank Accounts
-
-  This endpoint allows you to list the Bank Accounts for an account.
 </Endpoint>
 
 ---
