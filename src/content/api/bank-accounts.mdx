@@ -268,22 +268,13 @@ and has authority to operate this account.
 ---
 
 <Endpoint
-  path="/api/bank-accounts/{bankAccountId}/balance"
+  path="/api/accounts/{accountId}/bank-account-balances"
   filename="bank-accounts-get-balance"
 >
   ## Get Bank Account Balance <Badge type="experimental"/>
 
   This endpoint allows you to retrieve the [balance](#bank-account-balance-model) of a Bank Account.
 
-  <Properties heading="Errors">
-    <Error code="403" message="BANK_BALANCE_NOT_SUPPORTED">
-      The [Bank Account Type](#bank-account-type) does not support retrieval of a balance using Open Banking flows.
-    </Error>
-
-    <Error code="403" message="BANK_AUTHORIZATION_INVALID">
-      The access token to retrieve the [Bank Account Balance](#bank-account-balance-model) is no longer valid.
-    </Error>
-  </Properties>
 </Endpoint>
 
 ---
