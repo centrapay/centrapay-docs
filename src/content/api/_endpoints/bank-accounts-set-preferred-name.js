@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/set-preferred-bank-account-name',
+  path: '/api/bank-accounts/WRhAxxWpTKb5U7pXyxQjjY/set-preferred-name',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
