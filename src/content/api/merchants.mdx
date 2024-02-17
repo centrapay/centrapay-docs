@@ -50,11 +50,11 @@ which define the payment methods available for a Payment Request.
     The User or API Key that updated the Merchant.
   </Property>
 
-  <Property name="test" type="boolean" experimental>
+  <Property name="test" type="boolean">
     Flag indicating merchant is for testing.
   </Property>
 
-  <Property name="settlementConfig" type="object" experimental>
+  <Property name="settlementConfig" type="object">
     Merchant [Settlement Config](#settlement-config-model).
   </Property>
 
@@ -62,7 +62,7 @@ which define the payment methods available for a Payment Request.
     Merchant [Refund Config](#refund-config-model).
   </Property>
 
-  <Property name="location" type="location" experimental>
+  <Property name="location" type="location">
     Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
   </Property>
 
@@ -188,11 +188,11 @@ which define the payment methods available for a Payment Request.
       Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
     </Property>
 
-    <Property name="test" type="boolean" experimental required>
+    <Property name="test" type="boolean" required>
       Flag indicating merchant is for testing.
     </Property>
 
-    <Property name="settlementConfig" type="object" experimental>
+    <Property name="settlementConfig" type="object">
       Merchant [Settlement Config](#settlement-config-model).
     </Property>
 
@@ -200,7 +200,7 @@ which define the payment methods available for a Payment Request.
       Merchant [Refund Config](#refund-config-model).
     </Property>
 
-    <Property name="location" type="location" experimental>
+    <Property name="location" type="location">
       Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
     </Property>
   </Properties>
@@ -253,7 +253,7 @@ which define the payment methods available for a Payment Request.
       Merchant name.
     </Property>
 
-    <Property name="settlementConfig" type="object" experimental>
+    <Property name="settlementConfig" type="object">
       Merchant [Settlement Config](#settlement-config-model).
     </Property>
 
@@ -262,7 +262,7 @@ which define the payment methods available for a Payment Request.
     </Property>
 
 
-    <Property name="location" type="location" experimental>
+    <Property name="location" type="location">
       Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
     </Property>
   </Properties>
