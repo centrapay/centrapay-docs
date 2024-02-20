@@ -366,7 +366,7 @@ This endpoint is used resolve a Transaction Attempt when the transaction is pend
 
 Polling will continue until either the transaction attempt status is successful or failed, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
 
-A 2XX response with an empty body should be returned if the transactionId does not exist in your system.
+You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
 
 <CodePanel title="Request" method="GET" path="/get?transactionId=${transactionId}">
 ```bash
