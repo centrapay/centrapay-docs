@@ -7,6 +7,7 @@ nav:
 ---
 import Properties from '../../components/Properties.astro';
 import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
@@ -78,6 +79,12 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
     <Property name="mediaUploadId" type="string">
       The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
     </Property>
+  </Properties>
+
+  <Properties heading="Errors">
+    <Error code="403" message="INVALID_ACCOUNT_TYPE">
+      The Account is of the wrong type.
+    </Error>
   </Properties>
 </Endpoint>
 
