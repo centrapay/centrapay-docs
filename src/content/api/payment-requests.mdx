@@ -298,15 +298,15 @@ A discount that applies to multiple Line Items may be represented as a separate 
 
 The Paid By provides a summary of the transactions after the Payment Request was paid.
 
-
 <Properties>
   <Property name="assetTotals" type="array">
-    The sum of paid amounts [Asset Totals](#asset-totals) for each transacted Asset Type.
+    The [Asset Totals](#asset-totals) for each transacted Asset Type.
   </Property>
 </Properties>
 
 ## Asset Totals
 
+The Asset Totals provides a sum of every transaction for each [Asset Type](/api/asset-types)
 
 <Properties>
   <Property name="type" type="string">
@@ -335,6 +335,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
 
 <Properties>
+  <Property name="id" type="string">
+    The unique identifier of the Payment Activity.
+  </Property>
   <Property name="type" type="string">
     The [Payment Activity Type](#payment-activity-types).
   </Property>
@@ -391,6 +394,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   </Property>
   <Property name="preAuth" type="boolean">
     `true` if the related Payment Request is a Pre Auth.
+  </Property>
+  <Property name="paidBy" type="object">
+    Shows the [Paid By](#paid-by-model) when a Payment Request is paid.
   </Property>
 </Properties>
 
