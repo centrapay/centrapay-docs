@@ -15,6 +15,7 @@ export default {
         name: 'Spend a Buck',
         description: 'Make a payment of $1 or more',
         mediaUploadId: '26yUWG6wFgmva8UaDiCTWq',
+        img: 'https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743',
         startsAt: '2023-02-16T00:47:54.131Z',
         endsAt: '2024-02-16T00:47:54.131Z',
         rewards: [
