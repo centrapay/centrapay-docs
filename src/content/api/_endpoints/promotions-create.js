@@ -20,7 +20,7 @@ export default {
       eventType: 'payment',
       target: {
         type: 'count',
-        amount: 1
+        amount: '1'
       },
       type: 'challenge',
       conditions: [
@@ -51,7 +51,7 @@ export default {
     eventType: 'payment',
     target: {
       type: 'count',
-      amount: 1
+      amount: '1'
     },
     type: 'challenge',
     conditions: [
