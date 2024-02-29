@@ -128,7 +128,6 @@ exports[`the build should not break any links 1`] = `
   "/api/external-assets#load-an-external-asset",
   "/api/funds-transfers",
   "/api/funds-transfers#abort-funds-transfer",
-  "/api/funds-transfers#create-a-top-up",
   "/api/funds-transfers#create-withdrawal",
   "/api/funds-transfers#get-top-up",
   "/api/funds-transfers#get-withdrawal",
