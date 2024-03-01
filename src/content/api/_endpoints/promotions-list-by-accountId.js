@@ -24,7 +24,7 @@ export default {
             amount: '500',
           }
         ],
-        eventType: 'payment',
+        activityType: 'payment',
         target: {
           type: 'count',
           amount: 1
