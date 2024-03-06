@@ -56,8 +56,8 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
   </Property>
 
-  <Property name="eventType" type="string">
-    The type of Event that will trigger increments and completions of the Promotion.
+  <Property name="activityType" type="string">
+    The type of Activity that will trigger increments and completions of the Promotion.
   </Property>
 
   <Property name="target" type="object">
@@ -81,7 +81,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   </Property>
 
   <Property name="field" type="string">
-    Only supplied if `type` is `sum`. This denotes which field to sum on the Event to reach the target amount.
+    Only supplied if `type` is `sum`. This denotes which field to sum on the Activity to reach the target amount.
   </Property>
 
   <Property name="amount" type="number">
@@ -113,7 +113,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
 <Properties>
   <Property name="field" type="string">
-    The field to look at in the Event object.
+    The field to look at in the Activity object.
   </Property>
 
   <Property name="value" type="string">
@@ -158,8 +158,8 @@ Promotions are a mechanism to reward accounts for completing certain actions.
       A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
     </Property>
 
-    <Property name="eventType" type="string" required>
-      The type of Event that will trigger increments and completions of the Promotion.
+    <Property name="activityType" type="string" required>
+      The type of Activity that will trigger increments and completions of the Promotion.
     </Property>
 
     <Property name="target" type="object">
