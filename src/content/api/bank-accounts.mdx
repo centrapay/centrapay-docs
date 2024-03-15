@@ -88,6 +88,10 @@ and has authority to operate this account.
   <Property name="test" type="boolean">
     A flag which is present if the Bank Account is for testing.
   </Property>
+
+  <Property name="enduringPaymentConsentAuthorized" type="boolean">
+    Flag indicating whether the bank account can be used for creating [enduring payment consents](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only present on [quartz](#bank-account-type) bank accounts.
+  </Property>
 </Properties>
 
 ### Bank Account Type <Badge type="experimental"/>
@@ -345,7 +349,7 @@ and has authority to operate this account.
   filename="bank-accounts-archive"
 >
   ## Archive Bank Account
-  
+
   Archives the supplied bank account. This endpoint is currently only supported for `quartz` bank accounts.
 
 </Endpoint>
