@@ -26,11 +26,11 @@ const navigationItems = [
       { title: 'Accounts', order: 7 },
       { title: 'Assets', order: 8 },
       { title: 'Bank Accounts', order: 9 },
-      { title: 'Integrations', order: 11 },
-      { title: 'Loyalty Programs', order: 13 },
-      { title: 'Merchants', order: 15 },
-      { title: 'Payment Requests', order: 16 },
-      { title: 'Scanned Codes', order: 19 },
+      { title: 'Integrations', order: 12 },
+      { title: 'Loyalty Programs', order: 14 },
+      { title: 'Merchants', order: 16 },
+      { title: 'Payment Requests', order: 17 },
+      { title: 'Scanned Codes', order: 20 },
     ]
   },
 ];
