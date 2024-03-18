@@ -1,0 +1,62 @@
+---
+title: Events
+description: Events and related endpoints
+nav:
+  path: API
+  order: 11
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Error from '../../components/Error.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+
+An event is an activity from an action which subsequently undergoes processing by job workers.
+
+## Webhook Notifications
+Only internal services will be calling this endpoint for Webhook notifications.
+The types can be `refund:completed`, `promotion:completed`, `promotion:updated` etc.
+
+## [Promotions](/api/promotions)
+When actions occur that could increment/complete a promotion, an event should be sent to Centrapay. Some events are native to Centrapay e.g `payment` . You do not need to send anything for native events, they will be handled by Centrapay.
+
+For your custom application events, you will need to define a `type` that the promotion will be incremented by.
+
+
+`type`s can be reused if the promotions should be incremented by the same action.
+
+
+When an action occurs that should increments a promotion, you need to send Centrapay an event at our [Create Event endpoint](/api/events) . We will respond with `200 OK` when we have received the event.
+
+Note that event processing is not live but should be processed within the next 2-3 minutes.
+
+---
+
+<Endpoint
+  path="/api/accounts/{accountId}/events"
+  filename="events-create"
+>
+  ## Create Event <Badge type="experimental"/>
+
+  This endpoint allows you to create an [ Event ](/api/events).
+
+  <Properties>
+    <Property name="type" type="string" required>
+     The type of event. For Promotions, this must match the supplied `eventType`.
+    </Property>
+
+    <Property name="idempotencyKey" type="string" required>
+      Unique key to prevent the same event being processed multiple times.
+    </Property>
+
+    <Property name="data" type="string">
+     Freeform object with relevant metadata.
+    </Property>
+  </Properties>
+
+  <Properties heading="Errors">
+    <Error code="403" message="EVENT_ALREADY_EXISTS">
+      The `idempotencyKey` has already been used.
+    </Error>
+  </Properties>
+</Endpoint>
