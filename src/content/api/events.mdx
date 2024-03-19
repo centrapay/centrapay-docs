@@ -11,7 +11,7 @@ import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-An event is an activity triggered by an action. Some events are native to Centrapay, these [native events](/api/native-event-types) requiring no integrator involvement.
+An event is a record of a user action or outcome. Centrapay performs various tasks in response to events.
 
 ---
 
@@ -25,15 +25,15 @@ An event is an activity triggered by an action. Some events are native to Centra
 
   <Properties>
     <Property name="type" type="string" required>
-     The type of event. For Promotions, this must match the supplied `eventType`.
+     The type of Event.
     </Property>
 
     <Property name="idempotencyKey" type="string" required>
-      Unique key to prevent the same event being processed multiple times.
+      Client-supplied identifier that prevents double creation.
     </Property>
 
     <Property name="data" type="string">
-     Freeform object with relevant metadata.
+     An object with one or more string fields containing any relevant metadata.
     </Property>
 
      <Property name="test" type="boolean">
@@ -43,7 +43,7 @@ An event is an activity triggered by an action. Some events are native to Centra
 
   <Properties heading="Errors">
     <Error code="403" message="EVENT_ALREADY_EXISTS">
-      The `idempotencyKey` has already been used.
+      An Event with this `idempotencyKey` has already been created for the account.
     </Error>
   </Properties>
 </Endpoint>
