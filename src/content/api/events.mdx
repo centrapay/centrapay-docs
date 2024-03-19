@@ -11,24 +11,7 @@ import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-An event is an activity from an action which subsequently undergoes processing by job workers.
-
-## Webhook Notifications
-Only internal services will be calling this endpoint for Webhook notifications.
-The types can be `refund:completed`, `promotion:completed`, `promotion:updated` etc.
-
-## [Promotions](/api/promotions)
-When actions occur that could increment/complete a promotion, an event should be sent to Centrapay. Some events are native to Centrapay e.g `payment` . You do not need to send anything for native events, they will be handled by Centrapay.
-
-For your custom application events, you will need to define a `type` that the promotion will be incremented by.
-
-
-`type`s can be reused if the promotions should be incremented by the same action.
-
-
-When an action occurs that should increments a promotion, you need to send Centrapay an event at our [Create Event endpoint](/api/events) . We will respond with `200 OK` when we have received the event.
-
-Note that event processing is not live but should be processed within the next 2-3 minutes.
+An event is an activity triggered by an action. Some events are native to Centrapay, these [native events](/api/native-event-types) requiring no integrator involvement.
 
 ---
 
