@@ -97,6 +97,18 @@ Money assets have the following attributes along with the base asset fields.
   <Property name="settlement" type="boolean" experimental>
     The asset is configured for [Settlements](/api/wallets#settlement-wallets).
   </Property>
+
+  <Property name="period" type="string" experimental>
+    The period after which the `balance` will be reset. This field is only available on the [quartz](/api/asset-types) asset type. Possible values are `daily`, `weekly`, `fortnightly`, `monthly` or `yearly`.
+  </Property>
+
+  <Property name="periodStartedAt" type="timestamp" experimental>
+    Datetime when the current period was started. This field is only available on the [quartz](/api/asset-types) asset type.
+  </Property>
+
+  <Property name="periodEndingAt" type="timestamp" experimental>
+    Datetime when the current period will end. This field is only available on the [quartz](/api/asset-types) asset type.
+  </Property>
 </Properties>
 
 ---
