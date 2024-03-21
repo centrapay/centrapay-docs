@@ -12,7 +12,6 @@ export default {
       data: {
         'userId': 'b657195e-dc2f-11ea-8566-e7710d592c99-123',
       },
-      test: true
     },
   },
   response: {
@@ -23,7 +22,6 @@ export default {
       'userId': 'b657195e-dc2f-11ea-8566-e7710d592c99-123',
     },
     idempotencyKey: 'login-de32dd90-b46c-11ea-93c3-83a333b86e7b',
-    test: true,
     createdAt: '2020-05-01T12:30:00.000Z',
     createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
   }
