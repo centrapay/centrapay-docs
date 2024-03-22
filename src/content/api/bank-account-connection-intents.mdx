@@ -98,19 +98,15 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
     </Property>
 
     <Property name="name" type="string">
-      The name of the consent. Only valid if type is `enduring-payment-consent`.
+      The name of the consent. Only available if type is `enduring-payment-consent`.
     </Property>
 
-    <Property name="expiresAt" type="timestamp">
-      The date that the consent is valid until. Only valid if type is `enduring-payment-consent`.
+    <Property name="period" type="string">
+      The period after which the amount spent using the consent will be reset. Only available if type is `enduring-payment-consent`. Valid values are `daily`, `weekly`, `fortnightly`, `monthly` and `yearly`. Defaults to `daily`.
     </Property>
 
-    <Property name="totalTransactions" type="number">
-      The total number of transactions the consent can be used for. Only valid if type is `enduring-payment-consent`.
-    </Property>
-
-    <Property name="totalAmount" type="monetary">
-      The total cent value of transactions the consent can be used for. Only valid if type is `enduring-payment-consent`.
+    <Property name="totalAmount" type="string">
+      The total cent value of transactions the consent can be used for within the period. Only available if type is `enduring-payment-consent`.
     </Property>
   </Properties>
 
