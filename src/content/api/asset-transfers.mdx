@@ -127,11 +127,11 @@ Asset Transfer goes through different lifecycle stages.
 
   <Properties>
     <Property name="recipientAlias" type="string" required>
-      Phone number, email or handle of the person who request for asset transfer.
+      Contact information, such as phone number, email, or handle, for the individual requesting asset transfer.
     </Property>
 
     <Property name="senderAccountId" type="string" required>
-      The id of the sender who receive the request.
+      The account id of the sender who receives the request from recipientAlias.
     </Property>
 
     <Property name="assetType" type="string" required>
@@ -144,10 +144,6 @@ Asset Transfer goes through different lifecycle stages.
 
     <Property name="message" type="string">
       Shows up in transaction history against the transfer. 100 character limit.
-    </Property>
-
-    <Property name="senderName" type="string">
-      Human readable name for the sender. 30 character limit.
     </Property>
 
     <Property name="suppressNotification" type="boolean">
