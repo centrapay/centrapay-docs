@@ -19,7 +19,6 @@ export default {
     status: 'requested',
     assetType: 'quartz.nzd.main',
     description: 'request payment',
-    senderName: 'john.doe@gmail.com',
     senderAccountId: '9EDxUT91TMsUjoqoQeBuLQ',
     createdAt: '2024-03-01T23:56:21.514Z',
     createdBy: 'crn:userId:1234',
