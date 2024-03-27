@@ -120,8 +120,7 @@ Asset Transfer goes through different lifecycle stages.
   path="/api/asset-transfer-requests"
   filename="asset-transfers-request"
 >
-  ## Request an Asset Transfer
-  ### Experimental API
+  ## Request an Asset Transfer <Badge type="experimental"/>
 
 
   Request a transfer of an asset from a sender to the recipient.
@@ -145,10 +144,6 @@ Asset Transfer goes through different lifecycle stages.
 
     <Property name="message" type="string">
       Shows up in transaction history against the transfer. 100 character limit.
-    </Property>
-
-    <Property name="value" type="bignumber">
-      Amount to send. Required for money transfers. Units depend on the asset type.
     </Property>
 
     <Property name="senderName" type="string">
