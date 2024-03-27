@@ -44,6 +44,7 @@ exports[`the build should not break any links 1`] = `
   "/api/asset-transfers#get-an-asset-transfer",
   "/api/asset-transfers#get-asset-transfer-summary",
   "/api/asset-transfers#list-asset-transfers",
+  "/api/asset-transfers#request-an-asset-transfer",
   "/api/asset-transfers#resolve-claimable-assets",
   "/api/asset-types",
   "/api/assets",

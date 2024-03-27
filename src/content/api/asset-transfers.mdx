@@ -56,7 +56,7 @@ message fields are scrubbed to avoid storing PII.
   </Property>
 
   <Property name="senderAlias" type="string">
-    Phone number, email or handle of sender.
+    Phone number, email or handle of sender and who receives a request for asset transfer
   </Property>
 
   <Property name="senderName" type="string">
@@ -76,7 +76,7 @@ message fields are scrubbed to avoid storing PII.
   </Property>
 
   <Property name="recipientAlias" type="string">
-    Phone number, email or handle of receiver.
+    Phone number, email or handle of receiver and who make a request for asset transfer
   </Property>
 
   <Property name="createdAt" type="timestamp">
@@ -106,6 +106,7 @@ Asset Transfer goes through different lifecycle stages.
 
 |   State   |                                                    Description                                                     |
 | :-------- | :----------------------------------------------------------------------------------------------------------------- |
+| requested | Asset transfer successfully requested                                                                              |
 | created   | Asset transfer successfully created                                                                                |
 | sent      | Asset transfer notification (sms, email) was sent to a new user                                                    |
 | expired   | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
@@ -115,6 +116,53 @@ Asset Transfer goes through different lifecycle stages.
 
 ---
 
+<Endpoint
+  path="/api/asset-transfer-requests"
+  filename="asset-transfers-request"
+>
+  ## Request an Asset Transfer <Badge type="experimental"/>
+
+
+  Request a transfer of an asset from a sender to the recipient.
+
+  <Properties>
+    <Property name="recipientAlias" type="string" required>
+      Contact information, such as phone number, email, or handle, for the individual requesting asset transfer. Currently supports bank account number only.
+    </Property>
+
+    <Property name="senderAccountId" type="string" required>
+      The account id of the sender who receives the request from recipientAlias.
+    </Property>
+
+    <Property name="assetType" type="string" required>
+      The type of asset being transferred. Currently, supports only `quartz.nzd` assets
+    </Property>
+
+    <Property name="description" type="string">
+      Shows up in transaction history against the transfer. 200 character limit.
+    </Property>
+
+    <Property name="message" type="string">
+      Shows up in transaction history against the transfer. 100 character limit.
+    </Property>
+
+    <Property name="suppressNotification" type="boolean">
+      Suppress notifications from Centrapay (SMS/Email).
+    </Property>
+  </Properties>
+
+  <Properties heading="Errors">
+    <Error code="403" message="SENDER_NOT_FOUND">
+      The requests must include a valid sender alias.
+    </Error>
+
+    <Error code="403" message="INVALID_ASSET_TYPE">
+      The [asset's type](/api/asset-types/) does not support transfers.
+    </Error>
+  </Properties>
+</Endpoint>
+
+---
 
 <Endpoint
   path="/api/asset-transfers"
