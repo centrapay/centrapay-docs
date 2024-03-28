@@ -165,6 +165,63 @@ Asset Transfer goes through different lifecycle stages.
 ---
 
 <Endpoint
+  path="/api/asset-transfer-requests/{assetTransferId}/accept"
+  filename="asset-transfer-requests-accept"
+>
+  ## Accept an Asset Transfer Request <Badge type="experimental"/>
+
+  <Properties>
+    <Property name="assetId" type="string" required>
+      Id of the asset to pay the asset transfer request with. Only valid for `quartz.nzd` assets
+    </Property>
+
+    <Property name="senderName" type="string" required>
+      Human readable name for the sender. 30 character limit.
+    </Property>
+
+    <Property name="value" type="bignumber">
+      Amount to send. Required if not defined in the request; forbidden if it was.
+    </Property>
+  </Properties>
+
+  <Properties heading="Errors">
+    <Error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED">
+      The asset transfer request has already expired
+    </Error>
+
+    <Error code="403" message="ASSET_TRANSFER_REQUEST_ACCEPTED">
+      The asset transfer request has already been accepted
+    </Error>
+
+    <Error code="403" message="BANK_ACCOUNT_BALANCE_INSUFFICIENT">
+      The bank account the asset is for does not have enough balance for the transfer
+    </Error>
+
+    <Error code="403" message="QUOTA_EXCEEDED">
+      The asset transfer would exceed the provided assets quotas
+    </Error>
+
+    <Error code="403" message="ASSET_NOT_ACTIVE">
+      The asset is not active.
+    </Error>
+
+    <Error code="403" message="INVALID_ASSET_TYPE">
+      The [asset's type](/api/asset-types/) does not match the request.
+    </Error>
+
+    <Error code="403" message="VALUE_NOT_DEFINED">
+      The value of the asset transfer was not defined in either the initial request or the acceptance
+    </Error>
+
+    <Error code="403" message="VALUE_ALREADY_DEFINED">
+      The value of the asset transfer was defined in both the initial request and the acceptance
+    </Error>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
   path="/api/asset-transfers"
   filename="asset-transfers-create"
 >
