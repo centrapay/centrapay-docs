@@ -36,6 +36,7 @@ exports[`the build should not break any links 1`] = `
   "/api/asset-activities#token-refunded-activity-model",
   "/api/asset-categories",
   "/api/asset-transfers",
+  "/api/asset-transfers#accept-an-asset-transfer-request",
   "/api/asset-transfers#asset-transfer-lifecycle",
   "/api/asset-transfers#asset-transfer-model",
   "/api/asset-transfers#cancel-an-asset-transfer",
