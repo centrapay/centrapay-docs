@@ -53,54 +53,6 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
   </Property>
 </Properties>
 
-## Loyalty Program Membership Model
-
-<Properties>
-  <Property name="id" type="string">
-    The unique identifier of the Loyalty Program Membership.
-  </Property>
-
-  <Property name="accountId" type="string"> 
-    The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
-  </Property>
-
-  <Property name="programId" type="string"> 
-    The id of the Loyalty Program that the Membership is created for.
-  </Property>
-
-  <Property name="name" type="string">
-    The display name of the Loyalty Program.
-  </Property>
-
-  <Property name="description" type="string">
-    The displayable description for the Loyalty Program.
-  </Property>
-
-  <Property name="status" type="string">
-    The status of the Loyalty Program Membership.
-  </Property>
-
-  <Property name="mediaUploadId" type="string">
-    The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
-  </Property>
-
-  <Property name="img" type="string">
-    The img URL of the Loyalty Program.
-  </Property>
-
-  <Property name="createdAt" type="timestamp">
-    When the Loyalty Program Membership was created.
-  </Property>
-
-  <Property name="createdBy" type="crn">
-    The User or API Key that created the Loyalty Program Membership.
-  </Property>
-
-  <Property name="test" type="boolean">
-    `true` if the Loyalty Program Membership is for testing purposes only.
-  </Property>
-</Properties>
-
 ---
 
 <Endpoint
@@ -145,31 +97,4 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
   ## List Loyalty Programs by Account Id <Badge type="experimental"/>
 
   Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
-</Endpoint>
-
----
-
-<Endpoint
-  path="/api/loyalty-programs/{loyaltyProgramId}/memberships"
-  filename="loyalty-program-memberships-create"
->
-  ## Create Loyalty Program Memberships <Badge type="experimental"/>
-
-  This endpoint allows you to create [ Loyalty Program Memberships ](#loyalty-program-membership-model) to onboard users to [ Loyalty Programs ](#loyalty-program-model).
-
-  <Properties>
-    <Property name="accountId" type="string" required>
-      The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
-    </Property>
-
-    <Property name="idempotencyKey" type="string" required>
-      Client-supplied identifier that prevents double creation.
-    </Property>
-  </Properties>
-
-  <Properties heading="Errors">
-    <Error code="403" message="MEMBERSHIP_ALREADY_CREATED">
-     Membership has already been created for this Loyalty Program with this idempotency key.
-    </Error>
-  </Properties>
 </Endpoint>
