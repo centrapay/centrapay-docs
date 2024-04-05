@@ -4,7 +4,6 @@ export default {
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
-      'Content-Type': 'application/json',
     }
   },
   response: {
