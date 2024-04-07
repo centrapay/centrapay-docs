@@ -11,7 +11,7 @@ import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-A Loyalty Program Membership is a record of a user being onboarded to a Loyalty Program.
+A Loyalty Program Membership represents an Account's membership to a Loyalty Program.
 
 ## Loyalty Program Membership Model
 
@@ -75,15 +75,11 @@ A Loyalty Program Membership is a record of a user being onboarded to a Loyalty 
     <Property name="accountId" type="string" required>
       The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
     </Property>
-
-    <Property name="idempotencyKey" type="string" required>
-      Client-supplied identifier that prevents double creation.
-    </Property>
   </Properties>
 
   <Properties heading="Errors">
-    <Error code="403" message="MEMBERSHIP_ALREADY_CREATED">
-     Membership has already been created for this Loyalty Program with this idempotency key.
+    <Error code="403" message="MEMBERSHIP_ALREADY_EXISTS">
+     A membership has already been created for this account and this loyalty program.
     </Error>
   </Properties>
 </Endpoint>

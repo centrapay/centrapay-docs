@@ -8,7 +8,6 @@ export default {
     },
     payload: {
       accountId: 'Jaim1Cu1Q55uooxSens6yk',
-      idempotencyKey: 'membership-13a5-48b4-b670-3fd6d815fe0a',
     },
   },
   response: {
