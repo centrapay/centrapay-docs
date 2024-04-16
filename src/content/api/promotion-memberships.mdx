@@ -1,0 +1,109 @@
+---
+title: Promotion Memberships
+description: Promotion membership model and related endpoints
+nav:
+  path: API/Loyalty Programs
+  order: 4
+---
+import Properties from '../../components/Properties.astro';
+import Property from '../../components/Property.astro';
+import Endpoint from '../../components/Endpoint.astro';
+import Badge from '../../components/Badge.astro';
+import Error from '../../components/Error.astro';
+
+Promotion Memberships represents an [Account's](/api/accounts) membership to a [Promotion](/api/promotions). Each Promotion Membership carries progress towards completing the Promotion. Promotion Memberships are created automatically for the account when a [Loyalty Program Membership](/api/loyalty-program-memberships) is created.
+
+## Promotion Membership Model
+
+<Properties>
+  <Property name="id" type="string">
+    The unique identifier for the Promotion.
+  </Property>
+
+  <Property name="accountId" type="string">
+    The ID of the [Account](/api/accounts) that owns the Promotion.
+  </Property>
+
+  <Property name="name" type="string">
+    The display name of the Promotion.
+  </Property>
+
+  <Property name="programId" type="string">
+    The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  </Property>
+
+  <Property name="description" type="string">
+    The display description for the Promotion.
+  </Property>
+
+  <Property name="mediaUploadId" type="string">
+    The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+  </Property>
+
+  <Property name="img" type="string">
+    The img URL of the Promotion.
+  </Property>
+
+  <Property name="startsAt" type="timestamp">
+    The timestamp of when the Promotion starts.
+  </Property>
+
+  <Property name="endsAt" type="timestamp">
+    The timestamp of when the Promotion ends.
+  </Property>
+
+  <Property name="rewards" type="array">
+    A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
+  </Property>
+
+  <Property name="eventType" type="string">
+    The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
+  </Property>
+
+  <Property name="target" type="object">
+    Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+  </Property>
+
+  <Property name="type" type="string">
+    The type of Promotion. Can be `cashback` or `challenge`. `challenge` rewards the account once, after the challenge target is met. `cashback` gives a reward based on the payment amount, which can be completed an unlimited number of times.
+  </Property>
+
+  <Property name="conditions" type="array">
+    The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+  </Property>
+
+  <Property name="progress" type="number">
+    The Account's progress towards completing the Promotion.
+  </Property>
+
+  <Property name="status" type="number">
+    The status of the Promotion Membership. Can be "active", "expired", or "complete".
+  </Property>
+
+  <Property name="createdAt" type="string">
+    The timestamp of when the Promotion Membership was created.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The User or API Key that created the Promotion Membership.
+  </Property>
+
+  <Property name="modifiedAt" type="string">
+    The timestamp of when the Promotion Membership was last modified.
+  </Property>
+
+  <Property name="modifiedBy" type="crn">
+    The User or API Key that last modified the Promotion Membership.
+  </Property>
+</Properties>
+
+---
+
+<Endpoint
+  path="/api/accounts/{id}/promotion-memberships"
+  filename="promotion-memberships-list"
+>
+  ## List Promotion Memberships by Account <Badge type="experimental"/>
+
+  Returns a [paginated](/api/pagination/) list of Promotion Memberships for an [Account](/api/accounts)
+</Endpoint>
