@@ -46,10 +46,10 @@ import Badge from './Badge.astro';
     const button = getElement('[data-copy-button]', HTMLButtonElement, codeBlock);
     button.addEventListener('click', () => {
       navigator.clipboard.writeText(code.innerText);
-      button.innerText = "Copied";
+      button.innerText = 'Copied';
       button.classList.add('copy-button-active');
       window.setTimeout(() => {
-        button.innerText = "Copy";
+        button.innerText = 'Copy';
         button.classList.remove('copy-button-active');
       }, 2000);
     });

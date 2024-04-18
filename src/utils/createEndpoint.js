@@ -24,6 +24,7 @@ function validateData(data) {
   });
 }
 
+// eslint-disable-next-line complexity
 function createSnippet(data) {
   const harObject = {
     method: data.method,
