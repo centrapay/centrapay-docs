@@ -361,6 +361,7 @@ exports[`the build should not break any links 1`] = `
   "/guides/line-items#restrictions",
   "/guides/loading-and-sending-assets",
   "/guides/loading-and-sending-assets#on-this-page-title",
+  "/guides/loading-and-sending-assets#requesting-assets",
   "/guides/loading-and-sending-assets#sending-assets",
   "/guides/merchant-integration-barcode-flow",
   "/guides/merchant-integration-barcode-flow#barcode-flow",

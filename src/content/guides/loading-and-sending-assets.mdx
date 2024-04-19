@@ -1,6 +1,6 @@
 ---
-title: Sending Assets
-description: Distribute Centrapay Assets such as Tokens to users via SMS.
+title: Loading, Requesting and Sending Assets
+description: Issue and distribute Centrapay Assets such as Giftcards or Tokens to users via SMS.
 nav:
   path: Reference/Digital Assets
   order: 4
@@ -9,6 +9,34 @@ nav:
 import CodePanel from '../../components/CodePanel.astro';
 
 [Assets](/api/assets) such as Tokens can be issued by a Centrapay Account. They can then be sent to another Centrapay account using one of the methods described below.
+
+## Requesting Assets
+
+You can request for Assets such as Tokens and Giftcards by calling our [Request Asset Transfers](/api/asset-transfers/#request-an-asset-transfer) endpoint.
+
+For any requests for an asset transfer that is not claimed within 2 weeks, the requested asset transfer will expired.
+
+Asset Transfer Request goes through different lifecycle stages
+
+![Asset Transfer Lifecycle](/asset-transfer-requests-lifecycle.png)
+
+### Requesting An Asset
+Provide the recipient's alias, who is making the request, and the bank account number in the recipientAlias field and the sender's account ID in the senderAccountId field when requesting the asset transfer.
+The sender then will be notified via the provided channel.
+
+  <CodePanel title="Request" method="POST" path="/api/asset-transfer-requests">
+  ```bash
+  curl -X POST https://service.centrapay.com/api/asset-transfer-requests \
+    -H "X-Api-Key: $api_key" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "recipientAlias": "12-1234-1234567-123",
+        "senderAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+        "value": "1000",
+        "assetType": "quartz.nzd.test"
+      }'
+  ```
+  </CodePanel>
 
 ## Sending Assets
 
