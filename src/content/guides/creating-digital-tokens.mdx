@@ -70,7 +70,7 @@ sequenceDiagram
 
     <CodePanel title="Request" method="POST" path="/api/collections/{collectionId}/redemption-conditions">
       ```bash
-      curl -X POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
+      curl -X POST https://service.centrapay.com/api/collections/c_NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
         -H "X-Api-Key: $api_key" \
         -H "Content-Type: application/json" \
         -d '{
@@ -107,7 +107,7 @@ sequenceDiagram
         -H "X-Api-Key: $api_key" \
         -H "Content-Type: application/json" \
         -d '{
-          "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+          "collectionId": "c_NFhUgPQEYbk2EbTXAYArTX",
           "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b"
         }'
       ```
@@ -121,7 +121,7 @@ sequenceDiagram
         -H "X-Api-Key: $api_key" \
         -H "Content-Type: application/json" \
         -d '{
-          "collectionId": "NFhUgPQEYbk2EbTXAYArTX",
+          "collectionId": "c_NFhUgPQEYbk2EbTXAYArTX",
           "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b",
           "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
         }'

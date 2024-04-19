@@ -1,0 +1,22 @@
+---
+title: Object IDs
+description: Object Identifiers (IDs)
+nav:
+  path: API
+  order: 7
+---
+
+Centrapay uses identifiers (IDs) to uniquely distinguish objects within our system. Object IDs are alphanumeric strings with an optional prefix.
+Prefixes enhance readability and allow Centrapay to immediately [return errors](/api/http-status-codes/#400-malformed-request) to integrators when an invalid ID is used.
+
+## Format
+
+Objects with prefixes will conform to the format `{prefix}_{random-characters}` e.g. `mc_3LKQhvGUcADgqoEM3bh6pslE`.
+
+
+## Prefix List
+
+| Prefix |                                Description                                 |
+| ------ | -------------------------------------------------------------------------- |
+| `mc_`  | Identifier for a [Merchant Config](/api/merchant-configs) object.          |
+| `c_`   | Identifier for a [Collection](/api/tokens/#token-collection-model) object. |

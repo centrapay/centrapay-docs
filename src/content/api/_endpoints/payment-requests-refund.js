@@ -26,7 +26,7 @@ export default {
     merchantName: 'Centrapay Café',
     merchantId: '5ee0c486308f590260d9a07f',
     merchantAccountId: 'C4QnjXvj8At6SMsEN4LRi9',
-    merchantConfigId: '5ee168e8597be5002af7b454',
+    merchantConfigId: 'mc_5ee168e8597be5002af7b454',
     createdAt: '2021-06-12T01:17:00.000Z',
     createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878',
     paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878',
