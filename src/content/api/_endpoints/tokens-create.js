@@ -7,7 +7,7 @@ export default {
       'Content-Type': 'application/json',
     },
     payload: {
-      collectionId: 'Jaim1Cu1Q55uooxSens6yk',
+      collectionId: 'c_Jaim1Cu1Q55uooxSens6yk',
       idempotencyKey: 'payment-de32dd90-b46c-11ea-93c3-83a333b86e7b',
       externalId: '23403283262'
     },
@@ -16,7 +16,7 @@ export default {
     id: 'pe32dd90-b46c-11ea-92828sa',
     accountId: 'WRhAxxWpTKb5U7pXyxQjjP',
     category: 'token',
-    collectionId: 'Jaim1Cu1Q55uooxSens6yk',
+    collectionId: 'c_Jaim1Cu1Q55uooxSens6yk',
     status: 'active',
     createdAt: '2021-01-17T18:00:23.000Z',
     activeFrom: '2021-01-17T18:00:23.000Z',

@@ -7,7 +7,7 @@ export default {
       'Content-Type': 'application/json',
     },
     payload: {
-      configId: '5efbe2fb96c08357bb2b9242',
+      configId: 'mc_5efbe2fb96c08357bb2b9242',
       expirySeconds: '120',
       value: {
         amount: '1',
@@ -21,7 +21,7 @@ export default {
     url: 'https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7',
     merchantId: '5efbe17d96c083633e2b9241',
     merchantName: 'NZD Test Merchant',
-    configId: '5efbe2fb96c08357bb2b9242',
+    configId: 'mc_5efbe2fb96c08357bb2b9242',
     value: {
       amount: '1',
       currency: 'NZD'

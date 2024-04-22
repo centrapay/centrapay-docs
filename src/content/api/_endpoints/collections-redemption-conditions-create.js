@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions',
+  path: '/api/collections/c_NFhUgPQEYbk2EbTXAYArTX/redemption-conditions',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
@@ -31,7 +31,7 @@ export default {
   response: {
     id: '1234',
     merchantId: '36EALpZ89XpShxM2Ee9sXT',
-    collectionId: 'NFhUgPQEYbk2EbTXAYArTX',
+    collectionId: 'c_NFhUgPQEYbk2EbTXAYArTX',
     allowedProducts: [
       {
         sku: '100001',
