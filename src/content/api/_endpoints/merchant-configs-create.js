@@ -13,8 +13,8 @@ export default {
           walletId: '1234c486308f3f0a23f0f92b'
         },
         {
-          type: 'epay.nzd.main',
-          terminalId: '11000021'
+          type: 'epay.main',
+          externalMerchantId: '11000021'
         },
         {
           type: 'farmlands.nzd.main',
@@ -36,8 +36,8 @@ export default {
         walletId: '1234c486308f3f0a23f0f92b'
       },
       {
-        type: 'epay.nzd.main',
-        terminalId: '11000021'
+        type: 'epay.main',
+        externalMerchantId: '11000021'
       },
       {
         type: 'farmlands.nzd.main',

@@ -1,24 +1,25 @@
 export default {
   method: 'POST',
-  path: '/api/assets/L75M3L56N2PtBSt8g7uXLU/archive',
+  path: '/api/assets/V1NXc8KJC7b8QKGws13hYR/archive',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
     },
   },
   response: {
-    id: 'L75M3L56N2PtBSt8g7uXLU',
-    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    category: 'giftcard',
-    type: 'epay.nzd.main',
-    issuer: 'ezipay',
-    externalId: '23403283262',
-    description: '$60 Acme Giftcard',
-    initialBalance: '6000',
-    balance: '0',
-    balanceUpdatedAt: '2021-01-01T00:00:00.000Z',
-    expiresAt: '2020-12-31T00:00:00.000Z',
-    createdAt: '2020-05-01T12:30:00.000Z',
-    status: 'archived'
+    id: 'V1NXc8KJC7b8QKGws13hYR',
+    accountId: '9gXmHuaFsiG6gmh6zoUDXCsJ6rtYA8',
+    category: 'token',
+    type: 'centrapay.token.main',
+    liveness: 'main',
+    createdAt: '2024-04-23T22:07:05.738Z',
+    status: 'archived',
+    activeFrom: '2024-04-23T22:07:05.602Z',
+    expiresAt: '2024-05-07T22:07:05.602Z',
+    description: 'Centrapay Token',
+    collectionId: '1234',
+    issuerImg: 'https://static.centrapay.com/assets/brands/centraperk/logo.png',
+    issuer: 'Centraperk',
+    issuerWebsite: 'www.centrapay.com'
   }
 };
