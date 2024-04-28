@@ -48,11 +48,8 @@ export default {
         amount: '1'
       },
       {
-        assetType: 'epay.nzd.test',
+        assetType: 'epay.test',
         amount: '1',
-        productCodes: [
-          '23403'
-        ]
       }
     ],
     status: 'new',

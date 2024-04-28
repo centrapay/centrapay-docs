@@ -8,18 +8,20 @@ export default {
   },
   response: {
     id: 'L75M3L56N2PtBSt8g7uXLU',
-    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    category: 'giftcard',
-    type: 'epay.nzd.main',
-    issuer: 'ezipay',
-    externalId: '23403283262',
-    description: '$60 Acme Giftcard',
-    productCode: '23403',
-    initialBalance: '6000',
-    balance: '6000',
-    availableBalance: '6000',
-    balanceUpdatedAt: '2021-01-01T00:00:00.000Z',
-    expiresAt: '2020-12-31T00:00:00.000Z',
-    createdAt: '2020-05-01T12:30:00.000Z'
+    accountId: '9aFdxZNbqmFhzJFqozreqesEeaoh2f',
+    category: 'token',
+    type: 'centrapay.token.main',
+    liveness: 'main',
+    createdAt: '2024-04-23T22:11:57.158Z',
+    status: 'active',
+    activeFrom: '2024-04-23T22:11:56.924Z',
+    expiresAt: '2024-05-07T22:11:56.924Z',
+    description: 'Centrapay Token',
+    collectionId: '1234',
+    issuerImg: 'https://static.centrapay.com/assets/brands/centraperk/logo.png',
+    img: 'http://www.centrapay.com/path/to/img.png',
+    issuer: 'Centraperk',
+    issuerWebsite: 'www.centrapay.com',
+    mediaUploadId: 'P9picAvVyA7c7d1GMytWG7'
   }
 };

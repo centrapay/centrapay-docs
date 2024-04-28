@@ -17,7 +17,7 @@ Centrapay account to perform transactions where value is exchanged. Assets can
 be spent to satisfy [Payment Requests](/api/payment-requests), withdrawn to a bank account via
 [Funds Transfers](/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](/api/asset-transfers).
 
-Assets are categorized as either Money, Gift Cards or Tokens. Depending on its
+Assets are categorized as either Money or Tokens. Depending on its
 asset category, an asset will have different attributes available and different
 rules governing how it can be obtained, shared or spent.
 
@@ -113,76 +113,6 @@ Money assets have the following attributes along with the base asset fields.
 
 ---
 
-## Gift Card Model
-
-Gift cards are similar to money but have greater spending restrictions and are
-not always backed by real currency. Gift cards usually have an expiry date, are
-typically tied to a small number of merchants, and can only be sent in their
-entirety.
-
-Gift cards have the following attributes along with the base asset fields.
-
-
-<Properties>
-  <Property name="issuer" type="string">
-    The identifier for the issuer of the gift card.
-  </Property>
-
-  <Property name="currency" type="string">
-    Currency code, eg "NZD"
-  </Property>
-
-  <Property name="balance" type="BigNumber">
-    Current balance in the currency's smallest denomination (ie. cents).
-  </Property>
-
-  <Property name="availableBalance" type="BigNumber">
-    The balance of the asset that is available for transfers or purchases.
-  </Property>
-
-  <Property name="initialBalance" type="BigNumber">
-    The balance when the asset was created.
-  </Property>
-
-  <Property name="externalId" type="string">
-    The asset identifier from the issuing system.
-  </Property>
-
-  <Property name="expiresAt" type="timestamp">
-    The date when the asset expires.
-  </Property>
-
-  <Property name="balanceUpdatedAt" type="timestamp">
-    The date when the balance was last observed to be updated.
-  </Property>
-
-  <Property name="productCode" type="String" experimental>
-    The unique code which must match a merchant's payment option for redemption.
-  </Property>
-
-  <Property name="img" type="String" experimental>
-    The img URL of the gift card.
-  </Property>
-
-  <Property name="brandName" type="String" experimental>
-    The name of the brand that the gift card belongs to.
-  </Property>
-
-  <Property name="brandImg" type="String" experimental>
-    The img URL of the brand that the gift card belongs to.
-  </Property>
-
-  <Property name="brandWebsite" type="String" experimental>
-    The URL of the brand that the gift card belongs to.
-  </Property>
-
-  <Property name="issuerWebsite" type="String" experimental>
-    The URL of the issuer of the gift card.
-  </Property>
-</Properties>
-
----
-
 ## Token Model <Badge type="experimental"/>
 
 Tokens are assets which can only be spent in full. Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.
@@ -216,7 +146,7 @@ Tokens have the following attributes along with the base asset fields.
   </Property>
 
   <Property name="issuerWebsite" type="String">
-    The URL of the issuer of the gift card.
+    The URL of the issuer of the token.
   </Property>
 
   <Property name="issuerImg" type="string">
@@ -271,7 +201,7 @@ Tokens have the following attributes along with the base asset fields.
 >
   ## Archive Asset
 
-  Archive supported asset types by asset id. Currently gift cards, tokens, and `quartz.nzd` assets may be archived.
+  Archive supported asset types by asset id. Currently tokens, and `quartz.nzd` assets may be archived.
 
   <Properties heading="Errors">
     <Error code="403" message="UNSUPPORTED_ASSET_TYPE">

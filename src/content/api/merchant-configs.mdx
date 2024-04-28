@@ -54,10 +54,6 @@ A Merchant Config defines the available payment options for paying a [Payment Re
     Merchant's Centrapay Settlement Wallet to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet may be created and then assigned.
   </Property>
 
-  <Property name="terminalId" type="string">
-    Merchant's Epay terminal id.
-  </Property>
-
   <Property name="paypalMerchantAccountId" type="string">
     Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.
   </Property>
@@ -71,7 +67,7 @@ A Merchant Config defines the available payment options for paying a [Payment Re
   </Property>
 
   <Property name="externalMerchantId" type="string">
-    Id of the external merchant. Required for `stadius` and `uplinkapi.test` types.
+    Id of the external merchant. Required for `epay`, `stadius` and `uplinkapi.test` types.
   </Property>
 </Properties>
 

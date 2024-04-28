@@ -8,7 +8,7 @@ export default {
     queryString: {
       origin: '123.42,32.22',
       distance: '100',
-      asset: 'epay.nzd.main,37873',
+      asset: 'epay.main,37873',
       pageKey: '10',
       paginationLimit: '10',
     }
@@ -24,15 +24,7 @@ export default {
             assetType: 'centrapay.nzd.main'
           },
           {
-            assetType: 'epay.nzd.main',
-            products: [
-              {
-                id: '37873'
-              },
-              {
-                id: '38183'
-              }
-            ]
+            assetType: 'epay.main',
           },
           {
             assetType: 'centrapay.token.main',

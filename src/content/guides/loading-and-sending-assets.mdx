@@ -1,6 +1,6 @@
 ---
-title: Loading and Sending Assets
-description: Issue and distribute Centrapay Assets such as Giftcards or Tokens to users via SMS.
+title: Sending Assets
+description: Distribute Centrapay Assets such as Tokens to users via SMS.
 nav:
   path: Reference/Digital Assets
   order: 4
@@ -8,11 +8,11 @@ nav:
 
 import CodePanel from '../../components/CodePanel.astro';
 
-[Assets](/api/assets) such as Giftcards or Tokens can be issued by a Centrapay Account. They can then be sent to another Centrapay account using one of the methods described below.
+[Assets](/api/assets) such as Tokens can be issued by a Centrapay Account. They can then be sent to another Centrapay account using one of the methods described below.
 
 ## Sending Assets
 
-You can send Assets such as Tokens and Giftcards by calling our [Create Asset Transfers](/api/asset-transfers/#create-an-asset-transfer) endpoint.
+You can send Assets such as Tokens by calling our [Create Asset Transfers](/api/asset-transfers/#create-an-asset-transfer) endpoint.
 
 For any asset transfer that is not claimed within 2 weeks, the sent asset will be returned to the sender.
 
@@ -78,125 +78,3 @@ Clicking on the link will open a page to view and claim the asset transfer.
   }
   ```
   </CodePanel>
-
-## Loading Giftcards
-
-You can load Giftcards by calling our [External Assets](/api/external-assets) endpoint. You will need to use the giftcard number for the `externalId` field. The `pin`, the `issuer` and the `type` need to be on hand too.
-
-If your asset type is not included on the list, contact integrations@centrapay.com.
-
-## Example: Bulk distribution of Giftcards
-
-Sometimes you might want to load and distribute Giftcards to a large number of recipients. This requires some scripting, but this is not hard. We can do this with:
-
-- A CSV to manage Giftcards to load
-- A script to load and send Giftcards
-
-Here's an example of the CSV named `input.csv`:
-
-<CodePanel title="Example">
-```
-recipientAlias,cardNumber,pin,message
-+64221231234,23403321042,1111,Hello Bob! Here's your giftcard
-+64221231235,23403321042,1111,Hello Alice! Here's your giftcard
-+64221231236,23403321042,1111,Hello Eve! Here's your giftcard
-```
-</CodePanel>
-
-> Phone numbers must start with +64
-
-Here’s an example of the script to parse the CSV and send Giftcards. To run this, you will need:
-
-- Node JS in your environment
-- A copy of [Axios](https://www.npmjs.com/package/axios) for HTTP requests
-- An [API Key](/api/api-keys) to call our APIs
-- Your [Account id](/api/accounts) for the initial load of each Giftcard
-
-<CodePanel title="Example">
-```javascript
-#!/usr/bin/env node
-
-const apiKey = 'api123'; // FIXME
-const accountId = 'acc123'; // FIXME
-const inputFile = './input.csv';
-const type = 'epay.nzd.main';
-const category = 'giftcard';
-const issuer = 'ezipay';
-const baseUrl = 'https://service.centrapay.com';
-
-const axios = require('axios');
-const fs = require('fs');
-const sleep = require('util').promisify(setTimeout);
-
-// calls axios and return parsed body, sleep and retry if we get 429
-async function requestWithRetry(args) {
-  let response;
-  try {
-    response = await axios.request(args);
-  } catch(err) {
-    if (err.response.status != 429) {
-      throw(err);
-    }
-    const retrySeconds = Number(err.response.headers['retry-after']) + 1;
-    await sleep(retrySeconds * 1000);
-    response = await axios.request(args);
-  }
-  return response.data;
-}
-
-// loads and sends giftcard to a phone number
-async function sendGiftcard({ recipientAlias, cardNumber, pin, message }) {
-  const asset = await requestWithRetry({
-    method: 'POST',
-    url: `${baseUrl}/api/external-assets`,
-    data: { accountId, pin, category, issuer, type, externalId: cardNumber },
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Api-Key': apiKey,
-    },
-  });
-  const assetTransfer = await requestWithRetry({
-    method: 'POST',
-    url: `${baseUrl}/api/asset-transfers`,
-    data: { recipientAlias, message, assetId: asset.id },
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Api-Key': apiKey,
-    },
-  });
-  return `Sent ${cardNumber} to ${recipientAlias} with assetTransferId ${assetTransfer.id}`;
-}
-
-// takes a CSV and returns a list of objects where headings are the keys
-function parseCsv(input) {
-  const lines = String(input).split('\n').filter(line => line.length);
-  const [headings, ...rows] = lines.map(row => row.split(',').map(cell => cell.trim()));
-  const objectList = rows.map(values => {
-    const outRow = {};
-    for (const [i, heading] of Object.entries(headings)) {
-      outRow[heading] = values[i]
-    }
-    return outRow;
-  });
-  return objectList;
-}
-
-// loads from input.csv and sends giftcards to people
-async function run() {
-  const start = new Date();
-  const data = await fs.promises.readFile(inputFile);
-  const csv = parseCsv(data);
-  for (const row of csv) {
-    const msg = await sendGiftcard(row);
-    console.log(msg);
-  }
-  const duration = new Date() - start;
-  return `Done in ${duration / 1000} seconds`;
-}
-
-// entry into the script
-run()
-  .then(console.log)
-  .catch(console.error);
-```
-</CodePanel>

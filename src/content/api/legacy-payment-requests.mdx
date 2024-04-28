@@ -111,9 +111,6 @@ version (documented [Payment Requests](/api/payment-requests)) and the "legacy" 
   <Property name="methods" type="string">
     A collection of methods indicating how the payment can be carried out. Valid values: `qr_code`.
   </Property>
-  <Property name="productCodes" type="string">
-    Supported product codes for the payment request, when the “assetType” `is epay.nzd.*`.
-  </Property>
 </Properties>
 
 ---
@@ -147,7 +144,6 @@ is returned with the payment request info as `payments[].ledger`.
 |:-------------------|:-------------------------|:-------------------------------|
 | centrapay.nzd.main | centrapay.nzd.main       | *Centrapay wallet id*          |
 | centrapay.nzd.test | centrapay.nzd.test       | *Centrapay wallet id*          |
-| epay.nzd.main      | epay.nzd.main            | *Centrapay asset id*           |
 | bitcoin.main       | g.crypto.bitcoin.mainnet | *Bitcoin transaction id*       |
 
 ---
