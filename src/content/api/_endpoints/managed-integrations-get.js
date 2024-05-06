@@ -1,6 +1,6 @@
 export default {
   method: 'GET',
-  path: '/api/managed-integrations/dh375hdh08f590260d9a07f',
+  path: '/api/managed-integrations/paypal-referral/DKTs3U38hdhfEqwF1JKoT2',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
