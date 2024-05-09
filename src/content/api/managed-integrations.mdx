@@ -87,7 +87,6 @@ A Managed Integration is an [Integration](/api/integrations)  which a third part
 
 A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
-
 <Properties>
   <Property name="id" type="string">
     The Invitation's unique identifier.
@@ -104,6 +103,32 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
 ---
 
+## Terminal Model
+
+<Properties>
+  <Property name="provider" type="object" required>
+    The terminal provider Request. Refer to [Integration Types](/api/integration-requests#integration-types).
+  </Property>
+
+  <Property name="terminalId" type="string" required>
+    The software or logical id of the payment terminal.
+  </Property>
+
+  <Property name="kitId" type="string" required>
+    The hardware id or serial number of the payment terminal.
+  </Property>
+
+  <Property name="reseller" type="string">
+    The terminal reseller.
+  </Property>
+
+  <Property name="kitType" type="string">
+    The model of the payment terminal.
+  </Property>
+</Properties>
+
+---
+
 ## Params
 
 ### paypal-referral
@@ -115,6 +140,110 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   <Property name="email" type="string">
     The email address to send the PayPal referral to.
+  </Property>
+</Properties>
+
+### quartz
+
+<Properties>
+  <Property name="nzbn" type="string">
+    The unique NZBN identifier.
+  </Property>
+
+  <Property name="companyName" type="string" required>
+    The name of the company.
+  </Property>
+
+  <Property name="tradingName" type="string">
+    The trading name of the company.
+  </Property>
+
+  <Property name="entityType" type="string">
+    The type of the entity.
+  </Property>
+
+  <Property name="businessStreetNumberName" type="string">
+    The street number and name where the business is located.
+  </Property>
+
+  <Property name="businessSuburb" type="string">
+    The suburb where the business is located.
+  </Property>
+
+  <Property name="businessTown" type="string">
+    The town where the business is located.
+  </Property>
+
+  <Property name="businessCountry" type="string">
+    The country where the business is located.
+  </Property>
+
+  <Property name="businessPostCode" type="string">
+    The post code where the business is located.
+  </Property>
+
+  <Property name="primaryContactName" type="string" required>
+    The name of the primary contact of the business.
+  </Property>
+
+  <Property name="primaryContactEmail" type="string" required>
+    The email address of the primary contact of the business.
+  </Property>
+
+  <Property name="partnerMerchantId" type="string" required>
+    The unique id of the merchant in your system.
+  </Property>
+
+  <Property name="merchantName" type="string" required>
+    The name of the merchant.
+  </Property>
+
+  <Property name="merchantStreetNumberName" type="string" required>
+    The street number and name where the merchant is located.
+  </Property>
+
+  <Property name="merchantSuburb" type="string" required>
+    The suburb where the merchant is located.
+  </Property>
+
+  <Property name="merchantTown" type="string" required>
+    The town where the merchant is located.
+  </Property>
+
+  <Property name="merchantCountry" type="string" required>
+    The country where the merchant is located.
+  </Property>
+
+  <Property name="merchantPostCode" type="string" required>
+    The post code where the merchant is located.
+  </Property>
+
+  <Property name="merchantCategoryCode" type="string">
+    The merchant category code.
+  </Property>
+
+  <Property name="settlementAcct" type="string" required>
+    The bank account number for settlement.
+  </Property>
+
+  <Property name="chargeAcct" type="string">
+    The bank account number for charges.
+  </Property>
+
+  <Property name="merchantContactName" type="string" required>
+    The merchant contact name.
+  </Property>
+
+  <Property name="merchantEmail" type="string" required>
+    The merchant email address.
+  </Property>
+
+  <Property name="merchantContactNumber" type="string">
+    The merchant contact number
+  </Property>
+
+  <Property name="terminals" type="object">
+    Array of [Terminal](#terminal-model) information.
   </Property>
 </Properties>
 
