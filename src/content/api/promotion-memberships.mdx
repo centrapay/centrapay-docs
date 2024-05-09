@@ -32,8 +32,8 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
     The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
   </Property>
 
-  <Property name="description" type="string">
-    The display description for the Promotion.
+  <Property name="summary" type="string">
+    The display summary for the Promotion.
   </Property>
 
   <Property name="mediaUploadId" type="string">
@@ -70,6 +70,10 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
 
   <Property name="conditions" type="array">
     The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+  </Property>
+
+   <Property name="description" type="string">
+    Displayable description for the Promotion conditions.
   </Property>
 
   <Property name="progress" type="number">
