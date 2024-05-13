@@ -187,7 +187,7 @@ exports[`the build should not break any links 1`] = `
   "/api/managed-integrations#get-managed-integration",
   "/api/managed-integrations#invitation-summary-model",
   "/api/managed-integrations#managed-integration-model",
-  "/api/managed-integrations#params",
+  "/api/managed-integrations#params-model",
   "/api/managed-integrations#terminal-model",
   "/api/media-uploads",
   "/api/media-uploads#create-a-presigned-url-for-media-upload",
