@@ -44,6 +44,7 @@ export default {
         modifiedBy: 'crn::user:1234',
         progress: 0,
         status: 'active',
+        test: true,
       }
     ]
   }
