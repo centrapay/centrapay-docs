@@ -28,5 +28,6 @@ docker compose run script yarn preview
 ## Integration Tests
 
 ```
+yarn build
 yarn integration
 ```

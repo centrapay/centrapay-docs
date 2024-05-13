@@ -37,7 +37,7 @@ A Managed Integration is an [Integration](/api/integrations)  which a third part
   </Property>
 
   <Property name="params" type="object">
-    [Params](#params) depending on the Managed Integration type.
+    [Params](#params-model) depending on the Managed Integration type.
   </Property>
 
   <Property name="createdAt" type="timestamp">
@@ -129,7 +129,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
 ---
 
-## Params
+## Params Model
 
 ### paypal-referral
 
@@ -263,7 +263,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
     </Property>
 
     <Property name="params" type="object" required>
-      [Params](#params) depending on the Managed Integration type.
+      [Params](#params-model) depending on the Managed Integration type.
     </Property>
 
     <Property name="test" type="boolean">
@@ -273,7 +273,7 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   <Properties heading="Errors">
     <Error code="400" message="INVALID_PARAMS">
-      Invalid [Params](#params) provided for Managed Integration type.
+      Invalid [Params](#params-model) provided for Managed Integration type.
     </Error>
 
     <Error code="403" message="MERCHANT_LIVENESS_MISMATCH">
