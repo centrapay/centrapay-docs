@@ -1,0 +1,258 @@
+I"–.<h1 class="no_toc" id="bank-account-connection-intents">Bank Account Connection Intents</h1>
+
+<p>A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows.
+Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select
+one or more bank accounts.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#bank-account-connection-intent" id="markdown-toc-bank-account-connection-intent">Bank Account Connection Intent</a></li>
+      <li><a href="#bank-account-connection-intent-types" id="markdown-toc-bank-account-connection-intent-types">Bank Account Connection Intent Types</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-bank-account-connection-intent-experimental" id="markdown-toc-create-bank-account-connection-intent-experimental">Create Bank Account Connection Intent <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#authorize-bank-account-connection-intent-experimental" id="markdown-toc-authorize-bank-account-connection-intent-experimental">Authorize Bank Account Connection Intent <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="bank-account-connection-intent">Bank Account Connection Intent</h3>
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Bank Account Connection Intentâ€™s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the owning Centrapay <a href="/api/accounts">Account</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of Bank Account Connection Intent. See <a href="/api/bank-account-connection-intents#bank-account-connection-intent-types">Bank Account Connection Intent Types</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The current status of the Bank Account Connection Intent. Supported values are <code class="language-plaintext highlighter-rouge">created</code>, <code class="language-plaintext highlighter-rouge">authorized</code> and <code class="language-plaintext highlighter-rouge">failed</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Bank Account Connection Intent was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Bank Account Connection Intent.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">updatedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Bank Account Connection Intent was updated.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">updatedBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that updated the Bank Account Connection Intent.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">authorizationUrl</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">A URL to the third-party beginning the authorization flow.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">A flag which is present if the intention is to connect with a <a href="/api/bank-accounts">Bank Account</a> used for testing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="bank-account-connection-intent-types">Bank Account Connection Intent Types</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Name</th>
+      <th style="text-align: left">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">quartz-accounts</td>
+      <td style="text-align: left">Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">quartz-payment</td>
+      <td style="text-align: left">Initiates an authorization flow for authorizing access to create payments.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="create-bank-account-connection-intent-experimental">Create Bank Account Connection Intent <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />bank-account-connection-intents</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/bank-account-connection-intents <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "accountId": "uooxSens6ykJaim1Cu1Q55",
+    "type": "quartz-accounts",
+    "test": true
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the owning <a href="/api/accounts">Account</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of Bank Account Connection Intent.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bankAccountId</td>
+      <td style="text-align: left">String  <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The id of the associated <a href="/api/bank-accounts">Bank Account</a>. Required if type is <code class="language-plaintext highlighter-rouge">quartz-payment</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">A flag which is present if the intention is to connect with a <a href="/api/bank-accounts">Bank Account</a> used for testing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3KVjuKW2CZCJeJVqPxwkX7"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B4u4WZCu3joZFVWT3XjWW3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"quartz-accounts"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-31 02:56:29 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-31 02:56:29 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"authorizationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/authorization-url"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LIVENESS_<wbr />MISMATCH</td>
+      <td style="text-align: left">Only Bank Account Connection Intents with the <code class="language-plaintext highlighter-rouge">test</code> flag can be associated with test <a href="/api/bank-accounts">Bank Accounts</a>, and vice versa.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="authorize-bank-account-connection-intent-experimental">Authorize Bank Account Connection Intent <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />bank-account-connection-intents/<wbr />{bankAccountConnectionIntentId}/<wbr />authorize</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/bank-account-connection-intents/3KVjuKW2CZCJeJVqPxwkX7/authorize <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "code": "hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">code</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Authorization code returned from third-party.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

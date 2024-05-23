@@ -1,0 +1,131 @@
+I"<h1 id="scanned-codes">Scanned Codes</h1>
+
+<p>A scanned code is a barcode that a merchant scans. The code can be used to create a <a href="/api/payment-requests">Payment Request</a>.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#scanned-code" id="markdown-toc-scanned-code">Scanned Code</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#decode-scanned-code" id="markdown-toc-decode-scanned-code">Decode Scanned Code</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="scanned-code">Scanned Code</h3>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">code</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The utf8 representation of data decoded from what was scanned.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">scannedBy</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The party that scanned the code. Can be <code class="language-plaintext highlighter-rouge">merchant</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">provider</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The integrator that owns the code. This can be used to calculate discounts on <a href="/api/payment-requests#line-item">Line Items</a>. Can be <code class="language-plaintext highlighter-rouge">paypal</code>, <code class="language-plaintext highlighter-rouge">venmo</code>, <code class="language-plaintext highlighter-rouge">farmlands</code> or <code class="language-plaintext highlighter-rouge">centrapay</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">displayName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">A formatted name that can be displayed in a client.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchantConfigId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The ID of the <a href="/api/merchant-configs">Merchant Config</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<p><a name="decode-scanned-code"></a></p>
+<h3 id="decode-scanned-code">Decode Scanned Code</h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />decode</code>
+        
+        
+        
+        <h4>Decode Merchant Scanned Barcode</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/decode <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "code": "123456789",
+    "scannedBy": "merchant",
+    "merchantConfigId": "P9gm1s1Cu1Q5uooxs"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scannedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merchant"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantConfigId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P9gm1s1Cu1Q5uooxs"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Farmlands Card"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">UNKNOWN_CODE</td>
+      <td style="text-align: left">The code doesn’t exist or is no longer active in our system.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">MERCHANT_CONFIG_NOT_FOUND</td>
+      <td style="text-align: left">The supplied merchant config does not exist.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_MERCHANT_CONFIG</td>
+      <td style="text-align: left">The merchant config does not have a payment option that can satisfy the scanned code.</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

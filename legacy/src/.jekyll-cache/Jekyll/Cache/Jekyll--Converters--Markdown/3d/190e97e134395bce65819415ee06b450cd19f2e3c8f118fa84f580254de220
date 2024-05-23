@@ -1,0 +1,634 @@
+I"�~<h1 class="no_toc" id="integration-requests">Integration Requests</h1>
+
+<p>An Integration Request allows Centrapay users to request the creation of an <a href="/api/integrations">Integration</a> on a Centrapay account.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#integration-request" id="markdown-toc-integration-request">Integration Request</a></li>
+      <li><a href="#terminal" id="markdown-toc-terminal">Terminal</a></li>
+      <li><a href="#product" id="markdown-toc-product">Product</a></li>
+      <li><a href="#integration-types" id="markdown-toc-integration-types">Integration Types</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-an-integration-request-experimental" id="markdown-toc-create-an-integration-request-experimental">Create an Integration Request <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#get-an-integration-request-experimental" id="markdown-toc-get-an-integration-request-experimental">Get an Integration Request <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#search-integration-requests-experimental" id="markdown-toc-search-integration-requests-experimental">Search Integration Requests <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#configure-integration-request-experimental" id="markdown-toc-configure-integration-request-experimental">Configure Integration Request <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#get-integration-request-configuration-experimental" id="markdown-toc-get-integration-request-configuration-experimental">Get Integration Request Configuration <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#activate-integration-request-experimental" id="markdown-toc-activate-integration-request-experimental">Activate Integration Request <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#delete-integration-request-experimental" id="markdown-toc-delete-integration-request-experimental">Delete Integration Request <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="integration-request">Integration Request</h3>
+
+<h4>Mandatory Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Integration Request’s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Integration Request’s owning Centrapay Account id.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchantId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Merchant id for the Integration Request.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of the Integration Request. Refer to <a href="#integration-types">Integration Types</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The current status of the Integration Request. Supported values are <code class="language-plaintext highlighter-rouge">active</code>, <code class="language-plaintext highlighter-rouge">available</code>, <code class="language-plaintext highlighter-rouge">pending</code>, <code class="language-plaintext highlighter-rouge">rejected</code> and <code class="language-plaintext highlighter-rouge">disabled</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">terminalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The payment system terminal id. Required for NZ Epay integration.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">terminal</td>
+      <td style="text-align: left"><a href="#terminal">Terminal</a></td>
+      <td style="text-align: left">The terminal configuration. Required for all terminal vendors except Vista.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">product</td>
+      <td style="text-align: left"><a href="#product">Product</a></td>
+      <td style="text-align: left">The requested Epay gift card types to support.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="terminal">Terminal</h3>
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">terminalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The software or logical id of the payment terminal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">deviceId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The hardware id or serial number of the payment terminal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="product">Product</h3>
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The name of the requested Epay product.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="integration-types">Integration Types</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">verifone</td>
+      <td>Terminal vendor <a href="https://www.verifone.com/en/us" class="external">Verifone</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">windcave</td>
+      <td>Terminal vendor <a href="https://www.windcave.com/" class="external">Windcave</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">epay</td>
+      <td>Asset provider <a href="https://www.epay.com/" class="external">ePay</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">smartpay</td>
+      <td>Terminal vendor <a href="https://www.smartpay.co.nz" class="external">smartpay</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">invenco</td>
+      <td>Terminal vendor <a href="https://www.invenco.com/" class="external">invenco</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">skyzer</td>
+      <td>Terminal vendor <a href="https://www.skyzer.co.nz" class="external">skyzer</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">vista</td>
+      <td>Terminal vendor <a href="https://www.vista.co" class="external">vista</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="create-an-integration-request-experimental">Create an Integration Request <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />integration-requests</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/integration-requests <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "merchantId": "5ee0c486308f590260d9a07f",
+    "type": "verifone",
+    "terminal": {
+      "terminalId": "002039390093939",
+      "deviceId": "002-039-390"
+    }
+  }'</span></code></pre>
+        </div>
+      
+      
+
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/integration-requests <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "merchantId": "5ee0c486308f590260d9a07f",
+    "type": "epay",
+    "product": {
+      "name": "koha-card"
+    }
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">merchantId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Merchant id for the Integration Request.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of the Integration Request.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">terminal</td>
+      <td style="text-align: left"><a href="#terminal">Terminal</a></td>
+      <td style="text-align: left">The terminal configuration. Required for Verifone and Windcave integration.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">product</td>
+      <td style="text-align: left"><a href="#product">Product</a></td>
+      <td style="text-align: left">The requested Epay gift card types to support.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verifone"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12 01:17:46 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12 01:17:46 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"002039390093939"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"002-039-390"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12 01:17:46 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12 01:17:46 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"koha-card"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="get-an-integration-request-experimental">Get an Integration Request <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />integration-requests/<wbr />{integrationRequestId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"koha-card"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="search-integration-requests-experimental">Search Integration Requests <strong>EXPERIMENTAL</strong></h3>
+
+<p>Returns a <a href="/api/pagination">paginated</a> list of Integration Requests.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />integration-requests</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-G</span> https://service.centrapay.com/api/integration-requests <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nb">type</span><span class="o">=</span>epay <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nv">pending</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nv">accountId</span><span class="o">=</span>Jaim1Cu1Q55uooxSens6yk</code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Query Parameters </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Parameter</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">The Integration Request’s owning Centrapay Account id. Required unless caller has global read access permission.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">The type of Integration Request.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pending</td>
+      <td style="text-align: left">When set to <code class="language-plaintext highlighter-rouge">true</code>, only include Integration Requests with pending status.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"koha-card"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="configure-integration-request-experimental">Configure Integration Request <strong>EXPERIMENTAL</strong></h3>
+
+<p>Supply configuration values for the Integration Request.</p>
+
+<p>
+        PUT <code>/<wbr />api/<wbr />integration-requests/<wbr />{integrationRequestId}/<wbr />configs</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> PUT https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "terminalId": "11000021"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">terminalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Epay terminalId for the Integration Request. Required if type is <code class="language-plaintext highlighter-rouge">epay</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"koha-card"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="get-integration-request-configuration-experimental">Get Integration Request Configuration <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />integration-requests/<wbr />{integrationRequestId}/<wbr />configs</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/configs <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="activate-integration-request-experimental">Activate Integration Request <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />integration-requests/<wbr />{integrationRequestId}/<wbr />activate</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2/activate <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DKTs3U38hdhfEqwF1JKoT2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"koha-card"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INTEGRATION_PARAM_MISSING</td>
+      <td style="text-align: left">Integration Request needs updating with the required parameters before activating.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INTEGRATION_ALREADY_ACTIVATED</td>
+      <td style="text-align: left">Integration Request is already activated.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="delete-integration-request-experimental">Delete Integration Request <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        DELETE <code>/<wbr />api/<wbr />integration-requests/<wbr />{integrationRequestId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> DELETE https://service.centrapay.com/api/integration-requests/DKTs3U38hdhfEqwF1JKoT2 <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

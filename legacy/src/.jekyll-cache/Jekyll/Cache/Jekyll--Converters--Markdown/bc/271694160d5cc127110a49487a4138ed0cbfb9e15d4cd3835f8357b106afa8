@@ -1,0 +1,323 @@
+I"�3<h1 class="no_toc" id="batches">Batches</h1>
+
+<p>Batches enable bulk loading of resource onto the Centrapay platform.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#batch" id="markdown-toc-batch">Batch</a></li>
+      <li><a href="#batch-lifecycle" id="markdown-toc-batch-lifecycle">Batch Lifecycle</a></li>
+      <li><a href="#batch-types" id="markdown-toc-batch-types">Batch Types</a></li>
+      <li><a href="#error" id="markdown-toc-error">Error</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-batch-experimental" id="markdown-toc-create-batch-experimental">Create Batch <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#get-batch-experimental" id="markdown-toc-get-batch-experimental">Get Batch <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<p><a name="batch"></a></p>
+<h3 id="batch">Batch</h3>
+
+<p>The batch model represents the progression for loading of a file.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Batch’s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The current <a href="#batch-lifecycle">Lifecycle Stage</a> of the batch.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left"><a href="#batch-types">Batch Type</a> id used to describe the batch content.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">totalCount</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The number of items processed.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">errorCount</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Total <a href="#error">Error</a> counted.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">errors</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left"><a href="#error">Error</a> list for the batch.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">true if the batch is for testing purposes only.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="batch-lifecycle"></a></p>
+<h3 id="batch-lifecycle">Batch Lifecycle</h3>
+
+<p>Different stages of a Batch’s lifecycle.</p>
+
+<p><img src="/images/batch-lifecycle.png" style="display: block; margin: auto;" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">created</td>
+      <td style="text-align: left">The batch has successfully been submitted.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">copied</td>
+      <td style="text-align: left">The file has been transferred to Centrapay.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">chunked</td>
+      <td style="text-align: left">The batch has been broken up for processing.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">complete</td>
+      <td style="text-align: left">The batch has been processed and may include errors.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">error</td>
+      <td style="text-align: left">There is an error accessing or reading the file, preventing processing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="batch-types"></a></p>
+<h3 id="batch-types">Batch Types</h3>
+
+<p>The following table describes the Batch Types supported for loading.</p>
+
+<table>
+  <thead>
+    <tr style="text-align: left">
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody><tr>
+      <td>
+        <a href="/api/batch-types/farmlands-external-asset">farmlands-external-asset</a>
+      </td>
+      <td>
+       Farmlands External Asset Batch.
+      </td>
+    </tr><tr>
+      <td>
+        <a href="/api/batch-types/verifone-terminal-status">verifone-terminal-status</a>
+      </td>
+      <td>
+       Verifone Terminal Status Batch.
+      </td>
+    </tr></tbody>
+</table>
+
+<p><a name="error"></a></p>
+<h3 id="error">Error</h3>
+
+<p>An Error represents the complete or partial failure of the batch. This could be caused by the contents, access or file format.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">message</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">A description of what caused the Error.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">externalId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Field used in debugging in reference to an id from the file.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">index</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Item offset where the Error was identified in the file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="create-batch-experimental">Create Batch <strong>EXPERIMENTAL</strong></h3>
+
+<p>Initialize loading of entities from a batch file.</p>
+
+<p>
+        POST <code>/<wbr />api/<wbr />batches</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/batches <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "type": "farmlands-external-asset",
+    "url": "https://azurebuckets.com/1234",
+    "accountId": "C4QnjXvj8At6SMsEN4LRi9",
+    "test": true
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left"><a href="#batch-types">Batch Type</a> used to describe the batch content.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">url</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The url where the file is located.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Centrapay Account Id that submitted the Batch.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">true if the batch is for testing purposes only.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example Response Payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AVH5uG4gRLYK6YR8JyrViN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1mdj7bj95gjo92r0ux6wfy69gj3h77"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands-external-asset"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://azurebuckets.com/1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errorCount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LIVENESS_MISSMATCH</td>
+      <td style="text-align: left">accountId “test” flag is not the same as submitted Batch’s “test” flag.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="get-batch-experimental">Get Batch <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />batches/<wbr />{id}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/batches/AVH5uG4gRLYK6YR8JyrViN <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example Response Payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AVH5uG4gRLYK6YR8JyrViN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1mdj7bj95gjo92r0ux6wfy69gj3h77"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"complete"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands-external-asset"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://azurebuckets.com/1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errorCount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"69d64d80-f9bd-4057-bc5b-1c55685d995b"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1954"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVALID_BARCODE_LENGTH"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

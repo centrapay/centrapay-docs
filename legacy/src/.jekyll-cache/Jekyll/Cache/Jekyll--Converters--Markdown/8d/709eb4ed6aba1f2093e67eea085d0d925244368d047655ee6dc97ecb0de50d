@@ -1,0 +1,176 @@
+I"<h1 class="no_toc" id="profile">Profile</h1>
+
+<p>A profile represents a Centrapay user’s attributes.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#profile-1" id="markdown-toc-profile-1">Profile</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#update-a-profile-experimental" id="markdown-toc-update-a-profile-experimental">Update a Profile <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#get-profile-experimental" id="markdown-toc-get-profile-experimental">Get Profile <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="profile-1">Profile</h3>
+
+<h4>Mandatory Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">userId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Centrapay user id.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">givenName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">First name.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">familyName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Last name.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">featureUpdates</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">Whether a user would like to receive emails for feature updates.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">marketingUpdates</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">Whether a user would like to receive emails for marketing updates.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">email</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Email address.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">emailVerified</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">Flag indicating the verification status of the email address.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phoneNumber</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The user’s phone number.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phoneVerified</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">Flag indicating the verification status of the phone number.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="update-a-profile-experimental">Update a Profile <strong>EXPERIMENTAL</strong></h3>
+
+<p>Update a user’s mutable attributes. At least one field must be provided in the
+request.</p>
+
+<p>
+        POST <code>/<wbr />api/<wbr />me/<wbr />profile/<wbr />update</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/me/profile/update <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "givenName": "John",
+    "familyName": "Doe",
+    "featureUpdates": false,
+    "marketingUpdates": true,
+    "email": "john.doe@centrapay.com"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"givenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"familyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"featureUpdates"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"marketingUpdates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@centrapay.com"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="get-profile-experimental">Get Profile <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />users/<wbr />{userId}/<wbr />profile</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/users/da75ad90-9a5b-4df0-8374-f48b3a8fbfcc/profile <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9f4b3bae-dc30-11ea-ab70-2743d9be3dd5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"givenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"familyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"featureUpdates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"marketingUpdates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@centrapay.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"emailVerified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+64271112222"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneVerified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+:ET

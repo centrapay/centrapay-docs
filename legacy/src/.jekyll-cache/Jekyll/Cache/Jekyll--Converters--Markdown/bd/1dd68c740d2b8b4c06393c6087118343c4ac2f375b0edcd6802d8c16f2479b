@@ -1,0 +1,139 @@
+I"�<h1 id="data-types">Data Types</h1>
+
+<h2 id="timestamp">Timestamp</h2>
+
+<p>A point in time, usually with millisecond precision, represented as an
+<a href="https://en.wikipedia.org/wiki/ISO_8601" class="external">ISO 8601</a> date string (eg “2021-06-11T02:51:11.000Z”). Timestamps
+are in the UTC timezone as denoted by the “Z” suffix.</p>
+
+<h2 id="bignumber">BigNumber</h2>
+
+<p>A number, represented as a String, which can have arbitrary size or precision.
+Most Centrapay APIs that deal with transactable value (ie. assets, payments,
+etc) represent the value as BigNumbers. Depending on the context, a BigNumber
+may be used to represent an integer or a decimal amount.</p>
+
+<h2 id="monetary">Monetary</h2>
+
+<p>A monetary amount in a currency, represented as an Object. The amount is
+usually an integer in the smallest denomination for the currency (ie cents) but
+may be a decimal value for some currencies (eg Bitcoin). The currency is
+typically represented as an <a href="https://en.wikipedia.org/wiki/ISO_4217" class="external">ISO 4217</a> code.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>amount</td>
+      <td><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td>Value in the currency’s smallest denomination (eg. cents).</td>
+    </tr>
+    <tr>
+      <td>currency</td>
+      <td>String</td>
+      <td>Currency code (eg. “NZD”).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="crn">CRN</h2>
+
+<p>A Centrapay Resource Name (CRN) is a colon-delimited String that uniquely
+identifies any Centrapay resource.</p>
+
+<p>The format is <code class="language-plaintext highlighter-rouge">crn:{account}:{type}:{id}</code> where “account” is the optional
+Centrapay account that owns the resource, “type” is the resource type, and “id”
+is the resource identifier.</p>
+
+<p>CRN is often used to refer to Users and API keys. For example:</p>
+<ul>
+  <li><strong>User:</strong> crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878</li>
+  <li><strong>API Key:</strong> crn:1234abc:api-key:MyAccountOwner</li>
+</ul>
+
+<h2 id="location">Location</h2>
+
+<p>A location’s represented as an Object with properties to denote the location both absolute and
+by locality.</p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>street</td>
+      <td>String</td>
+      <td>Unit, number, and name of street address</td>
+    </tr>
+    <tr>
+      <td>city</td>
+      <td>String</td>
+      <td>City of location</td>
+    </tr>
+    <tr>
+      <td>country</td>
+      <td>String</td>
+      <td><a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" class="external">ISO 3166</a> Country code. (eg. “NZ”)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lat</td>
+      <td>Number</td>
+      <td>Absolute latitude coordinate. If you don’t provide this, we will automatically infer this from your address.</td>
+    </tr>
+    <tr>
+      <td>lng</td>
+      <td>Number</td>
+      <td>Absolute longitude coordinate. If you don’t provide this, we will automatically infer this from your address.</td>
+    </tr>
+    <tr>
+      <td>suburb</td>
+      <td>String</td>
+      <td>Suburb of location</td>
+    </tr>
+    <tr>
+      <td>postCode</td>
+      <td>String</td>
+      <td>Post or Zip code of location</td>
+    </tr>
+    <tr>
+      <td>state</td>
+      <td>String</td>
+      <td>The state or region of the location (eg. “Auckland”)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="phonenumber">PhoneNumber</h2>
+
+<p>A phone number, represented in <a href="https://en.wikipedia.org/wiki/E.123" class="external">E.123</a> international notation (eg “+6421537663”). We usually use this for receiving text messages.</p>
+
+:ET

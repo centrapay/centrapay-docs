@@ -1,0 +1,200 @@
+I").<h1 class="no_toc" id="quotas">Quotas</h1>
+
+<p>Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time
+period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#quota" id="markdown-toc-quota">Quota</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#getting-account-quotas-experimental" id="markdown-toc-getting-account-quotas-experimental">Getting account quotas <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="quota">Quota</h3>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The quota’s type.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">limit</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The quota’s upper usage limit.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">usage</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The quota’s current usage.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">assetType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of asset the quota is scoped to, eg <code class="language-plaintext highlighter-rouge">centrapay.nzd.main</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">period</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The recurring, time-bound quota’s duration: <code class="language-plaintext highlighter-rouge">daily</code>, <code class="language-plaintext highlighter-rouge">monthly</code> or <code class="language-plaintext highlighter-rouge">yearly</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">interval</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The specific day, month or year the quota applies to, eg: <code class="language-plaintext highlighter-rouge">2020-01-01</code>, <code class="language-plaintext highlighter-rouge">2020-01</code>, <code class="language-plaintext highlighter-rouge">2020</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Supported Quota Types </h4>
+
+<p>The following table describes the supported quota types and variants. The
+“Scoped” column indicates whether the quota can have different values for
+different asset types. The “Periods” column indicates which periods are
+applicable to the quota.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: center">Scoped</th>
+      <th style="text-align: left">Periods</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">spend</td>
+      <td style="text-align: left">Value of wallet-based payments or asset transfers from the account.</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">monthly</code> <code class="language-plaintext highlighter-rouge">yearly</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">topup</td>
+      <td style="text-align: left">Value of topups from bank accounts linked to the account.</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">monthly</code> <code class="language-plaintext highlighter-rouge">yearly</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="getting-account-quotas-experimental">Getting account quotas <strong>EXPERIMENTAL</strong></h3>
+
+<p>Retrieve quota limits and usages for the current intervals. Ie, all quotas for
+the current day, current month and current year as well as any quotas that are
+not associated with a temporal period.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />quotas</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/quotas <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monthly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spend"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yearly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1555"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spend"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monthly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topup"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yearly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topup"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+<p><span id="quota-error-response"></span></p>
+<h4>Error Responses </h4>
+
+<p>If a quota limit is exceeded by an action that enforces quota limits, the following error response will be returned. The <code class="language-plaintext highlighter-rouge">quotas</code> field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.</p>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QUOTA_EXCEEDED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quotas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yearly"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topup"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+:ET

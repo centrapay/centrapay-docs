@@ -1,0 +1,585 @@
+I"�|<h1 class="no_toc" id="tokens">Tokens</h1>
+
+<p>Tokens are assets which can only be spent in full.</p>
+
+<p>Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.</p>
+
+<p>A redemption condition is created for each merchant that accepts tokens from a collection, and contains additional conditions specific to that merchant, such as redeemable product identifiers.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#token-collection-experimental" id="markdown-toc-token-collection-experimental">Token Collection <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#token-expires-after-experimental" id="markdown-toc-token-expires-after-experimental">Token Expires After <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#redemption-condition-experimental" id="markdown-toc-redemption-condition-experimental">Redemption Condition <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#allowed-products-experimental" id="markdown-toc-allowed-products-experimental">Allowed Products <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-token-collection-experimental" id="markdown-toc-create-token-collection-experimental">Create Token Collection <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#list-token-collections-for-account-experimental" id="markdown-toc-list-token-collections-for-account-experimental">List Token Collections for Account <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#create-redemption-condition-experimental" id="markdown-toc-create-redemption-condition-experimental">Create Redemption Condition <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#create-token-experimental" id="markdown-toc-create-token-experimental">Create Token <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<p><a name="token-collection"></a></p>
+<h3 id="token-collection-experimental">Token Collection <strong>EXPERIMENTAL</strong></h3>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The display name of the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The account that will own the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">tokenExpiresAfter</td>
+      <td style="text-align: left"><a href="#tokenExpiresAfter">Token Expires After</a></td>
+      <td style="text-align: left">The active duration of all tokens created from this collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of value exchanged when redeeming tokens, can be <code class="language-plaintext highlighter-rouge">product</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">maxValue</td>
+      <td style="text-align: left"><a href="/api/data-types#monetary ">Monetary </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The maximum agreed value that any merchants will be settled for a token redemption.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The token collection id</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">true</code> if the token collection is for testing purposes only.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The status of the token collection. Valid values include ‘active’.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The identity that created the activity.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Timestamp at which the token collection was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mediaUploadId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The id of the <a href="/api/media-uploads">media upload</a> image of the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">img</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The img URL of the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">issuer</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The name of the <a href="/api/businesses">Business</a> linked to the account.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="tokenExpiresAfter"></a></p>
+<h3 id="token-expires-after-experimental">Token Expires After <strong>EXPERIMENTAL</strong></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">period</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Supported values are <code class="language-plaintext highlighter-rouge">hour</code>, <code class="language-plaintext highlighter-rouge">day</code>, <code class="language-plaintext highlighter-rouge">week</code>,<code class="language-plaintext highlighter-rouge">month</code> and <code class="language-plaintext highlighter-rouge">year</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">duration</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Number of <code class="language-plaintext highlighter-rouge">period</code> until token expiration.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="redemption-condition-experimental">Redemption Condition <strong>EXPERIMENTAL</strong></h3>
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">merchantId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The identifier of the merchant that is accepting the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">allowedProducts</td>
+      <td style="text-align: left"><a href="#allowedProducts">Allowed Products</a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">List of allowed products, required for collections of type <code class="language-plaintext highlighter-rouge">product</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The redemption condition id</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">collectionId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The <a href="#token-collection">token collection</a> that will govern the branding and redemption rules for the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The identity that created the activity.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Timestamp at which the redemption condition was created.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="allowedProducts"></a></p>
+<h3 id="allowed-products-experimental">Allowed Products <strong>EXPERIMENTAL</strong></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">sku</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The SKU of the product that is to be accepted.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Display name of the product</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">maxValue</td>
+      <td style="text-align: left"><a href="/api/data-types#monetary ">Monetary </a></td>
+      <td style="text-align: left">The maximum value that the product can be redeemed for.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+<h3 id="create-token-collection-experimental">Create Token Collection <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />collections</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/collections <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "name": "Bread",
+    "accountId": "T3y6hogYA4d612BExypWYH",
+    "tokenExpiresAfter": {
+      "period": "month",
+      "duration": "1"
+    },
+    "maxValue": {
+      "currency": "NZD",
+      "amount": "400"
+    },
+    "type": "product",
+    "mediaUploadId": "12345"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Xv990BzkgfoDS7bBls50pd"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bread"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T3y6hogYA4d612BExypWYH"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tokenExpiresAfter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"maxValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"400"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"product"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-05-12T04:30:11.001Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"mediaUploadId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="list-token-collections-for-account-experimental">List Token Collections for Account <strong>EXPERIMENTAL</strong></h3>
+
+<p>Returns a <a href="/api/pagination">paginated</a> list of token collections for an account.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />collections</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-G</span> https://service.centrapay.com/api/accounts/T3y6hogYA4d612BExypWYH/collections <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nv">pageKey</span><span class="o">=</span>Collection#2G5bXm4dnuDHnnKY8WeCPm|#Collection|8vq4kn03o0g1grrihk7ooloizpqt2y</code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pageKey</td>
+      <td>String <span class="cp-badge">Optional</span></td>
+      <td>Used to retrieve the next page of items.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note: The <code class="language-plaintext highlighter-rouge">pageKey</code> value, if provided, needs to be URL-encoded.</p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"nextPageKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Collection#E9eXsErwA444qFDoZt5iLA|#Collection"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Xv990BzkgfoDS7bBls50pd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bread"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T3y6hogYA4d612BExypWYH"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tokenExpiresAfter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"maxValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"400"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"product"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-05-12T04:30:11.001Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"mediaUploadId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="create-redemption-condition-experimental">Create Redemption Condition <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />collections/<wbr />{collectionId}/<wbr />redemption-conditions</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/collections/NFhUgPQEYbk2EbTXAYArTX/redemption-conditions <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "merchantId": "36EALpZ89XpShxM2Ee9sXT",
+    "allowedProducts": [
+      {
+        "sku": "100001",
+        "name": "White Bread",
+        "maxValue": {
+          "currency": "NZD",
+          "amount": "400"
+        }
+      },
+      {
+        "sku": "100002",
+        "name": "Sourdough Bread",
+        "maxValue": {
+          "currency": "NZD",
+          "amount": "800"
+        }
+      }
+    ]
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36EALpZ89XpShxM2Ee9sXT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"collectionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NFhUgPQEYbk2EbTXAYArTX"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"allowedProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100001"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"White Bread"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maxValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"400"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100002"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sourdough Bread"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maxValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"800"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-12T04:30:11.001Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:b657195e-dc2f-11ea-8566-e7710d592c99"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_AMOUNT</td>
+      <td style="text-align: left">One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">REDEMPTION_CONDITION_ALREADY_EXISTS</td>
+      <td style="text-align: left">A redemption condition for the collection and the merchant has already been created.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="create-token-experimental">Create Token <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />tokens</code>
+        
+        
+        
+        <h4>Create a token</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/tokens <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b"
+  }'</span></code></pre>
+        </div>
+      
+      
+
+        
+        <h4>Create a token with externalId</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/tokens <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+    "externalId": "23403283262"
+  }'</span></code></pre>
+        </div>
+      
+      
+
+        
+        <h4>Create a token with accountId</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/tokens <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "collectionId": "Jaim1Cu1Q55uooxSens6yk",
+    "idempotencyKey": "payment-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+    "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">collectionId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The <a href="#token-collection">token collection</a> that will govern the branding and redemption rules for the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">idempotencyKey</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Client-supplied identifier that prevents double creation.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">externalId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The asset identifier from the issuing system.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The account to create the token for. Defaults to the account on the token collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pe32dd90-b46c-11ea-92828sa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjP"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"token"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"collectionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"activeFrom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-18T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"liveness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:1234abc:api-key:MyAssetIssuerKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cafe Token"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuerImg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://static.centrapay.com/assets/brands/centraperk/logo.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://static.centrapay.com/assets/brands/centraperk/cafe-token.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centraperk Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuerWebsite"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.centraperk-cafe.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.token.test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">TOKEN_ALREADY_CREATED</td>
+      <td style="text-align: left">Token with supplied parameters already exists.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LIVENESS_MISMATCH</td>
+      <td style="text-align: left">The account is test and the collection’s liveness is main or vice versa.</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

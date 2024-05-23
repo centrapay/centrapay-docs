@@ -1,0 +1,713 @@
+I"�m<h1 id="auth">Auth</h1>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#authenticating-api-calls" id="markdown-toc-authenticating-api-calls">Authenticating API Calls</a></li>
+  <li><a href="#api-keys" id="markdown-toc-api-keys">API Keys</a></li>
+  <li><a href="#user-access-tokens" id="markdown-toc-user-access-tokens">User Access Tokens</a>    <ul>
+      <li><a href="#claims" id="markdown-toc-claims">Claims</a></li>
+    </ul>
+  </li>
+  <li><a href="#roles-and-permissions" id="markdown-toc-roles-and-permissions">Roles and Permissions</a>    <ul>
+      <li><a href="#account-flags" id="markdown-toc-account-flags">Account Flags</a></li>
+      <li><a href="#permissions" id="markdown-toc-permissions">Permissions</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="authenticating-api-calls">Authenticating API Calls</h2>
+
+<p>API calls can be authenticated by either providing an API key in the
+“X-Api-Key” header or by providing a user access token in the “Authorization”
+header.</p>
+
+<p>Org <a href="/api/accounts">Accounts</a> accessed with a user access token require the
+“X-Centrapay-Account” header to be provided. The “X-Centrapay-Account” header
+specifies the unique identifier of the Centrapay Org Account.</p>
+
+<p>
+        
+        
+        
+        
+        <h4>Authenticate with API key</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/account-memberships <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+
+        
+        <h4>Authenticate with user access token</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/account-memberships <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<p>
+        
+        
+        
+        
+        <h4>Authenticate org account with user access token</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/bank-accounts <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Centrapay-Account: Jaim1Cu1Q55uooxSens6yk"</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h2 id="api-keys">API Keys</h2>
+
+<p><a href="/api/api-keys">API Keys</a> provide enduring access to a single Centrapay account.</p>
+
+<p>The Centrapay test merchant API key is available to test creating payment requests:
+<code class="language-plaintext highlighter-rouge">f32c5497297084e5354b47c40d5ccacb109ce483</code>.</p>
+
+<h2 id="user-access-tokens">User Access Tokens</h2>
+
+<p>User access tokens provide time-limited access to all Centrapay accounts for
+which the user is a member. Access tokens are issued using OIDC code flow via
+the Centrapay OAuth authorization server and login page at auth.centrapay.com.</p>
+
+<p>After successfully negotiating the OIDC code flow your application will have access to three tokens:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Id Token</td>
+      <td>JWT containing user attributes such as id, phone and email.</td>
+    </tr>
+    <tr>
+      <td>Access Token</td>
+      <td>JWT granting access to Centrapay APIs. Expires after 1 hour.</td>
+    </tr>
+    <tr>
+      <td>Refresh Token</td>
+      <td>Token for OIDC token exchange. Expires after 60 days or when revoked.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A good starting point for learning more about OIDC is Okta’s <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc" class="external">OAuth OIDC Illustrated Guide</a>.</p>
+
+<p>When initiating a login request, a valid redirect URI must be provided. To
+obtain a dedicated OAuth client id with your application’s redirect URI(s)
+whitelisted please contact Centrapay support. Your callback URI can be for a
+website (such as “https://yourapp.example.com/oidc-callback”) or mobile app
+(such as “com.example.yourapp://oidc-callback”).</p>
+
+<p>Your application can use any OIDC client to negotiate the authentication flow
+but it must support OIDC authorization code flow with <a href="https://oauth.net/2/pkce/" class="external">PKCE</a>.
+See the <a href="/guides/example-oidc-consumer">Example OIDC Consumer</a> guide for a
+working example using the “oidc-client” JavaScript library. The Centrapay
+authorization server configuration can be interrogated via
+<code class="language-plaintext highlighter-rouge">https://auth.centrapay.com/.well-known/openid-configuration</code>.</p>
+
+<p>When handling the OIDC callback, browser based applications should slurp the
+callback parameters by performing a <code class="language-plaintext highlighter-rouge">location.replace()</code> so they are not
+available in the browser’s location bar or browsing history. If your application
+needs to talk directly to service.centrapay.com from a browser then it will
+also need to be whitelisted for cross-origin requests.</p>
+
+<h3 id="claims">Claims</h3>
+
+<p>The following table lists the claims which may be be included in a user id token.
+At minimum, the “sub” claim and one of “phone_number” or “email” will be present.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">sub</td>
+      <td style="text-align: left">Centrapay user id</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">email</td>
+      <td style="text-align: left">email address</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phone_number</td>
+      <td style="text-align: left">phone number</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">given_name</td>
+      <td style="text-align: left">given name(s)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">family_name</td>
+      <td style="text-align: left">surname</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">preferred_username</td>
+      <td style="text-align: left">Centrapay user handle</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">phone_number_verified</td>
+      <td style="text-align: left">phone number has been verified (can be used for account recovery)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">email_verified</td>
+      <td style="text-align: left">email has been verified (can be used for account recovery)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="roles-and-permissions">Roles and Permissions</h2>
+
+<p>Users and API keys are assigned a role for their associated Centrapay
+account(s). The permissions granted to the roles are shown in the table below.</p>
+
+<p>Most permissions apply only to resources owned by the associated account. Some
+permissions, such as payment-requests:pay, apply globally to all resources
+regardless of the account the resource belongs to. The global permissions are
+indicated below with a star (✸).</p>
+
+<h3 id="account-flags">Account Flags</h3>
+<p>Some permissions require an additional flag associated to their individual account or the
+targeted account that owns the resource (they may be the same account). For each permission,
+if there is a flag associated to it then at least one of them must be met.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Symbol</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">👤</td>
+      <td style="text-align: left">A trusted user flag on the individual account, obtained by verifying a NZ phone number.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">🧀</td>
+      <td style="text-align: left">An external-asset-issuer subscription on the targeted Account, obtained by contacting centrapay.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">🗄</td>
+      <td style="text-align: left">The targeted account must be of type org.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">🪙</td>
+      <td style="text-align: left">A collection-manager subscription on the targeted Account, obtained by contacting centrapay.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="permissions">Permissions</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Permission</th>
+      <th style="text-align: center">Account Owner</th>
+      <th style="text-align: center">Anon Consumer</th>
+      <th style="text-align: center">Merchant Terminal</th>
+      <th style="text-align: center">External Asset Provider</th>
+      <th style="text-align: center">Cashier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">accounts:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accounts:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accounts:<wbr />update</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">api-keys:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">api-keys:<wbr />list</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">api-keys:<wbr />update</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">asset-transfers:<wbr />claim</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">asset-transfers:<wbr />create 👤 🧀</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">asset-transfers:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">assets:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">assets:<wbr />spend 👤</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bank-account-approvals:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bank-account-requests:<wbr />authorize</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bank-account-requests:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bank-accounts:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bank-accounts:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">business:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">business:<wbr />update</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">business:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">collections:<wbr />create 🪙</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">collections:<wbr />read 🪙</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">external-assets:<wbr />create 👤 🧀</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">external-assets:<wbr />update</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">integration-requests:<wbr />configure</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">integration-requests:<wbr />create 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">integration-requests:<wbr />read 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">invitations:<wbr />accept</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">invitations:<wbr />read</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">media-uploads:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">memberships:<wbr />delete 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">memberships:<wbr />update</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchants:<wbr />create 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchants:<wbr />list 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchants:<wbr />read 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchants:<wbr />update 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">patron-codes:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">patron-codes:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-activities:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-conditions:<wbr />approve</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />cancel 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />create 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />pay 🗄</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅ ✸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />read</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center">✅ ✸</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅ ✸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />read-by-shortcode</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />refund 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />void 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />release 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-requests:<wbr />confirm 🗄</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">quotas:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">quotas:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">redemption-conditions:<wbr />create 🪙</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">scanned-code:<wbr />decode</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">tokens:<wbr />create 🪙</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">topups:<wbr />create 👤</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">topups:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">wallets:<wbr />create</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">wallets:<wbr />deposit</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">wallets:<wbr />read</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">wallets:<wbr />transfer 👤</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">wallets:<wbr />withdraw</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

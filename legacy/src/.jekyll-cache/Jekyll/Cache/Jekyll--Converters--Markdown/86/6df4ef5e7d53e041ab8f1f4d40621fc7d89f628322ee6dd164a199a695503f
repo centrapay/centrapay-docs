@@ -1,0 +1,505 @@
+I"•o<h1 class="no_toc" id="bank-account-approvals">Bank Account Approvals</h1>
+
+<p>A Bank Account Approval represents any added authorization on a <a href="/api/bank-accounts">Bank Account</a>.
+This may be an approval from Centrapay or a consent from a Centrapay <a href="/api/accounts">Account</a> owner
+that allows access to a third-party system. See <a href="/api/bank-account-approvals#bank-account-approval-types">Bank Account Approval Types</a>.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#bank-account-approval" id="markdown-toc-bank-account-approval">Bank Account Approval</a></li>
+      <li><a href="#bank-account-approval-activity" id="markdown-toc-bank-account-approval-activity">Bank Account Approval Activity</a></li>
+      <li><a href="#bank-account-approval-types" id="markdown-toc-bank-account-approval-types">Bank Account Approval Types</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#request-bank-account-approval-experimental" id="markdown-toc-request-bank-account-approval-experimental">Request Bank Account Approval <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#get-bank-account-approval-experimental" id="markdown-toc-get-bank-account-approval-experimental">Get Bank Account Approval <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#accept-a-bank-account-approval-experimental" id="markdown-toc-accept-a-bank-account-approval-experimental">Accept a Bank Account Approval <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#decline-a-bank-account-approval-experimental" id="markdown-toc-decline-a-bank-account-approval-experimental">Decline a Bank Account Approval <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#list-bank-account-approvals-experimental" id="markdown-toc-list-bank-account-approvals-experimental">List Bank Account Approvals <strong>EXPERIMENTAL</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="bank-account-approval">Bank Account Approval</h3>
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Bank Account Approvalâ€™s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bankAccountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the associated <a href="/api/bank-accounts">Bank Account</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the owning Centrapay <a href="/api/accounts">Account</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of Bank Account Approval. See <a href="/api/bank-account-approvals#bank-account-approval-types">Bank Account Approval Types</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The current status of the Bank Account Approval. Supported values are <code class="language-plaintext highlighter-rouge">created</code>, <code class="language-plaintext highlighter-rouge">pending</code>, <code class="language-plaintext highlighter-rouge">approved</code>, <code class="language-plaintext highlighter-rouge">declined</code> and <code class="language-plaintext highlighter-rouge">done</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Bank Account Approval was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Bank Account Approval.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Bank Account Approval was updated.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that updated the Bank Account Approval.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">approvalActivities</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left">An array of <a href="/api/bank-account-approvals#bank-account-approval-activity">Bank Account Approval Activity</a> associated with the Bank Account Approval.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mediaUploadId</td>
+      <td style="text-align: left">String   <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The id of the associated <a href="/api/media-uploads">Media Upload</a>. Required for type <code class="language-plaintext highlighter-rouge">settlement</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">refreshToken</td>
+      <td style="text-align: left">String   <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">A long lived access token for access to a third-party system. Required for type <code class="language-plaintext highlighter-rouge">account-consent</code> and <code class="language-plaintext highlighter-rouge">payment-consent</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">consentId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">A unique identifier for an authorization in a third-party system.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="bank-account-approval-activity">Bank Account Approval Activity</h3>
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">activityNumber</td>
+      <td style="text-align: left">Number</td>
+      <td style="text-align: left">Unique sequential Bank Account Approval Activity number.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">approvalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the associated <a href="/api/bank-account-approvals">Bank Account Approval</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">activityType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of the Bank Account Approval Activity.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Bank Account Approval Activity was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Bank Account Approval Activity.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="bank-account-approval-types">Bank Account Approval Types</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Name</th>
+      <th style="text-align: left">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">settlement</td>
+      <td style="text-align: left">An <code class="language-plaintext highlighter-rouge">approved</code> Bank Account Approval of type <code class="language-plaintext highlighter-rouge">settlement</code> is required for the funds in a <a href="/api/wallets#settlement-wallets">Settlement Wallet</a> to be released. A <a href="/api/media-uploads">Media Upload</a> is uploaded by the user to provide evidence of ownership of the <a href="/api/bank-accounts">Bank Account</a> to be approved.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">account-consent</td>
+      <td style="text-align: left">An <code class="language-plaintext highlighter-rouge">approved</code> Bank Account Approval of type <code class="language-plaintext highlighter-rouge">account-consent</code> provides an access token to read account details from a third-party.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">payment-consent</td>
+      <td style="text-align: left">An <code class="language-plaintext highlighter-rouge">approved</code> Bank Account Approval of type <code class="language-plaintext highlighter-rouge">payment-consent</code> provides an access token for creating payments with a third-party.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="request-bank-account-approval-experimental">Request Bank Account Approval <strong>EXPERIMENTAL</strong></h3>
+<p>
+        POST <code>/<wbr />api/<wbr />bank-account-approvals</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/bank-account-approvals <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "mediaUploadId": "uooxSens6ykJaim1Cu1Q55",
+    "bankAccountId": "WRhAxxWpTKb5U7pXyxQjjY",
+    "type": "settlement"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">mediaUploadId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the associated <a href="/api/media-uploads">Media Upload</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bankAccountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the associated <a href="/api/bank-accounts">Bank Account</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The <a href="/api/bank-account-approvals#bank-account-approval-types">Bank Account Approval Type</a>. A Bank Account Approval can only be requested for type <code class="language-plaintext highlighter-rouge">settlement</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DcTs3U38HdhfEqwF1GKoT3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"mediaUploadId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uooxSens6ykJaim1Cu1Q55"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"settlement"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-08T21:52:39.915Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-08T21:52:39.915Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">APPROVAL_ALREADY_IN_PROGRESS</td>
+      <td style="text-align: left">There is already a Bank Account Approval in progress that is awaiting review from Centrapay.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="get-bank-account-approval-experimental">Get Bank Account Approval <strong>EXPERIMENTAL</strong></h3>
+<p>
+        GET <code>/<wbr />api/<wbr />bank-account-approvals/<wbr />{bankAccountApprovalId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/bank-account-approvals/bbab9a768921019cb856 <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bbab9a768921019cb856"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-consent"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-08T21:52:39.915Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-08T21:52:39.915Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"y04Njk3LTRjNmZkYjBhMzRiZSIsIm5vbmNlIjoiOTg3MTJjMGNkZmFiNWZjNzMwM2MxMzNl"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"consentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d24dbe-e2bc46ac-d924e38af112"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="accept-a-bank-account-approval-experimental">Accept a Bank Account Approval <strong>EXPERIMENTAL</strong></h3>
+<p>
+        POST <code>/<wbr />api/<wbr />bank-account-approvals/<wbr />{bankAccountApprovalId}/<wbr />accept</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/accept <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "reason": "All details match"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">reason</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The reason for accepting the Bank Account Approval.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">APPROVAL_ALREADY_REVIEWED</td>
+      <td style="text-align: left">The Bank Account Approval has already been accepted or declined.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="decline-a-bank-account-approval-experimental">Decline a Bank Account Approval <strong>EXPERIMENTAL</strong></h3>
+<p>
+        POST <code>/<wbr />api/<wbr />bank-account-approvals/<wbr />{bankAccountApprovalId}/<wbr />decline</code>
+        
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/bank-account-approvals/DcTs3U38HdhfEqwF1GKoT3/decline <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "reason": "All details match"
+  }'</span></code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">reason</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The reason for declining the Bank Account Approval.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">APPROVAL_ALREADY_REVIEWED</td>
+      <td style="text-align: left">The Bank Account Approval has already been accepted or declined.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="list-bank-account-approvals-experimental">List Bank Account Approvals <strong>EXPERIMENTAL</strong></h3>
+<p>
+        GET <code>/<wbr />api/<wbr />bank-accounts/<wbr />{bankAccountId}/<wbr />approvals</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/bank-accounts/5vpkxjn6z787LiAKCqwuf9/approvals <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PJ6jTgDNv1xfFAooCoWZLe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5vpkxjn6z787LiAKCqwuf9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-21T21:41:46.361Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-21T21:41:46.361Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TEZiZWAtX6v1hJucU4fGKx"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-consent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tXC4dFm3yNAQbLrm4JxY6pynGoEG8vSJ"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"consentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fFAoo-CoWZLea8-4dFm3yNAoWZLe"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WiFna4hCc7k4KYUxncFPg4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5vpkxjn6z787LiAKCqwuf9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-11T20:53:57.337Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-11T20:53:57.337Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TEZiZWAtX6v1hJucU4fGKx"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-consent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dAGLl8AfnNCGEKEmBm1FryaDyW1JBh28"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"consentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4KYUx-ncFPg4a8-Ll8AfnNCcFPg4"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SoQkkv4rWRwrknrdkYbBuB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5vpkxjn6z787LiAKCqwuf9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-21T21:41:22.345Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-08-21T21:41:22.345Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TEZiZWAtX6v1hJucU4fGKx"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:7c0a034a-c36e-4645-b12b-57dec339ab47"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-consent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"declined"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rX3MNTxFwKIU2lhyZOrq87Aw74ASSHUM"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"consentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rknrd-kYbBuBa8-MNTxFwKIYbBuB"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

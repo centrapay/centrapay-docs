@@ -1,0 +1,691 @@
+I"��<h1 class="no_toc" id="assets">Assets</h1>
+
+<p>Centrapay digital assets are resources that represent the ability for a
+Centrapay account to perform transactions where value is exchanged. Assets can
+be spent to satisfy <a href="/api/payment-requests">Payment Requests</a>, withdrawn to a bank account via
+<a href="/api/funds-transfers">Funds Transfers</a> and sent to other Centrapay users via <a href="/api/asset-transfers">Asset Transfers</a>.</p>
+
+<p>Assets are categorized as either Money, Gift Cards or Tokens. Depending on its
+asset category, an asset will have different attributes available and different
+rules governing how it can be obtained, shared or spent.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#asset" id="markdown-toc-asset">Asset</a></li>
+      <li><a href="#money" id="markdown-toc-money">Money</a></li>
+      <li><a href="#gift-cards" id="markdown-toc-gift-cards">Gift Cards</a></li>
+      <li><a href="#tokens-experimental" id="markdown-toc-tokens-experimental">Tokens (EXPERIMENTAL)</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#get-asset" id="markdown-toc-get-asset">Get Asset</a></li>
+      <li><a href="#get-asset-summary" id="markdown-toc-get-asset-summary">Get Asset Summary</a></li>
+      <li><a href="#list-assets-for-account" id="markdown-toc-list-assets-for-account">List Assets for Account</a></li>
+      <li><a href="#listing-asset-transactions-experimental" id="markdown-toc-listing-asset-transactions-experimental">Listing Asset Transactions <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#archive-asset" id="markdown-toc-archive-asset">Archive Asset</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="asset">Asset</h3>
+
+<p>All assets have the following fields along with the additional fields that are
+specific to its category. Assets which don’t have a category are considered
+<strong>EXPERIMENTAL</strong> and the model may change.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Asset’s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Asset’s owning Centrapay Account id.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">category</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Asset category (“money”, “giftcard”, “token”).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left"><a href="/api/asset-types">Asset Type</a> id used by payment option asset types.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">liveness</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Either “main” (live payments allowed) or “test”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">description</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Displayable asset description.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Date when the asset was created or issued.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">“active” if the asset can be used for payments.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">meta</td>
+      <td style="text-align: left">Object <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> Additional data that may only appear in the <a href="#get-asset">Get Asset</a> response.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="money"></a></p>
+<h3 id="money">Money</h3>
+
+<p>Money assets, being backed by real currency, are the most flexible asset types.
+Money is accepted for most payment requests, can be sent in arbitrary amounts
+and does not expire.</p>
+
+<p>Money assets have the following fields along with the base asset fields.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">currency</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Currency code, eg “NZD”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">balance</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Current balance in the currency’s smallest denomination (ie. cents).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">availableBalance</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The balance of the asset that is available for transfers or purchases.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">settlement</td>
+      <td style="text-align: left">Boolean <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The asset is configured for <a href="/api/wallets#settlement-wallets">Settlements</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="giftcards"></a></p>
+<h3 id="gift-cards">Gift Cards</h3>
+
+<p>Gift cards are similar to money but have greater spending restrictions and are
+not always backed by real currency. Gift cards usually have an expiry date, are
+typically tied to a small number of merchants, and can only be sent in their
+entirety.</p>
+
+<p>Gift cards have the following fields along with the base asset fields.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">issuer</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The identifier for the issuer of the gift card.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">currency</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Currency code, eg “NZD”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">balance</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Current balance in the currency’s smallest denomination (ie. cents).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">availableBalance</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The balance of the asset that is available for transfers or purchases.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">initialBalance</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The balance when the asset was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">externalId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The asset identifier from the issuing system.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">expiresAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The date when the asset expires.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">balanceUpdatedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The date when the balance was last observed to be updated.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">productCode</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The unique code which must match a merchant’s payment option for redemption.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">img</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The img URL of the gift card.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">brandName</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The name of the brand that the gift card belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">brandImg</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The img URL of the brand that the gift card belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">brandWebsite</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The URL of the brand that the gift card belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">issuerWebsite</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> The URL of the issuer of the gift card.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="tokens"></a></p>
+<h3 id="tokens-experimental">Tokens (EXPERIMENTAL)</h3>
+
+<p>Tokens are assets which can only be spent in full.</p>
+
+<p>Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.</p>
+
+<p>Tokens have the following fields along with the base asset fields.</p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">collectionId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The <a href="/api/tokens#token-collection">token collection</a> that will govern the branding and redemption rules for the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The identity that created the activity.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left">Array <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The <a href="/api/data-types#monetary">Monetary Amounts</a> representing the token’s nominal value in its supported currencies. <strong>DEPRECATED</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">activeFrom</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The date when the asset becomes spendable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">expiresAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The date when the asset expires.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">img</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The img URL of the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">issuer</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The name of the <a href="/api/businesses">Business</a> that issued the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">issuerWebsite</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The URL of the issuer of the token.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">issuerImg</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The img URL of the issuer that the token belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">externalId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The asset identifier from the issuing system.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="get-asset">Get Asset</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />assets/<wbr />{assetId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="get-asset-summary">Get Asset Summary</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />assets/<wbr />{assetId}/<wbr />summary</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/summary</code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centraperk Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Free Coffee"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://static.centrapay.com/assets/brands/centraperk/cafe-token.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"liveness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="list-assets-for-account">List Assets for Account</h3>
+
+<p>Returns a <a href="/api/pagination">paginated</a> list of Assets for an account. This will not return archived assets.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />assets</code>
+        
+        
+        
+        <h4>List Assets for Account</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+
+        
+        <h4>List Assets for Account by externalId</h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-G</span> https://service.centrapay.com/api/accounts/Te2uDM7xhDLWGVJU3nzwnh/assets <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nv">externalId</span><span class="o">=</span>QZnc7ehZGub1PHAUBjzVxo</code></pre>
+        </div>
+      
+      
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"liveness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aj7rtHmd7rDeWoJgw9MPHe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cca.coke.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coke™ Token"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"token"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"400"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="listing-asset-transactions-experimental">Listing Asset Transactions <strong>EXPERIMENTAL</strong></h3>
+
+<p>Returns a <a href="/api/pagination">paginated</a> list of Asset Transactions. This endpoint is currently only supported for <code class="language-plaintext highlighter-rouge">quartz</code> asset types.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />assets/<wbr />{assetId}/<wbr />transactions</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/assets/WRhAxxWpTKb5U7pXyxQjjY/transactions <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Transaction Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">ref</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">ID of the Centrapay resource that initiated this transaction.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">refType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Name of the Centrapay resource that initiated this transaction.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Type of the Asset Transaction. Supported values are <code class="language-plaintext highlighter-rouge">increment-balance</code>, <code class="language-plaintext highlighter-rouge">decrement-balance</code> and <code class="language-plaintext highlighter-rouge">transfer</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">kind</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Human readable value indicating the reason for this transaction.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">srcAssetId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">ID of the source asset if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">destAssetId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">ID of the destination asset if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">srcParty</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Display value for party providing funds if applicable. See note below.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">destParty</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Display value for party receiving funds if applicable. See note below.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">otherParty</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Display value for party providing or receiving funds if applicable. See note below.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">amount</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Amount of transaction in cents.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">activityType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Indicating whether the asset gained or lost value. Supported types are <code class="language-plaintext highlighter-rouge">value-in</code> and <code class="language-plaintext highlighter-rouge">value-out</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">activityNumber</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Unique sequential Asset transaction number.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Party Values </h4>
+
+<p>The “destParty” and “srcParty” are optionally provided only on transactions of
+type <code class="language-plaintext highlighter-rouge">transfer</code>. Values may include a merchant name, user handle, masked user
+email, masked user phone, or bank account.</p>
+
+<p>The “otherParty” is optionally provided only on transactions of type
+<code class="language-plaintext highlighter-rouge">increment-balance</code> and <code class="language-plaintext highlighter-rouge">decrement-balance</code>. Values may include bank account
+number.</p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adRGJqMyMhmGfnDXasRZ"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refund"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-request"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coffee Ltd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-31T20:36:08.562Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::service:payments-api"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcAssetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jd9a89ZESjjCuUD9DJD9Al"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destAssetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value-in"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adRGJqMyMhmGfnDXasRZ"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-request"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::user:5a3b1ba7-d01k-409f-ld0a-jd81k0ald"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Coffee Ltd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-31T20:35:54.717Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::service:payments-api"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcAssetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destAssetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jd9a89ZESjjCuUD9DJD9Al"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value-out"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"H4SZKwMcU9VCmnGEqDA7Mn"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"increment-balance"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topup"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"refType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"topup"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-31T02:37:47.207Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn::application:rhea"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destAssetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7600"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value-in"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="archive-asset">Archive Asset</h3>
+
+<p>Archive supported asset types by asset id. Currently only gift cards may be archived.</p>
+
+<p>
+        POST <code>/<wbr />api/<wbr />assets/<wbr />{assetId}/<wbr />archive</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/assets/L75M3L56N2PtBSt8g7uXLU/archive <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L75M3L56N2PtBSt8g7uXLU"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ezipay"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23403283262"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$60 Acme Giftcard"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"initialBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balanceUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-31T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-01T12:30:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"archived"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">UNSUPPORTED_ASSET_TYPE</td>
+      <td style="text-align: left">Asset type can not be archived</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

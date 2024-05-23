@@ -1,0 +1,167 @@
+I"V <h1 id="http-status-codes">HTTP Status Codes</h1>
+
+<p>Centrapay APIs respond with 200, 400, 401, 403, 404, or 429 HTTP status codes.
+In rare cases endpoints may respond with 5xx status codes.</p>
+
+<p>Some legacy or deprecated endpoints may have exceptions to the guidelines
+documented here. Any such exceptions will be documented on the endpoints.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#200-ok" id="markdown-toc-200-ok">200 Ok</a></li>
+  <li><a href="#400-malformed-request" id="markdown-toc-400-malformed-request">400 Malformed Request</a></li>
+  <li><a href="#401-unauthorized" id="markdown-toc-401-unauthorized">401 Unauthorized</a></li>
+  <li><a href="#403-forbidden" id="markdown-toc-403-forbidden">403 Forbidden</a>    <ul>
+      <li><a href="#resource-missing-or-permission-denied" id="markdown-toc-resource-missing-or-permission-denied">Resource missing or permission denied</a></li>
+      <li><a href="#business-rule-violated" id="markdown-toc-business-rule-violated">Business rule violated</a></li>
+    </ul>
+  </li>
+  <li><a href="#404-route-not-found" id="markdown-toc-404-route-not-found">404 Route Not Found</a></li>
+  <li><a href="#429-too-many-requests" id="markdown-toc-429-too-many-requests">429 Too Many Requests</a></li>
+  <li><a href="#5xx-server-error" id="markdown-toc-5xx-server-error">5xx Server Error</a></li>
+</ul>
+
+<h2 id="200-ok">200 Ok</h2>
+
+<p>Everything’s ok. Enjoy your well formed response!</p>
+
+<h2 id="400-malformed-request">400 Malformed Request</h2>
+
+<p>This is a syntax failure. When you get these back, your application needs to change the way it
+behaves in order to get back the resource that you’re after.</p>
+
+<p>Don’t try again, this is never going to work.</p>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amount is required"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Debugging </h4>
+
+<ul>
+  <li>Make sure you set “content-type: application/json”</li>
+  <li>The response body should indicate where the error is</li>
+  <li>Make sure your HTTP body fields are set correctly</li>
+  <li>Check your HTTP verb is correct (POST, PUT, GET etc.)</li>
+  <li>Check query parameters are set correctly</li>
+  <li>Check path parameters are set correctly</li>
+</ul>
+
+<h2 id="401-unauthorized">401 Unauthorized</h2>
+
+<p>API key or JWT is missing, expired or invalid. Go look at our <a href="/api/auth">Auth</a> documentation.</p>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unauthorized"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing authentication"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h2 id="403-forbidden">403 Forbidden</h2>
+
+<p>A 403 status indicates resource missing, permission denied or
+business rule violation.</p>
+
+<h3 id="resource-missing-or-permission-denied">Resource missing or permission denied</h3>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forbidden"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forbidden"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Debugging </h4>
+
+<ul>
+  <li>Check the resource id is correct</li>
+  <li>Check your user or API key has membership for the account that owns the resource you are accessing.</li>
+  <li>Check the role of your user or API key has permission (See <a href="/api/auth#permissions">Auth Permissions</a>).</li>
+</ul>
+
+<h3 id="business-rule-violated">Business rule violated</h3>
+
+<p>When the resource exists and access is authorized but some other business rule
+is violated then a 403 is returned. Additional information will be included in
+the “message” field of the response body. The possible values for the “message”
+field will be documented on each endpoint.</p>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forbidden"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INSUFFICIENT_BALANCE"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h2 id="404-route-not-found">404 Route Not Found</h2>
+
+<p>Variant on a 400, there’s a bug in your code that means you’ve got a typo in
+the URL or HTTP method. Please check against examples in our documentation.</p>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Found"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h2 id="429-too-many-requests">429 Too Many Requests</h2>
+
+<p>Centrapay API rate limits have been exceeded.</p>
+
+<h4>Example response body </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">429</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Too Many Requests"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RATE_LIMIT_EXCEEDED"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Debugging </h4>
+
+<ul>
+  <li>Check the <code class="language-plaintext highlighter-rouge">Retry-After</code> HTTP response header for the number of seconds
+before the next request will be accepted.</li>
+  <li>Contact <a href="mailto:integrations@centrapay.com">integrations@centrapay.com</a> to increase your limits.</li>
+</ul>
+
+<h2 id="5xx-server-error">5xx Server Error</h2>
+
+<p>If you get a 500 level error, something has gone wrong on our end. Retrying
+should solve the issue. Usually a Centrapay Engineer will investigate but
+bug reports are also welcome at <a href="mailto:integrations@centrapay.com">integrations@centrapay.com</a>.</p>
+
+:ET

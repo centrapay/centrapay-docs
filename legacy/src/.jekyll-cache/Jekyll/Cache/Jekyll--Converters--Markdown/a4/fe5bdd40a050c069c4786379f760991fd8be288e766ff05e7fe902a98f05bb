@@ -1,0 +1,54 @@
+I"<h1 id="api-introduction">API Introduction</h1>
+
+<p>The Centrapay API is an <a href="https://en.wikipedia.org/wiki/Richardson_Maturity_Model" class="external">RMM</a> level 2 RESTful web service which expresses
+operations in terms of HTTP verbs on resource-oriented URLs. API endpoint
+definitions in these docs are grouped by resource type along with definitions
+for the associated resource types.</p>
+
+<p>Most API calls require <a href="/api/auth">authentication</a> using an API key or
+JWT. HTTP requests and responses usually have JSON payloads and use
+“application/json” as the content type.</p>
+
+<p>Some API features may be flagged as <strong>EXPERIMENTAL</strong>. These API features may be
+removed or changed without warning and should not be relied on in a production
+setting.</p>
+
+<ul class="nav-list"><li>
+        <a href="/api/auth">Auth</a>
+      </li><li>
+        <a href="/api/http-status-codes">HTTP Status Codes</a>
+      </li><li>
+        <a href="/api/data-types">Data Types</a>
+      </li><li>
+        <a href="/api/pagination">Pagination</a>
+      </li><li>
+        <a href="/api/api-keys">API Keys</a>
+      </li><li>
+        <a href="/api/section/accounts">Accounts</a>
+      </li><li>
+        <a href="/api/section/assets">Assets</a>
+      </li><li>
+        <a href="/api/section/bank-accounts">Bank Accounts</a>
+      </li><li>
+        <a href="/api/section/batches">Batches</a>
+      </li><li>
+        <a href="/api/section/integrations">Integrations</a>
+      </li><li>
+        <a href="/api/invitations.html">Invitations</a>
+      </li><li>
+        <a href="/api/media-uploads">Media Uploads</a>
+      </li><li>
+        <a href="/api/section/merchants">Merchants</a>
+      </li><li>
+        <a href="/api/section/payment-requests">Payment Requests</a>
+      </li><li>
+        <a href="/api/profiles">Profiles</a>
+      </li><li>
+        <a href="/api/quotas">Quotas</a>
+      </li><li>
+        <a href="/api/section/scanned-codes">Scanned Codes</a>
+      </li><li>
+        <a href="/api/section/settlements">Settlements</a>
+      </li></ul>
+
+:ET

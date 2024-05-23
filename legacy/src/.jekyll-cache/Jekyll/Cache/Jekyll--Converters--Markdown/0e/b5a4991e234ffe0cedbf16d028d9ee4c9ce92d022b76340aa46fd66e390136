@@ -1,0 +1,153 @@
+I"ö<h1 class="no_toc" id="settlements">Settlements</h1>
+
+<p>A settlement is created from completed <a href="/api/payment-requests">Payment Requests</a> over a specified period for each supported <a href="/api/asset-types#supported-asset-types %}">Asset Type</a> for each <a href="/api/merchants">Merchant</a>.</p>
+
+<p>Settlements can only be created if the merchant has a <a href="/api/merchants#settlement-config">Settlement Config</a>.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#settlement" id="markdown-toc-settlement">Settlement</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#list-settlements" id="markdown-toc-list-settlements">List Settlements</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+<h3 id="settlement">Settlement</h3>
+
+<h4>Mandatory Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The unique identifier for the settlement.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The status of the settlement.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">assetType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The <a href="/api/asset-types#supported-asset-types %}">Asset Type</a> being settled.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">currency</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The settlement currency.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Settlement was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Settlement.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">settledAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">The time when settlement was completed.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">settledBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that completed the Settlement.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">settlementAmount</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">The total amount of the settlement.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">settlementBankAccountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The ID of the bank account used for settlement.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+<h3 id="list-settlements">List Settlements</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />merchants/<wbr />{merchantId}/<wbr />settlements</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/settlements <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"89028sh9308f590260d9a07f"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"confirmed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settledAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-13T11:59:59.999Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settledBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settlementAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settlementBankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67e0c486308f590260d9a139"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9ds2cs89028sh90260d9f91h"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"awaiting-confirmation"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-13T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settlementAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2200"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"settlementBankAccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67e0c486308f590260d9a139"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

@@ -1,0 +1,131 @@
+I"Å<h1 id="pagination">Pagination</h1>
+
+<p>Pagination allows a listing endpoint to return a subset of results. The goal is to reduce memory
+usage and speed up page rendering.</p>
+
+<p>To retrieve the next page, a <code class="language-plaintext highlighter-rouge">pageKey</code> can be supplied. Typically this will be the <code class="language-plaintext highlighter-rouge">nextPageKey</code>
+returned from your previous query.</p>
+
+<p>Please note that when making a request, the values of <code class="language-plaintext highlighter-rouge">pageKey</code> must be URL-encoded. This ensures proper handling of special characters and encoding requirements.</p>
+
+<p>Some of our endpoints have been designed to be forwards compatible with pagination. When we do
+bring support to GET endpoints for listing, these conventions will be followed.</p>
+
+<h3 id="models">Models</h3>
+
+<h4>Mandatory Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>items</td>
+      <td>Array</td>
+      <td>A list from the current page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nextPageKey</td>
+      <td>String</td>
+      <td>Can be used to fetch the next page, not present on the last page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="example">Example</h3>
+
+<p>A GET endpoint for listing with a <code class="language-plaintext highlighter-rouge">pageKey</code></p>
+<p>
+        GET <code>/<wbr />api/<wbr />examples</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-G</span> https://service.centrapay.com/api/examples <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="nv">pageKey</span><span class="o">=</span>Example#E9eXsErwA444qFDoZt5iLA|Activity#000000000000001|614161c4c4d3020073bd4ce8</code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pageKey</td>
+      <td>String <span class="cp-badge">Optional</span></td>
+      <td>Used to retrieve the next page of items.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A page with more content</p>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"nextPageKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f|ded3f328-1123-11ec-bf1a-5ba46eb12a7d"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<p>The last page</p>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"128"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+:ET

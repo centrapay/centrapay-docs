@@ -1,0 +1,255 @@
+I"�+<h1 id="patron-codes">Patron Codes</h1>
+
+<p>A Patron Code is an alternative to presenting a QR code where that option isn’t available</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#patron-code" id="markdown-toc-patron-code">Patron Code</a></li>
+      <li><a href="#test-scenario-name" id="markdown-toc-test-scenario-name">Test Scenario Name</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#creating-a-patron-code" id="markdown-toc-creating-a-patron-code">Creating a Patron Code</a></li>
+      <li><a href="#retrieving-a-patron-code" id="markdown-toc-retrieving-a-patron-code">Retrieving a Patron Code</a></li>
+      <li><a href="#retrieving-a-patron-code-by-barcode" id="markdown-toc-retrieving-a-patron-code-by-barcode">Retrieving a Patron Code by Barcode</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="patron-code">Patron Code</h3>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The Patron Code’s unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">barcode</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">✩ Field to display in barcode format.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Date when the Patron Code was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">expiresAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Date when the Patron Code will expire.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">appName</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The app used to create the Patron Code. <strong>DEPRECATED</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The account id of the creator of the patron code.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">testScenarioName</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">The <a href="#test-scenario-name">Test Scenario Name</a> of the Patron Code.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
+code, then a luhn checksum digit.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9 9 9 0 0 0 1 2 3 4 5 6 7 8 9 5  ❖  complete barcode
+9 9 9 0 0 0 - - - - - - - - - -  ❖  centrapay prefix
+- - - - - - 1 2 3 4 5 6 7 8 9 -  ❖  code
+- - - - - - - - - - - - - - - 5  ❖  luhn checksum
+</code></pre></div></div>
+
+<p>The Centrapay Prefix may present any of the following prefixes:</p>
+
+<ul>
+  <li>121921</li>
+  <li>123000</li>
+  <li>282828</li>
+  <li>293000</li>
+  <li>321000</li>
+  <li>321123</li>
+  <li>636863</li>
+  <li>713131</li>
+  <li>765432</li>
+  <li>777000</li>
+  <li>839234</li>
+  <li>848484</li>
+  <li>888444</li>
+  <li>929394</li>
+  <li>987600</li>
+  <li>999000</li>
+</ul>
+
+<h3 id="test-scenario-name">Test Scenario Name</h3>
+
+<p>This field is used to inject behavior into a <a href="/api/payment-requests">Payment Request</a> when the
+generated barcode is supplied on creation. If a Test Scenario Name is
+defined on a Patron Code, it is considered a test resource and can only
+be used with Payment Requests that will have a liveness of ‘test’. The <a href="/api/asset-types">Asset Type</a>
+<code class="language-plaintext highlighter-rouge">centrapay.nzd.test</code> is required to run test scenarios.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">name</th>
+      <th style="text-align: left">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">force-condition-check-photo-id</td>
+      <td style="text-align: left">The Payment Request will have a required <a href="/api/payment-requests#merchant-condition">Merchant Condition</a> to check photo id.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="creating-a-patron-code">Creating a Patron Code</h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />patron-codes</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/patron-codes <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example Response Payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V17FByEP9gm1shSG6a1Zzx"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9990001234567895"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T22:55:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"appName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<p>You can find payment request information attached to a Patron Code by <a href="/api/payment-requests#patron-code">polling for the Payment
+Request</a> using the transacting APIs.</p>
+
+<h3 id="retrieving-a-patron-code">Retrieving a Patron Code</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />patron-codes/<wbr />{patronCodeId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/patron-codes/V17FByEP9gm1shSG6a1Zzx <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$jwt</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example Response Payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V17FByEP9gm1shSG6a1Zzx"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9990001234567895"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T22:55:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"appName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="retrieving-a-patron-code-by-barcode">Retrieving a Patron Code by Barcode</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />patron-codes/<wbr />barcode/<wbr />{barcode}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/patron-codes/barcode/9990001234567895 <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example Response Payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V17FByEP9gm1shSG6a1Zzx"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9990001234567895"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T22:55:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-08T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"appName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">400</td>
+      <td style="text-align: left">CHECKSUM_<wbr />FAILED</td>
+      <td style="text-align: left">Luhn checksum digit doesn’t pass.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">PATRON_<wbr />CODE_<wbr />INVALID</td>
+      <td style="text-align: left">Patron Code doesn’t exist or it has expired.</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

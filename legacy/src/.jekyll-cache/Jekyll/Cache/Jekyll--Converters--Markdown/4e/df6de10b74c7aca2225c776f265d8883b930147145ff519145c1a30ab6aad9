@@ -1,0 +1,5 @@
+I"e<h1 class="no_toc" id="integrations">Integrations</h1>
+
+<p>An Integration is a configured connection between a Centrapay account and a third party. An Integration can be created as an <a href="/api/integration-requests">Integration Request</a>, as a <a href="/api/managed-integrations">Managed Integration</a>, or directly by Centrapay administrators.</p>
+
+:ET

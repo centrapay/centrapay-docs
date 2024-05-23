@@ -1,0 +1,436 @@
+I"�[<h1 class="no_toc" id="merchant-configs">Merchant Configs</h1>
+
+<p>A Merchant Config defines the available payment options for paying a <a href="/api/payment-requests">Payment Request</a>.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#merchant-config" id="markdown-toc-merchant-config">Merchant Config</a></li>
+      <li><a href="#payment-option-config" id="markdown-toc-payment-option-config">Payment Option Config</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-a-merchant-config" id="markdown-toc-create-a-merchant-config">Create a Merchant Config</a></li>
+      <li><a href="#get-a-merchant-config" id="markdown-toc-get-a-merchant-config">Get a Merchant Config</a></li>
+      <li><a href="#list-merchant-configs" id="markdown-toc-list-merchant-configs">List Merchant Configs</a></li>
+      <li><a href="#update-a-merchant-config" id="markdown-toc-update-a-merchant-config">Update a Merchant Config</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<p><span id="config-model"></span></p>
+<h3 id="merchant-config">Merchant Config</h3>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">paymentOptions</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left">Array of <a href="#payment-option-config">Payment Option Configs</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Merchant Config was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Merchant Config.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">updatedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Merchant Config was updated.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">updatedBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that updated the Merchant Config.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">allowedRedirectUrls</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left"><strong>Experimental</strong> Allowed prefixes for the <code class="language-plaintext highlighter-rouge">redirectUrl</code> property on Payment Requests created with this Config.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="payment-option-config">Payment Option Config</h3>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Type of payment method. See supported payment types below.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">walletId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Merchant’s Centrapay Settlement Wallet to receive payments. Optional for <code class="language-plaintext highlighter-rouge">centrapay.nzd</code> types, if not supplied then a settlement wallet may be created and then assigned.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">assetId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Merchant’s Centrapay Settlement Asset to receive payments. Optional for <code class="language-plaintext highlighter-rouge">quartz.nzd</code> types, if not supplied then a settlement asset may be created and then assigned.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">terminalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Merchant’s Epay terminal id.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">paypalMerchantAccountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the PayPal merchants account. Required for <code class="language-plaintext highlighter-rouge">paypal.usd</code> and <code class="language-plaintext highlighter-rouge">venmo.usd</code> types.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">paypalStoreId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the PayPal merchants store. Required for <code class="language-plaintext highlighter-rouge">paypal.usd</code> and <code class="language-plaintext highlighter-rouge">venmo.usd</code>  types.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">farmlandsMerchantNumber</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the Farmlands merchant that funds will be transferred to.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">externalMerchantId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the external merchant. Required for <code class="language-plaintext highlighter-rouge">stadius</code> and <code class="language-plaintext highlighter-rouge">uplinkapi.test</code> types.</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>See <a href="/api/asset-types">Asset Types</a> for values that may be present in the <code class="language-plaintext highlighter-rouge">type</code> field.</p>
+
+<div class="cp-warning"><b>Warning:</b> Test payment options should never be used for live merchant configurations. </div>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="create-a-merchant-config">Create a Merchant Config</h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />merchants/<wbr />{merchantId}/<wbr />configs</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "paymentOptions": [
+      {
+        "type": "centrapay.nzd.main",
+        "walletId": "1234c486308f3f0a23f0f92b"
+      },
+      {
+        "type": "epay.nzd.main",
+        "terminalId": "11000021"
+      },
+      {
+        "type": "farmlands.nzd.main",
+        "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
+      }
+    ]
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee168e8597be5002af7b454"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"walletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234c486308f3f0a23f0f92b"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epay.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000021"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"farmlandsMerchantNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DbgY2SyD5M85zkePJjsQEf"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_<wbr />WALLET_<wbr />TYPE</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">walletId</code> does not belong to a <a href="/api/wallets#settlement-wallets">Settlement Wallet</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LIVENESS_<wbr />MISMATCH</td>
+      <td style="text-align: left">Only <a href="/api/merchants">Merchants</a> with the <code class="language-plaintext highlighter-rouge">test</code> flag can have merchant configs with test assets, vice versa</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="get-a-merchant-config">Get a Merchant Config</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />merchants/<wbr />{merchantId}/<wbr />configs/<wbr />{configId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7b454 <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee168e8597be5002af7b454"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"farmlandsMerchantNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DbgY2SyD5M85zkePJjsQEf"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="list-merchant-configs">List Merchant Configs</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />merchants/<wbr />{merchantId}/<wbr />configs</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee168e8597be5002af7b454"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands.nzd.main"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"farmlandsMerchantNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DbgY2SyD5M85zkePJjsQEf"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee168e8597be5002af7baed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="update-a-merchant-config">Update a Merchant Config</h3>
+
+<p>
+        PUT <code>/<wbr />api/<wbr />merchants/<wbr />{merchantId}/<wbr />configs/<wbr />{configId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> PUT https://service.centrapay.com/api/merchants/5ee0c486308f590260d9a07f/configs/5ee168e8597be5002af7baed <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "paymentOptions": [
+      {
+        "type": "bitcoin.main"
+      },
+      {
+        "type": "centrapay.nzd.test",
+        "walletId": "1234c486308f3f0a23f0f92b"
+      },
+      {
+        "type": "farmlands.nzd.main",
+        "farmlandsMerchantNumber": "DbgY2SyD5M85zkePJjsQEf"
+      }
+    ]
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee168e8597be5002af7baed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ee0c486308f590260d9a07f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bitcoin.main"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"walletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234c486308f3f0a23f0f92b"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"farmlands.nzd.main"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"farmlandsMerchantNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DbgY2SyD5M85zkePJjsQEf"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_<wbr />WALLET_<wbr />TYPE</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">walletId</code> does not belong to a <a href="/api/wallets#settlement-wallets">Settlement Wallet</a>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LIVENESS_<wbr />MISMATCH</td>
+      <td style="text-align: left">Only <a href="/api/merchants">Merchants</a> with the <code class="language-plaintext highlighter-rouge">test</code> flag can have merchant configs with test assets, vice versa</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

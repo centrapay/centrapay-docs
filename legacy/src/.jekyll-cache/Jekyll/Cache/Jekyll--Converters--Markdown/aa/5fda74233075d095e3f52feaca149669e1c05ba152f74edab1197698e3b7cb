@@ -1,0 +1,391 @@
+I"�A<h1 class="no_toc" id="accounts">Accounts</h1>
+
+<p>An Account represents a permission boundary around Centrapay resources.
+Accounts can have <a href="/api/api-keys">API Keys</a> and <a href="/api/account-memberships">Account Memberships</a> which grant access to the resources.</p>
+
+<p>Accounts are classified as either “individual” or “org”. Individual accounts
+can only have a single member and Centrapay users can only be a member of a single
+individual account.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#account" id="markdown-toc-account">Account</a></li>
+      <li><a href="#subscription" id="markdown-toc-subscription">Subscription</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#create-an-account" id="markdown-toc-create-an-account">Create an Account</a></li>
+      <li><a href="#get-an-account" id="markdown-toc-get-an-account">Get an Account</a></li>
+      <li><a href="#update-an-account" id="markdown-toc-update-an-account">Update an Account</a></li>
+      <li><a href="#update-subscriptions" id="markdown-toc-update-subscriptions">Update Subscriptions</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="account">Account</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">id</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The unique identifier.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Account type, must be either ‘org’ or ‘individual’.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The display name of the Account.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">region</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The region that the Account will operate in. Only defined for ‘org’ Accounts.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">A flag which is only present if the Account is for testing.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Account was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Account was updated.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that created the Account.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">The User or API Key that updated the Account.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">subscriptions</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left">A list of <a href="#subscription">Subscriptions</a> on the Account.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="subscription">Subscription</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The name of the Subscription.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="create-an-account">Create an Account</h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />accounts</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/accounts <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "name": "Centrapay Cafe",
+    "type": "org"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The name of the Account.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Account type, must be either “org” or “individual”.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">owner</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of user to add as member with “account-owner” role.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">test</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">A flag indicating if the Account is for testing.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">region</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The region that the Account will operate in. Required for ‘org’ Accounts, not allowed for ‘individual’ Accounts. Can be “NZ”, “AU”, or “US”.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZ"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="get-an-account">Get an Account</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZ"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="update-an-account">Update an Account</h3>
+
+<p>
+        PUT <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "name": "Shortland St Cafe"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The name of the account</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shortland St Cafe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZ"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T02:35:12.112Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="update-subscriptions">Update Subscriptions</h3>
+
+<p>
+        PUT <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />subscriptions</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> PUT https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/subscriptions <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "subscriptions": [
+      "quartz"
+    ]
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">subscriptions</td>
+      <td style="text-align: left">Array</td>
+      <td style="text-align: left">The list of subscriptions to assign to the account.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"quartz"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_ACCOUNT_ID</td>
+      <td style="text-align: left">The account does not exist.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">INVALID_SUBSCRIPTION</td>
+      <td style="text-align: left">One of the subscriptions in the list is not valid.</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

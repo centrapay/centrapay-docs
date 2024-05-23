@@ -1,0 +1,168 @@
+I"1<h1 id="verifone-terminal-status-batch">Verifone Terminal Status Batch</h1>
+
+<p>Performs a bulk update to the current status for connected Verifone NZ payment terminals.</p>
+
+<p>See the <a href="/api/batches">Batch</a> resource for how to submit an instance of this batch.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Type Name</td>
+      <td>verifone-terminal-status</td>
+    </tr>
+    <tr>
+      <td>File Format</td>
+      <td><a href="https://jsonlines.org/" class="external">JSONL</a></td>
+    </tr>
+    <tr>
+      <td>Record Type</td>
+      <td><a href="#terminal-status">Terminal Status</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#terminal-status" id="markdown-toc-terminal-status">Terminal Status</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-jsonl-file" id="markdown-toc-example-jsonl-file">Example JSONL File</a></li>
+  <li><a href="#pretty-printed-example" id="markdown-toc-pretty-printed-example">Pretty Printed Example</a></li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<p><a name="terminal-status"></a></p>
+<h3 id="terminal-status">Terminal Status</h3>
+
+<h4>Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Current terminal status: “active” or “inactive”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">statusMessage</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Reason for status. Eg: “config update required”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">terminalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Logical terminal id. Eg: “325-136-329”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Hardware serial number. Eg: “T404395000002”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchantId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Centrapay <a href="/api/merchants">Merchant</a> id.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchantConfigId</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Centrapay <a href="/api/merchant-configs">Merchant Config</a> id.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">merchantName</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Name of merchant. Eg: “Centra Café”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">description</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Description of the device. Eg “Front Till”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">model</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Hardware model. Eg: “VX820”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">firstSeen</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Date when terminal status was first observed.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">lastSeen</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Date when terminal status was last observed.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">configVersion</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Version of loaded terminal configuration. Eg: “20220214.1”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">configUpdatedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Date when terminal configuration was loaded.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">softwareVersion</td>
+      <td style="text-align: left">String <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Version of terminal software. Eg: “1.7.134”.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">softwareUpdatedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a> <span class="cp-badge">Optional</span></td>
+      <td style="text-align: left">Date when terminal software was updated.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="jsonl-example"></a></p>
+<h2 id="example-jsonl-file">Example JSONL File</h2>
+
+<p>A complete <a href="https://jsonlines.org/" class="external">JSONL</a> batch file example. For more legible
+examples refer to the pretty printed example below.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"merchantId"</span><span class="p">:</span><span class="s2">"06baa0708ee0e000696"</span><span class="p">,</span><span class="nl">"merchantConfigId"</span><span class="p">:</span><span class="s2">"baa09e8158300063fc"</span><span class="p">,</span><span class="nl">"merchantName"</span><span class="p">:</span><span class="s2">"Centra Café"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"Till #1"</span><span class="p">,</span><span class="nl">"model"</span><span class="p">:</span><span class="s2">"VX820"</span><span class="p">,</span><span class="nl">"terminalId"</span><span class="p">:</span><span class="s2">"325-136-331"</span><span class="p">,</span><span class="nl">"deviceId"</span><span class="p">:</span><span class="s2">"T404395000004"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"inactive"</span><span class="p">,</span><span class="nl">"statusMessage"</span><span class="p">:</span><span class="s2">"update required"</span><span class="p">,</span><span class="nl">"firstSeen"</span><span class="p">:</span><span class="s2">"2020-01-14T09:00:00Z"</span><span class="p">,</span><span class="nl">"lastSeen"</span><span class="p">:</span><span class="s2">"2022-03-14T09:00:00Z"</span><span class="p">,</span><span class="nl">"configVersion"</span><span class="p">:</span><span class="w"> </span><span class="mf">20210914.1</span><span class="p">,</span><span class="nl">"configUpdatedAt"</span><span class="p">:</span><span class="s2">"2021-09-15 09:00:00 UTC"</span><span class="p">,</span><span class="nl">"softwareVersion"</span><span class="p">:</span><span class="s2">"1.7.134"</span><span class="p">,</span><span class="nl">"softwareUpdatedAt"</span><span class="p">:</span><span class="s2">"2021-11-14 09:00:00 UTC"</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="nl">"merchantId"</span><span class="p">:</span><span class="s2">"06baa0708ee0e000696"</span><span class="p">,</span><span class="nl">"merchantConfigId"</span><span class="p">:</span><span class="s2">"baa09e8158300063fc"</span><span class="p">,</span><span class="nl">"merchantName"</span><span class="p">:</span><span class="s2">"Centra Café"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"Till #2"</span><span class="p">,</span><span class="nl">"model"</span><span class="p">:</span><span class="s2">"VX820"</span><span class="p">,</span><span class="nl">"terminalId"</span><span class="p">:</span><span class="s2">"325-136-329"</span><span class="p">,</span><span class="nl">"deviceId"</span><span class="p">:</span><span class="s2">"T404395000002"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"active"</span><span class="p">,</span><span class="nl">"statusMessage"</span><span class="p">:</span><span class="s2">"ok"</span><span class="p">,</span><span class="nl">"firstSeen"</span><span class="p">:</span><span class="s2">"2020-01-14T09:00:00Z"</span><span class="p">,</span><span class="nl">"lastSeen"</span><span class="p">:</span><span class="s2">"2022-03-14T09:00:00Z"</span><span class="p">,</span><span class="nl">"configVersion"</span><span class="p">:</span><span class="w"> </span><span class="mf">20220214.1</span><span class="p">,</span><span class="nl">"configUpdatedAt"</span><span class="p">:</span><span class="s2">"2022-02-14 09:00:00 UTC"</span><span class="p">,</span><span class="nl">"softwareVersion"</span><span class="p">:</span><span class="s2">"1.7.134"</span><span class="p">,</span><span class="nl">"softwareUpdatedAt"</span><span class="p">:</span><span class="s2">"2021-11-14 09:00:00 UTC"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><a name="example"></a></p>
+<h2 id="pretty-printed-example">Pretty Printed Example</h2>
+
+<div class="cp-warning"><b>Warning:</b> Below our records have newlines for legibility.
+  When submitting a batch file you must only use newlines to separate records.
+</div>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"merchantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06baa0708ee0e000696"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantConfigId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"baa09e8158300063fc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"merchantName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centra Café"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Till #2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VX820"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"terminalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"325-136-329"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T404395000002"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"statusMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"incompatible hardware"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"firstSeen"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-14T09:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastSeen"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-14T09:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"configVersion"</span><span class="p">:</span><span class="w"> </span><span class="mf">20220214.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"configUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-14 09:00:00 UTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"softwareVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.7.134"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"softwareUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-14 09:00:00 UTC"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET

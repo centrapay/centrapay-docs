@@ -1,0 +1,328 @@
+I"~B<h1 class="no_toc" id="account-memberships">Account Memberships</h1>
+
+<p>An Account Membership represents a user having access to a Centrapay
+<a href="/api/accounts">Account</a>. An Account Membership has a role which grants the user access to
+some or all of the operations and resources within the account.</p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#models" id="markdown-toc-models">Models</a>    <ul>
+      <li><a href="#account-member" id="markdown-toc-account-member">Account Member</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations" id="markdown-toc-operations">Operations</a>    <ul>
+      <li><a href="#add-member-experimental" id="markdown-toc-add-member-experimental">Add Member <strong>EXPERIMENTAL</strong></a></li>
+      <li><a href="#list-members" id="markdown-toc-list-members">List Members</a></li>
+      <li><a href="#revoke-member" id="markdown-toc-revoke-member">Revoke Member</a></li>
+      <li><a href="#list-account-memberships-for-authenticated-subject" id="markdown-toc-list-account-memberships-for-authenticated-subject">List Account Memberships for authenticated subject</a></li>
+      <li><a href="#list-account-memberships-for-specific-user" id="markdown-toc-list-account-memberships-for-specific-user">List Account Memberships for specific user</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<h3 id="account-member">Account Member</h3>
+
+<p>A Member contains extended information about an user’s access to an account.</p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the <a href="/api/accounts">Account</a> the Membership is scoped to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The type of the <a href="/api/accounts">Account</a> the Membership is scoped to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">accountName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The name of the <a href="/api/accounts">Account</a> the Membership is scoped to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">userId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the user the Membership belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">role</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The role governing Membership permissions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">subject</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">User or API key resource name for the membership.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Membership was created.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">Resource that created the  member.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">When the Membership was last modified.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">modifiedBy</td>
+      <td style="text-align: left"><a href="/api/data-types#crn ">CRN </a></td>
+      <td style="text-align: left">Resource that last modified the account member.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">testAccount</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">A flag which is present if the <a href="/api/accounts">Account</a> is test</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">firstName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">First name of the user the membership belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">lastName</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Last name of the user the membership belongs to.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">email</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Email of the user the membership belongs to.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="add-member-experimental">Add Member <strong>EXPERIMENTAL</strong></h3>
+
+<p>
+        POST <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />members</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "userId": "da75ad90-9a5b-4df0-8374-f48b3a8fbfcc",
+    "role": "account-owner"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"da75ad90-9a5b-4df0-8374-f48b3a8fbfcc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-12T01:17:46.499Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="list-members">List Members</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />members</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Cafe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b657195e-dc2f-11ea-8566-e7710d592c99"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-01T21:57:25.888Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@centrapay.com"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Tea Warehouse"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0f9nvqdcn5eaaDLefkg1Xt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9f4b3bae-dc30-11ea-ab70-2743d9be3dd5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-02T10:l4:33.021Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane.doe@centrapay.com"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="revoke-member">Revoke Member</h3>
+
+<p>
+        DELETE <code>/<wbr />api/<wbr />accounts/<wbr />{accountId}/<wbr />members/<wbr />{userId}</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> DELETE https://service.centrapay.com/api/accounts/Jaim1Cu1Q55uooxSens6yk/members/45dwes-rf4h55-tyf45s-6st4gd <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Status</th>
+      <th style="text-align: left">Code</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">403</td>
+      <td style="text-align: left">LAST_<wbr />OWNER_<wbr />NOT_<wbr />REVOKABLE</td>
+      <td style="text-align: left">The last remaining membership to an account cannot be revoked.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="list-account-memberships-for-authenticated-subject">List Account Memberships for authenticated subject</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />account-memberships</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/account-memberships <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Tea Warehouse"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5uooxSens6ykJaim1Cu1Q5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+<h3 id="list-account-memberships-for-specific-user">List Account Memberships for specific user</h3>
+
+<p>
+        GET <code>/<wbr />api/<wbr />users/<wbr />{userId}/<wbr />account-memberships</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/users/1234/account-memberships <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Cafe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaim1Cu1Q55uooxSens6yk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Tea Warehouse"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5uooxSens6ykJaim1Cu1Q5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-owner"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+:ET

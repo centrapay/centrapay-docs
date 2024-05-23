@@ -1,0 +1,171 @@
+I"�<h1 id="supported-asset-types">Supported Asset Types</h1>
+
+<p>The following table describes the Asset Types supported for payments.</p>
+
+<p>The Category column refers to the Centrapay asset type representation if
+applicable. When blank, the Asset is not managed by a Centrapay Account.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Asset Type</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Category</th>
+      <th style="text-align: left">Currencies</th>
+      <th style="text-align: left">Flags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">bitcoin.main</td>
+      <td style="text-align: left"><a href="https://bitcoin.org/en/" class="external">Bitcoin</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD, AUD</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cca.coke.main</td>
+      <td style="text-align: left">Coke tokens</td>
+      <td style="text-align: left"><a href="/api/assets#tokens">Token</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🚫</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cca.coke.test</td>
+      <td style="text-align: left">Coke tokens</td>
+      <td style="text-align: left"><a href="/api/assets#tokens">Token</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃 🚫</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">centrapay.nzd.main</td>
+      <td style="text-align: left">Centrapay NZD wallet</td>
+      <td style="text-align: left"><a href="/api/assets#money">Money</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">centrapay.nzd.test</td>
+      <td style="text-align: left">Centrapay NZD wallet</td>
+      <td style="text-align: left"><a href="/api/assets#money">Money</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">centrapay.token.main</td>
+      <td style="text-align: left">Centrapay tokens</td>
+      <td style="text-align: left"><a href="/api/assets#tokens">Token</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">centrapay.token.test</td>
+      <td style="text-align: left">Centrapay tokens</td>
+      <td style="text-align: left"><a href="/api/assets#tokens">Token</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">epay.nzd.main</td>
+      <td style="text-align: left">EPay NZ giftcards</td>
+      <td style="text-align: left"><a href="/api/assets#giftcards">Giftcard</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">epay.nzd.test</td>
+      <td style="text-align: left">EPay NZ giftcards</td>
+      <td style="text-align: left"><a href="/api/assets#giftcards">Giftcard</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">farmlands.nzd.main</td>
+      <td style="text-align: left"><a href="https://www.farmlands.co.nz/" class="external">Farmlands</a></td>
+      <td style="text-align: left"><a href="/api/assets#money">Money</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">💸💼</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">farmlands.nzd.test</td>
+      <td style="text-align: left"><a href="https://www.farmlands.co.nz/" class="external">Farmlands</a></td>
+      <td style="text-align: left"><a href="/api/assets#money">Money</a></td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃💸💼</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">paypal.main</td>
+      <td style="text-align: left"><a href="https://www.paypal.com/" class="external">PayPal</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">USD</td>
+      <td style="text-align: left">💸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">paypal.test</td>
+      <td style="text-align: left"><a href="https://www.paypal.com/" class="external">PayPal</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">USD</td>
+      <td style="text-align: left">🅃 💸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">quartz.nzd.main</td>
+      <td style="text-align: left">Quartz NZD asset</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">quartz.nzd.test</td>
+      <td style="text-align: left">Quartz NZD asset</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">venmo.main</td>
+      <td style="text-align: left"><a href="https://venmo.com/" class="external">Venmo</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">USD</td>
+      <td style="text-align: left">💸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">venmo.test</td>
+      <td style="text-align: left"><a href="https://venmo.com/" class="external">Venmo</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">USD</td>
+      <td style="text-align: left">🅃 💸</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">uplinkapi.test</td>
+      <td style="text-align: left">Uplink API Test asset</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">stadius.main</td>
+      <td style="text-align: left"><a href="https://stadius.io/" class="external">Stadius</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD, AUD, USD, CAD, EUR</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">stadius.test</td>
+      <td style="text-align: left"><a href="https://stadius.io/" class="external">Stadius</a></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">NZD, AUD, USD, CAD, EUR</td>
+      <td style="text-align: left">🅃</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Flags </h4>
+
+<ul>
+  <li>🅃  : <strong>Test Asset</strong> – Cannot be assigned to <a href="/api/merchants">Merchants</a> without the test flag.</li>
+  <li>🚫 : <strong>Restricted Asset</strong> – Cannot be used to pay for “restricted” <a href="/api/payment-requests#line-item">Line Items</a>.</li>
+  <li>💸 : <strong>Supports Quick Pay</strong> – Can be used to quick pay a <a href="/api/payment-requests#create-a-payment-request-quick-pay">Payment Request</a>.</li>
+  <li>💼 : <strong>Requires Tax Number</strong> – <a href="/api/businesses#tax-number">Tax Number</a> must exist on the Merchant’s Business to transact this asset type.</li>
+</ul>
+
+:ET

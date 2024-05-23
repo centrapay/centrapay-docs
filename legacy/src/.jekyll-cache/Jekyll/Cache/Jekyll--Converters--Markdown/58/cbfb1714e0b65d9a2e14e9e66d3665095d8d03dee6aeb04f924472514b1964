@@ -1,0 +1,419 @@
+I"id<h1 class="no_toc" id="wallets">Wallets</h1>
+
+<p>A Wallet is an asset that represents <a href="/api/assets#money">money</a>. The Wallet
+maintains a record of all transactions it has participated in. A Wallet has a
+single balance and a single currency.</p>
+
+<p><a name="settlement-wallets"></a></p>
+<h2 class="no_toc" id="settlement-wallets-experimental">Settlement Wallets <strong>EXPERIMENTAL</strong></h2>
+
+<p>A Settlement Wallet is a special type of Wallet that can only receive or refund
+money related to a payment request. This means you cannot topup, withdraw, or
+send money from this Wallet.
+<br /><br /></p>
+
+<h2 class="no_toc text-delta" id="contents">Contents</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#creating-a-wallet" id="markdown-toc-creating-a-wallet">Creating a Wallet</a></li>
+  <li><a href="#listing-authorized-wallets" id="markdown-toc-listing-authorized-wallets">Listing authorized wallets</a></li>
+  <li><a href="#listing-wallet-transactions-experimental" id="markdown-toc-listing-wallet-transactions-experimental">Listing Wallet Transactions <strong>EXPERIMENTAL</strong></a></li>
+</ul>
+
+<h2 id="creating-a-wallet">Creating a Wallet</h2>
+
+<p>
+        POST <code>/<wbr />api/<wbr />wallets</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl <span class="nt">-X</span> POST https://service.centrapay.com/api/wallets <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "accountId": "Te2uDM7xhDLWGVJU3nzwnh",
+    "ledgerId": "centrapay.nzd.main"
+  }'</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Required Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">accountId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the account</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ledgerId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">The id of the ledger e.g. centrapay.nzd.main, centrapay.nzd.test</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Optional Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">settlement</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left"><strong>EXPERIMENTAL</strong> Configure the Wallet to be a <a href="#settlement-wallets">Settlement Wallet</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"liveness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload for Settlement Wallet </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"liveness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"settlement"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Error Responses </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Code</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>403</td>
+      <td>ACCOUNT_<wbr />MAX_<wbr />WALLETS_<wbr />REACHED</td>
+      <td>The maximum number of wallets for the given ledger has been reached.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="listing-authorized-wallets">Listing authorized wallets</h2>
+
+<p>
+        GET <code>/<wbr />api/<wbr />wallets</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/wallets <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Example response payload </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WRhAxxWpTKb5U7pXyxQjjY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ledgerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.main"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NQ1yeromwnWPD2hY41L2yS"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Te2uDM7xhDLWGVJU3nzwnh"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ledgerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"centrapay.nzd.test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NZD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"availableBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6000"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span></code></pre>
+        </div>
+      </p>
+
+<h2 id="listing-wallet-transactions-experimental">Listing Wallet Transactions <strong>EXPERIMENTAL</strong></h2>
+
+<p>Returns a <a href="/api/pagination">paginated</a> list of Wallet Transactions.</p>
+
+<p>
+        GET <code>/<wbr />api/<wbr />wallets/<wbr />{walletId}/<wbr />transactions</code>
+        
+        
+        <h4></h4>
+      
+        
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>curl https://service.centrapay.com/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Api-Key: </span><span class="nv">$api_key</span><span class="s2">"</span></code></pre>
+        </div>
+      
+      
+        
+      </p>
+
+<h4>Transaction Fields </h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">activityNumber</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Unique sequential Wallet transaction number</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">amount</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Absolute transaction amount in cents.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left"><a href="/api/data-types#bignumber ">BigNumber </a></td>
+      <td style="text-align: left">Change to the Wallet’s balance in cents when the transaction was applied.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">createdAt</td>
+      <td style="text-align: left"><a href="/api/data-types#timestamp ">Timestamp </a></td>
+      <td style="text-align: left">Transaction timestamp as ISO 8601 date string.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">activityType</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Hints to the type of transaction: undefined or “returned-asset-transfer”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">destWalletId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the destination Wallet if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">srcWalletId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the source Wallet if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">destParty</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Display value for party receiving funds if applicable. See note below.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">srcParty</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Display value for party providing funds if applicable. See note below.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">paymentRequestId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the related payment request if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">topupId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the related topup funds transfer request if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">assetTransferId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the related asset transfer request if applicable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">withdrawalId</td>
+      <td style="text-align: left">String</td>
+      <td style="text-align: left">Id of the related withdrawal request if applicable.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Party Values </h4>
+
+<p>The “destParty” and “srcParty” are optionally provided depending on the purpose
+of the transaction. Values may include a merchant name, user handle, masked user
+email, masked user phone, or bank account.</p>
+
+<h4>Example response payload (Payment) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"350"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-350"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Centrapay Cafe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GfYJd5tZQ63CrehgTP2RPB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"paymentRequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MhocUmpxxmgdHjr7DgKoKw"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload (Topup) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12-4000-100001-00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"topupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77hqHDzw6KaaG2P2hoshUB"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload (Sent Asset) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+6422*****36"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetTransferId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TtQHufC4LGBY2eiPRopRm3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload (Received Asset) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+6421*****18"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetTransferId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TtQHufC4LGBY2eiPRopRm3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload (Returned Asset) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"activityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"returned-asset-transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+6421*****18"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assetTransferId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TtQHufC4LGBY2eiPRopRm3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+<h4>Example response payload (Withdraw) </h4>
+
+<p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"activityNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2500"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-17T18:00:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"srcWalletId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EBVSreNmpsE2Pazw3SipXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destParty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12-3546-2544786-00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TtQHufC4LGBY2eiPRopRm3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span></code></pre>
+        </div>
+      </p>
+
+:ET
