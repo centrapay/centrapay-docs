@@ -366,7 +366,6 @@ exports[`the build should not break any links 1`] = `
   "/guides/loyalty-programs#creating-promotions",
   "/guides/loyalty-programs#events",
   "/guides/loyalty-programs#on-this-page-title",
-  "/guides/loyalty-programs#overview",
   "/guides/merchant-integration-barcode-flow",
   "/guides/merchant-integration-barcode-flow#barcode-flow",
   "/guides/merchant-integration-barcode-flow#checking-barcode-details",

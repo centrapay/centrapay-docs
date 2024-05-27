@@ -8,11 +8,9 @@ nav:
 
 import CodePanel from '../../components/CodePanel.astro';
 
-## Overview
-
 A Loyalty Program is a collection of Promotions that reward accounts for completing certain actions. For example, a Loyalty Program could be set up to reward accounts with points every time they make a payment.
 
-To set up a loyalty program and issue rewards, there are a few required steps:
+To set up a Loyalty Program and issue rewards, there are a few required steps:
 
 ``` mermaid
 sequenceDiagram
@@ -40,17 +38,15 @@ sequenceDiagram
     - This will be the account that will participate in the Loyalty Program.
 4. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/#create-loyalty-program-memberships)
     - This will onboard the Account to the Loyalty Program. A Promotion Membership will be created for each Promotion under the Loyalty Program.
-    - Promotion Memberships contain the progress for the Account towards completing certain Promotions.
+    - A Promotion Membership contains the progress for the Account towards completing the Promotion.
 5. [Create Events](/api/events/#create-event)
-    - When accounts perform actions, Events are generated that are used to increment progress on their Promotions. If you'd like to send us Events from your own application, you can define them here.
+    - When Accounts perform actions, Events are generated that are used to increment progress on their Promotion Memberships. Centrapay generates some Events internally but you can use this API if you'd like to send us Events from your own application.
 6. [List Promotion Memberships for Account](/api/promotion-memberships/#list-promotion-memberships-by-account)
-    - This will return the account's Promotion Memberships along with their current progress and whether they have been completed or not.
+    - This will return the Account's Promotion Memberships along with their current progress and whether they have been completed or not.
 
 ## Events
 
-Events are records of account actions and can be created by Centrapay internal systems, as well as external systems by calling the [Create Event API](https://docs.centrapay.com/api/events/#create-event).
-
-When an Event is generated for an Account, Centrapay will look up all the Promotion Memberships under that account and check the conditions for each one. If the event satisfies the conditions, the Promotion progress will be incremented.
+When an Event is generated for an Account, Centrapay will look up all the Promotion Memberships under that Account and check the conditions for each one. If the Event satisfies the conditions, the Promotion Membership progress will be incremented.
 
 <CodePanel title="Example Event">
 ```json
@@ -69,26 +65,25 @@ When an Event is generated for an Account, Centrapay will look up all the Promot
 </CodePanel>
 
 ## Creating Promotions
-There are many configurations that need to be kept in mind when creating Promotions.
 
 ### eventType
 
 `eventType` must match the `type` on the Event that will cause the Promotion Membership to be incremented.
 
-There are some native Events types that Centrapay generates that you can use. They can be found [here](/api/centrapay-event-types/).
+There are some native Event types that Centrapay generates that you can use. They can be found [here](/api/centrapay-event-types/).
 
-You should NOT send us Events with a `type` that matches any of those in the linked page above. You CAN create Promotions with those Event types if you wish to reward accounts for native Centrapay events.
+You should NOT send us Events with a `type` that matches any of those in the linked page above. You CAN create Promotions with those Event types if you wish to reward Accounts for native Centrapay Events.
 
 ### Conditions
 
-Conditions are used to define certain values an Event needs to have in order to progress the Promotion. Promotions can have zero or more conditions defined. Every condition must be satisfied by an Event before the Promotion Membership progress can be incremented.
+Conditions are used to define certain values an Event needs to have in order to progress the Promotion Membership. Promotions can have zero or more conditions defined. Every condition must be satisfied by the Event before the Promotion Membership progress is incremented.
 
-Each condition has a `field` property that references the field we're checking on the `data` object in the Event. The `operator` and `value` properties complete the condition, e.g. “greater-than” “5”.
+Each condition has a `field` property that references a field in the `data` object on the Event. The `operator` and `value` properties complete the condition, e.g. "greater-than" "5".
 
 ### Target
 
-The “target” of the Promotion dictates how the progress of the Promotion Membership gets incremented, and how much progress is needed to complete the Promotion Membership.
+This defines how much progress is needed to complete the Promotion Membership.
 
 ### Rewards
 
-This defines the rewards that the account will receive upon completing the Promotion Membership. The account will receive ALL the rewards defined on the Promotion.
+Rewards are given to the Account when the Promotion Membership is completed. The Account will receive ALL the rewards defined on the Promotion.
