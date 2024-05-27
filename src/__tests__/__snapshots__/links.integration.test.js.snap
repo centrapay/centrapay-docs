@@ -209,7 +209,6 @@ exports[`the build should not break any links 1`] = `
   "/api/merchants#merchant-model",
   "/api/merchants#merchant-search-result-model",
   "/api/merchants#product-model",
-  "/api/merchants#refund-config-model",
   "/api/merchants#search-merchants",
   "/api/merchants#set-merchant-onboarding-status",
   "/api/merchants#settlement-config-model",
