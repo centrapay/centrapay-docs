@@ -1,0 +1,89 @@
+---
+title: Loyalty Programs
+description: Complete promotions and earn points with Centrapay.
+nav:
+  path: Reference/Digital Assets
+  order: 5
+---
+
+import CodePanel from '../../components/CodePanel.astro';
+
+A Loyalty Program is a collection of Promotions that reward accounts for completing certain actions. For example, a Loyalty Program could be set up to reward accounts with points every time they make a payment.
+
+To set up a Loyalty Program and issue rewards, there are a few required steps:
+
+``` mermaid
+sequenceDiagram
+	autonumber
+
+	Loyalty Program Provider->>Centrapay: Create Loyalty Program
+	Loyalty Program Provider->>Centrapay: Create Promotion(s)
+	Loyalty Program Provider->>Centrapay: Create Account
+	Loyalty Program Provider->>Centrapay: Create Loyalty Program Membership for Account
+
+	opt
+	Loyalty Program Provider->>Centrapay: Create Events
+	end
+
+	opt
+	Loyalty Program Provider->>Centrapay: List Promotion Memberships for Account
+	end
+```
+
+1. [Create Loyalty Program](/api/loyalty-programs/#create-loyalty-program)
+    - A Loyalty Program is a container for the Promotions that will be created in step 2.
+2. [Create Promotion(s)](/api/promotions/#create-promotion)
+    - Promotions contain conditions, a target, and a reward.
+3. [Create Account](/api/accounts/#create-an-account)
+    - This will be the account that will participate in the Loyalty Program.
+4. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/#create-loyalty-program-memberships)
+    - This will onboard the Account to the Loyalty Program. A Promotion Membership will be created for each Promotion under the Loyalty Program.
+    - A Promotion Membership contains the progress for the Account towards completing the Promotion.
+5. [Create Events](/api/events/#create-event)
+    - When Accounts perform actions, Events are generated that are used to increment progress on their Promotion Memberships. Centrapay generates some Events internally but you can use this API if you'd like to send us Events from your own application.
+6. [List Promotion Memberships for Account](/api/promotion-memberships/#list-promotion-memberships-by-account)
+    - This will return the Account's Promotion Memberships along with their current progress and whether they have been completed or not.
+
+## Events
+
+When an Event is generated for an Account, Centrapay will look up all the Promotion Memberships under that Account and check the conditions for each one. If the Event satisfies the conditions, the Promotion Membership progress will be incremented.
+
+<CodePanel title="Example Event">
+```json
+{
+  "id": "L75M3L56N2PtBSt8g7uXLU",
+  "accountId": "Jaim1Cu1Q55uooxSens6yk",
+  "type": "payment-request:paid",
+  "data": {
+    "paymentAmount": "1000"
+  },
+  "idempotencyKey": "login-de32dd90-b46c-11ea-93c3-83a333b86e7b",
+  "createdAt": "2020-05-01T12:30:00.000Z",
+  "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
+}
+```
+</CodePanel>
+
+## Creating Promotions
+
+### eventType
+
+`eventType` must match the `type` on the Event that will cause the Promotion Membership to be incremented.
+
+There are some native Event types that Centrapay generates that you can use. They can be found [here](/api/centrapay-event-types/).
+
+You should NOT send us Events with a `type` that matches any of those in the linked page above. You CAN create Promotions with those Event types if you wish to reward Accounts for native Centrapay Events.
+
+### Conditions
+
+Conditions are used to define certain values an Event needs to have in order to progress the Promotion Membership. Promotions can have zero or more conditions defined. Every condition must be satisfied by the Event before the Promotion Membership progress is incremented.
+
+Each condition has a `field` property that references a field in the `data` object on the Event. The `operator` and `value` properties complete the condition, e.g. "greater-than" "5".
+
+### Target
+
+This defines how much progress is needed to complete the Promotion Membership.
+
+### Rewards
+
+Rewards are given to the Account when the Promotion Membership is completed. The Account will receive ALL the rewards defined on the Promotion.
