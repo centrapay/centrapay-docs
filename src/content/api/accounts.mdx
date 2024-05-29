@@ -59,6 +59,11 @@ individual account.
   <Property name="subscriptions" type="array">
     A list of [Subscriptions](#subscription-model) on the Account.
   </Property>
+
+  <Property name="parentAccountId" type="string">
+    The unique identifier of the parent account to which the current account is linked.
+    This field establishes a hierarchical relationship between accounts, indicating that the current account was created by the specified parent account.
+  </Property>
 </Properties>
 
 ---
