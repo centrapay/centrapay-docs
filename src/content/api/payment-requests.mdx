@@ -721,6 +721,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     <Error code="403" message="CONFIRMATION_NOT_FOUND">
       The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.
     </Error>
+    <Error code="403" message="REFUND_DECLINED">
+      The refund parameters were valid but refund was declined because additional business rules were violated.
+    </Error>
   </Properties>
 
 </Endpoint>
