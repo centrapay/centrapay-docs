@@ -372,6 +372,7 @@ exports[`the build should not break any links 1`] = `
   "/guides/merchant-integration-barcode-flow#quick-pay-flow",
   "/guides/merchant-integration-error-handling",
   "/guides/merchant-integration-error-handling#configure-pos-timeout",
+  "/guides/merchant-integration-error-handling#display-error-reasons",
   "/guides/merchant-integration-error-handling#on-this-page-title",
   "/guides/merchant-integration-error-handling#resolving-persistent-errors",
   "/guides/merchant-integration-error-handling#respect-payment-status",
