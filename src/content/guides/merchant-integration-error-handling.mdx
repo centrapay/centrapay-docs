@@ -1,13 +1,14 @@
 ---
-title: Merchant Integration Error Handling
+title: Error Handling
 description: How to deal with inconsistencies in Payment Request statuses due to network issues or race conditions.
 nav:
   path: Reference/Merchant Integrations
   title: Error Handling
   order: 5
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
-Below are our guidelines for dealing with inconsistencies in [Payment Request](/api/payment-requests) statuses due to network issues or race conditions.
+Below are our guidelines for dealing with inconsistencies in [Payment Request](/api/payment-requests) statuses due to network issues, race conditions, or [asset](/api/asset-types/) specific behaviours.
 
 ## Respect Payment Status
 
@@ -16,6 +17,25 @@ Use the Payment Request status as the source of truth when determining if a Paym
 ### Void Unknown Status
 
 If the status of a transaction cannot be determined to be successful after retrying, then the Payment Request should be voided. [Voiding a Payment Request](/api/payment-requests#void-a-payment-request) will cancel the request and trigger any refunds if necessary.
+
+## Display Error Reasons
+
+Centrapay has a limited set of error messages to simplify integration for our third-party partners.
+Due to this, the same error message can be returned for different reasons.
+Centrapay provides additional details in the `reason` field to enhance error messages and assist with debugging.
+Integrators may choose to display the `reason` to provide more information to the user, however, it is recommended that`reason` is not used to drive application logic.
+
+<CodePanel title="Error Response">
+``` json
+{
+  "statusCode": 403,
+  "message": "ERROR_MESSAGE",
+  "error": "Forbidden",
+  "reason": "A more detailed description of the reason for the error"
+}
+```
+</CodePanel>
+
 
 ## Configure POS Timeout
 
