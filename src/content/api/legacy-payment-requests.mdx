@@ -409,6 +409,9 @@ is returned with the payment request info as `payments[].ledger`.
     <Error code="403" message="REFUND_WINDOW_EXCEEDED">
       The time since the payment exceeds the window of time a transaction can be refunded in.
     </Error>
+    <Error code="403" message="REFUND_DECLINED">
+      The refund parameters were valid but refund was declined because additional business rules were violated.
+    </Error>
   </Properties>
 
 </Endpoint>
