@@ -1,0 +1,156 @@
+---
+title: Transferring Assets
+description: Transfer Centrapay Assets
+nav:
+  path: Reference/Digital Assets
+  order: 4
+---
+
+import CodePanel from '../../components/CodePanel.astro';
+
+[Assets](/api/assets) such as Tokens can be transferred between Centrapay accounts by creating an Asset Transfer or by requesting an Asset Transfer.
+
+Transfers occur between a sender and a receiver where:
+  - The sender refers to the account that initially holds the assets before the Asset Transfer is executed.
+  - The recipient refers to the account that receives the assets after the Asset Transfer is completed.
+  - The integrator’s server can optionally send a notification to either party to enhance the transfer experience.
+
+## Requesting an Asset Transfer
+When a recipient requests an Asset Transfer from another Centrapay account, the sender must accept the request in order for the assets to be transferred.
+
+|   Asset transfer status   |                        Description                                    |
+| --------------------------| --------------------------------------------------------------------- |
+| `requested`               | Asset transfer request successfully requested.                        |
+| `accepted`                | Asset transfer request successfully accepted.                         |
+| `sent`                    | The assets have been sent to the recipient.                           |
+| `claimed`                 | The assets have been received by the recipient                        |
+| `expired`                 | Asset transfer request expired after 14 days when it is not accepted. |
+
+``` mermaid
+sequenceDiagram
+autonumber
+
+participant Recipient
+participant Centrapay
+participant Integrator's Server
+participant Sender
+
+Recipient->>Centrapay: Create an Asset Transfer Request
+Integrator's Server->>Sender: Send notification
+
+alt
+Sender->>Centrapay: Accept asset transfer request
+else
+Note over Centrapay: Asset Transfer request expires
+end
+
+Sender->>Recipient: Transfer assets
+```
+
+1. The recipient [requests an Asset Transfer](/api/asset-transfers/#request-an-asset-transfer)
+    - `recipientAlias` is an alias for the Centrapay account that creates request. This field accepts the recipient’s bank account number.
+    - `senderAccountId` is an **ID** of the Centrapay account that receives the request.
+
+    <CodePanel title="Request" method="POST" path="/api/asset-transfer-requests">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/asset-transfer-requests \
+        -H "X-Api-Key: <TOKEN>" \
+        -H "Content-Type: application/json" \
+        -d '{
+            "recipientAlias": "12-1234-1234567-123",
+            "senderAccountId": "9EDxUT91TMsUjoqoQeBuLQ",
+            "value": "1000",
+            "assetType": "quartz.nzd.test"
+            }'
+      ```
+    </CodePanel>
+
+2. The integrator’s server optionally sends a notification to the sender to prompt them to accept the request.
+
+3. The sender [accepts](/api/asset-transfers/#accept-an-asset-transfer-request) the Asset Transfer Request. If the sender does not accept the request within 14 days, the request will expire.
+    - `senderName` is the name of sender who sends the assets. It is displayed to the recipient in their activity history.
+
+    <CodePanel title="Request" method="POST" path="/api/asset-transfer-requests/{assetTransferId}/accept">
+      ```bash
+      curl -X POST https://service.centrapay.com/api/asset-transfer-requests/{assetTransferId}/accept \
+        -H "X-Api-Key: <TOKEN>" \
+        -H "Content-Type: application/json" \
+        -d '
+          {
+            "assetId": "YGRo6TYYSxH3js7",
+            "value": "1000",
+            "senderName": "Jane Doe"
+          }'
+      ```
+    </CodePanel>
+
+4. The requested assets are transferred from the sender to the recipient.
+
+## Sending Assets
+
+You can send Assets such as Tokens by calling our [Create Asset Transfers](/api/asset-transfers/#create-an-asset-transfer) endpoint.
+
+For any asset transfer that is not claimed within 2 weeks, the sent asset will be returned to the sender.
+
+### Sending to Alias
+Provide the recipient’s phone number or email in the `recipientAlias` field when creating the asset transfer.
+The recipient will be notified via the provided channel.
+
+Use the recipient's phone number for the `recipientAlias` field
+
+  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
+  ```bash
+  curl -X POST https://service.centrapay.com/api/asset-transfers \
+    -H "X-Api-Key: $api_key" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "assetId": "YGRo6TYYSxH3js7",
+      "recipientAlias": "+642212312"
+    }'
+  ```
+  </CodePanel>
+
+Use the recipient’s email for the `recipientAlias` field.
+
+  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
+  ```bash
+  curl -X POST https://service.centrapay.com/api/asset-transfers \
+    -H "X-Api-Key: $api_key" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "assetId": "YGRo6TYYSxH3js7",
+      "recipientAlias": "john.doe@centrapay.com"
+    }'
+  ```
+  </CodePanel>
+
+### Sending via Link
+If a `recipientAlias` isn’t provided when creating the asset transfer, a link will be returned in the `url` field, which can then be shared via whichever channel you prefer.
+Clicking on the link will open a page to view and claim the asset transfer.
+
+  <CodePanel title="Request" method="POST" path="/api/asset-transfers">
+  ```bash
+  curl -X POST https://service.centrapay.com/api/asset-transfers \
+    -H "X-Api-Key: $api_key" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "assetId": "YGRo6TYYSxH3js7"
+    }'
+  ```
+  </CodePanel>
+
+  <CodePanel title="Response">
+  ```json
+  {
+    "id": "EL49tYKmAAkp2njVMs39mrP",
+    "status": "created",
+    "assetId": "YGRo6TYYSxH3js7",
+    "assetType": "centrapay.token.main",
+    "senderAccountId": "6ZfBR4jls3nR2mpFJQJ6Qg",
+    "createdAt": "2023-11-20T05:01:31.634Z",
+    "updatedAt": "2023-11-20T05:01:31.634Z",
+    "suppressNotifications": false,
+    "url": "https://app.centrapay.com/transfer/EL49tYKmAAkp2njVMs39mrP"
+  }
+  ```
+  </CodePanel>
