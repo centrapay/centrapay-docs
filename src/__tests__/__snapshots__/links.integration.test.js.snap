@@ -359,6 +359,7 @@ exports[`the build should not break any links 1`] = `
   "/guides/line-items#determining-paid-for-line-items",
   "/guides/line-items#on-this-page-title",
   "/guides/line-items#restrictions",
+  "/guides/loading-and-sending-assets#sending-assets",
   "/guides/loyalty-programs",
   "/guides/loyalty-programs#creating-promotions",
   "/guides/loyalty-programs#events",
