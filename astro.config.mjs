@@ -63,6 +63,6 @@ export default defineConfig({
     '/assets/asset-transfers/': '/api/asset-transfers/',
     '/assets/wallets/': '/api/wallets/',
     '/api/': '/api/introduction/',
-    '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
+    '/guides/loading-and-sending-assets': '/guides/transferring-assets',
   },
 });
