@@ -35,12 +35,17 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
     The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
   </Property>
 
-  <Property name="type" type="string">
-    The type of value exchanged when redeeming Tokens. Valid values: "product".
+  <Property name="tokenExpiresAt" type="timestamp">
+    A date that all tokens will expire on if they haven’t expired earlier.
+  </Property>
+
+  <Property name="type" type="string" required>
+    The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
   </Property>
 
   <Property name="maxValue" type="monetary">
-    The maximum agreed value that any merchants will be settled for a Token redemption.
+    The maximum agreed value that any merchants will be settled for a Token redemption.<br/>
+    Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
   </Property>
 
   <Property name="id" type="string">
@@ -52,7 +57,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
   </Property>
 
   <Property name="status" type="string">
-    The status of the Token Collection. Valid values: "active".
+    The status of the Token Collection. Valid values: `active`.
   </Property>
 
   <Property name="createdAt" type="timestamp">
@@ -186,16 +191,21 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
         The [Account](/api/accounts/) that will own the Collection.
       </Property>
 
-      <Property name="tokenExpiresAfter" type="object" required>
+      <Property name="tokenExpiresAfter" type="object">
         The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
       </Property>
 
+      <Property name="tokenExpiresAt" type="timestamp">
+        A date that all tokens will expire on if they haven’t expired earlier.
+      </Property>
+
       <Property name="type" type="string" required>
-        The type of value exchanged when redeeming Tokens. Valid values: "product".
+        The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
       </Property>
 
       <Property name="maxValue" type="monetary">
-        The maximum agreed value that any merchants will be settled for a Token redemption.
+        The maximum agreed value that any merchants will be settled for a Token redemption.<br/>
+        Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
       </Property>
 
       <Property name="mediaUploadId" type="string">
