@@ -23,7 +23,7 @@ When a recipient requests an Asset Transfer from another Centrapay account, the 
 | `requested`               | Asset transfer request successfully requested.                        |
 | `accepted`                | Asset transfer request successfully accepted.                         |
 | `sent`                    | The assets have been sent to the recipient.                           |
-| `claimed`                 | The assets have been received by the recipient                        |
+| `claimed`                 | The assets have been received by the recipient.                        |
 | `expired`                 | Asset transfer request expired after 14 days when it is not accepted. |
 
 ``` mermaid
@@ -93,10 +93,10 @@ When a sender initiates an Asset Transfer from Centrapay account, the recipient 
 |   Asset transfer status   |                        Description                                                                                 |
 | --------------------------| ------------------------------------------------------------------------------------------------------------------ |
 | `created`                 | Asset transfer successfully created.                                                                               |
-| `sent`                    | Asset transfer notification (sms, email) was sent to a new user                                                    |
-| `expired`                 | Asset transfer expired as new user didn’t create his account and claimed the asset. This is very short lived state |
-| `returned`                | Asset transfer expired and was returned to original owner                                                          |
-| `claimed`                 | Asset transfer was successfully completed                                                                          |
+| `sent`                    | Asset transfer notification (sms, email) was sent to a new user.                                                    |
+| `expired`                 | Asset transfer expired as new user didn’t create his account and claimed the asset. This is very short lived state. |
+| `returned`                | Asset transfer expired and was returned to original owner.                                                          |
+| `claimed`                 | Asset transfer was successfully completed.                                                                          |
 | `cancelled`               | Asset transfer was cancelled.                                                                                      |
 
 ``` mermaid
