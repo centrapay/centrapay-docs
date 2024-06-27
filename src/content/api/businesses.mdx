@@ -11,7 +11,7 @@ import Error from '../../components/Error.astro';
 import Endpoint from '../../components/Endpoint.astro';
 import Badge from '../../components/Badge.astro';
 
-A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](/api/accounts).
+A Business represents a company that could be registered with the New Zealand Companies Office. It is associated with a single [Account](/api/accounts).
 
 ## Business Model
 
@@ -34,11 +34,11 @@ A Business represents a company registered with the New Zealand Companies Office
   </Property>
 
   <Property name="name" type="string">
-    Legal name recorded in the Companies Register.
+    The legal name of the business.
   </Property>
 
   <Property name="tradingName" type="string">
-    Trading name recorded in the Companies Register.
+    The trading name of the business.
   </Property>
 
   <Property name="companyNumber" type="string">
@@ -121,8 +121,16 @@ A Business represents a company registered with the New Zealand Companies Office
   This endpoint allows you to create a new Business. If `accountId` is not provided when creating a Business, then a new org account will be created and associated to the Business.
 
   <Properties>
-    <Property name="nzbn" type="string" required>
+    <Property name="nzbn" type="string">
       The unique NZBN identifier.
+    </Property>
+
+    <Property name="name" type="string">
+      The legal name of the business. Required if no NZBN is provided.
+    </Property>
+
+    <Property name="tradingName" type="string">
+      The trading name of the business. Optional if no NZBN is provided.
     </Property>
 
     <Property name="accountId" type="string">
