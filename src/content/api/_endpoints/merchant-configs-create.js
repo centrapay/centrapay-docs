@@ -19,6 +19,10 @@ export default {
         {
           type: 'farmlands.nzd.main',
           farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+        },
+        {
+          type: 'quartz.nzd.main',
+          externalMerchantId: '0012399012'
         }
       ]
     },
@@ -42,6 +46,10 @@ export default {
       {
         type: 'farmlands.nzd.main',
         farmlandsMerchantNumber: 'DbgY2SyD5M85zkePJjsQEf'
+      },
+      {
+        type: 'quartz.nzd.main',
+        externalMerchantId: '0012399012'
       }
     ]
   }
