@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/asset-transfers-requests/M7Kn2stAxNa6ri7h/accept',
+  path: '/api/asset-transfer-requests/M7Kn2stAxNa6ri7h/accept',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
