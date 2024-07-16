@@ -253,11 +253,11 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
   This endpoint allows you to create a [Redemption Condition](#redemption-condition-model).
 
   <Properties>
-    <Property name="merchantId" type="string">
+    <Property name="merchantId" type="string" required>
       The identifier of the [Merchant](/api/merchants) that is accepting the collection.
     </Property>
 
-    <Property name="allowedProducts" type="object">
+    <Property name="allowedProducts" type="object" required>
       List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
     </Property>
   </Properties>
