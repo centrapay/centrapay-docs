@@ -280,6 +280,7 @@ exports[`the build should not break any links 1`] = `
   "/api/tokens#create-token-collection",
   "/api/tokens#list-token-collections",
   "/api/tokens#redemption-condition-model",
+  "/api/tokens#set-allowed-products-for-redemption-condition",
   "/api/tokens#token-collection-model",
   "/api/tokens#token-expires-after-model",
   "/api/tokens#token-model",
