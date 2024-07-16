@@ -146,6 +146,10 @@ A Business represents a company registered with the New Zealand Companies Office
     <Error code="403" message="INVALID_NZBN">
       The NZBN provided does not match any NZ business.
     </Error>
+
+    <Error code="403" message="BUSINESS_ALREADY_EXISTS">
+      The account already has a business or there is already a business with the provided NZBN.
+    </Error>
   </Properties>
 </Endpoint>
 
@@ -176,10 +180,6 @@ A Business represents a company registered with the New Zealand Companies Office
 
     <Error code="403" message="INVALID_NZBN">
       The NZBN provided does not match any NZ business.
-    </Error>
-
-    <Error code="403" message="BUSINESS_ALREADY_EXISTS">
-      The account already has a business or there is already a business with the provided NZBN.
     </Error>
   </Properties>
 </Endpoint>
@@ -235,5 +235,11 @@ A Business represents a company registered with the New Zealand Companies Office
     <Property name="onboardingStatusReason" type="string">
       The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
     </Property>
+  </Properties>
+
+  <Properties heading="Errors">
+    <Error code="403" message="BUSINESS_ALREADY_EXISTS">
+      The account already has a business or there is already a business with the provided NZBN.
+    </Error>
   </Properties>
 </Endpoint>
