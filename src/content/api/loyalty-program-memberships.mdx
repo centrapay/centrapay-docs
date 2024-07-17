@@ -20,11 +20,11 @@ A Loyalty Program Membership represents an Account's membership to a Loyalty Pro
     The unique identifier of the Loyalty Program Membership.
   </Property>
 
-  <Property name="accountId" type="string"> 
+  <Property name="accountId" type="string">
     The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
   </Property>
 
-  <Property name="programId" type="string"> 
+  <Property name="programId" type="string">
     The id of the Loyalty Program that the Membership is created for.
   </Property>
 
@@ -80,6 +80,10 @@ A Loyalty Program Membership represents an Account's membership to a Loyalty Pro
   <Properties heading="Errors">
     <Error code="403" message="MEMBERSHIP_ALREADY_EXISTS">
      A membership has already been created for this account and this loyalty program.
+    </Error>
+
+    <Error code="403" message="LOYALTY_PROGRAM_ACCOUNT_LIVENESS_MISMATCH">
+     The account cannot be test if the loyalty program is not test.
     </Error>
   </Properties>
 </Endpoint>
