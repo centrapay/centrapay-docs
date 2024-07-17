@@ -160,6 +160,53 @@ Tokens have the following attributes along with the base asset fields.
 
 ---
 
+## Ledger Model <Badge type="experimental"/>
+
+Ledgers are a container for tokens. Ledgers contain a balance of the number of tokens the account has from a specific collection. They can be spent and sent in arbitrary amounts.
+
+Ledgers have the following attributes along with the base asset fields.
+
+<Properties>
+  <Property name="collectionId" type="string">
+    The [token collection](/api/tokens#token-collection-model) that will govern the branding and redemption rules for the token.
+  </Property>
+
+  <Property name="collectionType" type="string">
+    The type of the token collection.
+  </Property>
+
+  <Property name="tokenValue" type="monetary">
+    The value of each token in the ledger. Taken from the `maxValue` property on the token collection.
+  </Property>
+
+  <Property name="createdBy" type="crn">
+    The identity that created the ledger.
+  </Property>
+
+  <Property name="expiresAt" type="timestamp">
+    The date when the asset expires.
+  </Property>
+
+  <Property name="balanceExpiresAfter" type="object">
+    The active duration of tokens that are issued to this ledger.
+  </Property>
+
+  <Property name="img" type="string">
+    The img URL of the ledger.
+  </Property>
+
+  <Property name="issuerAccountId" type="string">
+    The ID of the Account that issued the tokens in the ledger.
+  </Property>
+
+  <Property name="balance" type="BigNumber">
+    Current number of tokens in the ledger.
+  </Property>
+
+</Properties>
+
+---
+
 <Endpoint
   path="/api/assets/{assetId}"
   filename="assets-get"
