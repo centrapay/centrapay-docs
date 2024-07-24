@@ -186,6 +186,10 @@ which define the payment methods available for a Payment Request.
     <Property name="location" type="location">
       Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
     </Property>
+
+    <Property name="type" type="string">
+      Valid values: `physical` or `e-commerce`.
+    </Property>
   </Properties>
 
   <Properties heading="Errors">
