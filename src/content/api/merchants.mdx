@@ -58,8 +58,12 @@ which define the payment methods available for a Payment Request.
     Merchant [Settlement Config](#settlement-config-model).
   </Property>
 
+  <Property name="type" type="string">
+    Valid values: `physical` or `e-commerce`. Merchants with a physical store should provide type `physical`. Online only merchants should provide type `e-commerce`. E-commerce merchants will not be displayed in the store finder.
+  </Property>
+
   <Property name="location" type="location">
-    Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+    Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query. This field is forbidden when the provided type is `e-commerce`.
   </Property>
 
   <Property name="onboardingStatus" type="string">
@@ -181,6 +185,10 @@ which define the payment methods available for a Payment Request.
 
     <Property name="settlementConfig" type="object">
       Merchant [Settlement Config](#settlement-config-model).
+    </Property>
+
+    <Property name="type" type="string">
+      Valid values: `physical` or `e-commerce`.
     </Property>
 
     <Property name="location" type="location">
