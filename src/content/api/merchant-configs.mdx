@@ -69,6 +69,10 @@ A Merchant Config defines the available payment options for paying a [Payment Re
   <Property name="externalMerchantId" type="string">
     Id of the external merchant. Required for `epay`, `stadius`, `quartz`, and `uplinkapi.test` types.
   </Property>
+
+  <Property name="collectionIds" type="string">
+    Id of the [Token Collection](/api/tokens#token-collection-model), can be `discount` collection type. Required for `centrapay.ledger` types.
+  </Property>
 </Properties>
 
 See [Asset Types](/api/asset-types) for values that may be present in the `type` field.
@@ -100,6 +104,9 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     </Error>
     <Error code="403" message="LIVENESS_MISMATCH">
       Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
+    </Error>
+    <Error code="403" message="COLLECTIONS_INVALID">
+      An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
     </Error>
   </Properties>
 </Endpoint>
@@ -151,6 +158,9 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
     </Error>
     <Error code="403" message="LIVENESS_MISMATCH">
       Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
+    </Error>
+    <Error code="403" message="COLLECTIONS_INVALID">
+      An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
     </Error>
   </Properties>
 </Endpoint>

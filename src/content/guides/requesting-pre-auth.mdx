@@ -19,6 +19,8 @@ Pre Auth payments are not supported in all cases.
 
 Pre Auth payments go through an orthogonal payment flow compared to Centrapay’s standard payment flow.
 
+> The example below shows the integrator polling for the Payment Request, this is not needed for eCommerce as the integrator will be informed when the authorization has completed.
+
 > See also: [Requesting Payment](/guides/requesting-payment).
 
 ```mermaid
@@ -26,57 +28,34 @@ sequenceDiagram
 	autonumber
 
 	participant Patron
-	participant POS
+	participant Integrator
 	participant Centrapay
 
-	note over Patron, POS: Connect with Patron
-	POS->>Centrapay: Create Authorization
+	note over Patron, Integrator: Connect with Patron
+	Integrator->>Centrapay: Create Authorization
 
-	note over POS: Poll for Payment Confirmation
+	note over Integrator: Poll for Payment Confirmation
 
-	note over POS: ✅ Display Successful Authorization
+	note over Integrator: ✅ Display Successful Authorization
 
-	note over POS, Centrapay: ⏱️ Some time later..
+	note over Integrator, Centrapay: ⏱️ Some time later..
 
 	loop 0..Many (Up to Authorized Amount)
-		POS->>Centrapay: Make Confirmations Against Authorized Funds
-		note over POS: ✅ Display Successful Confirmation
+		Integrator->>Centrapay: Make Confirmations Against Authorized Funds
 	end
 
-	POS->>Centrapay: Release Remaining Authorized Funds
-	note over POS: ✅ Display Successful Release
+	Integrator->>Centrapay: Release Remaining Authorized Funds
 ```
 
-1. The POS places a hold on funds by creating an Authorization.
-2. The POS draws down on authorized funds by making Confirmations against the authorization when the purchase is ready to be fulfilled.
-3. The POS releases any remaining funds that have not been confirmed back to the Patron.
+1. The Integrator places a hold on funds by creating an Authorization.
+2. The Integrator draws down on authorized funds by making Confirmations against the authorization when the purchase is ready to be fulfilled.
+3. The Integrator releases any remaining funds that have not been confirmed back to the Patron.
 
 ### Authorize
 
 An authorization is created when the [Payment Request is created](/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment).
 
 Once the authorization is successful, the Payment Request `preAuthStatus` is set to `authorized`.
-
-```mermaid
-sequenceDiagram
-	autonumber
-
-	participant P as Patron
-	participant POS
-	participant C as Centrapay
-
-	POS->>C: Create Payment Request with preAuth = true
-
-	loop Poll for Payment Confirmation
-		POS->>C: Get Payment Request Status
-
-		opt Payment Request Status is paid
-			Note over POS: Stop Polling
-		end
-	end
-
-	note over POS: ✅ Display Successful Authorization
-```
 
 ### Confirm
 
@@ -90,50 +69,12 @@ Confirmations against authorized funds have limits:
 
 - Multiple confirmations can be performed against an authorization but the total value cannot exceed the original authorized value.
 
-> Making confirmations is only allowed against authorizations that have had zero or more confirmations made against them.
-
-```mermaid
-sequenceDiagram
-	autonumber
-
-	participant P as Patron
-	participant POS
-	participant C as Centrapay
-
-	POS->>C: Create Authorization
-
-	note over POS, C: ⏱️ Some time later..
-
-	loop 0..Many (Up to Authorized Amount)
-		POS->>C: Make Confirmations Against Authorized Funds
-		Note over POS: ✅ Display Successful Confirmation
-	end
-```
-
 ### Release
 
 Authorized funds that have not been confirmed can optionally be [released](/api/payment-requests#release-pre-auth-funds) so that the asset holder is granted access to their remaining funds without needing to wait for the authorization to expire.
-
 Once releasing any remaining authorized funds is successful, the Payment Request `preAuthStatus` is set to `released`.
 
-> Releasing is only allowed against authorizations that have had zero or more confirmations made against them.
-
-```mermaid
-sequenceDiagram
-	autonumber
-
-	participant P as Patron
-	participant POS
-	participant C as Centrapay
-
-	note over POS: All Confirmations Have Been Completed
-		POS->>C: Release Remaining Authorized Funds
-		Note over POS: ✅ Display Successful Confirmation
-```
-
-### Expiry
-
-Authorizations automatically expire after 3 months. Any unreleased funds are subsequently released to the Patron.
+>Authorizations automatically expire after 3 months. Any unreleased funds are subsequently released to the Patron.
 
 ### Refund
 
@@ -143,6 +84,4 @@ Refunds made against confirmations must include the `confirmationIdempotencyKey`
 
 ### Void
 
-[Voiding a Payment Request](/api/payment-requests#void-a-payment-request) will cancel a Payment Request and trigger any refunds necessary. This operation is useful if the POS needs to back out of a transaction due to a network error for example. Voiding can only be used up to 24 hours after the Payment Request was created.
-
-> Voiding is only allowed against Payment Requests awaiting authorization and Payment Requests that have been successfully authorized.
+[Voiding a Payment Request](/api/payment-requests#void-a-payment-request) will cancel a Payment Request and trigger any refunds necessary. This operation is useful if the Integrator needs to back out of a transaction due to a network error for example. Voiding can only be used up to 24 hours after the Payment Request was created.
