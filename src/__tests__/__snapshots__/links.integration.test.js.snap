@@ -307,6 +307,8 @@ exports[`the build should not break any links 1`] = `
   "/fiat/bank-authorities",
   "/fiat/funds-transfers",
   "/guides/compatible-terminals",
+  "/guides/compatible-terminals#on-this-page-title",
+  "/guides/compatible-terminals#terminal-providers",
   "/guides/creating-digital-tokens",
   "/guides/creating-digital-tokens#implementation",
   "/guides/creating-digital-tokens#on-this-page-title",
