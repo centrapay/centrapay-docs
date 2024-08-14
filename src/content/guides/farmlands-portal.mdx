@@ -9,7 +9,7 @@ img: /farmlands-portal-guide-cover.jpg
 ---
 
 import Disclosure from '../../components/Disclosure.vue';
-import Faq from '../../components/Faq.astro';
+import AccordionListWrapper from '../../components/AccordionListWrapper.astro';
 
 Farmlands Co-operative (Farmlands) have partnered with Centrapay Payment Gateway (Centrapay) to deliver a secure web portal for Card Partners to gain an instant authorisation on a Farmlands Card when presented as payment for a sale. This option does not require integration with a Point of Sale (POS) system.
 
@@ -254,7 +254,7 @@ On the Settings page, you can change your business information. Please note this
 
 ## FAQs
 
-<Faq>
+<AccordionListWrapper>
   <div>
     <Disclosure client:visible title="What do we do if a customer returns one or more items, and the invoice has already been sent to Farmlands?">
       Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
@@ -333,7 +333,7 @@ On the Settings page, you can change your business information. Please note this
       No, the Card Partner should contact the Farmlands Card Team to set up a new merchant/location in the first instance.
     </Disclosure>
   </div>
-</Faq>
+</AccordionListWrapper>
 
 ## **Support**
 
