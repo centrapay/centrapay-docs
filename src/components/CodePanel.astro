@@ -1,5 +1,5 @@
 ---
-const { title = 'Example', method, path } = Astro.props;
+const { title = 'Example', method, path, fullHeight = false } = Astro.props;
 import Badge from './Badge.astro';
 ---
 
@@ -23,7 +23,7 @@ import Badge from './Badge.astro';
   }
   <div
     data-code
-    class="max-h-96 overflow-y-auto"
+    class:list={[ 'overflow-y-auto', { 'max-h-96': !fullHeight },  { 'max-h-max': fullHeight }]}
   >
     <slot />
   </div>

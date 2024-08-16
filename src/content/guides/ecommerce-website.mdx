@@ -5,27 +5,126 @@ nav:
   path: Reference/Merchant Integrations
   order: 4
 ---
+import CodePanel from '../../components/CodePanel.astro';
 
-Centrapay enables businesses to process payments for connected Centrapay assets online. In order to process payments businesses must be able to integrate with one of our eCommerce payment flows.
+Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our eCommerce payment flows.
 
-## Onboarding
+> The Centrapay Checkout is under active development and its behavior, functionality, and availability may change without notice.
 
-Please contact Centrapay to get your business configured for eCommerce. Centrapay will provide you with an API key and a merchant configuration so you can start [requesting payments](/guides/requesting-payment).
+## Know before you code
 
-Centrapay will configure your business to accept test payments before configuring you to accept live payments. Accepting live payments requires you to meet our certification requirements.
+Please get in touch with Centrapay to configure your business for eCommerce.
+Centrapay will provide you with the following resources to allow you to start creating [Payment Requests](/api/payment-requests).
 
-> You are responsible for the safety of your API keys
+1. API Key.
+2. Merchant Config ID.
 
-### Optional Protocol Extensions
+> We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
 
-Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+### Access the Centrapay SDK
 
-- [Line Items](/guides/line-items)
-- [Requesting Pre Auth](/guides/requesting-pre-auth)
+The Centrapay SDK enables acceptance of Centrapay payments on your website.
+It handles displaying the Centrapay button and launching the Centrapay checkout.
+
+Production: `https://service.centrapay.com/ecommerce/centrapay.js`
+
+## Popup Method
+
+### Overview
+
+You can use the Popup Method to open the Centrapay Checkout in a new browser window.
+
+For desktop applications, the Centrapay Checkout window appears as an overlay on top of the merchant website.
+For mobile applications, the Centrapay Checkout opens in a new browser tab.
+
+```mermaid
+sequenceDiagram
+autonumber
+  participant Consumer
+  participant MP as Merchant Site
+  participant MS as Merchant Server
+  participant CP as Centrapay
+
+  Consumer->>MP: Visit checkout
+  MP->>CP: Initialise Centrapay SDK
+  CP->>MP: Render 'Pay with Centrapay' button
+  Consumer->>CP: Click 'Pay with Centrapay' button
+  Note over CP: Open Centrapay Checkout popup
+  CP->>+MP: onClick() callback
+  activate MP
+  MP->>MS: Create Payment Request
+  MS->>CP: Create Payment Request
+  CP-->>MS: Payment Request created
+  MS-->>MP: Payment Request created
+  MP-->>-CP: Return Payment Request ID
+  Note over CP: Show Payment Request details
+  Consumer->>CP: Complete payment
+  Note over CP: Close Centrapay Checkout popup
+  CP->>+MP: onComplete() callback
+  opt Payment Request has status 'new'
+	MP->>MS: Void Payment Request
+  MS->>CP: Void Payment Request
+  CP-->>MS: Return Payment Request
+  MS-->>MP: Return Payment Request
+  end
+  MP-->>-CP: Return
+  Note over MP: Display confirmation ✅
+```
+
+### Implementation
+
+<CodePanel title="Sample Integration" fullHeight="true">
+```html
+  <html>
+  <head>
+    <script src="https://service.centrapay.com/ecommerce/centrapay.js"></script>
+  </head>
+  <body>
+    <div id="centrapay-button-container"></div>
+    <script type="text/javascript">
+      window.centrapay({
+        async onClick() {
+          // Create Payment Request
+          // Return Payment Request ID
+        },
+        async onComplete(data) {
+          if (data.paymentRequest.status === 'new') {
+            // Void Payment Request
+          }
+        }
+      });
+    </script>
+  </body>
+  </html>
+```
+</CodePanel>
+
+1. Set up the SDK.
+    1. Import the Centrapay SDK using a `<script>` tag. This script fetches the necessary JavaScript to access the Centrapay button in the window object.
+    2. Add a `div` with the id `centrapay-button-container` to render the ‘Pay with Centrapay’ button.
+2. Render the Centrapay button and implement the required callbacks.
+    1. `onClick`
+
+        This callback is triggered when the customer clicks the ‘Pay with Centrapay’ button.
+
+        The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request ID.
+        Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+        - [Line Items](https://docs.centrapay.com/guides/line-items)
+        - [Requesting Pre Auth](https://docs.centrapay.com/guides/requesting-pre-auth)
+
+    2. `onComplete`
+
+        This callback is triggered when the checkout process finishes or the customer closes the payment popup.
+        Your callback will receive a `data` object containing the Payment Request.
+
+        - If the Payment Request is `paid`, you can redirect the customer to the order confirmation page.
+        - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
+        - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
+
 
 ## Contact Us
 
-Contact integrations@centrapay.com to get started with API keys.
+Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to configure your business for eCommerce.
 
-Once you have confirmed your integration needs we will then provide you with a customized integration checklist for certification.
-
+Once you have confirmed your integration needs, we will provide you with a customized integration checklist for certification.
+Accepting live payments requires you to meet our certification requirements.
