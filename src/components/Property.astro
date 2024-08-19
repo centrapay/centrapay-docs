@@ -3,7 +3,7 @@
 import Badge from '../components/Badge.astro';
 
 const { name, type, required, experimental, deprecated } = Astro.props;
-const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber'];
+const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
 const formattedType = type.toLowerCase();
 const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType : undefined;
 ---
