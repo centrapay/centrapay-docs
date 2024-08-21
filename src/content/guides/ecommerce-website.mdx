@@ -17,7 +17,8 @@ Please get in touch with Centrapay to configure your business for eCommerce.
 Centrapay will provide you with the following resources to allow you to start creating [Payment Requests](/api/payment-requests).
 
 1. API Key.
-2. Merchant Config ID.
+2. Merchant ID.
+3. Merchant Config ID.
 
 > We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
 
@@ -28,7 +29,7 @@ It handles displaying the Centrapay button and launching the Centrapay checkout.
 
 > This link is under development and not yet active.
 
-Production: `https://service.centrapay.com/ecommerce/centrapay.js`
+Production: `https://service.centrapay.com/ecommerce/centrapay.js?merchantId={merchantId}`
 
 ## Popup Method
 
@@ -78,12 +79,12 @@ autonumber
 <CodePanel title="Sample Integration" fullHeight="true">
 ```html
   <html>
-  <head>
-    <script src="https://service.centrapay.com/ecommerce/centrapay.js"></script>
-  </head>
-  <body>
-    <div id="centrapay-button-container"></div>
-    <script type="text/javascript">
+	<head>
+		<script src="https://service.centrapay.com/ecommerce/centrapay.js?merchantId={merchantId}"></script>
+	</head>
+	<body>
+		<div id="centrapay-button-container"></div>
+		<script type="text/javascript">
       window.centrapay({
         async onClick() {
           // Create Payment Request
@@ -96,13 +97,15 @@ autonumber
         }
       });
     </script>
-  </body>
-  </html>
+	</body>
+</html>
 ```
 </CodePanel>
 
 1. Set up the SDK.
-    1. Import the Centrapay SDK using a `<script>` tag. This script fetches the necessary JavaScript to access the Centrapay button in the window object.
+    1. Import the Centrapay SDK using a `<script>` tag.
+      This script fetches the necessary JavaScript to access the Centrapay button in the window object.
+      Your Merchant ID must be in the query string for SDK retrieval.
     2. Add a `div` with the id `centrapay-button-container` to render the ‘Pay with Centrapay’ button.
 2. Render the Centrapay button and implement the required callbacks.
     1. `onClick`
