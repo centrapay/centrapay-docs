@@ -59,7 +59,7 @@ autonumber
   MS->>CP: Create Payment Request
   CP-->>MS: Payment Request created
   MS-->>MP: Payment Request created
-  MP-->>-CP: Return Payment Request ID
+  MP-->>-CP: Return Payment Request
   Note over CP: Show Payment Request details
   Consumer->>CP: Complete payment
   Note over CP: Close Centrapay Checkout popup
@@ -88,7 +88,7 @@ autonumber
       window.centrapay({
         async onClick() {
           // Create Payment Request
-          // Return Payment Request ID
+          // Return Payment Request
         },
         async onComplete(data) {
           if (data.paymentRequest.status === 'new') {
@@ -112,7 +112,7 @@ autonumber
 
         This callback is triggered when the customer clicks the ‘Pay with Centrapay’ button.
 
-        The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request ID.
+        The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request.
         Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
         - [Line Items](https://docs.centrapay.com/guides/line-items)
         - [Requesting Pre Auth](https://docs.centrapay.com/guides/requesting-pre-auth)
