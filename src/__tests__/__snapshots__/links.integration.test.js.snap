@@ -124,6 +124,7 @@ exports[`the build should not break any links 1`] = `
   "/api/data-types#crn",
   "/api/data-types#location",
   "/api/data-types#monetary",
+  "/api/data-types#pan",
   "/api/data-types#phonenumber",
   "/api/data-types#timestamp",
   "/api/discrete-assets",
