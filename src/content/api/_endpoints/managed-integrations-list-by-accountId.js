@@ -27,23 +27,22 @@ export default {
       updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
     },
     {
-      id: '5ee0c486308f590260d9a07f',
-      type: 'payap',
-      externalId: 'DKTs3U38hdhfEqwF1JKoT2',
+      id: '4maj50b6fdhmv0v38yrgjzdh',
+      type: 'paypal-referral',
+      externalId: 'alL3YQEGeY5WLu5uSFbM0tb3',
       enabled: true,
       params: {
-        nzbn: '12345657',
-        companyName: 'Centrapay',
-        tradingName: 'Centrapay'
+        centrapayMerchantId: '7aqasjid5kbcp7wquopoe4dg',
+        email: 'test2@centrapay.com'
       },
       status: 'provisioning',
       claimedByAccountId: 'Jaim1Cu1Q55uooxSens6yk',
       claimedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
-      claimedAt: '2020-06-12T01:17:46.499Z',
+      claimedAt: '2020-07-12T01:18:46.499Z',
       inProgress: true,
-      createdAt: '2020-06-11T01:17:46.499Z',
+      createdAt: '2020-07-11T01:18:46.499Z',
       createdBy: 'crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
-      updatedAt: '2020-06-12T01:17:46.499Z',
+      updatedAt: '2020-07-12T01:18:46.499Z',
       updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
     }
   ]
