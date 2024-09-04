@@ -310,3 +310,21 @@ A summary of the [Invitation](/api/invitations) for a Managed Integration.
 
   This endpoint allows you to retrieve a Managed Integration by type and external id.
 </Endpoint>
+
+---
+
+<Endpoint
+  path="/api/accounts/{accountId}/managed-integrations"
+  filename="managed-integrations-list-by-accountId"
+>
+  ## List Managed Integration
+
+  This endpoint allows you to retrieve the list of managed integrations for an account.
+  Returns a [paginated](/api/pagination/) list of [Managed Integrations](#managed-integration-model) for an Account.
+
+  <Properties>
+    <Property name="pageKey" type="string">
+      Used to retrieve the next page of items.
+    </Property>
+  </Properties>
+</Endpoint>

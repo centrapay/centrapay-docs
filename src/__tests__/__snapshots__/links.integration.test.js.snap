@@ -188,6 +188,7 @@ exports[`the build should not break any links 1`] = `
   "/api/managed-integrations#create-or-update-managed-integration",
   "/api/managed-integrations#get-managed-integration",
   "/api/managed-integrations#invitation-summary-model",
+  "/api/managed-integrations#list-managed-integration",
   "/api/managed-integrations#managed-integration-model",
   "/api/managed-integrations#merchant-model",
   "/api/managed-integrations#params-model",
