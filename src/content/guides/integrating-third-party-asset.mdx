@@ -184,20 +184,20 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 
 > Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
 
-| Name           | Type                                                            | Necessity  | Description                                                                                              |
-| -------------- | --------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------- |
-| currency       | String                                                          | required   | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.            |
-| amount         | String                                                          | required   | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
-| authorization  | String                                                          | required   | A reference to the asset of the party paying the Payment Request.                                        |
-| merchantName   | String                                                          | required   | The name of the merchant who created the Payment Request.                                                |
-| merchantId     | String                                                          | required   | Your identifier for the merchant receiving payment.                                                      |
-| transactionId  | String                                                          | required   | A unique ID for the transaction in Centrapay’s system. Also used for idempotency                         |
-| status         | String                                                          | required   | The status of the asset transaction. See [possible status values](#statuses).                            |
-| type           | String                                                          | required   | The type of transaction. Possible values are payment or refund.                                          |
-| failureReason  | String                                                          | optional   | Required if the status is failed. See [possible failure reasons](#failure-reasons).                      |
-| refundable     | Boolean                                                         | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
-| refundBefore   | [Timestamp](/api/data-types#timestamp)                          | optional   | The latest time at which a refund can be initiated.                                                      |
-| idempotencyKey | String                                                          | deprecated | A unique value that can be used to recognize subsequent retries of the same request.                     |
+|      Name      |                  Type                  | Necessity  |                                               Description                                                |
+| -------------- | -------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------- |
+| currency       | String                                 | required   | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.            |
+| amount         | String                                 | required   | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
+| authorization  | String                                 | required   | A reference to the asset of the party paying the Payment Request.                                        |
+| merchantName   | String                                 | required   | The name of the merchant who created the Payment Request.                                                |
+| merchantId     | String                                 | required   | Your identifier for the merchant receiving payment.                                                      |
+| transactionId  | String                                 | required   | A unique ID for the transaction in Centrapay’s system. Also used for idempotency                         |
+| status         | String                                 | required   | The status of the asset transaction. See [possible status values](#statuses).                            |
+| type           | String                                 | required   | The type of transaction. Possible values are payment or refund.                                          |
+| failureReason  | String                                 | optional   | Required if the status is failed. See possible failure reasons under each API below.                     |
+| refundable     | Boolean                                | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
+| refundBefore   | [Timestamp](/api/data-types#timestamp) | optional   | The latest time at which a refund can be initiated.                                                      |
+| idempotencyKey | String                                 | deprecated | A unique value that can be used to recognize subsequent retries of the same request.                     |
 
 ### Statuses
 
