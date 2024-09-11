@@ -52,6 +52,7 @@ exports[`the build should not break any links 1`] = `
   "/api/assets#archive-asset",
   "/api/assets#asset-model",
   "/api/assets#get-asset",
+  "/api/assets#get-asset-by-external-id",
   "/api/assets#get-asset-summary",
   "/api/assets#ledger-model",
   "/api/assets#list-assets-for-account",
