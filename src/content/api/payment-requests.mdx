@@ -616,6 +616,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     <Property name="amount" type="string">
       The value required to pay using the canonical units for the Asset Type.
     </Property>
+    <Property name="externalPaymentRef" type="string">
+      An external reference to the payment. Required when `assetType` is `farmlands.nzd.*`.
+    </Property>
   </Properties>
 
   <Properties heading="Errors">
