@@ -64,6 +64,10 @@ autonumber
   Consumer->>CP: Complete payment
   Note over CP: Close Centrapay Checkout popup
   CP->>+MP: onComplete() callback
+  MP->>MS: Get Payment Request
+  MS->>CP: Get Payment Request
+  CP-->>MS: Return Payment Request
+  MS-->>MP: Return Payment Request
   opt Payment Request has status 'new'
 	MP->>MS: Void Payment Request
   MS->>CP: Void Payment Request
@@ -91,7 +95,8 @@ autonumber
           // Return Payment Request
         },
         async onComplete(data) {
-          if (data.paymentRequest.status === 'new') {
+          // Get Payment Request with data.paymentRequestId
+          if (paymentRequest.status === 'new') {
             // Void Payment Request
           }
         }
@@ -120,7 +125,8 @@ autonumber
     2. `onComplete`
 
         This callback is triggered when the checkout process finishes or the customer closes the payment popup.
-        Your callback will receive a `data` object containing the Payment Request.
+        Your callback will receive a `data` object containing the Payment Request ID.
+        You are expected to [get the Payment Request](/api/payment-requests/#get-a-payment-request) and act on its status.
 
         - If the Payment Request is `paid`, you can redirect the customer to the order confirmation page.
         - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
