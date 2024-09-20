@@ -32,7 +32,7 @@
   });
 </script><main class="flex flex-col min-h-full w-full pt-16 md:pl-64 xl:pl-80"><div class="flex items-center max-h-72 overflow-hidden"><img src="/default-cover.svg" aria-hidden="true" class="object-cover m-0 w-full h-24 md:h-full"></div><div class="relative mx-auto desktop-gutters flex justify-center"><div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none"><article><header class="mb-9 space-y-1"><p class="type-overline text-content-primary">
 Guides
-</p><h1 class="font-display text-3xl tracking-tight text-slate-900">eCommerce</h1></header><astro-island uid="Z22xyTN" component-url="/_astro/Prose.8cdff347.js" component-export="default" renderer-url="/_astro/client.e0200ae5.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Prose&quot;,&quot;value&quot;:true}" await-children=""><div class="prose prose-slate max-w-none prose-headings:font-display prose-headings:font-normal prose-h2:scroll-mt-16 prose-h2:mt-8 prose-h2:pt-8 prose-h2:border-t prose-h3:scroll-mt-20 prose-h4:scroll-mt-20 prose-lead:text-slate-500 prose-a:no-underline prose-a:text-content-primary hover:prose-a:no-underline prose-img:mb-8 prose-img:mx-auto prose-img:object-contain"><!--[--><astro-slot><p>Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our eCommerce payment flows.</p>
+</p><h1 class="font-display text-3xl tracking-tight text-slate-900">eCommerce</h1></header><astro-island uid="2mx2RH" component-url="/_astro/Prose.8cdff347.js" component-export="default" renderer-url="/_astro/client.e0200ae5.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Prose&quot;,&quot;value&quot;:true}" await-children=""><div class="prose prose-slate max-w-none prose-headings:font-display prose-headings:font-normal prose-h2:scroll-mt-16 prose-h2:mt-8 prose-h2:pt-8 prose-h2:border-t prose-h3:scroll-mt-20 prose-h4:scroll-mt-20 prose-lead:text-slate-500 prose-a:no-underline prose-a:text-content-primary hover:prose-a:no-underline prose-img:mb-8 prose-img:mx-auto prose-img:object-contain"><!--[--><astro-slot><p>Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our eCommerce payment flows.</p>
 <div class="not-prose my-5 flex p-5 space-x-5 bg-surface-secondary rounded-lg"><svg width="18" height="18" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-md text-content-secondary w-6 h-6"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 0.75C4.44365 0.75 0.75 4.44365 0.75 9C0.75 13.5563 4.44365 17.25 9 17.25C13.5563 17.25 17.25 13.5563 17.25 9C17.25 4.44365 13.5563 0.75 9 0.75ZM2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C12.7279 2.25 15.75 5.27208 15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9ZM7.75 5.75C7.75 5.19771 8.19772 4.75 8.75 4.75C9.30228 4.75 9.75 5.19771 9.75 5.75C9.75 6.30229 9.30228 6.75 8.75 6.75C8.19772 6.75 7.75 6.30229 7.75 5.75ZM7.25 8C7.25 7.58579 7.58579 7.25 8 7.25H8.5C9.19036 7.25 9.75 7.80964 9.75 8.5V11C9.75 11.1381 9.86193 11.25 10 11.25H10.5C10.9142 11.25 11.25 11.5858 11.25 12C11.25 12.4142 10.9142 12.75 10.5 12.75H10C9.0335 12.75 8.25 11.9665 8.25 11V8.75H8C7.58579 8.75 7.25 8.41421 7.25 8Z" fill="currentColor"></path></svg><blockquote class="text-content-tertiary m-0 text-sm leading-5 font-normal flex-1"><!--[-->
 <p>The Centrapay Checkout is under active development and its behavior, functionality, and availability may change without notice.</p>
 <!--]--></blockquote></div>
@@ -83,6 +83,10 @@ autonumber
   Consumer->>CP: Complete payment
   Note over CP: Close Centrapay Checkout popup
   CP->>+MP: onComplete() callback
+  MP->>MS: Get Payment Request
+  MS->>CP: Get Payment Request
+  CP-->>MS: Return Payment Request
+  MS-->>MP: Return Payment Request
   opt Payment Request has status 'new'
 	MP->>MS: Void Payment Request
   MS->>CP: Void Payment Request
@@ -108,7 +112,8 @@ autonumber
 <span class="line"><span style="color:#89DDFF">          </span><span style="color:#545454;font-style:italic">// Return Payment Request</span></span>
 <span class="line"><span style="color:#F07178">        </span><span style="color:#89DDFF">},</span></span>
 <span class="line"><span style="color:#EEFFFF">        </span><span style="color:#C792EA">async</span><span style="color:#EEFFFF"> </span><span style="color:#F07178">onComplete</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">data</span><span style="color:#89DDFF">)</span><span style="color:#EEFFFF"> </span><span style="color:#89DDFF">{</span></span>
-<span class="line"><span style="color:#F07178">          </span><span style="color:#89DDFF;font-style:italic">if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">data</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">paymentRequest</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">status</span><span style="color:#F07178"> </span><span style="color:#89DDFF">===</span><span style="color:#F07178"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#C3E88D">new</span><span style="color:#89DDFF">&#39;</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">          </span><span style="color:#545454;font-style:italic">// Get Payment Request with data.paymentRequestId</span></span>
+<span class="line"><span style="color:#F07178">          </span><span style="color:#89DDFF;font-style:italic">if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">paymentRequest</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">status</span><span style="color:#F07178"> </span><span style="color:#89DDFF">===</span><span style="color:#F07178"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#C3E88D">new</span><span style="color:#89DDFF">&#39;</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
 <span class="line"><span style="color:#89DDFF">            </span><span style="color:#545454;font-style:italic">// Void Payment Request</span></span>
 <span class="line"><span style="color:#F07178">          </span><span style="color:#89DDFF">}</span></span>
 <span class="line"><span style="color:#F07178">        </span><span style="color:#89DDFF">}</span></span>
@@ -142,7 +147,8 @@ Our payment protocol supports several optional extensions. Please review the ext
 <li>
 <p><code>onComplete</code></p>
 <p>This callback is triggered when the checkout process finishes or the customer closes the payment popup.
-Your callback will receive a <code>data</code> object containing the Payment Request.</p>
+Your callback will receive a <code>data</code> object containing the Payment Request ID.
+You are expected to <a href="/api/payment-requests/#get-a-payment-request" target="_self" class="group inline-flex justify-center items-center text-interactive-secondary hover:text-interactive-secondary-hover"><span class="underline"><!--[-->get the Payment Request<!--]--></span><span> </span><span class="rounded-sm bg-interactive-secondary group-hover:bg-interactive-secondary-hover h-3 w-6 inline-flex justify-center items-center"><span class="text-content-inverse-primary text-[10px]"> API </span></span></a> and act on its status.</p>
 <ul>
 <li>If the Payment Request is <code>paid</code>, you can redirect the customer to the order confirmation page.</li>
 <li>If the Payment Request is <code>cancelled</code> or <code>expired</code>, the payment was not completed.</li>
