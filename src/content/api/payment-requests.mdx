@@ -101,8 +101,11 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
   <Property name="invoiceRef" type="string">
     A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
   </Property>
-  <Property name="redirectUrl" type="string" experimental>
-    URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+  <Property name="redirectCancelUrl" type="string" experimental>
+    URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+  </Property>
+  <Property name="redirectPaidUrl" type="string" experimental>
+    URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
   </Property>
   <Property name="externalRef" type="string">
     An external reference to the Payment Request.
@@ -470,8 +473,11 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     <Property name="invoiceRef" type="string">
       A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
     </Property>
-    <Property name="redirectUrl" type="string" experimental>
-      URL to redirect the user to after they pay or cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+    <Property name="redirectCancelUrl" type="string" experimental>
+      URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+    </Property>
+    <Property name="redirectPaidUrl" type="string" experimental>
+      URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
     </Property>
     <Property name="externalRef" type="string">
       An external reference to the Payment Request.
@@ -513,7 +519,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       Luhn checksum digit doesn't pass.
     </Error>
     <Error code="403" message="REDIRECT_URL_INVALID">
-      The supplied redirectUrl does not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+      One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
     </Error>
     <Error code="403" message="PATRON_CODE_INVALID">
       [Patron Code](/api/patron-codes) doesn't exist or has expired.
