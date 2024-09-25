@@ -68,6 +68,10 @@ An Integration Request allows Centrapay users to request the creation of an [Int
   <Property name="notifiedAt" type="timestamp">
     When the Integration Request was submitted to the terminal provider in order to enable the terminal for Centrapay acceptance.
   </Property>
+
+  <Property name="externalId" type="string">
+      The external identifier for the integration. Required for `shopify` integration requests.
+  </Property>
 </Properties>
 
 ### Terminal
@@ -102,6 +106,7 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 | verifone | Terminal vendor [Verifone](https://www.verifone.com/en/nz) |
 | vista    | Terminal vendor [vista](https://www.vista.co)              |
 | windcave | Terminal vendor [Windcave](https://www.windcave.com/)      |
+| shopify  | E-commerce provider [Shopify](https://www.shopify.com/)    |
 
 ---
 
@@ -128,6 +133,10 @@ An Integration Request allows Centrapay users to request the creation of an [Int
 
     <Property name="product" type="object">
       The requested Epay gift card types to support. Refer to [Product](#product).
+    </Property>
+
+    <Property name="externalId" type="string">
+      The external identifier for the integration. Required for `shopify` integration requests.
     </Property>
   </Properties>
 </Endpoint>
