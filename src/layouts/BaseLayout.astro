@@ -139,9 +139,8 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
           let svg = document.createElement('svg');
           const id = (svg.id = 'mermaid-' + Math.round(Math.random() * 100000));
           graph.appendChild(svg);
-          mermaid.render(id, content, (result) => {
-            graph.innerHTML = result;
-          });
+          const result = await mermaid.render(id, content);
+          graph.innerHTML = result.svg;
         }
       }
     </script>

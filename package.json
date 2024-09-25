@@ -37,7 +37,7 @@
     "jsdom": "^22.1.0",
     "linkinator": "^5.0.2",
     "mdast-util-to-string": "^3.1.1",
-    "mermaid": "^9.3.0",
+    "mermaid": "^11.2.1",
     "path": "^0.12.7",
     "remark-html": "^15.0.2",
     "remark-parse": "^10.0.1",
