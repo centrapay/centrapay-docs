@@ -81,7 +81,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
     The id of a [Patron Code](/api/patron-codes) the Payment Request is attached to.
   </Property>
   <Property name="barcode" type="string">
-    [Scanned Code](/api/scanned-codes) used to create the Payment Request.
+    [Scanned Code](/api/scanned-codes) used to create the Payment Request. Required when the [Quick Pay](/guides/payment-flows/#quick-pay) payment flow is used.
   </Property>
   <Property name="barcodeType" type="string">
     Indicates the provider of a barcode, e.g. `ticketek`.
@@ -453,7 +453,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       The canonical value of the Payment Request. Must be less than 100000000 and positive.
     </Property>
     <Property name="barcode" type="string">
-      [Scanned Code](/api/scanned-codes) used to create the Payment Request. Required when `preAuth` is `true`.
+      [Scanned Code](/api/scanned-codes) used to create the Payment Request.
     </Property>
     <Property name="barcodeType" type="string">
       Indicates the provider of a barcode, e.g. `ticketek`.
