@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 const { listSiteLinks } = require('../utils/listSiteLinks');
 
 test('the build should not break any links', () => {

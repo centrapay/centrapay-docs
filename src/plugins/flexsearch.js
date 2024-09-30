@@ -1,6 +1,5 @@
 import glob from 'glob';
 import fs from 'fs/promises';
-import { promisify } from 'util';
 import { unified } from 'unified';
 import grayMatter from 'gray-matter';
 import remarkHtml from 'remark-html';
@@ -22,20 +21,22 @@ function formatSearch({ node, root }) {
   const nodeString = stripBadge(toString(node));
 
   switch (nodeString) {
-  case 'Attributes':
+  case 'Attributes': {
     const parentHeading = stripBadge(toString(findBefore(root, node, 'heading')));
     return {
       title: `${parentHeading} ${nodeString}`,
       anchor: nodeString,
       pageContext: parentHeading,
     };
-  case 'Errors':
+  }
+  case 'Errors': {
     const headingNode = stripBadge(toString(findBefore(root, findBefore(root, node, 'heading'), 'heading')));
     return {
       title: `${headingNode} ${nodeString}`,
       anchor: nodeString,
       pageContext: headingNode,
     };
+  }
   default:
     return {
       title: nodeString,

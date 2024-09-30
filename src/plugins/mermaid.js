@@ -1,15 +1,5 @@
 import { visit } from 'unist-util-visit';
 
-const escapeMap = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  '\'': '&#39;',
-};
-
-const escapeHtml = (str) => str.replace(/[&<>"']/g, c => escapeMap[c]);
-
 export const mermaid = () => tree => {
   visit(tree, 'code', node => {
     if (node.lang !== 'mermaid') {
