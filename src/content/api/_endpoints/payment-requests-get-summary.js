@@ -3,6 +3,7 @@ export default {
   path: '/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/summary',
   response: {
     id: 'MhocUmpxxmgdHjr7DgKoKw',
+    url: 'https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw',
     merchantName: 'Centrapay Café',
     value: {
       currency: 'NZD',
