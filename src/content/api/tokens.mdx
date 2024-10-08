@@ -91,12 +91,17 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
 
 
 <Properties>
-  <Property name="period" type="string">
+  <Property name="period" type="string" required>
     Supported values are `hour`, `day`, `week`, `month` and `year`.
   </Property>
 
-  <Property name="duration" type="string">
+  <Property name="duration" type="string" required>
     Number of `period` until token expiration.
+  </Property>
+
+  <Property name="ceil" type="string">
+    Interval to round token expiry up to.
+    Supported values are `hour`, `day`, `week`, `month` and `year`.
   </Property>
 </Properties>
 
