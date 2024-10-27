@@ -120,7 +120,7 @@ import {
   ComboboxOption,
 } from '@headlessui/vue';
 import Search from './icons/Search.vue';
-import flexsearch from 'flexsearch/dist/flexsearch.bundle';
+import flexsearch from 'flexsearch/dist/flexsearch.bundle.min';
 
 let data = {};
 const index = new flexsearch.Document({

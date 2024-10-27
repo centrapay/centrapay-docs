@@ -1,33 +1,33 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`createEndpoint > creates a valid JSON response 1`] = `
 "{
-  \\"foo\\": \\"bar\\",
-  \\"bar\\": \\"baz\\"
+  "foo": "bar",
+  "bar": "baz"
 }"
 `;
 
 exports[`createEndpoint > request > creates a curl snippet with payload 1`] = `
-"curl -X POST \\\\
- https://service.centrapay.com/api/test \\\\
- -H 'content-type: application/json' \\\\
- -H 'x-api-key: <TOKEN>' \\\\
+"curl -X POST \\
+ https://service.centrapay.com/api/test \\
+ -H 'content-type: application/json' \\
+ -H 'x-api-key: <TOKEN>' \\
  -d '
 {
- \\"foo\\": \\"bar\\",
- \\"bar\\": \\"baz\\"
+ "foo": "bar",
+ "bar": "baz"
 }
 '"
 `;
 
 exports[`createEndpoint > request > creates a curl snippet without headers or payload 1`] = `
-"curl -X POST \\\\
+"curl -X POST \\
  https://service.centrapay.com/api/test"
 `;
 
 exports[`createEndpoint > request > creates a curl snippet without payload 1`] = `
-"curl -X POST \\\\
- https://service.centrapay.com/api/test \\\\
- -H 'content-type: application/json' \\\\
+"curl -X POST \\
+ https://service.centrapay.com/api/test \\
+ -H 'content-type: application/json' \\
  -H 'x-api-key: <TOKEN>'"
 `;
