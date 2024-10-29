@@ -1,0 +1,11 @@
+{
+  "concurrency": 100,
+  "recurse": true,
+  "skip": "yourapp.example.com|centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com/api",
+  "verbosity": "error",
+  "timeout": 0,
+  "retry": true,
+  "retryErrors": true,
+  "retryErrorsCount": 3,
+  "retryErrorsJitter": 5
+}
