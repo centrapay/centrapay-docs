@@ -4,7 +4,7 @@ const { id } = Astro.props;
 ---
 
 <div class="not-prose">
-  <a href=`#${id}` class="group flex items-center relative">
+  <a href=`#${id}` class="group flex flex-col items-center relative">
     <AnchorLink class="w-4 h-4 mr-2 absolute right-full opacity-0 group-hover:opacity-100" />
     <h2
       id={id}
