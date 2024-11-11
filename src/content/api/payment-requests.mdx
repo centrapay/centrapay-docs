@@ -238,16 +238,16 @@ A discount that applies to multiple Line Items may be represented as a separate 
 
 
 <Properties>
-  <Property name="name" type="string">
+  <Property name="name" type="string" required>
     The product description.
   </Property>
   <Property name="sku" type="string">
-    The product (stock keeping unit) code.
+    The product (stock keeping unit) code. Required for [Token](/api/tokens/) redemptions.
   </Property>
-  <Property name="qty" type="bignumber">
+  <Property name="qty" type="bignumber" required>
     The product quantity (eg. item count, weight, volume etc).
   </Property>
-  <Property name="price" type="bignumber">
+  <Property name="price" type="bignumber" required>
     The total price in cents for the line item (eg. `price = product price * qty - discounts + tax`).
   </Property>
   <Property name="tax" type="bignumber">
