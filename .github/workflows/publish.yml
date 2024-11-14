@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: yarn install --frozen-lock-file
+      - run: yarn install --immutable
       - run: yarn lint
       - run: yarn test
       - run: ./build.sh
