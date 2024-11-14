@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
       - run: |
           curl -X POST "${{ secrets.NEW_PR_SLACK_HOOK_URL }}" \
           --data "$(

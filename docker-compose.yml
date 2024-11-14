@@ -1,8 +1,6 @@
-version: "3"
-
 services:
   app:
-    image: node:18-alpine
+    image: node:22-alpine
     init: true
     working_dir: /work
     volumes: [ ".:/work" ]
@@ -14,7 +12,7 @@ services:
     environment:
       - "ENV=development"
   script:
-    image: node:18-alpine
+    image: node:22-alpine
     init: true
     working_dir: /work
     stop_signal: SIGKILL
