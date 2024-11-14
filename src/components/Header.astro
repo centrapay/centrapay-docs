@@ -1,0 +1,64 @@
+---
+import CentrapayLogo from './icons/CentrapayLogo.astro';
+import Bars from './icons/Bars.astro';
+import CloseOutline from './icons/CloseOutline.astro';
+import SiteSearch from './SiteSearch.vue';
+import MobileMenu from './MobileMenu.vue';
+
+const { path, navigation } = Astro.props;
+---
+<centrapay-header>
+  <header class="fixed bg-white inset-x-0 z-10 flex h-16 flex-shrink-0 shadow">
+    <div class="flex w-full justify-between items-center">
+      <div class="flex items-center">
+        <a
+          href="/"
+          class="flex items-center justify-center h-16 w-16 bg-brand-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+        >
+          <span class="sr-only">Go to home page</span>
+          <CentrapayLogo class="text-content-on-color icon-2xl" />
+        </a>
+        <div class="flex flex-row space-x-1 ml-7">
+          <a
+            href="/"
+            target="_self"
+            class="text-gray-600 text-sm leading-5 font-medium px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 hover:text-content-primary focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+          >
+            Docs
+          </a>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <SiteSearch client:load />
+        <MobileMenu client:load data-mobile-menu path={path} navigation={navigation} />
+      </div>
+    </div>
+  </header>
+</centrapay-header>
+
+<script>
+  class CentrapayHeader extends HTMLElement {
+    connectedCallback() {
+      const openBtn = this.querySelector('button[data-open-mobile-menu]');
+      const closeBtn = this.querySelector('button[data-close-mobile-menu]');
+      const mobileMenu = this.querySelector('[data-mobile-menu]');
+      if (!openBtn || !closeBtn || !mobileMenu) {
+        return;
+      }
+
+      openBtn.addEventListener('click', () => {
+        openBtn.style.display = 'none';
+        closeBtn.style.display = 'flex';
+        mobileMenu.style.display = 'relative';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        openBtn.style.display = 'flex';
+        closeBtn.style.display = 'none';
+        mobileMenu.style.display = 'none';
+      });
+    }
+  }
+
+  customElements.define('centrapay-header', CentrapayHeader);
+</script>
