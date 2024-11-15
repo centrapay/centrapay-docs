@@ -1,6 +1,6 @@
 ---
 import { getCollection } from '../../utils/getCollection';
-import Prose from '../../components/Prose.vue';
+import Prose from '../../components/Prose.astro';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
@@ -41,7 +41,7 @@ const { title, description } = entry.data;
             { title }
           </h1>
         </header>
-        <Prose client:load>
+        <Prose>
           <Content components={{ ...customComponents, h2: H2 }}/>
         </Prose>
       </article>
