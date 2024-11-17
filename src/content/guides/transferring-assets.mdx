@@ -51,8 +51,8 @@ Sender->>Recipient: Transfer assets
     - `recipientAlias` is an alias for the Centrapay account that creates request. This field accepts the recipient’s bank account number.
     - `senderAccountId` is an **ID** of the Centrapay account that receives the request.
 
-    <CodePanel title="Request" method="POST" path="/api/asset-transfer-requests">
-      ```bash
+    <CodePanel>
+      ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/asset-transfer-requests \
         -H "X-Api-Key: <TOKEN>" \
         -H "Content-Type: application/json" \
@@ -70,8 +70,8 @@ Sender->>Recipient: Transfer assets
 3. The sender [accepts](/api/asset-transfers/#accept-an-asset-transfer-request) the Asset Transfer Request. If the sender does not accept the request within 14 days, the request will expire.
     - `senderName` is the name of sender who sends the assets. It is displayed to the recipient in their activity history.
 
-    <CodePanel title="Request" method="POST" path="/api/asset-transfer-requests/{assetTransferId}/accept">
-      ```bash
+    <CodePanel>
+      ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/asset-transfer-requests/{assetTransferId}/accept \
         -H "X-Api-Key: <TOKEN>" \
         -H "Content-Type: application/json" \
@@ -123,8 +123,8 @@ Note over Centrapay: Transfer asset
 1. The sender [creates an Asset Transfer](/api/asset-transfers/#create-an-asset-transfer)
     - The `recipientAlias` field can be set to recipient’s phone number, email or bank account number. If a `recipientAlias` isn’t provided, a shareable URL will be returned in the `url` field.
 
-    <CodePanel title="Request" method="POST" path="/api/asset-transfers">
-      ```bash
+    <CodePanel>
+      ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/asset-transfers \
         -H "X-Api-Key: <TOKEN>" \
         -H "Content-Type: application/json" \
@@ -135,8 +135,8 @@ Note over Centrapay: Transfer asset
       ```
     </CodePanel>
 
-    <CodePanel title="Request" method="POST" path="/api/asset-transfers">
-      ```bash
+    <CodePanel>
+      ```bash title="Request"
       {
         "id": "EL49tYKmAAkp2njVMs39mrP",
         "status": "created",

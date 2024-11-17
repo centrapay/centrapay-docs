@@ -11,8 +11,8 @@ Centrapay’s Patron Not Present extension allows a merchant to complete a payme
 
 You can enable this extension by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the `patronNotPresent` flag set to true.
 
-<CodePanel title="Request" method="POST" path="/api/payment-requests">
-  ```bash
+<CodePanel>
+  ```bash title="Request"
   curl -X POST https://service.centrapay.com/api/payment-requests \
     -H "X-Api-Key: $api_key" \
     -H "Content-Type: application/json" \

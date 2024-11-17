@@ -108,8 +108,8 @@ Exported Farmlands Credit Card information used for importing and updating of a 
 
 A complete batch example with all batch types included. For more legible examples please refer to [Example Models](#example-models).
 
-<CodePanel title="Example JSONL">
-  ```json
+<CodePanel>
+  ```json title="Example JSONL"
   {"externalId":"9b2ec6d1-c83b-496a-8e52-2989f23d9076","accountNumber":"012345678","availableBalance":"1000","contacts":[]}
   {"externalId":"d0d7e14d-4ce5-4f42-8a4c-d604a9609f66","accountNumber":"012345678","availableBalance":"1000"}
   {"externalId":"69d64d80-f9bd-4057-bc5b-1c55685d995b","accountNumber":"012345678","contacts":[{"externalId":"6e496c2a-1dae-4036-847d-c53bf6c6d410","name":"Road Runner","mobile":"+64221105598","email":"road@runner.net","primary":true,"cards":[{"externalId":"9b2ec6d1-c83b-496a-8e52-2989f23d9076","barcode":"976238759","number":"1464549137071848","status":"active","expiry":"2022-10-01T22:32:56.631Z"},{"externalId":"74e4f94c-8316-42e7-9aa1-eb1539528894","barcode":"957813964","number":"6583418750394768","status":"inactive","expiry":"2022-08-01T22:32:56.631Z"}]}]}
@@ -125,8 +125,8 @@ Centrapay matches previously created resources using externalId and records get 
 
 An example of a [Centrapay Asset](/api/assets) complete with availableBalance, contacts and cards.
 
-<CodePanel title="Example Centrapay Asset">
-  ```json
+<CodePanel>
+  ```json title="Example Centrapay Asset"
   {
     "externalId": "b5fde0e0-357c-4fda-a90f-fd857f2be999",
     "accountNumber": "830578479",
@@ -196,8 +196,8 @@ An example of a [Centrapay Asset](/api/assets) complete with availableBalance, c
 
 Update the availableBalance on an account and remove all contacts associated with it. Note, this renders the availableBalance un-spendable.
 
-<CodePanel title="Example Centrapay Asset">
-  ```json
+<CodePanel>
+  ```json title="Example Centrapay Asset"
   {
     "externalId": "9b2ec6d1-c83b-496a-8e52-2989f23d9076",
     "accountNumber": "012345678",
@@ -209,8 +209,8 @@ Update the availableBalance on an account and remove all contacts associated wit
 
 Update the availableBalance on an account.
 
-<CodePanel title="Example Centrapay Asset">
-  ```json
+<CodePanel>
+  ```json title="Example Centrapay Asset"
   {
     "externalId": "d0d7e14d-4ce5-4f42-8a4c-d604a9609f66",
     "accountNumber": "012345678",
@@ -221,8 +221,8 @@ Update the availableBalance on an account.
 
 Update the contact list for an account. Use this where you want to exclude availableBalance.
 
-<CodePanel title="Example Centrapay Asset">
-  ```json
+<CodePanel>
+  ```json title="Example Centrapay Asset"
   {
     "externalId": "69d64d80-f9bd-4057-bc5b-1c55685d995b",
     "accountNumber": "012345678",
