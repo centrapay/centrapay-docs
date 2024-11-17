@@ -3,10 +3,9 @@ import Eyebrow from './Eyebrow.astro';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
-import { Code } from 'astro:components';
+import { Code } from 'astro-expressive-code/components'
 import createEndpoint from '../utils/createEndpoint';
 
-const theme = 'material-theme-darker';
 const { path, filename } = Astro.props;
 
 if (!filename) {
@@ -27,13 +26,13 @@ if (!endpoint) {
   </Column>
 
   <Column sticky>
-    <CodePanel title="Request" method={endpoint.method} path={endpoint.path}>
-      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} theme={theme}/>
+    <CodePanel>
+      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
     </CodePanel>
 
     { endpoint.response &&
-      <CodePanel title="Response">
-        <Code code={endpoint.response} lang="json" theme={theme}/>
+      <CodePanel>
+        <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
       </CodePanel>
     }
   </Column>

@@ -17,22 +17,22 @@ Org [Accounts](/api/accounts) accessed with a user access token require the
 "X-Centrapay-Account" header to be provided. The "X-Centrapay-Account" header
 specifies the unique identifier of the Centrapay Org Account.
 
-<CodePanel title="Authenticate with API key" method="GET" path="/api/account-memberships">
-  ```bash
+<CodePanel>
+  ```bash title="Authenticate with API key"
   curl -X GET https://service.centrapay.com/api/account-memberships \
     -H "X-Api-Key: $api_key"
   ```
 </CodePanel>
 
-<CodePanel title="Authenticate with user access token" method="GET" path="/api/account-memberships">
-  ```bash
+<CodePanel>
+  ```bash title="Authenticate with user access token"
   curl -X GET https://service.centrapay.com/api/account-memberships \
     -H "Authorization: $jwt"
   ```
 </CodePanel>
 
-<CodePanel title="Authenticate org account with user access token" method="GET" path="/api/account-memberships">
-  ```bash
+<CodePanel>
+  ```bash  title="Authenticate org account with user access token"
   curl -X GET https://service.centrapay.com/api/account-memberships \
     -H "Authorization: $jwt" \
     -H "X-Centrapay-Account: Jaim1Cu1Q55uooxSens6yk"

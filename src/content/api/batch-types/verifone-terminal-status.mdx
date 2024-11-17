@@ -85,8 +85,8 @@ Performs a bulk update to the current status for connected Verifone NZ payment t
 
 A complete batch example with all batch types included. For more legible examples please refer to [Example Models](#pretty-printed-example).
 
-<CodePanel title="Example JSONL">
-  ```json
+<CodePanel>
+  ```json title="Example JSONL"
   {"merchantId":"06baa0708ee0e000696","merchantConfigId":"baa09e8158300063fc","merchantName":"Centra Café","description":"Till #1","model":"VX820","terminalId":"325-136-331","deviceId":"T404395000004","status":"inactive","statusMessage":"update required","firstSeen":"2020-01-14T09:00:00Z","lastSeen":"2022-03-14T09:00:00Z","configVersion": 20210914.1,"configUpdatedAt":"2021-09-15 09:00:00 UTC","softwareVersion":"1.7.134","softwareUpdatedAt":"2021-11-14 09:00:00 UTC"}
   {"merchantId":"06baa0708ee0e000696","merchantConfigId":"baa09e8158300063fc","merchantName":"Centra Café","description":"Till #2","model":"VX820","terminalId":"325-136-329","deviceId":"T404395000002","status":"active","statusMessage":"ok","firstSeen":"2020-01-14T09:00:00Z","lastSeen":"2022-03-14T09:00:00Z","configVersion": 20220214.1,"configUpdatedAt":"2022-02-14 09:00:00 UTC","softwareVersion":"1.7.134","softwareUpdatedAt":"2021-11-14 09:00:00 UTC"}
   ```
@@ -98,8 +98,8 @@ A complete batch example with all batch types included. For more legible example
 
 > Below our records have newlines for legibility. When submitting a batch file you must only use newlines to separate records.
 
-<CodePanel title="Pretty Printed Example">
-  ```json
+<CodePanel>
+  ```json title="Example"
   {
     "merchantId": "06baa0708ee0e000696",
     "merchantConfigId": "baa09e8158300063fc",

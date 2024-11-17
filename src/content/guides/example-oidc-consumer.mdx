@@ -13,8 +13,8 @@ A good starting point for learning more about OIDC is Okta’s [OAuth OIDC Illu
 
 ## OIDC User Manager Configuration
 
-<CodePanel title="Example">
-  ```javascript
+<CodePanel>
+  ```javascript title="Example"
   import Oidc from 'oidc-client';
 
   Oidc.Log.logger = console;
@@ -50,8 +50,8 @@ A good starting point for learning more about OIDC is Okta’s [OAuth OIDC Illu
 
 ## Minimal OIDC Client Usage
 
-<CodePanel title="Example">
-  ```javascript
+<CodePanel>
+  ```javascript title="Example"
   async function login() {
     userManager.stopSilentRenew();
     userManager.clearStaleState();
@@ -88,8 +88,8 @@ A good starting point for learning more about OIDC is Okta’s [OAuth OIDC Illu
 
 Manually trigger a token refresh when expired due to user being offline.
 
-<CodePanel title="Example">
-  ```javascript
+<CodePanel>
+  ```javascript title="Example"
   async function refreshUser() {
     const user await userManager.getUser();
     if (user.expired) {
@@ -114,8 +114,8 @@ Manually trigger a token refresh when expired due to user being offline.
 
 Detect when OIDC user is refreshed via auto silent renew. The new user *may* have changed with updated claims, for example, if they have added an email address.
 
-<CodePanel title="Example">
-  ```javascript
+<CodePanel>
+  ```javascript title="Example"
   userManager.events.addUserLoaded((user) => {
     console.log({ msg: 'user auto renew completed', user });
   });
@@ -124,8 +124,8 @@ Detect when OIDC user is refreshed via auto silent renew. The new user *may* h
 
 ## OIDC Client Logout
 
-<CodePanel title="Example">
-```javascript
+<CodePanel>
+```javascript title="Example"
   async function logout() {
     /* State attribute is stored and retrievable with OIDC callback state param */
     await userManager.signoutRedirect({ state: window.location.href });

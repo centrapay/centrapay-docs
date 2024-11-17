@@ -25,8 +25,8 @@ Due to this, the same error message can be returned for different reasons.
 Centrapay provides additional details in the `reason` field to enhance error messages and assist with debugging.
 Integrators may choose to display the `reason` to provide more information to the user, however, it is recommended that`reason` is not used to drive application logic.
 
-<CodePanel title="Error Response">
-``` json
+<CodePanel>
+``` json title="Error Response"
 {
   "statusCode": 403,
   "message": "ERROR_MESSAGE",

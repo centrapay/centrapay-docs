@@ -13,6 +13,7 @@ import vue from '@astrojs/vue';
 import mdx from '@astrojs/mdx';
 
 import markdoc from '@astrojs/markdoc';
+import expressiveCode from 'astro-expressive-code';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
   integrations: [
     vue(),
     tailwind({ applyBaseStyles: false }),
+    expressiveCode(),
     mdx(),
     markdoc(),
   ],

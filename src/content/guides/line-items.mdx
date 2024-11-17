@@ -13,8 +13,8 @@ import CodePanel from '../../components/CodePanel.astro';
 
 1. The price of a Line Item MUST represent the amount that a patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
 
-  <CodePanel title="Example">
-    ```json
+  <CodePanel>
+    ```json title="Example"
     [
       {
         "name": "Cinema Tickets",
@@ -34,8 +34,8 @@ import CodePanel from '../../components/CodePanel.astro';
 5. The discount for each Line Item MUST be provided in cents and is tax exclusive.
 6. A discount that applies to multiple line items may be represented as a separate line item with a negative amount.
 
-  <CodePanel title="Example">
-    ```json
+  <CodePanel>
+    ```json title="Example"
     [
       {
         "name": "Cinema Tickets",
@@ -70,8 +70,8 @@ This information should also be displayed to a consumer when possible. If any li
 Integrators must iterate through the `assetTotals` array and display any line items purchased to the merchant. Line items that have been purchased via Centrapay must no longer be able to be purchased using another form of payment.
 This is especially important for any assets which are only redeemable against specific line items. For example, there could be a case where someone used a digital token to pay for a line item, and then a physical voucher to pay for that same line item, which would mean the second voucher could go towards purchasing something other than the intended line item.
 
-<CodePanel title="Example">
-```json
+<CodePanel>
+```json title="Example"
   {
     "type": "centrapay.token.main",
     "description": "Centrapay Token",

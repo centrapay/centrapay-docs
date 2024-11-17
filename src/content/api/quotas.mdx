@@ -63,8 +63,8 @@ Centrapay account quotas are enforced on usage types such as spending or topping
 
   If a quota limit is exceeded by an action that enforces quota limits, an error response will be returned. The quotas field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
 
-  <CodePanel title="Error Response">
-    ```json
+  <CodePanel>
+    ```json title="Error Response"
     {
       "message": "QUOTA_EXCEEDED",
       "quotas": [

@@ -24,8 +24,8 @@ behaves in order to get back the resource that you're after.
 
 Don't try again, this is never going to work.
 
-<CodePanel title="Response">
-  ```json
+<CodePanel>
+  ```json  title="Response"
   {
     "statusCode": 400,
     "message": "amount is required"
@@ -46,8 +46,8 @@ Don't try again, this is never going to work.
 
 API key or JWT is missing, expired or invalid. Go look at our [Auth](/api/auth) documentation.
 
-<CodePanel title="Response">
-  ```json
+<CodePanel>
+  ```json title="Response"
   {
     "statusCode": 401,
     "error": "Unauthorized",
@@ -63,8 +63,8 @@ business rule violation.
 
 ### Resource missing or permission denied
 
-<CodePanel title="Response">
-  ```json
+<CodePanel>
+  ```json title="Response"
     "statusCode": 403,
     "error": "Forbidden",
     "message": "Forbidden"
@@ -83,8 +83,8 @@ is violated then a 403 is returned. Additional information will be included in
 the "message" field of the response body. The possible values for the "message"
 field will be documented on each endpoint.
 
-<CodePanel title="Response">
-  ```json
+<CodePanel>
+  ```json title="Response"
   {
     "statusCode": 403,
     "error": "Forbidden",
@@ -98,8 +98,8 @@ field will be documented on each endpoint.
 Variant on a 400, there's a bug in your code that means you've got a typo in
 the URL or HTTP method. Please check against examples in our documentation.
 
-<CodePanel title="Response">
-```json
+<CodePanel>
+```json title="Response"
 {
   "statusCode": 404,
   "error": "Not Found",
@@ -112,8 +112,8 @@ the URL or HTTP method. Please check against examples in our documentation.
 
 Centrapay API rate limits have been exceeded.
 
-<CodePanel title="Response">
-```json
+<CodePanel>
+```json title="Response"
 {
   "statusCode": 429,
   "error": "Too Many Requests",
