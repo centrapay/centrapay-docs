@@ -56,5 +56,6 @@ export default {
         discount: '199'
       }
     ],
+    liveness: 'test'
   }
 };
