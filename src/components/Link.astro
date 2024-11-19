@@ -4,15 +4,7 @@ const { href } = Astro.props;
 <a
   href={href}
   target="_self"
-  class="group inline-flex justify-center items-center text-interactive-secondary hover:text-interactive-secondary-hover"
+  class="not-prose underline font-medium inline-flex justify-center items-center text-interactive-primary hover:text-interactive-secondary-hover"
 >
-  <span class="underline">
-    <slot />
-  </span>
-  <span>&nbsp;</span>
-  <span
-    class="rounded-sm bg-interactive-secondary group-hover:bg-interactive-secondary-hover h-3 w-6 inline-flex justify-center items-center text-content-inverse-primary text-[10px]"
-  >
-    &nbsp;API&nbsp;
-  </span>
+  <slot />
 </a>
