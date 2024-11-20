@@ -1,9 +1,13 @@
 ---
 const { href } = Astro.props;
+
+const target = href.startsWith('/') || href.startsWith('#')
+  ? '_self'
+  : '_blank';
 ---
 <a
   href={href}
-  target="_self"
+  target={target}
   class="not-prose underline font-medium inline-flex justify-center items-center text-interactive-primary hover:text-interactive-secondary-hover"
 >
   <slot />
