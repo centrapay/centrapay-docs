@@ -31,7 +31,6 @@
             class="hover:no-underline flex items-center w-min type-body-2 text-interactive-tertiary hover:text-interactive-tertiary-active"
           >
             Website
-            <ExternalLink class="ml-2 icon-sm" />
           </a>
         </div>
         <div class="flex items-center space-x-6">
@@ -57,7 +56,6 @@ import FacebookLogo from './icons/FacebookLogo.vue';
 import TwitterLogo from './icons/TwitterLogo.vue';
 import InstagramLogo from './icons/InstagramLogo.vue';
 import LinkedInLogo from './icons/LinkedInLogo.vue';
-import ExternalLink from './icons/ExternalLink.vue';
 import VerifiedCheck from './icons/VerifiedCheck.vue';
 
 const externalNavigation = [
