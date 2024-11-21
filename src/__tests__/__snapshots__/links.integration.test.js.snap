@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`the build should not break any links 1`] = `
 [
@@ -322,10 +322,12 @@ exports[`the build should not break any links 1`] = `
   "/guides/creating-test-money#via-api",
   "/guides/creating-test-money#via-centrapay-app",
   "/guides/ecommerce-website",
+  "/guides/ecommerce-website#centrapay-checkout-sample",
   "/guides/ecommerce-website#contact-us",
   "/guides/ecommerce-website#know-before-you-code",
   "/guides/ecommerce-website#on-this-page-title",
   "/guides/ecommerce-website#popup-method",
+  "/guides/ecommerce-website#redirect-method",
   "/guides/example-oidc-consumer",
   "/guides/example-oidc-consumer#detect-oidc-user-refresh",
   "/guides/example-oidc-consumer#minimal-oidc-client-usage",

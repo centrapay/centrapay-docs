@@ -7,11 +7,13 @@ nav:
 ---
 import CodePanel from '../../components/CodePanel.astro';
 
-Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our eCommerce payment flows.
+Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our redirect or popup eCommerce payment flows.
 
 ## Know before you code
 
 Please get in touch with Centrapay to configure your business for eCommerce.
+If you decide to use the redirect flow, you will need to inform us of allowed domains for redirect URLs.
+
 Centrapay will provide you with the following resources to allow you to start creating [Payment Requests](/api/payment-requests).
 
 1. API Key.
@@ -20,20 +22,85 @@ Centrapay will provide you with the following resources to allow you to start cr
 
 > We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
 
-### Access the Centrapay SDK
+Centrapay will configure your business to accept test payments before you can accept live payments.
+Accepting live payments requires you to meet our certification requirements.
 
-The Centrapay SDK enables acceptance of Centrapay payments on your website.
-It handles displaying the Centrapay button and launching the Centrapay checkout.
-
-Production: `https://sdk.centrapay.com/ecommerce/centrapay.js?merchantId={merchantId}`
-
-### Centrapay Checkout Sample
+## Centrapay Checkout Sample
 
 A [sample Centrapay e-commerce application](https://github.com/centrapay/centrapay-checkout-sample) is available.
-It uses the Centrapay SDK on the frontend and Node.js on the backend.
+It includes demos of both the redirect method and the popup method.
 Please refer to the README.md file for configuration instructions.
 
+## Redirect Method
+
+The Redirect Method is the standard method used by most merchants.
+This method redirects the customer away from your website to Centrapay to complete the payment.
+The customer is redirected back to your website at the end of the process.
+
+### Overview
+
+``` mermaid
+sequenceDiagram
+autonumber
+  participant Consumer
+  participant MP as Merchant Site
+  participant MS as Merchant Server
+  participant CP as Centrapay
+
+  Consumer->>MP: Pay with Centrapay
+  MP->>+MS: Create Payment Request
+  MS->>+CP: Create Payment Request
+  CP-->>-MS: Payment Request created
+  MS-->>-MP: Payment Request created
+  MP->>CP: Redirect to Payment Request url
+  Note over CP: Show Payment Request details
+  Consumer->>CP: Complete payment
+  alt ✅ Success
+  CP->>MP: Redirect to redirectPaidUrl
+  else
+  CP->>MP: Redirect to redirectCancelUrl
+  end
+  MP->>+MS: Get Payment Request
+  MS->>+CP: Get Payment Request
+  CP-->>-MS: Return Payment Request
+  MS-->>-MP: Return Payment Request
+  opt Payment Request has status 'new'
+	MP->>+MS: Void Payment Request
+  MS->>+CP: Void Payment Request
+  CP-->>-MS: Return Payment Request
+  MS-->>-MP: Return Payment Request
+  end
+  MP-->>CP: Return
+  Note over MP: Checkout complete ✅
+```
+
+### Implementation
+
+> Your merchant must be configured with allowed domains for your redirect URLs.
+
+1. Display Centrapay as a payment option on checkout.
+2. When the customer places an order using the Centrapay payment option, you are expected to [Create a Payment Request](https://docs.centrapay.com/api/payment-requests/#create-a-payment-request).
+  **You must define a `redirectPaidUrl` and a `redirectCancelUrl`.**
+
+    Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+    - [Line Items](https://docs.centrapay.com/guides/line-items)
+    - [Requesting Pre Auth](https://docs.centrapay.com/guides/requesting-pre-auth)
+
+    Centrapay will return a `url` which you are expected to redirect the customer to.
+
+3. The customer will be redirected to your site at the end of the payment process.
+    - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
+    - If the Payment Request is `cancelled`, `expired`, or `new`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
+    - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](https://docs.centrapay.com/api/payment-requests/#void-a-payment-request).
+
 ## Popup Method
+
+### Access the Centrapay SDK
+
+The Centrapay SDK enables acceptance of Centrapay payments on your website using the popup method.
+It handles displaying the Centrapay button, launching the Centrapay checkout, and triggering callbacks.
+
+Production: `https://sdk.centrapay.com/ecommerce/centrapay.js?merchantId={merchantId}`
 
 ### Overview
 
