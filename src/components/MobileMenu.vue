@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn flex items-center pr-6 md:hidden focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+    class="flex items-center md:hidden focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
     @click="mainMenuOpen = !mainMenuOpen"
   >
     <span class="sr-only">Open Main Menu</span>

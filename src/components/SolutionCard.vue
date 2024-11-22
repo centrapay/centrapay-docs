@@ -7,7 +7,7 @@
         alt=""
       >
     </div>
-    <div class="prose flex flex-1 flex-col justify-between bg-white p-6">
+    <div class="prose flex flex-1 flex-col justify-between bg-white p-6 gap-6">
       <div class="flex-1">
         <h4 class="font-semibold">
           {{ title }}
@@ -19,7 +19,7 @@
       <a
         v-if="link.text"
         :href="link.url"
-        class="mt-6 flex items-center btn rounded-md bg-interactive-primary text-content-inverse-primary shadow-md justify-center hover:bg-interactive-secondary"
+        class="flex items-center rounded-md px-4 py-2 bg-interactive-primary text-content-inverse-primary shadow-md justify-center hover:bg-interactive-secondary focus:outline-none focus:ring-2 ring-focus-ring"
       >
         {{ link.text }}
       </a>

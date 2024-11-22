@@ -1,7 +1,5 @@
 ---
 import CentrapayLogo from './icons/CentrapayLogo.astro';
-import Bars from './icons/Bars.astro';
-import CloseOutline from './icons/CloseOutline.astro';
 import SiteSearch from './SiteSearch.vue';
 import MobileMenu from './MobileMenu.vue';
 
@@ -28,7 +26,7 @@ const { path, navigation } = Astro.props;
           </a>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center gap-x-4 pr-6">
         <SiteSearch client:load />
         <MobileMenu client:load data-mobile-menu path={path} navigation={navigation} />
       </div>
