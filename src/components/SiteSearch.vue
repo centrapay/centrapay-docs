@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn flex items-center md:w-80 md:mr-4 text-left space-x-3 py-0 px-0 md:px-4 md:pr-0 h-10 bg-white md:border border-gray-300 focus:outline-none ring-0 focus:ring-0 md:shadow-sm rounded-none md:rounded-lg overflow-hidden"
+    class="flex items-center md:w-80 md:mr-4 text-left space-x-3 py-0 px-0 md:px-4 md:pr-0 h-10 bg-white md:border border-gray-300 focus:outline-none ring-0 focus:ring-0 md:shadow-sm rounded-none md:rounded-lg overflow-hidden"
     @click="openCommandPalette"
   >
     <SearchLogo class="w-6 h-6 md:w-4 md:h-4" />

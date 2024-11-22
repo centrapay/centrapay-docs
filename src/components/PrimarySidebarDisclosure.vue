@@ -5,7 +5,7 @@
     :default-open="defaultOpen"
   >
     <DisclosureButton
-      class="btn group mt-2 w-full flex items-center pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+      class="group mt-2 w-full flex items-center pl-4 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
       :class="{ 'bg-gray-100': disclosureSelected }"
     >
       <component
