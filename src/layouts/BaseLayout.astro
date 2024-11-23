@@ -1,7 +1,7 @@
 ---
 import AppShell from '../components/AppShell.astro';
 import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
-import Footer from '../components/Footer.vue';
+import Footer from '../components/Footer.astro';
 import '../assets/css/tailwind.css';
 import '@fontsource/inter';
 import '@fontsource/inter/300.css';
@@ -100,7 +100,7 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
             aria-hidden="true"
           />
         </button>
-        <Footer class="mt-auto" />
+        <Footer />
       </AppShell>
     </div>
     <script>

@@ -7,8 +7,8 @@ nav:
   path: Connections/Farmlands
   order: 1
 ---
-import Grid from '../../components/Grid.vue';
-import SolutionCard from '../../components/SolutionCard.vue';
+import Grid from '../../components/Grid.astro';
+import SolutionCard from '../../components/SolutionCard.astro';
 
 In partnership with Centrapay, Farmlands has two new digital solutions that enable Card Partners to authorise Card payments in real-time, and process invoices to Farmlands faster. There are no transactional costs for Card Partners using these solutions.
 
@@ -55,23 +55,19 @@ Your business can either fully integrate the Farmlands solution to your retail p
 </center>
 
 ## Solutions
-<Grid cols='2'>
+<Grid class='not-prose grid grid-cols-1 gap-6 md:grid-cols-2 pt-4 pb-16'>
   <SolutionCard
     title='1. POS API'
     description='A comprehensive payment API to support the acceptance of Farmlands Cards as a form of payment. This option is for Card Partners that prefer full integration with their point of sale system.'
     imageSrc='/farmlands-pos-background.png'
-    link={{
-      text: 'POS Integration Guide',
-      url: '/guides/farmlands-pos-integration'
-    }}
+    linkText='POS Integration Guide'
+    linkUrl='/guides/farmlands-pos-integration'
   />
   <SolutionCard
     title='2. Portal'
     description='A secure web portal to support the acceptance of Farmlands Cards as a form of payment. This option allows Card Partners to gain an authorisation for a Farmlands Card without having to integrate with their point of sale system.'
     imageSrc='/farmlands-portal-background.png'
-    link={{
-      text: 'Portal Guide',
-      url: '/guides/farmlands-portal'
-    }}
+    linkText='Portal Guide'
+    linkUrl='/guides/farmlands-portal'
   />
 </Grid>

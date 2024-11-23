@@ -1,0 +1,34 @@
+---
+const {
+  description,
+  imageSrc,
+  linkText,
+  linkUrl,
+  title,
+} = Astro.props;
+---
+<div class="flex flex-col overflow-hidden shadow-xl rounded-lg">
+  <div class="flex-shrink-0">
+    <img
+      class="h-48 w-full object-cover"
+      src={imageSrc}
+      alt=""
+    >
+  </div>
+  <div class="prose flex flex-1 flex-col justify-between bg-white p-6 gap-6">
+    <div class="flex-1">
+      <h4 class="font-semibold">
+        { title }
+      </h4>
+      <p>
+        { description }
+      </p>
+    </div>
+    <a
+      href={linkUrl}
+      class="flex items-center rounded-md px-4 py-2 bg-interactive-primary text-content-inverse-primary shadow-md justify-center hover:bg-interactive-secondary focus:outline-none focus:ring-2 ring-focus-ring"
+    >
+      { linkText }
+    </a>
+  </div>
+</div>
