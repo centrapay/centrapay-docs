@@ -12,7 +12,7 @@
           <span class="sr-only">{{ item.name }}</span>
           <component
             :is="item.logo"
-            class="icon-lg"
+            class="inline-block w-5 h-5"
             aria-hidden="true"
           />
         </a>

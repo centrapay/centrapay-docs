@@ -10,7 +10,7 @@
     >
       <component
         :is="disclosureIcon"
-        class="icon-md flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
+        class="inline-block h-5 w-5 flex-shrink-0 text-content-tertiary group-hover:text-content-secondary"
         aria-hidden="true"
       />
       <div class="flex-1">
@@ -24,7 +24,7 @@
           <span class="text-content-secondary text-xs">{{ navigationItem.subTitle }}</span>
         </div>
       </div>
-      <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'ml-3 icon-md flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
+      <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'ml-3 inline-block h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
     </DisclosureButton>
     <DisclosureTransition>
       <div v-show="open">

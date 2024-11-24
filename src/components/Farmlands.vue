@@ -18,7 +18,7 @@
             <span class="type-body-2 text-content-inverse-primary">
               Centrapay
             </span>
-            <VerifiedCheck class="icon-sm text-brand-accent" />
+            <VerifiedCheck class="inline-block w-4 h-4 text-brand-accent" />
           </div>
         </div>
         <div class="space-y-1">
@@ -39,7 +39,7 @@
             :key="link.name"
             :href="link.href"
             target="_blank"
-            class="icon-md text-interactive-tertiary hover:text-interactive-tertiary-active"
+            class="inline-block h-5 w-5 text-interactive-tertiary hover:text-interactive-tertiary-active"
           >
             <span class="sr-only">{{ link.description }}</span>
             <component :is="link.logo" />
