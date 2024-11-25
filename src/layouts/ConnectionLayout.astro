@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Prose from '../components/Prose.vue';
+import Prose from '../components/Prose.astro';
 
 const { title, description, img } = Astro.props;
 ---
@@ -14,7 +14,7 @@ const { title, description, img } = Astro.props;
             <h2 class="font-display text-3xl tracking-tight text-slate-900 mb-12">
               Overview
             </h2>
-            <Prose client:load slot="content">
+            <Prose slot="content">
               <slot name="content" />
             </Prose>
           </article>

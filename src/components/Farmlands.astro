@@ -1,0 +1,78 @@
+---
+import FacebookLogo from './icons/FacebookLogo.astro';
+import TwitterLogo from './icons/TwitterLogo.astro';
+import InstagramLogo from './icons/InstagramLogo.astro';
+import LinkedInLogo from './icons/LinkedInLogo.astro';
+import VerifiedCheck from './icons/VerifiedCheck.astro';
+---
+<div>
+  <header
+    class="not-prose bg-bottom bg-cover bg-[#174B33] bg-blend-overlay bg-[url('/countryside.jpg')]"
+  >
+    <div class="desktop-gutters px-8 py-16 space-y-6">
+      <h1 class="type-display text-content-inverse-primary mb-8 mt-4">
+        <b>Farmlands</b>
+      </h1>
+      <p class="type-body-2 text-content-inverse-secondary">
+        Farmlands has partnered with Centrapay to deliver new ways for your business to authorise and process Farmlands Card payments that are faster, easier, and more secure than ever.
+      </p>
+      <div class="space-y-1">
+        <span class="type-body-3 text-content-inverse-secondary">
+          Made By
+        </span>
+        <div class="flex items-center space-x-2">
+          <span class="type-body-2 text-content-inverse-primary">
+            Centrapay
+          </span>
+          <VerifiedCheck class="inline-block w-4 h-4  text-brand-accent" />
+        </div>
+      </div>
+      <div class="space-y-1">
+        <div class="type-body-3 text-content-inverse-secondary">
+          Links
+        </div>
+        <a
+          href="https://www.farmlands.co.nz/"
+          target="_blank"
+          class="hover:no-underline flex items-center w-min type-body-2 text-interactive-tertiary hover:text-interactive-tertiary-active"
+        >
+          Website
+        </a>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a
+          href="https://www.facebook.com/farmlandsnz/"
+          target="_blank"
+          class="inline-block h-5 w-5 text-interactive-tertiary hover:text-interactive-tertiary-active"
+        >
+          <span class="sr-only">Farmlands Facebook</span>
+          <FacebookLogo />
+        </a>
+        <a
+          href="https://twitter.com/farmlands?lang=en"
+          target="_blank"
+          class="inline-block h-5 w-5 text-interactive-tertiary hover:text-interactive-tertiary-active"
+        >
+          <span class="sr-only">Farmlands Twitter</span>
+          <TwitterLogo />
+        </a>
+        <a
+          href="https://www.instagram.com/farmlandsnz/?hl=en"
+          target="_blank"
+          class="inline-block h-5 w-5 text-interactive-tertiary hover:text-interactive-tertiary-active"
+        >
+          <span class="sr-only">Farmlands Instagram</span>
+          <InstagramLogo />
+        </a>
+        <a
+          href="https://www.linkedin.com/company/farmlands-trading-society-ltd/?originalSubdomain=nz"
+          target="_blank"
+          class="inline-block h-5 w-5 text-interactive-tertiary hover:text-interactive-tertiary-active"
+        >
+          <span class="sr-only">Farmlands LinkedIn</span>
+          <LinkedInLogo />
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
