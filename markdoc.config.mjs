@@ -2,6 +2,10 @@ import { defineMarkdocConfig, component, nodes } from '@astrojs/markdoc/config';
 
 export default defineMarkdocConfig({
   nodes: {
+    blockquote: {
+      ...nodes.blockquote,
+      render: component('./src/components/Note.astro'),
+    },
     fence: {
       attributes: {
         ...nodes.fence.attributes,
@@ -13,11 +17,6 @@ export default defineMarkdocConfig({
     link: {
       ...nodes.link,
       render: component('./src/components/Link.astro'),
-    },
-  },
-  tags: {
-    note: {
-      render: component('./src/components/Note.astro'),
     },
   },
 });
