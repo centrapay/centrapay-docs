@@ -1,17 +1,14 @@
 ---
 import { Code as ExpressiveCode } from "astro-expressive-code/components";
-const content = (await Astro.slots.render("default")).trim()
-  .replaceAll('&#39;', '\'')
-  .replaceAll('&quot;', '"')
-  .replaceAll('&lt;', '<')
-  .replaceAll('&gt;', '>');
+
+const {code, lang, title, mark} = Astro.props;
 ---
 
 <ExpressiveCode
-	code={content}
-	title={Astro.props.title ?? undefined}
+	code={code}
+	title={title}
 	class="mb-8"
-	mark={Astro.props.mark ?? undefined}
+	mark={mark ?? undefined}
 	frame="terminal"
-	lang={Astro.props["data-language"]}
+	lang={lang}
 />

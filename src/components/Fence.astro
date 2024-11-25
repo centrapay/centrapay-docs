@@ -1,0 +1,18 @@
+---
+import CodeFence from "./CodeFence.astro";
+import Mermaid from "./Mermaid.astro";
+const content = (await Astro.slots.render("default")).trim()
+  .replaceAll('&#39;', '\'')
+  .replaceAll('&quot;', '"')
+  .replaceAll('&lt;', '<')
+  .replaceAll('&gt;', '>');
+
+const Component = Astro.props["data-language"] !== 'mermaid' ? CodeFence : Mermaid;
+---
+
+<Component
+	code={content}
+	title={Astro.props.title ?? undefined}
+	mark={Astro.props.mark ?? undefined}
+	lang={Astro.props["data-language"]}
+/>
