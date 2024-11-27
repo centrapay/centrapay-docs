@@ -1,12 +1,12 @@
 <template>
   <button
-    class="flex items-center md:w-80 md:mr-4 text-left space-x-3 py-0 px-0 md:px-4 md:pr-0 h-10 bg-white md:border border-gray-300 focus:outline-none ring-0 focus:ring-0 md:shadow-sm rounded-none md:rounded-lg overflow-hidden"
+    class="flex h-10 items-center space-x-3 overflow-hidden rounded-none border-gray-300 bg-white p-0 text-left ring-0 focus:outline-none focus:ring-0 md:mr-4 md:w-80 md:rounded-lg md:border md:px-4 md:pr-0 md:shadow-sm"
     @click="openCommandPalette"
   >
-    <SearchLogo class="w-6 h-6 md:w-4 md:h-4" />
-    <span class="hidden md:flex flex-auto text-gray-500">Search</span>
+    <SearchLogo class="size-6 md:size-4" />
+    <span class="hidden flex-auto text-gray-500 md:flex">Search</span>
     <kbd
-      class="hidden md:flex items-center justify-center h-full aspect-square font-sans font-medium text-sm leading-5 bg-gray-50 text-gray-700"
+      class="hidden aspect-square h-full items-center justify-center bg-gray-50 font-sans text-sm font-medium leading-5 text-gray-700 md:flex"
     >
       <abbr
         title="Command"

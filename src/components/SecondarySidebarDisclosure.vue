@@ -5,12 +5,12 @@
     :default-open="defaultOpen"
   >
     <DisclosureButton
-      class="group mt-2 w-full flex items-center pl-4 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+      class="group mt-2 flex w-full items-center space-x-3 rounded-md py-2 pl-4 pr-1 text-left ring-focus-ring hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset"
       :class="{ 'bg-gray-100': disclosureSelected }"
     >
-      <Carat :class="[open ? 'text-gray-400 rotate-90' : 'text-gray-300', 'inline-block h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
+      <Carat :class="[open ? 'rotate-90 text-gray-400' : 'text-gray-300', 'inline-block size-5 shrink-0 transition-colors duration-150 ease-in-out group-hover:text-gray-400']" />
       <span
-        class="flex-1 text-content-tertiary leading-5 text-sm"
+        class="flex-1 text-sm leading-5 text-content-tertiary"
         :class="{ 'text-black': open }"
       >
         {{ navigationItem.title }}

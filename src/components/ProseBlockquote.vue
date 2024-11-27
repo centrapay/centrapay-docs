@@ -1,7 +1,7 @@
 <template>
-  <div class="not-prose my-5 flex p-5 space-x-5 bg-surface-secondary rounded-lg">
-    <InformationCircle class="inline-block h-5 w-5 text-content-secondary w-6 h-6" />
-    <blockquote class="text-content-tertiary m-0 text-sm leading-5 font-normal flex-1">
+  <div class="not-prose my-5 flex space-x-5 rounded-lg bg-surface-secondary p-5">
+    <InformationCircle class="inline-block size-6 text-content-secondary" />
+    <blockquote class="m-0 flex-1 text-sm font-normal leading-5 text-content-tertiary">
       <slot />
     </blockquote>
   </div>
