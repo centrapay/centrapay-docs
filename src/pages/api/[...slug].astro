@@ -20,12 +20,12 @@ const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
 <BaseLayout title={title} description={description} img={previewImg}>
-  <div class="relative mx-auto desktop-gutters flex justify-center">
-    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
+  <div class="desktop-gutters relative mx-auto flex justify-center">
+    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
       <article>
         <header class="mb-9 space-y-1" >
           <h1
-            class="font-display text-3xl tracking-tight text-slate-900"
+            class="type-headline-2"
           >
             { title }
           </h1>

@@ -86,17 +86,17 @@ const navigation = Navigation.create({ nav: sideNavConfig, content });
   <body>
     <header>
     </header>
-    <div class="flex flex-col h-screen w-screen">
+    <div class="flex h-screen w-screen flex-col">
       <AppShell path={Astro.url.pathname} navigation={navigation}>
         <slot />
         <button
           id="freshdesk-button"
           type="button"
-          class="fixed right-6 bottom-6 items-center bg-interactive-quaternary border rounded-full shadow-lg flex justify-center w-16 h-16 hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
+          class="fixed bottom-6 right-6 flex size-16 items-center justify-center rounded-full border bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
         >
           <span class="sr-only">Open support widget</span>
           <MessagesBubbleDouble
-            class="inline-block w-5 h-5 text-content-on-color"
+            class="inline-block size-5 text-content-on-color"
             aria-hidden="true"
           />
         </button>

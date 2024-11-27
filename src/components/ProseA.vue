@@ -2,7 +2,7 @@
   <a
     :href="props.href"
     :target="isExternalLink ? '_blank' : '_self'"
-    class="not-prose underline font-medium inline-flex justify-center items-center text-interactive-primary hover:text-interactive-secondary-hover"
+    class="not-prose inline-flex items-center justify-center font-medium text-interactive-primary underline hover:text-interactive-secondary-hover"
   >
     <slot />
   </a>

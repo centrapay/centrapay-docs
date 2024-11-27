@@ -8,10 +8,10 @@ const { title, description, img } = Astro.props;
   <div>
     <slot name="header" />
     <div>
-      <div class="relative mx-auto desktop-gutters flex justify-center">
-        <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 xl:pt-16 lg:max-w-none">
+      <div class="desktop-gutters relative mx-auto flex justify-center">
+        <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
           <article>
-            <h2 class="font-display text-3xl tracking-tight text-slate-900 mb-12">
+            <h2 class="type-headline-2 mb-12">
               Overview
             </h2>
             <Prose slot="content">

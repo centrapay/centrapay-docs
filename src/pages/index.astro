@@ -42,7 +42,7 @@ const img = '/homepage-preview.png';
 ---
 
 <BaseLayout description={description} img={img}>
-  <div class="desktop-gutters px-4 sm:px-8 my-32">
+  <div class="desktop-gutters my-32 px-4 sm:px-8">
     <Prose class="max-w-none">
       <h1 class="type-display">
         <b>Centrapay Docs</b>
@@ -65,7 +65,7 @@ const img = '/homepage-preview.png';
     <Prose>
       <h2 class="type-headline-2">Featured Docs</h2>
     </Prose>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mt-8">
+    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
       { featuredGuides.map((guide) => (
         <FeaturedGuideCard
           title={guide.data.title}
@@ -76,7 +76,7 @@ const img = '/homepage-preview.png';
       ))
       }
     </div>
-    <div class="grid md:grid-cols-4 gap-4 lg:gap-6 mt-12 justify-center">
+    <div class="mt-12 grid justify-center gap-4 md:grid-cols-4 lg:gap-6">
       { featuredContent.map((content, index) => (
         <div class='md:col-span-2'>
           <FeaturedContentCard

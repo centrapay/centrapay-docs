@@ -4,23 +4,14 @@ const { img, title, description, href } = Astro.props;
 const previewImg = img || '/default-cover.svg';
 ---
 <Card>
-  <a href={href}>
+  <a href={href} class="group">
     <div class="h-32 overflow-hidden rounded-t">
-      <img class='object-cover h-full w-full transition-transform ease-in duration-200' src={previewImg}>
+      <img class='size-full object-cover transition-transform duration-200 ease-in group-hover:scale-105' src={previewImg}>
     </div>
 
-    <div class="space-y-4 p-4 hover-parent">
-      <h3 class="type-headline-4 hover-child link-text">{title}</h3>
+    <div class="space-y-4 p-4">
+      <h3 class="type-headline-4 group-hover:underline">{title}</h3>
       <p class="type-body-2">{description}</p>
     </div>
   </a>
 </Card>
-
-<style>
-  a:hover .link-text {
-    @apply underline;
-  }
-  a:hover img {
-    @apply scale-105;
-  }
-</style>

@@ -18,14 +18,14 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black bg-opacity-50" />
+        <div class="fixed inset-0 bg-black/50" />
       </TransitionChild>
       <div class="fixed inset-0 overflow-y-auto backdrop-blur-sm">
-        <DialogPanel class="flex justify-center p-4 mt-[10vh] mx-auto max-w-3xl">
+        <DialogPanel class="mx-auto mt-[10vh] flex max-w-3xl justify-center p-4">
           <Combobox v-model="selected">
             <div class="relative mt-1 w-full">
               <form
-                class="flex items-center w-full p-squish-2 space-x-2 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none text-sm"
+                class="flex w-full cursor-default items-center space-x-2 overflow-hidden rounded-lg bg-white text-left text-sm shadow-md p-squish-2 focus:outline-none"
               >
                 <label for="query-input">
                   <Search class="left-4 w-6" />
@@ -45,11 +45,11 @@
               >
                 <ComboboxOptions
                   v-if="query !== ''"
-                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm"
+                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-none"
                 >
                   <div
                     v-if="results.length === 0"
-                    class="relative cursor-default select-none py-2 px-4"
+                    class="relative cursor-default select-none px-4 py-2"
                   >
                     Nothing found.
                   </div>
@@ -61,7 +61,7 @@
                     :value="result"
                   >
                     <li
-                      class="relative cursor-default select-none py-2 px-4"
+                      class="relative cursor-default select-none px-4 py-2"
                       :class="{
                         'bg-surface-secondary': active,
                       }"
@@ -70,7 +70,7 @@
                         class="flex items-center space-x-4"
                         :href="result.href"
                       >
-                        <div class="truncate w-full">
+                        <div class="w-full truncate">
                           <span class="block truncate font-medium text-content-secondary">
                             {{ result.title }}
                           </span>

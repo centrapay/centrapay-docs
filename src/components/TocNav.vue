@@ -17,10 +17,10 @@
       >
         <a
           :href="`#${heading.slug}`"
-          class="flex border-l-2 text-sm p-squish-2 truncate hover:text-content-primary hover:border-content-primary"
+          class="flex truncate border-l-2 text-sm p-squish-2 hover:border-content-primary hover:text-content-primary"
           :class="[
             visibleHeadingId === heading.slug ?
-              'text-content-primary border-brand-accent':
+              'border-brand-accent text-content-primary':
               'text-content-tertiary'
           ]"
           @click="handleTocClick(heading.slug)"

@@ -9,7 +9,7 @@ const navPath = path.endsWith('/') ? path.slice(0, -1) : path;
 <div class="flex h-screen w-screen">
   <Header path={navPath} navigation={navigation} />
   <DesktopNavigation path={navPath} navigation={navigation} />
-  <main class="flex flex-col min-h-full w-full pt-16 md:pl-64 xl:pl-80">
+  <main class="flex min-h-full w-full flex-col pt-16 md:pl-64 xl:pl-80">
     <slot />
   </main>
 </div>
