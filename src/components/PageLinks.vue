@@ -3,7 +3,7 @@
     <div :class="{ 'border-l-2 border-brand-accent': selected && !navigationItem.headings.length }">
       <a
         :href="href"
-        class="group mt-2 w-full flex items-center pl-12 pr-1 py-2 space-x-3 text-left rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+        class="group mt-2 flex w-full items-center space-x-3 rounded-md py-2 pl-12 pr-1 text-left ring-focus-ring hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset"
         :class="{ 'bg-gray-100': selected && !navigationItem.headings.length }"
       >
         <span
@@ -11,7 +11,7 @@
           class="flex-1 leading-5"
           :class="{
             'text-black': selected,
-            'text-md text-content-tertiary': level === 1,
+            'text-base text-content-tertiary': level === 1,
             'text-sm text-content-tertiary': level === 2,
             'text-xs text-content-secondary': level === 3,
           }"
@@ -33,7 +33,7 @@
       >
         <a
           :href="`${href}#${heading.slug}`"
-          class="text-xs text-content-secondary hover:text-content-primary group w-full flex items-center pl-16 pr-1 py-2 space-x-3 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring hover:bg-gray-200"
+          class="group flex w-full items-center space-x-3 rounded-md py-2 pl-16 pr-1 text-left text-xs text-content-secondary ring-focus-ring hover:bg-gray-200 hover:text-content-primary focus:outline-none focus:ring-2 focus:ring-inset"
         >
           {{ heading.text }}
         </a>

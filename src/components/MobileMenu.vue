@@ -1,17 +1,17 @@
 <template>
   <button
-    class="flex items-center md:hidden focus:outline-none focus:ring-2 focus:ring-inset ring-focus-ring"
+    class="flex items-center ring-focus-ring focus:outline-none focus:ring-2 focus:ring-inset md:hidden"
     @click="mainMenuOpen = !mainMenuOpen"
   >
     <span class="sr-only">Open Main Menu</span>
     <NavigationMenu
       v-if="!mainMenuOpen"
-      class="block h-6 w-6 text-content-tertiary"
+      class="block size-6 text-content-tertiary"
       aria-hidden="true"
     />
     <CloseOutline
       v-else
-      class="block h-6 w-6 text-content-tertiary"
+      class="block size-6 text-content-tertiary"
       aria-hidden="true"
     />
   </button>
@@ -34,7 +34,7 @@
           leave-to="-translate-y-full"
         >
           <DialogPanel class="relative flex w-full flex-1 flex-col bg-surface-primary">
-            <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+            <div class="h-0 flex-1 overflow-y-auto pb-4 pt-5">
               <nav
                 class="space-y-1 px-4"
                 aria-label="Sidebar"

@@ -3,16 +3,16 @@ const { heading = 'Attributes' } = Astro.props;
 ---
 
 <div data-attributes class="my-6">
-  <div class="flex justify-between items-center not-prose py-2">
+  <div class="not-prose flex items-center justify-between py-2">
     <h3 class="type-subtitle-1">{ heading }</h3>
-    <button data-expand-button class="text-content-tertiary type-overline hover:text-content-secondary">
+    <button data-expand-button class="type-overline text-content-tertiary hover:text-content-secondary">
       Collapse all
     </button>
   </div>
   <ul
     data-attribute-list
     role="list"
-    class="m-0 list-none border-y border-outline-transparent divide-y divide-outline-transparent p-0 pt-4"
+    class="m-0 list-none divide-y divide-outline-transparent border-y border-outline-transparent p-0 pt-4"
   >
     <slot />
   </ul>

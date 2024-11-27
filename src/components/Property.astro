@@ -1,5 +1,5 @@
-
 ---
+/* eslint-disable tailwindcss/no-custom-classname */
 import Badge from '../components/Badge.astro';
 
 const { name, type, required, experimental, deprecated } = Astro.props;
@@ -16,7 +16,7 @@ const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + form
     { experimental && <Badge type="experimental" /> }
     { deprecated && <Badge type="deprecated" /> }
   </div>
-  <div data-expandable-slot class="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0 transition-opacity duration-500 expanded">
+  <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
     <slot />
   </div>
 </li>

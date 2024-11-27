@@ -5,9 +5,9 @@ const { path, navigation } = Astro.props;
 ---
 <div
   id="sidebar"
-  class="hidden md:fixed md:h-full md:flex md:w-64 xl:w-80 md:flex-col"
+  class="hidden md:fixed md:flex md:h-full md:w-64 md:flex-col xl:w-80"
 >
-  <div class="sidebar-content flex flex-grow flex-col mt-16 py-5 overflow-y-auto border-r border-gray-200 bg-white">
+  <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white py-5">
     <nav
       class="space-y-1 px-4"
       aria-label="Sidebar"
@@ -35,7 +35,7 @@ const { path, navigation } = Astro.props;
 </div>
 
 <script is:inline>
-  const leftSidebar = document.querySelector('#sidebar > .sidebar-content');
+  const leftSidebar = document.querySelector('#sidebar > #sidebar-content');
   const leftSidebarScroll = localStorage.getItem('sidebar-scroll');
 
   if (leftSidebarScroll !== null) {

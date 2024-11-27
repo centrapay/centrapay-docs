@@ -4,11 +4,11 @@ const { id } = Astro.props;
 ---
 
 <div class="not-prose">
-  <a href=`#${id}` class="group flex items-center relative">
-    <AnchorLink class="w-4 h-4 mr-2 absolute right-full opacity-0 group-hover:opacity-100" />
+  <a href=`#${id}` class="group relative flex items-center">
+    <AnchorLink class="absolute right-full mr-2 size-4 opacity-0 group-hover:opacity-100" />
     <h2
       id={id}
-      class="scroll-mt-32 my-4 type-headline-4 flex flex-wrap gap-1"
+      class="type-headline-4 my-4 flex scroll-mt-32 flex-wrap gap-1"
     >
       <slot/>
     </h2>

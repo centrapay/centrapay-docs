@@ -1,13 +1,13 @@
 <template>
   <Disclosure>
     <DisclosureButton
-      class="flex w-full flex-row text-left justify-between px-0 my-4 focus:ring-1 ring-offset-8 rounded-md type-subtitle-2"
+      class="type-subtitle-2 my-4 flex w-full flex-row justify-between rounded-md px-0 text-left ring-offset-8 focus:ring-1"
       @click="open = !open"
     >
       {{ title }}
-      <Carat :class="[open ? '-rotate-90' : 'rotate-90', 'ml-2 h-6 w-6 flex-none']" />
+      <Carat :class="[open ? '-rotate-90' : 'rotate-90', 'ml-2 size-6 flex-none']" />
     </DisclosureButton>
-    <DisclosurePanel class="mr-6 mb-2">
+    <DisclosurePanel class="mb-2 mr-6">
       <slot />
     </DisclosurePanel>
   </Disclosure>
