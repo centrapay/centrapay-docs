@@ -582,6 +582,28 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 <Endpoint
+  path="/api/payment-requests/external-ref/{externalRef}"
+  filename="payment-requests-list-by-external-ref"
+>
+  ## List Payment Requests by External Reference
+
+  This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
+  Results are [paginated](/api/pagination/).
+
+  <Properties>
+    <Property name="accountId" type="string" required>
+      The id of the [Account](/api/accounts/) used to create the Payment Request.
+    </Property>
+    <Property name="pageKey" type="string">
+      Used to retrieve the next page of items.
+      Note: The `pageKey` value, if provided, needs to be URL-encoded.
+    </Property>
+  </Properties>
+</Endpoint>
+
+---
+
+<Endpoint
   path="/api/payment-requests/{paymentRequestId}/summary"
   filename="payment-requests-get-summary"
 >
