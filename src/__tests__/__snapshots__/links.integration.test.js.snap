@@ -244,6 +244,7 @@ exports[`the build should not break any links 1`] = `
   "/api/payment-requests#line-item-model",
   "/api/payment-requests#list-payment-activities-for-a-merchant",
   "/api/payment-requests#list-payment-activities-for-a-payment-request",
+  "/api/payment-requests#list-payment-requests-by-external-reference",
   "/api/payment-requests#paid-by-model",
   "/api/payment-requests#pay-a-payment-request",
   "/api/payment-requests#payment-activity-model",
