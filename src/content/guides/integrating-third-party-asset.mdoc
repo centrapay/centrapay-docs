@@ -5,8 +5,6 @@ nav:
   path: Reference/Digital Assets
   order: 2
 ---
-import CodePanel from '../../components/CodePanel.astro';
-
 By integrating with Centrapay as a third-party asset provider, you can take advantage of our connections with terminals, point-of-sale systems, and merchant networks, thereby expanding the reach of your digital asset to a wider audience.
 
 Once you have defined your asset as a [Payment Method](#defining-a-payment-method) with Centrapay and implemented the required [Uplink APIs](#uplink-api-spec), consumers will be able to spend your digital asset using one of our payment flows wherever merchants accept your digital asset.
@@ -85,14 +83,11 @@ Verify the JWT using the public key returned for the JSON Web Key Set (JWKS) end
 
 Keys used for signing JWTs may be rotated without warning, therefore it is required that signatures are resolved dynamically against the JWKS endpoint. You may choose to cache the result, but respect the directives in the http cache-control headers.
 
-<CodePanel>
-  ```bash title="JWKS Request"
+  ```bash {% title="JWKS Request" %}
   curl https://auth.centrapay.com/api/.well-known/jwks.json
   ```
-</CodePanel>
 
-<CodePanel>
-  ```json title="JWKS Response"
+  ```json {% title="JWKS Response" %}
   {
     "keys": [
       {
@@ -107,12 +102,10 @@ Keys used for signing JWTs may be rotated without warning, therefore it is requi
     ]
   }
   ```
-</CodePanel>
 
 To verify a request start by decoding the JWT.
 
-<CodePanel>
-  ```json title="Decoded JWT Payload"
+  ```json {% title="Decoded JWT Payload" %}
   {
     "iat": "1684105185",
     "exp": "1684105485",
@@ -120,7 +113,6 @@ To verify a request start by decoding the JWT.
     "request_body_sha256": "b9195bf41bf0e38ab0ab44e7ef5b9af5cb0fe2ece8dee5d112d7485bf4ef0007",
   }
   ```
-</CodePanel>
 
 |        Field        |                                                Description                                                |
 | ------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -137,8 +129,7 @@ Assert that the audience is correct by checking that aud is equal to the base UR
 
 The request_body_sha256 property should be used to verify that the request payload has not been tampered with. This should be done by hashing the received request payload using the SHA256 algorithm and checking for equality with request_body_sha256 as shown below. If the request does not have a payload then the request_body_sha256 field will not be present in the decoded JWT.
 
-<CodePanel>
-  ```javascript title="Example"
+  ```javascript {% title="Example" %}
   const crypto = require("crypto");
 
   const decodedJwt = {
@@ -158,7 +149,6 @@ The request_body_sha256 property should be used to verify that the request paylo
     throw new Error("Payload hashes do not match");
   }
   ```
-</CodePanel>
 
 If any of the above assertions are not met the request must be rejected.
 
@@ -233,8 +223,7 @@ sequenceDiagram
 	note over T: Display Successful Payment
 ```
 
-<CodePanel>
-```bash title="Request"
+```bash {% title="Request" %}
 curl -X POST https://your.endpoint/pay \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
@@ -249,10 +238,8 @@ curl -X POST https://your.endpoint/pay \
 		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
   }'
 ```
-</CodePanel>
 
-<CodePanel>
-```json title="Response"
+```json {% title="Response" %}
 {
   "currency": "NZD",
   "amount": "1000",
@@ -267,7 +254,6 @@ curl -X POST https://your.endpoint/pay \
   "refundBefore": "2023-06-09T00:52:22.468Z"
 }
 ```
-</CodePanel>
 
 **Failure Reasons**
 
@@ -282,8 +268,7 @@ This endpoint is used to refund a Payment Request with status `paid`. Refunds mu
 
 It is expected that partial refunds are supported.
 
-<CodePanel>
-```bash title="Request"
+```bash {% title="Request" %}
 curl -X POST https://your.endpoint/refund \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
@@ -295,10 +280,8 @@ curl -X POST https://your.endpoint/refund \
 		"idempotencyKey": "dDHF8743fVzdsg84f6"
 	}'
 ```
-</CodePanel>
 
-<CodePanel>
-```json title="Response"
+```json {% title="Response" %}
 {
   "currency": "NZD",
   "amount": "1000",
@@ -311,7 +294,6 @@ curl -X POST https://your.endpoint/refund \
   "status": "successful"
 }
 ```
-</CodePanel>
 
 **Failure Reasons**
 
@@ -327,10 +309,7 @@ The Cancel endpoint can be used to stop processing a transaction that has status
 
 Once the Cancel endpoint is called, the transaction status should be `failed`. This is a synchronous call and cannot return status `pending`. The reason for cancellation will be passed through as a failureReason.
 
-**Example Request**
-
-<CodePanel>
-```bash title="Request"
+```bash {% title="Request" %}
 curl -X POST https://your.endpoint/cancel \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
@@ -339,10 +318,8 @@ curl -X POST https://your.endpoint/cancel \
 		"failureReason": "PAYMENT_REQUEST_EXPIRED"
 	}'
 ```
-</CodePanel>
 
-<CodePanel>
-```json title="Response"
+```json {% title="Response" %}
 {
   "currency": "NZD",
   "amount": "1000",
@@ -356,7 +333,6 @@ curl -X POST https://your.endpoint/cancel \
   "failureReason": "PAYMENT_REQUEST_EXPIRED"
 }
 ```
-</CodePanel>
 
 **Failure Reasons**
 
@@ -373,15 +349,12 @@ Polling will continue until either the transaction attempt status is successful 
 
 You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
 
-<CodePanel>
-```bash title="Request"
+```bash {% title="Request" %}
 curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
 	-H "Authorization: ${jwt}"
 ```
-</CodePanel>
 
-<CodePanel>
-```json title="Response"
+```json {% title="Response" %}
 {
   "currency": "NZD",
   "amount": "1000",
@@ -396,7 +369,6 @@ curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
   "refundBefore": "2023-06-09T00:52:22.468Z"
 }
 ```
-</CodePanel>
 
 ## Implementation Checklist
 

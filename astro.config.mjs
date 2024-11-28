@@ -2,9 +2,6 @@ import { defineConfig } from 'astro/config';
 import flexsearchPlugin from './src/plugins/flexsearch';
 import tailwind from '@astrojs/tailwind';
 
-// Remark plugins
-import { mermaid } from './src/plugins/mermaid';
-
 // Rehype plugins
 import rehypeSectionize from '@hbsnow/rehype-sectionize';
 
@@ -26,17 +23,7 @@ export default defineConfig({
     markdoc(),
   ],
   markdown: {
-    remarkPlugins: [ mermaid ],
     rehypePlugins: [ rehypeSectionize ],
-    shikiConfig: {
-      // Choose from Shiki's built-in themes (or add your own)
-      // https://github.com/shikijs/shiki/blob/main/docs/themes.md
-      theme: 'material-theme-darker',
-      // Add custom languages
-      // Note: Shiki has countless langs built-in, including .astro!
-      // https://github.com/shikijs/shiki/blob/main/docs/languages.md
-      langs: [],
-    },
   },
   vite: {
     plugins: [

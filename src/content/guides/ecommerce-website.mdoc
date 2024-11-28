@@ -5,8 +5,6 @@ nav:
   path: Reference/Merchant Integrations
   order: 4
 ---
-import CodePanel from '../../components/CodePanel.astro';
-
 Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our redirect or popup eCommerce payment flows.
 
 ## Know before you code
@@ -39,7 +37,7 @@ The customer is redirected back to your website at the end of the process.
 
 ### Overview
 
-``` mermaid
+```mermaid
 sequenceDiagram
 autonumber
   participant Consumer
@@ -149,7 +147,6 @@ autonumber
 
 ### Implementation
 
-<CodePanel>
 ```html title="Sample Integration"
 <html>
 	<head>
@@ -174,7 +171,6 @@ autonumber
 	</body>
 </html>
 ```
-</CodePanel>
 
 1. Set up the SDK.
     1. Import the Centrapay SDK using a `<script>` tag.

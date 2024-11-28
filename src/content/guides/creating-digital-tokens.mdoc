@@ -5,8 +5,6 @@ nav:
   path: Reference/Digital Assets
   order: 3
 ---
-import CodePanel from '../../components/CodePanel.astro';
-
 Digital tokens are assets that can be exchanged for specific products or deals. Think a "Free coffee" coupon or a "50% off" voucher.
 Unlike assets such as currency, tokens can only be spent in their entirety, all at once.
 
@@ -27,7 +25,7 @@ It contains redemption details specific to that merchant, e.g. redeemable produc
 
 ## Implementation
 
-``` mermaid
+```mermaid
 sequenceDiagram
   autonumber
   Token Issuer ->> Centrapay: Create Collection
@@ -43,7 +41,6 @@ sequenceDiagram
 
     You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
-    <CodePanel>
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/collections \
         -H "X-Api-Key: $api_key" \
@@ -62,13 +59,11 @@ sequenceDiagram
           "type": "product"
         }'
       ```
-    </CodePanel>
 
 2. **Create Redemption Condition** for each merchant, using the collection Id from step 1
 
     Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
 
-    <CodePanel>
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/collections/c_NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
         -H "X-Api-Key: $api_key" \
@@ -95,13 +90,11 @@ sequenceDiagram
           ]
         }'
       ```
-    </CodePanel>
 
 3. **Create Token**
 
     Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
 
-      <CodePanel>
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/tokens \
         -H "X-Api-Key: $api_key" \
@@ -111,11 +104,9 @@ sequenceDiagram
           "idempotencyKey": "token-de32dd90-b46c-11ea-93c3-83a333b86e7b"
         }'
       ```
-      </CodePanel>
 
     To create tokens directly into a user account, call our [Create Token](/api/tokens#create-token) endpoint and include the user’s `accountId` in your request.
 
-    <CodePanel>
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/tokens \
         -H "X-Api-Key: $api_key" \
@@ -126,9 +117,6 @@ sequenceDiagram
           "accountId": "WRhAxxWpTKb5U7pXyxQjjP"
         }'
       ```
-    </CodePanel>
-
-
 
 4. **Transfer Token**
 

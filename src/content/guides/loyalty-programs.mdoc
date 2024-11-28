@@ -5,14 +5,11 @@ nav:
   path: Reference/Digital Assets
   order: 5
 ---
-
-import CodePanel from '../../components/CodePanel.astro';
-
 A Loyalty Program is a collection of Promotions that reward accounts for completing certain actions. For example, a Loyalty Program could be set up to reward accounts with points every time they make a payment.
 
 To set up a Loyalty Program and issue rewards, there are a few required steps:
 
-``` mermaid
+```mermaid
 sequenceDiagram
 	autonumber
 
@@ -48,8 +45,7 @@ sequenceDiagram
 
 When an Event is generated for an Account, Centrapay will look up all the Promotion Memberships under that Account and check the conditions for each one. If the Event satisfies the conditions, the Promotion Membership progress will be incremented.
 
-<CodePanel>
-```json title="Example Event"
+```json {% title="Example" %}
 {
   "id": "L75M3L56N2PtBSt8g7uXLU",
   "accountId": "Jaim1Cu1Q55uooxSens6yk",
@@ -62,7 +58,6 @@ When an Event is generated for an Account, Centrapay will look up all the Promot
   "createdBy": "crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey"
 }
 ```
-</CodePanel>
 
 ## Creating Promotions
 
