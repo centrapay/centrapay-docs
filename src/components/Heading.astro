@@ -1,14 +1,18 @@
 ---
 import AnchorLink from './icons/AnchorLink.astro';
-const { id } = Astro.props;
+const { level, id } = Astro.props;
+
+// https://github.com/withastro/astro/issues/6205#issuecomment-1425654486
+type Heading = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+const HeadingElement = `h${level}` as Heading;
 ---
 
 <a href=`#${id}` class="group relative flex items-center">
   <AnchorLink class="absolute right-full mr-2 mt-10 size-4 opacity-0 group-hover:opacity-100" />
-  <h2
+  <HeadingElement
     id={id}
     class="w-full"
   >
     <slot/>
-  </h2>
+  </HeadingElement>
 </a>

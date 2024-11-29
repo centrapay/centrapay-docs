@@ -14,6 +14,10 @@ export default defineMarkdocConfig({
       },
       render: component('./src/components/Fence.astro'),
     },
+    heading: {
+      ...nodes.heading,
+      render: component('./src/components/Heading.astro'),
+    },
     image: {
       ...nodes.image,
       render: component('./src/components/Figure.astro'),
