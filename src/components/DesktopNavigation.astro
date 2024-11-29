@@ -1,6 +1,5 @@
 ---
-import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
-import PageLinks from './PageLinks.vue';
+import Navigation from './Navigation.vue';
 const { path, navigation } = Astro.props;
 ---
 <div
@@ -8,29 +7,11 @@ const { path, navigation } = Astro.props;
   class="hidden md:fixed md:flex md:h-full md:w-64 md:flex-col xl:w-80"
 >
   <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white py-5">
-    <nav
-      class="space-y-1 px-4"
-      aria-label="Sidebar"
-    >
-      <ul role="menubar">
-        {
-          navigation.items.map((section) => (
-            section.children?.length ?
-              <PrimarySidebarDisclosure
-                client:load
-                navigationItem={section}
-                path={path}
-              /> :
-              <PageLinks
-                client:load
-                navigationItem={section}
-                path={path}
-                level="1"
-              />
-          ))
-        }
-      </ul>
-    </nav>
+    <Navigation
+      navigation={navigation}
+      path={path}
+      client:load
+    />
   </div>
 </div>
 
