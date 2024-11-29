@@ -5,16 +5,13 @@ nav:
   path: Reference/Merchant Integrations
   order: 11
 ---
-import CodePanel from '../../components/CodePanel.astro';
-
 [Line Items](/api/payment-requests#line-item-model) are used to communicate the details of a purchase to a patron.
 
 ## Restrictions
 
 1. The price of a Line Item MUST represent the amount that a patron will pay for that Line Item, including tax and any discounts applied (e.g. price = product price * qty - discounts + tax).
 
-  <CodePanel>
-    ```json title="Example"
+    ```json
     [
       {
         "name": "Cinema Tickets",
@@ -26,7 +23,6 @@ import CodePanel from '../../components/CodePanel.astro';
       }
     ]
     ```
-  </CodePanel>
 
 2. The price for each Line Item MUST be provided in cents.
 3. The total for all Line Item prices MUST sum to the [Payment Request](/api/payment-requests/) amount.
@@ -34,8 +30,7 @@ import CodePanel from '../../components/CodePanel.astro';
 5. The discount for each Line Item MUST be provided in cents and is tax exclusive.
 6. A discount that applies to multiple line items may be represented as a separate line item with a negative amount.
 
-  <CodePanel>
-    ```json title="Example"
+    ```json
     [
       {
         "name": "Cinema Tickets",
@@ -60,7 +55,6 @@ import CodePanel from '../../components/CodePanel.astro';
       }
     ]
     ```
-  </CodePanel>
 
 ## Determining Paid For Line Items
 
@@ -70,8 +64,7 @@ This information should also be displayed to a consumer when possible. If any li
 Integrators must iterate through the `assetTotals` array and display any line items purchased to the merchant. Line items that have been purchased via Centrapay must no longer be able to be purchased using another form of payment.
 This is especially important for any assets which are only redeemable against specific line items. For example, there could be a case where someone used a digital token to pay for a line item, and then a physical voucher to pay for that same line item, which would mean the second voucher could go towards purchasing something other than the intended line item.
 
-<CodePanel>
-```json title="Example"
+```json
   {
     "type": "centrapay.token.main",
     "description": "Centrapay Token",
@@ -91,4 +84,3 @@ This is especially important for any assets which are only redeemable against sp
     ]
   }
 ```
-</CodePanel>
