@@ -17,6 +17,8 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
       - run: yarn test
-      - run: ./build.sh
+      - run: yarn build
+        env:
+          ENV: prod
       - run: yarn linkinator
       - run: yarn integration

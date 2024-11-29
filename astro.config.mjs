@@ -12,9 +12,14 @@ import mdx from '@astrojs/mdx';
 import markdoc from '@astrojs/markdoc';
 import expressiveCode from 'astro-expressive-code';
 
+import { loadEnv } from "vite";
+
+const ENV = process.env.ENV;
+const { SITE } = loadEnv(ENV, process.cwd(), "");
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://docs.centrapay.com',
+  site: SITE,
   integrations: [
     vue(),
     tailwind({ applyBaseStyles: false }),
