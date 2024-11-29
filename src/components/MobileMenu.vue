@@ -29,32 +29,30 @@
       leave-to-class="opacity-0 -translate-y-1"
     >
       <PopoverPanel class="absolute inset-x-0 inset-y-16 -z-10">
-        <div class="relative size-auto bg-surface-primary">
-          <div class="flex min-h-full w-full flex-1 overflow-y-scroll py-2">
-            <nav
-              class="w-full space-y-1 px-4"
-              aria-label="Sidebar"
-            >
-              <ul role="menubar">
-                <div
-                  v-for="item in navigation.items"
-                  :key="item.title"
-                >
-                  <PrimarySidebarDisclosure
-                    v-if="item.children?.length"
-                    :navigation-item="item"
-                    :path="path"
-                  />
-                  <PageLinks
-                    v-else
-                    :navigation-item="item"
-                    :path="path"
-                    :level="1"
-                  />
-                </div>
-              </ul>
-            </nav>
-          </div>
+        <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t bg-surface-primary pb-4 pt-2">
+          <nav
+            class="w-full space-y-1 px-4"
+            aria-label="Sidebar"
+          >
+            <ul role="menubar">
+              <div
+                v-for="item in navigation.items"
+                :key="item.title"
+              >
+                <PrimarySidebarDisclosure
+                  v-if="item.children?.length"
+                  :navigation-item="item"
+                  :path="path"
+                />
+                <PageLinks
+                  v-else
+                  :navigation-item="item"
+                  :path="path"
+                  :level="1"
+                />
+              </div>
+            </ul>
+          </nav>
         </div>
       </PopoverPanel>
     </transition>
@@ -67,12 +65,9 @@ import NavigationMenu from './icons/NavigationMenu.vue';
 import PageLinks from './PageLinks.vue';
 import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import { ref } from 'vue';
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
   navigation: { type: Object, required: true },
 });
-
-let mainMenuOpen = ref(false);
 </script>
