@@ -6,8 +6,6 @@ nav:
   title: Error Handling
   order: 8
 ---
-import CodePanel from '../../components/CodePanel.astro';
-
 Below are our guidelines for dealing with inconsistencies in [Payment Request](/api/payment-requests) statuses due to network issues, race conditions, or [asset](/api/asset-types/) specific behaviours.
 
 ## Respect Payment Status
@@ -25,8 +23,7 @@ Due to this, the same error message can be returned for different reasons.
 Centrapay provides additional details in the `reason` field to enhance error messages and assist with debugging.
 Integrators may choose to display the `reason` to provide more information to the user, however, it is recommended that`reason` is not used to drive application logic.
 
-<CodePanel>
-``` json title="Error Response"
+```json
 {
   "statusCode": 403,
   "message": "ERROR_MESSAGE",
@@ -34,8 +31,6 @@ Integrators may choose to display the `reason` to provide more information to th
   "reason": "A more detailed description of the reason for the error"
 }
 ```
-</CodePanel>
-
 
 ## Configure POS Timeout
 
@@ -51,4 +46,4 @@ When faced with an unknown error while checking the status of a Payment Request,
 
 ## Resolving Persistent Errors
 
-For issues that cannot be resolved, please reach out to Centrapay Support at integrations@centrapay.com.
+For issues that cannot be resolved, please reach out to Centrapay Support at [integrations@centrapay.com](mailto:integrations@centrapay.com).
