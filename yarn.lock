@@ -2796,6 +2796,56 @@ __metadata:
   languageName: node
   linkType: hard
 
+"centrapay-docs@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "centrapay-docs@workspace:."
+  dependencies:
+    "@astrojs/markdoc": "npm:^0.11.5"
+    "@astrojs/mdx": "npm:^3.1.7"
+    "@astrojs/tailwind": "npm:^5.1.1"
+    "@astrojs/vue": "npm:^4.5.2"
+    "@babel/eslint-parser": "npm:^7.14.7"
+    "@eslint/js": "npm:^9.10.0"
+    "@fontsource/inter": "npm:^4.5.15"
+    "@hbsnow/rehype-sectionize": "npm:^1.0.7"
+    "@headlessui/vue": "npm:^1.6.0"
+    "@tailwindcss/typography": "npm:^0.5.8"
+    astro: "npm:^4.16.7"
+    astro-expressive-code: "npm:^0.38.3"
+    eslint: "npm:^9.10.0"
+    eslint-plugin-astro: "npm:^1.2.4"
+    eslint-plugin-cypress: "npm:^2.11.2"
+    eslint-plugin-import: "npm:^2.20.2"
+    eslint-plugin-jest: "npm:^28.8.3"
+    eslint-plugin-no-only-tests: "npm:^2.4.0"
+    eslint-plugin-node: "npm:^11.1.0"
+    eslint-plugin-promise: "npm:^4.2.1"
+    eslint-plugin-standard: "npm:^4.0.0"
+    eslint-plugin-tailwindcss: "npm:^3.17.5"
+    eslint-plugin-vue: "npm:^9.28.0"
+    flexsearch: "npm:^0.7.43"
+    glob: "npm:^9.0.0"
+    globals: "npm:^15.9.0"
+    gray-matter: "npm:^4.0.3"
+    httpsnippet: "npm:^3.0.1"
+    jsdom: "npm:^22.1.0"
+    linkinator: "npm:^5.0.2"
+    mdast-util-to-string: "npm:^3.1.1"
+    mermaid: "npm:^11.2.1"
+    path: "npm:^0.12.7"
+    remark-html: "npm:^15.0.2"
+    remark-parse: "npm:^10.0.1"
+    tailwindcss: "npm:^3.1.8"
+    typescript: "npm:^5.6.2"
+    unified: "npm:^10.1.2"
+    unist-util-find-after: "npm:^4.0.1"
+    unist-util-find-before: "npm:^4.0.0"
+    unist-util-visit: "npm:^4.1.2"
+    vitest: "npm:^2.1.3"
+    vue: "npm:^3.5.12"
+  languageName: unknown
+  linkType: soft
+
 "chai@npm:^5.1.1":
   version: 5.1.2
   resolution: "chai@npm:5.1.2"
@@ -9259,56 +9309,6 @@ __metadata:
   checksum: 10c0/265de71cf6c20854514f0be1727fab3e615aa4afde2431f705c6f535182976c645703d2a21b4d25648a0212fb26a4043f892a83bba4d73c9ea965271a2f4a50e
   languageName: node
   linkType: hard
-
-"root-workspace-0b6124@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "root-workspace-0b6124@workspace:."
-  dependencies:
-    "@astrojs/markdoc": "npm:^0.11.5"
-    "@astrojs/mdx": "npm:^3.1.7"
-    "@astrojs/tailwind": "npm:^5.1.1"
-    "@astrojs/vue": "npm:^4.5.2"
-    "@babel/eslint-parser": "npm:^7.14.7"
-    "@eslint/js": "npm:^9.10.0"
-    "@fontsource/inter": "npm:^4.5.15"
-    "@hbsnow/rehype-sectionize": "npm:^1.0.7"
-    "@headlessui/vue": "npm:^1.6.0"
-    "@tailwindcss/typography": "npm:^0.5.8"
-    astro: "npm:^4.16.7"
-    astro-expressive-code: "npm:^0.38.3"
-    eslint: "npm:^9.10.0"
-    eslint-plugin-astro: "npm:^1.2.4"
-    eslint-plugin-cypress: "npm:^2.11.2"
-    eslint-plugin-import: "npm:^2.20.2"
-    eslint-plugin-jest: "npm:^28.8.3"
-    eslint-plugin-no-only-tests: "npm:^2.4.0"
-    eslint-plugin-node: "npm:^11.1.0"
-    eslint-plugin-promise: "npm:^4.2.1"
-    eslint-plugin-standard: "npm:^4.0.0"
-    eslint-plugin-tailwindcss: "npm:^3.17.5"
-    eslint-plugin-vue: "npm:^9.28.0"
-    flexsearch: "npm:^0.7.43"
-    glob: "npm:^9.0.0"
-    globals: "npm:^15.9.0"
-    gray-matter: "npm:^4.0.3"
-    httpsnippet: "npm:^3.0.1"
-    jsdom: "npm:^22.1.0"
-    linkinator: "npm:^5.0.2"
-    mdast-util-to-string: "npm:^3.1.1"
-    mermaid: "npm:^11.2.1"
-    path: "npm:^0.12.7"
-    remark-html: "npm:^15.0.2"
-    remark-parse: "npm:^10.0.1"
-    tailwindcss: "npm:^3.1.8"
-    typescript: "npm:^5.6.2"
-    unified: "npm:^10.1.2"
-    unist-util-find-after: "npm:^4.0.1"
-    unist-util-find-before: "npm:^4.0.0"
-    unist-util-visit: "npm:^4.1.2"
-    vitest: "npm:^2.1.3"
-    vue: "npm:^3.5.12"
-  languageName: unknown
-  linkType: soft
 
 "roughjs@npm:^4.6.6":
   version: 4.6.6
