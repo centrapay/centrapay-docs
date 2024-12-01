@@ -14,7 +14,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if [ "$mode" == "development" ]; then
+if [ "$mode" == "dev" ]; then
   yarn build --mode "$mode" --site "http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com"
 else
   yarn build
