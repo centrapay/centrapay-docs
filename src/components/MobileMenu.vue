@@ -30,29 +30,10 @@
     >
       <PopoverPanel class="absolute inset-x-0 inset-y-16 -z-10">
         <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t bg-surface-primary pb-4 pt-2">
-          <nav
-            class="w-full space-y-1 px-4"
-            aria-label="Sidebar"
-          >
-            <ul role="menubar">
-              <div
-                v-for="item in navigation.items"
-                :key="item.title"
-              >
-                <PrimarySidebarDisclosure
-                  v-if="item.children?.length"
-                  :navigation-item="item"
-                  :path="path"
-                />
-                <PageLinks
-                  v-else
-                  :navigation-item="item"
-                  :path="path"
-                  :level="1"
-                />
-              </div>
-            </ul>
-          </nav>
+          <Navigation
+            :path="path"
+            :navigation="navigation"
+          />
         </div>
       </PopoverPanel>
     </transition>
@@ -62,8 +43,7 @@
 <script setup>
 import CloseOutline from './icons/CloseOutline.vue';
 import NavigationMenu from './icons/NavigationMenu.vue';
-import PageLinks from './PageLinks.vue';
-import PrimarySidebarDisclosure from './PrimarySidebarDisclosure.vue';
+import Navigation from './Navigation.vue';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 
 const props = defineProps({
