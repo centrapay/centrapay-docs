@@ -1,0 +1,13 @@
+name: master
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    types: [ opened, reopened, synchronize ]
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello world
