@@ -16,7 +16,8 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
       - run: yarn test
-      - run: ./build.sh
+      - run: yarn build --mode prod
+      - run: cp CNAME dist
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
