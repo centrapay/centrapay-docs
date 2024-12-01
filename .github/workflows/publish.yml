@@ -16,7 +16,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
       - run: yarn test
-      - run: yarn build
+      - run: yarn build --mode prod
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

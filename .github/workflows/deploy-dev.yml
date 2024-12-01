@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 22
       - run: yarn install --immutable
-      - run: yarn build --mode development
+      - run: yarn build --mode dev
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
