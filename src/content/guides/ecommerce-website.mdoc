@@ -77,19 +77,19 @@ autonumber
 > Your merchant must be configured with allowed domains for your redirect URLs.
 
 1. Display Centrapay as a payment option on checkout.
-2. When the customer places an order using the Centrapay payment option, you are expected to [Create a Payment Request](https://docs.centrapay.com/api/payment-requests/#create-a-payment-request).
+2. When the customer places an order using the Centrapay payment option, you are expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request).
   **You must define a `redirectPaidUrl` and a `redirectCancelUrl`.**
 
     Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
-    - [Line Items](https://docs.centrapay.com/guides/line-items)
-    - [Requesting Pre Auth](https://docs.centrapay.com/guides/requesting-pre-auth)
+    - [Line Items](/guides/line-items)
+    - [Requesting Pre Auth](/guides/requesting-pre-auth)
 
     Centrapay will return a `url` which you are expected to redirect the customer to.
 
 3. The customer will be redirected to your site at the end of the payment process.
     - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
     - If the Payment Request is `cancelled`, `expired`, or `new`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
-    - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](https://docs.centrapay.com/api/payment-requests/#void-a-payment-request).
+    - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
 
 ## Popup Method
 
@@ -184,8 +184,8 @@ autonumber
 
         The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request.
         Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
-        - [Line Items](https://docs.centrapay.com/guides/line-items)
-        - [Requesting Pre Auth](https://docs.centrapay.com/guides/requesting-pre-auth)
+        - [Line Items](/guides/line-items)
+        - [Requesting Pre Auth](/guides/requesting-pre-auth)
 
     2. `onComplete`
 
