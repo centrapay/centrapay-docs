@@ -6,8 +6,143 @@ on:
   pull_request:
     branches: [ master ]
     types: [ opened, reopened, synchronize ]
+
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  hello-world:
+  setup:
+    continue-on-error: true
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    outputs:
+      yarn-cache-config: ${{ steps.setup-yarn-cache.outputs.config }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - id: setup-yarn-cache
+        run: ./scripts/github-setup-cache.sh
+          --cache-key ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          --restore-key ${{ runner.os }}-yarn-
+           | tee $GITHUB_OUTPUT
+
+  lint:
+    needs: [ setup ]
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '22' }
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
+      - run: yarn install --immutable
+      - run: yarn lint
+
+  test:
+    needs: [ setup ]
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '22' }
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
+      - run: yarn install --immutable
+      - run: yarn test
+
+  build-dev:
+    needs: [ setup ]
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - run: echo hello world
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '22' }
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
+      - run: yarn install --immutable
+      - run: yarn build --mode dev
+      - run: tar --directory dist -cvf centrapay-docs-dev.tar .
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: centrapay-docs-dev
+          path: centrapay-docs-dev.tar
+
+  build-prod:
+    needs: [ setup ]
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '22' }
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      - run: yarn install --immutable
+      - run: yarn build --mode prod
+      - run: tar --directory dist -cvf centrapay-docs-prod.tar .
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: centrapay-docs-prod
+          path: centrapay-docs-prod.tar
+
+  integration:
+    needs: [ setup, build-prod ]
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '22' }
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
+      - run: yarn install --immutable
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: centrapay-docs-prod
+      - run: mkdir -p dist && tar --directory dist -xvf centrapay-docs-prod.tar
+      - run: yarn linkinator
+      - run: yarn integration
+
+  deploy-dev:
+    needs: [ setup, lint, test, build-dev, build-prod, integration ]
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    environment:
+      name: dev
+      url: http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com
+    steps:
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: centrapay-docs-dev
+      - run: mkdir -p dist && tar --directory dist -xvf centrapay-docs-dev.tar
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+        with:
+          role-to-assume: arn:aws:iam::450412180052:role/github-actions-centrapay-docs
+          role-session-name: centrapay-docs-deploy-dev-session
+          aws-region: ap-southeast-1
+      - run: aws s3 cp dist s3://centrapay-docs.dev/ --recursive
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/master'
+    needs: [ deploy-dev ]
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+        with:
+          artifact_name: centrapay-docs-prod
