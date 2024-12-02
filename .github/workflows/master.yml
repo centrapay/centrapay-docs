@@ -114,6 +114,7 @@ jobs:
       - run: yarn integration
 
   deploy-dev:
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev-preview'
     needs: [ setup, lint, test, build-dev, build-prod, integration ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
