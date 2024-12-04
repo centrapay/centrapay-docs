@@ -2,7 +2,7 @@
 <template>
   <div
     class="
-      prose-headings:font-display prose prose-slate
+      prose prose-slate
       max-w-none prose-headings:font-normal
       prose-h2:mt-8 prose-h2:scroll-mt-16 prose-h2:border-t prose-h2:pt-8
       prose-h3:scroll-mt-20

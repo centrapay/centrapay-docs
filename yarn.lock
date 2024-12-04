@@ -876,13 +876,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/inter@npm:^4.5.15":
-  version: 4.5.15
-  resolution: "@fontsource/inter@npm:4.5.15"
-  checksum: 10c0/b46bf412083b1dfd54bc0837126d2bf5d74d55844306d5db1128e22cbd4f5f2a22d1db6f5d33e82fb208ba8fa2a0377208d1a681c445801594bcc6d24ac8c2df
-  languageName: node
-  linkType: hard
-
 "@hbsnow/rehype-sectionize@npm:^1.0.7":
   version: 1.0.7
   resolution: "@hbsnow/rehype-sectionize@npm:1.0.7"
@@ -2806,7 +2799,6 @@ __metadata:
     "@astrojs/vue": "npm:^4.5.2"
     "@babel/eslint-parser": "npm:^7.14.7"
     "@eslint/js": "npm:^9.10.0"
-    "@fontsource/inter": "npm:^4.5.15"
     "@hbsnow/rehype-sectionize": "npm:^1.0.7"
     "@headlessui/vue": "npm:^1.6.0"
     "@tailwindcss/typography": "npm:^0.5.8"
