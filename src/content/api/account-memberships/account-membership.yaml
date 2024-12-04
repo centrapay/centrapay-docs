@@ -1,0 +1,65 @@
+title: Account Membership Object
+description: |
+  An Account Membership represents a user having access to a Centrapay
+  [Account](/api/accounts/). An Account Membership has a role which grants the user access to
+  some or all of the operations and resources within the account.
+nav:
+  path: Accounts
+  order: 2
+properties:
+  - name: accountId
+    type: string
+    description: The id of the [Account](/api/accounts/) the Membership is scoped to.
+    example: 5uooxSens6ykJaim1Cu1Q5
+  - name: accountType
+    type: string
+    description: The type of the [Account](/api/accounts/) the Membership is scoped to.
+    example: org
+  - name: accountName
+    type: string
+    description: The name of the [Account](/api/accounts/) the Membership is scoped to.
+    example: Centrapay Tea Warehouse
+  - name: userId
+    type: string
+    description: The id of the user the Membership belongs to.
+    example: da75ad90-9a5b-4df0-8374-f48b3a8fbfcc
+  - name: role
+    type: string
+    description: The role governing Membership permissions.
+    example: account-owner
+  - name: subject
+    type: crn
+    description: User or API key resource name for the membership.
+    example: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+  - name: createdAt
+    type: timestamp
+    description: When the Membership was created.
+    example: 2020-06-12T01:17:46.499Z
+  - name: createdBy
+    type: crn
+    description: Resource that created the  member.
+    example: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+  - name: modifiedAt
+    type: timestamp
+    description: The role governing Membership permissions.
+    example: 2020-06-12T01:17:46.499Z
+  - name: modifiedBy
+    type: crn
+    description: Resource that last modified the account member.
+    example: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+  - name: testAccount
+    type: boolean
+    description: A flag which is present if the [Account](/api/accounts/) is test.
+    example: true
+  - name: firstName
+    type: string
+    description: First name of the user the membership belongs to.
+    example: Joe
+  - name: lastName
+    type: string
+    description: Last name of the user the membership belongs to.
+    example: Bloggs
+  - name: email
+    type: string
+    description: Email of the user the membership belongs to.
+    example: example@centrapay.com

@@ -1,0 +1,19 @@
+title: List Account Memberships for a User
+description: This endpoint allows you to retrieve the accounts that a user is a member of.
+auth: true
+experimental: false
+method: GET
+path: /api/users/{userId}/account-memberships
+model: account-membership
+request:
+  params:
+    - name: userId
+responses:
+  - code: 200
+    description: Successful request
+    type: array
+    body:
+      - name: accountName
+      - name: accountId
+      - name: accountType
+      - name: role

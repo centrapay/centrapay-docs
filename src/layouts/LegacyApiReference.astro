@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import Prose from '../components/Prose.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import navigation from '../navigation/apiNavigation';
+
+const { entry } = Astro.props;
+
+const { Content } = await render(entry);
+const previewImg = entry.data.img || '/default-cover.jpg';
+const { title, description } = entry.data;
+---
+<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
+  <div class="desktop-gutters relative mx-auto flex justify-center">
+    <div class="min-w-0 flex-auto p-8">
+      <article>
+        <Prose>
+          <header>
+            <h1>
+              { title }
+            </h1>
+          </header>
+          <Content />
+        </Prose>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

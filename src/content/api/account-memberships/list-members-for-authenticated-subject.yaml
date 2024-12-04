@@ -1,0 +1,16 @@
+title: List Account Memberships for authenticated subject
+description: This endpoint allows you to retrieve the accounts that the authenticated subject is a member of.
+auth: true
+experimental: false
+method: GET
+path: /api/account-memberships
+model: account-membership
+responses:
+  - code: 200
+    description: Successful request
+    type: array
+    body:
+      - name: accountName
+      - name: accountId
+      - name: accountType
+      - name: role

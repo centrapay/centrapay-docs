@@ -1,0 +1,149 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Prose from '../components/Prose.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Row from '../components/Row.astro';
+import Column from '../components/Column.astro';
+import CodePanel from '../components/CodePanel.astro';
+import Badge from '../components/Badge.astro';
+import { Code } from 'astro-expressive-code/components';
+import createEndpoint from '../utils/createEndpoint';
+import navigation from '../navigation/apiNavigation';
+
+const { entry } = Astro.props;
+
+const model = await getEntry('models', entry.data.model);
+const { properties } = model.data;
+
+if (entry.data?.request?.params) {
+  for (const param of entry.data.request.params) {
+    const matchingModelProperty = properties.find(prop => prop.name === param.name);
+    Object.assign(param, { ...matchingModelProperty, ...param});
+  }
+}
+
+if (entry.data?.request?.payload) {
+  for (const field of entry.data.request.payload) {
+    const matchingModelProperty = properties.find(prop => prop.name === field.name);
+    Object.assign(field, { ...matchingModelProperty, ...field});
+  }
+}
+
+for (const response of entry.data.responses) {
+  if (response.body) {
+    for (const field of response.body) {
+      const matchingModelProperty = properties.find(prop => prop.name === field.name);
+      Object.assign(field, { ...matchingModelProperty, ...field});
+    }
+  }
+}
+
+const previewImg = '/default-cover.jpg';
+const {
+  title,
+  description,
+  method,
+  path,
+  auth,
+  experimental,
+  request,
+  responses,
+} = entry.data;
+
+const endpointPayload = {};
+if (request?.payload) {
+  for (const field of request?.payload) {
+    endpointPayload[field.name] = field.example;
+  }
+}
+
+const successfulResponse = responses.find(response => response.code === 200);
+let successfulResponseBody = {};
+if (successfulResponse.body) {
+  for (const field of successfulResponse.body) {
+    successfulResponseBody[field.name] = field.example;
+  }
+}
+if (successfulResponse.type === 'array') {
+  successfulResponseBody = [ successfulResponseBody ];
+}
+
+const examplePath = path.replace(/{([^}]+)}/g, function(match, param) {
+    const matchedField = properties.find(p => p.name === param);
+    return `${matchedField.example}`;
+  }
+);
+
+const data = {
+  method,
+  path: examplePath,
+  request: {
+    headers: {
+      ...(auth && { 'X-Api-Key': '<TOKEN>'}),
+      ...{ 'Content-Type': 'application/json' },
+    },
+    payload: request?.payload && endpointPayload
+  },
+  response: successfulResponseBody
+}
+
+const endpoint = createEndpoint(data);
+
+---
+<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
+  <div class="desktop-gutters relative mx-auto flex justify-center">
+    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
+      <article>
+        <Prose>
+          <header>
+            <h1>
+              { title }
+            </h1>
+          </header>
+          <Row>
+            <Column>
+              <p class="font-mono inline-flex leading-6 bg-slate-50 rounded-lg px-2 py-0.5 mb-0">
+                <span class="text-gray-500">{method}</span>&nbsp;<span>{path}</span>
+              </p>
+              <p class="my-3.5">{description}<p/>
+              {request?.payload &&
+                <h3 class="not-prose flex items-center justify-between py-2 type-subtitle-1">Payload</h3>
+                <ul
+                  role="list"
+                  class="m-0 list-none divide-y divide-outline-transparent border-y border-outline-transparent p-0 pt-4"
+                >
+                  {request?.payload && request.payload.map((field) => (
+                    <li class="m-0 px-0 py-4 first:pt-0">
+                      <div class="m-0 flex flex-wrap items-center gap-x-3">
+                        <h4 class="my-0" id={field.name}>{field.name}</h4>
+                        <Badge text={field.type} />
+                        { field.required && <Badge type="required" /> }
+                        { field.experimental && <Badge type="experimental" /> }
+                        { field.deprecated && <Badge type="deprecated" /> }
+                      </div>
+                      <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+                        {field.description}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              }
+            </Column>
+
+            <Column sticky>
+              <CodePanel>
+                <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
+              </CodePanel>
+
+              { endpoint.response &&
+                <CodePanel>
+                  <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
+                </CodePanel>
+              }
+            </Column>
+          </Row>
+        </Prose>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

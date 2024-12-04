@@ -1,0 +1,19 @@
+title: List Members
+description: This endpoint allows you to retrieve the list memberships to an account.
+auth: true
+experimental: false
+method: GET
+path: /api/accounts/{accountId}/members
+model: account-membership
+request:
+  params:
+    - name: accountId
+responses:
+  - code: 200
+    description: Successful request
+    type: array
+    body:
+      - name: accountName
+      - name: accountId
+      - name: accountType
+      - name: role

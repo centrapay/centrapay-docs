@@ -1,0 +1,31 @@
+title: Add Member
+description: This endpoint allows you to add or update the membership of a user to an account.
+nav:
+  path: Accounts
+  order: 3
+auth: true
+experimental: false
+method: POST
+path: /api/accounts/{accountId}/members
+model: account-membership
+request:
+  params:
+    - name: accountId
+  payload:
+    - name: userId
+      required: true
+    - name: role
+      required: true
+responses:
+  - code: 200
+    description: Successful request
+    type: object
+    body:
+      - name: accountId
+      - name: accountType
+      - name: userId
+      - name: role
+      - name: createdBy
+      - name: createdAt
+      - name: modifiedAt
+      - name: modifiedBy

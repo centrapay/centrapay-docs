@@ -1,12 +1,14 @@
 ---
 import { getCollection } from '../../utils/getCollection';
-import { render } from 'astro:content';
-import Prose from '../../components/Prose.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import navigation from '../../navigation/apiNavigation';
+import ApiReference from '../../layouts/ApiReference.astro';
+import LegacyApiReference from '../../layouts/LegacyApiReference.astro';
 
 export async function getStaticPaths() {
-  const api = await getCollection('api');
+  const api = [
+    ...await getCollection('api'),
+    ...await getCollection('legacyApi'),
+  ];
+
   return api.map(entry => ({
     params: { id: entry.id },
     props: { entry },
@@ -14,23 +16,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
-const previewImg = entry.data.img || '/default-cover.jpg';
-const { title, description } = entry.data;
+const Component = entry.filePath.endsWith('.yaml') ? ApiReference : LegacyApiReference;
 ---
-<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
-  <div class="desktop-gutters relative mx-auto flex justify-center">
-    <div class="min-w-0 flex-auto p-8">
-      <article>
-        <Prose>
-          <header>
-            <h1>
-              { title }
-            </h1>
-          </header>
-          <Content />
-        </Prose>
-      </article>
-    </div>
-  </div>
-</BaseLayout>
+<Component entry={entry} />
