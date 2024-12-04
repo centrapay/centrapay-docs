@@ -21,15 +21,8 @@ const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
 <BaseLayout title={title} description={description} img={previewImg}>
-  <div class="flex max-h-72 items-center overflow-hidden">
-    <img
-      src={coverImage}
-      aria-hidden="true"
-      class="m-0 h-24 w-full object-cover md:h-full"
-      >
-  </div>
-  <div class="desktop-gutters relative mx-auto flex justify-center">
-    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
+  <div class="flex w-full justify-center">
+    <div class="relative min-w-0 max-w-4xl p-8 pb-16">
       <article>
         <header class="mb-9 space-y-1" >
           <p class="type-overline text-content-primary" >
@@ -46,8 +39,8 @@ const { title, description } = entry.data;
         </Prose>
       </article>
     </div>
-    <div class="hidden overflow-y-auto border-none xl:sticky xl:top-[4.5rem] xl:block xl:h-[calc(100vh-10rem)] xl:flex-none xl:py-16 xl:pr-6">
-      <TocNav client:load headings={headings} />
-    </div>
+  </div>
+  <div class="fixed right-28 top-24 hidden 2xl:block">
+    <TocNav client:load headings={headings} />
   </div>
 </BaseLayout>
