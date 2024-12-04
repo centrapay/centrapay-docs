@@ -1,0 +1,107 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Prose from '../components/Prose.astro';
+import BaseLayout from './BaseLayout.astro';
+import Row from '../components/Row.astro';
+import Column from '../components/Column.astro';
+import CodePanel from '../components/CodePanel.astro';
+import Badge from '../components/Badge.astro';
+import { Code } from 'astro-expressive-code/components';
+import createEndpoint from '../utils/createEndpoint';
+import navigation from '../navigation/apiNavigation';
+
+export async function getStaticPaths() {
+  const api = await getCollection('test-api');
+
+  let routes: any = [];
+  for (const entry of api) {
+    const model = await getEntry('models', entry.data.model);
+    const { properties } = model.data;
+
+    if (entry.data?.request?.params) {
+      for (const param of entry.data.request.params) {
+        const matchingModelProperty = properties.find(prop => prop.name === param.name);
+        Object.assign(param, { ...matchingModelProperty, ...param});
+      }
+    }
+
+    if (entry.data?.request?.payload) {
+      for (const field of entry.data.request.payload) {
+        const matchingModelProperty = properties.find(prop => prop.name === field.name);
+        Object.assign(field, { ...matchingModelProperty, ...field});
+      }
+    }
+
+    for (const response of entry.data.responses) {
+      if (response.body) {
+        for (const field of response.body) {
+          const matchingModelProperty = properties.find(prop => prop.name === field.name);
+          Object.assign(field, { ...matchingModelProperty, ...field});
+        }
+      }
+    }
+
+    routes.push({
+      params: { id: entry.id },
+      props: { entry, model },
+    })
+  }
+
+  return routes;
+}
+
+const { entry, model } = Astro.props;
+const previewImg = '/default-cover.jpg';
+const {
+  title,
+  description,
+  method,
+  path,
+  auth,
+  experimental,
+  request,
+  responses,
+} = entry.data;
+
+const endpointPayload = {};
+if (request?.payload) {
+  for (const field of request?.payload) {
+    endpointPayload[field.name] = field.example;
+  }
+}
+
+const successfulResponse = responses.find(response => response.code === 200);
+let successfulResponseBody = {};
+if (successfulResponse.body) {
+  for (const field of successfulResponse.body) {
+    successfulResponseBody[field.name] = field.example;
+  }
+}
+if (successfulResponse.type === 'array') {
+  successfulResponseBody = [ successfulResponseBody ];
+}
+
+const { properties } = model.data;
+const examplePath = path.replace(/{([^}]+)}/g, function(match, param) {
+    const matchedField = properties.find(p => p.name === param);
+    return `${matchedField.example}`;
+  }
+);
+
+const data = {
+  method,
+  path: examplePath,
+  request: {
+    headers: {
+      ...(auth && { 'X-Api-Key': '<TOKEN>'}),
+      ...{ 'Content-Type': 'application/json' },
+    },
+    payload: request?.payload && endpointPayload
+  },
+  response: successfulResponseBody
+}
+
+const endpoint = createEndpoint(data);
+
+---
+<Content />

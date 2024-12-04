@@ -46,8 +46,65 @@ const api = defineCollection({
   }),
 });
 
+const models = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: "./src/content/models" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    properties: z.array(z.object({
+      name: z.string(),
+      type: z.enum([
+        'string',
+        'boolean',
+        'crn',
+        'timestamp',
+        'date',
+      ]),
+      description: z.string(),
+      example: z.union([
+        z.string(),
+        z.boolean(),
+        z.date(),
+      ]),
+    })),
+  }),
+});
+
+const testApi = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: "./src/content/test-api" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    method: z.string(),
+    path: z.string(),
+    auth: z.boolean(),
+    model: z.string(),
+    experimental: z.boolean(),
+    request: z.object({
+      payload: z.array(z.object({
+        name: z.string(),
+        required: z.boolean(),
+      })).optional(),
+      params: z.array(z.object({
+        name: z.string(),
+      })).optional(),
+    }).optional(),
+    responses: z.array(z.object({
+      code: z.number(),
+      description: z.string(),
+      message: z.string().optional(),
+      type: z.enum(['array', 'object']).optional(),
+      body: z.array(z.object({
+        name: z.string(),
+      })).optional(),
+    })),
+  }),
+});
+
 export const collections = {
   guides,
   connections,
   api,
+  'test-api': testApi,
+  models,
 };
