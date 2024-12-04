@@ -1,0 +1,19 @@
+title: Revoke Member
+description: This endpoint allows you to revoke a users membership to an account.
+auth: true
+experimental: false
+method: POST
+path: /api/accounts/{accountId}/members/{userId}
+model: account-membership
+request:
+  params:
+    - name: accountId
+    - name: userId
+responses:
+  - code: 200
+    description: Successful request
+    type: object
+  - code: 403
+    message: LAST_OWNER_NOT_REVOKABLE
+    description: The last remaining membership to an account cannot be revoked.
+

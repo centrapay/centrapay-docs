@@ -30,6 +30,7 @@ export default defineConfig({
       flexsearchPlugin(),
     ]
   },
+  experimental: { contentLayer: true },
   redirects: {
     '/guides/merchant-terminals/': '/guides/payment-flows/',
     '/accounts/': '/api/accounts/',
