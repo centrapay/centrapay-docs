@@ -1,15 +1,16 @@
 ---
 import Card from '../components/Card.astro';
-const { img, title, description, href } = Astro.props;
+const { img, title, description, href, type } = Astro.props;
 const previewImg = img || '/default-cover.svg';
 ---
 <Card>
-  <a href={href} class="group">
+  <a href={href} class="group block h-full">
     <div class="h-32 overflow-hidden rounded-t">
       <img class='size-full object-cover transition-transform duration-200 ease-in group-hover:scale-105' src={previewImg}>
     </div>
 
     <div class="space-y-4 p-4">
+      <p class="type-overline text-brand-accent">{ type }</p>
       <h3 class="type-headline-4 group-hover:underline">{title}</h3>
       <p class="type-body-2">{description}</p>
     </div>

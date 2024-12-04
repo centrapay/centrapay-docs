@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FeaturedGuideCard from '../components/FeaturedGuideCard.astro';
 import FeaturedContentCard from '../components/FeaturedContentCard.astro';
 import { getCollection } from '../utils/getCollection';
-import Prose from '../components/Prose.vue';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -42,50 +40,47 @@ const img = '/homepage-preview.png';
 ---
 
 <BaseLayout description={description} img={img}>
-  <div class="desktop-gutters my-32 px-4 sm:px-8">
-    <Prose class="max-w-none">
-      <h1 class="type-display">
+  <div class="mx-auto my-8 w-full max-w-5xl px-4 sm:px-8">
+    <div class="mb-16 flex flex-col space-y-6">
+      <h1 class="type-display mb-4">
         <b>Centrapay Docs</b>
       </h1>
-      <p class="type-body-1 max-w-[720px]">
+      <p class="text-content-secondary">
         Welcome to Centrapay! We enable you to transact fiat currency,
         digital assets and vouchers via your point of sale,
         payment terminal, shopping cart or unattended device. We
         accomplish this via our APIs which allow merchants, customers,
         terminals, and smart wallets to interact with each other.
       </p>
-
-      <p class="type-body-2 max-w-[720px]">
+      <p class="text-content-tertiary">
         For more help getting setup, contact us via email at
-        <a href="mailto:integrations@centrapay.com">
+        <a class="text-interactive-primary underline hover:text-interactive-secondary-hover" href="mailto:integrations@centrapay.com">
           integrations@centrapay.com.
         </a>
       </p>
-    </Prose>
-    <Prose>
+    </div>
+    <div>
       <h2 class="type-headline-2">Featured Docs</h2>
-    </Prose>
-    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:gap-6">
       { featuredGuides.map((guide) => (
-        <FeaturedGuideCard
+        <FeaturedContentCard
           title={guide.data.title}
           description={guide.data.description}
           img={guide.data.img}
           slug={guide.slug}
+          type="guide"
         />
       ))
       }
-    </div>
-    <div class="mt-12 grid justify-center gap-4 md:grid-cols-4 lg:gap-6">
       { featuredContent.map((content, index) => (
-        <div class='md:col-span-2'>
-          <FeaturedContentCard
-            title={content.title}
-            description={content.description}
-            img={content.img}
-            href={content.href}
-          />
-        </div>
+        <FeaturedContentCard
+          title={content.title}
+          description={content.description}
+          img={content.img}
+          href={content.href}
+          type="api"
+        />
       ))
       }
     </div>
