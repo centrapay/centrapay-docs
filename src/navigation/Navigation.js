@@ -12,6 +12,7 @@ class NavGroup {
 
   static create({ nav, content, parentPath = [] }) {
     const path = [...parentPath, nav.title];
+    console.log({path});
     const childNavGroups = nav.children?.map(n => NavGroup.create({
       nav: n,
       content,
