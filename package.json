@@ -17,7 +17,6 @@
     "@astrojs/vue": "^4.5.2",
     "@babel/eslint-parser": "^7.14.7",
     "@eslint/js": "^9.10.0",
-    "@fontsource/inter": "^4.5.15",
     "@hbsnow/rehype-sectionize": "^1.0.7",
     "@headlessui/vue": "^1.6.0",
     "@tailwindcss/typography": "^0.5.8",

@@ -3,9 +3,6 @@ const tailwindConfig = {
     './src/**/*.{astro,vue, js, css}',
   ],
   theme: {
-    fontFamily: {
-      'sans': [ 'Inter', 'Sans-Serif' ],
-    },
     extend: {
       typography: {
         DEFAULT: {
