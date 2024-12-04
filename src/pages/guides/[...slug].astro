@@ -16,38 +16,36 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-const coverImage = entry.data.img || '/default-cover.svg';
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
 <BaseLayout title={title} description={description} img={previewImg}>
-  <div class="flex max-h-72 items-center overflow-hidden">
-    <img
-      src={coverImage}
-      aria-hidden="true"
-      class="m-0 h-24 w-full object-cover md:h-full"
-      >
-  </div>
-  <div class="desktop-gutters relative mx-auto flex justify-center">
-    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
-      <article>
-        <header class="mb-9 space-y-1" >
-          <p class="type-overline text-content-primary" >
-            Guides
-          </p>
-          <h1
-            class="type-headline-2"
-          >
-            { title }
-          </h1>
-        </header>
-        <Prose>
-          <Content components={{ ...customComponents, h2: H2 }}/>
-        </Prose>
-      </article>
-    </div>
-    <div class="hidden overflow-y-auto border-none xl:sticky xl:top-[4.5rem] xl:block xl:h-[calc(100vh-10rem)] xl:flex-none xl:py-16 xl:pr-6">
-      <TocNav client:load headings={headings} />
+  <div class="relative mx-auto xl:mx-0">
+    <div class="flex w-full justify-center">
+      <div class="flex grow justify-center">
+        <div class="min-w-0 max-w-3xl flex-auto px-8 pb-16 pt-8">
+          <article>
+            <header class="mb-9 space-y-1" >
+              <p class="type-overline text-content-primary" >
+                Guides
+              </p>
+              <h1
+                class="type-headline-2"
+              >
+                { title }
+              </h1>
+            </header>
+            <Prose>
+              <Content components={{ ...customComponents, h2: H2 }}/>
+            </Prose>
+          </article>
+        </div>
+      </div>
+      <div class="hidden xl:flex xl:w-80">
+        <div class="hidden overflow-y-auto border-none xl:sticky xl:right-28 xl:top-16 xl:block xl:h-[calc(100vh-10rem)] xl:py-8">
+          <TocNav client:load headings={headings} />
+        </div>
+      </div>
     </div>
   </div>
 </BaseLayout>
