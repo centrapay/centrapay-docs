@@ -140,7 +140,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-22.04
     environment:
-      name: github-pages
+      name: prod
       url: ${{steps.deployment.outputs.page_url}}
     steps:
       - id: deployment
