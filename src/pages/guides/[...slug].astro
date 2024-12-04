@@ -25,17 +25,15 @@ const { title, description } = entry.data;
       <div class="flex grow justify-center">
         <div class="min-w-0 max-w-3xl flex-auto px-8 pb-16 pt-8">
           <article>
-            <header class="mb-9 space-y-1" >
-              <p class="type-overline text-content-primary" >
-                Guides
-              </p>
-              <h1
-                class="type-headline-2"
-              >
-                { title }
-              </h1>
-            </header>
             <Prose>
+              <header class="mb-9 space-y-1" >
+                <p class="type-overline text-content-primary" >
+                  Guides
+                </p>
+                <h1>
+                  { title }
+                </h1>
+              </header>
               <Content components={{ ...customComponents, h2: H2 }}/>
             </Prose>
           </article>

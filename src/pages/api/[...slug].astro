@@ -4,7 +4,6 @@ import Prose from '../../components/Prose.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
 import ApiH2 from '../../components/ApiH2.astro';
-import H3 from '../../components/H3.astro';
 
 export async function getStaticPaths() {
   const api = await getCollection('api');
@@ -15,23 +14,21 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content } = await entry.render();
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
 <BaseLayout title={title} description={description} img={previewImg}>
   <div class="desktop-gutters relative mx-auto flex justify-center">
-    <div class="min-w-0 max-w-2xl flex-auto px-8 pb-16 pt-8 lg:max-w-none xl:pt-16">
+    <div class="min-w-0 flex-auto p-8">
       <article>
-        <header class="mb-9 space-y-1" >
-          <h1
-            class="type-headline-2"
-          >
-            { title }
-          </h1>
-        </header>
         <Prose>
-          <Content components={{ ...customComponents, h2: ApiH2, h3: H3 }}/>
+          <header>
+            <h1>
+              { title }
+            </h1>
+          </header>
+          <Content components={{ ...customComponents, h2: ApiH2 }}/>
         </Prose>
       </article>
     </div>
