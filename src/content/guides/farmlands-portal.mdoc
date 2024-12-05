@@ -7,10 +7,6 @@ nav:
   order: 3
 img: /farmlands-portal-guide-cover.jpg
 ---
-
-import Disclosure from '../../components/Disclosure.vue';
-import AccordionListWrapper from '../../components/AccordionListWrapper.astro';
-
 Farmlands Co-operative (Farmlands) have partnered with Centrapay Payment Gateway (Centrapay) to deliver a secure web portal for Card Partners to gain an instant authorisation on a Farmlands Card when presented as payment for a sale. This option does not require integration with a Point of Sale (POS) system.
 
 **Key Benefits:**
@@ -110,23 +106,18 @@ Once an approved authorisation has been provided, a full GST invoice must be sub
 
 Farmlands encourages invoices to be submitted daily rather than at the end of the month. This allows Farmlands to apply the purchase to the customer’s account in a timely manner.
 
-> **Instore Transactions** <br />
-A physical Farmlands Card **must** be presented to complete an in-store sale. It is recommended Card Partners do not accept photographs or representation of the Card on an app e.g.Stocard. In doing so, this is considered a Card Not Present transaction.
-<br />
+> A physical Farmlands Card **must** be presented to complete an in-store sale. It is recommended Card Partners do not accept photographs or representation of the Card on an app e.g.Stocard. In doing so, this is considered a Card Not Present transaction.
 
-> **Phone Order & Online Transactions** <br />
-Farmlands Card details can be accepted remotely for a phone or online website order. Cardholders must have provided authorisation to charge a Card on a regular, ongoing basis. This type of transaction must be flagged as Cardholder Not Present and Card Partner acknowledges the increased risk of processing transactions where no Card is presented.
-<br />
+> Farmlands Card details can be accepted remotely for a phone or online website order. Cardholders must have provided authorisation to charge a Card on a regular, ongoing basis. This type of transaction must be flagged as Cardholder Not Present and Card Partner acknowledges the increased risk of processing transactions where no Card is presented.
 
-> **Card Partner Terms and Conditions** <br />
-Payment is made on the basis that all Card Partner terms and conditions are met.
+> Payment is made on the basis that all Card Partner terms and conditions are met.
 
 ## Releasing Funds
 
 The Authorised funds will be held against the Cardholder account for 31 days or until the invoice is received.  If the order is cancelled before the invoice is submitted to Farmlands the Authorisation should be released to remove the hold on Cardholder funds.
 
 > Once you have released the funds, this step cannot be reversed.
-<br />
+
 > If an invoice has been sent to Farmlands a credit (refund) must be submitted to Farmlands to reverse the transaction.
 
 ### Release Hold on Customer Funds
@@ -252,91 +243,66 @@ On the Settings page, you can change your business information. Please note this
 
 ![Centrapay business portal settings page](/centrapay-portal-settings.png)
 
-## FAQs
-
-<AccordionListWrapper>
-  <div>
-    <Disclosure client:visible title="What do we do if a customer returns one or more items, and the invoice has already been sent to Farmlands?">
-      Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="What do we do if the customer cancels their order after we have sent the invoice to Farmlands?">
-      Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="What do we do if the customer cancels their order before we have sent the invoice to Farmlands?">
-      If the entire order has been cancelled, release the hold on the customer’s funds via the Portal. There is no requirement to send an invoice to Farmlands.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="What do we do if we need to amend the value of the order prior to sending the invoice to Farmlands?">
-      If the revised sale amount is:
-      - less than the original authorisation amount, submit the amended invoice with the original authorisation short code.
-      - greater than the original authorisation sales amount, release the hold on the customer’s funds via the Portal. Once completed, generate a new authorisation request for the revised sales amount.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="How long are funds held for on a Customer’s Card?">
-      The value of the authorisation will be held on the customer’s Card for up to 31 days. It is important Invoices, with a valid authorisation short code, are submitted to Farmlands as soon as possible so these can be matched against the funds held.\
-      Invoices received after 31 days and up to 3 months will be processed in good faith however, if the associated Farmlands Account has been closed, you will be advised to contact the customer for another form of payment.\
-      If you are concerned, **re-authorise the transaction especially prior to fulfilling a back order if it is over 31 days since originally authorised.**
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="We received a message on the Portal stating the “Barcode is invalid.” What does this mean?">
-      The Card number being entered is either not a valid number or the Card being presented is no longer active on the Farmlands system. Check the correct Card number has been entered or request another method of payment.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="How do I manage who has access to the Authorisation Portal?">
-      User management and access is at the discretion of the Card Partner.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="How do I release funds held on a customer’s Card?">
-        Go into the Portal, find the original authorisation by searching for the Short Code. Click the authorisation and then “Release Funds”.
-        If you have sent the original invoice to Farmlands, you must still create a credit note and send it to Farmlands. Use the same short code as the original Invoice.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="We have a regular customer. Do we need to obtain an authorisation?">
-      All sales where a Farmlands Card has been provided as payment require an authorisation prior to submitting an invoice to Farmlands.\
-      If you hold your customer’s Farmlands’ Card number on file and have their permission to charge this on a recurring basis, please select the 'Cardholder Not Present' option at the time of sale.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="What if the barcode will not scan or is obscured?">
-      The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the Card under the Cardholder's name.\
-      If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands to request a new Card.
-    </Disclosure>
-  </div>
-
-  <div>
-    <Disclosure client:visible title="The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?">
-      No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.
-    </Disclosure>
-  </div>
-
-    <div>
-    <Disclosure client:visible title="Can the Account-Owner add a new merchant/location to the Portal?">
-      No, the Card Partner should contact the Farmlands Card Team to set up a new merchant/location in the first instance.
-    </Disclosure>
-  </div>
-</AccordionListWrapper>
-
-## **Support**
+## Support
 
 The Support button opens up a form that will allow you to send a support request directly to Centrapay if you have any issues regarding the Centrapay Business Portal.
 
 Alternatively email support@centrapay.com for issues regarding the portal. Please refer Cardholders to Farmlands if they have a query on a declined transaction, **0800 200 600** or ask@farmlands.co.nz.
+
+## FAQs
+
+**What do we do if a customer returns one or more items, and the invoice has already been sent to Farmlands?**
+
+Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
+
+**What do we do if the customer cancels their order after we have sent the invoice to Farmlands?**
+
+Raise a credit note as normal and insert the original authorisation short code on the invoice. This will enable us to identify the original invoice and customer account details.
+
+**What do we do if the customer cancels their order before we have sent the invoice to Farmlands?**
+
+If the entire order has been cancelled, release the hold on the customer’s funds via the Portal. There is no requirement to send an invoice to Farmlands.
+
+**What do we do if we need to amend the value of the order prior to sending the invoice to Farmlands?**
+
+If the revised sale amount is:
+- less than the original authorisation amount, submit the amended invoice with the original authorisation short code.
+- greater than the original authorisation sales amount, release the hold on the customer’s funds via the Portal. Once completed, generate a new authorisation request for the revised sales amount.
+
+**How long are funds held for on a Customer’s Card?**
+
+The value of the authorisation will be held on the customer’s Card for up to 31 days. It is important Invoices, with a valid authorisation short code, are submitted to Farmlands as soon as possible so these can be matched against the funds held.\
+Invoices received after 31 days and up to 3 months will be processed in good faith however, if the associated Farmlands Account has been closed, you will be advised to contact the customer for another form of payment.\
+If you are concerned, **re-authorise the transaction especially prior to fulfilling a back order if it is over 31 days since originally authorised.**
+
+**We received a message on the Portal stating the “Barcode is invalid.” What does this mean?**
+
+The Card number being entered is either not a valid number or the Card being presented is no longer active on the Farmlands system. Check the correct Card number has been entered or request another method of payment.
+
+**How do I manage who has access to the Authorisation Portal?**
+
+User management and access is at the discretion of the Card Partner.
+
+**How do I release funds held on a customer’s Card?**
+
+Go into the Portal, find the original authorisation by searching for the Short Code. Click the authorisation and then “Release Funds”.
+If you have sent the original invoice to Farmlands, you must still create a credit note and send it to Farmlands. Use the same short code as the original Invoice.
+
+**We have a regular customer. Do we need to obtain an authorisation?**
+
+All sales where a Farmlands Card has been provided as payment require an authorisation prior to submitting an invoice to Farmlands.\
+If you hold your customer’s Farmlands’ Card number on file and have their permission to charge this on a recurring basis, please select the 'Cardholder Not Present' option at the time of sale.
+
+**What if the barcode will not scan or is obscured?**
+
+The 9-digit Card number can be entered manually. This is printed on the back below the barcode and on the front of the Card under the Cardholder's name.\
+If neither is visible, please request another method of payment. Advise the Cardholder to contact Farmlands to request a new Card.
+
+**The authorisation request has prompted us to “Check ID.” The customer is not the actual Cardholder but one of the workers of the Cardholder. Can I accept the Card?**
+
+No, unfortunately you must only accept the Card if the true owner of the Card is making the purchase.
+
+**Can the Account-Owner add a new merchant/location to the Portal?**
+
+No, the Card Partner should contact the Farmlands Card Team to set up a new merchant/location in the first instance.
+
