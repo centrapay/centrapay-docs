@@ -55,5 +55,5 @@ const disclosureSelected = computed(() => {
     path: props.path
   });
 });
-const defaultOpen = ref(disclosureSelected.value);
+const defaultOpen = ref(true);
 </script>

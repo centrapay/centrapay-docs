@@ -1,9 +1,9 @@
 ---
 import ConnectionLayout from '../layouts/ConnectionLayout.astro';
 import Farmlands from '../components/Farmlands.astro';
-const { title, description, img } = Astro.props;
+const { title, description, img, navigation } = Astro.props;
 ---
-<ConnectionLayout title={title} description={description} img={img}>
+<ConnectionLayout title={title} description={description} img={img} navigation={navigation}>
   <div slot="header">
     <Farmlands />
   </div>

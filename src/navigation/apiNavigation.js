@@ -1,23 +1,7 @@
-const navigationItems = [
-  {
-    title: 'Reference',
-    subTitle: 'Learn about core features',
-    icon: 'Receipt',
-    children: [
-      { title: 'Centrapay Experiences' },
-      { title: 'Digital Assets' },
-      { title: 'Merchant Integrations' },
-      { title: 'App Integrations' },
-    ]
-  },
-  {
-    title: 'Connections',
-    subTitle: 'For our partners',
-    icon: 'Connections',
-    children: [
-      { title: 'Farmlands' },
-    ]
-  },
+import { getCollection } from '../utils/getCollection';
+import Navigation from '../navigation/Navigation';
+
+const nav = [
   {
     title: 'API',
     subTitle: 'For developers',
@@ -36,4 +20,13 @@ const navigationItems = [
   },
 ];
 
-export default navigationItems;
+const collections = await getCollection('api');
+const content = await Promise.all(collections.map(async page => {
+  const { headings } = await page.render();
+  page.headings = headings.filter(heading => heading.depth === 2);
+  return page;
+}));
+
+const navigation = Navigation.create({ nav, content });
+
+export default navigation;

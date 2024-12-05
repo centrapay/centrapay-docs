@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Prose from '../components/Prose.astro';
 
-const { title, description, img } = Astro.props;
+const { title, description, img, navigation } = Astro.props;
 ---
-<BaseLayout title={title} description={description} img={img}>
+<BaseLayout title={title} description={description} img={img} navigation={navigation}>
   <div>
     <slot name="header" />
     <div>
