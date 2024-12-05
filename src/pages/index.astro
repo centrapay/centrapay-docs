@@ -1,39 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedContentCard from '../components/FeaturedContentCard.astro';
-import { getCollection } from '../utils/getCollection';
+import { getEntry } from 'astro:content';
 
-export async function getStaticPaths() {
-  const guides = await getCollection('guides');
-  return guides.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
-}
-
-function hydrateGuides(featuredGuides, guides) {
-  return featuredGuides.map((guide) => {
-    const hydratedGuide = guides.find((g) => g.slug === guide.slug);
-    return hydratedGuide;
-  });
-}
-
-const guides = await getCollection('guides');
-
-const featuredGuides = hydrateGuides([
-  { slug: 'payment-flows' },
-  { slug: 'farmlands-portal' },
-  { slug: 'farmlands-pos-integration' },
-], guides);
-
-const featuredContent = [
-  {
-    href: 'https://docs.centrapay.com/api',
-    title: 'API Reference',
-    description: 'Powerful, Easy-to-use payment APIs',
-    img: '/api-reference-cover.jpg',
-  },
-];
+const paymentFlowsGuide = await getEntry('guides', 'payment-flows');
+const farmlandsPortal = await getEntry('guides', 'farmlands-portal');
+const farmlandsPosIntegrationGuide = await getEntry('guides', 'farmlands-pos-integration');
 
 const description = 'Learn to connect with Centrapay experiences.';
 const img = '/homepage-preview.png';
@@ -63,26 +35,34 @@ const img = '/homepage-preview.png';
       <h2 class="type-headline-2">Featured Docs</h2>
     </div>
     <div class="mt-8 grid gap-4 md:grid-cols-2 lg:gap-6">
-      { featuredGuides.map((guide) => (
-        <FeaturedContentCard
-          title={guide.data.title}
-          description={guide.data.description}
-          img={guide.data.img}
-          slug={guide.slug}
-          type="guide"
-        />
-      ))
-      }
-      { featuredContent.map((content, index) => (
-        <FeaturedContentCard
-          title={content.title}
-          description={content.description}
-          img={content.img}
-          href={content.href}
-          type="api"
-        />
-      ))
-      }
+      <FeaturedContentCard
+        title={paymentFlowsGuide.data.title}
+        description={paymentFlowsGuide.data.description}
+        img={paymentFlowsGuide.data.img}
+        slug={paymentFlowsGuide.slug}
+        type="guide"
+      />
+      <FeaturedContentCard
+        title={farmlandsPortal.data.title}
+        description={farmlandsPortal.data.description}
+        img={farmlandsPortal.data.img}
+        slug={farmlandsPortal.slug}
+        type="guide"
+      />
+      <FeaturedContentCard
+        title={farmlandsPosIntegrationGuide.data.title}
+        description={farmlandsPosIntegrationGuide.data.description}
+        img={farmlandsPosIntegrationGuide.data.img}
+        slug={farmlandsPosIntegrationGuide.id}
+        type="guide"
+      />
+      <FeaturedContentCard
+        title="API Reference"
+        description="Powerful, Easy-to-use payment APIs"
+        img="/api-reference-cover.jpg"
+        href="https://docs.centrapay.com/api"
+        type="api"
+      />
     </div>
   </div>
 </BaseLayout>
