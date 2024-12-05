@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import navigation from '../navigation/guideNavigation';
 ---
 
-<BaseLayout>
+<BaseLayout navigation={navigation}>
   <div class="flex h-full flex-col items-center justify-center space-y-6 px-16 py-8">
     <div class="flex flex-col items-center space-y-2">
       <p class="type-body-2 font-bold text-content-accent">

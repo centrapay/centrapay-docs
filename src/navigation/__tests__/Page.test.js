@@ -11,7 +11,7 @@ describe('Page', () => {
           nav: {
             order: 1,
             title: 'Override',
-            path: 'Reference/Farmlands',
+            path: 'Farmlands',
           },
         },
       };
@@ -22,7 +22,7 @@ describe('Page', () => {
         nav: {
           order: 1,
           title: 'Override',
-          path: 'Reference/Farmlands',
+          path: 'Farmlands',
         }
       });
     });
