@@ -1,0 +1,53 @@
+---
+title: Ticketek Ticket Batch
+description: Ticketek Ticket Batch Models
+nav:
+  path: Exclude
+  order: 1
+---
+Loads Ticketek tickets into Centrapay as Patron codes and tokens.
+
+|    Type Name    |           File Format           |    Record Type    |
+| :-------------- | :------------------------------ | :---------------- |
+| ticketek-ticket | [JSONL](https://jsonlines.org/) | [Ticket Sale](#ticket-sale) |
+
+## Ticket Sale
+
+{% properties %}
+  {% property name="barcodeClear" type="string" %}
+    The barcode number of the ticket.
+  {% /property %}
+
+  {% property name="quantity" type="number" %}
+    "1" for a purchase and "-1" for a cancellation.
+  {% /property %}
+
+  {% property name="priceTypeCode" type="string" %}
+    Code for the price type of the product for the sale.
+  {% /property %}
+
+  {% property name="productId" type="string" %}
+    Unique identifier for the product of the sale.
+  {% /property %}
+
+  {% property name="orderId" type="string" %}
+    Unique identifier for the sale.
+  {% /property %}
+
+  {% property name="priceTypeName" type="string" %}
+    Descriptive for the price type of the product for the sale.
+  {% /property %}
+
+  {% property name="memberNumber" type="string" %}
+    Native identifier for a member of an organisation.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Example JSONL File
+
+```json
+{"quantity": 1, "priceTypeCode": "J", "productId": "ABCD12345", "orderId": "20231206,886", "priceTypeName": "Renewing Member", "memberNumber": "1111", "barcodeClear": "12398542"}
+{"quantity": -1, "priceTypeCode": "J", "productId": "ABCD12345", "orderId": "20231206,886", "priceTypeName": "Renewing Junior", "barcodeClear": "1783379123"}
+```
