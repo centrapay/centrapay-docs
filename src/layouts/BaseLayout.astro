@@ -4,8 +4,6 @@ import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
 import Footer from '../components/Footer.astro';
 import '../assets/css/tailwind.css';
 import { getCollection } from '../utils/getCollection';
-import Navigation from '../navigation/Navigation';
-import sideNavConfig from '../navigation/sideNavConfig';
 
 export function getStaticPaths() {
   return [
@@ -19,22 +17,9 @@ const {
   title,
   description,
   img,
+  navigation
 } = Astro.props;
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
-
-const collections = await Promise.all([
-  ...await getCollection('guides'),
-  ...await getCollection('connections'),
-  ...await getCollection('api')
-]);
-
-const content = await Promise.all(collections.map(async page => {
-  const { headings } = await page.render();
-  page.headings = headings.filter(heading => heading.depth === 2);
-  return page;
-}));
-
-const navigation = Navigation.create({ nav: sideNavConfig, content });
 
 const datadogEnabled = import.meta.env.DATADOG_ENABLED;
 const env = import.meta.env.ENV;

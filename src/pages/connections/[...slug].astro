@@ -3,6 +3,7 @@ import { getCollection } from '../../utils/getCollection';
 import customComponents from '../../utils/customComponents';
 import H2 from '../../components/H2.astro';
 import FarmlandsLayout from '../../layouts/FarmlandsLayout.astro';
+import navigation from '../../navigation/guideNavigation';
 
 export async function getStaticPaths() {
   const connections = await getCollection('connections');
@@ -16,7 +17,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 const { title, description, img } = entry.data;
 ---
-<FarmlandsLayout title={title} description={description} img={img}>
+<FarmlandsLayout title={title} description={description} img={img} navigation={navigation}>
   <Content />
 </FarmlandsLayout>
 

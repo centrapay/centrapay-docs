@@ -5,6 +5,7 @@ import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
 import H2 from '../../components/H2.astro';
+import navigation from '../../navigation/guideNavigation';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -19,7 +20,7 @@ const { Content, headings } = await entry.render();
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
-<BaseLayout title={title} description={description} img={previewImg}>
+<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
   <div class="relative mx-auto xl:mx-0">
     <div class="flex w-full justify-center">
       <div class="flex grow justify-center">

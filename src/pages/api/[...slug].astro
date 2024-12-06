@@ -4,6 +4,7 @@ import Prose from '../../components/Prose.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import customComponents from '../../utils/customComponents';
 import ApiH2 from '../../components/ApiH2.astro';
+import navigation from '../../navigation/apiNavigation';
 
 export async function getStaticPaths() {
   const api = await getCollection('api');
@@ -18,7 +19,7 @@ const { Content } = await entry.render();
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
-<BaseLayout title={title} description={description} img={previewImg}>
+<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
   <div class="desktop-gutters relative mx-auto flex justify-center">
     <div class="min-w-0 flex-auto p-8">
       <article>
