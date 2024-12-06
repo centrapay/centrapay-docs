@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="w-full px-2"
+    class="w-full px-2 pt-2"
     aria-label="Sidebar"
   >
     <ul role="menubar">
