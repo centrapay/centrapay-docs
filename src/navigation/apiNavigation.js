@@ -2,22 +2,15 @@ import { getCollection } from '../utils/getCollection';
 import Navigation from '../navigation/Navigation';
 
 const nav = [
-  {
-    title: 'API',
-    subTitle: 'For developers',
-    icon: 'Settings',
-    children: [
-      { title: 'Accounts', order: 7 },
-      { title: 'Assets', order: 8 },
-      { title: 'Bank Accounts', order: 9 },
-      { title: 'Events', order: 11 },
-      { title: 'Integrations', order: 12 },
-      { title: 'Loyalty Programs', order: 14 },
-      { title: 'Merchants', order: 16 },
-      { title: 'Payment Requests', order: 17 },
-      { title: 'Scanned Codes', order: 20 },
-    ]
-  },
+  { title: 'Accounts', order: 7 },
+  { title: 'Assets', order: 8 },
+  { title: 'Bank Accounts', order: 9 },
+  { title: 'Events', order: 11 },
+  { title: 'Integrations', order: 12 },
+  { title: 'Loyalty Programs', order: 14 },
+  { title: 'Merchants', order: 16 },
+  { title: 'Payment Requests', order: 17 },
+  { title: 'Scanned Codes', order: 20 },
 ];
 
 const collections = await getCollection('api');

@@ -4,7 +4,6 @@ import FeaturedContentCard from '../components/FeaturedContentCard.astro';
 import { getEntry } from 'astro:content';
 import { getCollection } from '../utils/getCollection';
 import navigation from '../navigation/guideNavigation';
-
 const paymentFlowsGuide = await getEntry('guides', 'payment-flows');
 const farmlandsPortal = await getEntry('guides', 'farmlands-portal');
 const farmlandsPosIntegrationGuide = await getEntry('guides', 'farmlands-pos-integration');

@@ -2,25 +2,11 @@ import { getCollection } from '../utils/getCollection';
 import Navigation from '../navigation/Navigation';
 
 const nav = [
-  {
-    title: 'Reference',
-    subTitle: 'Learn about core features',
-    icon: 'Receipt',
-    children: [
-      { title: 'Centrapay Experiences' },
-      { title: 'Digital Assets' },
-      { title: 'Merchant Integrations' },
-      { title: 'App Integrations' },
-    ]
-  },
-  {
-    title: 'Connections',
-    subTitle: 'For our partners',
-    icon: 'Connections',
-    children: [
-      { title: 'Farmlands' },
-    ]
-  },
+  { title: 'Centrapay Experiences' },
+  { title: 'Digital Assets' },
+  { title: 'Merchant Integrations' },
+  { title: 'App Integrations' },
+  { title: 'Farmlands' },
 ];
 
 const collections = await Promise.all([
