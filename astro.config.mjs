@@ -20,7 +20,7 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     expressiveCode(),
     mdx(),
-    markdoc(),
+    markdoc({ ignoreIndentation: true }),
   ],
   markdown: {
     rehypePlugins: [ rehypeSectionize ],

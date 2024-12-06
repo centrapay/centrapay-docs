@@ -1,18 +1,17 @@
 ---
-import Eyebrow from './Eyebrow.astro';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
 import { Code } from 'astro-expressive-code/components'
 import createEndpoint from '../utils/createEndpoint';
 
-const { path, filename } = Astro.props;
+const { path, fileName } = Astro.props;
 
-if (!filename) {
+if (!fileName) {
   throw new Error(`Filename is required for Endpoint ${path}`);
 }
 
-const file = await import(`../content/api/_endpoints/${filename}.js`);
+const file = await import(`../content/api/_endpoints/${fileName}.js`);
 const endpoint = createEndpoint(file.default);
 if (!endpoint) {
   throw new Error(`Failed to create Endpoint ${path}`);
@@ -21,7 +20,6 @@ if (!endpoint) {
 
 <Row>
   <Column>
-    <Eyebrow method={endpoint.method} path={path}/>
     <slot/>
   </Column>
 
