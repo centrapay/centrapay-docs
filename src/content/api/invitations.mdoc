@@ -1,0 +1,225 @@
+---
+title: Invitations
+description: Invitation model and related endpoints
+nav:
+  path: API
+  order: 13
+---
+An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+
+## Invitation Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Invitation's unique identifier.
+  {% /property %}
+
+  {% property name="code" type="string" %}
+    The Invitation code.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of invitation. Supported values are `account-membership`.
+  {% /property %}
+
+  {% property name="resourceId" type="string" %}
+    The id of the related resource.
+  {% /property %}
+
+  {% property name="resourceType" type="string" %}
+    The type of the related resource. Supported values are `account`.
+  {% /property %}
+
+  {% property name="expiresAt" type="timestamp" %}
+    When the Invitation expires.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Invitation was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Invitation.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Invitation was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Invitation.
+  {% /property %}
+
+    {% property name="accepted" type="boolean" %}
+    A flag indicating whether the Invitation has been accepted.
+  {% /property %}
+
+  {% property name="acceptedAt" type="timestamp" %}
+    When the Invitation was accepted.
+  {% /property %}
+
+  {% property name="acceptedBy" type="crn" %}
+    The User or API Key that accepted the Invitation.
+  {% /property %}
+
+  {% property name="acceptedByAccountId" type="string" %}
+    The [Account](/api/accounts) id of the user accepting the Invitation.
+  {% /property %}
+
+  {% property name="recipientAlias" type="string" %}
+    The email address of the user accepting the Invitation.
+  {% /property %}
+
+  {% property name="params" type="object" %}
+    [Params](#params-model) dependent on the Invitation type.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Params Model
+
+
+{% properties %}
+  {% property name="role" type="string" %}
+    The role assigned to the recipient, for invitations of type `account-membership`.
+  {% /property %}
+
+  {% property name="accountName" type="string" %}
+    The name of the account that the recipient is invited to, for invitations of type `account-membership`
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/invitations"
+  filename="invitations-create"
+%}
+  ## Create Invitation {% badge type="experimental" /%}
+
+  This endpoint allows you to create an Invitation.
+
+  {% properties %}
+    {% property name="type" type="string" required=true %}
+      The type of invitation. Supported values are `account-membership`.
+    {% /property %}
+
+    {% property name="resourceId" type="string" required=true %}
+      The id of the related resource.
+    {% /property %}
+
+    {% property name="resourceType" type="string" required=true %}
+      The type of the related resource. Supported values are `account`.
+    {% /property %}
+
+    {% property name="recipientAlias" type="string" required=true %}
+      The email address of the user accepting the Invitation.
+    {% /property %}
+
+    {% property name="params" type="object" required=true %}
+      [Params](#params-model) depending on the Invitation type.
+    {% /property %}
+
+    {% property name="role" type="string" required=true %}
+      The role that will be assigned to the user when the Invitation is accepted.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_ACCOUNT_TYPE" %}
+      The resourceId is associated with an account with a non `org` type.
+    {% /error %}
+
+    {% error code="403" message="RECIPIENT_ALREADY_INVITED" %}
+      An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/invitations/code/{code}"
+  filename="invitations-get-by-code"
+%}
+  ## Get Invitation By Code {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve an Invitation by code.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/invitations"
+  filename="invitations-list-by-accountId"
+%}
+  ## List Invitations by Account Id {% badge type="experimental" /%}
+
+  This endpoint allows you list Invitations for an Account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/invitations/{invitationId}/accept"
+  filename="invitations-accept"
+%}
+  ## Accept Invitation {% badge type="experimental" /%}
+
+  This endpoint allows you to accept an Invitation.
+
+  {% properties %}
+    {% property name="code" type="string" required=true %}
+      The Invitation code.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts) id of the user accepting the Invitation.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVITATION_EXPIRED" %}
+      The Invitation is expired.
+    {% /error %}
+
+    {% error code="403" message="INVITATION_ALREADY_ACCEPTED" %}
+      The Invitation has already been accepted.
+    {% /error %}
+
+    {% error code="403" message="RECIPIENT_ALIAS_MISMATCH" %}
+      The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation.
+    {% /error %}
+
+    {% error code="403" message="INVITATION_REVOKED" %}
+      The Invitation was revoked.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/invitations/{invitationId}/revoke"
+  filename="invitations-revoke"
+%}
+  ## Revoke Invitation {% badge type="experimental" /%}
+
+  This endpoint allows you to revoke an Invitation.
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVITATION_EXPIRED" %}
+      The Invitation is expired.
+    {% /error %}
+
+    {% error code="403" message="INVITATION_ACCEPTED" %}
+      The Invitation has already been accepted.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

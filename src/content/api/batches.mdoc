@@ -1,0 +1,120 @@
+---
+title: Batches
+description: Batch model and related endpoints
+nav:
+  path: API
+  order: 10
+---
+Batches enable bulk loading of resource onto the Centrapay platform.
+
+## Batch Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Batch's unique identifier.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The current [Lifecycle Stage](#batch-lifecycle) of the batch.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    [Batch Type](#batch-types) id used to describe the batch content.
+  {% /property %}
+
+  {% property name="totalCount" type="bignumber" %}
+    The number of items processed.
+  {% /property %}
+
+  {% property name="errorCount" type="bignumber" %}
+    Total [Error](#error) counted.
+  {% /property %}
+
+  {% property name="errors" type="array" %}
+    [Error](#error) list for the batch.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    true if the batch is for testing purposes only.
+  {% /property %}
+
+{% /properties %}
+
+### Batch Lifecycle
+
+Different stages of a Batch's lifecycle.
+
+![Batch Lifecycle](/batch-lifecycle.png)
+
+|  Status  |                              Description                                |
+| :------- | :---------------------------------------------------------------------- |
+| created  | The batch has successfully been submitted.                              |
+| copied   | The file has been transferred to Centrapay.                             |
+| chunked  | The batch has been broken up for processing.                            |
+| complete | The batch has been processed and may include errors.                    |
+| error    | There is an error accessing or reading the file, preventing processing. |
+
+### Batch Types
+
+The following table describes the Batch Types supported for loading.
+
+|                                 Type                                  |           Description           |
+| :-------------------------------------------------------------------- | :------------------------------ |
+| [farmlands-external-asset](/api/batch-types/farmlands-external-asset) | Farmlands External Asset Batch. |
+| [verifone-terminal-status](/api/batch-types/verifone-terminal-status) | Verifone Terminal Status Batch. |
+| [ticketek-ticket](/api/batch-types/ticketek-ticket)                   | Ticketek Ticket Batch.          |
+
+### Error
+
+|   Field    |   Type    |                         Description                          |
+| :--------- | :-------- | :----------------------------------------------------------- |
+| message    | String    | A description of what caused the Error.                      |
+| externalId | String    | Field used in debugging in reference to an id from the file. |
+| index      | BigNumber | Item offset where the Error was identified in the file.      |
+
+---
+
+{% endpoint
+  path="/api/batches"
+  filename="batches-create"
+%}
+  ## Create Batch
+
+  Initialize loading of entities from a batch file.
+
+  {% properties %}
+    {% property name="type" type="string" required=true %}
+      [Batch Type](#batch-types) used to describe the batch content.
+    {% /property %}
+
+    {% property name="url" type="string" required=true %}
+      The url where the file is located.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      Centrapay Account Id that submitted the Batch.
+    {% /property %}
+
+    {% property name="test" type="boolean" %}
+      true if the batch is for testing purposes only.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      accountId `test` flag is not the same as submitted Batch’s `test` flag.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/batches/{batchId}"
+  filename="batches-get"
+%}
+  ## Get Batch
+
+  This endpoint allows you to retrieve a Batch by id.
+{% /endpoint %}

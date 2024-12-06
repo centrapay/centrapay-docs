@@ -1,0 +1,337 @@
+---
+title: Merchants
+description: Merchant models and related endpoints
+nav:
+  path: Merchants
+  order: 1
+---
+A merchant is an initiator of [Payment Requests](/api/payment-requests). A Merchant has [Merchant Configs](/api/merchant-configs)
+which define the payment methods available for a Payment Request.
+
+## Merchant Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    Merchant's unique identifier.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    Id of Merchant's owning Centrapay account.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    Merchant name.
+  {% /property %}
+
+  {% property name="country" type="string" %}
+    Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Merchant was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Merchant.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Merchant was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Merchant.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    Flag indicating merchant is for testing.
+  {% /property %}
+
+  {% property name="settlementConfig" type="object" %}
+    Merchant [Settlement Config](#settlement-config-model).
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    Valid values: `physical` or `e-commerce`. Merchants with a physical store should provide type `physical`. Online only merchants should provide type `e-commerce`. E-commerce merchants will not be displayed in the store finder.
+  {% /property %}
+
+  {% property name="location" type="location" %}
+    Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query. This field is forbidden when the provided type is `e-commerce`.
+  {% /property %}
+
+  {% property name="onboardingStatus" type="string" %}
+    The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+  {% /property %}
+
+  {% property name="onboardingStatusReason" type="string" %}
+    The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+  {% /property %}
+
+    {% property name="categoryCode" type="string" %}
+    The category code assigned to the Merchant by Centrapay. Must be 4 digits.
+  {% /property %}
+{% /properties %}
+
+### Onboarding Statuses
+
+|    Status    |                                                                Description                                                                 |                                      Allowed Reasons                                      |
+| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| applied      | Identifies merchants that have registered to be activated for the Centrapay service.                                                       |                                                                                           |
+| provisioning | Identifies merchants that are in the process of being activated for the Centrapay service.                                                 |                                                                                           |
+| active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                           |
+| deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, no-response, change-of-ownership, centrapay-discontinued. |
+| on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal, no-response                             |
+
+### Onboarding Status Reasons
+
+|          Reason           |                           Description                            |
+| :------------------------ | :--------------------------------------------------------------- |
+| duplicate                 | The merchant already exists in the Centrapay system.             |
+| data-quality-issues       | Data quality issues are preventing the merchant from onboarding. |
+| no-response               | No response has been received from the merchant.                 |
+| change-of-ownership       | The merchant has changed ownership.                              |
+| centrapay-discontinued    | The merchant is no longer using Centrapay.                       |
+| seasonal-business-closure | The merchant has closed temporarily.                             |
+| incompatible-terminal     | The merchant does not have any compatible terminals.             |
+
+---
+
+## Settlement Config Model
+
+
+{% properties %}
+  {% property name="bankAccountId" type="string" %}
+    The id of the bank account funds should be settled into. This must belong to the account
+  {% /property %}
+{% /properties %}
+
+---
+
+## Merchant Search Result Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    Merchant's unique identifier
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    Merchant's name
+  {% /property %}
+
+  {% property name="acceptedAssets" type="array" %}
+    List of assets accepted by the merchant. See [Accepted Asset Model](#accepted-asset-model).
+  {% /property %}
+
+  {% property name="location" type="location" %}
+    Physical location of the merchant
+  {% /property %}
+{% /properties %}
+
+---
+
+## Accepted Asset Model
+
+
+{% properties %}
+  {% property name="assetType" type="string" %}
+    The [type](/api/asset-types) of the asset
+  {% /property %}
+
+  {% property name="products" type="object" %}
+    List of [Products](#product-model) supported by the asset type. Only available for [centrapay.token](/api/assets#token-model) asset type.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Product Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    Product's unique identifier.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/merchants"
+  filename="merchants-create"
+%}
+  ## Create Merchant
+
+  This endpoint allows you to create a Merchant.
+
+  {% properties %}
+    {% property name="accountId" type="string" required=true %}
+      Id of Merchant's owning Centrapay account.
+    {% /property %}
+
+    {% property name="name" type="string" required=true %}
+      Merchant name.
+    {% /property %}
+
+    {% property name="country" type="string" required=true %}
+      Merchant [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Must match the "region" on the [Account](/api/accounts).
+    {% /property %}
+
+    {% property name="test" type="boolean" required=true %}
+      Flag indicating merchant is for testing.
+    {% /property %}
+
+    {% property name="settlementConfig" type="object" %}
+      Merchant [Settlement Config](#settlement-config-model).
+    {% /property %}
+
+    {% property name="type" type="string" %}
+      Valid values: `physical` or `e-commerce`.
+    {% /property %}
+
+    {% property name="location" type="location" %}
+      Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+    {% /property %}
+
+    {% property name="categoryCode" type="string" %}
+      The category code assigned to the Merchant by Centrapay. Must be 4 digits.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="BANK_ACCOUNT_MISMATCH" %}
+      The bank account in the settlement config does not belong to the same account.
+    {% /error %}
+
+    {% error code="403" message="ACCOUNT_REGION_MISMATCH" %}
+      The merchant's "country" does not match the "region" on the Account.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}"
+  filename="merchants-get"
+%}
+  ## Get Merchant
+
+  This endpoint allows you to retrieve a Merchant by id.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/merchants"
+  filename="merchants-list-by-accountId"
+%}
+  ## List Merchants for Account
+
+  This endpoint allows you to retrieve a [paginated](/api/pagination) list of Merchants attached to an Account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}"
+  filename="merchants-update"
+%}
+  ## Update Merchant
+
+  This endpoint allows you to update a Merchant.
+
+  {% properties %}
+    {% property name="name" type="string" %}
+      Merchant name.
+    {% /property %}
+
+    {% property name="settlementConfig" type="object" %}
+      Merchant [Settlement Config](#settlement-config-model).
+    {% /property %}
+
+    {% property name="location" type="location" %}
+      Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+    {% /property %}
+
+    {% property name="categoryCode" type="string" %}
+      The category code assigned to the Merchant by Centrapay. Must be 4 digits.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="BANK_ACCOUNT_MISMATCH" %}
+      The bank account in the settlement config does not belong to the same account.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/set-onboarding-status"
+  filename="merchants-set-onboarding-status"
+%}
+  ## Set Merchant Onboarding Status
+
+  This endpoint allows you to set the onboarding status of a Merchant.
+
+  {% properties %}
+    {% property name="onboardingStatus" type="string" required=true %}
+      The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    {% /property %}
+
+    {% property name="onboardingStatusReason" type="string" %}
+      The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold` or `deactivated`. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/search"
+  filename="merchants-search"
+%}
+  ## Search Merchants
+
+  Returns a [paginated](/api/pagination) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth).
+
+  ### Query Parameters
+  {% properties %}
+    {% property name="origin" type="string" %}
+      The point to be searched around, formatted as a latitude,longitude
+    {% /property %}
+
+    {% property name="distance" type="number" %}
+      The distance from the origin to be searched around in km
+    {% /property %}
+
+    {% property name="asset" type="string" %}
+      A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's collectionId for [centrapay.token](/api/assets#token-model) asset types.
+    {% /property %}
+
+    {% property name="name" type="string" %}
+      Name of the merchant
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      pageKey of next merchant to fetch
+    {% /property %}
+
+    {% property name="paginationLimit" type="string" %}
+      Maximum amount of merchants to return
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants"
+  filename="merchants-list"
+%}
+  ## List Merchants {% badge type="deprecated" /%}
+
+  Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
+{% /endpoint %}

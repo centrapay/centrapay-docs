@@ -1,0 +1,83 @@
+---
+title: Media Uploads
+description: Media Uploads API Reference
+nav:
+  path: API
+  order: 15
+---
+## Media Upload Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Media Upload's unique identifier.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The Media Upload's owning Centrapay Account id.
+  {% /property %}
+
+  {% property name="mimeType" type="string" %}
+    The media (MIME) type of the upload.
+  {% /property %}
+
+  {% property name="fileName" type="string" %}
+    The file name of the upload.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Media Upload was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Media Upload.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Media Upload was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Media Upload.
+  {% /property %}
+
+  {% property name="uploadUrl" type="string" %}
+    A presigned URL that gives users time-limited permission to upload media.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/media-uploads"
+  filename="media-uploads-create"
+%}
+  ## Create a presigned URL for Media Upload {% badge type="experimental" /%}
+
+  This endpoint allows you to upload a media file to Centrapay. It returns a presigned URL that can be used to download the media file.
+
+  {% properties %}
+    {% property name="accountId" type="string" required=true %}
+      The Media Upload's owning Centrapay Account id.
+    {% /property %}
+
+    {% property name="mimeType" type="string" required=true %}
+      The media (MIME) type of the upload.
+    {% /property %}
+
+    {% property name="fileName" type="string" required=true %}
+      The file name of the upload.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/media-uploads/{mediaUploadId}/location"
+  filename="media-uploads-get-location"
+%}
+  ## Get Media Upload Location {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve the upload location of a media file.
+{% /endpoint %}

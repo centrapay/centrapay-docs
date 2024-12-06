@@ -1,0 +1,98 @@
+---
+title: API Keys
+description: Introduction to API Keys
+nav:
+  path: API
+  order: 6
+---
+API keys provide enduring access to a single Centrapay [Account](/api/accounts).
+
+## API Key Model
+
+
+{% properties %}
+  {% property name="accountId" type="string" %}
+    The id of the Centrapay [Account](/api/accounts) the API Key is scoped to.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The alphanumeric name of the API key, must be unique within the account.
+  {% /property %}
+
+  {% property name="role" type="string" %}
+    Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.
+  {% /property %}
+
+  {% property name="enabled" type="boolean" %}
+    Flag indicating the API Key is usable for authentication.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the API Key was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the API Key.
+  {% /property %}
+
+  {% property name="modifiedAt" type="timestamp" %}
+    When the API Key was modified.
+  {% /property %}
+
+  {% property name="modifiedBy" type="crn" %}
+    The User or API Key that modified the API Key.
+  {% /property %}
+
+  {% property name="version" type="string" %}
+    An API Key version that is incremented when the API Key is updated.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/api-keys"
+  filename="api-keys-create"
+%}
+  ## Create an API Key
+
+  This endpoint allows you to create an API key.
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The alphanumeric name of the API key, must be unique within the account.
+    {% /property %}
+
+    {% property name="role" type="string" required=true %}
+      Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/api-keys"
+  filename="api-keys-list"
+%}
+  ## List API Keys
+
+  This endpoint allows you to list all API Keys for an Account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/api-keys/{apiKeyName}"
+  filename="api-keys-update"
+%}
+  ## Update an API Key
+
+  This endpoint allows you to enable or disable an API key.
+
+  {% properties %}
+    {% property name="enabled" type="boolean" required=true %}
+      Flag indicating the API Key is usable for authentication.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

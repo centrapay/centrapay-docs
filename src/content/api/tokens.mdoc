@@ -1,0 +1,338 @@
+---
+title: Tokens
+description: Token models and related endpoints
+nav:
+  path: Assets
+  order: 5
+---
+Tokens are [Assets](/api/assets/) which can only be spent in full.
+
+Every [Token](#token-model) is associated with a [Collection](#token-collection-model), which defines the branding and general rules for the Tokens, such as active duration.
+
+A [Redemption Condition](#redemption-condition-model) is created for each [Merchant](/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
+
+---
+
+## Token Collection Model
+
+
+{% properties %}
+  {% property name="name" type="string" %}
+    The display name of the Collection.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that will own the Collection.
+  {% /property %}
+
+  {% property name="tokenExpiresAfter" type="object" %}
+    The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+  {% /property %}
+
+  {% property name="tokenExpiresAt" type="timestamp" %}
+    A date that all tokens will expire on if they haven’t expired earlier.
+  {% /property %}
+
+  {% property name="type" type="string" required=true %}
+    The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+  {% /property %}
+
+  {% property name="maxValue" type="monetary" %}
+    The maximum agreed value that any merchants will be settled for a Token redemption.
+    Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
+  {% /property %}
+
+  {% property name="id" type="string" %}
+    The unique identifier of the Token Collection.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Token Collection is for testing purposes only.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Token Collection. Valid values: `active`.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Timestamp at which the Token Collection was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The identity that created the Token Collection.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+  {% /property %}
+
+  {% property name="externalId" type="string" %}
+    An identifier to associate the Collection with an external campaign or event.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the Collection.
+  {% /property %}
+
+  {% property name="issuer" type="string" %}
+    The name of the [Business](/api/businesses/) linked to the Account.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Token Expires After Model
+
+
+{% properties %}
+  {% property name="period" type="string" required=true %}
+    Supported values are `hour`, `day`, `week`, `month` and `year`.
+  {% /property %}
+
+  {% property name="duration" type="string" required=true %}
+    Number of `period` until token expiration.
+  {% /property %}
+
+  {% property name="ceil" type="string" %}
+    Interval to round token expiry up to.
+    Supported values are `hour`, `day`, `week`, `month` and `year`.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Redemption Condition Model {% badge type="experimental" /%}
+
+
+{% properties %}
+  {% property name="merchantId" type="string" %}
+    The identifier of the [Merchant](/api/merchants) that is accepting the collection.
+  {% /property %}
+
+  {% property name="allowedProducts" type="object" %}
+    List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+  {% /property %}
+
+  {% property name="id" type="string" %}
+    The unique identifier of the Redemption Condition.
+  {% /property %}
+
+  {% property name="collectionId" type="string" %}
+    The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the Token.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Timestamp at which the Redemption Condition was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The identity that created the activity.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Allowed Products Model {% badge type="experimental" /%}
+
+{% properties %}
+  {% property name="sku" type="string" %}
+    The SKU of the product that is to be accepted.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    Display name of the product.
+  {% /property %}
+
+  {% property name="maxValue" type="monetary" %}
+    The maximum value that the product can be redeemed for.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Token Model {% badge type="experimental" /%}
+
+
+{% properties %}
+  {% property name="collectionId" type="string" %}
+    The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token.
+  {% /property %}
+
+  {% property name="idempotencyKey" type="string" %}
+    Client-supplied identifier that prevents double creation.
+  {% /property %}
+
+  {% property name="externalId" type="string" %}
+    The asset identifier from the issuing system.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+      The Account to create the token for. Defaults to the Account on the Token Collection.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/collections"
+  filename="collections-create"
+%}
+  ## Create Token Collection {% badge type="experimental" /%}
+
+  This endpoint allows you to create a [Token Collection](#token-collection-model).
+
+  {% properties %}
+      {% property name="name" type="string" required=true %}
+        The display name of the Collection.
+      {% /property %}
+
+      {% property name="accountId" type="string" required=true %}
+        The [Account](/api/accounts/) that will own the Collection.
+      {% /property %}
+
+      {% property name="tokenExpiresAfter" type="object" %}
+        The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+      {% /property %}
+
+      {% property name="tokenExpiresAt" type="timestamp" %}
+        A date that all tokens will expire on if they haven’t expired earlier.
+      {% /property %}
+
+      {% property name="type" type="string" required=true %}
+        The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+      {% /property %}
+
+      {% property name="maxValue" type="monetary" %}
+        The maximum agreed value that any merchants will be settled for a Token redemption. Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
+      {% /property %}
+
+      {% property name="mediaUploadId" type="string" %}
+        The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+      {% /property %}
+
+      {% property name="externalId" type="string" %}
+        An identifier to associate the Collection with an external campaign or event.
+      {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="EXTERNAL_ID_ALREADY_USED" %}
+      A collection has already been created for this account with the given externalId.
+    {% /error %}
+  {% /properties %}
+
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/collections"
+  filename="collections-list"
+%}
+  ## List Token Collections {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination/) list of [Token Collections](#token-collection-model) for an Account.
+
+  {% properties %}
+    {% property name="pageKey" type="string" %}
+      Used to retrieve the next page of items.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/collections/{collectionId}/redemption-conditions"
+  filename="collections-redemption-conditions-create"
+%}
+  ## Create Redemption Condition {% badge type="experimental" /%}
+
+  This endpoint allows you to create a [Redemption Condition](#redemption-condition-model).
+
+  {% properties %}
+    {% property name="merchantId" type="string" required=true %}
+      The identifier of the [Merchant](/api/merchants) that is accepting the collection.
+    {% /property %}
+
+    {% property name="allowedProducts" type="object" required=true %}
+      List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_AMOUNT" %}
+      One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection.
+    {% /error %}
+
+    {% error code="403" message="REDEMPTION_CONDITION_ALREADY_EXISTS" %}
+      A redemption condition for the collection and the merchant has already been created.
+    {% /error %}
+  {% /properties %}
+
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/collections/{collectionId}/redemption-conditions/{redemptionConditionId}/set-allowed-products"
+  filename="collections-redemption-conditions-allowed-products-set"
+%}
+  ## Set Allowed Products for Redemption Condition {% badge type="experimental" /%}
+
+  This endpoint allows you to set [Allowed Products](#allowed-products-model) for a [Redemption Condition](#redemption-condition-model).
+
+  {% properties %}
+    {% property name="allowedProducts" type="object" required=true %}
+      List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_AMOUNT" %}
+      One or more of the maxValue amount in the products has exceeded the maxValue amount defined on the collection.
+    {% /error %}
+
+  {% /properties %}
+{% /endpoint %}
+
+--
+
+{% endpoint
+  path="/api/tokens"
+  filename="tokens-create"
+%}
+  ## Create Token {% badge type="experimental" /%}
+
+  This endpoint allows you to create a Token.
+
+  {% properties %}
+    {% property name="collectionId" type="string" required=true %}
+      The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token.
+      Currently only Collections of type `product` are supported.
+    {% /property %}
+
+    {% property name="idempotencyKey" type="string" required=true %}
+      Client-supplied identifier that prevents double creation.
+    {% /property %}
+
+    {% property name="externalId" type="string" %}
+      The asset identifier from the issuing system.
+    {% /property %}
+
+    {% property name="accountId" type="string" %}
+        The Account to create the token for. Defaults to the Account on the Token Collection.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="TOKEN_ALREADY_CREATED" %}
+      Token with supplied parameters already exists.
+    {% /error %}
+
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      The account is test and the collection's liveness is main or vice versa.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+

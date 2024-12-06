@@ -1,0 +1,371 @@
+---
+title: Asset Transfers
+description: Asset transfer lifecycle and related endpoints
+nav:
+  path: Assets
+  order: 2
+---
+An asset transfer is an asynchronous exchange of an asset or an amount to a recipient.
+
+A recipient is an existing Centrapay user or someone who can create an account to claim the asset transfer by verifying
+their phone number or email.
+
+After an asset transfer is completed the recipientAlias, lastSentTo and
+message fields are scrubbed to avoid storing PII.
+
+## Asset Transfer Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Asset Transfer. See [Asset Transfer lifecycle](#asset-transfer-lifecycle) for possible values.
+  {% /property %}
+
+  {% property name="value" type="bignumber" %}
+    Amount to send. Required for money transfers. Units depend on the asset type.
+  {% /property %}
+
+  {% property name="assetId" type="string" %}
+    Id of a discrete asset to transfer or wallet to draw from.
+  {% /property %}
+
+  {% property name="assetType" type="string" %}
+    The [Asset Type](/api/asset-types/) being transferred.
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    Shows up in transaction history against the transfer. 200 character limit.
+  {% /property %}
+
+  {% property name="message" type="string" %}
+    Shows up in transaction history against the transfer. 100 character limit.
+  {% /property %}
+
+  {% property name="lastSentTo" type="string" %}
+    The phone number or email address of the last recipient.
+  {% /property %}
+
+  {% property name="senderAlias" type="string" %}
+    Phone number, email or handle of sender and who receives a request for asset transfer
+  {% /property %}
+
+  {% property name="senderName" type="string" %}
+    Human readable name for the sender. 30 character limit.
+  {% /property %}
+
+  {% property name="recipientAccountId" type="string" %}
+    The Centrapay Account id of the recipient.
+  {% /property %}
+
+  {% property name="senderAccountId" type="string" %}
+    The Centrapay Account id of the sender.
+  {% /property %}
+
+  {% property name="claimedByAccountId" type="string" %}
+    The Centrapay Account that claimed the Asset Transfer.
+  {% /property %}
+
+  {% property name="recipientAlias" type="string" %}
+    Phone number, email or handle of receiver and who make a request for asset transfer
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Asset Transfer was created.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Asset Transfer was updated.
+  {% /property %}
+
+  {% property name="suppressNotification" type="boolean" %}
+    Suppress notifications from Centrapay (SMS/Email).
+  {% /property %}
+
+  {% property name="url" type="string" %}
+    A URL where the asset can be claimed if a recipient is not supplied.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Asset Transfer lifecycle
+
+Asset Transfer goes through different lifecycle stages.
+
+![Asset Transfer Lifecycle](/asset-lifecycle.png)
+
+|   State   |                                                    Description                                                     |
+| :-------- | :----------------------------------------------------------------------------------------------------------------- |
+| requested | Asset transfer successfully requested                                                                              |
+| created   | Asset transfer successfully created                                                                                |
+| sent      | Asset transfer notification (sms, email) was sent to a new user                                                    |
+| expired   | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
+| returned  | Asset transfer expired and was returned to original owner                                                          |
+| claimed   | Asset transfer was successfully completed                                                                          |
+| cancelled | Asset transfer was cancelled.                                                                                      |
+
+---
+
+{% endpoint
+  path="/api/asset-transfer-requests"
+  filename="asset-transfers-request"
+%}
+  ## Request an Asset Transfer {% badge type="experimental" /%}
+
+
+  Request a transfer of an asset from a sender to the recipient.
+
+  {% properties %}
+    {% property name="recipientAlias" type="string" required=true %}
+      Contact information, such as phone number, email, or handle, for the individual requesting asset transfer. Currently supports bank account number only.
+    {% /property %}
+
+    {% property name="senderAccountId" type="string" required=true %}
+      The account id of the sender who receives the request from recipientAlias.
+    {% /property %}
+
+    {% property name="assetType" type="string" required=true %}
+      The type of asset being transferred. Currently, supports only `quartz.nzd` assets
+    {% /property %}
+
+    {% property name="description" type="string" %}
+      Shows up in transaction history against the transfer. 200 character limit.
+    {% /property %}
+
+    {% property name="message" type="string" %}
+      Shows up in transaction history against the transfer. 100 character limit.
+    {% /property %}
+
+    {% property name="suppressNotification" type="boolean" %}
+      Suppress notifications from Centrapay (SMS/Email).
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="SENDER_NOT_FOUND" %}
+      The requests must include a valid sender alias.
+    {% /error %}
+
+    {% error code="403" message="INVALID_ASSET_TYPE" %}
+      The [asset's type](/api/asset-types/) does not support transfers.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfer-requests/{assetTransferId}/accept"
+  filename="asset-transfer-requests-accept"
+%}
+  ## Accept an Asset Transfer Request {% badge type="experimental" /%}
+
+  {% properties %}
+    {% property name="assetId" type="string" required=true %}
+      Id of the asset to pay the asset transfer request with. Only valid for `quartz.nzd` assets
+    {% /property %}
+
+    {% property name="senderName" type="string" required=true %}
+      Human readable name for the sender. 30 character limit.
+    {% /property %}
+
+    {% property name="value" type="bignumber" %}
+      Amount to send. Required if not defined in the request; forbidden if it was.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED" %}
+      The asset transfer request has already expired
+    {% /error %}
+
+    {% error code="403" message="ASSET_TRANSFER_REQUEST_ACCEPTED" %}
+      The asset transfer request has already been accepted
+    {% /error %}
+
+    {% error code="403" message="BANK_ACCOUNT_BALANCE_INSUFFICIENT" %}
+      The bank account the asset is for does not have enough balance for the transfer
+    {% /error %}
+
+    {% error code="403" message="QUOTA_EXCEEDED" %}
+      The asset transfer would exceed the provided assets quotas
+    {% /error %}
+
+    {% error code="403" message="ASSET_NOT_ACTIVE" %}
+      The asset is not active.
+    {% /error %}
+
+    {% error code="403" message="INVALID_ASSET_TYPE" %}
+      The [asset's type](/api/asset-types/) does not match the request.
+    {% /error %}
+
+    {% error code="403" message="VALUE_NOT_DEFINED" %}
+      The value of the asset transfer was not defined in either the initial request or the acceptance
+    {% /error %}
+
+    {% error code="403" message="VALUE_ALREADY_DEFINED" %}
+      The value of the asset transfer was defined in both the initial request and the acceptance
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers"
+  filename="asset-transfers-create"
+%}
+  ## Create an Asset Transfer
+
+  Transfer an asset to a recipient. Some assets can be transfered only in whole
+  (eg tokens) while others can be transfered only in part (eg money).
+
+  Some assets can be transferred without supplying a recipient. A `url` field will be
+  returned in these cases. The `url` will link to a page to claim the asset.
+
+  {% properties %}
+    {% property name="assetId" type="string" required=true %}
+      Id of a discrete asset to transfer or wallet to draw from.
+    {% /property %}
+
+    {% property name="recipientAlias" type="string" %}
+      Phone number, email or handle of receiver.
+    {% /property %}
+
+    {% property name="description" type="string" %}
+      Shows up in transaction history against the transfer. 200 character limit.
+    {% /property %}
+
+    {% property name="message" type="string" %}
+      Shows up in transaction history against the transfer. 100 character limit.
+    {% /property %}
+
+    {% property name="value" type="bignumber" %}
+      Amount to send. Required for money transfers. Units depend on the asset type.
+    {% /property %}
+
+    {% property name="senderName" type="string" %}
+      Human readable name for the sender. 30 character limit.
+    {% /property %}
+
+    {% property name="suppressNotification" type="boolean" %}
+      Suppress notifications from Centrapay (SMS/Email).
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
+      The value of the asset-transfer exceeds the balance on the wallet.
+    {% /error %}
+
+    {% error code="403" message="QUOTA_EXCEEDED" %}
+      The transfer exceeds one or more spend quota limits. See [Quota Error Response](/api/quotas#errors).
+    {% /error %}
+
+    {% error code="403" message="ASSET_NOT_ACTIVE" %}
+      The asset is not active and cannot be transferred.
+    {% /error %}
+
+    {% error code="403" message="RECIPIENT_MISSING" %}
+      The asset must be transferred with a recipient supplied.
+    {% /error %}
+
+    {% error code="403" message="INVALID_ASSET_TYPE" %}
+      The [asset's type](/api/asset-types/) does not support transfers.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers/{assetTransferId}"
+  filename="asset-transfers-get"
+%}
+  ## Get an Asset Transfer
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers/{assetTransferId}/summary"
+  filename="asset-transfers-get-summary"
+%}
+  ## Get Asset Transfer Summary
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers/{assetTransferId}/claim"
+  filename="asset-transfers-claim"
+%}
+  ## Claim Asset Transfer {% badge type="experimental" /%}
+
+  Claim the asset transfer for the caller's authorised account.
+
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ASSET_TRANSFER_INVALID_RECIPIENT" %}
+      The asset transfer already has a recipient defined through the `recipientAlias` field and cannot be claimed with this API.
+    {% /error %}
+    {% error code="403" message="ASSET_TRANSFER_INVALID_STATUS" %}
+      The asset transfer is not in a `sent` status and hence cannot be claimed.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/me/resolve-claimable-assets"
+  filename="asset-transfers-resolve-claimable-assets"
+%}
+  ## Resolve Claimable Assets {% badge type="experimental" /%}
+
+  When you send another centrapay user cash or assets, they're automatically assigned to them.
+  However, if they're not signed up yet then these assets are not immediately assigned.
+
+  If unclaimed, asset transfers are returned after 2 weeks.
+
+  New accounts should call this endpoint to allocate assets that you've been sent.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers"
+  filename="asset-transfers-list"
+%}
+  ## List Asset Transfers {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination/) list of Asset Transfers.
+
+  {% properties %}
+    {% property name="recipientAccountId" type="string" %}
+      The Centrapay Account id of the recipient.
+    {% /property %}
+
+    {% property name="senderAccountId" type="string" %}
+      The Centrapay Account id of the sender.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfers/{assetTransferId}/cancel"
+  filename="asset-transfers-cancel"
+%}
+  ## Cancel an Asset Transfer
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_ASSET_TRANSFER_STATUS" %}
+      The asset transfer status is invalid and cannot be cancelled.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

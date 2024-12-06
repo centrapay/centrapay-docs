@@ -104,6 +104,7 @@ export default defineMarkdocConfig({
     property: {
       render: component('./src/components/Property.astro'),
       attributes: {
+        deprecated: { type: Boolean },
         experimental: { type: Boolean },
         name: { type: String },
         required: { type: Boolean },

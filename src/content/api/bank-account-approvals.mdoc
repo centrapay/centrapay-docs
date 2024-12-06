@@ -1,0 +1,203 @@
+---
+title: Bank Account Approvals
+description: Bank Account Approval model and related endpoints
+nav:
+  path: Bank Accounts
+  order: 2
+---
+A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts).
+This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts) owner
+that allows access to a third-party system. See [Bank Account Approval Types](#bank-account-approval-types).
+
+---
+
+## Bank Account Approval Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Bank Account Approval's unique identifier.
+  {% /property %}
+
+  {% property name="bankAccountId" type="string" %}
+    The id of the associated [Bank Account](/api/bank-accounts/).
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The id of the owning Centrapay [Account](/api/accounts/).
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of Bank Account Approval. See [Bank Account Approval Types](#bank-account-approval-types).
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Bank Account Approval was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Bank Account Approval.
+  {% /property %}
+
+  {% property name="modifiedAt" type="timestamp" %}
+    When the Bank Account Approval was updated.
+  {% /property %}
+
+  {% property name="modifiedBy" type="crn" %}
+    The User or API Key that updated the Bank Account Approval.
+  {% /property %}
+
+  {% property name="approvalActivities" type="array" %}
+    An array of [Bank Account Approval Activities](#bank-account-approval-activity-model) associated with the Bank Account Approval.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the associated [Media Upload](/api/media-uploads). Required for type `settlement`.
+  {% /property %}
+
+  {% property name="refreshToken" type="string" %}
+    A long lived access token for access to a third-party system. Required for type `account-information-consent` and `enduring-payment-consent`.
+  {% /property %}
+
+  {% property name="consentId" type="string" %}
+    A unique identifier for an authorization in a third-party system.
+  {% /property %}
+{% /properties %}
+
+### Bank Account Approval Types
+
+|      Name                    |                                                                                                                                      description                                                                                                                                      |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| settlement                   | An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet](/api/wallets#settlement-wallets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved. |
+| account-information-consent  | An `approved` Bank Account Approval of type `account-information-consent` provides an access token to read account details from a third-party.                                                                                                                                                    |
+| enduring-payment-consent     | An `approved` Bank Account Approval of type `enduring-payment-consent` provides an access token for creating payments with a third-party.                                                                                                                                                      |
+
+---
+
+## Bank Account Approval Activity Model
+
+
+{% properties %}
+  {% property name="activityNumber" type="number" %}
+    Unique sequential Bank Account Approval Activity number.
+  {% /property %}
+
+  {% property name="approvalId" type="string" %}
+    The id of the associated [Bank Account Approval](#bank-account-approval-model).
+  {% /property %}
+
+  {% property name="activityType" type="string" %}
+    The type of the Bank Account Approval Activity.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Bank Account Approval Activity was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Bank Account Approval Activity.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/bank-account-approvals"
+  filename="bank-account-approvals-create"
+%}
+  ## Request Bank Account Approval {% badge type="experimental" /%}
+
+  This endpoint allows you to request a Bank Account Approval.
+
+  {% properties %}
+    {% property name="mediaUploadId" type="string" required=true %}
+      The id of the associated [Media Upload](/api/media-uploads).
+    {% /property %}
+
+    {% property name="bankAccountId" type="string" required=true %}
+      The id of the associated [Bank Account](/api/bank-accounts).
+    {% /property %}
+
+    {% property name="type" type="string" required=true %}
+      The [Bank Account Approval Type](#bank-account-approval-types). A Bank Account Approval can only be requested for type `settlement`.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="APPROVAL_ALREADY_IN_PROGRESS" %}
+      There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/bank-account-approvals/{bankAccountApprovalId}"
+  filename="bank-account-approvals-get"
+%}
+  ## Get Bank Account Approval {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a Bank Account Approval.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/bank-account-approvals/{bankAccountApprovalId}/accept"
+  filename="bank-account-approvals-accept"
+%}
+  ## Accept Bank Account Approval {% badge type="experimental" /%}
+
+  This endpoint allows you to accept a Bank Account Approval.
+
+  {% properties %}
+    {% property name="reason" type="string" %}
+      The reason for accepting the Bank Account Approval.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="APPROVAL_ALREADY_REVIEWED" %}
+      The Bank Account Approval has already been accepted or declined.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/bank-account-approvals/{bankAccountApprovalId}/decline"
+  filename="bank-account-approvals-decline"
+%}
+  ## Decline Bank Account Approval {% badge type="experimental" /%}
+
+  This endpoint allows you to decline a Bank Account Approval.
+
+  {% properties %}
+    {% property name="reason" type="string" required=true %}
+      The reason for declining the Bank Account Approval.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="APPROVAL_ALREADY_REVIEWED" %}
+      The Bank Account Approval has already been accepted or declined.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/bank-accounts/{bankAccountId}/approvals"
+  filename="bank-account-approvals-list"
+%}
+  ## List Bank Account Approvals {% badge type="experimental" /%}
+
+  This endpoint allows you to list the Bank Account Approvals for a Bank Account.
+{% /endpoint %}

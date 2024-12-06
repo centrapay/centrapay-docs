@@ -1,0 +1,72 @@
+---
+title: Scanned Codes
+description: Scanned Code model and related endpoints
+nav:
+  path: Scanned Codes
+  order: 1
+---
+A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](/api/payment-requests).
+
+## Scanned Code Model
+
+
+{% properties %}
+  {% property name="code" type="string" %}
+    The utf8 representation of data decoded from what was scanned.
+  {% /property %}
+
+  {% property name="scannedBy" type="string" %}
+    The party that scanned the code. Can be `merchant`.
+  {% /property %}
+
+  {% property name="provider" type="string" %}
+    The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
+  {% /property %}
+
+  {% property name="displayName" type="string" %}
+    A formatted name that can be displayed in a client.
+  {% /property %}
+
+  {% property name="merchantConfigId" type="string" %}
+    The ID of the [Merchant Config](/api/merchant-configs).
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/decode"
+  filename="scanned-codes-decode"
+%}
+  ## Decode Scanned Code
+
+  This endpoint allows you to decode a scanned code.
+
+  {% properties %}
+    {% property name="code" type="string" required=true %}
+      The utf8 representation of data decoded from what was scanned.
+    {% /property %}
+
+    {% property name="scannedBy" type="string" required=true %}
+      The party that scanned the code. Can be `merchant`.
+    {% /property %}
+
+    {% property name="merchantConfigId" type="string" required=true %}
+      The ID of the [Merchant Config](/api/merchant-configs).
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="UNKNOWN_CODE" %}
+      The code doesn’t exist or is no longer active in our system.
+    {% /error %}
+
+    {% error code="403" message="MERCHANT_CONFIG_NOT_FOUND" %}
+      The supplied merchant config does not exist.
+    {% /error %}
+
+    {% error code="403" message="INVALID_MERCHANT_CONFIG" %}
+      The merchant config does not have a payment option that can satisfy the scanned code.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

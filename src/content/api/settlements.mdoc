@@ -1,0 +1,76 @@
+---
+title: Settlements
+description: Settlement models and related endpoints
+nav:
+  path: API
+  order: 21
+---
+A Settlement is created from completed [Payment Requests](/api/payment-requests/) over a specified period for each supported [Asset Type](/api/asset-types/) for each [Merchant](/api/merchants/).
+
+Settlements can only be created if the Merchant has a [Settlement Config](/api/merchants#settlement-config-model).
+
+---
+
+## Settlement Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier for the Settlement.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Settlement.
+  {% /property %}
+
+  {% property name="assetType" type="string" %}
+    The [Asset Type](/api/asset-types/) being settled.
+  {% /property %}
+
+  {% property name="currency" type="string" %}
+    The settlement currency.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Settlement was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Settlement.
+  {% /property %}
+
+  {% property name="settledAt" type="timestamp" %}
+    The time when settlement was completed.
+  {% /property %}
+
+  {% property name="settledBy" type="crn" %}
+    The User or API Key that completed the Settlement.
+  {% /property %}
+
+  {% property name="settlementAmount" type="bignumber" %}
+    The total amount of the settlement.
+  {% /property %}
+
+  {% property name="settlementBankAccountId" type="string" %}
+    The ID of the [Bank Account](/api/bank-accounts/) used for settlement.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of the Settlement.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    Flag indicating whether the Settlement is a test resource.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/settlements"
+  filename="settlements-list-by-merchantId"
+%}
+  ## List Settlements
+
+  This endpoint allows you to list Settlements.
+{% /endpoint %}

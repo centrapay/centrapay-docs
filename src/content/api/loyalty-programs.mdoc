@@ -1,0 +1,94 @@
+---
+title: Loyalty Programs
+description: Loyalty Program model and related endpoints
+nav:
+  path: Loyalty Programs
+  order: 1
+---
+A loyalty program is a container for one or more [Promotions](/api/promotions), which is a mechanism to reward accounts for completing certain actions.
+
+## Loyalty Program Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Loyalty Program.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Loyalty Program.
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    The displayable description for the Loyalty Program.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the Loyalty Program.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that will own the Loyalty Program.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Loyalty Program was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Loyalty Program.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Loyalty Program is for testing purposes only.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs"
+  filename="loyalty-programs-create"
+%}
+  ## Create Loyalty Program {% badge type="experimental" /%}
+
+  This endpoint allows you to create a [Loyalty Program](#loyalty-program-model).
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+     The display name of the Loyalty Program.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that will own the Loyalty Program.
+    {% /property %}
+
+    {% property name="description" type="string" %}
+      The displayable description for the Loyalty Program.
+    {% /property %}
+
+    {% property name="mediaUploadId" type="string" %}
+      The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_ACCOUNT_TYPE" %}
+      The Account must be type `org`.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/loyalty-programs"
+  filename="loyalty-programs-list-by-accountId"
+%}
+  ## List Loyalty Programs by Account Id {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
+{% /endpoint %}

@@ -1,0 +1,83 @@
+---
+title: Loyalty Program Memberships
+description: Loyalty Program Memberships model and related endpoints
+nav:
+  path: Loyalty Programs
+  order: 2
+---
+A Loyalty Program Membership represents an Account's membership to a Loyalty Program.
+
+## Loyalty Program Membership Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Loyalty Program Membership.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
+  {% /property %}
+
+  {% property name="programId" type="string" %}
+    The id of the Loyalty Program that the Membership is created for.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Loyalty Program.
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    The displayable description for the Loyalty Program.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Loyalty Program Membership.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the Loyalty Program.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Loyalty Program Membership was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Loyalty Program Membership.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Loyalty Program Membership is for testing purposes only.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{loyaltyProgramId}/memberships"
+  filename="loyalty-program-memberships-create"
+%}
+  ## Create Loyalty Program Memberships {% badge type="experimental" /%}
+
+  This endpoint allows you to create [Loyalty Program Memberships](#loyalty-program-membership-model) to onboard users to [Loyalty Programs](#loyalty-program-model).
+
+  {% properties %}
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="MEMBERSHIP_ALREADY_EXISTS" %}
+     A membership has already been created for this account and this loyalty program.
+    {% /error %}
+
+    {% error code="403" message="LOYALTY_PROGRAM_ACCOUNT_LIVENESS_MISMATCH" %}
+     The account cannot be test if the loyalty program is not test.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

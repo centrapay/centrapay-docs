@@ -1,0 +1,93 @@
+---
+title: Profiles
+description: Profile model and related endpoints
+nav:
+  path: API
+  order: 18
+---
+A profile represents a Centrapay user's attributes.
+
+
+## Profile Model
+
+{% properties %}
+  {% property name="userId" type="string" %}
+    The Centrapay user id.
+  {% /property %}
+
+  {% property name="givenName" type="string" %}
+    First name.
+  {% /property %}
+
+  {% property name="familyName" type="string" %}
+    Last name.
+  {% /property %}
+
+  {% property name="featureUpdates" type="boolean" %}
+    Whether a user would like to receive emails for feature updates.
+  {% /property %}
+
+  {% property name="marketingUpdates" type="boolean" %}
+    Whether a user would like to receive emails for marketing updates.
+  {% /property %}
+
+  {% property name="email" type="string" %}
+    Email address.
+  {% /property %}
+
+  {% property name="emailVerified" type="boolean" %}
+    Flag indicating the verification status of the email address.
+  {% /property %}
+
+  {% property name="phoneNumber" type="string" %}
+    The user's phone number.
+  {% /property %}
+
+  {% property name="phoneVerified" type="boolean" %}
+    Flag indicating the verification status of the phone number.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/me/profile/update"
+  filename="profiles-update"
+%}
+  ## Update Profile {% badge type="experimental" /%}
+
+  Update a user’s mutable attributes. At least one field must be provided in the request.
+
+  {% properties %}
+    {% property name="givenName" type="string" %}
+      First name.
+    {% /property %}
+
+    {% property name="familyName" type="string" %}
+      Last name.
+    {% /property %}
+
+    {% property name="featureUpdates" type="boolean" %}
+      Whether a user would like to receive emails for feature updates.
+    {% /property %}
+
+    {% property name="marketingUpdates" type="boolean" %}
+      Whether a user would like to receive emails for marketing updates.
+    {% /property %}
+
+    {% property name="email" type="string" %}
+      Email address.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/users/{userId}/profile"
+  filename="profiles-get"
+%}
+  ## Get Profile {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a user's Profile.
+{% /endpoint %}

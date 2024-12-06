@@ -1,0 +1,129 @@
+---
+title: Bank Account Connection Intents
+description: Bank Account Connection Intent model and related endpoints
+nav:
+  path: Bank Accounts
+  order: 3
+---
+A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts.
+
+---
+
+## Bank Account Connection Intent Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Bank Account Connection Intent's unique identifier.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The id of the owning Centrapay [Account](/api/accounts/).
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of Bank Account Connection Intent. See [Bank Account Connection Intent Types](#bank-account-connection-intent-types).
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The current status of the Bank Account Connection Intent. Supported values are `created`, `authorized` and `failed`.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Bank Account Connection Intent was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Bank Account Connection Intent.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Bank Account Connection Intent was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Bank Account Connection Intent.
+  {% /property %}
+
+  {% property name="authorizationUrl" type="string" %}
+    A URL to the third-party beginning the authorization flow.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts) used for testing.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+      The name of the consent. Only present if type is `enduring-payment-consent`.
+    {% /property %}
+{% /properties %}
+
+### Bank Account Connection Intent Types
+
+|      Name                   |                                                                                               description                                                                                                |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| account-information-consent | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. |
+| enduring-payment-consent    | Initiates an authorization flow for authorizing access to create payments.                                                                                                                               |
+
+---
+
+{% endpoint
+  path="/api/bank-account-connection-intents"
+  filename="bank-account-connection-intents-create"
+%}
+  ## Create Bank Account Connection Intent {% badge type="experimental" /%}
+
+  This endpoint allows you to create a Bank Account Connection Intent.
+
+  {% properties %}
+    {% property name="accountId" type="string" required=true %}
+      The id of the owning [Account](/api/accounts/).
+    {% /property %}
+
+    {% property name="type" type="string" required=true %}
+      The type of Bank Account Connection Intent.
+    {% /property %}
+
+    {% property name="bankAccountId" type="string" %}
+      The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `enduring-payment-consent`.
+    {% /property %}
+
+    {% property name="test" type="boolean" %}
+      A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts/) used for testing.
+    {% /property %}
+
+    {% property name="name" type="string" %}
+      The name of the consent. Only available if type is `enduring-payment-consent`.
+    {% /property %}
+
+    {% property name="period" type="string" %}
+      The period after which the amount spent using the consent will be reset. Only available if type is `enduring-payment-consent`. Valid values are `daily`, `weekly`, `fortnightly`, `monthly` and `yearly`. Defaults to `daily`.
+    {% /property %}
+
+    {% property name="totalAmount" type="string" %}
+      The total cent value of transactions the consent can be used for within the period. Only available if type is `enduring-payment-consent`.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize"
+  filename="bank-account-connection-intents-authorize"
+%}
+  ## Authorize Bank Account Connection Intent {% badge type="experimental" /%}
+
+  This endpoint allows you to authorize a Bank Account Connection Intent.
+
+  {% properties %}
+    {% property name="code" type="string" required=true %}
+      Authorization code returned from third-party.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

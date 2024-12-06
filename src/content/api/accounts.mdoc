@@ -1,0 +1,160 @@
+---
+title: Accounts
+description: Account model and related endpoints
+nav:
+  path: Accounts
+  order: 1
+---
+An Account represents a permission boundary around Centrapay resources.
+Accounts can have [API Keys](/api/api-keys/) and [Account Memberships](/api/account-memberships/) which grant access to the resources.
+
+Accounts are classified as either "individual" or "org". Individual accounts
+can only have a single member and Centrapay users can only be a member of a single
+individual account.
+
+## Account Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    Account type, must be either 'org' or 'individual'.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Account.
+  {% /property %}
+
+  {% property name="region" type="string" %}
+    The region that the Account will operate in.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    A flag which is only present if the Account is for testing.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Account was created.
+  {% /property %}
+
+  {% property name="modifiedAt" type="timestamp" %}
+    When the Account was updated.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Account.
+  {% /property %}
+
+  {% property name="modifiedBy" type="crn" %}
+    The User or API Key that updated the Account.
+  {% /property %}
+
+  {% property name="subscriptions" type="array" %}
+    A list of [Subscriptions](#subscription-model) on the Account.
+  {% /property %}
+
+  {% property name="parentAccountId" type="string" %}
+    The unique identifier of the parent account to which the current account is linked.
+    This field establishes a hierarchical relationship between accounts, indicating that the current account was created by the specified parent account.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Subscription Model
+
+{% properties %}
+  {% property name="name" type="string" %}
+    The name of the Subscription.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/accounts"
+  filename="accounts-create"
+%}
+  ## Create an Account
+
+  This endpoint allows you to create an Account.
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The name of the Account.
+    {% /property %}
+
+    {% property name="type" type="string" required=true %}
+      Account type, must be either "org" or "individual".
+    {% /property %}
+
+    {% property name="owner" type="string" %}
+      Id of user to add as member with "account-owner" role.
+    {% /property %}
+
+    {% property name="test" type="boolean" %}
+      A flag indicating if the Account is for testing. Test Accounts will not be able to create non-test Accounts.
+    {% /property %}
+
+    {% property name="region" type="string" %}
+      The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US".
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}"
+  filename="accounts-get"
+%}
+  ## Get an Account
+
+  This endpoint allows you to retrieve an Account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}"
+  filename="accounts-update"
+%}
+  ## Update an Account
+
+  This endpoint allows you to update an account.
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The name of the Account.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/subscriptions"
+  filename="accounts-subscriptions-update"
+%}
+  ## Update Subscriptions
+
+  This endpoint allows you to update the subscriptions on an account.
+
+  {% properties %}
+    {% property name="subscriptions" type="array" required=true %}
+      The list of subscriptions to assign to the account.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_ACCOUNT_ID" %}
+      The account does not exist.
+    {% /error %}
+
+    {% error code="403" message="INVALID_SUBSCRIPTION" %}
+      One of the subscriptions in the list is not valid.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
