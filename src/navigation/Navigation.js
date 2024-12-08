@@ -18,8 +18,8 @@ class NavGroup {
       parentPath: path
     })) || [];
     const childPages = content.filter(c => c.data.nav.path === path.join('/'))
-      .map(Page.fromContent)
-      .sort((a, b) => a.nav.order - b.nav.order);
+      .map(Page.fromContent);
+
 
     return new NavGroup({
       title: nav.title,
