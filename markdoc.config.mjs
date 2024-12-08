@@ -59,6 +59,26 @@ export default defineMarkdocConfig({
     },
   },
   tags: {
+    badge: {
+      render: component('./src/components/Badge.astro'),
+      attributes: {
+        type: { type: String },
+      },
+    },
+    endpoint: {
+      render: component('./src/components/Endpoint.astro'),
+      attributes: {
+        filename: { type: String },
+        path: { type: String },
+      },
+    },
+    error: {
+      render: component('./src/components/Error.astro'),
+      attributes: {
+        code: { type: String },
+        message: { type: String },
+      },
+    },
     farmlandsSolutionCard: {
       render: component('./src/components/SolutionCard.astro'),
       attributes: {
@@ -73,6 +93,21 @@ export default defineMarkdocConfig({
       render: component('./src/components/Grid.astro'),
       attributes: {
         class: { type: String },
+      },
+    },
+    properties: {
+      render: component('./src/components/Properties.astro'),
+      attributes: {
+        heading: { type: String },
+      },
+    },
+    property: {
+      render: component('./src/components/Property.astro'),
+      attributes: {
+        experimental: { type: Boolean },
+        name: { type: String },
+        required: { type: Boolean },
+        type: { type: String },
       },
     },
     mermaid: {

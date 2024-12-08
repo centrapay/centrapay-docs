@@ -1,5 +1,4 @@
 ---
-import Eyebrow from './Eyebrow.astro';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
@@ -21,7 +20,6 @@ if (!endpoint) {
 
 <Row>
   <Column>
-    <Eyebrow method={endpoint.method} path={path}/>
     <slot/>
   </Column>
 
