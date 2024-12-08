@@ -7,7 +7,6 @@ import rehypeSectionize from '@hbsnow/rehype-sectionize';
 
 // https://astro.build/config
 import vue from '@astrojs/vue';
-import mdx from '@astrojs/mdx';
 
 import markdoc from '@astrojs/markdoc';
 import expressiveCode from 'astro-expressive-code';
@@ -19,7 +18,6 @@ export default defineConfig({
     vue(),
     tailwind({ applyBaseStyles: false }),
     expressiveCode(),
-    mdx(),
     markdoc({ ignoreIndentation: true }),
   ],
   markdown: {
