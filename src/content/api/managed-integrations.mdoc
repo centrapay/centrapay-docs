@@ -1,0 +1,325 @@
+---
+title: Managed Integrations
+description: Managed Integration model and related endpoints
+nav:
+  path: Integrations
+  order: 3
+---
+A Managed Integration is an [Integration](/api/integrations)  which a third party can control.
+
+## Managed Integration Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Managed Integration's unique identifier.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of Managed Integration. Supported types are `paypal-referral`.
+  {% /property %}
+
+  {% property name="enabled" type="boolean" %}
+    Flag indicating whether the Managed Integration should become active or inactive.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`.
+  {% /property %}
+
+  {% property name="externalId" type="string" %}
+    Field used to reference an id from an external system.
+  {% /property %}
+
+  {% property name="params" type="object" %}
+    [Params](#params-model) depending on the Managed Integration type.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Managed Integration was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Managed Integration.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Managed Integration was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Managed Integration.
+  {% /property %}
+
+    {% property name="claimedByAccountId" type="string" %}
+    Centrapay account id used to claim the Managed Integration.
+  {% /property %}
+
+  {% property name="claimedBy" type="crn" %}
+    The User or API Key that claimed the Managed Integration.
+  {% /property %}
+
+  {% property name="claimedAt" type="timestamp" %}
+    When the Managed Integration was claimed.
+  {% /property %}
+
+  {% property name="invitation" type="object" %}
+    A summary of the associated [Invitation](/api/invitations). See [Invitation Summary](#invitation-summary-model).
+  {% /property %}
+
+  {% property name="inProgress" type="boolean" %}
+    Flag indicating whether a status transition is in progress.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    A flag which is present if the Managed Integration is for testing.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Invitation Summary Model
+
+A summary of the [Invitation](/api/invitations) for a Managed Integration.
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Invitation's unique identifier.
+  {% /property %}
+
+  {% property name="code" type="string" %}
+    The Invitation code.
+  {% /property %}
+
+  {% property name="expiresAt" type="timestamp" %}
+    When the Invitation expires.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Merchant Model
+
+{% properties %}
+  {% property name="partnerMerchantId" type="string" required=true %}
+    The unique id of the merchant in your system.
+  {% /property %}
+
+  {% property name="merchantName" type="string" required=true %}
+    The name of the merchant.
+  {% /property %}
+
+  {% property name="merchantStreetNumberName" type="string" required=true %}
+    The street number and name where the merchant is located.
+  {% /property %}
+
+  {% property name="merchantSuburb" type="string" required=true %}
+    The suburb where the merchant is located.
+  {% /property %}
+
+  {% property name="merchantTown" type="string" required=true %}
+    The town where the merchant is located.
+  {% /property %}
+
+  {% property name="merchantCountry" type="string" required=true %}
+    The country where the merchant is located.
+  {% /property %}
+
+  {% property name="merchantPostCode" type="string" required=true %}
+    The post code where the merchant is located.
+  {% /property %}
+
+  {% property name="merchantCategoryCode" type="string" %}
+    The merchant category code.
+  {% /property %}
+
+  {% property name="settlementAcct" type="string" required=true %}
+    The bank account number for settlement.
+  {% /property %}
+
+  {% property name="chargeAcct" type="string" %}
+    The bank account number for charges.
+  {% /property %}
+
+  {% property name="merchantContactName" type="string" required=true %}
+    The merchant contact name.
+  {% /property %}
+
+  {% property name="merchantEmail" type="string" required=true %}
+    The merchant email address.
+  {% /property %}
+
+  {% property name="merchantContactNumber" type="string" %}
+    The merchant contact number
+  {% /property %}
+
+  {% property name="terminals" type="object" %}
+    Array of [Terminal](#terminal-model) information.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Terminal Model
+
+{% properties %}
+  {% property name="provider" type="object" required=true %}
+    The terminal provider Request. Refer to [Integration Types](/api/integration-requests#integration-types).
+  {% /property %}
+
+  {% property name="terminalId" type="string" required=true %}
+    The software or logical id of the payment terminal.
+  {% /property %}
+
+  {% property name="kitId" type="string" required=true %}
+    The hardware id or serial number of the payment terminal.
+  {% /property %}
+
+  {% property name="reseller" type="string" %}
+    The terminal reseller.
+  {% /property %}
+
+  {% property name="kitType" type="string" %}
+    The model of the payment terminal.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Params Model
+
+### paypal-referral
+
+{% properties %}
+  {% property name="centrapayMerchantId" type="string" %}
+    The ID of the Centrapay merchant that will be onboarded.
+  {% /property %}
+
+  {% property name="email" type="string" %}
+    The email address to send the PayPal referral to.
+  {% /property %}
+{% /properties %}
+
+### quartz-business
+
+{% properties %}
+  {% property name="partnerBusinessId" type="string" required=true %}
+    The unique id of the business in your system.
+  {% /property %}
+
+  {% property name="nzbn" type="string" %}
+    The unique NZBN identifier.
+  {% /property %}
+
+  {% property name="companyName" type="string" required=true %}
+    The name of the company.
+  {% /property %}
+
+  {% property name="tradingName" type="string" %}
+    The trading name of the company.
+  {% /property %}
+
+  {% property name="entityType" type="string" %}
+    The type of the entity.
+  {% /property %}
+
+  {% property name="businessStreetNumberName" type="string" %}
+    The street number and name where the business is located.
+  {% /property %}
+
+  {% property name="businessSuburb" type="string" %}
+    The suburb where the business is located.
+  {% /property %}
+
+  {% property name="businessTown" type="string" %}
+    The town where the business is located.
+  {% /property %}
+
+  {% property name="businessCountry" type="string" %}
+    The country where the business is located.
+  {% /property %}
+
+  {% property name="businessPostCode" type="string" %}
+    The post code where the business is located.
+  {% /property %}
+
+  {% property name="primaryContactName" type="string" required=true %}
+    The name of the primary contact of the business.
+  {% /property %}
+
+  {% property name="primaryContactEmail" type="string" required=true %}
+    The email address of the primary contact of the business.
+  {% /property %}
+
+  {% property name="merchants" type="object" %}
+    Array of [Merchant](#merchant-model) information.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/managed-integrations/{type}/{externalId}"
+  filename="managed-integrations-create-or-update"
+%}
+  ## Create or Update Managed Integration
+
+  This endpoint allows you to create or update a Managed Integration.
+
+  {% properties %}
+    {% property name="enabled" type="boolean" required=true %}
+      Flag indicating whether the Managed Integration should become active or inactive.
+    {% /property %}
+
+    {% property name="params" type="object" required=true %}
+      [Params](#params-model) depending on the Managed Integration type.
+    {% /property %}
+
+    {% property name="test" type="boolean" %}
+      Flag indicating the Managed Integration is for testing, this cannot be changed once the resource has been created.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="400" message="INVALID_PARAMS" %}
+      Invalid [Params](#params-model) provided for Managed Integration type.
+    {% /error %}
+
+    {% error code="403" message="MERCHANT_LIVENESS_MISMATCH" %}
+      The `test` flag on the merchant doesn't match the `test` flag on the `paypal-referral` managed integration.
+    {% /error %}
+
+    {% error code="403" message="MERCHANT_NOT_FOUND" %}
+      The merchant is not found with the `centrapayMerchantId` on the `paypal-referral` managed integration.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/managed-integrations/{type}/{externalId}"
+  filename="managed-integrations-get"
+%}
+  ## Get Managed Integration
+
+  This endpoint allows you to retrieve a Managed Integration by type and external id.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/managed-integrations"
+  filename="managed-integrations-list-by-accountId"
+%}
+  ## List Managed Integration
+
+  This endpoint allows you to retrieve the list of managed integrations for an account.
+  Returns a [paginated](/api/pagination/) list of [Managed Integrations](#managed-integration-model) for an Account.
+
+  {% properties %}
+    {% property name="pageKey" type="string" %}
+      Used to retrieve the next page of items.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

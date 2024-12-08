@@ -1,0 +1,39 @@
+---
+title: Events
+description: Events and related endpoints
+nav:
+  path: Events
+  order: 1
+---
+An event is a record of a user action or outcome. Centrapay performs various tasks in response to events.
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/events"
+  filename="events-create"
+%}
+  ## Create Event {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Event](/api/events).
+
+  {% properties %}
+    {% property name="type" type="string" required=true %}
+     The type of Event.
+    {% /property %}
+
+    {% property name="idempotencyKey" type="string" required=true %}
+      Client-supplied identifier that prevents double creation.
+    {% /property %}
+
+    {% property name="data" type="object" %}
+     An object containing any relevant metadata.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="EVENT_ALREADY_EXISTS" %}
+      An Event with this `idempotencyKey` has already been created for the account.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

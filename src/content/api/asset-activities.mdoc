@@ -1,0 +1,221 @@
+---
+title: Asset Activities
+description: Asset Activity models and related endpoints
+nav:
+  path: Assets
+  order: 7
+---
+Asset Activities are actions that have been taken in relation to an asset. These range from transactions, to status changes, to redemption of an asset.
+
+## Asset Activity Model
+
+All Asset Activities extend this base model. This contains all properties that are shared between the activities
+
+{% properties %}
+  {% property name="assetId" type="string" %}
+    ID of the Asset the activity is for
+  {% /property %}
+
+  {% property name="activityNumber" type="string" %}
+    Unique sequential Asset activity number
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Activity was created.
+  {% /property %}
+
+  {% property name="createdBy" type="string" %}
+    The service that created the activity
+  {% /property %}
+
+  {% property name="activityType" type="string" %}
+    The [Asset Activity Type](#asset-activity-types)
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The account that owns the asset
+  {% /property %}
+{% /properties %}
+
+
+## Asset Transaction Activity Model
+
+The `destParty` and `srcParty` are optionally provided only on transactions of
+type `transfer`. Values may include a merchant name, user handle, masked user
+email, masked user phone, or bank account.
+
+The `otherParty` is optionally provided only on transactions of type
+`increment-balance` and `decrement-balance`. Values may include bank account
+number.
+
+This extends the [asset activity model](#asset-activity-model)
+
+{% properties %}
+  {% property name="ref" type="string" %}
+    ID of the Centrapay resource that initiated the transaction.
+  {% /property %}
+
+  {% property name="refType" type="string" %}
+    Name of the Centrapay resource that initiated the transaction.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`.
+  {% /property %}
+
+  {% property name="kind" type="string" %}
+    Human readable value indicating the reason for the transaction.
+  {% /property %}
+
+  {% property name="srcAssetId" type="string" %}
+    ID of the source asset.
+  {% /property %}
+
+  {% property name="destAssetId" type="string" %}
+    ID of the destination asset.
+  {% /property %}
+
+  {% property name="srcParty" type="string" %}
+    Display value for party providing funds.
+  {% /property %}
+
+  {% property name="destParty" type="string" %}
+    Display value for party receiving funds.
+  {% /property %}
+
+  {% property name="otherParty" type="string" %}
+    Display value for party providing or receiving funds.
+  {% /property %}
+
+  {% property name="amount" type="string" %}
+    Amount of transaction in cents.
+  {% /property %}
+{% /properties %}
+
+## Token Refunded Activity Model
+
+This records the refunding of a token. Used when activityType is `token`. This extends the [Asset Activity Model](#asset-activity-model)
+
+{% properties %}
+  {% property name="idempotencyKey" type="string" %}
+      Client-supplied identifier that prevents double creation
+  {% /property %}
+
+  {% property name="action" type="string" %}
+    type of action for token activities. Will be `refund` for all new activities
+  {% /property %}
+{% /properties %}
+
+
+## Token Redeemed Activity Model
+
+This records the redeeming of a token. Used when activityType is `token-redeemed`. This extends the [Asset Activity Model](#asset-activity-model)
+
+{% properties %}
+  {% property name="idempotencyKey" type="string" %}
+      Client-supplied identifier that prevents double creation.
+  {% /property %}
+
+  {% property name="lineItems" type="array" %}
+    The [Line Items](/api/payment-requests/#line-item-model) being paid for
+  {% /property %}
+{% /properties %}
+
+## Asset Created Activity Model
+
+This records the creation of an asset. Used when activityType is `created`. This extends the [Asset Activity Model](#asset-activity-model)
+
+{% properties %}
+  {% property name="status" type="string" %}
+    The current status of the asset
+  {% /property %}
+{% /properties %}
+
+
+## Asset Received Activity Model
+
+This records the receiving of an asset. Used when activityType is `received`. This extends the [Asset Activity Model](#asset-activity-model)
+
+{% properties %}
+  {% property name="recipientAlias" type="string" %}
+    The alias of the user who received the asset
+  {% /property %}
+  {% property name="recipientAccountId" type="string" %}
+    The accountId of the user who received the asset
+  {% /property %}
+  {% property name="senderAccountId" type="string" %}
+    The accountId of the user who sent the asset
+  {% /property %}
+  {% property name="sender" type="string" %}
+    The name of the user who sent the asset
+  {% /property %}
+  {% property name="status" type="string" %}
+    The current status of the asset
+  {% /property %}
+{% /properties %}
+
+
+## Asset Sent Activity Model
+
+This records the sending of an asset. Used when activityType is `sent`. This extends the [Asset Activity Model](#asset-activity-model)
+
+{% properties %}
+  {% property name="recipientAlias" type="string" %}
+    The alias of the user who received the asset
+  {% /property %}
+  {% property name="senderAccountId" type="string" %}
+    The accountId of the user who sent the asset
+  {% /property %}
+  {% property name="sender" type="string" %}
+    The name of the user who sent the asset
+  {% /property %}
+  {% property name="status" type="string" %}
+    The current status of the asset
+  {% /property %}
+{% /properties %}
+
+
+### Asset Activity Types
+
+|       Name              |                                                 Description                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| token                   | [Token](/api/assets#token-model) was refunded. Uses [Token refunded Model](#token-refunded-activity-model)                    |
+| value-in                | [Asset](/api/assets#asset-model) value has been increased. Uses [Asset Transaction Model](#asset-transaction-activity-model)  |
+| value-out               | [Asset](/api/assets#asset-model) value has been decreased. Uses [Asset Transaction Model](#asset-transaction-activity-model)  |
+| archive-asset           | [Asset](/api/assets#asset-model) was archived. Uses [Asset Activity Model](#asset-activity-model)                             |
+| activate-asset          | [Asset](/api/assets#asset-model) was activated. Uses [Asset Activity Model](#asset-activity-model)                            |
+| disable-asset           | [Asset](/api/assets#asset-model) was activated. Uses [Asset Activity Model](#asset-activity-model)                            |
+| token-redeemed          | [Token](/api/assets#token-model) was redeemed. Uses [Token Redeemed Model](#token-redeemed-activity-model)                    |
+| created                 | [Asset](/api/assets#asset-model) was created. Uses [Asset Created Model](#asset-created-activity-model)                       |
+| received                | [Asset](/api/assets#asset-model) was received. Uses [Asset Received Model](#asset-received-activity-model)                    |
+| sent                    | [Asset](/api/assets#asset-model) was sent. Uses [Asset Sent Model](#asset-sent-activity-model)                                |
+
+---
+
+{% endpoint
+  path="/api/assets/{assetId}/transactions"
+  filename="assets-list-transactions"
+%}
+  ## List Asset Transactions {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-activity-model). This endpoint is currently only supported for `quartz` asset types.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-activities"
+  filename="asset-activities-list"
+%}
+  ## List Asset Activities
+
+  Returns a [paginated](/api/pagination) list of [Asset Activities](#asset-activity-model).
+
+  ### Query Parameters
+
+  {% properties %}
+    {% property name="bankAccountId" type="string" %}
+      The bankAccountId of the assets that activities should be returned for.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

@@ -1,0 +1,161 @@
+---
+title: Merchant Configs
+description: Merchant Config model and related endpoints
+nav:
+  path: Merchants
+  order: 2
+---
+A Merchant Config defines the available payment options for paying a [Payment Request](/api/payment-requests).
+
+## Merchant Config Model
+
+
+{% properties %}
+  {% property name="paymentOptions" type="array" %}
+    Array of [Payment Option Configs](#payment-option-config-model).
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Merchant Config was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Merchant Config.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Merchant Config was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Merchant Config.
+  {% /property %}
+
+  {% property name="allowedRedirectUrls" type="array" experimental=true %}
+    Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Payment Option Config Model
+
+{% properties %}
+  {% property name="type" type="string" required=true %}
+    Type of payment method. See supported payment types below.
+  {% /property %}
+
+  {% property name="walletId" type="string" %}
+    Merchant's Centrapay Settlement Wallet to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet may be created and then assigned.
+  {% /property %}
+
+  {% property name="paypalMerchantAccountId" type="string" %}
+    Id of the PayPal merchants account. Required for `paypal.usd` and `venmo.usd` types.
+  {% /property %}
+
+  {% property name="paypalStoreId" type="string" %}
+    Id of the PayPal merchants store. Required for `paypal.usd` and `venmo.usd`  types.
+  {% /property %}
+
+  {% property name="farmlandsMerchantNumber" type="string" %}
+    Id of the Farmlands merchant that funds will be transferred to.
+  {% /property %}
+
+  {% property name="externalMerchantId" type="string" %}
+    Id of the external merchant. Required for `epay`, `stadius`, `quartz`, `payap-debit` and `uplinkapi.test` types.
+  {% /property %}
+
+  {% property name="collectionIds" type="string" %}
+    Id of the [Token Collection](/api/tokens#token-collection-model), can be `discount` collection type. Required for `centrapay.ledger` types.
+  {% /property %}
+{% /properties %}
+
+See [Asset Types](/api/asset-types) for values that may be present in the `type` field.
+
+> Test payment options should never be used for live merchant configurations.
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/configs"
+  filename="merchant-configs-create"
+%}
+  ## Create Merchant Config
+
+  This endpoint allows you to create a Merchant Config for a Merchant.
+
+  {% properties %}
+    {% property name="paymentOptions" type="array" required=true %}
+      A list of [Payment Option Configs](#payment-option-config-model).
+    {% /property %}
+    {% property name="allowedRedirectUrls" type="array" experimental=true %}
+      Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_WALLET_TYPE" %}
+      `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
+    {% /error %}
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
+    {% /error %}
+    {% error code="403" message="COLLECTIONS_INVALID" %}
+      An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/configs/{configId}"
+  filename="merchant-configs-get"
+%}
+  ## Get Merchant Config
+
+  This endpoint allows you to retrieve a Merchant Config by id.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/configs"
+  filename="merchant-configs-list"
+%}
+  ## List Merchant Configs
+
+  This endpoint allows you to retrieve a list of Merchant Configs.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/configs/{configId}"
+  filename="merchant-configs-update"
+%}
+  ## Update Merchant Config
+
+  This endpoint allows you to update a Merchant Config.
+
+  {% properties %}
+    {% property name="paymentOptions" type="array" required=true %}
+      A list of [Payment Option Configs](#payment-option-config-model).
+    {% /property %}
+    {% property name="allowedRedirectUrls" type="array" experimental=true %}
+      Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="INVALID_WALLET_TYPE" %}
+      `walletId` does not belong to a [Settlement Wallet](/api/wallets#settlement-wallets).
+    {% /error %}
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
+    {% /error %}
+    {% error code="403" message="COLLECTIONS_INVALID" %}
+      An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

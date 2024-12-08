@@ -1,0 +1,260 @@
+---
+title: Assets
+description: Asset models and related endpoints
+nav:
+  path: Assets
+  order: 1
+---
+Centrapay digital assets are resources that represent the ability for a
+Centrapay account to perform transactions where value is exchanged. Assets can
+be spent to satisfy [Payment Requests](/api/payment-requests), withdrawn to a bank account via
+[Funds Transfers](/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](/api/asset-transfers).
+
+Assets are categorized as either Money or Tokens. Depending on its
+asset category, an asset will have different attributes available and different
+rules governing how it can be obtained, shared or spent.
+
+## Asset Model
+
+All assets have the following fields along with the additional fields that are
+specific to its category. Assets which don't have a category are considered {% badge type="experimental" /%}
+and the model may change.
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The Asset's unique identifier.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The Asset's owning Centrapay Account id.
+  {% /property %}
+
+  {% property name="category" type="string" %}
+    Asset category ("money", "giftcard", "token").
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    [Asset Type](/api/asset-types) id used by payment option asset types.
+  {% /property %}
+
+  {% property name="liveness" type="string" %}
+    Either "main" (live payments allowed) or "test".
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    Displayable asset description.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Date when the asset was created or issued.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    "active" if the asset can be used for payments.
+  {% /property %}
+
+  {% property name="meta" type="object" experimental=true %}
+    Additional data that may only appear in the [Get Asset](#get-asset) response.
+  {% /property %}
+
+  {% property name="name" type="string" experimental=true %}
+    The name of the asset when created from an [enduring payment consent](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only valid for `quartz.nzd` assets.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Money Model
+
+Money assets, being backed by real currency, are the most flexible asset types.
+Money is accepted for most payment requests, can be sent in arbitrary amounts
+and does not expire.
+
+Money assets have the following attributes along with the base asset fields.
+
+
+{% properties %}
+  {% property name="currency" type="string" %}
+    Currency code, eg "NZD".
+  {% /property %}
+
+  {% property name="balance" type="BigNumber" %}
+    Current balance in the currency's smallest denomination (ie. cents).
+  {% /property %}
+
+  {% property name="availableBalance" type="BigNumber" %}
+    The balance of the asset that is available for transfers or purchases.
+  {% /property %}
+
+  {% property name="settlement" type="boolean" experimental=true %}
+    The asset is configured for [Settlements](/api/wallets#settlement-wallets).
+  {% /property %}
+
+  {% property name="period" type="string" experimental=true %}
+    The period after which the `balance` will be reset. This field is only available on the [quartz](/api/asset-types) asset type. Possible values are `daily`, `weekly`, `fortnightly`, `monthly` or `yearly`.
+  {% /property %}
+
+  {% property name="periodStartedAt" type="timestamp" experimental=true %}
+    Datetime when the current period was started. This field is only available on the [quartz](/api/asset-types) asset type.
+  {% /property %}
+
+  {% property name="periodEndingAt" type="timestamp" experimental=true %}
+    Datetime when the current period will end. This field is only available on the [quartz](/api/asset-types) asset type.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Token Model {% badge type="experimental" /%}
+
+Tokens are assets which can only be spent in full. Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.
+
+Tokens have the following attributes along with the base asset fields.
+
+
+{% properties %}
+  {% property name="collectionId" type="string" %}
+    The [token collection](/api/tokens#token-collection-model) that will govern the branding and redemption rules for the token.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The identity that created the activity.
+  {% /property %}
+
+  {% property name="activeFrom" type="timestamp" %}
+    The date when the asset becomes spendable.
+  {% /property %}
+
+  {% property name="expiresAt" type="timestamp" %}
+    The date when the asset expires.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the token.
+  {% /property %}
+
+  {% property name="issuer" type="string" %}
+    The name of the [Business](/api/businesses) that issued the token.
+  {% /property %}
+
+  {% property name="issuerWebsite" type="String" %}
+    The URL of the issuer of the token.
+  {% /property %}
+
+  {% property name="issuerImg" type="string" %}
+    The img URL of the issuer that the token belongs to.
+  {% /property %}
+
+  {% property name="externalId" type="String" %}
+    The asset identifier from the issuing system.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Ledger Model {% badge type="experimental" /%}
+
+A ledger is a single asset that maintains a balance of multiple tokens belonging to an account. All tokens in a ledger come from a specific collection. Multiple tokens can be spent or sent at once from the ledger.
+
+Ledgers have the following attributes along with the base asset fields.
+
+{% properties %}
+  {% property name="collectionId" type="string" %}
+    The [Token Collection](/api/tokens#token-collection-model) that all tokens in the ledger belong to.
+  {% /property %}
+
+  {% property name="collectionType" type="string" %}
+    The type of the token collection.
+  {% /property %}
+
+  {% property name="tokenValue" type="monetary" %}
+    The value of each token in the ledger. Taken from the `maxValue` property on the token collection.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The identity that created the ledger.
+  {% /property %}
+
+  {% property name="expiresAt" type="timestamp" %}
+    The date when the ledger expires.
+  {% /property %}
+
+  {% property name="balanceExpiresAfter" type="object" %}
+    The active duration of tokens that are issued to this ledger.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the ledger.
+  {% /property %}
+
+  {% property name="issuerAccountId" type="string" %}
+    The ID of the Account that issued the tokens in the ledger.
+  {% /property %}
+
+  {% property name="balance" type="BigNumber" %}
+    Current number of tokens in the ledger.
+  {% /property %}
+
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/assets/{assetId}"
+  filename="assets-get"
+%}
+  ## Get Asset
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/assets/{assetId}/summary"
+  filename="assets-get-summary"
+%}
+  ## Get Asset Summary
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/assets"
+  filename="assets-list-by-accountId"
+%}
+  ## List Assets for Account
+
+  Returns a [paginated](/api/pagination) list of Assets for an account. This will not return archived assets.
+
+  {% properties %}
+    {% property name="externalId" type="string" %}
+      The asset identifier from the issuing system.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/assets/{assetId}/archive"
+  filename="assets-archive"
+%}
+  ## Archive Asset
+
+  Archive supported asset types by asset id. Currently tokens, and `quartz.nzd` assets may be archived.
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="UNSUPPORTED_ASSET_TYPE" %}
+      Asset type can not be archived
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/assets/{assetType}/external-id/{externalId}"
+  filename="assets-get-external-id"
+%}
+  ## Get Asset by External Id
+{% /endpoint %}

@@ -1,0 +1,212 @@
+---
+title: Promotions
+description: Promotion model and related endpoints
+nav:
+  path: Loyalty Programs
+  order: 3
+---
+Promotions are a mechanism to reward accounts for completing certain actions.
+
+## Promotion Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier for the Promotion.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The ID of the [Account](/api/accounts) that owns the Promotion.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Promotion.
+  {% /property %}
+
+  {% property name="programId" type="string" %}
+    The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  {% /property %}
+
+  {% property name="summary" type="string" %}
+    The display summary for the Promotion.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the Promotion.
+  {% /property %}
+
+  {% property name="startsAt" type="timestamp" %}
+    The timestamp of when the Promotion starts.
+  {% /property %}
+
+  {% property name="endsAt" type="timestamp" %}
+    The timestamp of when the Promotion ends.
+  {% /property %}
+
+  {% property name="rewards" type="array" %}
+    A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
+  {% /property %}
+
+  {% property name="eventType" type="string" %}
+    The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
+  {% /property %}
+
+  {% property name="target" type="object" %}
+    Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of Promotion. Can be `cashback` or `challenge`. `challenge` rewards the account once, after the challenge target is met. `cashback` gives a reward based on the payment amount, which can be completed an unlimited number of times.
+  {% /property %}
+
+  {% property name="conditions" type="array" %}
+    The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    Displayable description for the Promotion.
+  {% /property %}
+
+  {% property name="createdAt" type="string" %}
+    The timestamp of when the Promotion was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Promotion.
+  {% /property %}
+{% /properties %}
+
+## Promotion Target Model
+
+{% properties %}
+  {% property name="type" type="string" %}
+    Can be `count` or `sum`. `count` if the progress should be incremented by 1 each time. `sum` if the progress should be summed from the specified `field` property.
+  {% /property %}
+
+  {% property name="field" type="string" %}
+    Only supplied if `type` is `sum`. This denotes which field to sum on the [Event](/api/events) to reach the target amount.
+  {% /property %}
+
+  {% property name="amount" type="number" %}
+    The chosen number to reach for completion of the Promotion.
+  {% /property %}
+{% /properties %}
+
+## Promotion Reward Model
+
+{% properties %}
+  {% property name="assetType" type="string" %}
+    The [assetType](/api/asset-types) to reward.
+  {% /property %}
+
+  {% property name="collectionId" type="string" %}
+    The ID of the [Token Collection](/api/tokens#token-collection-model) that should be rewarded. Only supplied if `assetType` is `centrapay.token.test` or `centrapay.token.main`.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The name of the [Token Collection](/api/tokens#token-collection-model) that is being rewarded.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The image of the [Token Collection](/api/tokens#token-collection-model) that is being rewarded.
+  {% /property %}
+
+  {% property name="amount" type="number" %}
+    The amount of the chosen asset to reward. Only supplied if Promotion is type `challenge`.
+  {% /property %}
+
+  {% property name="exchangeRate" type="number" %}
+    The rate of exchange from payment amount to reward. Only supplied if Promotion is type `cashback`.
+  {% /property %}
+{% /properties %}
+
+## Promotion Condition Model
+
+{% properties %}
+  {% property name="field" type="string" %}
+    The field to look at in the [Event](/api/events) object.
+  {% /property %}
+
+  {% property name="value" type="string" %}
+    The value that the field must satisfy depending on the `operator`.
+  {% /property %}
+
+  {% property name="operator" type="string" %}
+    The operator to use when looking at the value of the field. Can be `equals`, `not`, `greater-than`, `less-than`.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{id}/promotions"
+  filename="promotions-create"
+%}
+  ## Create Promotion {% badge type="experimental" /%}
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The display name of the Promotion.
+    {% /property %}
+
+    {% property name="summary" type="string" %}
+      The display summary for the Promotion.
+    {% /property %}
+
+    {% property name="mediaUploadId" type="string" %}
+      The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+    {% /property %}
+
+    {% property name="startsAt" type="timestamp" %}
+      The timestamp of when the Promotion starts.
+    {% /property %}
+
+    {% property name="endsAt" type="timestamp" %}
+      The timestamp of when the Promotion ends.
+    {% /property %}
+
+    {% property name="rewards" type="array" %}
+      A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
+    {% /property %}
+
+    {% property name="eventType" type="string" required=true %}
+      The type of [Event](/api/events) that will trigger increments and completions of the Promotion.
+    {% /property %}
+
+    {% property name="target" type="object" %}
+      Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model). Only supplied if `type` is `challenge`.
+    {% /property %}
+
+    {% property name="type" type="string" required=true %}
+      The type of Promotion. Can be `cashback` or `challenge`. `challenge` rewards the account once, after the challenge target is met. `cashback` gives a reward based on the payment amount, which can be completed an unlimited number of times.
+    {% /property %}
+
+    {% property name="conditions" type="array" %}
+      The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+    {% /property %}
+
+    {% property name="description" type="string" %}
+      Displayable description for the Promotion.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="PROMOTION_REWARDS_INVALID" %}
+      One or more of the rewards ledgers does not exist or permissions are invalid.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accountId/{id}/promotions"
+  filename="promotions-list-by-accountId"
+%}
+  ## List Promotions by Account {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination/) list of Promotions for an [Account](/api/accounts).
+{% /endpoint %}

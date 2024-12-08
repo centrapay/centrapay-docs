@@ -1,0 +1,147 @@
+---
+title: Funds Transfers
+description: Endpoints for managing Funds Transfers
+nav:
+  path: Bank Accounts
+  order: 4
+---
+A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet. Topping up a wallet consists of making a bank transfer from the user's bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet equal to the amount of the bank transfer.
+
+---
+
+{% endpoint
+  path="/api/topups/{topupId}"
+  filename="topups-get"
+%}
+  ## Get Top Up
+
+  This endpoint allows you to retrieve a Top Up by id.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/topups"
+  filename="topups-list"
+%}
+  ## List Top Ups For Authorized Accounts
+
+  This endpoint allows you to list the Top Ups for authorized accounts.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/topups"
+  filename="topups-list-by-accountId"
+%}
+  ## List Top Ups For an Account {% badge type="experimental" /%}
+
+  This endpoint allows you to list the Top Ups for an account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/withdrawals"
+  filename="withdrawals-create"
+%}
+  ## Create Withdrawal {% badge type="experimental" /%}
+
+  This endpoint allows you to create a withdrawal.
+
+  {% properties %}
+    {% property name="amount" type="bignumber" required=true %}
+      Total amount of the transaction in cents
+    {% /property %}
+
+    {% property name="assetId" type="string" required=true %}
+      The id of the asset
+    {% /property %}
+
+    {% property name="bankAccountId" type="string" required=true %}
+      The id of the bank account
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH" %}
+      The wallet and the bank account for the withdrawal request do not belong to the same account.
+    {% /error %}
+
+    {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
+      The wallet balance is less than the required=true amount.
+    {% /error %}
+
+    {% error code="403" message="INVALID_WALLET_TYPE" %}
+      The wallet type does not support withdrawals. See [settlement wallets](/api/wallets#settlement-wallets).
+    {% /error %}
+
+    {% error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL" %}
+      The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/withdrawals/{withdrawalId}"
+  filename="withdrawals-get"
+%}
+  ## Get Withdrawal {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a Withdrawal by id.
+
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH" %}
+      The wallet and the bank account for the withdrawal request do not belong to the same account.
+    {% /error %}
+
+    {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
+      The wallet balance is less than the required amount.
+    {% /error %}
+
+    {% error code="403" message="INVALID_WALLET_TYPE" %}
+      The wallet type does not support withdrawals. See [settlement wallets](/api/wallets#settlement-wallets).
+    {% /error %}
+
+    {% error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL" %}
+      The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/withdrawals"
+  filename="withdrawals-list-by-accountId"
+%}
+  ## List Withdrawals for an Account {% badge type="experimental" /%}
+
+  This endpoint allows you to list the withdrawals for an Account.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/funds-transfers/{fundsTransferId}/abort"
+  filename="funds-transfers-abort"
+%}
+  ## Abort Funds Transfer
+
+  This endpoint allows you to abort a Funds Transfer.
+
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ABORT_WITHDRAWAL_NOT_SUPPORTED" %}
+      Aborting funds transfers of type `withdrawal` is not supported.
+    {% /error %}
+
+    {% error code="403" message="FUNDS_TRANSFER_ALREADY_COMPLETE" %}
+      The funds transfer is already complete.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

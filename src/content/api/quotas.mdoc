@@ -1,0 +1,75 @@
+---
+title: Quotas
+description: Quota model and related endpoints
+nav:
+  path: API
+  order: 19
+---
+Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account.
+
+## Quota Model
+
+
+{% properties %}
+  {% property name="type" type="string" %}
+    The quota's type. See [Supported Quota Types](#supported-quota-types).
+  {% /property %}
+
+  {% property name="limit" type="bignumber" %}
+    The quota's upper usage limit.
+  {% /property %}
+
+  {% property name="usage" type="bignumber" %}
+    The quota's current usage.
+  {% /property %}
+
+  {% property name="assetType" type="string" %}
+    The type of asset the quota is scoped to, eg `centrapay.nzd.main`.
+  {% /property %}
+
+  {% property name="period" type="string" %}
+    The recurring, time-bound quota's duration: `daily`, `monthly` or `yearly`.
+  {% /property %}
+
+  {% property name="interval" type="string" %}
+    The specific day, month or year the quota applies to, eg: `2020-01-01`, `2020-01`, `2020`.
+  {% /property %}
+{% /properties %}
+
+### Supported Quota Types
+
+| Type  | Description                                                         | Scoped | Periods            |
+|:------|:--------------------------------------------------------------------|:------:|:-------------------|
+| spend | Value of wallet-based payments or asset transfers from the account. |   Yes  | `monthly` `yearly` |
+| topup | Value of topups from bank accounts linked to the account.           |   Yes  | `monthly` `yearly` |
+
+---
+
+{% endpoint
+  path="/api/accounts/{accountId}/quotas"
+  filename="quotas-get-by-accountId"
+%}
+  ## Get Account Quotas {% badge type="experimental" /%}
+
+  Retrieve quota limits and usages for the current intervals. Ie, all quotas for the current day, current month and current year as well as any quotas that are not associated with a temporal period.
+
+  ### Errors
+
+  If a quota limit is exceeded by an action that enforces quota limits, an error response will be returned. The quotas field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
+
+  ```json
+  {
+    "message": "QUOTA_EXCEEDED",
+    "quotas": [
+      {
+        "limit": "9999",
+        "interval": "2021",
+        "period": "yearly",
+        "usage": "10000",
+        "type": "topup",
+        "assetType": "centrapay.nzd.main"
+      }
+    ]
+  }
+  ```
+{% /endpoint %}
