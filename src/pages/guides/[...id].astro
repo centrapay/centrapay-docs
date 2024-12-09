@@ -1,5 +1,6 @@
 ---
 import { getCollection } from '../../utils/getCollection';
+import { render } from 'astro:content';
 import Prose from '../../components/Prose.astro';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -8,13 +9,13 @@ import navigation from '../../navigation/guideNavigation';
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
   return guides.map(entry => ({
-    params: { slug: entry.slug },
+    params: { id: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---

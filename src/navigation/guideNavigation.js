@@ -1,4 +1,5 @@
 import { getCollection } from '../utils/getCollection';
+import { render } from 'astro:content';
 import Navigation from '../navigation/Navigation';
 
 const nav = [
@@ -15,7 +16,7 @@ const collections = await Promise.all([
 ]);
 
 const content = await Promise.all(collections.map(async page => {
-  const { headings } = await page.render();
+  const { headings } = await render(page);
   page.headings = headings.filter(heading => heading.depth === 2);
   return page;
 }));

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from '../../utils/getCollection';
+import { render } from 'astro:content';
 import Prose from '../../components/Prose.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import navigation from '../../navigation/apiNavigation';
@@ -7,13 +8,13 @@ import navigation from '../../navigation/apiNavigation';
 export async function getStaticPaths() {
   const api = await getCollection('api');
   return api.map(entry => ({
-    params: { slug: entry.slug },
+    params: { id: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
