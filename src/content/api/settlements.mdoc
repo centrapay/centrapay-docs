@@ -28,7 +28,7 @@ Settlements can only be created if the Merchant has a [Settlement Config](/api/m
   {% /property %}
 
   {% property name="currency" type="string" %}
-    The settlement currency.
+    The Settlement currency.
   {% /property %}
 
   {% property name="createdAt" type="timestamp" %}
@@ -40,7 +40,7 @@ Settlements can only be created if the Merchant has a [Settlement Config](/api/m
   {% /property %}
 
   {% property name="settledAt" type="timestamp" %}
-    The time when settlement was completed.
+    The time when Settlement was completed.
   {% /property %}
 
   {% property name="settledBy" type="crn" %}
@@ -48,11 +48,15 @@ Settlements can only be created if the Merchant has a [Settlement Config](/api/m
   {% /property %}
 
   {% property name="settlementAmount" type="bignumber" %}
-    The total amount of the settlement.
+    The total amount of the Settlement.
   {% /property %}
 
   {% property name="settlementBankAccountId" type="string" %}
-    The ID of the [Bank Account](/api/bank-accounts/) used for settlement.
+    The ID of the [Bank Account](/api/bank-accounts/) used for Settlement.
+  {% /property %}
+
+  {% property name="settlementBankTransferId" type="string" %}
+    The ID of the Bank Transfer used for Settlement.
   {% /property %}
 
   {% property name="type" type="string" %}
