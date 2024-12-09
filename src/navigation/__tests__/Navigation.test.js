@@ -322,8 +322,8 @@ describe('Navigation', () => {
                 },
               },
               headings: [
-                { depth: 2, slug: 'restrictions', text: 'Restrictions' },
-                { depth: 2, slug: 'pre-auth-flow', text: 'Pre Auth Flow' },
+                { depth: 2, id: 'restrictions', text: 'Restrictions' },
+                { depth: 2, id: 'pre-auth-flow', text: 'Pre Auth Flow' },
               ]
             },
           ],
@@ -343,8 +343,8 @@ describe('Navigation', () => {
                       path: 'Reference/Merchant Integrations',
                     },
                     headings: [
-                      { depth: 2, slug: 'restrictions', text: 'Restrictions' },
-                      { depth: 2, slug: 'pre-auth-flow', text: 'Pre Auth Flow' },
+                      { depth: 2, id: 'restrictions', text: 'Restrictions' },
+                      { depth: 2, id: 'pre-auth-flow', text: 'Pre Auth Flow' },
                     ]
                   }),
                 ],

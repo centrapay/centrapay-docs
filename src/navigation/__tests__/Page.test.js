@@ -5,7 +5,7 @@ describe('Page', () => {
     it('should return page when passed content', () => {
       const content = {
         collection: 'guides',
-        slug: 'farmlands-pos-guide',
+        id: 'farmlands-pos-guide',
         data: {
           title: 'Farmlands POS Integration Guide',
           nav: {

@@ -1,18 +1,19 @@
 ---
 import { getCollection } from '../../utils/getCollection';
+import { render } from 'astro:content';
 import FarmlandsLayout from '../../layouts/FarmlandsLayout.astro';
 import navigation from '../../navigation/guideNavigation';
 
 export async function getStaticPaths() {
   const connections = await getCollection('connections');
   return connections.map(entry => ({
-    params: { slug: entry.slug },
+    params: { id: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const { title, description, img } = entry.data;
 ---
 <FarmlandsLayout title={title} description={description} img={img} navigation={navigation}>
