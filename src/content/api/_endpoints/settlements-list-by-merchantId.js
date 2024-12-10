@@ -19,6 +19,7 @@ export default {
         settledBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
         settlementAmount: '2500',
         settlementBankAccountId: '67e0c486308f590260d9a139',
+        settlementBankTransferId: 'MhocUmpxxmgdHjr7DgKoKw',
         type: 'centrapay',
         test: false
       },
@@ -31,6 +32,7 @@ export default {
         createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
         settlementAmount: '2200',
         settlementBankAccountId: '67e0c486308f590260d9a139',
+        settlementBankTransferId: '57SyRRgZ1U8Kq2wKpCnSR5',
         type: 'centrapay',
         test: false
       }
