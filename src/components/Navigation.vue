@@ -43,7 +43,7 @@
                 <a
                   role="menuitem"
                   class="block py-2 pl-6 text-xs text-gray-600"
-                  :href="`${navigationChild.path}#${navigationGrandchild.id}`"
+                  :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
                 >
                   {{ navigationGrandchild.text }}
                 </a>
