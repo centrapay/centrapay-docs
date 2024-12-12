@@ -13,17 +13,17 @@
     <ol class="mt-4">
       <li
         v-for="heading in visibleHeadings"
-        :key="heading.id"
+        :key="heading.slug"
       >
         <a
-          :href="`#${heading.id}`"
+          :href="`#${heading.slug}`"
           class="flex truncate border-l-2 text-sm p-squish-2 hover:border-content-primary hover:text-content-primary"
           :class="[
-            visibleHeadingId === heading.id ?
+            visibleHeadingId === heading.slug ?
               'border-brand-accent text-content-primary':
               'text-content-tertiary'
           ]"
-          @click="handleTocClick(heading.id)"
+          @click="handleTocClick(heading.slug)"
         >
           <span
             :class="{
