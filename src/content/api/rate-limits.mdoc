@@ -1,0 +1,36 @@
+---
+title: Rate Limits
+description: Introduction to Rate Limits
+nav:
+  path: API Reference
+  order: 8
+---
+In order to maintain availability to our services by protecting against rapid requests, Centrapay uses Rate Limits to restrict how many requests can be made within a given time period.
+
+At Centrapay rate limits are defined by **Requests Per Minute (rpm).** 
+
+The general rate limit is 200rpm, however for certain APIs we may apply a specific lower or higher rate limit in order to match the expected usage of the endpoint.
+
+Rate limits for authenticated endpoints are applied to the account making the call. This means if you are using a `X-Centrapay-Account` header, the rate limits will still be consumed for the account that the jwt or api key belongs to, not the targeted account.
+
+If you require higher rate limits for your use case, please contact support to request an increase.
+
+## Preventing Rate Limiting
+
+There are a few main situations that can lead to getting rate limited. Being aware of these can help inform design when integrating with our APIs.
+
+- **Migrations:**
+  When doing a migration, many requests may need to be made in quick succession. When creating a migration, be aware of what the limits are for the calls you are making, and contact support if you require a temporary increase of rate limits.
+    
+- **Concurrent requests:**
+  Making requests concurrently can quickly reach the rate limits, causing many requests to fail. Consider instead having sequential calls.
+    
+- **Influx of usage:**
+  Events such as sales can lead to many users interacting with your system. If you are anticipating an increase in usage, consider contacting support for an increase in your rate limits beforehand.
+    
+
+## Handling Rate Limits
+
+When a rate limit has been exceeded, further API calls will begin to return `429` errors with the message `RATE_LIMIT_EXCEEDED`. 
+
+When making API calls, ensure you are watching for these errors. If you start to encounter rate limits, exponential backoff should be used in order to increase the time between subsequent calls in order to stay under the limits. We provide a `Retry-After` header in the response that will inform the number of seconds before the next call will be accepted.
