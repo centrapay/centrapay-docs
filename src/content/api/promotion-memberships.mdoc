@@ -11,11 +11,11 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
 
 {% properties %}
   {% property name="id" type="string" %}
-    The unique identifier for the Promotion.
+    The unique identifier for the Promotion Membership.
   {% /property %}
 
   {% property name="accountId" type="string" %}
-    The ID of the [Account](/api/accounts) that owns the Promotion.
+    The ID of the [Account](/api/accounts) that has the membership to the Promotion.
   {% /property %}
 
   {% property name="name" type="string" %}
@@ -24,6 +24,10 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
 
   {% property name="programId" type="string" %}
     The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  {% /property %}
+
+  {% property name="promotionId" type="string" %}
+    The ID of the Promotion.
   {% /property %}
 
   {% property name="summary" type="string" %}

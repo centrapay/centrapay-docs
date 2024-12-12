@@ -12,6 +12,7 @@ export default {
         id: '8aoMfscvtuewsuJzmzBzAs',
         accountId: '57SyRRgZ1U8Kq2wKpCnSR5',
         programId: 'WRhAxxWpTKb5U7pXyxQjjY',
+        promotionId: '8aoMfscvtuewsuJzmzBzAs',
         name: 'Spend a Buck',
         summary: 'Make a payment',
         mediaUploadId: '26yUWG6wFgmva8UaDiCTWq',
