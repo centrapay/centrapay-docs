@@ -7,6 +7,7 @@ export default {
       'Content-Type': 'application/json',
     },
     payload: {
+      idempotencyKey: 'b62-11ec-9072-3e22fb52e878',
       assetType: 'centrapay.nzd.main',
       assetId: 'WRhAxxWpTKb5U7pXyxQjjY',
       amount: '200',
@@ -20,6 +21,7 @@ export default {
       currency: 'NZD',
       amount: '1000'
     },
+    idempotencyKey: '8b62-11ec-9072-3e22fb52e878',
     assetType: 'centrapay.nzd.main',
     paymentRequestId: 'MhocUmpxxmgdHjr7DgKoKw',
     shortCode: 'CP-C7F-ZS5-015',
