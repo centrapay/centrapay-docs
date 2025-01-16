@@ -615,7 +615,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 %}
   ## Pay a Payment Request
 
-  To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types) and one of `assetId`, `transactionId` or `authorization`.
+  To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types), `idempotencyKey` and one of `assetId`, `transactionId` or `authorization`.
   - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
   - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
   - Use `authorization` to authorize an external transaction.
@@ -623,6 +623,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   {% properties %}
     {% property name="assetType" type="string" required=true %}
       An [Asset Type](/api/asset-types) reference.
+    {% /property %}
+    {% property name="idempotencyKey" type="string" required=true %}
+      A unique identifier that prevents duplicate processing of the same request. See [idempotency](/api/idempotency).
     {% /property %}
     {% property name="assetId" type="string" %}
       The id of the Asset being used to make payment.
