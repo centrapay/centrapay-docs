@@ -147,6 +147,7 @@ exports[`the build should not break any links 1`] = `
   "/api/http-status-codes#404-route-not-found",
   "/api/http-status-codes#429-too-many-requests",
   "/api/http-status-codes#5xx-server-error",
+  "/api/idempotency",
   "/api/integration-requests",
   "/api/integration-requests#activate-integration-request",
   "/api/integration-requests#configure-integration-request",
