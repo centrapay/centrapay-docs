@@ -1,0 +1,9 @@
+---
+title: Idempotency
+description: Introduction to Idempotency
+nav:
+  path: API Reference
+  order: 9
+---
+Several key APIs support Idempotency. Idempotency allows requests to be safely retried without risk of performing the operation twice. When calling an API, provide an idempotency key. Then, if a connection error occurs, you can safely repeat the request using the same key without risk of the operation being performed twice.
+

@@ -621,11 +621,11 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   - Use `authorization` to authorize an external transaction.
 
   {% properties %}
-    {% property name="idempotencyKey" type="string" required=true %}
-      A unique identifier that prevents duplicate processing of the same request.
-    {% /property %}
     {% property name="assetType" type="string" required=true %}
       An [Asset Type](/api/asset-types) reference.
+    {% /property %}
+    {% property name="idempotencyKey" type="string" required=true %}
+      A unique identifier that prevents duplicate processing of the same request. See [idempotency](/api/idempotency).
     {% /property %}
     {% property name="assetId" type="string" %}
       The id of the Asset being used to make payment.
