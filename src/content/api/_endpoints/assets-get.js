@@ -18,6 +18,7 @@ export default {
     expiresAt: '2024-05-07T22:11:56.924Z',
     description: 'Centrapay Token',
     collectionId: '1234',
+    collectionType: 'product',
     issuerImg: 'https://static.centrapay.com/assets/brands/centraperk/logo.png',
     img: 'http://www.centrapay.com/path/to/img.png',
     issuer: 'Centraperk',
