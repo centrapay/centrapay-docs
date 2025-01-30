@@ -34,23 +34,27 @@ sequenceDiagram
 
 	participant Cardholder
 	participant POS
+	participant POS Server
 	participant Centrapay
 
 	Note over Cardholder: Present Barcode
 	Cardholder->>POS: Scan Barcode
 
-	POS->>Centrapay: Create Payment Request with Barcode
+  POS->>POS Server: Request Payment
 
-	loop Poll for Payment Confirmation
-		POS->>Centrapay: Get Payment Request
+	POS Server->>Centrapay: Create Payment Request with Barcode
 
-		alt Payment Condition Pending
+	loop Poll until final state
+		POS Server->>Centrapay: Get Payment Request
+
+		opt Payment Condition Pending
 			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
-			POS->>Centrapay: POS Accepts Condition
-		else Payment Request Status is paid
-			Note over POS: Stop Polling for Confirmation
+      POS->>POS Server: Accept Condition
+			POS Server->>Centrapay: Accept Condition
 		end
 	end
+
+  POS Server->>POS: Send Payment Status
 
 	Note over POS: ✅ Display Successful Payment
 ```
@@ -61,7 +65,7 @@ sequenceDiagram
 
     ![The back of an example Farmlands card, displaying a barcode and a 9-digit card number](/farmlands-card.png)
 
-2. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
+2. The POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the Farmlands Card barcode.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
@@ -155,7 +159,7 @@ sequenceDiagram
     }
     ```
 
-3. The POS [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
+3. The POS server [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -219,7 +223,8 @@ sequenceDiagram
     }
     ```
 
-4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) may return a list of pending `merchantConditions` in the response.
+   The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully complete a payment.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
@@ -246,7 +251,7 @@ sequenceDiagram
     }
     ```
 
-    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](/api/payment-requests/) status is `paid`. Here, the POS must stop polling and display confirmation of the successful payment.
+    A successful payment is identified when all Payment Conditions have an `accepted` status and the [Payment Request](/api/payment-requests/) status is `paid`. Here, the POS server should stop polling and display confirmation of the successful payment.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -382,41 +387,51 @@ autonumber
 
 participant Cardholder
 participant POS
+participant POS Server
 participant Centrapay
 
 Note over Cardholder: Present Barcode
 Cardholder->>POS: Scan Barcode
 
-POS->>Centrapay: Create Payment Request with Barcode and the preAuth flag
+POS->>POS Server: Request Payment
+
+POS Server->>Centrapay: Create Payment Request with Barcode and the preAuth flag
 
 loop Poll for Payment Confirmation
-	POS->>Centrapay: Get Payment Request
+	POS Server->>Centrapay: Get Payment Request
 
-	alt Payment Condition Pending
-			note over POS: ❓ Prompt Cashier to Accept or Decline Condition
-			POS->>Centrapay: POS Accepts Condition
-		else Payment Request Status is paid
-			Note over POS: Stop Polling for Confirmation
-		end
+  opt Payment Condition Pending
+    note over POS: ❓ Prompt Cashier to Accept or Decline Condition
+    POS->>POS Server: Accept Condition
+    POS Server->>Centrapay: Accepts Condition
+  end
 end
+
+POS Server->>POS: Send Payment Status
 
 Note over POS: ✅ Display Authorization Confirmation
 
-Note over POS, Centrapay: ⏱ Some time later..
+Note over Cardholder, Centrapay: ⏱ Some time later..
 
 loop 0..Many (Up to Authorised Amount)
-	POS->>Centrapay: Make Confirmations Against Authorised Funds
-
+  POS->>POS Server: Request Confirmation
+	POS Server->>Centrapay: Make Confirmations Against Authorised Funds
+	Centrapay->>POS Server: Response
+  POS Server->>POS: Send Confirmation Status
 	Note over POS: ✅ Display Confirmation
 end
 
-POS->>Centrapay: Release Remaining Authorised Funds
-Note over POS: ✅ Display Release confirmation
-
+opt Order completed without using all Authorised funds
+  POS->>POS Server: Request Release of Authorised Funds
+  POS Server->>Centrapay: Release Remaining Authorised Funds
+  Centrapay->>POS Server: Response
+  POS Server->>POS: Send Release Status
+  Note over POS: ✅ Display Release confirmation
+end
 ```
 
 1. The Cardholder presents their Farmlands Card for the POS to scan.
-2. The POS authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item-model).
+2. The POS server authorises a Pre Auth payment by [creating a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode on the Farmlands Card and the `preauth` flag. Creating a Payment Request must also enable the [Payment Conditions](#payment-conditions) extension and include full details for all [Line Items](/api/payment-requests#line-item-model).
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
@@ -509,7 +524,7 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-3. The POS [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
+3. The POS server [polls the Payment Request](/api/payment-requests#get-a-payment-request) every second for status changes.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -573,7 +588,8 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response. The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
+4. [Polling the Payment Request](/api/payment-requests#get-a-payment-request) returns a list of pending `merchantConditions` in the response.
+   The POS must prompt the cashier to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) each [Payment Condition](#payment-conditions) in order to successfully authorise a Pre Auth payment.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/conditions/1/accept \
@@ -600,7 +616,8 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](/api/payment-requests/) status is `paid` and the `preAuthStatus` is `authorized`. Here, the POS must stop polling and display confirmation of the successful authorisation.
+    A successful authorisation is identified when all Payment Conditions have an `accepted` status, the [Payment Request](/api/payment-requests/) status is `paid` and the `preAuthStatus` is `authorized`.
+    Here, the POS server must stop polling and display confirmation of the successful authorisation.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -665,7 +682,8 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-5. When the purchase is ready to be fulfilled, the POS [makes a Pre Auth confirmation](/api/payment-requests#confirm-pre-auth-payment-request) against the [Payment Request](/api/payment-requests/). Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
+5. When the purchase is ready to be fulfilled, the POS server [makes a Pre Auth confirmation](/api/payment-requests#confirm-pre-auth-payment-request) against the [Payment Request](/api/payment-requests/).
+   Multiple confirmations can be performed against an authorisation but the total value cannot exceed the original authorised value.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/confirm \
@@ -721,8 +739,8 @@ Note over POS: ✅ Display Release confirmation
     }
     ```
 
-6. The POS [releases any remaining authorised funds](/api/payment-requests#release-pre-auth-funds) against the [Payment Request](/api/payment-requests/) back to the Cardholder.
-To confirm if there are funds requiring release you can [list payment activities](/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](/api/payment-requests#payment-activity-model).
+6. The POS server [releases any remaining authorised funds](/api/payment-requests#release-pre-auth-funds) against the [Payment Request](/api/payment-requests/) back to the Cardholder.
+   To confirm if there are funds requiring release you can [list payment activities](/api/payment-requests#list-payment-activities-for-a-payment-request) and sum the confirmation [payment activities](/api/payment-requests#payment-activity-model).
 
     > Only call release if there are funds requiring release.
 
@@ -846,19 +864,26 @@ sequenceDiagram
 
 	participant Cardholder
 	participant POS
+	participant POS Server
 	participant Centrapay
 
 	Cardholder->>POS: Present Transaction Reference
 
-	Note over POS: Look up Payment Request ID
+  POS->>POS Server: Send Payment Reference
 
-	POS->>Centrapay: Refund Payment Request
+	Note over POS Server: Look up Payment Request ID
+
+	POS Server->>Centrapay: Refund Payment Request
+
+  Centrapay->>POS Server: Refund Status
+
+  POS Server->>POS: Send Refund Status
 
 	Note over POS: ✅ Display Refund Confirmation
 ```
 
 1. The Cardholder presents a transaction reference on their paper receipt. The POS looks up the [Payment Request](/api/payment-requests/) ID using the transaction reference.
-2. The POS [refunds the Payment Request](/api/payment-requests#refund-a-payment-request) using its ID.
+2. The POS server[refunds the Payment Request](/api/payment-requests#refund-a-payment-request) using its ID.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/{paymentRequestId}/refund \
