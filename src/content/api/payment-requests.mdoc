@@ -586,12 +586,15 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   Results are [paginated](/api/pagination/).
 
   {% properties %}
-    {% property name="accountId" type="string" required=true %}
-      The id of the [Account](/api/accounts/) used to create the Payment Request.
+    {% property name="merchantAccountId" type="string" required=true %}
+      The [Account](/api/accounts/) of the merchant that the Payment Request was created for.
     {% /property %}
     {% property name="pageKey" type="string" %}
       Used to retrieve the next page of items.
       Note: The `pageKey` value, if provided, needs to be URL-encoded.
+    {% /property %}
+    {% property name="paginationLimit" type="string" %}
+      Maximum number of Payment Requests to return.
     {% /property %}
   {% /properties %}
 {% /endpoint %}
