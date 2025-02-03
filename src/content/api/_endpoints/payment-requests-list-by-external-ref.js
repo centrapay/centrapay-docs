@@ -6,7 +6,7 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
     queryString: {
-      accountId: '1mdj7bj95gjo92r0ux6wfy69gj3h77',
+      merchantAccountId: '1mdj7bj95gjo92r0ux6wfy69gj3h77',
     },
   },
   response: {

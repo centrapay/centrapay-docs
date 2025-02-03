@@ -1,0 +1,86 @@
+---
+title: Applets
+description: Applet model and related endpoints
+nav:
+  path: Applets
+  order: 1
+---
+An applet is a discoverable container of functions and features that users can add to their wallets. It can hold Centrapay assets and loyalty programs, or be an externally-hosted web application.
+
+## Applet Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Applet.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Applet.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the Applet.
+  {% /property %}
+
+  {% property name="img" type="string" %}
+    The img URL of the Applet.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Applet.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that owns the Applet.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Applet was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Applet.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Applet is for testing purposes only.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/applets"
+  filename="applets-create"
+%}
+  ## Create Applet {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Applet](#applet-model).
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+     The display name of the Applet.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that will own the Applet.
+    {% /property %}
+
+    {% property name="mediaUploadId" type="string" %}
+      The id of the [Media Upload](/api/media-uploads/) image of the Applet.
+    {% /property %}
+
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ACCOUNT_TYPE_INVALID" %}
+      The Account must be type `org`.
+    {% /error %}
+
+    {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
+      The media upload id does not reference a media upload.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
