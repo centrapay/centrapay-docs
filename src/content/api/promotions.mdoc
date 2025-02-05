@@ -210,3 +210,14 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
   Returns a [paginated](/api/pagination/) list of Promotions for an [Account](/api/accounts).
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{id}/promotions"
+  filename="promotions-list-by-loyaltyProgramId"
+%}
+  ## List Promotions by Loyalty Program {% badge type="experimental" /%}
+
+  Returns a list of Promotions for a [Loyalty Program](/api/loyalty-programs).
+{% /endpoint %}
