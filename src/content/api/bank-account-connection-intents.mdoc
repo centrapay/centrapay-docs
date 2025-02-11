@@ -122,8 +122,13 @@ A Bank Account Connection Intent facilitates user authorization of access to Ban
   This endpoint allows you to authorize a Bank Account Connection Intent.
 
   {% properties %}
-    {% property name="code" type="string" required=true %}
+    {% property name="code" type="string" %}
       Authorization code returned from third-party.
     {% /property %}
+  {% /properties %}
+  {% properties heading="Errors" %}
+    {% error code="403" message="AUTHORIZATION_PENDING" %}
+      User has not completed steps to authorize the consent
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
