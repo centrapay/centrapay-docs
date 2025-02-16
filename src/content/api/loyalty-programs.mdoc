@@ -92,3 +92,14 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
 
   Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{loyaltyProgramId}"
+  filename="loyalty-programs-get"
+%}
+  ## Get Loyalty Program {% badge type="experimental" /%}
+
+  Allows the user to get a [Loyalty Program](#loyalty-program-model).
+{% /endpoint %}
