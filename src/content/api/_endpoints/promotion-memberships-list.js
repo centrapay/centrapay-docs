@@ -5,6 +5,9 @@ export default {
     headers: {
       'X-Api-Key': '<TOKEN>',
     },
+    queryString: {
+      loyaltyProgramIU: 'WRhAxxWpTKb5U7pXyxQjjY',
+    }
   },
   response: {
     items: [
