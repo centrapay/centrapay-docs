@@ -6952,13 +6952,13 @@ __metadata:
   linkType: hard
 
 "katex@npm:^0.16.9":
-  version: 0.16.14
-  resolution: "katex@npm:0.16.14"
+  version: 0.16.21
+  resolution: "katex@npm:0.16.21"
   dependencies:
     commander: "npm:^8.3.0"
   bin:
     katex: cli.js
-  checksum: 10c0/ec9b5b5c4ffb1d7a1adea45b30d84551f65ad786a89114bb7509f4fdf691a61bcb3feab1c07ca386adbd8ae87efbce6cc14d337774334d1890f2da4ab2ed3f80
+  checksum: 10c0/e2e4139ba72a13f2393308fbb2b4c5511611a19a40a6e39d956cf775e553af3517dbfd0a54477faaf401c923e4654e32296347846b8ff15dfa579f88ff8579bb
   languageName: node
   linkType: hard
 
