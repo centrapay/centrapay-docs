@@ -70,7 +70,7 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
     The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
   {% /property %}
 
-   {% property name="description" type="string" %}
+  {% property name="description" type="string" %}
     Displayable description for the Promotion.
   {% /property %}
 
@@ -112,4 +112,11 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
   ## List Promotion Memberships by Account {% badge type="experimental" /%}
 
   Returns a [paginated](/api/pagination/) list of Promotion Memberships for an [Account](/api/accounts)
+
+  ### Query Parameters
+  {% properties %}
+    {% property name="loyaltyProgramId" type="string" %}
+      The [Loyalty Program](/api/loyalty-programs) to fetch promotion memberships for
+    {% /property %}
+  {% /properties %}
 {% /endpoint %}
