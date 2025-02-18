@@ -6,7 +6,7 @@ export default {
       'X-Api-Key': '<TOKEN>',
     },
     queryString: {
-      loyaltyProgramIU: 'WRhAxxWpTKb5U7pXyxQjjY',
+      loyaltyProgramId: 'WRhAxxWpTKb5U7pXyxQjjY',
     }
   },
   response: {
