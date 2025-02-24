@@ -27,6 +27,7 @@ exports[`the build should not break any links 1`] = `
   "/api/applets",
   "/api/applets#applet-model",
   "/api/applets#create-applet",
+  "/api/applets#list-applets",
   "/api/asset-activities",
   "/api/asset-activities#asset-activity-model",
   "/api/asset-activities#asset-created-activity-model",

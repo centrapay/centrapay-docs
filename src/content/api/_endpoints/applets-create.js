@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/appletss',
+  path: '/api/applets',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',

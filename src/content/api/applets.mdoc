@@ -84,3 +84,15 @@ An applet is a discoverable container of functions and features that users can a
 {% /endpoint %}
 
 ---
+
+{% endpoint
+  path="/api/accounts/{id}/applets"
+  filename="applets-list"
+%}
+  ## List Applets {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination/) list of Applets for an [Account](/api/accounts)
+
+{% /endpoint %}
+
+---
