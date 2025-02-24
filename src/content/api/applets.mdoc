@@ -47,6 +47,32 @@ An applet is a discoverable container of functions and features that users can a
   {% /property %}
 {% /properties %}
 
+## Applet Extensions
+
+## Loyalty Extension Model
+
+{% properties %}
+  {% property name="type" type="string" %}
+    The type of extension.
+  {% /property %}
+
+  {% property name="loyaltyProgramId" type="string" %}
+    The id of the [Loyalty Program](/api/loyalty-programs) for the extension.
+  {% /property %}
+
+  {% property name="getPromotionsUrl" type="string" %}
+    The url to fetch the loyalty programs [Promotions](/api/promotions).
+  {% /property %}
+
+  {% property name="getPromotionMembershipsUrl" type="string" %}
+    The url to fetch a users [Promotion Memberships](/api/promotion-memberships) for a loyalty program.
+  {% /property %}
+
+  {% property name="getLoyaltyProgramUrl" type="string" %}
+    The url to fetch the [Loyalty Program](/api/loyalty-programs).
+  {% /property %}
+{% /properties %}
+
 ---
 
 {% endpoint
@@ -59,7 +85,7 @@ An applet is a discoverable container of functions and features that users can a
 
   {% properties %}
     {% property name="name" type="string" required=true %}
-     The display name of the Applet.
+      The display name of the Applet.
     {% /property %}
 
     {% property name="accountId" type="string" required=true %}
@@ -68,6 +94,10 @@ An applet is a discoverable container of functions and features that users can a
 
     {% property name="mediaUploadId" type="string" %}
       The id of the [Media Upload](/api/media-uploads/) image of the Applet.
+    {% /property %}
+
+    {% property name="extensions" type="array" %}
+      The list of [Extensions](/api/applets#applet-extensions) that are a part of the Applet.
     {% /property %}
 
   {% /properties %}
