@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/appletss',
+  path: '/api/applets',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
@@ -10,6 +10,15 @@ export default {
       name: 'Centrapay Cafe Applet',
       mediaUploadId: '8aoMfscvtuewsuJzmzBzAs',
       accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      extensions: [
+        {
+          type: 'loyalty',
+          loyaltyProgramId: 'L001',
+          getPromotionsUrl: 'service.payap.com/api/loyaltyPrograms/L001/promotions',
+          getPromotionMembershipsUrl: 'service.payap.com/api/loyaltyPrograms/L001/promotionMemberships',
+          getLoyaltyProgramUrl: 'service.payap.com/api/loyaltyPrograms/L001'
+        }
+      ]
     },
   },
   response: {
