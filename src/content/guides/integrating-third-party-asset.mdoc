@@ -182,6 +182,7 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 | merchantName         | String                                 | required   | The name of the merchant who created the Payment Request.                                                |
 | merchantId           | String                                 | required   | Your identifier for the merchant receiving payment.                                                      |
 | merchantCategoryCode | String                                 | optional   | Category code for the merchant who created the Payment Request.                                          |
+| merchantLocation     | [Location](/api/data-types#location)   | optional   | Location of the merchant who created the Payment Request.                                                |
 | transactionId        | String                                 | required   | A unique ID for the transaction in Centrapay’s system. Also used for idempotency                         |
 | status               | String                                 | required   | The status of the asset transaction. See [possible status values](#statuses).                            |
 | type                 | String                                 | required   | The type of transaction. Possible values are payment or refund.                                          |
@@ -234,6 +235,14 @@ curl -X POST https://your.endpoint/pay \
 		"merchantName": "Centrapay Cafe",
 		"merchantId": "MhocUmpxxmgdHjr7DgKoKw",
 		"merchantCategoryCode": "2481",
+    "merchantLocation": {
+      "lat": "-36.8483579",
+      "lng": "174.7725834",
+      "city": "Auckland",
+      "postCode": "1010",
+      "country": "NZ",
+      "street": "17 South Street"
+    },
 		"idempotencyKey": "UttDGTHjr7DgKoKwWpTKb"
 		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
   }'
@@ -247,6 +256,14 @@ curl -X POST https://your.endpoint/pay \
   "merchantName": "Centrapay Cafe",
   "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
   "merchantCategoryCode": "2481",
+  "merchantLocation": {
+    "lat": "-36.8483579",
+    "lng": "174.7725834",
+    "city": "Auckland",
+    "postCode": "1010",
+    "country": "NZ",
+    "street": "17 South Street"
+  },
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "successful",
