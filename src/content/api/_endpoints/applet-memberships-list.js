@@ -6,8 +6,13 @@ export default {
       'X-Api-Key': '<TOKEN>',
       'Content-Type': 'application/json',
     },
+    queryString: {
+      pageKey: 'eyJzayI6IkFwcGxldE1lbW1dGVMTWNRcEo0NnUifQ==',
+      paginationLimit: '1'
+    }
   },
   response: {
+    nextPageKey: 'asxaasd0-l32-1lbW1dGVMTWNRcESDasd9jkSK==',
     items: [
       {
         id: 'ad90asd90k12',
