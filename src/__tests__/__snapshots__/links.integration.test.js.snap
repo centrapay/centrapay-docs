@@ -213,7 +213,7 @@ exports[`the build should not break any links 1`] = `
   "/api/merchant-configs",
   "/api/merchant-configs#create-merchant-config",
   "/api/merchant-configs#get-merchant-config",
-  "/api/merchant-configs#get-merchant-config-by-config-id",
+  "/api/merchant-configs#get-merchant-config-by-id",
   "/api/merchant-configs#list-merchant-configs",
   "/api/merchant-configs#merchant-config-model",
   "/api/merchant-configs#payment-option-config-model",
