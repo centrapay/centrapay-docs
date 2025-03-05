@@ -110,9 +110,20 @@ See [Asset Types](/api/asset-types) for values that may be present in the `type`
 
 {% endpoint
   path="/api/merchants/{merchantId}/configs/{configId}"
+  filename="legacy-merchant-configs-get"
+%}
+  ## Get Merchant Config {% badge type="deprecated" /%}
+
+  This endpoint allows you to retrieve a Merchant Config by Merchant id and Merchant Config id.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchant-configs/{configId}"
   filename="merchant-configs-get"
 %}
-  ## Get Merchant Config
+  ## Get Merchant Config by Config Id
 
   This endpoint allows you to retrieve a Merchant Config by id.
 {% /endpoint %}
