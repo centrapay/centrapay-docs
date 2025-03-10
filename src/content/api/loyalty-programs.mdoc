@@ -107,3 +107,14 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
 
   Allows the user to get a [Loyalty Program](#loyalty-program-model).
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{loyaltyProgramId}"
+  filename="loyalty-programs-activate"
+%}
+  ## Activate Loyalty Program {% badge type="experimental" /%}
+
+  Allows the user to set the status of the [Loyalty Program](#loyalty-program-model) to `active`.
+{% /endpoint %}
