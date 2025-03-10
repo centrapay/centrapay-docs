@@ -45,6 +45,10 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
   {% property name="test" type="boolean" %}
     `true` if the Loyalty Program is for testing purposes only.
   {% /property %}
+
+  {% property name="status" type="string" %}
+    `draft` if the loyalty program is not ready yet. `active` if the loyalty program is ready for consumers to start joining and earning.
+  {% /property %}
 {% /properties %}
 
 ---
