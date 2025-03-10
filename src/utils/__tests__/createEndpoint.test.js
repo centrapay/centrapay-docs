@@ -72,6 +72,34 @@ describe('createEndpoint', () => {
     expect(endpoint.response).toMatchSnapshot();
   });
 
+  it('creates a snippet for a multipart/form-data request', () => {
+    const endpoint = createEndpoint({
+      method: 'POST',
+      path: '/api/test',
+      request: {
+        headers: {
+          'X-Api-Key': '<TOKEN>',
+          'Content-Type': 'multipart/form-data',
+        },
+        postData: {
+          mimeType: 'multipart/form-data',
+          params: [
+            {
+              name: 'foo',
+              value: 'bar'
+            },
+            {
+              name: 'file',
+              fileName: 'file.png',
+              contentType: 'image/png'
+            }
+          ]
+        }
+      },
+    });
+    expect(endpoint.requests.curl.code).toMatchSnapshot();
+  });
+
   describe('invalid scenarios', () => {
     const invalidScenarios = [
       {

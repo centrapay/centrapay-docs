@@ -4,16 +4,24 @@ export default {
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
-    payload: {
-      accountId: 'Jaim1Cu1Q55uooxSens6yk',
-      mimeType: 'image/png',
-      fileName: 'image.png'
-    },
+    postData: {
+      mimeType: 'multipart/form-data',
+      params: [
+        {
+          name: 'purpose',
+          value: 'branding-logo'
+        },
+        {
+          name: 'file',
+          fileName: '/path/to/a/file.png',
+          contentType: 'image/png'
+        }
+      ]
+    }
   },
   response: {
     id: 'DKTs3U38hdhfEqwF1JKoT2',
-    uploadUrl: 'https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743'
   }
 };
