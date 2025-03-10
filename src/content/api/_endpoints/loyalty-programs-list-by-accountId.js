@@ -17,7 +17,8 @@ export default {
         accountId: 'Jaim1Cu1Q55uooxSens6yk',
         createdAt: '2021-08-25T00:02:49.488Z',
         createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
-        test: true
+        test: true,
+        status: 'draft'
       },
       {
         id: 'DKTs3U38hdhfEqwF1JKoT2',
@@ -28,7 +29,8 @@ export default {
         accountId: 'Jaim1Cu1Q55uooxSens6yk',
         createdAt: '2021-08-25T00:02:49.488Z',
         createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
-        test: true
+        test: true,
+        status: 'active'
       }
     ]
   }
