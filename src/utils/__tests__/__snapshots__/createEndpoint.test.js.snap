@@ -1,5 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`createEndpoint > creates a snippet for a multipart/form-data request 1`] = `
+"curl -X POST \\
+ https://service.centrapay.com/api/test \\
+ -H 'content-type: multipart/form-data' \\
+ -H 'x-api-key: <TOKEN>' \\
+ -F foo=bar \\
+ -F file=@file.png"
+`;
+
 exports[`createEndpoint > creates a valid JSON response 1`] = `
 "{
   "foo": "bar",

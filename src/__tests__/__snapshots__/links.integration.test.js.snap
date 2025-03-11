@@ -208,7 +208,7 @@ exports[`the build should not break any links 1`] = `
   "/api/managed-integrations#params-model",
   "/api/managed-integrations#terminal-model",
   "/api/media-uploads",
-  "/api/media-uploads#create-a-presigned-url-for-media-upload",
+  "/api/media-uploads#create-a-media-upload",
   "/api/media-uploads#get-media-upload-location",
   "/api/media-uploads#media-upload-model",
   "/api/merchant-configs",

@@ -13,16 +13,12 @@ nav:
     The Media Upload's unique identifier.
   {% /property %}
 
-  {% property name="accountId" type="string" %}
-    The Media Upload's owning Centrapay Account id.
+  {% property name="file" type="object" %}
+    A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
   {% /property %}
 
-  {% property name="mimeType" type="string" %}
-    The media (MIME) type of the upload.
-  {% /property %}
-
-  {% property name="fileName" type="string" %}
-    The file name of the upload.
+  {% property name="purpose" type="string" %}
+    The [purpose](#purpose) of the Media Upload.
   {% /property %}
 
   {% property name="createdAt" type="timestamp" %}
@@ -40,11 +36,17 @@ nav:
   {% property name="updatedBy" type="crn" %}
     The User or API Key that updated the Media Upload.
   {% /property %}
-
-  {% property name="uploadUrl" type="string" %}
-    A presigned URL that gives users time-limited permission to upload media.
-  {% /property %}
 {% /properties %}
+
+
+### Purpose
+
+Each valid purpose has specific file format and size requirements.
+
+|          Purpose           |                          Description                          | Supported MIME Types | Max Size |
+| -------------------------- | ------------------------------------------------------------- | -------------------- | -------- |
+| `asset-program-onboarding` | A file used to onboard Asset Programs.                        | CSV                  | 50KB     |
+| `branding-logo`            | A logo used for any branding including [Tokens](http://localhost:4321/api/tokens) and [Businesses](http://localhost:4321/api/businesses). | JPEG, PNG            | 512KB    |
 
 ---
 
@@ -52,22 +54,25 @@ nav:
   path="/api/media-uploads"
   filename="media-uploads-create"
 %}
-  ## Create a presigned URL for Media Upload {% badge type="experimental" /%}
+  ## Create a Media Upload {% badge type="experimental" /%}
 
-  This endpoint allows you to upload a media file to Centrapay. It returns a presigned URL that can be used to download the media file.
+  This endpoint allows you to upload a file to Centrapay.
 
   {% properties %}
-    {% property name="accountId" type="string" required=true %}
-      The Media Upload's owning Centrapay Account id.
-    {% /property %}
+      {% property name="file" type="object" required=true %}
+        A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
+      {% /property %}
 
-    {% property name="mimeType" type="string" required=true %}
-      The media (MIME) type of the upload.
-    {% /property %}
+      {% property name="purpose" type="string" required=true %}
+        The [purpose](#purpose) of the Media Upload.
+      {% /property %}
+  {% /properties %}
 
-    {% property name="fileName" type="string" required=true %}
-      The file name of the upload.
-    {% /property %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="FILE_TYPE_INVALID" %}
+      Invalid file extension or mime type provided for the purpose.
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
 

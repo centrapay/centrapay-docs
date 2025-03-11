@@ -43,6 +43,9 @@ function createSnippet(data) {
       text: JSON.stringify(data.request.payload)
     };
   }
+  if (data.request?.postData) {
+    harObject.postData = data.request?.postData;
+  }
   return new HTTPSnippet(harObject);
 }
 
