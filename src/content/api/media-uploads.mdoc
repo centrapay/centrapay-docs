@@ -73,6 +73,9 @@ Each valid purpose has specific file format and size requirements.
     {% error code="403" message="FILE_TYPE_INVALID" %}
       Invalid file extension or mime type provided for the purpose.
     {% /error %}
+    {% error code="403" message="FILE_TOO_LARGE" %}
+      File size exceeds the allowed threshold.
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
 
