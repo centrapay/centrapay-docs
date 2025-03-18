@@ -114,6 +114,10 @@ An applet is a discoverable container of functions and features that users can a
     {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
       The media upload id does not reference a media upload.
     {% /error %}
+
+    {% error code="403" message="APPLET_EXTENSIONS_INVALID" %}
+      One of more of the resources referenced in the `extensions` array either do not exist or are invalid.
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
 
