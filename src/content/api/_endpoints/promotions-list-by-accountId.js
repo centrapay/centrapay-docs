@@ -38,6 +38,8 @@ export default {
             operator: 'greater-than'
           }
         ],
+        supplyLimit: '10',
+        remainingSupply: '3',
         createdAt: '2023-02-08T04:04:27.426Z',
         createdBy: 'crn::user:1234',
         updatedAt: '2023-02-08T04:04:27.426Z',
