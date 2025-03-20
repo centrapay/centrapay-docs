@@ -1,0 +1,92 @@
+---
+title: Asset Programs
+description: Asset Programs that Merchants can accept
+nav:
+  path: Assets
+  order: 4
+---
+
+An Asset Program is a container for one or more [Asset Types](/api/asset-types).
+
+## Asset Program Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Asset Program.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Asset Program.
+  {% /property %}
+
+  {% property name="assetTypes" type="array" %}
+    One or more [Asset Types](/api/asset-types) that can be accepted as part of the Asset Program.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that owns the Asset Program.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Asset Program is for testing purposes only. This is based on the Account that owns the Asset Program.
+  {% /property %}
+
+  {% property name="mediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Asset Program was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Asset Program.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Asset Program was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Asset Program.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs"
+  filename="asset-programs-create"
+%}
+  ## Create Asset Program {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Asset Program](#asset-program-model).
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The display name of the Asset Program.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that will own the Asset Program.
+    {% /property %}
+
+    {% property name="assetTypes" type="array" required=true %}
+      The list of [Asset Types](/api/asset-types) that are a part of the Asset Program.
+    {% /property %}
+
+    {% property name="mediaUploadId" type="string" %}
+      The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ACCOUNT_TYPE_INVALID" %}
+      The Account must be type `org`.
+    {% /error %}
+
+    {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
+      The media upload id does not reference a media upload.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
