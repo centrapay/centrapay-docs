@@ -41,14 +41,14 @@ Short codes can be used for [Initiating Refunds](/guides/initiating-refunds).
 
 ## Polling for Payment Confirmation
 
-After connecting with the patron, the POS must [poll the Payment Request status](/api/payment-requests#get-a-payment-request) every second until the status has changed.
+After connecting with the patron, the POS server must [poll the Payment Request status](/api/payment-requests#get-a-payment-request) every second until the status has changed.
 
 ```mermaid
 sequenceDiagram
 	autonumber
 
 	participant Patron
-	participant POS
+	participant POS as POS Server
 	participant Centrapay
 
 	Patron->>POS: Connect with Patron
