@@ -49,6 +49,11 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
   {% property name="status" type="string" %}
     `draft` if the loyalty program is not ready yet. `active` if the loyalty program is ready for consumers to start joining and earning.
   {% /property %}
+
+  {% property name="memberCount" type="string" %}
+    The number of [Loyalty Program Memberships](/api/loyalty-program-memberships) that have been created for the loyalty program.
+  {% /property %}
+
 {% /properties %}
 
 ---

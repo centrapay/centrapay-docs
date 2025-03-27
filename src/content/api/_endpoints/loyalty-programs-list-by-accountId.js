@@ -18,7 +18,8 @@ export default {
         createdAt: '2021-08-25T00:02:49.488Z',
         createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
         test: true,
-        status: 'draft'
+        status: 'draft',
+        memberCount: '0',
       },
       {
         id: 'DKTs3U38hdhfEqwF1JKoT2',
@@ -30,7 +31,8 @@ export default {
         createdAt: '2021-08-25T00:02:49.488Z',
         createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
         test: true,
-        status: 'active'
+        status: 'active',
+        memberCount: '5',
       }
     ]
   }
