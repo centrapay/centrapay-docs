@@ -32,7 +32,7 @@ export default {
         }
       ],
       description: 'The amount of the payment must be greater than $1.',
-      supplyLimit: '10'
+      membershipLimit: '10'
     },
   },
   response: {
@@ -65,8 +65,8 @@ export default {
       }
     ],
     description: 'The amount of the payment must be greater than $1.',
-    supplyLimit: '10',
-    remainingSupply: '10',
+    membershipLimit: '10',
+    remainingMemberships: '10',
     createdAt: '2023-02-08T04:04:27.426Z',
     createdBy: 'crn::user:1234',
     updatedAt: '2023-02-08T04:04:27.426Z',
