@@ -1,0 +1,124 @@
+---
+title: Notifications
+description: Overview of Centrapay Notifications, including types, data payloads, and security best practices.
+nav:
+  path: Developers
+  title: Notifications
+  order: 1
+---
+
+## Overview
+
+Centrapay Notifications allow you to subscribe to events occurring within our system and receive real-time updates. Instead of polling the API for updates, your server can automatically receive a notification whenever a relevant event takes place.
+
+Notifications are triggered when an API resource changes. For example: A `payment-request:paid` Notification is triggered when a Payment Request is successfully paid.
+
+Each Notification contains a unique `type` that identifies the event that took place, as well as data about the resource at the time of change.
+
+To see the list of Notifications, see [here](/api/notifications#notification-types).
+
+## Subscribing to Notifications
+
+To subscribe to Centrapay Notifications, please contact [support@centrapay.com](mailto:support@centrapay.com). You should provide:
+- Your notification webhook endpoint URL
+- The list of Notifications that you wish to subscribe to
+
+## Best Practices for Handling Notifications
+
+### Secure Your Webhook Endpoint
+
+Use HTTPS to ensure secure communication.
+
+Validate incoming requests to ensure they originate from Centrapay. We will send a JWT through the `Authorization` header in the HTTP Request to your webhook endpoint.
+
+Verify the JWT using the public key returned for the JSON Web Key Set (JWKS) endpoint with the matching `kid`.
+
+Keys used for signing JWTs may be rotated without warning, therefore it is required that signatures are resolved dynamically against the JWKS endpoint. You may choose to cache the result, but respect the directives in the http cache-control headers.
+
+  ```bash {% title="JWKS Request" %}
+  curl https://auth.centrapay.com/api/.well-known/jwks.json
+  ```
+
+  ```json {% title="JWKS Response" %}
+  {
+    "keys": [
+      {
+        "kty": "EC",
+        "x": "t-vW2fE0mLLmdzJtYrz7J9q_yEXlgmIjCXdv3VNvYfQ",
+        "y": "7GgTuTyTYmg95fZQ_D8xELt9Xj7DhvNZg1bqONPnYC4",
+        "crv": "P-256",
+        "kid": "20191127-07baec395",
+        "use": "sig",
+        "alg": "ES256"
+      }
+    ]
+  }
+  ```
+
+To verify a request start by decoding the JWT.
+
+  ```json {% title="Decoded JWT Payload" %}
+  {
+    "iat": "1684105185",
+    "exp": "1684105485",
+    "aud": "https://your.endpoint",
+    "request_body_sha256": "b9195bf41bf0e38ab0ab44e7ef5b9af5cb0fe2ece8dee5d112d7485bf4ef0007",
+  }
+  ```
+
+|        Field        |                                                Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------- |
+| iat                 | An Unix timestamp of the request's creation.                                                               |
+| exp                 | An Unix timestamp that the request is valid until. Set to 5 minutes after iat.                             |
+| aud                 | The Uplink API URL belonging to the intended recipient of the request.                                    |
+| request_body_sha256 | A hash of the request payload, created using the [SHA256 algorithm](https://en.wikipedia.org/wiki/SHA-2). |
+
+Use the decoded JWT fields to validate the following:
+
+Exp is provided as a default expiry. Alternatively, use iat + your own expiry window to determine if the JWT has expired.
+
+Assert that the audience is correct by checking that aud is equal to the base URL of your Uplink API.
+
+The request_body_sha256 property should be used to verify that the request payload has not been tampered with. This should be done by hashing the received request payload using the SHA256 algorithm and checking for equality with request_body_sha256 as shown below. If the request does not have a payload then the request_body_sha256 field will not be present in the decoded JWT.
+
+  ```javascript {% title="Example" %}
+  const crypto = require("crypto");
+
+  const decodedJwt = {
+    request_body_sha256: "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+  };
+
+  const payload = {
+    vader: "I am your father",
+    luke: "That's not true, that's impossible",
+  };
+
+  const jsonStringPayload = JSON.stringify(payload);
+
+  const hashedPayload = crypto.createHash("sha256").update(jsonStringPayload).digest("hex");
+
+  if (decodedJwt["request_body_sha256"] != hashedPayload) {
+    throw new Error("Payload hashes do not match");
+  }
+  ```
+
+If any of the above assertions are not met the request must be rejected.
+
+### Respond Quickly
+
+Your server must respond with a 2XX HTTP status code within a short amount of time for us to consider the Notification delivered.
+
+We recommend using an asynchronous queue to handle incoming Notifications. Avoid processing Notifications synchronously to prevent delays and scalability issues. Asynchronous queues allow you to process the concurrent Notifications at a rate your system can support.
+
+### Handle Retries and Duplicates
+
+Failed notifications are retried for up to two weeks, with exponential backoff for failures.
+
+We guarantee that notifications will be delivered at least once. However, we do not guarantee delivery order, nor do we guarantee that each notification will be delivered only once.
+
+To prevent duplicate processing, log notification IDs and check for duplicates before handling them.
+
+### Limit Subscriptions to Necessary Notifications
+
+Subscribe only to Notifications you plan on handling to reduce unnecessary HTTP requests.
+

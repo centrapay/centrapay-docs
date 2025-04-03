@@ -8,6 +8,7 @@ const nav = [
   { title: 'Merchant Integrations' },
   { title: 'App Integrations' },
   { title: 'Farmlands' },
+  { title: 'Developers' },
 ];
 
 const collections = await Promise.all([
