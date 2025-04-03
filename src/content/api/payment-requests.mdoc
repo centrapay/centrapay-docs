@@ -393,6 +393,37 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   {% property name="paidBy" type="object" %}
     Shows the [Paid By](#paid-by-model) when a Payment Request is paid.
   {% /property %}
+  {% property name="strategy" type="object" %}
+    Details about the specifics for a refund. See [Strategy Model](#strategy-model)
+  {% /property %}
+{% /properties %}
+
+## Strategy Model
+
+{% properties %}
+  {% property name="refunds" type="array" %}
+    The list of refunds that will be processed.
+  {% /property %}
+
+  {% property name="refunds.assetId" type="String" %}
+    The ID of the Asset that will be refunded.
+  {% /property %}
+
+  {% property name="refunds.assetType" type="String" %}
+    The [Asset Type](/api/asset-types) of the Asset that will be refunded.
+  {% /property %}
+
+  {% property name="refunds.completedPaymentId" type="String" %}
+    ID of a Payment Activity of `type: payment` that the refund is against.
+  {% /property %}
+
+  {% property name="refunds.amount" type="String" %}
+    The amount that will be refunded back to the Asset.
+  {% /property %}
+
+  {% property name="refunds.collectionId" type="String" %}
+    The ID of the [Token Collection](/api/token-collections) if applicable.
+  {% /property %}
 {% /properties %}
 
 ### Payment Activity Types
