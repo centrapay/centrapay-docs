@@ -1,0 +1,45 @@
+---
+title: Notifications
+description: Notification models
+nav:
+  path: Webhooks
+  order: 1
+---
+A Notification is sent to Webhook subscribers when specific events occur in our system. Notifications may contain details about the event, and relevant metadata.
+
+## Notification Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    Notification's unique identifier.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The [notification type](/api/notifications#notification-types).
+  {% /property %}
+
+  {% property name="data" type="string" %}
+    The associated metadata. Typically, this would contain data about the event.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts) that the notification was triggered for.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    Whether the notification is for testing purposes.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the notification was created.
+  {% /property %}
+{% /properties %}
+
+## Notification types
+
+
+|             Notification type             |                                Description                                 |                                  Metadata                                  |
+| :--------------------------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| `payment-request:paid`             | A [Payment Request](/api/payment-requests) has been paid.                  | See [Payment Activity Model](/api/payment-requests#payment-activity-model) |
+| `payment-request:refund-initiated` | A refund of a [Payment Request](/api/payment-requests) has been initiated. | See [Payment Activity Model](/api/payment-requests#payment-activity-model) |
+| `payment-request:refund-completed` | A [Payment Request](/api/payment-requests) has been successfully refunded. | See [Payment Activity Model](/api/payment-requests#payment-activity-model) |

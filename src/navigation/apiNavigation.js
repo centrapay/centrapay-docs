@@ -20,6 +20,7 @@ const nav = [
   { title: 'Quotas' },
   { title: 'Scanned Codes' },
   { title: 'Settlements' },
+  { title: 'Webhooks' },
 ];
 
 const collections = await getCollection('api');
