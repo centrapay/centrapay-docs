@@ -15,12 +15,12 @@ const nav = [
   { title: 'Loyalty Programs' },
   { title: 'Media Uploads' },
   { title: 'Merchants' },
-  { title: 'Notifications' },
   { title: 'Payment Requests' },
   { title: 'Profiles' },
   { title: 'Quotas' },
   { title: 'Scanned Codes' },
   { title: 'Settlements' },
+  { title: 'Webhooks' },
 ];
 
 const collections = await getCollection('api');

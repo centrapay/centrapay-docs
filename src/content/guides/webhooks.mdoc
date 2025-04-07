@@ -1,35 +1,35 @@
 ---
-title: Notifications
-description: Overview of Centrapay Notifications, including types, data payloads, and security best practices.
+title: Webhooks
+description: Overview of Webhooks, including types, data payloads, and security best practices.
 nav:
   path: Developers
-  title: Notifications
+  title: Webhooks
   order: 1
 ---
 
 ## Overview
 
-Centrapay Notifications allow you to subscribe to events occurring within our system and receive real-time updates. Instead of polling the API for updates, your server can automatically receive a notification whenever a relevant event takes place.
+Webhooks allow you to subscribe to events occurring within our system and receive real-time notifications. Instead of polling the API for updates, your server can automatically receive a notification whenever a relevant event takes place.
 
-Notifications are triggered when an API resource changes. For example: A `payment-request:paid` Notification is triggered when a Payment Request is successfully paid.
+Events are triggered when an API resource changes. For example: A `payment-request:paid` event is triggered when a Payment Request is successfully paid. Your webhook endpoint will then receive a `payment-request:paid` notification shortly after.
 
-Each Notification contains a unique `type` that identifies the event that took place, as well as data about the resource at the time of change.
+Each notification contains a unique `type` that identifies the event that took place, as well as data about the resource at the time of change.
 
-To see the list of Notifications, see [here](/api/notifications#notification-types).
+To see the list of notifications, see [here](/api/notifications#notification-types).
 
-## Subscribing to Notifications
+## Creating a Webhook
 
-To subscribe to Centrapay Notifications, please contact [support@centrapay.com](mailto:support@centrapay.com). You should provide:
-- Your notification webhook endpoint URL
-- The list of Notifications that you wish to subscribe to
+To create a Webhook and subscribe to notifications, please contact [support@centrapay.com](mailto:support@centrapay.com). You should provide:
+- Your Webhook endpoint URL
+- The list of notification types that you wish to subscribe to
 
-## Best Practices for Handling Notifications
+## Best Practices
 
-### Secure Your Webhook Endpoint
+### Security
 
 Use HTTPS to ensure secure communication.
 
-Validate incoming requests to ensure they originate from Centrapay. We will send a JWT through the `Authorization` header in the HTTP Request to your webhook endpoint.
+Validate incoming requests to ensure they originate from Centrapay. We will send a JWT through the `Authorization` header in the HTTP Request to your Webhook endpoint.
 
 Verify the JWT using the public key returned for the JSON Web Key Set (JWKS) endpoint with the matching `kid`.
 
@@ -77,7 +77,7 @@ Use the decoded JWT fields to validate the following:
 
 Exp is provided as a default expiry. Alternatively, use iat + your own expiry window to determine if the JWT has expired.
 
-Assert that the audience is correct by checking that aud is equal to the base URL of your Uplink API.
+Assert that the audience is correct by checking that aud is equal to the base URL of your Webhook.
 
 The request_body_sha256 property should be used to verify that the request payload has not been tampered with. This should be done by hashing the received request payload using the SHA256 algorithm and checking for equality with request_body_sha256 as shown below. If the request does not have a payload then the request_body_sha256 field will not be present in the decoded JWT.
 
@@ -106,19 +106,19 @@ If any of the above assertions are not met the request must be rejected.
 
 ### Respond Quickly
 
-Your server must respond with a 2XX HTTP status code within a short amount of time for us to consider the Notification delivered.
+Your server must respond with a 2XX HTTP status code within a short amount of time for us to consider the notification delivered.
 
-We recommend using an asynchronous queue to handle incoming Notifications. Avoid processing Notifications synchronously to prevent delays and scalability issues. Asynchronous queues allow you to process the concurrent Notifications at a rate your system can support.
+We recommend using an asynchronous queue to handle incoming Webhook notifications. Avoid processing notifications synchronously to prevent delays and scalability issues. Asynchronous queues allow you to process the concurrent notifications at a rate your system can support.
 
-### Handle Retries and Duplicates
+### Handling Retries
 
 Failed notifications are retried for up to two weeks, with exponential backoff for failures.
 
-We guarantee that notifications will be delivered at least once. However, we do not guarantee delivery order, nor do we guarantee that each notification will be delivered only once.
+We guarantee that notifications will be delivered at least once to your Webhook. However, we do not guarantee delivery order, nor do we guarantee that each notification will be delivered only once.
 
 To prevent duplicate processing, log notification IDs and check for duplicates before handling them.
 
-### Limit Subscriptions to Necessary Notifications
+### Limiting Load
 
-Subscribe only to Notifications you plan on handling to reduce unnecessary HTTP requests.
+Subscribe only to notifications you plan on handling to reduce unnecessary HTTP requests.
 
