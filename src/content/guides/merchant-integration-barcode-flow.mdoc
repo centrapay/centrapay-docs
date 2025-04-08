@@ -18,27 +18,31 @@ sequenceDiagram
 
 	participant Patron
 	participant POS
+  participant POS Server
 	participant Centrapay
 
 	Note over Patron: Present Barcode
 	Patron->>POS: Scan Barcode
 
-	POS->>Centrapay: Create Payment Request with Barcode
+  POS->>POS Server: Request Payment
+
+	POS Server->>Centrapay: Create Payment Request with Barcode
 
 	par
-		loop
-			POS->>Centrapay: Poll for Payment Confirmation
+		loop Poll until final state
+			POS Server->>Centrapay: Get Payment Request
 		end
 
 		Patron->>Centrapay: Pay Payment Request
 	end
 
+  POS Server->>POS: Send Payment Status
+
 	Note over POS: ✅ Display Successful Payment
-	Note over Patron: ✅ Display Successful Payment
 ```
 
 1. The patron presents a Barcode for the POS to scan.
-2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
+2. The POS server [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
@@ -83,7 +87,7 @@ sequenceDiagram
     }
     ```
 
-3. The POS [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
+3. The POS server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -118,7 +122,7 @@ sequenceDiagram
     }
     ```
 
-4. While the POS continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request) via their Centrapay integrated app.
+4. While the POS server continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request) via their Centrapay integrated app.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \
@@ -152,7 +156,8 @@ sequenceDiagram
     ```
 
 
-    When the Payment Request status is `paid`, the POS stops polling and displays confirmation of the successful payment.
+   When the Payment Request status is in a final state (`paid`, `cancelled` or `expired`).
+   The POS server stops polling and the POS displays the result.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -190,7 +195,7 @@ sequenceDiagram
 
 ## Quick Pay Flow
 
-Quick Pay is used to immediately confirm the payment without requiring patron approval.
+Quick Pay is used to immediately complete the payment without requiring patron approval.
 
 The patron’s barcode must be linked to an asset type that allows Quick Pay in order to use this flow. See [Asset Types](/api/asset-types) for the list of asset types that support Quick Pay.
 
@@ -200,24 +205,28 @@ sequenceDiagram
 
 	participant Patron
 	participant POS
+	participant POS Server
 	participant Centrapay
 
 	Note over Patron: Present Barcode
 	Patron->>POS: Scan Barcode
 
-	POS->>Centrapay: Create Payment Request with Barcode
+  POS->>POS Server: Request Payment
 
-	loop
-		POS->>Centrapay: Poll for Payment Confirmation
-		note over Centrapay: Automatically Confirm the Payment
+	POS Server->>Centrapay: Create Payment Request with Barcode
+
+  loop Poll until final state
+    POS Server->>Centrapay: Get Payment Request
+		note over Centrapay: Confirm Details and Complete Payment
 	end
 
+  POS Server->>POS: Send Payment Status
+
 	Note over POS: ✅ Display Successful Payment
-	Note over Patron: ✅ Display Successful Payment
 ```
 
 1. The patron presents a Barcode for the POS to scan.
-2. The POS [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
+2. The POS server [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
@@ -262,7 +271,7 @@ sequenceDiagram
     }
     ```
 
-3. The POS [polls the Payment Request for](/api/payment-requests#get-a-payment-request) payment confirmation.
+3. The POS server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) payment completion.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -296,8 +305,9 @@ sequenceDiagram
       }
     }
     ```
-
-4. When Centrapay receives the first attempt to poll the Payment Request, it will automatically trigger payment. After payment is successful and the Payment Request status is `paid`; the POS stops polling and displays confirmation of the successful payment.
+4. When Centrapay receives the first attempt to poll the Payment Request, it will trigger a payment.
+   When the Payment Request status is in a final state (`paid`, `cancelled` or `expired`).
+   The POS server stops polling and the POS displays the result.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -335,7 +345,8 @@ sequenceDiagram
 
 ## Checking Barcode Details
 
-The POS can optionally [decode a scanned barcode](/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request. For example, the POS can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
+The POS server can optionally [decode a scanned barcode](/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request.
+For example, the POS server can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
 
 ```mermaid
 sequenceDiagram
@@ -343,19 +354,27 @@ sequenceDiagram
 
 	participant Patron
 	participant POS
+	participant POS Server
 	participant Centrapay
 
 	Note over Patron: Present Barcode
 	Patron->>POS: Scan Barcode
 
-	POS->>Centrapay: Decode Barcode
+  POS->>POS Server: Request Barcode Details
+
+	POS Server->>Centrapay: Decode Barcode
+
+  POS Server->>POS: Send Barcode Validity
+
 	Note over POS: Apply Provider Discounts
 
-	POS->>Centrapay: Create Payment Request with Barcode
+  POS->>POS Server: Request Payment
+
+	POS Server->>Centrapay: Create Payment Request with Barcode
 ```
 
 1. The patron presents a barcode for the POS to scan.
-2. The POS [decodes the scanned barcode](/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
+2. The POS server [decodes the scanned barcode](/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/decode \
       -H "Authorization: $jwt" \
@@ -378,7 +397,7 @@ sequenceDiagram
     ```
 
 
-3. The POS [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
+3. The POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode and continues with either the [Barcode Flow](#barcode-flow) or [Quick Pay Flow](#quick-pay-flow).
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
