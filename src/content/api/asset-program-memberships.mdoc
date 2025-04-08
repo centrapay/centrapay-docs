@@ -1,0 +1,88 @@
+---
+title: Asset Program Memberships
+description: Membership to an Asset Programs
+nav:
+  path: Assets
+  order: 5
+---
+
+An Asset Program Membership to an [Asset Program](/api/asset-programs).
+
+## Asset Program Membership Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Asset Program Membership.
+  {% /property %}
+
+  {% property name="assetProgramId" type="string" %}
+    The id of the [Asset Program](/api/asset-programs) the Membership belongs to.
+  {% /property %}
+
+  {% property name="merchantId" type="string" %}
+    The id of the [Merchant](/api/merchants) associated with the membership.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Asset Program is for testing purposes only. This is based on the Account that owns the Asset Program.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Asset Program was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Asset Program.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Asset Program was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Asset Program.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships"
+  filename="asset-program-membership-create"
+%}
+  ## Create Asset Program Membership {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Asset Program Membership](#asset-program-membership-model).
+
+  {% properties %}
+    {% property name="assetProgramId" type="string" required=true %}
+      The id of the [Asset Program](/api/asset-programs) the Membership belongs to.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+    {% /property %}
+
+    {% property name="merchantId" type="string" required=true %}
+      The id of the [Merchant](/api/merchants) associated with the membership.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ACCOUNT_TYPE_INVALID" %}
+      The Account must be type `org`.
+    {% /error %}
+
+    {% error code="403" message="MERCHANT_ACCOUNT_MISMATCH" %}
+      The `accountId` on the [Merchant](/api/merchants) doesn't match the `accountId` provided.
+    {% /error %}
+
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      The liveness of the [Account](/api/accounts) does't match the liveness of the [Asset Program](/api/asset-programs).
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
