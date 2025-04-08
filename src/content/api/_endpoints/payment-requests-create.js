@@ -10,9 +10,27 @@ export default {
       configId: 'mc_5efbe2fb96c08357bb2b9242',
       expirySeconds: '120',
       value: {
-        amount: '1',
+        amount: '9000',
         currency: 'NZD'
-      }
+      },
+      lineItems: [
+        {
+          name: 'Hard Hat',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4000',
+          tax: '15',
+          discount: '400'
+        },
+        {
+          name: 'Tool Belt',
+          sku: 'GH1234',
+          qty: '1',
+          price: '6000',
+          tax: '15',
+          discount: '600'
+        }
+      ],
     },
   },
   response: {
@@ -23,33 +41,33 @@ export default {
     merchantName: 'NZD Test Merchant',
     configId: 'mc_5efbe2fb96c08357bb2b9242',
     value: {
-      amount: '1',
+      amount: '9000',
       currency: 'NZD'
     },
     paymentOptions: [
       {
         assetType: 'centrapay.nzd.test',
-        amount: '1'
+        amount: '9000'
       },
       {
         assetType: 'cca.coke.test',
-        amount: '1'
+        amount: '9000'
       },
       {
         assetType: 'farmlands.nzd.test',
-        amount: '1'
+        amount: '9000'
       },
       {
         assetType: 'quartz.nzd.test',
-        amount: '1'
+        amount: '9000'
       },
       {
         assetType: 'uplinkapi.test',
-        amount: '1'
+        amount: '9000'
       },
       {
         assetType: 'epay.test',
-        amount: '1',
+        amount: '9000',
       }
     ],
     status: 'new',
@@ -65,6 +83,24 @@ export default {
       value: '123-456-789',
       type: 'nz-gst'
     },
-    remainingAmount: '1'
+    remainingAmount: '9000',
+    lineItems: [
+      {
+        name: 'Hard Hat',
+        sku: 'GH1234',
+        qty: '1',
+        price: '4000',
+        tax: '15',
+        discount: '400'
+      },
+      {
+        name: 'Tool Belt',
+        sku: 'GH1234',
+        qty: '1',
+        price: '6000',
+        tax: '15',
+        discount: '600'
+      }
+    ],
   }
 };
