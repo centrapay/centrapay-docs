@@ -87,7 +87,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
   {% property name="expirySeconds" type="number" %}
     The expiry seconds used to configure the Payment Request expiry.
   {% /property %}
-  {% property name="lineItems" type="array" experimental=true %}
+  {% property name="lineItems" type="array" %}
     The [Line Items](#line-item-model) being paid for.
   {% /property %}
   {% property name="purchaseOrderRef" type="string" %}
@@ -316,7 +316,7 @@ The Asset Totals provides a sum of every transaction for each [Asset Type](/api/
   {% property name="total" type="monetary" %}
     The total monetary value of the Asset Type used to pay a Payment Request.
   {% /property %}
-  {% property name="lineItems" type="array" experimental=true %}
+  {% property name="lineItems" type="array" %}
     The [Line Items](#line-item-model) paid for by the Asset Type.
   {% /property %}
 {% /properties %}
@@ -490,7 +490,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% property name="expirySeconds" type="number" %}
       The expiry seconds used to configure the Payment Request expiry.
     {% /property %}
-    {% property name="lineItems" type="array" experimental=true %}
+    {% property name="lineItems" type="array" %}
       The [Line Items](#line-item-model) being paid for.
     {% /property %}
     {% property name="purchaseOrderRef" type="string" %}
@@ -739,7 +739,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% property name="confirmationIdempotencyKey" type="string" %}
       Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
     {% /property %}
-    {% property name="lineItems" type="array" experimental=true %}
+    {% property name="lineItems" type="array" %}
       The [Line Items](#line-item-model) being refunded.
     {% /property %}
     {% property name="merchantConfigId" type="string" %}
@@ -874,7 +874,7 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% property name="invoiceRef" type="string" required=true %}
       A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
     {% /property %}
-    {% property name="lineItems" type="array" required=true experimental=true %}
+    {% property name="lineItems" type="array" required=true %}
       The [Line Items](#line-item-model) being confirmed.
     {% /property %}
     {% property name="value" type="monetary" %}
