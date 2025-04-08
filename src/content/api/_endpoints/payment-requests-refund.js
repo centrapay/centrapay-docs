@@ -8,17 +8,27 @@ export default {
     },
     payload: {
       value: {
-        amount: '100',
+        amount: '3600',
         currency: 'NZD'
       },
-      externalRef: 'e8df06e2-13a5-48b4-b670-3fd6d815fe0a'
+      externalRef: 'e8df06e2-13a5-48b4-b670-3fd6d815fe0a',
+      lineItems: [
+        {
+          name: 'Hard Hat',
+          sku: 'GH1234',
+          qty: '1',
+          price: '4000',
+          tax: '15',
+          discount: '400'
+        }
+      ]
     },
   },
   response: {
     type: 'refund',
     value: {
       currency: 'NZD',
-      amount: '100'
+      amount: '3600'
     },
     assetType: 'centrapay.nzd.main',
     paymentRequestId: 'MhocUmpxxmgdHjr7DgKoKw',
@@ -31,6 +41,16 @@ export default {
     createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878',
     paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878',
     activityNumber: '3',
-    invoiceRef: 'sy8CRmo3sp3ArOpnfmb423'
+    invoiceRef: 'sy8CRmo3sp3ArOpnfmb423',
+    lineItems: [
+      {
+        name: 'Hard Hat',
+        sku: 'GH1234',
+        qty: '1',
+        price: '4000',
+        tax: '15',
+        discount: '400'
+      }
+    ]
   }
 };
