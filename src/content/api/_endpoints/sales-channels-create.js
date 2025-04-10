@@ -1,0 +1,41 @@
+export default {
+  method: 'POST',
+  path: '/api/sales-channels',
+  request: {
+    headers: {
+      'X-Api-Key': '<TOKEN>',
+      'Content-Type': 'application/json',
+    },
+    payload: {
+      accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      deviceId: true,
+      deviceModel: true,
+      deviceSerialNumber: true,
+      externalId: true,
+      frequency: 'weekly',
+      name: 'My Sales Channel',
+      notificationEmail: 'support@centrapay.com',
+      providerSalesChannelId: '5efbe17d96c083633e2b9241',
+      test: true,
+      type: 'reseller',
+    },
+  },
+  response: {
+    accountId: 'Jaim1Cu1Q55uooxSens6yk',
+    createdAt: '2021-08-25T00:02:49.488Z',
+    createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
+    deviceId: true,
+    deviceModel: true,
+    deviceSerialNumber: true,
+    externalId: true,
+    frequency: 'weekly',
+    id: 'WRhAxxWpTKb5U7pXyxQjjY',
+    name: 'My Sales Channel',
+    notificationEmail: 'support@centrapay.com',
+    providerSalesChannelId: '5efbe17d96c083633e2b9241',
+    test: true,
+    type: 'reseller',
+    updatedAt: '2021-08-25T00:02:49.488Z',
+    updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
+  }
+};
