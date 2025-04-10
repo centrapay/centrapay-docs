@@ -215,6 +215,17 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 ---
 
 {% endpoint
+  path="/api/promotions/{promotionId}"
+  filename="promotions-get"
+%}
+  ## Get Promotion {% badge type="experimental" /%}
+
+  Allows the user to get a Promotion
+{% /endpoint %}
+
+---
+
+{% endpoint
   path="/api/accountId/{id}/promotions"
   filename="promotions-list-by-accountId"
 %}
