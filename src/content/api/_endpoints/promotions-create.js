@@ -32,7 +32,8 @@ export default {
         }
       ],
       description: 'The amount of the payment must be greater than $1.',
-      supplyLimit: '10'
+      supplyLimit: '10',
+      repeatable: true
     },
   },
   response: {
@@ -49,6 +50,9 @@ export default {
       {
         assetType: 'centrapay.nzd.main',
         amount: '500',
+      },
+      {
+        promotionId: '8aoMfscvtuewsuJzmzBzAs',
       }
     ],
     eventType: 'payment',
@@ -71,5 +75,6 @@ export default {
     createdBy: 'crn::user:1234',
     updatedAt: '2023-02-08T04:04:27.426Z',
     updatedBy: 'crn::user:1234',
+    repeatable: true
   },
 };
