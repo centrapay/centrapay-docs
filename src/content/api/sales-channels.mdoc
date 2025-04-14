@@ -1,0 +1,136 @@
+---
+title: Sales Channels
+description: Sales Channels to allow acceptance of payment
+nav:
+  path: Onboarding
+  order: 3
+---
+
+A Sales Channel is a container for information to assist onboarding a [Merchant](/api/merchants) to accept payment.
+
+## Sales Channel Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Sales Channel.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Sales Channel.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of the Sales Channel integration either `reseller` or `provider`.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    Id of the [Account](/api/accounts/) that owns the Sales Channel.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Sales Channel is for testing purposes only. This is based on the Account that owns the Asset Program.
+  {% /property %}
+
+  {% property name="providerSalesChannelId" type="string" %}
+    The id of the Sales Channel for the device provider. Required if `type` is `reseller`.
+  {% /property %}
+
+  {% property name="deviceId" type="boolean" %}
+    `true` if a device id is required to on board to Sales Channel.
+  {% /property %}
+
+  {% property name="deviceModel" type="boolean" %}
+    `true` if a device model is required to on board to Sales Channel.
+  {% /property %}
+
+  {% property name="deviceSerialNumber" type="boolean" %}
+    `true` if a device serial number id is required to on board to Sales Channel.
+  {% /property %}
+
+  {% property name="notificationEmail" type="string" %}
+    Email to notify for requests to connect to Sales Channel.
+  {% /property %}
+
+  {% property name="frequency" type="string" %}
+    Frequency of notification emails valid values are `weekly` and `daily`.
+  {% /property %}
+
+  {% property name="notificationUrl" type="string" %}
+    Url for web hook notifications for requests to connect to Sales Channel.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Sales Channel was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Sales Channel.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Sales Channel was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Sales Channel.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/sales-channels"
+  filename="sales-channels-create"
+%}
+  ## Create Sales Channel {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Sales Channel](#sales-channel-model).
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The display name of the Sales Channel.
+    {% /property %}
+
+    {% property name="type" type="string" required=true %}
+      The type of the Sales Channel integration either `reseller` or `provider`.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      Id of the [Account](/api/accounts/) that owns the Sales Channel.
+    {% /property %}
+
+    {% property name="providerSalesChannelId" type="string" %}
+      The id of the Sales Channel for the device provider. Required if `type` is `reseller`.
+    {% /property %}
+
+    {% property name="deviceId" type="boolean" %}
+      `true` if the device id is required to on board to Sales Channel.
+    {% /property %}
+
+    {% property name="deviceModel" type="boolean" %}
+      `true` if the device model is required to on board to Sales Channel.
+    {% /property %}
+
+    {% property name="deviceSerialNumber" type="boolean" %}
+      `true` if a device serial number is required to on board to Sales Channel.
+    {% /property %}
+
+    {% property name="notificationEmail" type="string" %}
+      Email to notify for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
+    {% /property %}
+
+    {% property name="frequency" type="string" %}
+      Frequency of notification emails valid values are `weekly` and `daily`. Required if `notificationEmail` is set.
+    {% /property %}
+
+    {% property name="notificationUrl" type="string" %}
+      Url for web hook notifications for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ACCOUNT_TYPE_INVALID" %}
+      The Account must be type `org`.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}

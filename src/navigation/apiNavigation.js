@@ -15,6 +15,7 @@ const nav = [
   { title: 'Loyalty Programs' },
   { title: 'Media Uploads' },
   { title: 'Merchants' },
+  { title: 'Onboarding' },
   { title: 'Payment Requests' },
   { title: 'Profiles' },
   { title: 'Quotas' },
