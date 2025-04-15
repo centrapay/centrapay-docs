@@ -201,7 +201,11 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     {% /property %}
 
     {% property name="supplyLimit" type="string" %}
-    The maximum number of [Promotion Memberships](/api/promotion-memberships) that can be created.
+      The maximum number of [Promotion Memberships](/api/promotion-memberships) that can be created.
+    {% /property %}
+
+    {% property name="repeatable" type="boolean" %}
+      Flag indicating that the promotion will reward itself upon completion. This will mean that members can complete the promotion an unlimited number of times.
     {% /property %}
   {% /properties %}
 
