@@ -18,6 +18,7 @@ export default {
     items: [
       {
         id: 'M001',
+        accountId: 'Jaim1Cu1Q55uooxSens6yk',
         name: 'Store 1',
         acceptedAssets: [
           {
