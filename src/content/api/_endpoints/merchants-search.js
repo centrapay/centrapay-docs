@@ -2,9 +2,6 @@ export default {
   method: 'GET',
   path: '/api/merchants/search',
   request: {
-    headers: {
-      'X-Api-Key': '<TOKEN>',
-    },
     queryString: {
       origin: '123.42,32.22',
       distance: '100',
