@@ -14,7 +14,7 @@ export default {
     },
   },
   response: {
-    id: 'WRhAxxWpTKb5U7pXyxQjjY',
+    id: 'ap_WRhAxxWpTKb5U7pXyxQjjY',
     accountId: 'Jaim1Cu1Q55uooxSens6yk',
     assetTypes: [ 'payap-debit' ],
     createdAt: '2021-08-25T00:02:49.488Z',
