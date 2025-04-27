@@ -1,0 +1,81 @@
+---
+title: Sales Channel Memberships
+description: Membership to an Sales Channels
+nav:
+  path: Onboarding
+  order: 4
+---
+
+A Membership to a [Sales Channel](/api/sales-channel).
+
+## Sales Channel Membership Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Sales Channel Membership.
+  {% /property %}
+
+  {% property name="salesChannelId" type="string" %}
+    The id of the [Sales Channel](/api/sales-channels) the Membership belongs to.
+  {% /property %}
+
+  {% property name="merchantId" type="string" %}
+    The id of the [Merchant](/api/merchants) the Membership is scoped to.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts) that owns the [Merchant](/api/merchants).
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Sales Channel Membership is for testing purposes only. This is based on the [Sales Channel](/api/sales-channels).
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Sales Channel Membership was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Sales Channel Membership.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Sales Channel Membership was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Sales Channel Membership.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+      The current status of the Sales Channel Membership. Supported values are `created`, `provisioning`, `active`, `suspending` and `deactivated`.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/sales-channel-memberships"
+  filename="sales-channel-memberships-create"
+%}
+  ## Create Sales Channel Membership {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Sales Channel Membership](#sales-channel-membership-model).
+
+  {% properties %}
+    {% property name="salesChannelId" type="string" required=true %}
+      The id of the [Sales Channel](/api/sales-channels) the Membership belongs to.
+    {% /property %}
+
+    {% property name="merchantId" type="string" required=true %}
+      The id of the [Merchant](/api/merchants) the Membership is scoped to.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="LIVENESS_MISMATCH" %}
+      The liveness of the [Merchant](/api/merchants) does't match the liveness of the [Sales Channel](/api/sales-channels).
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
