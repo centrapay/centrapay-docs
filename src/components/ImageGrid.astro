@@ -1,0 +1,12 @@
+---
+const { image, subtitle } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-6 justify-start not-prose">
+  <div class="font-normal text-[10px] leading-[1.5] tracking-[-0.025em] font-sans">
+    <div class="inline-block text-center align-top">
+      <img src={image} class="block mb-2" />
+      <div class="break-words">{subtitle}</div>
+    </div>
+  </div>
+</div>

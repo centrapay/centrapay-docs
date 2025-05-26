@@ -89,10 +89,17 @@ export default defineMarkdocConfig({
         title: { type: String },
       },
     },
-    gridList: {
-      render: component('./src/components/Grid.astro'),
+    customClass: {
+      render: component('./src/components/CustomClass.astro'),
       attributes: {
         class: { type: String },
+      },
+    },
+    imageGrid: {
+      render: component('./src/components/ImageGrid.astro'),
+      attributes: {
+        image: { type: String },
+        subtitle: { type: String },
       },
     },
     properties: {
