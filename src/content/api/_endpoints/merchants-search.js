@@ -8,6 +8,7 @@ export default {
       asset: 'epay.main,37873',
       pageKey: '10',
       paginationLimit: '10',
+      categoryCode: '1740',
     }
   },
   response: {
@@ -42,7 +43,8 @@ export default {
           state: 'Auckland',
           street: '2 Street Street',
           suburb: 'Place'
-        }
+        },
+        categoryCode: '1740',
       }
     ],
     nextPageKey: '20'
