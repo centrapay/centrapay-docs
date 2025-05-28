@@ -1,0 +1,95 @@
+---
+title: Business Onboarding Batch
+description: Business Onboarding Batch Models
+nav:
+  path: Exclude
+  order: 1
+---
+Used to bulk onboard Businesses into the Centrapay platform.
+
+|    Type Name     | File Format |                          Record Type                          |
+| :--------------- | :---------- | :------------------------------------------------------------ |
+| business-onboard | CSV         | [Business Onboarding Record](#business-onboarding-record) |
+
+## Business Onboarding Record
+
+{% properties %}
+  {% property name="nzbn" type="string" %}
+    The unique NZBN identifier.
+  {% /property %}
+  {% property name="companyName" type="string" required=true %}
+    Legal name recorded in the Companies Register.
+  {% /property %}
+  {% property name="tradingName" type="string" %}
+    Trading name of the Business.
+  {% /property %}
+  {% property name="contactName" type="string" required=true %}
+    The name of the primary contact of the Business.
+  {% /property %}
+  {% property name="primaryContactEmail" type="string" required=true %}
+    The email address of the primary contact of the business.
+  {% /property %}
+  {% property name="externalBusinessId" type="string" required=true %}
+    The unique identifier of the Business in your system.
+  {% /property %}
+  {% property name="categoryCode" type="string" required=true %}
+    The Merchant category code.
+  {% /property %}
+  {% property name="settlementAccountNumber" type="string" required=true %}
+    The bank account number for settlement.
+  {% /property %}
+    {% property name="chargeAccountNumber" type="string" %}
+    The bank account number for charges. This will default to the `settlementAccountNumber` if not provided.
+  {% /property %}
+  {% property name="assetProgramId" type="string" required=true %}
+    The unique identifier of the Asset Program that the Business is to be onboarded to.
+  {% /property %}
+  {% property name="merchantName" type="string" required=true %}
+    The name of the Merchant.
+  {% /property %}
+  {% property name="merchantStreet" type="string"%}
+    The street number and name where the Merchant is located. Required if the Merchant type is `physical`.
+  {% /property %}
+  {% property name="merchantSuburb" type="string" %}
+    The suburb where the Merchant is located.
+  {% /property %}
+  {% property name="merchantCity" type="string" %}
+    The town or city where the Merchant is located. Required if the Merchant type is `physical`.
+  {% /property %}
+  {% property name="merchantState" type="string" %}
+    The state or region where the Merchant is located. Required if the Merchant type is `physical`.
+  {% /property %}
+  {% property name="merchantPostcode" type="string" %}
+    The post code where the Merchant is located.
+  {% /property %}
+  {% property name="merchantCountry" type="string" required=true %}
+    The country where the Merchant is located.
+  {% /property %}
+  {% property name="merchantType" type="string" required=true %}
+    They type of Merchant. Valid values are `physical` or `e-commerce`.
+  {% /property %}
+  {% property name="externalMerchantId" type="string" required=true %}
+    The unique identifier of the Merchant in your system.
+  {% /property %}
+  {% property name="salesChannelId" type="string" required=true %}
+    The unique identifier of the Sales Channel that the Merchant is to be onboarded to.
+  {% /property %}
+  {% property name="deviceId" type="string" %}
+    The software or logical ID of the payment device. One of `deviceId` or `deviceSerialNumber` is required.
+  {% /property %}
+  {% property name="deviceSerialNumber" type="string" required=true %}
+    The hardware ID or serial number of the payment device. One of `deviceId` or `deviceSerialNumber` is required.
+  {% /property %}
+  {% property name="deviceModel" type="string" %}
+    The model of the payment device.
+  {% /property %}
+{% /properties %}
+
+---
+
+## Example CSV File
+
+```
+nzbn,companyName,tradingName,contactName,primaryContactEmail,externalBusinessId,categoryCode,settlementAccountNumber,chargeAccountNumber,assetProgramId,merchantName,merchantStreet,merchantSuburb,merchantCity,merchantPostcode,merchantCountry,merchantType,externalMerchantId,salesChannelId,deviceId,deviceSerialNumber,deviceModel
+9421234567891,My Great Company Limited,Centrapay Cafe,John Doe,johndoe@gmail.com,1234567,4121,00-1234-0322592-001,00-2345-0322592-001,ap_WRhAxxWpTKb5U7pXyxQjjY,Centrapay Cafe,17 South Street,Auckland Central,Auckland,1010,NZ,physical,2345678,sc_WRhAxxWpTKb5U7pXyxQjjY,002039390093939,002-039-390,T650P`
+```
