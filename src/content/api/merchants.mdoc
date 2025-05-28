@@ -68,7 +68,7 @@ which define the payment methods available for a Payment Request.
     The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
   {% /property %}
 
-    {% property name="categoryCode" type="string" %}
+  {% property name="categoryCode" type="string" %}
     The category code assigned to the Merchant by Centrapay. Must be 4 digits.
   {% /property %}
 {% /properties %}
@@ -126,6 +126,14 @@ which define the payment methods available for a Payment Request.
 
   {% property name="location" type="location" %}
     Physical location of the merchant
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    Id of Merchant's owning Centrapay account.
+  {% /property %}
+
+  {% property name="categoryCode" type="string" %}
+    The category code assigned to the Merchant by Centrapay. Must be 4 digits.
   {% /property %}
 {% /properties %}
 
@@ -325,6 +333,10 @@ which define the payment methods available for a Payment Request.
 
     {% property name="accountId" type="string" %}
       The ID of the [Account](/api/accounts) that owns the merchant.
+    {% /property %}
+
+    {% property name="categoryCode" type="string" %}
+      The category code assigned to the Merchant by Centrapay. Must be 4 digits.
     {% /property %}
   {% /properties %}
 {% /endpoint %}
