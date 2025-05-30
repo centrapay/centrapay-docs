@@ -135,6 +135,10 @@ which define the payment methods available for a Payment Request.
   {% property name="categoryCode" type="string" %}
     The category code assigned to the Merchant by Centrapay. Must be 4 digits.
   {% /property %}
+
+  {% property name="loyaltyPrograms" type="array" %}
+    Array of [Loyalty Programs](/api/loyalty-programs) that the merchant supports. If auth is provided, we will also compute whether the caller is a member of each loyalty program.
+  {% /property %}
 {% /properties %}
 
 ---

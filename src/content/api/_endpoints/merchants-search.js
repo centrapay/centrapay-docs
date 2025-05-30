@@ -45,6 +45,10 @@ export default {
           suburb: 'Place'
         },
         categoryCode: '1740',
+        loyaltyPrograms: [
+          { id: '5f6bf6ff81552101f8ff6122', isMember: true },
+          { id: '5f6bf6ff81552101f8ff6122', isMember: false },
+        ]
       }
     ],
     nextPageKey: '20'
