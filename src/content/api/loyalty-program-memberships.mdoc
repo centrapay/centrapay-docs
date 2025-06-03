@@ -85,3 +85,15 @@ A Loyalty Program Membership represents an Account's membership to a Loyalty Pro
     {% /error %}
   {% /properties %}
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{loyaltyProgramId}/memberships"
+  filename="loyalty-program-memberships-list"
+%}
+  ## List Loyalty Program Memberships by Account {% badge type="experimental" /%}
+
+  This endpoint allows you to list [Loyalty Program Memberships](#loyalty-program-membership-model) that an [Account](/api/accounts/) owns.
+
+{% /endpoint %}

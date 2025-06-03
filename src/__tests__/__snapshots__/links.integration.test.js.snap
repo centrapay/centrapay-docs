@@ -195,6 +195,7 @@ exports[`the build should not break any links 1`] = `
   "/api/legacy-payment-requests#webhooks",
   "/api/loyalty-program-memberships",
   "/api/loyalty-program-memberships#create-loyalty-program-memberships",
+  "/api/loyalty-program-memberships#list-loyalty-program-memberships-by-account",
   "/api/loyalty-program-memberships#loyalty-program-membership-model",
   "/api/loyalty-programs",
   "/api/loyalty-programs#activate-loyalty-program",
