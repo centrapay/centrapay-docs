@@ -1,0 +1,63 @@
+---
+title: Connections
+description: Connection model and related endpoints
+nav:
+  path: Connections
+  order: 1
+---
+A Connection is a link between a Wallet and a Sales Channel.
+## Connection Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Connection.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Connection.
+  {% /property %}
+
+  {% property name="createdByAccountName" type="string" %}
+  The name of the Account that created the Connection.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Connection was created.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Connection.
+  {% /property %}
+
+  {% property name="url" type="string" %}
+    The url of the Connection.
+  {% /property %}
+
+  {% property name="merchantId" type="string" %}
+    The [Merchant](/api/merchants/) the Connection is made on behalf of.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Connection is for testing purposes only.
+  {% /property %}
+
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/connections"
+  filename="connections-create"
+%}
+  ## Create Connection {% badge type="experimental" /%}
+
+  This endpoint allows you to create a [Connection](#connection-model).
+
+  {% properties %}
+    {% property name="merchantId" type="string" required=true %}
+      The [Merchant](/api/merchants/) to create the Connection on behalf of.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
