@@ -8,12 +8,24 @@ nav:
 
 ## Compatible QR Payment Methods
 Currently, users can scan Centrapay QR codes through multiple methods, including:
-{% customClass class="flex flex-wrap gap-6 justify-start not-prose [&>p]:w-20 [&>p]:text-center [&>p]:font-normal [&>p]:text-[10px] [&>p]:leading-[1.5] [&>p]:tracking-[-0.025em] [&>p]:font-sans [&>p>img]:mx-auto [&>p>img]:mb-2 [&>p>img]:!w-8 [&>p>img]:!h-auto [&>p>img]:!max-w-none" %}
-  {% imageGrid image="/appIcons/payap-app-icon.png" subtitle="Payap" /%}
-  {% imageGrid image="/appIcons/farmlands-app-icon.png" subtitle="Farmlands" /%}
-  {% imageGrid image="/appIcons/gift-station-app-icon.png" subtitle="Giftstation" /%}
-  {% imageGrid image="/appIcons/camera-app-icon.png" subtitle="Camera" /%}
-{% /customClass %}
+{% wrapper class="flex flex-wrap gap-6 justify-start not-prose [&>p]:w-20 [&>p]:text-center [&>p]:font-normal [&>p]:text-[10px] [&>p]:leading-[1.5] [&>p]:tracking-[-0.025em] [&>p]:font-sans [&>p>img]:mx-auto [&>p>img]:mb-2 [&>p>img]:!w-8 [&>p>img]:!h-auto [&>p>img]:!max-w-none" %}
+  {% imageGrid
+    image="/appIcons/payap-app-icon.png"
+    caption="Payap"
+   /%}
+  {% imageGrid
+    image="/appIcons/farmlands-app-icon.png"
+    caption="Farmlands"
+  /%}
+  {% imageGrid
+    image="/appIcons/gift-station-app-icon.png"
+    caption="Giftstation"
+  /%}
+  {% imageGrid
+    image="/appIcons/camera-app-icon.png"
+    caption="Camera"
+  /%}
+{% /wrapper %}
 
 ## How to process a Centrapay transaction
 
@@ -31,10 +43,18 @@ Currently, users can scan Centrapay QR codes through multiple methods, including
 
    * On some devices, you may need to scroll or check the QR payment options menu to find Centrapay.
 
-     {% customClass class="flex flex-wrap gap-6 justify-start not-prose" %}
-      {% imageGrid image="/terminals/centrapay-second-page.png" subtitle="Scroll through the list of payment options to see the Centrapay logo" /%}
-      {% imageGrid image="/terminals/qr-payments-option.png" subtitle="Click QR Payments first to see the Centrapay logo" /%}
-     {% /customClass %}
+     {% wrapper class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose" %}
+      {% imageGrid
+        image="/terminals/centrapay-second-page.png"
+        caption="Scroll through the list of payment options to see the Centrapay logo"
+        imageWidth="72"
+      /%}
+      {% imageGrid
+        image="/terminals/qr-payments-option.png"
+        caption="Click QR Payments first to see the Centrapay logo"
+        imageWidth="72"
+      /%}
+     {% /wrapper %}
 
    * When Centrapay is selected, the terminal will display a unique Centrapay QR code linked to the specific payment amount. It is now ready for the customer to scan using a compatible app.
    ![terminals with payments](/terminals/qr-codes.png)
@@ -44,21 +64,21 @@ Currently, users can scan Centrapay QR codes through multiple methods, including
 
    They then select the \"Scan\" function and scan the Centrapay QR code displayed on the terminal screen. The app will automatically recognize and process the transaction.
 
-    {% customClass class="flex flex-wrap gap-6 justify-start not-prose items-center" %}
+    {% wrapper class="flex flex-wrap gap-6 justify-start not-prose items-center" %}
      {% imageGrid image="/terminals/terminal-with-highlighted-qr.png" /%}
 
-      {% customClass class="flex flex-col" %}
-        {% customClass class="font-normal text-xs font-sans mb-4" %}
+      {% wrapper class="flex flex-col" %}
+        {% wrapper class="font-normal text-xs mb-4" %}
           Compatible Apps for Centrapay QR Code:
-        {% /customClass %}
-        {% customClass class="flex flex-wrap gap-6 justify-start not-prose" %}
+        {% /wrapper %}
+        {% wrapper class="flex flex-wrap gap-6 justify-start not-prose" %}
          {% imageGrid image="/appIcons/payap-app-icon.png" /%}
          {% imageGrid image="/appIcons/farmlands-app-icon.png" /%}
          {% imageGrid image="/appIcons/gift-station-app-icon.png" /%}
          {% imageGrid image="/appIcons/camera-app-icon.png" /%}
-        {% /customClass %}
-      {% /customClass %}
-    {% /customClass %}
+        {% /wrapper %}
+      {% /wrapper %}
+    {% /wrapper %}
 
 4. **Complete the Payment**
    Once the scan is successful, the customer will confirm the payment in the app. The terminal screen will then display a transaction completion message, and both the customer and the merchant will see as successful payment notification.
@@ -69,7 +89,7 @@ Currently, users can scan Centrapay QR codes through multiple methods, including
 ## More detailed terminal manuals
 For the manual of specific terminal models, please refer to:
 
-* [Windcave](/windcave.pdf)
-* [Smartpay](/smartPay.pdf)
-* [Skyzer](/skyzer.pdf)
+* [Smartpay](/terminalGuides/smartPay.pdf)
+* [Windcave](/terminalGuides/windcave.pdf)
+* [Verifone](/terminalGuides/verifone.pdf)
 

@@ -89,8 +89,8 @@ export default defineMarkdocConfig({
         title: { type: String },
       },
     },
-    customClass: {
-      render: component('./src/components/CustomClass.astro'),
+    wrapper: {
+      render: component('./src/components/Wrapper.astro'),
       attributes: {
         class: { type: String },
       },
@@ -99,7 +99,8 @@ export default defineMarkdocConfig({
       render: component('./src/components/ImageGrid.astro'),
       attributes: {
         image: { type: String },
-        subtitle: { type: String },
+        caption: { type: String },
+        imageWidth: { type: String },
       },
     },
     properties: {
