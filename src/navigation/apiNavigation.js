@@ -9,6 +9,7 @@ const nav = [
   { title: 'Assets' },
   { title: 'Bank Accounts' },
   { title: 'Batches' },
+  { title: 'Brands' },
   { title: 'Connections' },
   { title: 'Events' },
   { title: 'Integrations' },

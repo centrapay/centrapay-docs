@@ -1,0 +1,94 @@
+---
+title: Brands
+description: Brands model and related endpoints
+nav:
+  path: Brands
+  order: 1
+---
+Represents the visual identity of your brand, including styling attributes such as colors and logos. It is used by frontend applications to ensure consistent branding across the user interface.
+
+## Brand Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Brand.
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Brand.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that owns the Brand.
+  {% /property %}
+
+  {% property name="logoMediaUploadId" type="string" %}
+    The id of the [Media Upload](/api/media-uploads/) image of the brand logo.
+  {% /property %}
+
+  {% property name="logoImg" type="string" %}
+    The img URL of the brand logo.
+  {% /property %}
+
+  {% property name="primaryColorHex" type="string" %}
+    The hex code value of the brand's primary color.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Brand was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Brand.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Brand was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Brand.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Brand is for testing purposes only.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/brands"
+  filename="brands-create"
+%}
+  ## Create Brand {% badge type="experimental" /%}
+
+  This endpoint allows you to create a [Brand](#brand-model).
+
+  {% properties %}
+    {% property name="name" type="string" required=true %}
+      The display name of the Brand.
+    {% /property %}
+
+    {% property name="accountId" type="string" required=true %}
+      The [Account](/api/accounts/) that will own the Brand.
+    {% /property %}
+
+    {% property name="logoMediaUploadId" type="string" %}
+      The id of the [Media Upload](/api/media-uploads/) image of the brand logo.
+    {% /property %}
+
+    {% property name="primaryColorHex" type="string" %}
+      The hex code value of the brand's primary color.
+    {% /property %}
+
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
+      The media upload id does not reference a media upload or you do not have valid permissions.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
