@@ -41,6 +41,13 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
 
+  secret-scanning:
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - run: ./scripts/trivy.sh
+
   test:
     needs: [ setup ]
     timeout-minutes: 5

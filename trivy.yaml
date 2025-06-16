@@ -1,0 +1,7 @@
+scan:
+  skip-dirs:
+    - node_modules
+  scanners:
+    - secret
+quiet: true
+exit-code: 1
