@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "test": "vitest --watch=false",
     "integration": "vitest --watch=false --config vitest.integration.config.js",
-    "postinstall": "husky"
+    "postinstall": "scripts/setup-husky.sh"
   },
   "devDependencies": {
     "@astrojs/markdoc": "0.12.4",
