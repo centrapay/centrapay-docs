@@ -1,6 +1,6 @@
 export default {
   method: 'POST',
-  path: '/api/wallets',
+  path: '/api/wallet-assets',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
