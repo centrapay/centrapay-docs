@@ -1,0 +1,169 @@
+---
+title: Wallet-assets
+description: Wallet assets models and related endpoints
+nav:
+  path: Assets
+  order: 6
+---
+A Wallet is an Asset that represents [Money](/api/assets#money-model). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
+
+## Settlement Wallets {% badge type="experimental" /%}
+
+A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot topup, withdraw, or send money from this Wallet.
+
+## Wallet Assets Model
+
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Wallet.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The Wallets's owning Centrapay [Account](/api/accounts/) id.
+  {% /property %}
+
+  {% property name="category" type="string" %}
+    Asset category (`money`, `giftcard`, `token`).
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    [Asset Type](/api/asset-types) id used by payment option asset types.
+  {% /property %}
+
+  {% property name="liveness" type="string" %}
+    Either `main` (live payments allowed) or `test`.
+  {% /property %}
+
+  {% property name="description" type="string" %}
+    Displayable asset description.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Timestamp at which the Wallet was created.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    `active` if the Wallet can be used for payments.
+  {% /property %}
+
+  {% property name="currency" type="string" %}
+    Currency code, eg "NZD".
+  {% /property %}
+
+  {% property name="balance" type="BigNumber" %}
+    Current balance in the currency's smallest denomination (ie. cents).
+  {% /property %}
+
+  {% property name="availableBalance" type="BigNumber" %}
+    The balance of the asset that is available for transfers or purchases.
+  {% /property %}
+
+  {% property name="settlement" type="boolean" experimental=true %}
+    `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+  {% /property %}
+{% /properties %}
+
+---
+
+## Wallet Transaction Model
+
+
+{% properties %}
+  {% property name="activityNumber" type="BigNumber" %}
+    Unique sequential Wallet transaction number.
+  {% /property %}
+
+  {% property name="amount" type="BigNumber" %}
+    Absolute transaction amount in cents.
+  {% /property %}
+
+  {% property name="value" type="BigNumber" %}
+    Change to the Wallet's balance in cents when the transaction was applied.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Transaction timestamp as ISO 8601 date string.
+  {% /property %}
+
+  {% property name="activityType" type="string" %}
+    Hints to the type of transaction: undefined or `returned-asset-transfer`.
+  {% /property %}
+
+  {% property name="destWalletId" type="string" %}
+    Id of the destination Wallet if applicable.
+  {% /property %}
+
+  {% property name="srcWalletId" type="string" %}
+    Id of the source Wallet if applicable.
+  {% /property %}
+
+  {% property name="destParty" type="string" %}
+    Display value for party receiving funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  {% /property %}
+
+  {% property name="srcParty" type="string" %}
+    Display value for party providing funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  {% /property %}
+
+  {% property name="paymentRequestId" type="string" %}
+    Unique identifier of the related [Payment Request](/api/payment-requests) if applicable.
+  {% /property %}
+
+  {% property name="topupId" type="string" %}
+    Unique identifier of the related topup [Funds Transfer](/api/funds-transfers) request if applicable.
+  {% /property %}
+
+  {% property name="assetTransferId" type="string" %}
+    Unique identifier of the related [Asset Transfer](/api/asset-transfers) request if applicable.
+  {% /property %}
+
+  {% property name="withdrawalId" type="string" %}
+    Unique identifier of the related [Withdrawal](/api/funds-transfers) request if applicable.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint path="/api/wallet-assets" filename="wallets-create" %}
+  ## Create a Wallet
+
+  This endpoint allows you to create a Wallet.
+
+  {% properties %}
+    {% property name="accountId" type="string" required=true %}
+      The Wallets's owning Centrapay [Account](/api/accounts/) id.
+    {% /property %}
+
+    {% property name="ledgerId" type="string" required=true %}
+      [Asset Type](/api/asset-types) id used by payment option asset types.
+    {% /property %}
+
+    {% property name="settlement" type="boolean" experimental=true %}
+      `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ACCOUNT_MAX_WALLETS_REACHED" %}
+      The maximum number of wallets for the given ledger has been reached.
+    {% /error %}
+  {% /properties %}
+
+{% /endpoint %}
+
+---
+
+{% endpoint path="/api/wallet-assets" filename="wallets-list" %}
+  ## List Wallets
+
+  This endpoint allows you to list authorized Wallets.
+{% /endpoint %}
+
+---
+
+{% endpoint path="/api/wallets/{walletId}/transactions" filename="wallets-list-transactions" %}
+  ## List Wallet Transactions
+
+  This endpoint allows you to list Wallet Transactions.
+{% /endpoint %}

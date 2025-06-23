@@ -22,6 +22,7 @@ const nav = [
   { title: 'Quotas' },
   { title: 'Scanned Codes' },
   { title: 'Settlements' },
+  { title: 'Wallets' },
   { title: 'Webhooks' },
 ];
 
