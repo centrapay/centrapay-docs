@@ -1,14 +1,10 @@
 ---
 const { image, caption, imageWidth } = Astro.props;
-const divClass = `flex flex-col gap-2 ${imageWidth ? `max-w${imageWidth}` : ''} text-wrap`;
-const imageClass = `block ${imageWidth ? `w-${imageWidth}` : '' }`
 ---
 
-<div class={divClass}>
-  <img class={imageClass} src={image} />
+<div class={`flex flex-col gap-2 ${imageWidth ? `max-w${imageWidth}` : ''} text-wrap`}>
+  <img class={`block ${imageWidth ? `w-${imageWidth}` : '' }`} src={image} />
   <p class="font-normal text-xs text-center">
     {caption}
   </p>
 </div>
-
-
