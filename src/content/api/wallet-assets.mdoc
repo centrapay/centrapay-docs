@@ -1,26 +1,26 @@
 ---
-title: Wallet-assets
+title: Wallet Assets
 description: Wallet assets models and related endpoints
 nav:
   path: Assets
   order: 6
 ---
-A Wallet is an Asset that represents [Money](/api/assets#money-model). The Wallet maintains a record of all transactions it has participated in. A Wallet has a single balance and a single currency.
+A Wallet Asset is an Asset that represents [Money](/api/assets#money-model). The Wallet Asset maintains a record of all transactions it has participated in. A Wallet Asset has a single balance and a single currency.
 
-## Settlement Wallets {% badge type="experimental" /%}
+## Settlement Wallet Assets {% badge type="experimental" /%}
 
-A Settlement Wallet is a special type of Wallet that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot topup, withdraw, or send money from this Wallet.
+A Settlement Wallet Asset is a special type of Wallet Asset that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot to pup, withdraw, or send money from this Wallet Asset.
 
 ## Wallet Assets Model
 
 
 {% properties %}
   {% property name="id" type="string" %}
-    The unique identifier of the Wallet.
+    The unique identifier of the Wallet Asset.
   {% /property %}
 
   {% property name="accountId" type="string" %}
-    The Wallets's owning Centrapay [Account](/api/accounts/) id.
+    The Wallet Asset's owning Centrapay [Account](/api/accounts/) id.
   {% /property %}
 
   {% property name="category" type="string" %}
@@ -40,11 +40,11 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   {% /property %}
 
   {% property name="createdAt" type="timestamp" %}
-    Timestamp at which the Wallet was created.
+    Timestamp at which the Wallet Asset was created.
   {% /property %}
 
   {% property name="status" type="string" %}
-    `active` if the Wallet can be used for payments.
+    `active` if the Wallet Asset can be used for payments.
   {% /property %}
 
   {% property name="currency" type="string" %}
@@ -60,18 +60,18 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   {% /property %}
 
   {% property name="settlement" type="boolean" experimental=true %}
-    `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+    `true` if the Wallet Asset is a [Settlement Wallet Asset](#settlement-wallet-assets).
   {% /property %}
 {% /properties %}
 
 ---
 
-## Wallet Transaction Model
+## Wallet Asset Transaction Model
 
 
 {% properties %}
   {% property name="activityNumber" type="BigNumber" %}
-    Unique sequential Wallet transaction number.
+    Unique sequential Wallet Asset transaction number.
   {% /property %}
 
   {% property name="amount" type="BigNumber" %}
@@ -79,7 +79,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   {% /property %}
 
   {% property name="value" type="BigNumber" %}
-    Change to the Wallet's balance in cents when the transaction was applied.
+    Change to the Wallet Asset's balance in cents when the transaction was applied.
   {% /property %}
 
   {% property name="createdAt" type="timestamp" %}
@@ -91,11 +91,11 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   {% /property %}
 
   {% property name="destWalletId" type="string" %}
-    Id of the destination Wallet if applicable.
+    Id of the destination Wallet Asset if applicable.
   {% /property %}
 
   {% property name="srcWalletId" type="string" %}
-    Id of the source Wallet if applicable.
+    Id of the source Wallet Asset if applicable.
   {% /property %}
 
   {% property name="destParty" type="string" %}
@@ -111,7 +111,7 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
   {% /property %}
 
   {% property name="topupId" type="string" %}
-    Unique identifier of the related topup [Funds Transfer](/api/funds-transfers) request if applicable.
+    Unique identifier of the related top up [Funds Transfer](/api/funds-transfers) request if applicable.
   {% /property %}
 
   {% property name="assetTransferId" type="string" %}
@@ -125,14 +125,14 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
 ---
 
-{% endpoint path="/api/wallet-assets" filename="wallets-create" %}
-  ## Create a Wallet
+{% endpoint path="/api/wallet-assets" filename="wallet-assets-create" %}
+  ## Create a Wallet Asset
 
-  This endpoint allows you to create a Wallet.
+  This endpoint allows you to create a Wallet Asset.
 
   {% properties %}
     {% property name="accountId" type="string" required=true %}
-      The Wallets's owning Centrapay [Account](/api/accounts/) id.
+      The Wallet Assets' owning Centrapay [Account](/api/accounts/) id.
     {% /property %}
 
     {% property name="ledgerId" type="string" required=true %}
@@ -140,13 +140,13 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
     {% /property %}
 
     {% property name="settlement" type="boolean" experimental=true %}
-      `true` if the Wallet is a [Settlement Wallet](#settlement-wallets).
+      `true` if the Wallet Asset is a [Settlement Wallet Asset](#settlement-wallet-assets).
     {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
     {% error code="403" message="ACCOUNT_MAX_WALLETS_REACHED" %}
-      The maximum number of wallets for the given ledger has been reached.
+      The maximum number of wallet assets for the given ledger has been reached.
     {% /error %}
   {% /properties %}
 
@@ -154,16 +154,16 @@ A Settlement Wallet is a special type of Wallet that can only receive or refund 
 
 ---
 
-{% endpoint path="/api/wallet-assets" filename="wallets-assets-list" %}
-  ## List Wallets
+{% endpoint path="/api/wallet-assets" filename="wallet-assets-list" %}
+  ## List Wallet Assets
 
-  This endpoint allows you to list authorized Wallets.
+  This endpoint allows you to list authorized Wallet Assets.
 {% /endpoint %}
 
 ---
 
-{% endpoint path="/api/wallets/{walletId}/transactions" filename="wallets-assets-list-transactions" %}
-  ## List Wallet Transactions
+{% endpoint path="/api/wallet-assets/{walletId}/transactions" filename="wallet-assets-list-transactions" %}
+  ## List Wallet Asset Transactions
 
-  This endpoint allows you to list Wallet Transactions.
+  This endpoint allows you to list Wallet Asset Transactions.
 {% /endpoint %}
