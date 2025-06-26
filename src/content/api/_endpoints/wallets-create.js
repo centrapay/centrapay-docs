@@ -16,9 +16,8 @@ export default {
       primaryColorHex: '#abc123',
       assetTypes: [
         { 'id': 'quartz.nzd' },
-        { 'id': 'airpoints' },
-        { 'id': 'centrapay.token', 'collectionIds': '98h1d312' },
-        { 'id': 'centrapay.token', 'collectionIds': 'ca9h0221sacw' },
+        { 'id': 'centrapay.token', 'collectionId': '98h1d312' },
+        { 'id': 'centrapay.token', 'collectionId': 'ca9h0221sacw' },
       ],
     },
   },
@@ -35,9 +34,8 @@ export default {
     primaryColorHex: '#abc123',
     assetTypes: [
       { id: 'quartz.nzd' },
-      { id: 'airpoints' },
-      { id: 'centrapay.token', collectionIds: '98h1d312' },
-      { id: 'centrapay.token', collectionIds: 'ca9h0221sacw' }
+      { id: 'centrapay.token', collectionId: '98h1d312' },
+      { id: 'centrapay.token', collectionId: 'ca9h0221sacw' }
     ]
   }
 };

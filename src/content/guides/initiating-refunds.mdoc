@@ -20,7 +20,7 @@ This field provides idempotency for the refund operation and ensures that a refu
 
 Refunds are initiated using the `id` of the [Payment Request](/api/payment-requests). A patron should have either the `id` or the `shortCode` available. Merchants can obtain the `id` by looking the Payment Request up by `shortCode`.
 
-POS systems or digital wallet that support transacting with Centrapay should make the `id` or `shortCode` fields discoverable through the user's transaction history, or through a paper receipt, so they can be used to negotiate refunds.
+POS systems or digital wallets that support transacting with Centrapay should make the `id` or `shortCode` fields discoverable through the user's transaction history, or through a paper receipt, so they can be used to negotiate refunds.
 
 ### By Short Code
 
