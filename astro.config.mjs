@@ -51,7 +51,7 @@ export default defineConfig({
     '/assets/discrete-assets/': '/api/external-assets/',
     '/api/discrete-assets/': '/api/external-assets/',
     '/assets/asset-transfers/': '/api/asset-transfers/',
-    '/assets/wallets/': '/api/wallets/',
+    '/assets/wallet-assets/': '/api/wallet-assets/',
     '/api/': '/api/introduction/',
     '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
   },

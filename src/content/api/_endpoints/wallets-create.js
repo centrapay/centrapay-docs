@@ -1,29 +1,41 @@
 export default {
   method: 'POST',
-  path: '/api/wallet-assets',
+  path: '/api/wallets',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
       'Content-Type': 'application/json',
     },
     payload: {
-      accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
-      ledgerId: 'centrapay.nzd.main',
-      settlement: 'true'
+      id: 'payap',
+      name: 'Payap',
+      accountId: 'abc123',
+      connectionId: 'https://app.payap.com/join',
+      payUrl: 'https://app.payap.com/pay',
+      logoMediaUploadId: 'abcd',
+      primaryColorHex: '#abc123',
+      assetTypes: [
+        { 'id': 'quartz.nzd' },
+        { 'id': 'centrapay.token', 'collectionId': '98h1d312' },
+        { 'id': 'centrapay.token', 'collectionId': 'ca9h0221sacw' },
+      ],
     },
   },
   response: {
-    id: 'WRhAxxWpTKb5U7pXyxQjjY',
-    accountId: 'Te2uDM7xhDLWGVJU3nzwnh',
-    category: 'money',
-    type: 'centrapay.nzd.main',
-    liveness: 'main',
-    description: 'NZD',
-    createdAt: '2021-01-01T00:00:00.000Z',
+    id: 'payap',
+    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey',
+    createdByAccountName: 'Payap',
+    createdAt: '2020-05-01T12:30:00.000Z',
     status: 'active',
-    currency: 'NZD',
-    balance: '0',
-    availableBalance: '6000',
-    settlement: true
+    url: 'https://app.payap.com/join',
+    merchantId: 'abc123',
+    logoMediaUploadId: 'abcd',
+    logoImg: 'imgLink',
+    primaryColorHex: '#abc123',
+    assetTypes: [
+      { id: 'quartz.nzd' },
+      { id: 'centrapay.token', collectionId: '98h1d312' },
+      { id: 'centrapay.token', collectionId: 'ca9h0221sacw' }
+    ]
   }
 };

@@ -29,7 +29,7 @@ message fields are scrubbed to avoid storing PII.
   {% /property %}
 
   {% property name="assetId" type="string" %}
-    Id of a discrete asset to transfer or wallet to draw from.
+    Id of a discrete asset to transfer or wallet asset to draw from.
   {% /property %}
 
   {% property name="assetType" type="string" %}
@@ -228,7 +228,7 @@ Asset Transfer goes through different lifecycle stages.
 
   {% properties %}
     {% property name="assetId" type="string" required=true %}
-      Id of a discrete asset to transfer or wallet to draw from.
+      Id of a discrete asset to transfer or wallet asset to draw from.
     {% /property %}
 
     {% property name="recipientAlias" type="string" %}
@@ -258,7 +258,7 @@ Asset Transfer goes through different lifecycle stages.
 
   {% properties heading="Errors" %}
     {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
-      The value of the asset-transfer exceeds the balance on the wallet.
+      The value of the asset-transfer exceeds the balance on the wallet asset.
     {% /error %}
 
     {% error code="403" message="QUOTA_EXCEEDED" %}

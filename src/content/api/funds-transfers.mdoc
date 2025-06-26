@@ -5,7 +5,7 @@ nav:
   path: Bank Accounts
   order: 4
 ---
-A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet. Topping up a wallet consists of making a bank transfer from the user's bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet equal to the amount of the bank transfer.
+A funds transfer represents either a top up to or a withdrawal from a Centrapay wallet asset. Topping up a wallet asset consists of making a bank transfer from the user's bank account to Centrapay. Once Centrapay has verified the transfer was successful a user will be given credit on their Centrapay wallet asset equal to the amount of the bank transfer.
 
 ---
 
@@ -66,15 +66,15 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   {% properties heading="Errors" %}
     {% error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH" %}
-      The wallet and the bank account for the withdrawal request do not belong to the same account.
+      The wallet asset and the bank account for the withdrawal request do not belong to the same account.
     {% /error %}
 
     {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
-      The wallet balance is less than the required=true amount.
+      The wallet asset balance is less than the required=true amount.
     {% /error %}
 
     {% error code="403" message="INVALID_WALLET_TYPE" %}
-      The wallet type does not support withdrawals. See [settlement wallets](/api/wallets#settlement-wallets).
+      The wallet asset type does not support withdrawals. See [settlement wallet assets](/api/wallet-assets#settlement-wallet-assets).
     {% /error %}
 
     {% error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL" %}
@@ -96,15 +96,15 @@ A funds transfer represents either a top up to or a withdrawal from a Centrapay 
 
   {% properties heading="Errors" %}
     {% error code="403" message="BANK_AUTHORITY_WALLET_MISMATCH" %}
-      The wallet and the bank account for the withdrawal request do not belong to the same account.
+      The wallet asset and the bank account for the withdrawal request do not belong to the same account.
     {% /error %}
 
     {% error code="403" message="INSUFFICIENT_WALLET_BALANCE" %}
-      The wallet balance is less than the required amount.
+      The wallet asset balance is less than the required amount.
     {% /error %}
 
     {% error code="403" message="INVALID_WALLET_TYPE" %}
-      The wallet type does not support withdrawals. See [settlement wallets](/api/wallets#settlement-wallets).
+      The wallet asset type does not support withdrawals. See [settlement wallet-assets](/api/wallet-assets#settlement-wallet-assets).
     {% /error %}
 
     {% error code="403" message="BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL" %}
