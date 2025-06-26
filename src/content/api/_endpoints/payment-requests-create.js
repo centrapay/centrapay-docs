@@ -31,6 +31,7 @@ export default {
           discount: '600'
         }
       ],
+      connectionId: 'cn_9asd9k19',
     },
   },
   response: {
@@ -102,5 +103,7 @@ export default {
         discount: '600'
       }
     ],
+    connectionId: 'cn_9asd9k19',
+    connectionStatus: 'active',
   }
 };
