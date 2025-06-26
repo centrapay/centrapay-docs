@@ -150,6 +150,12 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
   {% property name="basketAmount" type="bignumber" %}
     The total amount of the transaction including non Centrapay payment methods.
   {% /property %}
+  {% property name="connectionId" type="string" experimental=true %}
+    The identifier of the [Connection](/api/connections) associated with the payment request.
+  {% /property %}
+  {% property name="connectionStatus" type="string" experimental=true %}
+    The status of the [Connection](/api/connections) associated with the payment request.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -535,6 +541,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% property name="basketAmount" type="bignumber" %}
       The total amount of the transaction including non Centrapay payment methods. Required when `partialAllowed` is `true`.
     {% /property %}
+    {% property name="connectionId" type="string" %}
+      The identifier of the connection to be linked to the payment request.
+    {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
@@ -555,6 +564,15 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% /error %}
     {% error code="403" message="TOKEN_COLLECTION_NOT_FOUND" %}
       The token collection does not exist.
+    {% /error %}
+    {% error code="403" message="CONNECTION_NOT_FOUND" %}
+      The connection does not exist.
+    {% /error %}
+    {% error code="403" message="CONNECTION_MERCHANT_MISMATCH" %}
+      The connection is not for the same merchant as the payment request.
+    {% /error %}
+    {% error code="403" message="CONNECTION_CREATED_BY_MISMATCH" %}
+      The connection was not created by the same caller as the payment request.
     {% /error %}
   {% /properties %}
 
