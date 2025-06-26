@@ -75,6 +75,8 @@ export default {
     updatedAt: '2021-06-08T04:04:27.426Z',
     expiresAt: '2021-06-08T04:06:27.426Z',
     liveness: 'test',
-    expirySeconds: 120
+    expirySeconds: 120,
+    connectionId: 'cn_9asd9k19',
+    connectionStatus: 'active',
   }
 };

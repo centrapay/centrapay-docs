@@ -45,7 +45,9 @@ export default {
         }
       ],
       status: 'new',
-      liveness: 'test'
+      liveness: 'test',
+      connectionId: 'cn_9asd9k19',
+      connectionStatus: 'active',
     }],
     pageKey: '12312312',
   }
