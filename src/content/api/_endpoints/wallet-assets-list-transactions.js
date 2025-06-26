@@ -1,6 +1,6 @@
 export default {
   method: 'GET',
-  path: '/api/wallet-assets/WRhAxxWpTKb5U7pXyxQjjY/transactions',
+  path: '/api/wallets/WRhAxxWpTKb5U7pXyxQjjY/transactions',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',

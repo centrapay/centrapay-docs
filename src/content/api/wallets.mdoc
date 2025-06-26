@@ -48,12 +48,13 @@ A Wallet is a representation of a consumer application.
 ## Asset Types Model
 
 {% properties %}
-  {% property name="id" type="string" %}
+  {% property name="id" type="string" required=true %}
     The unique identifier of the Asset Type.
   {% /property %}
 
   {% property name="collectionId" type="string" %}
-    The displayable name of the Asset Type.
+    Identifier of a [Collection](/api/tokens/#token-collection-model) that is supported by the wallet.
+    Only valid if the Asset Type is a `centrapay.token` or `centrapay.ledger`.
   {% /property %}
 {% /properties %}
 
