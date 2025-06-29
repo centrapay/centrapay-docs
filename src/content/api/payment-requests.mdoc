@@ -697,6 +697,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% property name="externalPaymentRef" type="string" %}
       An external reference to the payment. Required when `assetType` is `farmlands.nzd.*`.
     {% /property %}
+    {% property name="lineItems" type="array" %}
+      The [Line Items](#line-item-model) associated with this payment attempt. This field is only allowed for `centrapay.token.*` payments. If omitted for `centrapay.token.*` payments, the highest-value valid line item from the payment request will be used by default.
+    {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
