@@ -61,3 +61,20 @@ A Connection is a link between a Wallet and a Sales Channel.
 {% /endpoint %}
 
 ---
+
+{% endpoint
+  path="/api/connections/1234/authorize"
+  filename="connections-authorize"
+%}
+  ## Authorize Connection {% badge type="experimental" /%}
+
+  This endpoint allows you to authorize a [Connection](#connection-model).
+
+  {% properties %}
+    {% property name="walletId" type="string" required=true %}
+      The name of the wallet to authorize the Connection for.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---

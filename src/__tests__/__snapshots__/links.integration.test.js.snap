@@ -138,6 +138,7 @@ exports[`the build should not break any links 1`] = `
   "/api/connections",
   "/api/connections#connection-model",
   "/api/connections#create-connection",
+  "/api/connections#connection-authorize",
   "/api/data-types",
   "/api/data-types#bignumber",
   "/api/data-types#crn",
