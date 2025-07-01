@@ -20,6 +20,6 @@ export default {
     updatedBy: 'crn:1234abc:api-key:MyAPIKey',
     updatedAt: '2022-08-25T00:02:49.488Z',
     walletId: 'vendswift-nz',
-    walletName: ''
+    walletName: 'VendSwift'
   }
 };
