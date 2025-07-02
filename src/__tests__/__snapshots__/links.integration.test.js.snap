@@ -136,6 +136,7 @@ exports[`the build should not break any links 1`] = `
   "/api/businesses#tax-number-model",
   "/api/businesses#update-business",
   "/api/connections",
+  "/api/connections#authorize-connection",
   "/api/connections#connection-model",
   "/api/connections#create-connection",
   "/api/data-types",
