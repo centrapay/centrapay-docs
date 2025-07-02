@@ -54,5 +54,6 @@ export default defineConfig({
     '/assets/wallet-assets/': '/api/wallet-assets/',
     '/api/': '/api/introduction/',
     '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
+    '/guides/compatible-devices': '/guides/compatible-solutions',
   },
 });
