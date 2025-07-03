@@ -35,6 +35,6 @@ export default {
     liveness: 'test',
     expirySeconds: 120,
     connectionId: 'cn_9asd9k19',
-    connectionStatus: 'active',
+    connectionStatus: 'authorized',
   }
 };
