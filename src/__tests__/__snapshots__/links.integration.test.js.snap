@@ -265,6 +265,7 @@ exports[`the build should not break any links 1`] = `
   "/api/payment-requests#create-a-payment-request",
   "/api/payment-requests#decline-a-payment-condition",
   "/api/payment-requests#get-a-payment-request",
+  "/api/payment-requests#get-a-payment-request-by-connection-id",
   "/api/payment-requests#get-a-payment-request-by-short-code",
   "/api/payment-requests#get-a-payment-request-linked-to-a-patron-code",
   "/api/payment-requests#get-payment-request-summary",
