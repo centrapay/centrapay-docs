@@ -626,6 +626,19 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 ---
 
 {% endpoint
+  path="/api/connections/{connectionId}/latest-payment-request"
+  filename="payment-requests-get-by-connectionId"
+%}
+  ## Get a Payment Request by Connection Id
+
+  This endpoint returns the latest Payment Request that is associated with the provided [Connection](/api/connections).
+  The caller of the endpoint must be the account that authorized the connection.
+
+{% /endpoint %}
+
+---
+
+{% endpoint
   path="/api/payment-requests/external-ref/{externalRef}"
   filename="payment-requests-list-by-external-ref"
 %}
