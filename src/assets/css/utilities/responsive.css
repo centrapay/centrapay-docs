@@ -1,9 +1,0 @@
-@layer utilities {
-  .desktop-gutters {
-    @apply
-      max-w-6xl
-      mx-auto
-      w-full
-    ;
-  }
-}
