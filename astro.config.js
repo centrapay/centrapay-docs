@@ -17,7 +17,12 @@ export default defineConfig({
   site: 'https://docs.centrapay.com',
   integrations: [
     vue(),
-    expressiveCode(),
+    expressiveCode({
+      themes: ['material-theme-palenight'],
+      styleOverrides: {
+        borderRadius: '0.5rem',
+      },
+    }),
     markdoc({ ignoreIndentation: true }),
   ],
   markdown: {

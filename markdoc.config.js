@@ -32,7 +32,7 @@ export default defineMarkdocConfig({
             {
               id: 'link-href',
               level: 'error',
-              message: `Link href is required.`,
+              message: 'Link href is required.',
             }
           ];
         }

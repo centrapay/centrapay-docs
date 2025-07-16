@@ -1,6 +1,7 @@
 {
   "name": "centrapay-docs",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "linkinator": "linkinator dist/",
