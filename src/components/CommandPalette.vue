@@ -20,19 +20,19 @@
       >
         <div class="fixed inset-0 bg-black/50" />
       </TransitionChild>
-      <div class="fixed inset-0 overflow-y-auto backdrop-blur-sm">
+      <div class="fixed inset-0 overflow-y-auto backdrop-blur-xs">
         <DialogPanel class="mx-auto mt-[10vh] flex max-w-3xl justify-center p-4">
           <Combobox v-model="selected">
             <div class="relative mt-1 w-full">
               <form
-                class="flex w-full cursor-default items-center space-x-2 overflow-hidden rounded-lg bg-white text-left text-sm shadow-md p-squish-2 focus:outline-none"
+                class="flex flex-row w-full cursor-default items-center gap-2 overflow-hidden rounded-lg bg-white text-left text-sm shadow-md p-squish-2 focus:outline-hidden"
               >
                 <label for="query-input">
                   <Search class="left-4 w-6" />
                 </label>
                 <ComboboxInput
                   id="query-input"
-                  class="w-full border-none text-sm leading-5 text-gray-900 outline-none"
+                  class="w-full border-none text-sm leading-5 text-gray-900 outline-hidden"
                   placeholder="Search..."
                   @change="query = $event.target.value"
                 />
@@ -45,7 +45,7 @@
               >
                 <ComboboxOptions
                   v-if="query !== ''"
-                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-none"
+                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-hidden"
                 >
                   <div
                     v-if="results.length === 0"
@@ -67,7 +67,7 @@
                       }"
                     >
                       <a
-                        class="flex items-center space-x-4"
+                        class="flex flex-row items-center gap-4"
                         :href="result.href"
                       >
                         <div class="w-full truncate">

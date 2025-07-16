@@ -5,7 +5,7 @@
   >
     <div class="py-5">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <PopoverButton class="flex items-center ring-focus-ring focus:outline-none focus:ring-2 focus:ring-inset">
+        <PopoverButton class="flex items-center ring-focus-ring focus:outline-hidden focus:ring-2 focus:ring-inset">
           <NavigationMenu
             v-if="!open"
             class="block size-6 text-content-tertiary"
@@ -29,7 +29,7 @@
       leave-to-class="opacity-0 -translate-y-1"
     >
       <PopoverPanel class="absolute inset-x-0 inset-y-16 -z-10">
-        <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t bg-surface-primary pb-4 pt-2">
+        <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t border-gray-200 bg-surface-primary pb-4 pt-2">
           <Navigation
             :path="path"
             :navigation="navigation"

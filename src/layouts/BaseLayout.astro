@@ -2,7 +2,7 @@
 import AppShell from '../components/AppShell.astro';
 import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
 import Footer from '../components/Footer.astro';
-import '../assets/css/tailwind.css';
+import '../styles/global.css';
 
 export function getStaticPaths() {
   return [
@@ -91,7 +91,7 @@ const version = import.meta.env.GITHUB_RUN_ID;
         <button
           id="freshdesk-button"
           type="button"
-          class="fixed bottom-6 right-6 flex size-16 items-center justify-center rounded-full border bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
+          class="fixed bottom-6 right-6 flex size-16 items-center justify-center rounded-full border border-gray-200 bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
         >
           <span class="sr-only">Open support widget</span>
           <MessagesBubbleDouble
