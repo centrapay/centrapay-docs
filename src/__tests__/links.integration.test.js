@@ -1,4 +1,4 @@
-const { listSiteLinks } = require('../utils/listSiteLinks');
+import { listSiteLinks } from '../utils/listSiteLinks.js';
 
 test('the build should not break any links', () => {
   const uniqueLinks = listSiteLinks('dist');

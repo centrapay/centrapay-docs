@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { JSDOM } = require('jsdom');
+import fs from 'fs';
+import path from 'path';
+import { JSDOM } from 'jsdom';
 
 function extractHeadings(filePath, urlPath) {
   const fileContents = fs.readFileSync(filePath, 'utf-8');
@@ -27,6 +27,6 @@ function listSiteLinks(directory) {
   return links;
 }
 
-module.exports = {
-  listSiteLinks
+export {
+  listSiteLinks,
 };

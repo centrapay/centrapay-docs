@@ -1,4 +1,4 @@
-const { listSiteLinks } = require('../listSiteLinks');
+import { listSiteLinks } from '../listSiteLinks.js';
 
 describe('listSiteLinks', () => {
   it('should return the set of possible site links', () => {
