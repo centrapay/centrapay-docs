@@ -4,12 +4,10 @@ import babelParser from '@babel/eslint-parser';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginVue from 'eslint-plugin-vue';
 import eslintPluginJest from 'eslint-plugin-jest';
-import tailwind from "eslint-plugin-tailwindcss";
 
 export default [
   ...eslintPluginAstro.configs.recommended,
   ...eslintPluginVue.configs['flat/recommended'],
-  ...tailwind.configs['flat/recommended'],
   {
     rules: {
       'vue/html-self-closing': [

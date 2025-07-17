@@ -1,4 +1,4 @@
-const plugin = require('tailwindcss/plugin');
+import plugin from 'tailwindcss/plugin';
 
 const squishUtilitySizes = [ 1, 2, 4, 8, 16 ];
 const stretchUtilitySizes = [ 2, 4, 8, 16, 32 ];
@@ -28,4 +28,4 @@ const spacingPlugin = plugin(function({ addUtilities }) {
   });
 });
 
-module.exports = spacingPlugin;
+export default spacingPlugin;

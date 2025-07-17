@@ -21,7 +21,7 @@
           :class="[
             visibleHeadingId === heading.slug ?
               'border-brand-accent text-content-primary':
-              'text-content-tertiary'
+              'border-gray-200 text-content-tertiary'
           ]"
           @click="handleTocClick(heading.slug)"
         >
