@@ -1,6 +1,6 @@
 import typography from '@tailwindcss/typography';
-import customTypography from './src/styles/plugins/typography.mjs';
-import spacing from './src/styles/plugins/spacing.mjs';
+import customTypography from './src/styles/plugins/typography.js';
+import spacing from './src/styles/plugins/spacing.js';
 
 export default {
   content: [
