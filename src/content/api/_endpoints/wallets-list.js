@@ -1,6 +1,6 @@
 export default {
   method: 'GET',
-  path: '/api/merchants/{merchantId}/wallets',
+  path: '/api/merchants/MhocUmpxxmgdHjr7DgKoKw/supported-wallets',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
@@ -16,7 +16,6 @@ export default {
       payUrl: 'https://app.payap.com/pay',
       assetTypes: [
         { id: 'quartz.nzd' },
-        { id: 'airpoints' },
         { id: 'centrapay.token', 'collectionId': '98h1d312' },
       ],
     }
