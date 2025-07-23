@@ -1,5 +1,5 @@
-const plugin = require('tailwindcss/plugin');
-const util = require('util');
+import plugin from 'tailwindcss/plugin';
+import util  from 'util';
 
 const fontUtilitySpecs = [
   {
@@ -209,4 +209,4 @@ const typographyPlugin = plugin(function({ addComponents }) {
 
 });
 
-module.exports = typographyPlugin;
+export default typographyPlugin;

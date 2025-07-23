@@ -1,5 +1,4 @@
 ---
-/* eslint-disable tailwindcss/no-custom-classname */
 import Badge from '../components/Badge.astro';
 
 const { name, type, required, experimental, deprecated } = Astro.props;
@@ -8,8 +7,8 @@ const formattedType = type.toLowerCase();
 const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType : undefined;
 ---
 
-<li class="m-0 px-0 py-4 first:pt-0">
-  <div class="m-0 flex flex-wrap items-center gap-x-3">
+<li class="px-0 border-b-0">
+  <div class="m-0 flex flex-wrap items-baseline gap-x-3">
     <h4 class="my-0" id={name}>{name}</h4>
     <Badge text={formattedType} link={link} />
     { required && <Badge type="required" /> }

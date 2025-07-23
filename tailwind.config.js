@@ -1,4 +1,8 @@
-const tailwindConfig = {
+import typography from '@tailwindcss/typography';
+import customTypography from './src/styles/plugins/typography.js';
+import spacing from './src/styles/plugins/spacing.js';
+
+export default {
   content: [
     './src/**/*.{astro,vue, js, css}',
   ],
@@ -7,11 +11,11 @@ const tailwindConfig = {
       typography: {
         DEFAULT: {
           css: {
-            'code::before': false,
-            'code::after': false,
-            'pre': false,
-            'code': false,
-            'pre code': false,
+            'code::before': { content: 'none' },
+            'code::after': { content: 'none' },
+            'pre': { content: 'none' },
+            'code': { content: 'none' },
+            'pre code': { content: 'none' },
             '*:not(pre) > code': {
               'border-radius': '0.375rem',
               'background-color': '#F8F8F8',
@@ -21,6 +25,7 @@ const tailwindConfig = {
               'text-color': '#111827',
               'font-size': '0.875rem',
               'line-height': '1.25rem',
+              'font-weight': 'normal',
             }
           }
         },
@@ -72,10 +77,8 @@ const tailwindConfig = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('./src/assets/css/plugins/typography'),
-    require('./src/assets/css/plugins/spacing'),
-  ]
+    typography,
+    customTypography,
+    spacing,
+  ],
 };
-
-module.exports = tailwindConfig;

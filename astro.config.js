@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import flexsearchPlugin from './src/plugins/flexsearch';
-import tailwind from '@astrojs/tailwind';
 
 // Rehype plugins
 import rehypeSectionize from '@hbsnow/rehype-sectionize';
@@ -11,22 +10,26 @@ import vue from '@astrojs/vue';
 import markdoc from '@astrojs/markdoc';
 import expressiveCode from 'astro-expressive-code';
 
+import tailwindcss from '@tailwindcss/vite';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://docs.centrapay.com',
   integrations: [
     vue(),
-    tailwind({ applyBaseStyles: false }),
-    expressiveCode(),
+    expressiveCode({
+      themes: ['material-theme-palenight'],
+      styleOverrides: {
+        borderRadius: '0.5rem',
+      },
+    }),
     markdoc({ ignoreIndentation: true }),
   ],
   markdown: {
     rehypePlugins: [ rehypeSectionize ],
   },
   vite: {
-    plugins: [
-      flexsearchPlugin(),
-    ]
+    plugins: [flexsearchPlugin(), tailwindcss()]
   },
   redirects: {
     '/guides/merchant-terminals/': '/guides/payment-flows/',
