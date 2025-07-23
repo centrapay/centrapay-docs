@@ -104,3 +104,17 @@ This endpoint allows you to create a [Wallet](#wallet-model).
 {% /endpoint %}
 
 ---
+
+## List Supported Wallets for Merchant {% badge type="experimental" /%}
+This endpoint allows you to retrieve a list of [Wallets](#wallet-model) that a merchant supports. Wallets are filtered to match the merchant's supported assets.
+
+{% endpoint
+  path="/api/merchants/MhocUmpxxmgdHjr7DgKoKw/supported-wallets"
+  filename="wallets-list"
+%}
+  {% properties %}
+    {% property name="merchantId" type="string" required=true %}
+      The ID of the merchant for which to list matching wallets.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

@@ -341,6 +341,7 @@ exports[`the build should not break any links 1`] = `
   "/api/wallets",
   "/api/wallets#asset-types-model",
   "/api/wallets#create-wallet",
+  "/api/wallets#list-supported-wallets-for-merchant",
   "/api/wallets#wallet-model",
   "/assets",
   "/assets/asset-categories",
