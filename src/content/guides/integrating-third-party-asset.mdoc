@@ -189,6 +189,7 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 | failureReason        | String                                 | optional   | Required if the status is failed. See possible failure reasons under each API below.                     |
 | refundable           | Boolean                                | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
 | refundBefore         | [Timestamp](/api/data-types#timestamp) | optional   | The latest time at which a refund can be initiated.                                                      |
+| paymentRequestId     | String                                 | optional   | A unique identifier for the original Payment request.                                                    |
 | idempotencyKey       | String                                 | deprecated | A unique value that can be used to recognize subsequent retries of the same request.                     |
 
 ### Statuses
@@ -243,7 +244,8 @@ curl -X POST https://your.endpoint/pay \
       "country": "NZ",
       "street": "17 South Street"
     },
-		"idempotencyKey": "UttDGTHjr7DgKoKwWpTKb"
+    "paymentRequestId": "LTsofbYSldsp35psd",
+		"idempotencyKey": "UttDGTHjr7DgKoKwWpTKb",
 		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
   }'
 ```
@@ -264,6 +266,7 @@ curl -X POST https://your.endpoint/pay \
     "country": "NZ",
     "street": "17 South Street"
   },
+  "paymentRequestId": "LTsofbYSldsp35psd",
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "successful",
