@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+
+const {
+  title,
+  description,
+  img
+} = Astro.props;
+const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>{metaTitle}</title>
+    <meta name="description" content={description}>
+    <meta property="img" content={img}>
+
+    <!-- OpenGraph Tags -->
+    <meta name="og:title" content={metaTitle}>
+    <meta name="og:description" content={description}>
+    <meta property="og:image" content={img}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+  </head>
+  <body class="bg-white">
+    <div class="w-full">
+      <slot />
+    </div>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          mainBkg: '#F8F8F8',
+          actorBkg: '#F8F8F8',
+          primaryColor: '#F8F8F8',
+          primaryTextColor: '#232323',
+          primaryBorderColor: '#D1D5DB',
+          secondaryColor: '#F8F8F8',
+          noteBkgColor: '#232323',
+          noteTextColor: '#F8F8F8',
+          labelBoxBkgColor: '#FFFFFF',
+          clusterBkg: '#F8F8F8',
+        },
+        sequence: {
+          diagramMarginY: 50,
+        }
+      });
+    </script>
+  </body>
+</html>

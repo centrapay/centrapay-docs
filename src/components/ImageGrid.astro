@@ -1,9 +1,17 @@
 ---
 const { image, caption, imageWidth } = Astro.props;
+
+// Map width values to ensure Tailwind classes are included in build
+const widthClasses = {
+  '73': 'w-73 max-w-73',
+};
+
+const containerWidthClass = imageWidth ? widthClasses[imageWidth] || '' : '';
+const imgWidthClass = imageWidth ? widthClasses[imageWidth] || '' : '';
 ---
 
-<div class={`flex flex-col gap-2 ${imageWidth ? `max-w${imageWidth}` : ''} text-wrap`}>
-  <img class={`block ${imageWidth ? `w-${imageWidth}` : '' }`} src={image} />
+<div class={`flex flex-col gap-2 text-wrap ${containerWidthClass}`}>
+  <img class={`block ${imgWidthClass} h-auto`} src={image} />
   <p class="font-normal text-xs text-center">
     {caption}
   </p>

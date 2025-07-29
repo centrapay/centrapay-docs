@@ -1,0 +1,30 @@
+---
+import { getCollection } from '../../utils/getCollection';
+import { render } from 'astro:content';
+import Prose from '../../components/Prose.astro';
+import IframeLayout from '../../layouts/IframeLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  // Filter guides that have iframe: true in their frontmatter
+  const iframeGuides = guides.filter(entry => entry.data.iframe === true);
+  return iframeGuides.map(entry => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const previewImg = entry.data.img || '/default-cover.jpg';
+const { title, description } = entry.data;
+---
+<IframeLayout title={title} description={description} img={previewImg}>
+  <div class="w-full">
+      <article>
+        <Prose>
+          <Content />
+        </Prose>
+      </article>
+  </div>
+</IframeLayout>
