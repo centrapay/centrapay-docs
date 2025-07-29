@@ -8,6 +8,7 @@ const guides = defineCollection({
     description: z.string(),
     img: z.string().optional(),
     draft: z.boolean().optional().default(false),
+    iframe: z.boolean().optional().default(false),
     nav: z.object({
       title: z.string().optional(),
       path: z.string(),
