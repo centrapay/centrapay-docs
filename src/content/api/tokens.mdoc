@@ -248,7 +248,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
 %}
   ## Create Redemption Condition {% badge type="experimental" /%}
 
-  This endpoint allows you to create a [Redemption Condition](#redemption-condition-model).
+  This endpoint allows you to create a [Redemption Condition](#redemption-condition-model). Redemption conditions are only created for [Token Collections](#token-collection-model) of type `product`.
 
   {% properties %}
     {% property name="merchantId" type="string" required=true %}
@@ -256,7 +256,7 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
     {% /property %}
 
     {% property name="allowedProducts" type="object" required=true %}
-      List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+      List of [Allowed Products](#allowed-products-model).
     {% /property %}
   {% /properties %}
 
@@ -268,6 +268,11 @@ A [Redemption Condition](#redemption-condition-model) is created for each [Merch
     {% error code="403" message="REDEMPTION_CONDITION_ALREADY_EXISTS" %}
       A redemption condition for the collection and the merchant has already been created.
     {% /error %}
+
+    {% error code="403" message="COLLECTION_INVALID_TYPE" %}
+      Redemption conditions can only be created for collections of type `product`.
+    {% /error %}
+
   {% /properties %}
 
 {% /endpoint %}
