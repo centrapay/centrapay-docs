@@ -59,7 +59,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% /property %}
 
   {% property name="type" type="string" %}
-    The type of Promotion. Can be `cashback` or `challenge`. `challenge` rewards the account once, after the challenge target is met. `cashback` gives a reward based on the payment amount, which can be completed an unlimited number of times.
+    The type of Promotion. Can be `challenge`. `challenge` rewards the account once, after the challenge target is met.
   {% /property %}
 
   {% property name="conditions" type="array" %}
@@ -125,10 +125,6 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% property name="amount" type="number" %}
     The amount of the chosen asset to reward. Only supplied if Promotion is type `challenge`.
   {% /property %}
-
-  {% property name="exchangeRate" type="number" %}
-    The rate of exchange from payment amount to reward. Only supplied if Promotion is type `cashback`.
-  {% /property %}
 {% /properties %}
 
 ## Promotion Condition Model
@@ -189,7 +185,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     {% /property %}
 
     {% property name="type" type="string" required=true %}
-      The type of Promotion. Can be `cashback` or `challenge`. `challenge` rewards the account once, after the challenge target is met. `cashback` gives a reward based on the payment amount, which can be completed an unlimited number of times.
+      The type of Promotion. Can be `challenge`. `challenge` rewards the account once, after the challenge target is met.
     {% /property %}
 
     {% property name="conditions" type="array" %}
