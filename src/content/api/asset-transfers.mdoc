@@ -87,6 +87,22 @@ message fields are scrubbed to avoid storing PII.
   {% property name="url" type="string" %}
     A URL where the asset can be claimed if a recipient is not supplied.
   {% /property %}
+
+  {% property name="claimType" type="string" experimental=true %}
+    'multi' if the asset transfer can be claimed by multiple users, 'single' if it can only be claimed by one user.
+  {% /property %}
+
+  {% property name="valueConfig" type="object" experimental=true %}
+    The configuration of the value of the asset being transferred for each claim.
+  {% /property %}
+
+  {% property name="claimConditions" type="array" experimental=true %}
+    Array of claim conditions that must be met to successfully claim the asset transfer.
+  {% /property %}
+
+  {% property name="remainingValue" type="string" experimental=true %}
+    The remaining value of the asset that has not been claimed.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -253,6 +269,18 @@ Asset Transfer goes through different lifecycle stages.
 
     {% property name="suppressNotification" type="boolean" %}
       Suppress notifications from Centrapay (SMS/Email).
+    {% /property %}
+
+    {% property name="claimType" type="string" experimental=true %}
+      'multi' if the asset transfer can be claimed by multiple users, 'single' if it can only be claimed by one user. Defaults to 'single'.
+    {% /property %}
+
+    {% property name="valueConfig" type="object" experimental=true %}
+      The configuration of the value of the asset being transferred for each claim. Required if `claimType` is `multi`. The value must be less than or equal to the total value of the asset transfer.
+    {% /property %}
+
+    {% property name="claimConditions" type="array" experimental=true %}
+      Array of claim conditions that must be met to successfully claim the asset transfer.
     {% /property %}
   {% /properties %}
 

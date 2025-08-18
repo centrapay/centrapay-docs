@@ -8,7 +8,25 @@ export default {
     },
     payload: {
       assetId: 'YGRo6TYYSxH3js7',
-      recipientAlias: '+642212312'
+      value: '1000',
+      message: 'Happy birthday',
+      senderName: 'My Cafe',
+      claimType: 'multi',
+      valueConfig: {
+        type: 'flat',
+        params: {
+          amount: '100'
+        }
+      },
+      claimConditions: [
+        {
+          type: 'frequency',
+          params: {
+            period: 'lifetime',
+            limit: '1'
+          }
+        }
+      ],
     },
   },
   response: {
@@ -16,15 +34,29 @@ export default {
     status: 'created',
     value: '1000',
     assetId: 'YGRo6TYYSxH3js7',
-    assetType: 'centrapay.token.main',
-    description: 'Centrapay Token',
+    assetType: 'centrapay.ledger.main',
+    description: 'Centrapay Ledger',
     message: 'Happy birthday',
     senderName: 'My Cafe',
-    recipientAccountId: '9EDxUT91TMsUjoqoQeBuLQ',
-    claimedByAccountId: '9EDxUT91TMsUjoqoQeBuLQ',
-    recipientAlias: '+64212312345',
     createdAt: '2020-05-01T12:30:00.000Z',
     updatedAt: '2020-05-02T01:03:37.222Z',
-    suppressNotifications: false
+    suppressNotifications: false,
+    claimType: 'multi',
+    valueConfig: {
+      type: 'flat',
+      params: {
+        amount: '100'
+      }
+    },
+    claimConditions: [
+      {
+        type: 'frequency',
+        params: {
+          period: 'lifetime',
+          limit: '1'
+        }
+      }
+    ],
+    remainingValue: '1000'
   }
 };
