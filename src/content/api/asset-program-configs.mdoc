@@ -1,0 +1,181 @@
+---
+title: Asset Program Configs
+description: Configuration for Asset Programs on Merchant accounts
+nav:
+  path: Asset Programs
+  order: 3
+---
+
+An Asset Program Config defines how an [Asset Program](/api/asset-programs) is configured for a specific merchant. It is created after a merchant has an approved [Asset Program Membership](/api/asset-program-memberships) and wants to enable the asset program for payments.
+
+An Asset Program Config manages the relationship between a specific merchant and an Asset Program, defining how the program's assets will be configured as payment options for that merchant. These configs can be created even if the Asset Program Membership is not yet fully in effect, but they will only become active when all requirements are met: the membership must be both approved by the asset program owner and accepted by the business account. This allows businesses to prepare their payment configurations in advance while ensuring proper authorization before assets can be accepted as payments.
+
+## Asset Program Config Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Asset Program Config.
+  {% /property %}
+
+  {% property name="assetProgramId" type="string" %}
+    The id of the [Asset Program](/api/asset-programs) the Config belongs to.
+  {% /property %}
+
+  {% property name="assetProgramMembershipId" type="string" %}
+    The id of the [Asset Program Membership](/api/asset-program-memberships) the Config belongs to.
+  {% /property %}
+
+  {% property name="merchantId" type="string" %}
+    The id of the [Merchant](/api/merchants) associated with the config.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+  {% /property %}
+
+  {% property name="enabled" type="boolean" %}
+    `true` if the Asset Program Config is enabled for payments.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Asset Program Config. Possible values: `active`, `disabled`.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Asset Program Config is for testing purposes only.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Asset Program Config was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the Asset Program Config.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Asset Program Config was updated.
+  {% /property %}
+
+  {% property name="updatedBy" type="crn" %}
+    The User or API Key that updated the Asset Program Config.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships/{id}/asset-program-configs"
+  filename="asset-program-config-create"
+%}
+  ## Create Asset Program Config {% badge type="experimental" /%}
+
+  This endpoint allows you to create an [Asset Program Config](#asset-program-config-model) for an approved Asset Program Membership.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The id of the [Asset Program Membership](/api/asset-program-memberships) to create the config for.
+    {% /property %}
+
+    {% property name="merchantId" type="string" required=true %}
+      The id of the [Merchant](/api/merchants) to associate with the config.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ASSET_PROGRAM_MEMBERSHIP_NOT_APPROVED" %}
+      The Asset Program Membership must be approved before creating a config.
+    {% /error %}
+
+    {% error code="403" message="MERCHANT_ACCOUNT_MISMATCH" %}
+      The Merchant must belong to the same account as the Asset Program Membership.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-configs/{id}"
+  filename="asset-program-config-get"
+%}
+  ## Get Asset Program Config {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a specific [Asset Program Config](#asset-program-config-model).
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program Config.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs/{id}/asset-program-configs"
+  filename="asset-program-configs-list-by-program"
+%}
+  ## List Asset Program Configs by Asset Program {% badge type="experimental" /%}
+
+  This endpoint allows you to list [Asset Program Configs](#asset-program-config-model) for a specific Asset Program.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program.
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      The page key used in pagination to fetch the next page of results.
+    {% /property %}
+
+    {% property name="paginationLimit" type="number" %}
+      The maximum number of results per page. Maximum value is 100. Defaults to 50.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Response" %}
+    {% property name="items" type="array" %}
+      The list of Asset Program Configs.
+    {% /property %}
+
+    {% property name="nextPageKey" type="string" %}
+      The page key to use for fetching the next page of results, if more results are available.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{id}/asset-program-configs"
+  filename="asset-program-configs-list-by-account"
+%}
+  ## List Asset Program Configs by Account {% badge type="experimental" /%}
+
+  This endpoint allows you to list [Asset Program Configs](#asset-program-config-model) for a specific Account.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Account.
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      The page key used in pagination to fetch the next page of results.
+    {% /property %}
+
+    {% property name="paginationLimit" type="number" %}
+      The maximum number of results per page. Maximum value is 100. Defaults to 50.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Response" %}
+    {% property name="items" type="array" %}
+      The list of Asset Program Configs.
+    {% /property %}
+
+    {% property name="nextPageKey" type="string" %}
+      The page key to use for fetching the next page of results, if more results are available.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}

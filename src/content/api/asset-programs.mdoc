@@ -2,11 +2,13 @@
 title: Asset Programs
 description: Asset Programs that Merchants can accept
 nav:
-  path: Onboarding
+  path: Asset Programs
   order: 1
 ---
 
 An Asset Program is a container for one or more [Asset Types](/api/asset-types).
+
+An Asset Program is provided by an asset issuer as a mechanism that enables businesses to accept their assets as payment options. By participating in an Asset Program, businesses agree to the issuer's terms of service and privacy policy, establishing a formal relationship that allows customers to use the issuer's digital assets for payments.
 
 ## Asset Program Model
 
@@ -33,6 +35,18 @@ An Asset Program is a container for one or more [Asset Types](/api/asset-types).
 
   {% property name="mediaUploadId" type="string" %}
     The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
+  {% /property %}
+
+  {% property name="published" type="boolean" %}
+    `true` if the Asset Program is published and visible to merchants. Defaults to `true`.
+  {% /property %}
+
+  {% property name="privacyPolicyUrl" type="string" %}
+    URL to the Asset Program's privacy policy document.
+  {% /property %}
+
+  {% property name="termsOfServiceUrl" type="string" %}
+    URL to the Asset Program's terms of service document.
   {% /property %}
 
   {% property name="createdAt" type="timestamp" %}
@@ -75,6 +89,14 @@ An Asset Program is a container for one or more [Asset Types](/api/asset-types).
       The list of [Asset Types](/api/asset-types) that are a part of the Asset Program.
     {% /property %}
 
+    {% property name="termsOfServiceUrl" type="string" required=true %}
+      URL to the Asset Program's terms of service document.
+    {% /property %}
+
+    {% property name="privacyPolicyUrl" type="string" required=true %}
+      URL to the Asset Program's privacy policy document.
+    {% /property %}
+
     {% property name="mediaUploadId" type="string" %}
       The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
     {% /property %}
@@ -88,5 +110,57 @@ An Asset Program is a container for one or more [Asset Types](/api/asset-types).
     {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
       The media upload id does not reference a media upload.
     {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs"
+  filename="asset-programs-list"
+%}
+  ## List Asset Programs {% badge type="experimental" /%}
+
+  This endpoint allows you to list published [Asset Programs](#asset-program-model).
+
+  {% properties %}
+    {% property name="test" type="boolean" %}
+      Filter by test or live Asset Programs. If not specified, returns live Asset Programs only.
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      The page key used in pagination to fetch the next page of results.
+    {% /property %}
+
+    {% property name="paginationLimit" type="number" %}
+      The maximum number of results per page. Maximum value is 100. Defaults to 50.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Response" %}
+    {% property name="items" type="array" %}
+      The list of Asset Programs.
+    {% /property %}
+
+    {% property name="nextPageKey" type="string" %}
+      The page key to use for fetching the next page of results, if more results are available.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs/{id}"
+  filename="asset-programs-get"
+%}
+  ## Get Asset Program {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a specific [Asset Program](#asset-program-model).
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program.
+    {% /property %}
   {% /properties %}
 {% /endpoint %}
