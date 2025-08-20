@@ -35,6 +35,7 @@ export default {
     value: '1000',
     assetId: 'YGRo6TYYSxH3js7',
     assetType: 'centrapay.ledger.main',
+    assetCollectionId: 'c_Xv990BzkgfoDS7bBls50pd',
     description: 'Centrapay Ledger',
     message: 'Happy birthday',
     senderName: 'My Cafe',
