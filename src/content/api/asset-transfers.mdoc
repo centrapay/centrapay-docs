@@ -36,6 +36,10 @@ message fields are scrubbed to avoid storing PII.
     The [Asset Type](/api/asset-types/) being transferred.
   {% /property %}
 
+  {% property name="assetCollectionId" type="string" experimental=true %}
+    The [Token Collection](/api/tokens#token-collection-model) id being transferred.
+  {% /property %}
+
   {% property name="description" type="string" %}
     Shows up in transaction history against the transfer. 200 character limit.
   {% /property %}
