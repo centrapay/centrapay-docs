@@ -1,18 +1,9 @@
 export default {
-  method: 'POST',
-  path: '/api/asset-programs',
+  method: 'GET',
+  path: '/api/asset-programs/ap_WRhAxxWpTKb5U7pXyxQjjY',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
-      'Content-Type': 'application/json',
-    },
-    payload: {
-      name: 'My Asset Program',
-      assetTypes: [ 'payap-debit' ],
-      mediaUploadId: '8aoMfscvtuewsuJzmzBzAs',
-      accountId: 'Jaim1Cu1Q55uooxSens6yk',
-      termsOfServiceUrl: 'https://example.com/terms',
-      privacyPolicyUrl: 'https://example.com/privacy',
     },
   },
   response: {

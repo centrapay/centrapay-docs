@@ -17,6 +17,7 @@ const nav = [
   { title: 'Media Uploads' },
   { title: 'Merchants' },
   { title: 'Onboarding' },
+  { title: 'Asset Programs' },
   { title: 'Payment Requests' },
   { title: 'Profiles' },
   { title: 'Quotas' },

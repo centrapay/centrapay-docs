@@ -2,11 +2,13 @@
 title: Asset Program Memberships
 description: Membership to an Asset Programs
 nav:
-  path: Onboarding
+  path: Asset Programs
   order: 2
 ---
 
 A Membership to an [Asset Program](/api/asset-programs).
+
+An Asset Program Membership represents the formal relationship between a business account and an Asset Program. This membership must be approved by the asset program owner and accepted by the business account to be in effect. The membership establishes the business's eligibility to participate in the Asset Program and is a prerequisite for Asset Program Configs to become active. While Asset Program Configs can be created at any time, they will only become active once both approval and acceptance are complete, allowing merchants to accept the program's assets as payment.
 
 ## Asset Program Membership Model
 
@@ -25,6 +27,18 @@ A Membership to an [Asset Program](/api/asset-programs).
 
   {% property name="accountId" type="string" %}
     The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Asset Program Membership. Possible values: `created`, `accepted`, `approved`.
+  {% /property %}
+
+  {% property name="tosAcceptedAt" type="timestamp" %}
+    When the Asset Program Membership terms of service were accepted.
+  {% /property %}
+
+  {% property name="approvedAt" type="timestamp" %}
+    When the Asset Program Membership was approved by the Asset Program owner.
   {% /property %}
 
   {% property name="test" type="boolean" %}
@@ -67,8 +81,12 @@ A Membership to an [Asset Program](/api/asset-programs).
       The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
     {% /property %}
 
-    {% property name="merchantId" type="string" required=true %}
-      The id of the [Merchant](/api/merchants) associated with the membership.
+    {% property name="accept" type="boolean" %}
+      `true` to automatically accept the terms of service for the membership. Requires `asset-program-memberships:accept` permission on the account.
+    {% /property %}
+
+    {% property name="approve" type="boolean" %}
+      `true` to automatically approve the membership. Requires `asset-program-memberships:approve` permission on the Asset Program owner account.
     {% /property %}
   {% /properties %}
 
@@ -77,12 +95,137 @@ A Membership to an [Asset Program](/api/asset-programs).
       The Account must be type `org`.
     {% /error %}
 
-    {% error code="403" message="MERCHANT_ACCOUNT_MISMATCH" %}
-      The `accountId` on the [Merchant](/api/merchants) doesn't match the `accountId` provided.
-    {% /error %}
-
     {% error code="403" message="LIVENESS_MISMATCH" %}
-      The liveness of the [Account](/api/accounts) does't match the liveness of the [Asset Program](/api/asset-programs).
+      The liveness of the [Account](/api/accounts) doesn't match the liveness of the [Asset Program](/api/asset-programs).
     {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships/{id}"
+  filename="asset-program-membership-get"
+%}
+  ## Get Asset Program Membership {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a specific [Asset Program Membership](#asset-program-membership-model).
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program Membership.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs/{id}/asset-program-memberships"
+  filename="asset-program-memberships-list-by-program"
+%}
+  ## List Asset Program Memberships by Asset Program {% badge type="experimental" /%}
+
+  This endpoint allows you to list [Asset Program Memberships](#asset-program-membership-model) for a specific Asset Program.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program.
+    {% /property %}
+
+    {% property name="status" type="string" required=true %}
+      Filter memberships by status. Possible values: `created`, `accepted`, `approved`.
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      The page key used in pagination to fetch the next page of results.
+    {% /property %}
+
+    {% property name="paginationLimit" type="number" %}
+      The maximum number of results per page. Maximum value is 100. Defaults to 50.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Response" %}
+    {% property name="items" type="array" %}
+      The list of Asset Program Memberships.
+    {% /property %}
+
+    {% property name="nextPageKey" type="string" %}
+      The page key to use for fetching the next page of results, if more results are available.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/accounts/{id}/asset-program-memberships"
+  filename="asset-program-memberships-list-by-account"
+%}
+  ## List Asset Program Memberships by Account {% badge type="experimental" /%}
+
+  This endpoint allows you to list [Asset Program Memberships](#asset-program-membership-model) for a specific Account.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Account.
+    {% /property %}
+
+    {% property name="status" type="string" %}
+      Filter memberships by status. Possible values: `created`, `accepted`, `approved`.
+    {% /property %}
+
+    {% property name="pageKey" type="string" %}
+      The page key used in pagination to fetch the next page of results.
+    {% /property %}
+
+    {% property name="paginationLimit" type="number" %}
+      The maximum number of results per page. Maximum value is 100. Defaults to 50.
+    {% /property %}
+  {% /properties %}
+
+  {% properties heading="Response" %}
+    {% property name="items" type="array" %}
+      The list of Asset Program Memberships.
+    {% /property %}
+
+    {% property name="nextPageKey" type="string" %}
+      The page key to use for fetching the next page of results, if more results are available.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships/{id}/accept"
+  filename="asset-program-membership-accept"
+%}
+  ## Accept Asset Program Membership {% badge type="experimental" /%}
+
+  This endpoint allows you to accept the terms of service for an [Asset Program Membership](#asset-program-membership-model).
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program Membership.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships/{id}/approve"
+  filename="asset-program-membership-approve"
+%}
+  ## Approve Asset Program Membership {% badge type="experimental" /%}
+
+  This endpoint allows you to approve an [Asset Program Membership](#asset-program-membership-model). This action can only be performed by the Asset Program owner.
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The unique identifier of the Asset Program Membership.
+    {% /property %}
   {% /properties %}
 {% /endpoint %}

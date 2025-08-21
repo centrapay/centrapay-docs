@@ -1,16 +1,9 @@
 export default {
   method: 'POST',
-  path: '/api/asset-program-memberships',
+  path: '/api/asset-program-memberships/apm_Xv990BzkgfoDS7bBls50pd/accept',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
-      'Content-Type': 'application/json',
-    },
-    payload: {
-      assetProgramId: 'ap_WRhAxxWpTKb5U7pXyxQjjY',
-      accountId: 'Jaim1Cu1Q55uooxSens6yk',
-      accept: true,
-      approve: false,
     },
   },
   response: {
