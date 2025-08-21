@@ -343,6 +343,9 @@ Asset Transfer goes through different lifecycle stages.
     {% error code="403" message="ASSET_TRANSFER_INVALID_STATUS" %}
       The asset transfer is not in a `sent` status and hence cannot be claimed.
     {% /error %}
+    {% error code="403" message="ASSET_TRANSFER_CLAIM_CONDITIONS_NOT_MET" %}
+      The claim has failed because one or more of the claim conditions were not met.
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
 
