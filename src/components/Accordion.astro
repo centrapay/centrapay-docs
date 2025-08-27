@@ -1,0 +1,41 @@
+---
+import Carat from "./icons/Carat.vue";
+const { title } = Astro.props;
+const contentHtml = (await Astro.slots.render('default'))?.trim();
+const hasContent = contentHtml && contentHtml.length > 0;
+---
+
+<div class="flex flex-col mb-4">
+  <div
+    class="flex justify-between items-center cursor-pointer"
+    onclick="toggleAccordion(this)"
+  >
+    <span class="type-headline-4 font-normal">
+      {title}
+    </span>
+    {hasContent && (
+      <span class="icon transition-transform duration-300">
+        <Carat class="w-4 h-4 transform rotate-0" />
+      </span>
+    )}
+  </div>
+
+  <div class="content max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0.5 mb-4">
+    <div class="flex flex-col [&>*]:first:mt-0 [&>*]:mt-0.5" set:html={contentHtml} />
+  </div>
+</div>
+
+<script is:inline>
+  function toggleAccordion(el) {
+    const content = el.parentElement.querySelector('.content');
+    const icon = el.querySelector('.icon svg');
+
+    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+    content.style.maxHeight = isOpen ? '0' : content.scrollHeight + 'px';
+    if (icon) {
+      icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+    }
+  }
+
+  window.toggleAccordion = toggleAccordion;
+</script>

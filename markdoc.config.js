@@ -122,5 +122,11 @@ export default defineMarkdocConfig({
     mermaid: {
       render: component('./src/components/Mermaid.astro'),
     },
+    accordion: {
+      render: component('./src/components/Accordion.astro'),
+      attributes: {
+        title: { type: String, required: true },
+      },
+    },
   },
 });
