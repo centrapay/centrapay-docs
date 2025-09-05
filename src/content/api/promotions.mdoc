@@ -125,6 +125,18 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% property name="amount" type="number" %}
     The amount of the chosen asset to reward. Only supplied if Promotion is type `challenge`.
   {% /property %}
+
+  {% property name="totalSupply" type="string" %}
+    The total number of rewards to be issued.
+  {% /property %}
+
+  {% property name="remainingSupply" type="string" %}
+    The remaining number of rewards to be issued.
+  {% /property %}
+
+  {% property name="issued" type="boolean" %}
+    When the promotion is completed, `issued` shows whether the reward was issued to the account.
+  {% /property %}
 {% /properties %}
 
 ## Promotion Condition Model
