@@ -129,6 +129,18 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% property name="exchangeRate" type="number" %}
     The rate of exchange from payment amount to reward. Only supplied if Promotion is type `cashback`.
   {% /property %}
+
+  {% property name="totalSupply" type="string" %}
+    The total number of rewards to be issued.
+  {% /property %}
+
+  {% property name="remainingSupply" type="string" %}
+    The remaining number of rewards to be issued.
+  {% /property %}
+
+  {% property name="issued" type="boolean" %}
+    When the promotion is completed, `issued` shows whether the reward was issued to the account.
+  {% /property %}
 {% /properties %}
 
 ## Promotion Condition Model
