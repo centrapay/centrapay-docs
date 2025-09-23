@@ -64,6 +64,10 @@ An Asset Program is provided by an asset issuer as a mechanism that enables busi
   {% property name="updatedBy" type="crn" %}
     The User or API Key that updated the Asset Program.
   {% /property %}
+
+  {% property name="collectionIds" type="array" %}
+    The list of collection ids associated with the Asset Program.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -93,6 +97,10 @@ An Asset Program is provided by an asset issuer as a mechanism that enables busi
       URL to the Asset Program's terms of service document.
     {% /property %}
 
+    {% property name="collectionIds" type="array" required=true %}
+      The list of collection ids associated with the Asset Program.
+    {% /property %}
+
     {% property name="privacyPolicyUrl" type="string" required=true %}
       URL to the Asset Program's privacy policy document.
     {% /property %}
@@ -109,6 +117,10 @@ An Asset Program is provided by an asset issuer as a mechanism that enables busi
 
     {% error code="403" message="MEDIA_UPLOAD_INVALID" %}
       The media upload id does not reference a media upload.
+    {% /error %}
+
+    {% error code="403" message="COLLECTION_IDS_INVALID" %}
+      The collectionIds array contains one or more invalid collection ids.
     {% /error %}
   {% /properties %}
 {% /endpoint %}

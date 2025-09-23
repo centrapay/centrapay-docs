@@ -20,5 +20,6 @@ export default {
     test: true,
     updatedAt: '2021-08-25T00:02:49.488Z',
     updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
+    collectionIds: [ 'c_Xv990BzkgfoDS7bBls50pd' ],
   }
 };
