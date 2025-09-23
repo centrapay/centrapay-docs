@@ -13,6 +13,7 @@ export default {
       accountId: 'Jaim1Cu1Q55uooxSens6yk',
       termsOfServiceUrl: 'https://example.com/terms',
       privacyPolicyUrl: 'https://example.com/privacy',
+      collectionIds: [ 'c_Xv990BzkgfoDS7bBls50pd' ],
     },
   },
   response: {
@@ -29,5 +30,6 @@ export default {
     test: true,
     updatedAt: '2021-08-25T00:02:49.488Z',
     updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
+    collectionIds: [ 'c_Xv990BzkgfoDS7bBls50pd' ],
   }
 };
