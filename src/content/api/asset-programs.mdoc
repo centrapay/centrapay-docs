@@ -172,3 +172,37 @@ An Asset Program is provided by an asset issuer as a mechanism that enables busi
     {% /property %}
   {% /properties %}
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs/{id}/set-privacy-policy-url"
+  filename="asset-program-set-privacy-policy-url"
+%}
+## Set Asset Program Privacy Policy URL {% badge type="experimental" /%}
+
+  This endpoint allows you to set the privacy policy url for an [Asset Program](#asset-program-model).
+
+  {% properties %}
+    {% property name="privacyPolicyUrl" type="string" required=true %}
+      The URL to the privacy policy for the Asset Program.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-programs/{id}/set-terms-of-service-url"
+  filename="asset-program-set-terms-of-service-url"
+%}
+## Set Asset Program Terms of Service URL {% badge type="experimental" /%}
+
+  This endpoint allows you to set the terms of service url for an [Asset Program](#asset-program-model).
+
+  {% properties %}
+    {% property name="termsOfServiceUrl" type="string" required=true %}
+      The URL to the terms of service for the Asset Program.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
