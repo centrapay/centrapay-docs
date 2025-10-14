@@ -60,6 +60,10 @@ An Asset Program Membership represents the formal relationship between a busines
   {% property name="updatedBy" type="crn" %}
     The User or API Key that updated the Asset Program Membership.
   {% /property %}
+
+  {% property name="billingBankAccountId" type="string" %}
+    The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -87,6 +91,10 @@ An Asset Program Membership represents the formal relationship between a busines
 
     {% property name="approve" type="boolean" %}
       `true` to automatically approve the membership. Requires `asset-program-memberships:approve` permission on the Asset Program owner account.
+    {% /property %}
+
+    {% property name="billingBankAccountId" type="string" required=true %}
+      The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.
     {% /property %}
   {% /properties %}
 

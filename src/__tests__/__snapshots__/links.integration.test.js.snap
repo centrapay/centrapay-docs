@@ -60,7 +60,7 @@ exports[`the build should not break any links 1`] = `
   "/api/asset-program-memberships#get-asset-program-membership",
   "/api/asset-program-memberships#list-asset-program-memberships-by-account",
   "/api/asset-program-memberships#list-asset-program-memberships-by-asset-program",
-  "/api/asset-program-memberships#set-asset-program-memberships-billing-bank-account",
+  "/api/asset-program-memberships#set-asset-program-membership-billing-bank-account",
   "/api/asset-programs",
   "/api/asset-programs#asset-program-model",
   "/api/asset-programs#create-asset-program",
