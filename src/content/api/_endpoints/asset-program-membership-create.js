@@ -11,6 +11,7 @@ export default {
       accountId: 'Jaim1Cu1Q55uooxSens6yk',
       accept: true,
       approve: false,
+      billingBankAccountId: 'WRhAxxWpTKb5U7pXyxQjjY',
     },
   },
   response: {
@@ -25,5 +26,6 @@ export default {
     updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
     tosAcceptedAt: '2021-08-25T00:03:15.123Z',
     approvedAt: null,
+    billingBankAccountId: 'WRhAxxWpTKb5U7pXyxQjjY',
   }
 };
