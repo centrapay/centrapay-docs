@@ -229,3 +229,20 @@ An Asset Program Membership represents the formal relationship between a busines
     {% /property %}
   {% /properties %}
 {% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-program-memberships/{id}/set-billing-bank-account"
+  filename="asset-program-membership-set-billing-bank-account"
+%}
+  ## Set Asset Program Membership Billing Bank Account {% badge type="experimental" /%}
+
+  This endpoint allows you to set the Billing [Bank Account](/api/bank-accounts) on an [Asset Program Membership](#asset-program-membership-model).
+
+  {% properties %}
+    {% property name="billingBankAccountId" type="string" required=true %}
+      The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
