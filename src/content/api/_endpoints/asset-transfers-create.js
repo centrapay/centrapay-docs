@@ -27,6 +27,7 @@ export default {
           }
         }
       ],
+      termsAndConditionsUrl: 'https://www.centrapay.com/terms-and-conditions'
     },
   },
   response: {
@@ -58,6 +59,7 @@ export default {
         }
       }
     ],
-    remainingValue: '1000'
+    remainingValue: '1000',
+    termsAndConditionsUrl: 'https://www.centrapay.com/terms-and-conditions'
   }
 };
