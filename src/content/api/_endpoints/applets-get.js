@@ -19,9 +19,9 @@ export default {
       {
         type: 'loyalty',
         loyaltyProgramId: 'L001',
-        getPromotionsUrl: 'service.payap.com/api/loyaltyPrograms/L001/promotions',
-        getPromotionMembershipsUrl: 'service.payap.com/api/loyaltyPrograms/L001/promotionMemberships',
-        getLoyaltyProgramUrl: 'service.payap.com/api/loyaltyPrograms/L001'
+        getPromotionsUrl: 'https://service.payap.com/api/loyalty-programs/L001/promotions',
+        getPromotionMembershipsUrl: 'https://service.payap.com/api/challenges?loyaltyProgramId=L001',
+        getLoyaltyProgramUrl: 'https://service.payap.com/api/loyalty-programs/L001'
       }
     ]
   }
