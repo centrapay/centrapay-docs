@@ -54,6 +54,46 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
     The number of [Loyalty Program Memberships](/api/loyalty-program-memberships) that have been created for the loyalty program.
   {% /property %}
 
+  {% property name="joinConditions" type="array" %}
+    The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.
+  {% /property %}
+
+{% /properties %}
+
+---
+
+## Join Condition Model
+
+A join condition defines the requirements that an Account must meet to join a Loyalty Program.
+
+{% properties %}
+  {% property name="type" type="string" required=true %}
+    The type of join condition. Valid values are `asset-ownership` and `bank-account-ownership`.
+  {% /property %}
+
+  {% property name="params" type="object" required=true %}
+    The parameters for the join condition. The structure depends on the `type` field.
+  {% /property %}
+{% /properties %}
+
+### Asset Ownership Join Condition
+
+When `type` is `asset-ownership`, the `params` object must contain:
+
+{% properties %}
+  {% property name="assetType" type="string" required=true %}
+    The [Asset Type](/api/asset-types) that the Account must own to join the Loyalty Program.
+  {% /property %}
+{% /properties %}
+
+### Bank Account Ownership Join Condition
+
+When `type` is `bank-account-ownership`, the `params` object must contain:
+
+{% properties %}
+  {% property name="bank" type="string" required=true %}
+    The bank account identifier that the Account must own to join the Loyalty Program.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -81,6 +121,10 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
 
     {% property name="mediaUploadId" type="string" %}
       The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+    {% /property %}
+
+    {% property name="joinConditions" type="array" %}
+      The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.
     {% /property %}
   {% /properties %}
 

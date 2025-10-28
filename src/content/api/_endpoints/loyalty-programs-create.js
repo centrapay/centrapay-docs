@@ -11,6 +11,14 @@ export default {
       description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!',
       mediaUploadId: '8aoMfscvtuewsuJzmzBzAs',
       accountId: 'Jaim1Cu1Q55uooxSens6yk',
+      joinConditions: [
+        {
+          type: 'asset-ownership',
+          params: {
+            assetType: 'quartz.nzd.main'
+          }
+        },
+      ]
     },
   },
   response: {
@@ -25,5 +33,13 @@ export default {
     test: true,
     status: 'draft',
     memberCount: '0',
+    joinConditions: [
+      {
+        type: 'asset-ownership',
+        params: {
+          assetType: 'quartz.nzd.main'
+        }
+      },
+    ]
   }
 };
