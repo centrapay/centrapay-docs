@@ -83,6 +83,10 @@ A Loyalty Program Membership represents an Account's membership to a Loyalty Pro
     {% error code="403" message="LOYALTY_PROGRAM_INACTIVE" %}
      Memberships can only be created for loyalty programs with an `active` status.
     {% /error %}
+
+    {% error code="403" message="JOIN_CONDITIONS_NOT_MET" %}
+     The account does not meet the join conditions for the loyalty program.
+    {% /error %}
   {% /properties %}
 {% /endpoint %}
 

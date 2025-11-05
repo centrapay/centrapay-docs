@@ -64,6 +64,12 @@ An applet membership represents a user having access to an [Applet](/api/applets
   ## Create Applet Membership {% badge type="experimental" /%}
 
   This endpoint allows you to create an [Applet Membership](#applet-membership-model).
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="LOYALTY_PROGRAM_JOIN_CONDITIONS_NOT_MET" %}
+      The account does not meet the join conditions for the loyalty program extension.
+    {% /error %}
+  {% /properties %}
 {% /endpoint %}
 
 ---
