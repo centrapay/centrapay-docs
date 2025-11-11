@@ -107,6 +107,10 @@ message fields are scrubbed to avoid storing PII.
   {% property name="remainingValue" type="string" experimental=true %}
     The remaining value of the asset that has not been claimed.
   {% /property %}
+
+  {% property name="expiresAt" type="timestamp" %}
+    The time that the asset transfer will expire.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -273,6 +277,10 @@ Asset Transfer goes through different lifecycle stages.
 
     {% property name="suppressNotification" type="boolean" %}
       Suppress notifications from Centrapay (SMS/Email).
+    {% /property %}
+
+    {% property name="expiresAt" type="timestamp" %}
+      The time that the asset transfer will expire.
     {% /property %}
 
     {% property name="claimType" type="string" experimental=true %}
