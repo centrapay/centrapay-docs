@@ -21,7 +21,7 @@
     "@headlessui/vue": "^1.6.0",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "5.14.3",
+    "astro": "5.15.6",
     "astro-expressive-code": "^0.38.3",
     "eslint": "^9.10.0",
     "eslint-plugin-astro": "^1.2.4",
