@@ -1,0 +1,115 @@
+---
+title: Shopify Setup
+description: How to set up Centrapay and Payap for your Shopify store.
+nav:
+  path: Merchant Information
+  order: 3
+---
+
+## Prerequisites
+
+Before starting the integration, ensure you have the following:
+
+1. **Shopify Store Setup:**
+   1. Your Shopify store must be set up and operational.
+   2. You have admin permissions with the ability to update payment settings. Typically, this will be using the 'Store Owner' account.
+
+2. **Onboarding with Centrapay**
+   1. You must have a business account in the [Centrapay Business Portal](https://app.centrapay.com/business) and have completed the business onboarding process.
+   2. You must have an 'e-commerce' type merchant under your business account.
+      This merchant will correspond to your Shopify store. You will need to contact Centrapay and provide your Shopify store URL, and Centrapay will assist you in setting up your merchant.
+
+## Setup steps
+
+1. **Login to Shopify**
+
+2. **Login to [Centrapay business portal](https://app.centrapay.com/business)**
+
+   ![Centrapay Business Portal](/shopify-setup/centrapay-login.png)
+
+3. **Install Centrapay App**
+
+   Go to [https://apps.shopify.com/centrapay](https://apps.shopify.com/centrapay).
+
+   ![Shopify App Store](/shopify-setup/shopify-app-store.png)
+
+   Click '**Install**' to install Centrapay app in your Shopify store.
+
+   ![Install Centrapay App](/shopify-setup/shopify-permissions.png)
+
+   On the pop-up configuration page, select the business and specific merchant you want to connect.
+
+   > Note: The selected merchant must be of the e-commerce type. If your business does not have an e-commerce merchant, an error message will be displayed.
+
+   ![Configuration Page](/shopify-setup/connect.png)
+
+   After the connection is successful, please return to Shopify to check the status.
+
+   ![Connection Status](/shopify-setup/centrapay-completed-connection.png)
+
+4. **Enable Payap**
+
+   In your Shopify admin, navigate to 'Settings' → 'Payments' → '**Supported/Additional payment methods**'.
+
+   If the Centrapay app has been installed, then there will be a '**Centrapay**' option.
+
+   ![Payment Methods](/shopify-setup/shopify-installed-app.png)
+
+   Click to enter Centrapay, then toggle the switch to the right to enable **Payap**.
+
+   ![Enable Payap](/shopify-setup/shopify-activate.png)
+
+5. **Active Centrapay**
+
+   Once configured, click the '**Activate**' button in the bottom right corner to enable Centrapay.
+
+   You will see a toast notification at the bottom and an 'Active' status label next to the Centrapay at the top.
+
+   > Note: This page needs to be refreshed to see the 'Activate' button. It can take up to 1 minute for the plugin to be activated.
+
+   ![Activate Centrapay](/shopify-setup/shopify-completed-activation.png)
+
+## Customer Experience
+
+### Desktop
+
+1. On the checkout page, select **Centrapay** and click **Pay**.
+
+   ![Checkout Page](/shopify-setup/shopify-checkout.png)
+
+   Customer will be redirected to Centrapay's payment page.
+
+   ![Payment Page](/shopify-setup/centrapay-desktop-pay.png)
+
+2. Open **Payap** and scan the QR code displayed on the payment page.
+
+   ![QR Code](/shopify-setup/qr-code-scan.png)
+
+3. Complete the payment in Payap.
+
+   ![Payment Complete](/shopify-setup/payap-completed-payment.png)
+
+4. The customer can then view the payment result on the Shopify page.
+
+   ![Payment Result](/shopify-setup/shopify-completed-checkout-desktop.png)
+
+### Mobile
+
+1. On the checkout page, select **Centrapay** and click **Pay**. Customer will be redirected to Centrapay's payment page.
+
+   ![Mobile Checkout](/shopify-setup/shopify-to-centrapay.png)
+
+2. Select **Payap** in the payment method, and customer will be redirected to Payap.
+
+   > Note: the user must have downloaded and installed the Payap app.
+
+   ![Mobile Payment Method](/shopify-setup/centrapay-deeplink.png)
+
+3. Complete the payment in Payap.
+
+   ![Mobile Payment Complete](/shopify-setup/payap-completed-payment.png)
+
+4. Customer can then view the payment result on the Shopify page.
+
+   ![Mobile Payment Result](/shopify-setup/shopify-completed-payment.png)
+
