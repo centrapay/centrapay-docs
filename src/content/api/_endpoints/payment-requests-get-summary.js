@@ -4,6 +4,7 @@ export default {
   response: {
     id: 'MhocUmpxxmgdHjr7DgKoKw',
     url: 'https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw',
+    merchantId: '26d3Cp3rJmbMHnuNJmks2N',
     merchantName: 'Centrapay Café',
     value: {
       currency: 'NZD',
