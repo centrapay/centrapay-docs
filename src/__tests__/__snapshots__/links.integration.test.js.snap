@@ -223,6 +223,7 @@ exports[`the build should not break any links 1`] = `
   "/api/loyalty-programs#activate-loyalty-program",
   "/api/loyalty-programs#create-loyalty-program",
   "/api/loyalty-programs#get-loyalty-program",
+  "/api/loyalty-programs#join-condition-model",
   "/api/loyalty-programs#list-loyalty-programs-by-account-id",
   "/api/loyalty-programs#loyalty-program-model",
   "/api/managed-integrations",
