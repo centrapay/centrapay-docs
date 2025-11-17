@@ -1,0 +1,321 @@
+---
+title: Business Onboarding
+description: Business onboarding model and endpoints for registering merchants
+nav:
+  path: Onboarding
+  order: 20
+---
+
+The Business Onboarding API allows acquirers to register businesses and merchants with Centrapay so they can begin accepting payments through supported asset programs.
+
+Optionally, acquirers can specify which sales channels (such as payment terminals) should be enabled for that merchant.
+
+## API Behavior
+
+- **Validation** - Request validation is performed synchronously and errors are returned immediately for invalid data
+- **Processing** - After accepting the request, Centrapay processes the onboarding asynchronously in the background
+- **Completion** - When sufficient information is provided, the merchant will be onboarded and enabled for the relevant asset program. If information is missing or incomplete, the merchant may need to provide additional details to complete the onboarding process
+- **Invitations** - If the business is new to Centrapay, an invitation is sent to the contact email so the merchant can claim their account
+
+## Glossary
+
+| Term | Description |
+|------|-------------|
+| **Acquirer** | A third party with a relationship to a merchant. The acquirer initiates onboarding by supplying merchant details. |
+| **[Merchant](/api/merchants)** | A business entity that will accept payments through Centrapay. |
+| **[Sales Channel](/api/sales-channels)** | A payment terminal provider configured within Centrapay. |
+| **[Asset Program](/api/asset-programs)** | A payment program that enables merchants to accept specific payment methods. |
+| **Vendor** | The organization that manufactures or provides the payment device or software. |
+| **Reseller** | The distributor or third party that sells or supports the terminal to the merchant. |
+
+## Onboarding Request Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier for the onboarding request, prefixed with `bo_`.
+  {% /property %}
+
+  {% property name="nzbn" type="string" %}
+    The 13-digit New Zealand Business Number. Optional identifier.
+  {% /property %}
+
+  {% property name="legalName" type="string" required=true %}
+    Registered legal name of the business (3-100 characters).
+  {% /property %}
+
+  {% property name="tradingName" type="string" %}
+    Trading name of the business (3-100 characters). Defaults to `legalName` if omitted.
+  {% /property %}
+
+  {% property name="contactEmail" type="string" required=true %}
+    Contact email used for onboarding and notifications. Must be a valid email address.
+  {% /property %}
+
+  {% property name="contactName" type="string" %}
+    Contact name used for onboarding and notifications (3-100 characters). If omitted, defaults to `merchant.contactName` or the part before @ in `contactEmail`.
+  {% /property %}
+
+  {% property name="externalId" type="string" %}
+    Secondary identifier for acquirers to find their onboarding request (max 35 characters). Used for idempotency - submitting the same `externalId` with the same payload will return the existing request instead of creating a duplicate.
+  {% /property %}
+
+  {% property name="taxNumber" type="object" %}
+    Tax number information for the business. See [Tax Number Model](#tax-number-model).
+  {% /property %}
+
+  {% property name="merchant" type="object" required=true %}
+    Merchant information including name, location, and contact details. See [Merchant Model](#merchant-model).
+  {% /property %}
+
+  {% property name="assetProgram" type="object" required=true %}
+    Asset program configuration including settlement account details. See [Asset Program Model](#asset-program-model).
+  {% /property %}
+
+  {% property name="salesChannels" type="array" %}
+    Optional array of sales channel configurations for payment terminals. See [Sales Channel Model](#sales-channel-model).
+  {% /property %}
+
+  {% property name="metadata" type="object" %}
+    Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    Timestamp when the onboarding request was created.
+  {% /property %}
+
+  {% property name="createdBy" type="string" %}
+    The account ID that created the onboarding request.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    Current status of the onboarding request.
+  {% /property %}
+{% /properties %}
+
+## Tax Number Model
+
+{% properties %}
+  {% property name="value" type="string" required=true %}
+    The GST number (e.g., `123-456-789`).
+  {% /property %}
+
+  {% property name="type" type="string" required=true %}
+    Must be `nz-gst`.
+  {% /property %}
+{% /properties %}
+
+## Merchant Model
+
+{% properties %}
+  {% property name="name" type="string" required=true %}
+    Display name of the merchant (2-100 characters).
+  {% /property %}
+
+  {% property name="categoryCode" type="string" required=true %}
+    ISO 18245 Merchant category code (4 digits).
+  {% /property %}
+
+  {% property name="type" type="string" required=true %}
+    Must be either `physical` or `e-commerce`.
+  {% /property %}
+
+  {% property name="contactName" type="string" %}
+    Merchant contact name (3-100 characters).
+  {% /property %}
+
+  {% property name="contactEmail" type="string" %}
+    Merchant contact email. Must be a valid email address.
+  {% /property %}
+
+  {% property name="contactPhone" type="string" %}
+    Merchant contact phone number (max 20 characters).
+  {% /property %}
+
+  {% property name="location" type="object" %}
+    Physical location of the merchant. Required if `type` is `physical`. See [Location Model](#location-model).
+  {% /property %}
+{% /properties %}
+
+## Location Model
+
+{% properties %}
+  {% property name="street" type="string" required=true %}
+    Street number and name (max 255 characters).
+  {% /property %}
+
+  {% property name="suburb" type="string" %}
+    Suburb (max 255 characters).
+  {% /property %}
+
+  {% property name="city" type="string" required=true %}
+    Town or city (max 255 characters).
+  {% /property %}
+
+  {% property name="state" type="string" %}
+    Region or state (max 255 characters).
+  {% /property %}
+
+  {% property name="postCode" type="string" %}
+    Postal code (4-10 digits).
+  {% /property %}
+
+  {% property name="country" type="string" required=true %}
+    ISO 3166-1 alpha-2 country code (e.g., `NZ`).
+  {% /property %}
+{% /properties %}
+
+## Asset Program Model
+
+{% properties %}
+  {% property name="assetProgramId" type="string" required=true %}
+    The unique identifier of the asset program that the business will accept (max 35 characters).
+  {% /property %}
+
+  {% property name="params.settlementAccountNumber" type="string" required=true %}
+    The settlement bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits).
+  {% /property %}
+
+  {% property name="params.chargeAccountNumber" type="string" %}
+    The billing bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits). Defaults to settlement account if omitted.
+  {% /property %}
+
+  {% property name="params.externalMerchantId" type="string" required=true %}
+    Merchant identifier in the partner system (max 35 characters).
+  {% /property %}
+{% /properties %}
+
+## Sales Channel Model
+
+{% properties %}
+  {% property name="params.vendor" type="string" required=true %}
+    Terminal software/hardware vendor (3-100 characters).
+  {% /property %}
+
+  {% property name="params.reseller" type="string" %}
+    Terminal distributor (3-100 characters).
+  {% /property %}
+
+  {% property name="params.deviceId" type="string" required=true %}
+    Software device ID (max 35 characters).
+  {% /property %}
+
+  {% property name="params.serialNumber" type="string" %}
+    Hardware serial number (max 35 characters).
+  {% /property %}
+
+  {% property name="params.deviceModel" type="string" %}
+    Terminal model (3-100 characters), e.g., `Verifone P630`.
+  {% /property %}
+{% /properties %}
+
+---
+
+{% endpoint
+  path="/api/businesses/onboard"
+  filename="onboarding-create"
+%}
+  ## Create an Onboarding Request
+
+  This endpoint allows acquirers to submit a business for onboarding. The request is validated synchronously, and onboarding is processed asynchronously in the background.
+
+  ### Idempotency
+
+  If you provide an `externalId`, the API will prevent duplicate submissions. If you submit the same `externalId` with the same payload, the API will return the existing onboarding request with a 200 status code. If you submit the same `externalId` with a different payload, the API will return a 403 error with the code `DUPLICATE_EXTERNAL_ID`.
+
+  ### Required Permissions
+
+  The API key must have the `business:onboard` permission for the target account.
+
+  ### Request Body
+
+  {% properties %}
+    {% property name="nzbn" type="string" %}
+      13-digit NZ Business Number. Optional identifier.
+    {% /property %}
+
+    {% property name="legalName" type="string" required=true %}
+      Registered legal name (3-100 characters).
+    {% /property %}
+
+    {% property name="tradingName" type="string" %}
+      Trading name (3-100 characters). Defaults to `legalName` if omitted.
+    {% /property %}
+
+    {% property name="contactEmail" type="string" required=true %}
+      Contact email for onboarding and notifications.
+    {% /property %}
+
+    {% property name="contactName" type="string" %}
+      Contact name (3-100 characters). Defaults to `merchant.contactName` or email prefix if omitted.
+    {% /property %}
+
+    {% property name="externalId" type="string" %}
+      Unique client-side identifier (max 35 characters) for idempotency.
+    {% /property %}
+
+    {% property name="taxNumber" type="object" %}
+      Tax number information. See [Tax Number Model](#tax-number-model).
+    {% /property %}
+
+    {% property name="merchant" type="object" required=true %}
+      Merchant details. See [Merchant Model](#merchant-model).
+    {% /property %}
+
+    {% property name="assetProgram" type="object" required=true %}
+      Asset program configuration. See [Asset Program Model](#asset-program-model).
+    {% /property %}
+
+    {% property name="salesChannels" type="array" %}
+      Optional sales channel configurations. See [Sales Channel Model](#sales-channel-model).
+    {% /property %}
+
+    {% property name="metadata" type="object" %}
+      Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
+    {% /property %}
+  {% /properties %}
+
+  ### Error Responses
+
+  {% error code="400" message="Bad Request" %}
+    The request is malformed or violates the schema validation.
+  {% /error %}
+
+  {% error code="401" message="Unauthorized" %}
+    Missing or invalid API key.
+  {% /error %}
+
+  {% error code="403" message="DUPLICATE_EXTERNAL_ID" %}
+    The supplied `externalId` has already been used with a different payload.
+  {% /error %}
+
+  {% error code="403" message="INVALID_ASSET_PROGRAM" %}
+    The asset program is invalid or not permitted.
+  {% /error %}
+
+  {% error code="403" message="INVALID_SALES_CHANNEL" %}
+    The vendor and/or reseller did not match a valid sales channel in Centrapay.
+  {% /error %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/businesses/onboard/{id}"
+  filename="onboarding-get"
+%}
+  ## Get an Onboarding Request
+
+  This endpoint retrieves an existing onboarding request by its ID.
+
+  ### Required Permissions
+
+  The API key must have the `business:onboard` permission for the account that created the onboarding request.
+
+  ### Path Parameters
+
+  {% properties %}
+    {% property name="id" type="string" required=true %}
+      The onboarding request ID, prefixed with `bo_`.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
