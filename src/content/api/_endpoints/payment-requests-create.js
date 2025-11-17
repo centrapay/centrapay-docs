@@ -10,7 +10,7 @@ export default {
       configId: 'mc_5efbe2fb96c08357bb2b9242',
       expirySeconds: '120',
       value: {
-        amount: '9000',
+        amount: '10000',
         currency: 'NZD'
       },
       lineItems: [

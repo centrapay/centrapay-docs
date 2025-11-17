@@ -111,6 +111,10 @@ message fields are scrubbed to avoid storing PII.
   {% property name="expiresAt" type="timestamp" %}
     The time that the asset transfer will expire.
   {% /property %}
+  
+  {% property name="loyaltyProgramId" type="string" %}
+    The ID of the [Loyalty Program](/api/loyalty-programs) associated with this asset transfer.
+  {% /property %}
 {% /properties %}
 
 ---
@@ -294,6 +298,10 @@ Asset Transfer goes through different lifecycle stages.
     {% property name="claimConditions" type="array" experimental=true %}
       Array of claim conditions that must be met to successfully claim the asset transfer.
     {% /property %}
+
+    {% property name="loyaltyProgramId" type="string" %}
+      The ID of the [Loyalty Program](/api/loyalty-programs) to associate with this asset transfer.
+    {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
@@ -315,6 +323,10 @@ Asset Transfer goes through different lifecycle stages.
 
     {% error code="403" message="INVALID_ASSET_TYPE" %}
       The [asset's type](/api/asset-types/) does not support transfers.
+    {% /error %}
+
+    {% error code="403" message="LOYALTY_PROGRAM_NOT_FOUND" %}
+      The loyalty program does not exist.
     {% /error %}
   {% /properties %}
 {% /endpoint %}
