@@ -27,6 +27,7 @@ export default {
           }
         }
       ],
+      expiresAt: '2020-05-03T01:03:37.222Z',
       loyaltyProgramId: 'WRhAxxWpTKb5U7pXyxQjjY',
     },
   },
@@ -44,6 +45,7 @@ export default {
     updatedAt: '2020-05-02T01:03:37.222Z',
     suppressNotifications: false,
     claimType: 'multi',
+    expiresAt: '2020-05-03T01:03:37.222Z',
     valueConfig: {
       type: 'flat',
       params: {
