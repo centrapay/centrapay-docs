@@ -97,10 +97,10 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the â€œnextâ€
     A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
   {% /property %}
   {% property name="redirectCancelUrl" type="string" experimental=true %}
-    URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+    URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
   {% /property %}
   {% property name="redirectPaidUrl" type="string" experimental=true %}
-    URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+    URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
   {% /property %}
   {% property name="externalRef" type="string" %}
     An external reference to the Payment Request.
@@ -506,10 +506,10 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
       A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
     {% /property %}
     {% property name="redirectCancelUrl" type="string" experimental=true %}
-      URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+      URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
     {% /property %}
     {% property name="redirectPaidUrl" type="string" experimental=true %}
-      URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+      URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
     {% /property %}
     {% property name="externalRef" type="string" %}
       An external reference to the Payment Request.
