@@ -27,6 +27,7 @@ export default {
           }
         }
       ],
+      loyaltyProgramId: 'WRhAxxWpTKb5U7pXyxQjjY',
     },
   },
   response: {
@@ -58,6 +59,7 @@ export default {
         }
       }
     ],
-    remainingValue: '1000'
+    remainingValue: '1000',
+    loyaltyProgramId: 'WRhAxxWpTKb5U7pXyxQjjY'
   }
 };
