@@ -32,6 +32,7 @@ export default {
         }
       ],
       connectionId: 'cn_9asd9k19',
+      paymentLinkId: 'pl_5srt998b',
     },
   },
   response: {
@@ -105,5 +106,6 @@ export default {
     ],
     connectionId: 'cn_9asd9k19',
     connectionStatus: 'active',
+    paymentLinkId: 'pl_5srt998b',
   }
 };
