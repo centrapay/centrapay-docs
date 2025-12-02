@@ -1,0 +1,100 @@
+---
+title: Payment Links
+description: Payment Link model and related endpoints
+nav:
+  path: Payment Requests
+  order: 2
+---
+A Payment Link is an entry point for a user to pay a payment request. A merchant can create a payment and associate the payment request to a payment link.
+
+## Payment Link Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier of the Payment Link.
+  {% /property %}
+
+  {% property name="status" type="status" %}
+    The status of the Payment Link. Can be "created" or "archived".
+  {% /property %}
+
+  {% property name="name" type="string" %}
+    The display name of the Payment Link.
+  {% /property %}
+
+  {% property name="merchantId" type="string" %}
+    The [Merchant](/api/merchants/) the Payment Link is made on behalf of.
+  {% /property %}
+
+  {% property name="paymentRequestId" type="boolean" %}
+    The [Payment Request](/api/payment-requests/) the Payment Link is associated with.
+  {% /property %}
+
+  {% property name="test" type="boolean" %}
+    `true` if the Payment Link is for testing purposes only.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    When the Payment Link was created.
+  {% /property %}
+
+  {% property name="updatedAt" type="timestamp" %}
+    When the Payment Link was updated.
+  {% /property %}
+
+  {% property name="createdBy" type="timestamp" %}
+    The identity that created the Payment Link.
+  {% /property %}
+
+  {% property name="updatedBy" type="timestamp" %}
+    The identity that updated the Payment Link.
+  {% /property %}
+
+{% /properties %}
+
+
+---
+
+{% endpoint
+  path="/api/payment-links/{paymentLinkId}/"
+  filename="payment-links-get"
+%}
+  ## Get Payment Link {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve a Payment Link.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/payment-links/{paymentLinkId}/summary"
+  filename="payment-links-get-summary"
+%}
+  ## Get Payment Link Summary {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve the summary of a Payment Link.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/merchants/{merchantId}/payment-links"
+  filename="payment-links-list"
+%}
+  ## List Payment Links {% badge type="experimental" /%}
+
+  This endpoint allows you to retrieve all Payment Links for a merchant.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/merchants/{merchantId}/archive"
+  filename="payment-links-archive"
+%}
+  ## Archive Payment Link {% badge type="experimental" /%}
+
+  This endpoint allows you to archive a Payment Link.
+{% /endpoint %}
+
+---
