@@ -9,6 +9,7 @@ export default {
   },
   response: {
     id: '1234',
+    merchantId: 'b040b262ddb80ea8',
     paymentRequestId: '12d22ece51eb0338',
   }
 };
