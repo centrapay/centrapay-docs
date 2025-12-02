@@ -1,6 +1,6 @@
 export default {
   method: 'GET',
-  path: '/api/connections/1234/authorize',
+  path: '/api/payment-links/1234',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',

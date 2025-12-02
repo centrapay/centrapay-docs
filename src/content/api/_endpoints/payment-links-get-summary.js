@@ -3,7 +3,6 @@ export default {
   path: '/api/payment-links/1234/summary',
   request: {
     headers: {
-      'X-Api-Key': '<TOKEN>',
       'Content-Type': 'application/json',
     }
   },

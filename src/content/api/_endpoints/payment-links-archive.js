@@ -1,5 +1,5 @@
 export default {
-  method: 'GET',
+  method: 'POST',
   path: '/api/payment-links/1234/archive',
   request: {
     headers: {
