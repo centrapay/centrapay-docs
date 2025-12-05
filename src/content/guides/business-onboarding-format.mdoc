@@ -1,0 +1,59 @@
+---
+title: Business Onboarding Format
+description: CSV format for onboarding new merchants and their associated payment terminals into the system.
+nav:
+  path: Partner Services
+  order: 3
+---
+
+Use this CSV format to onboard new merchants and their associated payment terminals onto Centrapay. An example CSV is provided at the bottom of this page.
+
+## How It Works
+
+Each row in the CSV file represents a single terminal or sales channel. If a merchant has multiple terminals or e-commerce channels, create a separate row for each one. When creating multiple rows for the same merchant, repeat the merchant and business-level details (such as company name, contact information, and settlement accounts) on each row.
+
+## Field Descriptions
+
+| Field Name | CSV Column | Required | Format/Notes |
+|------------|------------|----------|--------------|
+| **Business Information** | | | **Repeat per merchant**|
+| NZBN | `NZBN` | No | 13-digit New Zealand Business Number (optional for sole traders) |
+| Legal Name | `COMPANY_NAME` | **Yes** | The legal business name (minimum 3 characters) |
+| Trading Name | `TRADING_NAME` | No | The name the business trades under (minimum 3 characters if provided) |
+| GST Number | `TAX_NUMBER` | No | 9-character GST number formatted as 123-456-789 |
+| Contact Name | `PRIMARY_CONTACT_NAME` | **Yes** | Full name of the primary business contact (minimum 3 characters) |
+| Contact Email | `PRIMARY_CONTACT_EMAIL` | **Yes** | Valid email address for the primary contact |
+| **Merchant Information** | | | **Repeat per terminal or sales channel** |
+| Name | `MERCHANT_NAME` | **Yes** | Name of the merchant location or channel (minimum 2 characters) |
+| Type | `MERCHANT_TYPE` | **Yes** | Must be either `"physical"` or `"e-commerce"` |
+| Category Code | `MERCHANT_CATEGORY_CODE` | **Yes** | 4-digit merchant category code (MCC) e.g. `5499` |
+| Contact Name | `MERCHANT_CONTACT_NAME` | No | Contact name specific to this merchant location (minimum 3 characters) |
+| Email | `MERCHANT_EMAIL` | No | Email address for this merchant location |
+| Phone | `MERCHANT_CONTACT_NUMBER` | No | Contact phone number (maximum 20 characters) |
+| Street Address | `MERCHANT_STREET_NUMBER_NAME` | **Yes** *(Physical)* | Street number and name of the merchant's physical location *(Physical only)* |
+| Suburb | `MERCHANT_SUBURB` | No | *(Physical only)* |
+| City | `MERCHANT_TOWN` | **Yes** *(Physical)* | City or town name *(Physical only)* |
+| Country | `MERCHANT_COUNTRY` | No | 2 character country code e.g. `NZ` *(Physical only)* |
+| Post Code | `MERCHANT_POSTCODE` | **Yes** *(Physical)* | 4-digit New Zealand postal code *(Physical only)* |
+| Redirect URL | `MERCHANT_REDIRECT_URL` | **Yes** *(E-commerce)* | The main website address for the store only, without any specific page addresses *(E-commerce only)* |
+| **Acceptance Program** | | | |
+| Settlement Account | `SETTLEMENT_ACCT` | **Yes** | New Zealand bank account in format 12-1234-1234567-00 where funds are settled |
+| Charge Account | `CHARGE_ACCT` | **Yes** *(Payap)* | New Zealand bank account in format 12-1234-1234567-00 used for fees |
+| Asset Program ID | `ASSET_PROGRAM_ID` | **Yes** | Asset program identifier `ap_0bhvsTzDEHreYkAGgdKbay` for Payap |
+| **Terminals/Sales Channels** | | | |
+| Provider | `VENDOR` | **Yes** | Name of the terminal provider or payment gateway (minimum 3 characters) |
+| Reseller | `RESELLER` | No | Name of the reseller who provided the terminal (minimum 3 characters) |
+| Device ID | `DEVICE_ID` | **Yes** | Unique identifier for the terminal or device (maximum 35 characters) |
+| Serial Number | `SERIAL_NUMBER` | No | Serial number of the physical terminal (maximum 35 characters) |
+| Device Model | `DEVICE_MODEL` | No | Model name or type of the terminal device (minimum 3 characters) |
+
+## Example CSV
+
+The example CSV file demonstrates how to structure your data. It includes:
+
+- **Rows 1-2**: A physical merchant with two terminals (Verifone and Ingenico)
+- **Row 3**: An e-commerce merchant
+
+Notice that the physical merchant rows include address information, while the e-commerce merchant includes a redirect URL instead. Both merchant types share the same business and contact information structure.
+
+[Download example CSV](/example-centrapay-onboarding.csv)
