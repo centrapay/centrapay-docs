@@ -27,9 +27,10 @@ import navigation from '../navigation/guideNavigation';
         </button>
       </a>
       <button
-        id="freshdesk-contact-support-button"
+        id="intercom-contact-support-button"
         type="button"
         class="flex rounded-md border border-gray-200 bg-interactive-tertiary px-4 py-2 hover:bg-interactive-tertiary-hover"
+        onclick="if (window.Intercom) { window.Intercom('show'); }"
       >
         <span class="type-caption-2 text-content-tertiary">
           Contact support
