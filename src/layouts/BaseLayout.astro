@@ -1,6 +1,6 @@
 ---
 import AppShell from '../components/AppShell.astro';
-import MessagesBubbleDouble from '../components/icons/MessagesBubbleDouble.vue';
+import IntercomButton from '../components/IntercomButton.vue';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -23,6 +23,7 @@ const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 const datadogEnabled = import.meta.env.DATADOG_ENABLED;
 const env = import.meta.env.ENV;
 const version = import.meta.env.GITHUB_RUN_ID;
+const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -42,17 +43,8 @@ const version = import.meta.env.GITHUB_RUN_ID;
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Freshdesk widget -->
-    <!-- This is needed to send the entire URL of the page in Freshdesk support tickets -->
-    <!-- Refer to https://community.freshworks.com/freshdesk-11246/where-does-it-come-from-23026 -->
+    <!-- Intercom widget -->
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <script type="text/javascript" charset="utf-8">
-      window.fwSettings = {
-        'widget_id': 51000002960
-      };
-      !function(){if('function' != typeof window.FreshworksWidget){var n = function(){n.q.push(arguments);};n.q = [],window.FreshworksWidget = n;}}();
-    </script>
-    <script src="https://aus-widget.freshworks.com/widgets/51000002960.js" defer async type="text/javascript"></script>
 
     <!-- Datadog -->
     <script is:inline define:vars={{env, version, datadogEnabled}}>
@@ -88,27 +80,11 @@ const version = import.meta.env.GITHUB_RUN_ID;
     <div class="flex h-screen w-screen flex-col">
       <AppShell path={Astro.url.pathname} navigation={navigation}>
         <slot />
-        <button
-          id="freshdesk-button"
-          type="button"
-          class="fixed bottom-6 right-6 flex size-16 items-center justify-center rounded-full border border-gray-200 bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
-        >
-          <span class="sr-only">Open support widget</span>
-          <MessagesBubbleDouble
-            class="inline-block size-5 text-content-on-color"
-            aria-hidden="true"
-          />
-        </button>
         <Footer />
       </AppShell>
+      {/* Always render for debugging */}
+      <IntercomButton client:load app-id={intercomAppId || 'iufdeibu'} />
     </div>
-    <script>
-      window.FreshworksWidget('hide', 'launcher');
-      const freshdeskButtons = document.querySelectorAll('[id^=freshdesk]');
-      freshdeskButtons.forEach(button => button.addEventListener('click', () => {
-        window.FreshworksWidget('open');
-      }));
-    </script>
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
       mermaid.initialize({
