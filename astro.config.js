@@ -56,7 +56,12 @@ export default defineConfig({
     '/assets/asset-transfers/': '/api/asset-transfers/',
     '/assets/wallet-assets/': '/api/wallet-assets/',
     '/api/': '/api/introduction/',
+    '/merchant-services/': '/merchant-services/introduction',
     '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
-    '/guides/compatible-devices': '/guides/compatible-solutions',
+    '/guides/compatible-devices': '/merchant-services/compatible-devices',
+    '/guides/compatible-solutions': '/merchant-services/compatible-solutions',
+    '/guides/processing-centrapay-transactions': '/merchant-services/processing-centrapay-transactions',
+    '/guides/finding-terminal-information': '/merchant-services/finding-terminal-information',
+    '/guides/shopify-setup': '/merchant-services/shopify-setup',
   },
 });

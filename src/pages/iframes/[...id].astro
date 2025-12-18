@@ -6,9 +6,13 @@ import IframeLayout from '../../layouts/IframeLayout.astro';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
-  // Filter guides that have iframe: true in their frontmatter
-  const iframeGuides = guides.filter(entry => entry.data.iframe === true);
-  return iframeGuides.map(entry => ({
+  const merchantServices = await getCollection('merchantServices');
+  // Filter pages that have iframe: true in their frontmatter
+  const iframePages = [
+    ...guides.filter(entry => entry.data.iframe === true),
+    ...merchantServices.filter(entry => entry.data.iframe === true),
+  ];
+  return iframePages.map(entry => ({
     params: { id: entry.id },
     props: { entry },
   }));
