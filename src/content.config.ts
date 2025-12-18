@@ -47,8 +47,25 @@ const api = defineCollection({
   }),
 });
 
+const merchantServices = defineCollection({
+  loader: glob({ pattern: '**/*.mdoc', base: "./src/content/merchant-services" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    img: z.string().optional(),
+    draft: z.boolean().optional().default(false),
+    iframe: z.boolean().optional().default(false),
+    nav: z.object({
+      title: z.string().optional(),
+      path: z.string(),
+      order: z.number(),
+    }),
+  }),
+});
+
 export const collections = {
   guides,
   connections,
   api,
+  merchantServices,
 };
