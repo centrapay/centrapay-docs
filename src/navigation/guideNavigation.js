@@ -5,6 +5,7 @@ import Navigation from '../navigation/Navigation';
 const nav = [
   { title: 'Centrapay Experiences' },
   { title: 'Digital Assets' },
+  { title: 'Third Party Assets' },
   { title: 'Merchant Services' },
   { title: 'Partner Services' },
   { title: 'Sales Channel Integrations' },

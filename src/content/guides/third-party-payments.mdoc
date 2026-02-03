@@ -1,11 +1,11 @@
 ---
-title: Third-party Asset
+title: Third-party Payments
 description: Integrate your assets with Centrapay to unlock the potential to transact with terminals, point-of-sales and merchants already connected with the Centrapay Payments Network.
 nav:
-  path: Digital Assets
-  order: 2
+  path: Third Party Assets
+  order: 1
 ---
-By integrating with Centrapay as a third-party asset provider, you can take advantage of our connections with terminals, point-of-sale systems, and merchant networks, thereby expanding the reach of your digital asset to a wider audience.
+By integrating with Centrapay as a third-party asset provider, you can take advantage of our connections with terminals, point-of-sale systems, merchant networks, and [Payap](/guides/account-connection-flow) thereby expanding the reach of your digital asset to a wider audience.
 
 Once you have defined your asset as a [Payment Method](#defining-a-payment-method) with Centrapay and implemented the required [Uplink APIs](#uplink-api-spec), consumers will be able to spend your digital asset using one of our payment flows wherever merchants accept your digital asset.
 
@@ -206,6 +206,7 @@ This endpoint is used to initiate payment. If payment is completed asynchronousl
 
 ```mermaid
 sequenceDiagram
+	autonumber
 	participant P as Patron
 	participant T as Terminal
 	participant C as Centrapay
@@ -226,7 +227,7 @@ sequenceDiagram
 ```
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/pay \
+curl -X POST https://your.domain/pay \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -289,7 +290,7 @@ This endpoint is used to refund a Payment Request with status `paid`. Refunds mu
 It is expected that partial refunds are supported.
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/refund \
+curl -X POST https://your.domain/refund \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -330,7 +331,7 @@ The Cancel endpoint can be used to stop processing a transaction that has status
 Once the Cancel endpoint is called, the transaction status should be `failed`. This is a synchronous call and cannot return status `pending`. The reason for cancellation will be passed through as a failureReason.
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/cancel \
+curl -X POST https://your.domain/cancel \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -370,7 +371,7 @@ Polling will continue until either the transaction attempt status is successful 
 You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
 
 ```bash {% title="Request" %}
-curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
+curl https://your.domain/get?transactionId=UttDGTHjr7DgKoKwWpTKb
 	-H "Authorization: ${jwt}"
 ```
 

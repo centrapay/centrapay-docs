@@ -8,7 +8,7 @@ nav:
 
 ## Overview
 
-This guide is for a [Third-party Asset Provider](/guides/integrating-third-party-asset) to enable paying with their
+This guide is for a [Third-party Asset Provider](/guides/third-party-payments) to enable paying with their
 digital assets with Centrapay.
 
 ## Authenticating API calls on behalf of users
@@ -109,7 +109,7 @@ from the server on behalf of the user with the following fields:
 | Field         | Description                                                                                                                                           |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | assetType     | The Asset Type defined when you registered your third party asset                                                                                     |
-| authorization | An identifier for your Asset Type which will be used when invoking the [Pay Payment Request API](/guides/integrating-third-party-asset/#pay-endpoint) |
+| authorization | An identifier for your Asset Type which will be used when invoking the [Pay Payment Request API](/guides/third-party-payments/#pay-endpoint) |
 
 If the payment was successful then the status of the Payment Request will be `paid`
 and you can show confirmation of payment to the user.
