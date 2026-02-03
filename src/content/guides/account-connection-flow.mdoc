@@ -1,0 +1,154 @@
+---
+title: Payap Account Connection Flow
+description: How users connect their third-party accounts to Payap so their assets can be used within Payap.
+nav:
+  path: Third Party Assets
+  order: 2
+---
+
+> This flow is still in development and could be subject to changes.
+
+When you integrate as a [third-party asset provider](/guides/third-party-payments), for consumers to connect their account with your service to Payap you need to implement the connection flow. This guide describes the account connection flow between Payap and you.
+
+```mermaid
+sequenceDiagram
+	autonumber
+	participant P as Payap
+  participant YA as Your App
+	participant YB as Your Backend
+
+	note over P: User discovers third party service
+
+	P->>YB: Request to /authorize
+	YB-->>YA: Redirect to login
+
+	note over YA: User authenticates
+	note over YA: User authorises requested scopes
+
+	YA->>YB: Authenticate and Consent
+	YB-->>P: Redirect back with authorization code
+
+	P->>YB: Request to /token with authorization code
+	YB-->>P: Response with access token
+
+	note over P: Store access token on backend
+
+	P->>YB: Request to /assets with access token
+	YB-->>P: Response with assets
+```
+
+The flow follows an **OAuth-based** authorization code style: Payap sends an authorization request to your service, the user authenticates and grants consent (scopes) with you, and Centrapay then exchanges the **authorization code** for an **access token**.
+
+## User discovers third-party service
+
+The user starts the flow from Payap. They choose to add or connect an asset or service that you provide. That action triggers Payap to begin the connection flow with your authorization and token endpoints.
+
+## Payap initiates authorization
+
+Payap sends an **authorization request** by redirecting the user to your **authorization endpoint**.
+
+```bash {% title="Authorization Request" %}
+GET https://your.domain/authorize?
+  response_type=code&
+  &client_id=payap
+  &redirect_uri=https://payap.com/callback
+  &scope={requestedScopes}
+```
+
+Your service must:
+
+- Validate the request (client, redirect_uri, scopes).
+- Respond by showing your **login** and **consent** UI so the user can authenticate and approve the requested scopes.
+
+The user’s browser is on your domain for this step; Centrapay does not see the user’s credentials.
+
+## User authenticates and consents
+
+On your side, the user:
+
+- **Authenticates**.
+- **Authorises requested scopes** — Reviews and approves the permissions (scopes) that Payap requested.
+
+When the user completes authentication and consent, your service **redirects** the user back to Payap’s redirect URI with an **authorization code**. The redirect target is the **redirect_uri** that Payap provided in the initial authorization request. The response should include the `code` parameter.
+
+```http {% title="Redirect Back Example" %}
+HTTP/1.1 302 Found
+Location: https://centrapay.com/callback?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz123
+```
+
+## Centrapay obtains tokens
+
+Centrapay receives the redirect and extracts the **authorization code** from the `code` parameter. It then sends a request to your **token endpoint** `your-domain/token` as a POST with parameters such as `grant_type=authorization_code`, `code`, `redirect_uri`, and **client authentication** (e.g. `client_id` and `client_secret`).
+
+```bash {% title="Token Request" %}
+curl -X POST https://your.domain/token \
+	-H "Authorization: ${jwt}"
+  -d "grant_type=authorization_code" \
+  -d "code=SplxlOBeZQQYbYS6WxSbIA" \
+```
+
+Your service must:
+
+- Validate the authorization code and JWT.
+- Return an **access token** and **refresh token**.
+
+```json {% title="Token Response" %}
+{
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "expires_in": 3600,
+  "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"
+}
+```
+
+Payap will use the **access token** to call your APIs on behalf of that user.
+
+## Store access token
+
+Payap stores the access and refresh token securely on its backend.
+
+## Request to your resource API with the access token
+Payap calls your list assets API `your.domain/assets`, authenticating with the **access token**.
+
+```bash {% title="Asset Request" %}
+curl https://your.domain/assets \
+  -H "Authorization: ${access_token}"
+```
+
+- **Response with assets** — You return the list of assets that the user has authorised. These are the assets that can be used in [payment flows](/guides/third-party-payments#pay-endpoint).
+
+```json {% title="Asset Response" %}
+[
+  {
+    "id": "12345",
+    "balance": "50.00",
+    "description": "Everyday Account",
+  },
+  {
+    "id": "56789",
+    "balance": "100.00",
+    "description": "Everyday Account"
+  }
+]
+```
+
+After this step, the connection is established: the user’s asset(s) are available in Payap and can be used to pay [Payment Requests](/api/payment-requests) at merchants on the Payap network.
+
+## Relation to your integration
+
+This account connection flow is separate from but complementary to your [Uplink API](/guides/third-party-payments#uplink-api-spec) integration:
+
+- **Connection flow** — How Centrapay gets permission and an access token to act on behalf of the user (authorization request → authorization code → token request → access token → fetch assets).
+- **Uplink APIs** — How Centrapay performs pay, refund, cancel, and get-transaction operations using the connected account and your [payment method](/guides/third-party-payments#defining-a-payment-method) (namespace, description, supported currencies).
+
+You must implement all the APIs described above and the Uplink endpoints so that users can connect their account and then spend their asset at Payap merchants.
+
+## Implementation checklist
+
+- **Authorization endpoint** (e.g. `/authorize`) that receives the authorization request (user’s browser redirected with `response_type=code`, `client_id`, `redirect_uri`, `scope`, `state`) and presents login/consent UI.
+- After consent, redirect the user’s browser to the client’s **redirect_uri** with **authorization code** in the `code` parameter (and `state` if used).
+- **Token endpoint** (e.g. `/token`) that accepts a **token request** with `grant_type=authorization_code`, `code`, `redirect_uri`, and **client authentication**, and returns a **token response** with `access_token` (and optionally `refresh_token`).
+- Secure storage of the access token (and refresh token) on Centrapay’s side; you only need to issue and validate tokens.
+- **Protected resource** (e.g. `/assets`) that returns the user’s assets when called with a valid **access token** in the `Authorization` header.
+- [Payment method definition](/guides/third-party-payments#defining-a-payment-method) and [Uplink API](/guides/third-party-payments#uplink-api-spec) implementation so connected assets can be used for payments and refunds.
+
+When you are ready to implement or need assistance with the account connection flow, contact the Centrapay Engineering team at integrations@centrapay.com.
