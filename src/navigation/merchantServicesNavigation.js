@@ -3,18 +3,11 @@ import { render } from 'astro:content';
 import Navigation from '../navigation/Navigation';
 
 const nav = [
-  { title: 'Centrapay Experiences' },
-  { title: 'Digital Assets' },
-  { title: 'Partner Services' },
-  { title: 'Sales Channel Integrations' },
-  { title: 'App Integrations' },
-  { title: 'Farmlands' },
-  { title: 'Developers' },
+  { title: 'Merchant Information' },
 ];
 
 const collections = await Promise.all([
-  ...await getCollection('guides'),
-  ...await getCollection('connections'),
+  ...await getCollection('merchantServices'),
 ]);
 
 const content = await Promise.all(collections.map(async page => {
