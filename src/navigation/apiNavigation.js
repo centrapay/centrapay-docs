@@ -5,7 +5,6 @@ import Navigation from '../navigation/Navigation';
 const nav = [
   { title: 'API Reference' },
   { title: 'Accounts' },
-  { title: 'Applets' },
   { title: 'Asset Programs' },
   { title: 'Assets' },
   { title: 'Bank Accounts' },
