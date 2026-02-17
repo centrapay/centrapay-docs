@@ -54,6 +54,10 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
     The number of [Loyalty Program Memberships](/api/loyalty-program-memberships) that have been created for the loyalty program.
   {% /property %}
 
+  {% property name="visibility" type="string" %}
+    The visibility setting for the Loyalty Program. Valid values are `shown` or `unlisted`.
+  {% /property %}
+
   {% property name="joinConditions" type="array" %}
     The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.
   {% /property %}
@@ -166,4 +170,21 @@ When `type` is `bank-account-ownership`, the `params` object must contain:
   ## Activate Loyalty Program {% badge type="experimental" /%}
 
   Allows the user to set the status of the [Loyalty Program](#loyalty-program-model) to `active`.
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/loyalty-programs/{id}/visibility"
+  filename="loyalty-programs-set-visibility"
+%}
+  ## Set Visibility for Loyalty Program {% badge type="experimental" /%}
+
+  Allows the user to set the visibility of the [Loyalty Program](#loyalty-program-model).
+
+  {% properties %}
+    {% property name="visibility" type="string" required=true %}
+      The visibility setting for the Loyalty Program. Valid values are `shown` or `unlisted`.
+    {% /property %}
+  {% /properties %}
 {% /endpoint %}

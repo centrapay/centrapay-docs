@@ -20,6 +20,7 @@ export default {
         test: true,
         status: 'draft',
         memberCount: '0',
+        visibility: 'shown',
       },
       {
         id: 'DKTs3U38hdhfEqwF1JKoT2',
@@ -33,6 +34,7 @@ export default {
         test: true,
         status: 'active',
         memberCount: '5',
+        visibility: 'unlisted',
       }
     ]
   }
