@@ -1,9 +1,13 @@
 export default {
-  method: 'GET',
-  path: '/api/loyalty-programs/WRhAxxWpTKb5U7pXyxQjjY',
+  method: 'PUT',
+  path: '/api/loyalty-programs/WRhAxxWpTKb5U7pXyxQjjY/visibility',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
+      'Content-Type': 'application/json',
+    },
+    payload: {
+      visibility: 'shown',
     },
   },
   response: {
@@ -18,6 +22,6 @@ export default {
     test: true,
     status: 'active',
     memberCount: '2',
-    visibility: 'shown'
+    visibility: 'shown',
   }
 };
