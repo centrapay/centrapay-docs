@@ -7,7 +7,7 @@ export default {
       'Content-Type': 'application/json',
     },
     payload: {
-      visibility: 'shown',
+      visibility: 'public',
     },
   },
   response: {
@@ -22,6 +22,6 @@ export default {
     test: true,
     status: 'active',
     memberCount: '2',
-    visibility: 'shown',
+    visibility: 'public',
   }
 };
