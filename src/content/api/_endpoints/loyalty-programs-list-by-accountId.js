@@ -20,7 +20,7 @@ export default {
         test: true,
         status: 'draft',
         memberCount: '0',
-        visibility: 'shown',
+        visibility: 'public',
       },
       {
         id: 'DKTs3U38hdhfEqwF1JKoT2',

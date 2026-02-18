@@ -18,6 +18,6 @@ export default {
     test: true,
     status: 'active',
     memberCount: '0',
-    visibility: 'shown',
+    visibility: 'public',
   }
 };
