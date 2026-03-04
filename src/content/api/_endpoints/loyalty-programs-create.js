@@ -33,6 +33,7 @@ export default {
     test: true,
     status: 'draft',
     memberCount: '0',
+    visibility: 'public',
     joinConditions: [
       {
         type: 'asset-ownership',

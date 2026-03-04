@@ -17,6 +17,7 @@ export default {
     createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
     test: true,
     status: 'active',
-    memberCount: '2'
+    memberCount: '2',
+    visibility: 'public'
   }
 };

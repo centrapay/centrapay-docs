@@ -70,6 +70,20 @@ export default {
         status: 'awaiting-merchant'
       }
     ],
+    paidBy: {
+      assetTotals: [
+        {
+          type: 'centrapay.nzd.test',
+          description: 'Centrapay NZD Test',
+          settlementDate: '2026-02-11T00:31:31.661Z',
+          total: {
+            amount: '1000',
+            currency: 'NZD'
+          },
+          payerAccountId: 'Bn8Wawd21Y2yoGb2KuSdK2'
+        }
+      ]
+    },
     status: 'new',
     createdAt: '2021-06-08T04:04:27.426Z',
     updatedAt: '2021-06-08T04:04:27.426Z',

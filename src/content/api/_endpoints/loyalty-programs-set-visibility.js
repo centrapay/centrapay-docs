@@ -1,9 +1,13 @@
 export default {
-  method: 'POST',
-  path: '/api/loyalty-programs/WRhAxxWpTKb5U7pXyxQjjY/activate',
+  method: 'PUT',
+  path: '/api/loyalty-programs/WRhAxxWpTKb5U7pXyxQjjY/visibility',
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
+      'Content-Type': 'application/json',
+    },
+    payload: {
+      visibility: 'public',
     },
   },
   response: {
@@ -17,7 +21,7 @@ export default {
     createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99',
     test: true,
     status: 'active',
-    memberCount: '0',
+    memberCount: '2',
     visibility: 'public',
   }
 };
