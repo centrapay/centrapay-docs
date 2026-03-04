@@ -55,7 +55,7 @@ A loyalty program is a container for one or more [Promotions](/api/promotions), 
   {% /property %}
 
   {% property name="visibility" type="string" %}
-    The visibility setting for the Loyalty Program. Valid values are `shown` or `unlisted`.
+    The visibility setting for the Loyalty Program. Valid values are `public` or `unlisted`.
   {% /property %}
 
   {% property name="joinConditions" type="array" %}
@@ -184,7 +184,7 @@ When `type` is `bank-account-ownership`, the `params` object must contain:
 
   {% properties %}
     {% property name="visibility" type="string" required=true %}
-      The visibility setting for the Loyalty Program. Valid values are `shown` or `unlisted`.
+      The visibility setting for the Loyalty Program. Valid values are `public` or `unlisted`.
     {% /property %}
   {% /properties %}
 {% /endpoint %}

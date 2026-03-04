@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRIVY_VERSION="0.63.0"
+TRIVY_VERSION="0.69.2"
 
 if ! command -v trivy >/dev/null 2>&1 || [ "$(trivy --version | grep '^Version:' | awk '{print $2}')" != "$TRIVY_VERSION" ]; then
   curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v${TRIVY_VERSION}

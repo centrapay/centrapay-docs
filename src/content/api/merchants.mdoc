@@ -342,6 +342,14 @@ which define the payment methods available for a Payment Request.
     {% property name="categoryCode" type="string" %}
       The category code assigned to the Merchant by Centrapay. Must be 4 digits.
     {% /property %}
+
+    {% property name="test" type="boolean" %}
+      Set to `true` to search for test merchants.
+    {% /property %}
+
+    {% property name="hasLoyaltyProgram" type="boolean" %}
+      Set to `true` to only return merchants with public loyalty programs.
+    {% /property %}
   {% /properties %}
 {% /endpoint %}
 

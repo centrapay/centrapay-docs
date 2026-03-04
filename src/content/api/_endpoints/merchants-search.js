@@ -9,6 +9,8 @@ export default {
       pageKey: '10',
       paginationLimit: '10',
       categoryCode: '1740',
+      test: 'true',
+      hasLoyaltyProgram: 'true',
     }
   },
   response: {
