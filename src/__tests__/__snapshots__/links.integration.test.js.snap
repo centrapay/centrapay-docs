@@ -61,6 +61,7 @@ exports[`the build should not break any links 1`] = `
   "/api/asset-transfers#accept-an-asset-transfer-request",
   "/api/asset-transfers#asset-transfer-lifecycle",
   "/api/asset-transfers#asset-transfer-model",
+  "/api/asset-transfers#authorize-an-asset-transfer-request",
   "/api/asset-transfers#cancel-an-asset-transfer",
   "/api/asset-transfers#claim-asset-transfer",
   "/api/asset-transfers#create-an-asset-transfer",

@@ -7,23 +7,21 @@ export default {
       'Content-Type': 'application/json',
     },
     payload: {
+      recipientName: 'John Doe',
       recipientAlias: '12-1234-1234567-123',
-      senderAccountId: '9EDxUT91TMsUjoqoQeBuLQ',
       value: '1000',
-      assetType: 'quartz.nzd.test'
+      message: 'Movies'
     },
   },
   response: {
     id: 'M7Kn2stAxNa6ri7h',
+    recipientName: 'John Doe',
     recipientAlias: '12-1234-1234567-123',
     status: 'requested',
-    assetType: 'quartz.nzd.main',
-    description: 'request payment',
-    senderAccountId: '9EDxUT91TMsUjoqoQeBuLQ',
+    message: 'Movies',
     createdAt: '2024-03-01T23:56:21.514Z',
     createdBy: 'crn:userId:1234',
-    suppressNotifications: false,
     value: '1000',
-    message: 'Payment request',
+    expiresAt: '2020-05-03T01:03:37.222Z'
   }
 };

@@ -111,7 +111,7 @@ message fields are scrubbed to avoid storing PII.
   {% property name="expiresAt" type="timestamp" %}
     The time that the asset transfer will expire.
   {% /property %}
-  
+
   {% property name="loyaltyProgramId" type="string" %}
     The ID of the [Loyalty Program](/api/loyalty-programs) associated with this asset transfer.
   {% /property %}
@@ -143,43 +143,28 @@ Asset Transfer goes through different lifecycle stages.
 %}
   ## Request an Asset Transfer {% badge type="experimental" /%}
 
-
-  Request a transfer of an asset from a sender to the recipient.
+  Request a transfer of an asset to the recipient’s bank account.
 
   {% properties %}
+    {% property name="recipientName" type="string" required=true %}
+      Contact name for the individual requesting asset transfer.
+    {% /property %}
+
     {% property name="recipientAlias" type="string" required=true %}
-      Contact information, such as phone number, email, or handle, for the individual requesting asset transfer. Currently supports bank account number only.
+      Bank account for the individual requesting asset transfer.
     {% /property %}
 
-    {% property name="senderAccountId" type="string" required=true %}
-      The account id of the sender who receives the request from recipientAlias.
-    {% /property %}
-
-    {% property name="assetType" type="string" required=true %}
-      The type of asset being transferred. Currently, supports only `quartz.nzd` assets
-    {% /property %}
-
-    {% property name="description" type="string" %}
-      Shows up in transaction history against the transfer. 200 character limit.
+   {% property name="value" type="string" required=true %}
+      The amount being requested.
     {% /property %}
 
     {% property name="message" type="string" %}
-      Shows up in transaction history against the transfer. 100 character limit.
-    {% /property %}
-
-    {% property name="suppressNotification" type="boolean" %}
-      Suppress notifications from Centrapay (SMS/Email).
+      Description of what the request is for. 100 character limit.
     {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
-    {% error code="403" message="SENDER_NOT_FOUND" %}
-      The requests must include a valid sender alias.
-    {% /error %}
 
-    {% error code="403" message="INVALID_ASSET_TYPE" %}
-      The [asset's type](/api/asset-types/) does not support transfers.
-    {% /error %}
   {% /properties %}
 {% /endpoint %}
 
@@ -191,51 +176,60 @@ Asset Transfer goes through different lifecycle stages.
 %}
   ## Accept an Asset Transfer Request {% badge type="experimental" /%}
 
+   Accept a transfer of an asset. If the asset transfer request is accepted with an external asset then it also needs to authorized.
+
   {% properties %}
-    {% property name="assetId" type="string" required=true %}
-      Id of the asset to pay the asset transfer request with. Only valid for `quartz.nzd` assets
+    {% property name="assetType" type="string" required=true %}
+      Asset type to pay the asset transfer request with. Only valid for `one-off` open banking assets
     {% /property %}
 
-    {% property name="senderName" type="string" required=true %}
-      Human readable name for the sender. 30 character limit.
-    {% /property %}
-
-    {% property name="value" type="bignumber" %}
-      Amount to send. Required if not defined in the request; forbidden if it was.
-    {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
+    {% error code="403" message="ASSET_TRANSFER_NOT_FOUND" %}
+      The asset transfer request was not found
+    {% /error %}
     {% error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED" %}
       The asset transfer request has already expired
     {% /error %}
 
+    {% error code="403" message="ASSET_TRANSFER_REQUEST_{STATUS}" %}
+      The asset transfer request is not in the requested status
+    {% /error %}
+
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/asset-transfer-requests/{assetTransferId}/authorize"
+  filename="asset-transfer-requests-authorize"
+%}
+  ## Authorize an Asset Transfer Request {% badge type="experimental" /%}
+
+  Used to authorize an asset transfer request if the request was accepted using an external asset (e.g. open banking).
+
+  {% properties %}
+    {% property name="code" type="string" required=true %}
+      Authorization code from open banking
+    {% /property %}
+
+    {% property name="connectionIntentId" type="string" required=true %}
+      Domestic payment consent connection intent id
+    {% /property %}
+
+  {% /properties %}
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="ASSET_TRANSFER_NOT_FOUND" %}
+      The asset transfer request was not found
+    {% /error %}
+    {% error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED" %}
+      The asset transfer request has already expired
+    {% /error %}
     {% error code="403" message="ASSET_TRANSFER_REQUEST_ACCEPTED" %}
       The asset transfer request has already been accepted
-    {% /error %}
-
-    {% error code="403" message="BANK_ACCOUNT_BALANCE_INSUFFICIENT" %}
-      The bank account the asset is for does not have enough balance for the transfer
-    {% /error %}
-
-    {% error code="403" message="QUOTA_EXCEEDED" %}
-      The asset transfer would exceed the provided assets quotas
-    {% /error %}
-
-    {% error code="403" message="ASSET_NOT_ACTIVE" %}
-      The asset is not active.
-    {% /error %}
-
-    {% error code="403" message="INVALID_ASSET_TYPE" %}
-      The [asset's type](/api/asset-types/) does not match the request.
-    {% /error %}
-
-    {% error code="403" message="VALUE_NOT_DEFINED" %}
-      The value of the asset transfer was not defined in either the initial request or the acceptance
-    {% /error %}
-
-    {% error code="403" message="VALUE_ALREADY_DEFINED" %}
-      The value of the asset transfer was defined in both the initial request and the acceptance
     {% /error %}
   {% /properties %}
 {% /endpoint %}
