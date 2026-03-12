@@ -127,112 +127,12 @@ Asset Transfer goes through different lifecycle stages.
 
 |   State   |                                                    Description                                                     |
 | :-------- | :----------------------------------------------------------------------------------------------------------------- |
-| requested | Asset transfer successfully requested                                                                              |
 | created   | Asset transfer successfully created                                                                                |
 | sent      | Asset transfer notification (sms, email) was sent to a new user                                                    |
 | expired   | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
 | returned  | Asset transfer expired and was returned to original owner                                                          |
 | claimed   | Asset transfer was successfully completed                                                                          |
 | cancelled | Asset transfer was cancelled.                                                                                      |
-
----
-
-{% endpoint
-  path="/api/asset-transfer-requests"
-  filename="asset-transfers-request"
-%}
-  ## Request an Asset Transfer {% badge type="experimental" /%}
-
-  Request a transfer of an asset to the recipient’s bank account.
-
-  {% properties %}
-    {% property name="recipientName" type="string" required=true %}
-      Contact name for the individual requesting asset transfer.
-    {% /property %}
-
-    {% property name="recipientAlias" type="string" required=true %}
-      Bank account for the individual requesting asset transfer.
-    {% /property %}
-
-   {% property name="value" type="string" required=true %}
-      The amount being requested.
-    {% /property %}
-
-    {% property name="message" type="string" %}
-      Description of what the request is for. 100 character limit.
-    {% /property %}
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-
-  {% /properties %}
-{% /endpoint %}
-
----
-
-{% endpoint
-  path="/api/asset-transfer-requests/{assetTransferId}/accept"
-  filename="asset-transfer-requests-accept"
-%}
-  ## Accept an Asset Transfer Request {% badge type="experimental" /%}
-
-   Accept a transfer of an asset. If the asset transfer request is accepted with an external asset then it also needs to authorized.
-
-  {% properties %}
-    {% property name="assetType" type="string" required=true %}
-      Asset type to pay the asset transfer request with. Only valid for `one-off` open banking assets
-    {% /property %}
-
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="ASSET_TRANSFER_NOT_FOUND" %}
-      The asset transfer request was not found
-    {% /error %}
-    {% error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED" %}
-      The asset transfer request has already expired
-    {% /error %}
-
-    {% error code="403" message="ASSET_TRANSFER_REQUEST_{STATUS}" %}
-      The asset transfer request is not in the requested status
-    {% /error %}
-
-  {% /properties %}
-{% /endpoint %}
-
----
-
-{% endpoint
-  path="/api/asset-transfer-requests/{assetTransferId}/authorize"
-  filename="asset-transfer-requests-authorize"
-%}
-  ## Authorize an Asset Transfer Request {% badge type="experimental" /%}
-
-  Used to authorize an asset transfer request if the request was accepted using an external asset (e.g. open banking).
-
-  {% properties %}
-    {% property name="code" type="string" required=true %}
-      Authorization code from open banking
-    {% /property %}
-
-    {% property name="connectionIntentId" type="string" required=true %}
-      Domestic payment consent connection intent id
-    {% /property %}
-
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="ASSET_TRANSFER_NOT_FOUND" %}
-      The asset transfer request was not found
-    {% /error %}
-    {% error code="403" message="ASSET_TRANSFER_REQUEST_EXPIRED" %}
-      The asset transfer request has already expired
-    {% /error %}
-    {% error code="403" message="ASSET_TRANSFER_REQUEST_ACCEPTED" %}
-      The asset transfer request has already been accepted
-    {% /error %}
-  {% /properties %}
-{% /endpoint %}
 
 ---
 
