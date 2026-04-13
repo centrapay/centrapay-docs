@@ -9,7 +9,7 @@ nav:
 By integrating with Payap as a third-party asset provider, your users will be able to connect their loyalty account to their Payap wallet, view their balance, and spend their points at participating merchants on the Centrapay network.
 
 ## Connecting an Account
-Users connect their asset to Payap via an OAuth 2.0 authorization code flow. You will need to provide an authorization endpoint, token endpoint, and your supported scopes.
+Users connect their asset to Payap via the OAuth 2.0 authorization code flow. You will need to provide an authorization endpoint, token endpoint, and your supported scopes.
 
 ```mermaid
 sequenceDiagram
@@ -40,7 +40,7 @@ sequenceDiagram
 ```
 
 ## OAuth 2.0 Requirements
-You must implement a standard OAuth 2.0 authorization code flow. Refresh tokens must be long-lived, as Payap will use them to maintain access without requiring the user to re-authenticate.
+You must implement the standard OAuth 2.0 authorization code flow. Refresh tokens must be long-lived, as Payap will use them to maintain access without requiring the user to re-authenticate.
 
 - Authorization endpoint URL
 - Token endpoint URL
@@ -96,10 +96,10 @@ Payap stores the access and refresh tokens securely on its backend. The refresh 
 ## Asset Type Definition
 Before users can connect, an asset type must be registered to identify your loyalty program as a payment method. You must define a namespace and description.
 
-| Field | Type | Description | Examples |
-|---|---|---|---|
-| name | String | A name used for uniquely identifying the asset as a payment method. | payap-example |
-| description | String | A short human readable description. | Payap Points |
+|    Field    |  Type  |                             Description                             |   Examples    |
+| ----------- | ------ | ------------------------------------------------------------------- | ------------- |
+| name        | String | A name used for uniquely identifying the asset as a payment method. | payap-example |
+| description | String | A short human readable description.                                 | Payap Points  |
 
 ## Fetching Assets
 Your assets are fetched live each time a user opens their Payap wallet. If your system is unavailable, Payap will display a loading error state to the user.
@@ -120,22 +120,22 @@ sequenceDiagram
 ```
 
 ### List Assets Endpoint
-You must implement a list endpoint that returns all assets the user has authorized. Payap will call this endpoint after the OAuth connection is complete to create an asset in the user's wallet for each one returned.
+You must implement a list endpoint that returns all assets the user has authorized. Payap will call this endpoint after the OAuth flow is completed to create an asset in the user's wallet for each one returned.
 
 #### Response
 
-| Field | Description |
-|---|---|
-| `assetId` | A unique ID for the asset |
-| `accountId` | A unique ID for the user's account on your system |
+|     Field     |                     Description                     |
+| ------------- | --------------------------------------------------- |
+| `assetId`     | A unique ID for the asset                           |
+| `accountId`   | A unique ID for the user's account on your system   |
 | `pointsLabel` | Display label for the points currency e.g. "points" |
 
 ### Get Asset Endpoint
-You must implement a get endpoint that returns the current balance for a specific asset. Payap will call this endpoint each time the user opens their wallet, using the `assetId` returned from the list endpoint to identify the user's account.
+You must implement a get asset endpoint that returns the information about the asset with it's current balance. Payap will call this endpoint each time the user opens their wallet, using the `assetId` returned from the list endpoint to identify the user's account.
 
 #### Response
-| Field | Description |
-|---|---|
+|   Field   |                            Description                             |
+| --------- | ------------------------------------------------------------------ |
 | `balance` | Current balance in the user's account in the smallest denomination |
 
 ## Earning Points
@@ -154,5 +154,5 @@ For details on implementing spend, see the [Uplink API requirements](/guides/int
 - **Token endpoint** (e.g. `/token`) — accepts a token request with `grant_type=authorization_code`, `code`, and client authentication; returns `access_token` and a long-lived `refresh_token`.
 - **Token revocation endpoint** — allows Payap to revoke tokens when a user disconnects.
 - **List assets endpoint** (e.g. `/assets`) — returns all assets the user has authorized when called with a valid access token.
-- **Get asset endpoint** — returns the current balance for a specific asset using the `assetId`.
+- **Get asset endpoint** — returns the information about an asset with it's balance.
 - **Uplink APIs** — implemented so connected assets can be used for payments and refunds. See [Uplink API requirements](/guides/integrating-third-party-asset#uplink-api-requirements).
