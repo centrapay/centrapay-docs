@@ -1,0 +1,158 @@
+---
+title: Payap Third-party Asset Integration
+description: Integrating third-party asset providers into the Payap wallet via Centrapay
+nav:
+  path: Payap
+  order: 1
+---
+
+By integrating with Payap as a third-party asset provider, your users will be able to connect their loyalty account to their Payap wallet, view their balance, and spend their points at participating merchants on the Centrapay network.
+
+## Connecting an Account
+Users connect their asset to Payap via an OAuth 2.0 authorization code flow. You will need to provide an authorization endpoint, token endpoint, and your supported scopes.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Asset Program Owner
+    participant Payap
+    participant Payap Backend
+    participant Centrapay
+    participant Third Party
+
+    Asset Program Owner->>Centrapay: POST /api/asset-types to create a new asset type for the third party
+    Centrapay-->>Asset Program Owner: New asset type created
+    Payap->>Payap Backend: POST /api/consents to create a consent request to connect to third party
+    Payap Backend-->>Payap: Consent returned with authorization url
+    Payap-->>Third Party: User visits authorization url to authorize the connection request
+    note over Third Party: User approves the connection request
+    Third Party-->>Payap: User is redirected back to payap with a authorization code
+    Payap->>Payap Backend: POST /api/consents/:id/authorize to exchange the authorization code for tokens
+    Payap Backend->>Third Party: POST /token endpoint to exchange the authorization code for tokens
+    Third Party-->>Payap Backend: Access and refresh tokens returned
+    Payap Backend->>Third Party: List all the assets the user has authorized
+    Third Party-->>Payap Backend: Third party assets returned
+    loop for each third party asset
+        Payap Backend->>Centrapay: POST /api/internal/assets to create a third party asset
+        Centrapay-->>Payap Backend: Asset created
+    end
+    Payap Backend-->>Payap: Authorization successful
+```
+
+## OAuth 2.0 Requirements
+You must implement a standard OAuth 2.0 authorization code flow. Refresh tokens must be long-lived, as Payap will use them to maintain access without requiring the user to re-authenticate.
+
+- Authorization endpoint URL
+- Token endpoint URL
+- Supported scopes
+- Long-lived refresh tokens
+- Token revocation endpoint
+
+### Authorization Request
+Payap initiates the connection by redirecting the user to your authorization endpoint with the following parameters:
+
+```bash {% title="Authorization Request" %}
+GET https://your.domain/authorize?
+  response_type=code
+  &client_id=payap
+  &redirect_uri=https://service.payap.com/callback
+  &scope={requestedScopes}
+```
+
+Your authorization endpoint must:
+
+- Validate the request (client ID, redirect URI, and scopes).
+- Present your login and consent UI so the user can authenticate and approve the requested scopes.
+
+Once the user has authenticated and consented, redirect them back to Payap's `redirect_uri` with an authorization code:
+
+```http {% title="Redirect Back Example" %}
+HTTP/1.1 302 Found
+Location: https://service.payap.com/callback?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz123
+```
+
+### Token Exchange
+Payap will exchange the authorization code for tokens by calling your token endpoint:
+
+```bash {% title="Token Request" %}
+curl -X POST https://your.domain/token \
+  -H "Authorization: ${jwt}" \
+  -d "grant_type=authorization_code" \
+  -d "code=SplxlOBeZQQYbYS6WxSbIA"
+```
+
+Your token endpoint must validate the authorization code and JWT, then return an access token and a long-lived refresh token:
+
+```json {% title="Token Response" %}
+{
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "expires_in": 3600,
+  "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"
+}
+```
+
+Payap stores the access and refresh tokens securely on its backend. The refresh token must be long-lived, as Payap will use it to maintain access without requiring the user to re-authenticate.
+
+## Asset Type Definition
+Before users can connect, an asset type must be registered to identify your loyalty program as a payment method. You must define a namespace and description.
+
+| Field | Type | Description | Examples |
+|---|---|---|---|
+| name | String | A name used for uniquely identifying the asset as a payment method. | payap-example |
+| description | String | A short human readable description. | Payap Points |
+
+## Fetching Assets
+Your assets are fetched live each time a user opens their Payap wallet. If your system is unavailable, Payap will display a loading error state to the user.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Payap
+    participant Payap Backend
+    participant Third Party
+
+    Payap->>Payap Backend: GET /api/assets to list assets
+    Payap Backend-->>Payap: Assets returned
+    Payap->>Payap Backend: GET /api/assets/:id/balance
+    Payap Backend->>Third Party: GET /api/assets/:id
+    Third Party-->>Payap Backend: Asset information returned
+    Payap Backend-->>Payap: Balance returned
+```
+
+### List Assets Endpoint
+You must implement a list endpoint that returns all assets the user has authorized. Payap will call this endpoint after the OAuth connection is complete to create an asset in the user's wallet for each one returned.
+
+#### Response
+
+| Field | Description |
+|---|---|
+| `assetId` | A unique ID for the asset |
+| `accountId` | A unique ID for the user's account on your system |
+| `pointsLabel` | Display label for the points currency e.g. "points" |
+
+### Get Asset Endpoint
+You must implement a get endpoint that returns the current balance for a specific asset. Payap will call this endpoint each time the user opens their wallet, using the `assetId` returned from the list endpoint to identify the user's account.
+
+#### Response
+| Field | Description |
+|---|---|
+| `balance` | Current balance in the user's account in the smallest denomination |
+
+## Earning Points
+
+For details on receiving earn event notifications, see the [Webhooks guide](/guides/webhooks).
+
+## Paying with a Third-party Asset
+
+For details on implementing spend, see the [Uplink API requirements](/guides/integrating-third-party-asset#uplink-api-requirements).
+
+## Implementation Checklist
+
+- **Asset type registered** — `name` and `description` defined and submitted to Centrapay before users can connect.
+- **Authorization endpoint** (e.g. `/authorize`) — receives the authorization request with `response_type=code`, `client_id`, `redirect_uri`, and `scope`; validates the request and presents login/consent UI.
+- **Redirect back** — after user consent, redirects to Payap's `redirect_uri` with the `code` parameter (and `state` if provided).
+- **Token endpoint** (e.g. `/token`) — accepts a token request with `grant_type=authorization_code`, `code`, and client authentication; returns `access_token` and a long-lived `refresh_token`.
+- **Token revocation endpoint** — allows Payap to revoke tokens when a user disconnects.
+- **List assets endpoint** (e.g. `/assets`) — returns all assets the user has authorized when called with a valid access token.
+- **Get asset endpoint** — returns the current balance for a specific asset using the `assetId`.
+- **Uplink APIs** — implemented so connected assets can be used for payments and refunds. See [Uplink API requirements](/guides/integrating-third-party-asset#uplink-api-requirements).
