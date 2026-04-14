@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import Prose from '../../components/Prose.astro';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PayapGuideLayout from '../../layouts/PayapGuideLayout.astro';
 import navigation from '../../navigation/guideNavigation';
 
 export async function getStaticPaths() {
@@ -18,32 +19,39 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
+const isPayap = entry.data.nav.path === 'Payap';
 ---
-<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
-  <div class="relative mx-auto xl:mx-0">
-    <div class="flex w-full justify-center">
-      <div class="flex grow justify-center">
-        <div class="min-w-0 max-w-3xl flex-auto px-8 pb-16 pt-8">
-          <article>
-            <Prose>
-              <header class="flex flex-col gap-1" >
-                <p class="type-overline text-content-primary" >
-                  Guides
-                </p>
-                <h1>
-                  { title }
-                </h1>
-              </header>
-              <Content />
-            </Prose>
-          </article>
+{isPayap ? (
+  <PayapGuideLayout title={title} description={description} img={previewImg} navigation={navigation} headings={headings}>
+    <Content />
+  </PayapGuideLayout>
+) : (
+  <BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
+    <div class="relative mx-auto xl:mx-0">
+      <div class="flex w-full justify-center">
+        <div class="flex grow justify-center">
+          <div class="min-w-0 max-w-3xl flex-auto px-8 pb-16 pt-8">
+            <article>
+              <Prose>
+                <header class="flex flex-col gap-1" >
+                  <p class="type-overline text-content-primary" >
+                    Guides
+                  </p>
+                  <h1>
+                    { title }
+                  </h1>
+                </header>
+                <Content />
+              </Prose>
+            </article>
+          </div>
         </div>
-      </div>
-      <div class="hidden md:flex md:w-64">
-        <div class="hidden overflow-y-auto border-none xl:sticky xl:right-28 xl:top-16 xl:block xl:h-[calc(100vh-10rem)] xl:py-8">
-          <TocNav client:load headings={headings} />
+        <div class="hidden md:flex md:w-64">
+          <div class="hidden overflow-y-auto border-none xl:sticky xl:right-28 xl:top-16 xl:block xl:h-[calc(100vh-10rem)] xl:py-8">
+            <TocNav client:load headings={headings} />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</BaseLayout>
+  </BaseLayout>
+)}
