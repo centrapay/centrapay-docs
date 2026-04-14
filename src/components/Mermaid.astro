@@ -1,8 +1,81 @@
 ---
 const {code} = Astro.props;
 ---
-<center>
-  <pre class="mermaid my-8 rounded-lg border border-outline-opaque bg-surface-secondary">
-    {code}
-  </pre>
-</center>
+
+<div
+  class="group relative cursor-zoom-in rounded-lg transition-shadow hover:ring-2 hover:ring-indigo-400/40 data-[zoomed]:fixed data-[zoomed]:inset-0 data-[zoomed]:z-[9999] data-[zoomed]:flex data-[zoomed]:cursor-zoom-out data-[zoomed]:items-center data-[zoomed]:justify-center data-[zoomed]:p-8 data-[zoomed]:ring-0"
+  data-mermaid-zoom
+>
+  <!-- Backdrop overlay (hidden until zoomed) -->
+  <div
+    class="pointer-events-none fixed inset-0 bg-black/0 backdrop-blur-none transition-all group-data-[zoomed]:pointer-events-auto group-data-[zoomed]:bg-black/60 group-data-[zoomed]:backdrop-blur-md"
+    data-mermaid-overlay
+  ></div>
+
+  <!-- Diagram -->
+  <center class="relative z-10 group-data-[zoomed]:overflow-auto group-data-[zoomed]:rounded-xl group-data-[zoomed]:bg-[var(--color-surface-secondary,#fff)] group-data-[zoomed]:p-8 group-data-[zoomed]:shadow-2xl" data-mermaid-diagram>
+    <pre class="mermaid my-8 rounded-lg border border-outline-opaque bg-surface-secondary group-data-[zoomed]:[&_svg]:h-auto group-data-[zoomed]:[&_svg]:max-h-[85vh] group-data-[zoomed]:[&_svg]:w-[80vw]">
+      {code}
+    </pre>
+  </center>
+
+  <!-- Hover hint (hidden when zoomed) -->
+  <div
+    class="pointer-events-none absolute bottom-5 right-3 select-none rounded bg-[var(--color-surface-secondary,rgba(255,255,255,0.85))] px-2 py-0.5 text-[0.7rem] text-[var(--color-text-tertiary,#888)] opacity-0 transition-opacity group-hover:opacity-100 group-data-[zoomed]:hidden"
+  >
+    Click to zoom
+  </div>
+
+  <!-- Close button (hidden until zoomed) -->
+  <button
+    class="fixed right-6 top-5 z-[10001] hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-2xl text-white transition-colors hover:bg-black/70 group-data-[zoomed]:flex"
+    aria-label="Close"
+    data-mermaid-close
+  >✕</button>
+</div>
+
+<script>
+  function initMermaidZoom() {
+    document.querySelectorAll<HTMLElement>('[data-mermaid-zoom]').forEach((el) => {
+      if (el.dataset.zoomBound) return;
+      el.dataset.zoomBound = 'true';
+
+      const overlay = el.querySelector<HTMLElement>('[data-mermaid-overlay]')!;
+      const closeBtn = el.querySelector<HTMLElement>('[data-mermaid-close]')!;
+
+      const open = () => {
+        el.dataset.zoomed = 'true';
+        document.body.style.overflow = 'hidden';
+      };
+
+      const close = () => {
+        delete el.dataset.zoomed;
+        document.body.style.overflow = '';
+      };
+
+      const diagram = el.querySelector<HTMLElement>('[data-mermaid-diagram]')!;
+
+      // Only stop propagation when zoomed, so clicks inside the diagram don't close the overlay
+      diagram.addEventListener('click', (e) => {
+        if (el.dataset.zoomed) e.stopPropagation();
+      });
+
+      el.addEventListener('click', () => {
+        if (el.dataset.zoomed) close();
+        else open();
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        close();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && el.dataset.zoomed) close();
+      });
+    });
+  }
+
+  initMermaidZoom();
+  document.addEventListener('astro:page-load', initMermaidZoom);
+</script>
