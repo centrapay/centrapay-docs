@@ -13,30 +13,30 @@ Users connect their asset to Payap via the OAuth 2.0 authorization code flow. Yo
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant Asset Program Owner
-    participant Payap
-    participant Payap Backend
-    participant Centrapay
-    participant Third Party
+  autonumber
+  participant Asset Program Owner
+  participant Payap
+  participant Payap Backend
+  participant Centrapay
+  participant Third Party
 
-    Asset Program Owner->>Centrapay: POST /api/asset-types to create a new asset type for the third party
-    Centrapay-->>Asset Program Owner: New asset type created
-    Payap->>Payap Backend: POST /api/consents to create a consent request to connect to third party
-    Payap Backend-->>Payap: Consent returned with authorization url
-    Payap-->>Third Party: User visits authorization url to authorize the connection request
-    note over Third Party: User approves the connection request
-    Third Party-->>Payap: User is redirected back to payap with a authorization code
-    Payap->>Payap Backend: POST /api/consents/:id/authorize to exchange the authorization code for tokens
-    Payap Backend->>Third Party: POST /token endpoint to exchange the authorization code for tokens
-    Third Party-->>Payap Backend: Access and refresh tokens returned
-    Payap Backend->>Third Party: List all the assets the user has authorized
-    Third Party-->>Payap Backend: Third party assets returned
-    loop for each third party asset
-        Payap Backend->>Centrapay: POST /api/internal/assets to create a third party asset
-        Centrapay-->>Payap Backend: Asset created
-    end
-    Payap Backend-->>Payap: Authorization successful
+  Asset Program Owner->>Centrapay: POST /api/asset-types to create a new asset type for the third party
+  Centrapay-->>Asset Program Owner: New asset type created
+  Payap->>Payap Backend: POST /api/consents to create a consent request to connect to third party
+  Payap Backend-->>Payap: Consent returned with authorization url
+  Payap-->>Third Party: User visits authorization url to authorize the connection request
+  note over Third Party: User approves the connection request
+  Third Party-->>Payap: User is redirected back to payap with a authorization code
+  Payap->>Payap Backend: POST /api/consents/:id/authorize to exchange the authorization code for tokens
+  Payap Backend->>Third Party: POST /token endpoint to exchange the authorization code for tokens
+  Third Party-->>Payap Backend: Access and refresh tokens returned
+  Payap Backend->>Third Party: List all the assets the user has authorized
+  Third Party-->>Payap Backend: Third party assets returned
+  loop for each third party asset
+      Payap Backend->>Centrapay: POST /api/internal/assets to create a third party asset
+      Centrapay-->>Payap Backend: Asset created
+  end
+  Payap Backend-->>Payap: Authorization successful
 ```
 
 ## OAuth 2.0 Requirements
@@ -106,17 +106,17 @@ Your assets are fetched live each time a user opens their Payap wallet. If your 
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant Payap
-    participant Payap Backend
-    participant Third Party
+  autonumber
+  participant Payap
+  participant Payap Backend
+  participant Third Party
 
-    Payap->>Payap Backend: GET /api/assets to list assets
-    Payap Backend-->>Payap: Assets returned
-    Payap->>Payap Backend: GET /api/assets/:id/balance
-    Payap Backend->>Third Party: GET /api/assets/:id
-    Third Party-->>Payap Backend: Asset information returned
-    Payap Backend-->>Payap: Balance returned
+  Payap->>Payap Backend: GET /api/assets to list assets
+  Payap Backend-->>Payap: Assets returned
+  Payap->>Payap Backend: GET /api/assets/:id/balance
+  Payap Backend->>Third Party: GET /api/assets/:id
+  Third Party-->>Payap Backend: Asset information returned
+  Payap Backend-->>Payap: Balance returned
 ```
 
 ### List Assets Endpoint
@@ -148,7 +148,7 @@ For details on implementing spend, see the [Uplink API requirements](/guides/int
 
 ## Implementation Checklist
 
-- **Asset type registered** — `name` and `description` defined and submitted to Centrapay before users can connect.
+- **Asset type registered** — `name` and `description` defined and submitted to Payap before users can connect.
 - **Authorization endpoint** (e.g. `/authorize`) — receives the authorization request with `response_type=code`, `client_id`, `redirect_uri`, and `scope`; validates the request and presents login/consent UI.
 - **Redirect back** — after user consent, redirects to Payap's `redirect_uri` with the `code` parameter (and `state` if provided).
 - **Token endpoint** (e.g. `/token`) — accepts a token request with `grant_type=authorization_code`, `code`, and client authentication; returns `access_token` and a long-lived `refresh_token`.
