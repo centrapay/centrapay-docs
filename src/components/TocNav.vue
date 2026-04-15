@@ -20,7 +20,7 @@
           class="flex truncate border-l-2 text-sm p-squish-2 hover:border-content-primary hover:text-content-primary"
           :class="[
             visibleHeadingId === heading.slug ?
-              'border-(--cp-toc-active-border) text-content-primary':
+              'border-brand-accent text-content-primary':
               'border-gray-200 text-content-tertiary'
           ]"
           @click="handleTocClick(heading.slug)"
