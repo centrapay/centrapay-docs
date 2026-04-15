@@ -37,7 +37,6 @@ sequenceDiagram
   participant Third Party
 
   Payap->>Payap Backend: Request to connect to the third party
-  note over Payap Backend: Generates the authorization URL for the third party
   Payap Backend-->>Payap: Authorization URL returned
   Payap-->>Third Party: User visits authorization URL to authorize the connection request
   note over Third Party: User approves the connection request
@@ -172,12 +171,12 @@ Authorization: Bearer ${accessToken}
 
 ## Notifications
 
-Payap can send you notifications when users do make a payment with their asset. Get in touch to find out more.
+We can send webhooks for various events. Get in touch to find out more.
 
 
 ## Paying with Asset
 
-If you grant users the ability to spend from their accounts, you will need to verify their payments in real time.
+If you grant users the ability to spend from their accounts, you will need to verify their payments in real time. Get in touch to find out how.
 
 ## Implementation Checklist
 
