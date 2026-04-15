@@ -8,8 +8,8 @@ const nav = [
   { title: 'Partner Services' },
   { title: 'Sales Channel Integrations' },
   { title: 'App Integrations' },
-  { title: 'Farmlands' },
   { title: 'Payap' },
+  { title: 'Farmlands' },
   { title: 'Developers' },
 ];
 
