@@ -57,11 +57,11 @@ export default {
           'transparent': '#00000008',
         },
         interactive: {
-          'primary': 'var(--cp-interactive-primary, #111827)',
+          'primary': '#111827',
           'primary-hover': '#374151',
           'primary-active': '#FF5C00',
           'secondary': '#4B5563',
-          'secondary-hover': 'var(--cp-interactive-secondary-hover, #6B7280)',
+          'secondary-hover': '#6B7280',
           'secondary-active': '#111827',
           'tertiary': '#F9FAFB',
           'tertiary-hover': '#FAF4E7',

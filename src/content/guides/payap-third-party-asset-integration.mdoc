@@ -170,21 +170,22 @@ Authorization: Bearer ${accessToken}
 }
 ```
 
-## Earning Points
+## Notifications
 
-For details on receiving earn event notifications, see the [Webhooks guide](/guides/webhooks).
+Payap can send you notifications when users do make a payment with their asset. Get in touch to find out more.
+
 
 ## Paying with Asset
 
-For details on implementing spend, see the [Uplink API requirements](/guides/integrating-third-party-asset#uplink-api-requirements).
+If you grant users the ability to spend from their accounts, you will need to verify their payments in real time.
 
 ## Implementation Checklist
 
-- **Asset type registered** — `name` and `description` defined and submitted to Payap before users can connect.
-- **Authorization endpoint** (e.g. `/authorize`) — receives the authorization request with `response_type=code`, `client_id`, `redirect_uri`, and `scope`; validates the request and presents login/consent UI.
-- **Redirect back** — after user consent, redirects to Payap's `redirect_uri` with the `code` parameter (and `state` if provided).
-- **Token endpoint** (e.g. `/token`) — accepts a token request with `grant_type=authorization_code`, `code`, and client authentication; returns `access_token` and a long-lived `refresh_token`.
-- **Token revocation endpoint** — allows Payap to revoke tokens when a user disconnects.
-- **List assets endpoint** (e.g. `/assets`) — returns all assets the user has authorized when called with a valid access token.
-- **Get asset endpoint** — returns the information about an asset with it's balance.
-- **Uplink APIs** — implemented so connected assets can be used for payments and refunds. See [Uplink API requirements](/guides/integrating-third-party-asset#uplink-api-requirements).
+- Asset type registered
+- Authorization endpoint
+- Redirect back
+- Token endpoint
+- Token revocation endpoint
+- List assets endpoint
+- Get asset endpoint
+- Uplink APIs

@@ -1,17 +1,3 @@
 @import "tailwindcss";
 
 @config "../../tailwind.config.js";
-
-@layer base {
-  :root {
-    --cp-interactive-primary: #111827;
-    --cp-interactive-secondary-hover: #6b7280;
-    --cp-toc-active-border: #ff5c00;
-  }
-
-  .payap-guide-theme {
-    --cp-interactive-primary: #610ac7;
-    --cp-interactive-secondary-hover: #610ac7;
-    --cp-toc-active-border: #610ac7;
-  }
-}
