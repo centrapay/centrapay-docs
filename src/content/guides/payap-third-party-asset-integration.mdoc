@@ -49,7 +49,7 @@ sequenceDiagram
 
 ## OAuth 2.0 Requirements
 
-You must implement the standard OAuth 2.0 authorization code flow. The following endpoints and capabilities are required:
+You must implement the standard OAuth 2.0 authorization code flow with PKCE (Proof Key for Code Exchange). The following endpoints and capabilities are required:
 
 - Authorization endpoint
 - Token endpoint
@@ -67,11 +67,13 @@ GET https://your.domain/authorize?
   &client_id={payapClientId}
   &redirect_uri={redirectUri}
   &scope={requestedScopes}
+  &code_challenge={codeChallenge}
+  &code_challenge_method=S256
 ```
 
 Your authorization endpoint must:
 
-- Validate the `client_id`, `redirect_uri`, and requested `scope`.
+- Validate the `client_id`, `redirect_uri`, `scope`.
 - Present a login and consent UI so the user can authenticate and approve the requested scopes.
 
 Once the user has authenticated and consented, redirect them back to Payap's `redirect_uri` with the authorization code:
@@ -87,12 +89,12 @@ Payap will exchange the authorization code for tokens by calling your token endp
 
 ```bash {% title="Token Request" %}
 curl -X POST https://your.domain/token \
-  -H "Authorization: ${jwt}" \
   -d "grant_type=authorization_code" \
-  -d "code=SplxlOBeZQQYbYS6WxSbIA"
+  -d "code=SplxlOBeZQQYbYS6WxSbIA" \
+  -d "code_verifier={codeVerifier}"
 ```
 
-Your token endpoint must validate the authorization code and the JWT, then return an access token and a long-lived refresh token:
+Your token endpoint must validate the authorization `code` and the `code_verifier`, then return an access token and a long-lived refresh token:
 
 ```json {% title="Token Response" %}
 {
@@ -125,8 +127,6 @@ sequenceDiagram
   Third Party-->>Payap Backend: Asset returned with balance
   Payap Backend-->>Payap: Asset returned with balance
 ```
-
-All requests from Payap's backend to your endpoints will be authenticated with a JWT in the `Authorization` header.
 
 ### List Assets Endpoint
 
