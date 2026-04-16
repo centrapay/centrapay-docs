@@ -488,7 +488,6 @@ exports[`the build should not break any links 1`] = `
   "/guides/payap-third-party-asset-integration#asset-type-registration",
   "/guides/payap-third-party-asset-integration#connecting-an-account",
   "/guides/payap-third-party-asset-integration#fetching-assets",
-  "/guides/payap-third-party-asset-integration#implementation-checklist",
   "/guides/payap-third-party-asset-integration#notifications",
   "/guides/payap-third-party-asset-integration#oauth-20-requirements",
   "/guides/payap-third-party-asset-integration#on-this-page-title",
