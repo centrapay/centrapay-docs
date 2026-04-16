@@ -66,13 +66,13 @@ GET https://your.domain/authorize?
   response_type=code
   &client_id={payapClientId}
   &redirect_uri={redirectUri}
-  &scope={requestedScopes}
+  &scope=assets:read assets:pay
   &code_challenge={codeChallenge}
   &code_challenge_method=S256
 ```
 
 Your authorization endpoint must:
-
+- Support the `assets:read` and `assets:pay` scopes which are used for reading and paying with the assets.
 - Validate the `client_id`, `redirect_uri`, `scope`.
 - Present a login and consent UI so the user can authenticate and approve the requested scopes.
 
