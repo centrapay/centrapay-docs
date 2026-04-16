@@ -1,4 +1,5 @@
 function toKebabCase(string) {
+  if (!string) { return string || ''; }
   return string
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .replace(/[\s_]+/g, '-')
@@ -19,8 +20,9 @@ class Page {
 
   static fromContent(content) {
     const { collection, id, data: frontmatter, headings } = content;
+    const routePath = toKebabCase(collection);
     return new Page({
-      path: `/${collection}/${id}`,
+      path: `/${routePath}/${id}`,
       title: frontmatter.title,
       nav: frontmatter.nav,
       headings,

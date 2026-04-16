@@ -4,11 +4,13 @@ import { render } from 'astro:content';
 import Prose from '../../components/Prose.astro';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import navigation from '../../navigation/guideNavigation';
+import guideNavigation from '../../navigation/guideNavigation';
+import merchantServicesNavigation from '../../navigation/merchantServicesNavigation';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
-  return guides.map(entry => ({
+  const merchantServices = await getCollection('merchantServices');
+  return [...guides, ...merchantServices].map(entry => ({
     params: { id: entry.id },
     props: { entry },
   }));
@@ -18,6 +20,7 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
+const navigation = entry.collection === 'merchantServices' ? merchantServicesNavigation : guideNavigation;
 ---
 <BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
   <div class="relative mx-auto xl:mx-0">
