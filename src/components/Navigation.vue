@@ -33,7 +33,7 @@
                 {{ navigationChild.title }}
               </a>
             </li>
-            <div v-if="navigationChild.headings?.length && path === navigationChild.path">
+            <div v-if="showHeadings && navigationChild.headings?.length && path === navigationChild.path">
               <li
                 v-for="navigationGrandchild in navigationChild.headings"
                 :key="navigationGrandchild.title"
@@ -60,5 +60,6 @@
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
   navigation: { type: Object, required: true },
+  showHeadings: { type: Boolean, required: false, default: true },
 });
 </script>
