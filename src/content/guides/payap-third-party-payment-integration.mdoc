@@ -8,12 +8,12 @@ nav:
 
 If you grant users the ability to spend from their accounts, you will need to verify their payments in real time. Payap calls the endpoints below in the lifecycle of a payment.
 
-### Authorization
+### Authentication
 
-Payap uses two different mechanisms to authorize the payment endpoints:
+Payap uses two different mechanisms to authenticate the payment endpoints:
 
-- The [Pay Endpoint](#pay-endpoint) is authorized with the user's **access token** (the same token returned from the OAuth flow and used for [Fetching Assets](/guides/payap-third-party-asset-integration#fetching-assets)). This proves the user has connected their account and consented to spending from it.
-- The [Refund](#refund-endpoint), [Cancel](#cancel-endpoint), and [Get Transaction](#get-transaction-endpoint) endpoints are authorized with a **Payap-issued JWT**. These actions occur outside an active user session, so they are authenticated as server-to-server calls from Payap.
+- The [Pay Endpoint](#pay-endpoint) is authenticated with the user's **access token** (the same token returned from the OAuth flow and used for [Fetching Assets](/guides/payap-third-party-asset-integration#fetching-assets)). This proves the user has connected their account and consented to spending from it.
+- The [Refund](#refund-endpoint), [Cancel](#cancel-endpoint), and [Get Transaction](#get-transaction-endpoint) endpoints are authenticated with a **Payap-issued JWT**. These actions occur outside an active user session, so they are authenticated as server-to-server calls from Payap.
 
 #### Access Token (Pay Endpoint)
 
@@ -104,6 +104,11 @@ if (decodedJwt["request_body_sha256"] != hashedPayload) {
 
 If any of the above assertions are not met the request must be rejected.
 
+### Transaction Idempotency
+
+The `transactionId` is used for idempotency for `HTTP POST` requests. Payap **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Payap expects a `200 OK` response as described in the endpoint specification below.
+
+
 ### Transaction Attempt Model
 
 > Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
@@ -139,10 +144,11 @@ This endpoint is used to initiate payment. If payment is completed asynchronousl
 
 ```mermaid
 sequenceDiagram
-	participant U as User
+	participant U as Payap
 	participant T as Terminal
-	participant P as Payap
+	participant P as Payap Backend
 	participant A as Asset Provider
+  note over T: Create Payment Request
 	U->>T: Scan QR Code
 	par While not successful
 		loop
