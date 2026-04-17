@@ -1,0 +1,66 @@
+---
+title: App Connection
+description: How to integrate a connected loyalty app with the point of sale to enable offer redemption and token payments using Centrapay.
+nav:
+  path: Sales Channel Integrations
+  order: 17
+---
+
+This guide describes how to integrate a connected loyalty app with Centrapay at the point of sale (POS). By creating a [Connection](/api/connections) between the POS and the patron's app, the integration enables offer redemption, loyalty token payments, and promotion tracking alongside standard payment methods.
+
+## Overview
+
+When a patron's app is linked to a POS transaction via a Connection, the integration enables:
+
+- Validating the patron's identity before applying discounts or offers
+- Connecting the patron's app via QR code scan
+- Retrieving and applying promotional offers and discounts
+- Redeeming loyalty tokens as partial payment
+
+The POS [creates a Connection](/api/connections#create-connection) and displays the Connection URL as a QR code. When the patron scans it, their app authorises the Connection, linking them to the transaction. Authorising the Connection validates the patron's identity, allowing the app backend to determine eligibility for discounts and offers before any payment is taken. The POS can also use the authorised Connection to apply discounts directly to the cart before the payment request is created. The app backend then calculates available offers based on the line items before the remaining balance is collected.
+
+## Payment
+
+The patron scans the QR code before the payment request is created. Offers and a loyalty token are applied, with the remainder paid by cash or EFTPOS.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant POS
+    participant Centrapay
+
+    POS->>Centrapay: Create Connection
+    Note over POS: Display QR code (Connection URL)
+
+    User->>POS: Scan QR code
+    User->>Centrapay: Authorise connection
+
+    POS->>Centrapay: Create payment request with connectionId
+    Centrapay-->>POS: Return new payment request
+
+    par
+      loop Poll until final state
+          POS->>Centrapay: Get payment request
+      end
+    and
+      Note over POS: Display QR code (Payment Request URL)
+      opt If discounts applied
+        Centrapay-->>POS: Return payment request after discounts
+      end
+      Note over POS: Request remaining amount
+
+      alt If discounts applied
+        alt If non Centrapay Payment
+          POS->>Centrapay: Pay remaining amount
+        else If Centrapay Payment
+          User->>Centrapay: Pay remaining amount
+        end
+      else If no discounts applied and Non Centrapay Payment
+        User->>POS: Pay remaining amount (cash/EFTPOS/Centrapay)
+        POS->>Centrapay: Void Payment Request
+      end
+    end
+
+    Centrapay-->>POS: Return Payment Request with Final status
+    Note over POS: Display Payment Request Result
+```
