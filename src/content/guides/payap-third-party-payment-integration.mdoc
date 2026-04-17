@@ -1,0 +1,321 @@
+---
+title: Allow Your Users To Pay via Payap
+description: Let your users pay at participating merchants using their accounts
+nav:
+  path: Payap Integration
+  order: 1
+---
+
+If you grant users the ability to spend from their accounts, you will need to verify their payments in real time. Payap calls the endpoints below in the lifecycle of a payment.
+
+### Authorization
+
+Payap uses two different mechanisms to authorize the payment endpoints:
+
+- The [Pay Endpoint](#pay-endpoint) is authorized with the user's **access token** (the same token returned from the OAuth flow and used for [Fetching Assets](/guides/payap-third-party-asset-integration#fetching-assets)). This proves the user has connected their account and consented to spending from it.
+- The [Refund](#refund-endpoint), [Cancel](#cancel-endpoint), and [Get Transaction](#get-transaction-endpoint) endpoints are authorized with a **Payap-issued JWT**. These actions occur outside an active user session, so they are authenticated as server-to-server calls from Payap.
+
+#### Access Token (Pay Endpoint)
+
+The Pay endpoint is called with the user's access token in the `Authorization` header:
+
+```bash
+Authorization: Bearer ${accessToken}
+```
+
+You must verify:
+
+- The access token is valid and has not been revoked.
+- The token's granted scopes include the `assets:pay` scope. If the user did not approve the `assets:pay` scope during the OAuth consent step, the request must be rejected. This ensures the access token cannot be used to debit the user's account unless they explicitly consented to spending.
+- The asset referenced in the request `authorization` field belongs to the user the access token was issued to.
+
+#### Payap JWT (Refund, Cancel, Get Transaction)
+
+The Refund, Cancel, and Get Transaction endpoints are authenticated using a JWT issued and signed by Payap. The JWT is sent in the `Authorization` header.
+
+Verify the JWT using the public key returned from the JSON Web Key Set (JWKS) endpoint with the matching `kid`.
+
+Keys used for signing JWTs may be rotated without warning, therefore it is required that signatures are resolved dynamically against the JWKS endpoint. You may choose to cache the result, but respect the directives in the HTTP cache-control headers.
+
+```bash {% title="JWKS Request" %}
+curl https://service.payap.com/.well-known/jwks.json
+```
+
+```json {% title="JWKS Response" %}
+{
+  "keys": [
+    {
+      "kty": "EC",
+      "x": "H3LklFoBTwd9uAEnzw5gZYQN6VaIELmagD69dvraLr4",
+      "y": "mIjlN4refN943USQiQGnHPhIVt7M50OUALyNUQeAQiY",
+      "crv": "P-256",
+      "use": "sig",
+      "alg": "ES256",
+      "kid": "2026-02-17-adab74e8"
+    }
+  ]
+}
+```
+
+To verify a request, start by decoding the JWT.
+
+```json {% title="Decoded JWT Payload" %}
+{
+  "iat": "1684105185",
+  "exp": "1684105485",
+  "aud": "https://your.endpoint",
+  "request_body_sha256": "b9195bf41bf0e38ab0ab44e7ef5b9af5cb0fe2ece8dee5d112d7485bf4ef0007"
+}
+```
+
+|        Field        |                                                Description                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------- |
+| iat                 | A Unix timestamp of the request's creation.                                                               |
+| exp                 | A Unix timestamp that the request is valid until. Set to 5 minutes after iat.                             |
+| aud                 | The endpoint URL belonging to the intended recipient of the request.                                      |
+| request_body_sha256 | A hash of the request payload, created using the [SHA256 algorithm](https://en.wikipedia.org/wiki/SHA-2). |
+
+Use the decoded JWT fields to validate the following:
+
+- `exp` is provided as a default expiry. Alternatively, use `iat` plus your own expiry window to determine if the JWT has expired.
+- Assert that the audience is correct by checking that `aud` is equal to the base URL of your endpoint.
+- The `request_body_sha256` property should be used to verify that the request payload has not been tampered with. Hash the received request payload using the SHA256 algorithm and check for equality with `request_body_sha256`. If the request does not have a payload then the `request_body_sha256` field will not be present in the decoded JWT.
+
+```javascript {% title="Example" %}
+const crypto = require("crypto");
+
+const decodedJwt = {
+  request_body_sha256: "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+};
+
+const payload = {
+  vader: "I am your father",
+  luke: "That's not true, that's impossible",
+};
+
+const jsonStringPayload = JSON.stringify(payload);
+
+const hashedPayload = crypto.createHash("sha256").update(jsonStringPayload).digest("hex");
+
+if (decodedJwt["request_body_sha256"] != hashedPayload) {
+  throw new Error("Payload hashes do not match");
+}
+```
+
+If any of the above assertions are not met the request must be rejected.
+
+### Transaction Attempt Model
+
+> Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
+
+|         Name         |                  Type                  | Necessity |                                                                     Description                                                                      |
+| -------------------- | -------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| currency             | String                                 | required  | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.                                                        |
+| amount               | String                                 | required  | The value required to pay in the smallest denomination for the supported currency (e.g. cents).                                                      |
+| authorization        | String                                 | required  | A reference to the asset of the user paying the Payment Request. This is the asset `id` returned from the [Get Asset Endpoint](#get-asset-endpoint). |
+| merchantName         | String                                 | required  | The name of the merchant who created the Payment Request.                                                                                            |
+| merchantId           | String                                 | required  | Your identifier for the merchant receiving payment.                                                                                                  |
+| merchantCategoryCode | String                                 | optional  | Category code for the merchant who created the Payment Request.                                                                                      |
+| merchantLocation     | [Location](/api/data-types#location)   | optional  | Location of the merchant who created the Payment Request.                                                                                            |
+| transactionId        | String                                 | required  | A unique ID for the transaction in Payap's system. Also used for idempotency.                                                                        |
+| status               | String                                 | required  | The status of the asset transaction. See [possible status values](#statuses).                                                                        |
+| type                 | String                                 | required  | The type of transaction. Possible values are payment or refund.                                                                                      |
+| failureReason        | String                                 | optional  | Required if the status is failed. See possible failure reasons under each API below.                                                                 |
+| refundable           | Boolean                                | optional  | Required if type is payment and status is successful. A flag indicating whether a payment is refundable.                                             |
+| refundBefore         | [Timestamp](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                                                                  |
+| paymentRequestId     | String                                 | optional  | A unique identifier for the original Payment Request.                                                                                                |
+
+### Statuses
+
+| Name       | Description                                                                                                                      |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| pending    | The transaction is processing.                                                                                                   |
+| successful | The transaction has been successfully processed.                                                                                 |
+| failed     | The transaction has been unable to be successfully processed. A failure reason is expected to be provided when status is failed. |
+
+### Pay Endpoint
+
+This endpoint is used to initiate payment. If payment is completed asynchronously, the status will be `pending` and the [get transaction endpoint](#get-transaction-endpoint) will be used to poll until the status is `successful` or `failed`.
+
+```mermaid
+sequenceDiagram
+	participant U as User
+	participant T as Terminal
+	participant P as Payap
+	participant A as Asset Provider
+	U->>T: Scan QR Code
+	par While not successful
+		loop
+			T->>P: Poll for Payment Confirmation
+		end
+		U->>+P: Pay Payment Request
+		P->>+A: Call Pay with Transaction Attempt
+		A-->>-P: Success/Failure
+		P-->>-U: Success/Failure
+		note over U: Display Payment Result
+	end
+	note over T: Display Successful Payment
+```
+
+```bash {% title="Request" %}
+curl -X POST https://your.endpoint/pay \
+	-H "Authorization: Bearer ${accessToken}" \
+	-H "Content-Type: application/json" \
+	-d '{
+		"currency": "NZD",
+		"amount": "1000",
+		"authorization": "WRhAxxWpTKb5U7pXyxQjjY",
+		"merchantName": "Payap Cafe",
+		"merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+		"merchantCategoryCode": "2481",
+    "merchantLocation": {
+      "lat": "-36.8483579",
+      "lng": "174.7725834",
+      "city": "Auckland",
+      "postCode": "1010",
+      "country": "NZ",
+      "street": "17 South Street"
+    },
+    "paymentRequestId": "LTsofbYSldsp35psd",
+		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
+  }'
+```
+
+```json {% title="Response" %}
+{
+  "currency": "NZD",
+  "amount": "1000",
+  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
+  "merchantName": "Payap Cafe",
+  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+  "merchantCategoryCode": "2481",
+  "merchantLocation": {
+    "lat": "-36.8483579",
+    "lng": "174.7725834",
+    "city": "Auckland",
+    "postCode": "1010",
+    "country": "NZ",
+    "street": "17 South Street"
+  },
+  "paymentRequestId": "LTsofbYSldsp35psd",
+  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
+  "type": "payment",
+  "status": "successful",
+  "refundable": true,
+  "refundBefore": "2023-06-09T00:52:22.468Z"
+}
+```
+
+**Failure Reasons**
+
+| Name                     | Description                                                                                                                             |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| INSUFFICIENT_ASSET_VALUE | The user does not have the sufficient asset amount to complete the transaction.                                                         |
+| ASSET_REDEMPTION_DENIED  | The asset redemption has been unsuccessful due to the provided payment parameters e.g. currency not supported or unknown authorization. |
+
+### Refund Endpoint
+
+This endpoint is used to refund a Payment Request with status `paid`. Refunds must be synchronous i.e. the status must be `successful` or `failed`.
+
+It is expected that partial refunds are supported.
+
+```bash {% title="Request" %}
+curl -X POST https://your.endpoint/refund \
+	-H "Authorization: ${jwt}" \
+	-H "Content-Type: application/json" \
+	-d '{
+		"currency": "NZD",
+		"amount": "1000",
+		"paymentTransactionId": "HFCD73hsbJHBDd9gs3t",
+		"transactionId": "dDHF8743fVzdsg84f6"
+	}'
+```
+
+```json {% title="Response" %}
+{
+  "currency": "NZD",
+  "amount": "1000",
+  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
+  "merchantName": "Payap Cafe",
+  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+  "merchantCategoryCode": "2481",
+  "transactionId": "HFCD73hsbJHBDd9gs3t",
+  "type": "refund",
+  "status": "successful"
+}
+```
+
+**Failure Reasons**
+
+| Name                        | Description                                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------------------------- |
+| PARTIAL_REFUNDS_NOT_ALLOWED | The Amount provided is less than the value of the payment and partial refunds are not allowed. |
+
+### Cancel Endpoint
+
+After initiating a transaction with the pay endpoint, the status may be `pending`. During this time something may have happened to prevent the payment request from being paid (e.g. payment request timeout or merchant network issues).
+
+The Cancel endpoint can be used to stop processing a transaction that has status `pending`. If the Cancel endpoint is called for a transaction that already has `successful` or `failed`, it is expected that an error will be thrown.
+
+Once the Cancel endpoint is called, the transaction status should be `failed`. This is a synchronous call and cannot return status `pending`. The reason for cancellation will be passed through as a failureReason.
+
+```bash {% title="Request" %}
+curl -X POST https://your.endpoint/cancel \
+	-H "Authorization: ${jwt}" \
+	-H "Content-Type: application/json" \
+	-d '{
+		"transactionId": "UttDGTHjr7DgKoKwWpTKb",
+		"failureReason": "PAYMENT_REQUEST_EXPIRED"
+	}'
+```
+
+```json {% title="Response" %}
+{
+  "currency": "NZD",
+  "amount": "1000",
+  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
+  "merchantName": "Payap Cafe",
+  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+  "merchantCategoryCode": "2481",
+  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
+  "type": "payment",
+  "status": "failed",
+  "failureReason": "PAYMENT_REQUEST_EXPIRED"
+}
+```
+
+**Failure Reasons**
+
+| Name                    | Description                                                 |
+| ----------------------- | ----------------------------------------------------------- |
+| CANCELLED_BY_MERCHANT   | The merchant has initiated a cancel of the payment request. |
+| PAYMENT_REQUEST_EXPIRED | The payment request has expired before being paid.          |
+
+### Get Transaction Endpoint
+
+This endpoint is used to resolve a Transaction Attempt when the transaction is pending or has an unknown state.
+
+Polling will continue until either the transaction attempt status is successful or failed, or the Payment Request is no longer payable (e.g. it has expired).
+
+You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
+
+```bash {% title="Request" %}
+curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
+	-H "Authorization: ${jwt}"
+```
+
+```json {% title="Response" %}
+{
+  "currency": "NZD",
+  "amount": "1000",
+  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
+  "merchantName": "Payap Cafe",
+  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
+  "merchantCategoryCode": "2481",
+  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
+  "type": "payment",
+  "status": "successful",
+  "refundable": "true",
+  "refundBefore": "2023-06-09T00:52:22.468Z"
+}
+```
