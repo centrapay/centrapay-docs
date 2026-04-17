@@ -1,0 +1,105 @@
+---
+title: POS Connection
+description: How to integrate your app backend with Centrapay to support identity validation, offer redemption, and loyalty token payments at the point of sale.
+nav:
+  path: App Integrations
+  order: 3
+---
+
+This guide describes how to integrate your app backend with Centrapay to support the [App Connection](/guides/connected-app-pos-integration) flow. When a patron scans a QR code at a POS terminal, Centrapay calls your app backend to authorise the connection, retrieve offers, and manage token redemption.
+
+## Overview
+
+As an app integrator, your backend is responsible for:
+
+- Validating the patron's identity when a Connection is authorised
+- Providing available offers based on the payment request's line items
+- Marking offers and loyalty tokens as redeemed during payment
+- Tracking loyalty progress after a successful payment
+- Reversing redemptions on cancellation or refund
+
+Centrapay acts as the orchestrator — your backend implements the endpoints Centrapay calls at each stage of the flow.
+
+## Payment Flow
+
+```mermaid
+sequenceDiagram
+    participant App
+    participant POS
+    participant Centrapay
+    participant BE as App Backend
+
+    POS->>Centrapay: Create Connection
+    Note over POS: Display QR code (Connection URL)
+
+    App->>POS: Scan QR code
+    App->>BE: Authorise connection
+    Note over BE: Validate user identity
+    Note over BE: Link user to connection
+    BE->>Centrapay: Authorise connection
+    Centrapay-->>BE: Return authorised connection
+    BE-->>App: 200 OK
+
+    POS->>Centrapay: Create payment request with connectionId
+    Par
+      Loop until final state
+        POS->>Centrapay: Get payment request
+      end
+    and
+      App->>BE: Get payment request by connectionId
+      BE->>Centrapay: Get payment request by connectionId
+      Centrapay-->>BE: Return payment request
+      BE-->>App: Return payment request
+
+      App->>BE: Get offers
+      Note over BE: Calculate offers based on line items
+      BE-->>App: Return offers
+
+      opt
+        App->>BE: Pay with offer or other asset
+        BE->>Centrapay: Pay (Offer amount)
+        Centrapay->>BE: Pay (Uplink API)
+        Note over BE: Mark offer or asset as redeemed
+        BE-->>Centrapay: Pay successful
+        BE-->>App: 200 OK
+      end
+
+      opt
+        App->>BE: Pay with token
+        BE->>Centrapay: Pay with token
+        Note over Centrapay: Mark token as redeemed
+        Centrapay-->>BE: Token redemption successful
+        BE-->>App: 200 OK
+      end
+
+      Centrapay-->>POS: Return payment request
+      Note over POS: Get payment for remaining balance
+      Centrapay->>BE: Notify payment request paid
+      opt
+        Note over BE: Update loyalty progress
+      end
+    end
+```
+
+## Cancellation and Refund
+
+Whether a transaction is cancelled mid-flight or refunded after completion, Centrapay calls the refund endpoint on your backend to reverse any transaction.
+
+```mermaid
+sequenceDiagram
+    participant POS
+    participant Centrapay
+    participant BE as App Backend
+
+    POS->>Centrapay: Cancel or refund payment request
+    Centrapay->>BE: Refund (Uplink API)
+    Note over BE: Reinstate asset
+    Note over BE: Revert any loyalty progress
+    BE-->>Centrapay: Refunded
+    Centrapay-->>POS: 200 OK
+```
+
+## See Also
+
+- [App Connection](/guides/connected-app-pos-integration) — the full POS-side integration guide
+- [Connections API](/api/connections) — create and authorise Connections

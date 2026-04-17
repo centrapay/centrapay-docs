@@ -67,16 +67,6 @@ sequenceDiagram
 	note over T: Display Confirmation
 ```
 
-## App Connection
-
-The App Connection flow allows a patron's loyalty app to be linked to a POS transaction via a QR code. This enables identity validation, offer and discount retrieval, and loyalty token redemption alongside standard payment methods. See the [App Connection](/guides/connected-app-pos-integration) guide for full details.
-
-1. POS [creates a Connection](/api/connections#create-connection) and displays the Connection URL as a QR code.
-2. Patron scans the QR code and [authorises the Connection](/api/connections#authorize-connection) via their app, validating their identity.
-3. POS creates a payment request.
-4. App optionally retrieves offers and redeems them against the payment request.
-5. POS collects the remaining balance.
-
 ### Quick Pay
 
 Quick Pay is used to pay the payment request after it is polled for the first time, without requiring patron approval. Quick Pay can only be triggered using the patron-presented flows, and the patron barcode must be linked to an asset type that allows quick pay.
