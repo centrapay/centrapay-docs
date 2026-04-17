@@ -20,7 +20,7 @@ class Page {
 
   static fromContent(content) {
     const { collection, id, data: frontmatter, headings } = content;
-    const routePath = toKebabCase(collection);
+    const routePath = collection === 'merchantServices' ? 'guides' : toKebabCase(collection);
     return new Page({
       path: `/${routePath}/${id}`,
       title: frontmatter.title,
