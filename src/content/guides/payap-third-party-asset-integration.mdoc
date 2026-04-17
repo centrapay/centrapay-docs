@@ -131,6 +131,14 @@ sequenceDiagram
   Payap Backend-->>Payap: Asset returned with balance
 ```
 
+### Asset Model
+
+|    Name     |  Type  | Necessity |                                        Description                                        |
+| ----------- | ------ | --------- | ----------------------------------------------------------------------------------------- |
+| id          | String | required  | A unique identifier for the asset in your system.                                         |
+| balance     | String | required  | The current balance in the smallest denomination for the supported currency (e.g. cents). |
+| description | String | required  | A short, human-readable label for the asset.                                              |
+
 ### List Assets Endpoint
 
 You must implement a list endpoint that returns all assets the user has authorized. Payap calls this endpoint after the OAuth flow completes to add an entry in the user's wallet for each asset returned.
@@ -144,12 +152,12 @@ Authorization: Bearer ${accessToken}
 [
   {
     "id": "12345",
-    "balance": "50.00",
+    "balance": "50",
     "description": "Everyday Account"
   },
   {
     "id": "56789",
-    "balance": "100.00",
+    "balance": "100",
     "description": "Everyday Account"
   }
 ]
@@ -167,7 +175,7 @@ Authorization: Bearer ${accessToken}
 ```json {% title="Get Asset Response" %}
 {
   "id": "56789",
-  "balance": "100.00",
+  "balance": "100",
   "description": "Everyday Account"
 }
 ```
