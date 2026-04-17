@@ -492,6 +492,8 @@ exports[`the build should not break any links 1`] = `
   "/guides/payap-third-party-asset-integration#oauth-20-requirements",
   "/guides/payap-third-party-asset-integration#on-this-page-title",
   "/guides/payap-third-party-asset-integration#paying-with-asset",
+  "/guides/payap-third-party-payment-integration",
+  "/guides/payap-third-party-payment-integration#on-this-page-title",
   "/guides/payment-conditions",
   "/guides/payment-conditions#additional-behaviors",
   "/guides/payment-conditions#implementation",
