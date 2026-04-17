@@ -3,12 +3,14 @@ title: Allow Your Users To Pay via Payap
 description: Let your users pay at participating merchants using their accounts
 nav:
   path: Payap Integration
-  order: 1
+  order: 2
 ---
+
+> This guide assumes you have completed the [Connect Your Users to Payap](/guides/payap-third-party-asset-integration) guide and have a working OAuth 2.0 integration.
 
 If you grant users the ability to spend from their accounts, you will need to verify their payments in real time. Payap calls the endpoints below in the lifecycle of a payment.
 
-### Authentication
+## Authentication
 
 Payap uses two different mechanisms to authenticate the payment endpoints:
 
@@ -104,12 +106,12 @@ if (decodedJwt["request_body_sha256"] != hashedPayload) {
 
 If any of the above assertions are not met the request must be rejected.
 
-### Transaction Idempotency
+## Transaction Idempotency
 
 The `transactionId` is used for idempotency for `HTTP POST` requests. Payap **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Payap expects a `200 OK` response as described in the endpoint specification below.
 
 
-### Transaction Attempt Model
+## Transaction Attempt Model
 
 > Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
 
@@ -117,7 +119,7 @@ The `transactionId` is used for idempotency for `HTTP POST` requests. Payap **do
 | -------------------- | -------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | currency             | String                                 | required  | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.                                                        |
 | amount               | String                                 | required  | The value required to pay in the smallest denomination for the supported currency (e.g. cents).                                                      |
-| authorization        | String                                 | required  | A reference to the asset of the user paying the Payment Request. This is the asset `id` returned from the [Get Asset Endpoint](#get-asset-endpoint). |
+| authorization        | String                                 | required  | A reference to the asset of the user paying the Payment Request. This is the asset `id` returned from the [Get Asset Endpoint](/guides/payap-third-party-asset-integration#get-asset-endpoint). |
 | merchantName         | String                                 | required  | The name of the merchant who created the Payment Request.                                                                                            |
 | merchantId           | String                                 | required  | Your identifier for the merchant receiving payment.                                                                                                  |
 | merchantCategoryCode | String                                 | optional  | Category code for the merchant who created the Payment Request.                                                                                      |
@@ -130,7 +132,7 @@ The `transactionId` is used for idempotency for `HTTP POST` requests. Payap **do
 | refundBefore         | [Timestamp](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                                                                  |
 | paymentRequestId     | String                                 | optional  | A unique identifier for the original Payment Request.                                                                                                |
 
-### Statuses
+## Statuses
 
 | Name       | Description                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -138,13 +140,13 @@ The `transactionId` is used for idempotency for `HTTP POST` requests. Payap **do
 | successful | The transaction has been successfully processed.                                                                                 |
 | failed     | The transaction has been unable to be successfully processed. A failure reason is expected to be provided when status is failed. |
 
-### Pay Endpoint
+## Pay Endpoint
 
-This endpoint is used to initiate payment. If payment is completed asynchronously, the status will be `pending` and the [get transaction endpoint](#get-transaction-endpoint) will be used to poll until the status is `successful` or `failed`.
+This endpoint is used to initiate payment. If payment is completed asynchronously, the status will be `pending` and the [Get Transaction Endpoint](#get-transaction-endpoint) will be used to poll until the status is `successful` or `failed`.
 
 ```mermaid
 sequenceDiagram
-	participant U as Payap
+	participant U as User
 	participant T as Terminal
 	participant P as Payap Backend
 	participant A as Asset Provider
@@ -164,7 +166,7 @@ sequenceDiagram
 ```
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/pay \
+curl -X POST https://your.domain/pay \
 	-H "Authorization: Bearer ${accessToken}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -219,14 +221,14 @@ curl -X POST https://your.endpoint/pay \
 | INSUFFICIENT_ASSET_VALUE | The user does not have the sufficient asset amount to complete the transaction.                                                         |
 | ASSET_REDEMPTION_DENIED  | The asset redemption has been unsuccessful due to the provided payment parameters e.g. currency not supported or unknown authorization. |
 
-### Refund Endpoint
+## Refund Endpoint
 
 This endpoint is used to refund a Payment Request with status `paid`. Refunds must be synchronous i.e. the status must be `successful` or `failed`.
 
 It is expected that partial refunds are supported.
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/refund \
+curl -X POST https://your.domain/refund \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -257,7 +259,7 @@ curl -X POST https://your.endpoint/refund \
 | --------------------------- | ---------------------------------------------------------------------------------------------- |
 | PARTIAL_REFUNDS_NOT_ALLOWED | The Amount provided is less than the value of the payment and partial refunds are not allowed. |
 
-### Cancel Endpoint
+## Cancel Endpoint
 
 After initiating a transaction with the pay endpoint, the status may be `pending`. During this time something may have happened to prevent the payment request from being paid (e.g. payment request timeout or merchant network issues).
 
@@ -266,7 +268,7 @@ The Cancel endpoint can be used to stop processing a transaction that has status
 Once the Cancel endpoint is called, the transaction status should be `failed`. This is a synchronous call and cannot return status `pending`. The reason for cancellation will be passed through as a failureReason.
 
 ```bash {% title="Request" %}
-curl -X POST https://your.endpoint/cancel \
+curl -X POST https://your.domain/cancel \
 	-H "Authorization: ${jwt}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -297,7 +299,7 @@ curl -X POST https://your.endpoint/cancel \
 | CANCELLED_BY_MERCHANT   | The merchant has initiated a cancel of the payment request. |
 | PAYMENT_REQUEST_EXPIRED | The payment request has expired before being paid.          |
 
-### Get Transaction Endpoint
+## Get Transaction Endpoint
 
 This endpoint is used to resolve a Transaction Attempt when the transaction is pending or has an unknown state.
 
@@ -306,7 +308,7 @@ Polling will continue until either the transaction attempt status is successful 
 You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
 
 ```bash {% title="Request" %}
-curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
+curl https://your.domain/get?transactionId=UttDGTHjr7DgKoKwWpTKb
 	-H "Authorization: ${jwt}"
 ```
 
@@ -321,7 +323,7 @@ curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
   "transactionId": "UttDGTHjr7DgKoKwWpTKb",
   "type": "payment",
   "status": "successful",
-  "refundable": "true",
+  "refundable": true,
   "refundBefore": "2023-06-09T00:52:22.468Z"
 }
 ```

@@ -67,6 +67,7 @@ GET https://your.domain/authorize?
   &client_id={payapClientId}
   &redirect_uri={redirectUri}
   &scope=assets:read assets:pay
+  &state={state}
   &code_challenge={codeChallenge}
   &code_challenge_method=S256
 ```
@@ -91,6 +92,8 @@ Payap will exchange the authorization code for tokens by calling your token endp
 curl -X POST https://your.domain/token \
   -d "grant_type=authorization_code" \
   -d "code=SplxlOBeZQQYbYS6WxSbIA" \
+  -d "client_id={payapClientId}" \
+  -d "redirect_uri={redirectUri}" \
   -d "code_verifier={codeVerifier}"
 ```
 
@@ -142,7 +145,7 @@ Authorization: Bearer ${accessToken}
   {
     "id": "12345",
     "balance": "50.00",
-    "description": "Everyday Account",
+    "description": "Everyday Account"
   },
   {
     "id": "56789",
@@ -169,10 +172,9 @@ Authorization: Bearer ${accessToken}
 }
 ```
 
-## Paying with Asset
+## Paying with Assets
 
 Refer to [Allow Your Users to Pay via Payap](/guides/payap-third-party-payment-integration) for more information.
-
 
 ## Notifications
 
