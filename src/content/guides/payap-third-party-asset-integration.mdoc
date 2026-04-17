@@ -196,7 +196,7 @@ Authorization: Bearer ${accessToken}
 You must verify:
 
 - The access token is valid and has not been revoked.
-- The token's granted scopes include the `pay` scope. If the user did not approve the `pay` scope during the OAuth consent step, the request must be rejected. This ensures the access token cannot be used to debit the user's account unless they explicitly consented to spending.
+- The token's granted scopes include the `assets:pay` scope. If the user did not approve the `assets:pay` scope during the OAuth consent step, the request must be rejected. This ensures the access token cannot be used to debit the user's account unless they explicitly consented to spending.
 - The asset referenced in the request `authorization` field belongs to the user the access token was issued to.
 
 #### Payap JWT (Refund, Cancel, Get Transaction)
@@ -208,7 +208,7 @@ Verify the JWT using the public key returned from the JSON Web Key Set (JWKS) en
 Keys used for signing JWTs may be rotated without warning, therefore it is required that signatures are resolved dynamically against the JWKS endpoint. You may choose to cache the result, but respect the directives in the HTTP cache-control headers.
 
 ```bash {% title="JWKS Request" %}
-curl https://auth.payap.com/.well-known/jwks.json
+curl https://service.payap.com/.well-known/jwks.json
 ```
 
 ```json {% title="JWKS Response" %}
@@ -216,12 +216,12 @@ curl https://auth.payap.com/.well-known/jwks.json
   "keys": [
     {
       "kty": "EC",
-      "x": "t-vW2fE0mLLmdzJtYrz7J9q_yEXlgmIjCXdv3VNvYfQ",
-      "y": "7GgTuTyTYmg95fZQ_D8xELt9Xj7DhvNZg1bqONPnYC4",
+      "x": "H3LklFoBTwd9uAEnzw5gZYQN6VaIELmagD69dvraLr4",
+      "y": "mIjlN4refN943USQiQGnHPhIVt7M50OUALyNUQeAQiY",
       "crv": "P-256",
-      "kid": "20191127-07baec395",
       "use": "sig",
-      "alg": "ES256"
+      "alg": "ES256",
+      "kid": "2026-02-17-adab74e8"
     }
   ]
 }
@@ -278,22 +278,22 @@ If any of the above assertions are not met the request must be rejected.
 
 > Integrations are required to tolerate any unknown fields. This is so we can maintain forwards compatibility with endpoints as we add to the API specification without versioning.
 
-|         Name         |                  Type                  | Necessity  |                                               Description                                                |
-| -------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------- |
-| currency             | String                                 | required   | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.            |
-| amount               | String                                 | required   | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
-| authorization        | String                                 | required   | A reference to the asset of the user paying the Payment Request. This is the asset `id` returned from the [Get Asset Endpoint](#get-asset-endpoint). |
-| merchantName         | String                                 | required   | The name of the merchant who created the Payment Request.                                                |
-| merchantId           | String                                 | required   | Your identifier for the merchant receiving payment.                                                      |
-| merchantCategoryCode | String                                 | optional   | Category code for the merchant who created the Payment Request.                                          |
-| merchantLocation     | [Location](/api/data-types#location)   | optional   | Location of the merchant who created the Payment Request.                                                |
-| transactionId        | String                                 | required   | A unique ID for the transaction in Payap's system. Also used for idempotency.                            |
-| status               | String                                 | required   | The status of the asset transaction. See [possible status values](#statuses).                            |
-| type                 | String                                 | required   | The type of transaction. Possible values are payment or refund.                                          |
-| failureReason        | String                                 | optional   | Required if the status is failed. See possible failure reasons under each API below.                     |
-| refundable           | Boolean                                | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
-| refundBefore         | [Timestamp](/api/data-types#timestamp) | optional   | The latest time at which a refund can be initiated.                                                      |
-| paymentRequestId     | String                                 | optional   | A unique identifier for the original Payment Request.                                                    |
+|         Name         |                  Type                  | Necessity |                                                                     Description                                                                      |
+| -------------------- | -------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| currency             | String                                 | required  | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.                                                        |
+| amount               | String                                 | required  | The value required to pay in the smallest denomination for the supported currency (e.g. cents).                                                      |
+| authorization        | String                                 | required  | A reference to the asset of the user paying the Payment Request. This is the asset `id` returned from the [Get Asset Endpoint](#get-asset-endpoint). |
+| merchantName         | String                                 | required  | The name of the merchant who created the Payment Request.                                                                                            |
+| merchantId           | String                                 | required  | Your identifier for the merchant receiving payment.                                                                                                  |
+| merchantCategoryCode | String                                 | optional  | Category code for the merchant who created the Payment Request.                                                                                      |
+| merchantLocation     | [Location](/api/data-types#location)   | optional  | Location of the merchant who created the Payment Request.                                                                                            |
+| transactionId        | String                                 | required  | A unique ID for the transaction in Payap's system. Also used for idempotency.                                                                        |
+| status               | String                                 | required  | The status of the asset transaction. See [possible status values](#statuses).                                                                        |
+| type                 | String                                 | required  | The type of transaction. Possible values are payment or refund.                                                                                      |
+| failureReason        | String                                 | optional  | Required if the status is failed. See possible failure reasons under each API below.                                                                 |
+| refundable           | Boolean                                | optional  | Required if type is payment and status is successful. A flag indicating whether a payment is refundable.                                             |
+| refundBefore         | [Timestamp](/api/data-types#timestamp) | optional  | The latest time at which a refund can be initiated.                                                                                                  |
+| paymentRequestId     | String                                 | optional  | A unique identifier for the original Payment Request.                                                                                                |
 
 ### Statuses
 
