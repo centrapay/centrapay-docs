@@ -136,6 +136,7 @@ sequenceDiagram
 |    Name     |  Type  | Necessity |                                        Description                                        |
 | ----------- | ------ | --------- | ----------------------------------------------------------------------------------------- |
 | id          | String | required  | A unique identifier for the asset in your system.                                         |
+| userId      | String | required  | A unique identifier for the user in your system.                                          |
 | balance     | String | required  | The current balance in the smallest denomination for the supported currency (e.g. cents). |
 | description | String | required  | A short, human-readable label for the asset.                                              |
 
@@ -152,11 +153,13 @@ Authorization: Bearer ${accessToken}
 [
   {
     "id": "12345",
+    "userId": "54321",
     "balance": "50",
     "description": "Everyday Account"
   },
   {
     "id": "56789",
+    "userId": "54321",
     "balance": "100",
     "description": "Everyday Account"
   }
@@ -175,12 +178,15 @@ Authorization: Bearer ${accessToken}
 ```json {% title="Get Asset Response" %}
 {
   "id": "56789",
+  "userId": "54321",
   "balance": "100",
   "description": "Everyday Account"
 }
 ```
 
 ## Paying with Assets
+
+> You only need to implement this section if you are a Payap partner. If you are a Centrapay partner then refer to this [guide](/guides/integrating-third-party-asset) instead.
 
 Refer to [Allow Your Users to Pay via Payap](/guides/payap-third-party-payment-integration) for more information.
 

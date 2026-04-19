@@ -178,7 +178,7 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 | -------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------- |
 | currency             | String                                 | required   | The three letter [ISO currency code](https://en.wikipedia.org/wiki/ISO_4217) for the payment.            |
 | amount               | String                                 | required   | The value required to pay in the smallest denomination for the supported currency (e.g. cents).          |
-| authorization        | String                                 | required   | A reference to the asset of the party paying the Payment Request.                                        |
+| authorization        | String                                 | required   | This field is treated as opaque by Centrapay and is passed through to the third-party provider without interpretation. Its contents may include a user authorization token, asset or account identifiers, or any other information required by the provider to identify the user and approve the payment. |
 | merchantName         | String                                 | required   | The name of the merchant who created the Payment Request.                                                |
 | merchantId           | String                                 | required   | Your identifier for the merchant receiving payment.                                                      |
 | merchantCategoryCode | String                                 | optional   | Category code for the merchant who created the Payment Request.                                          |
