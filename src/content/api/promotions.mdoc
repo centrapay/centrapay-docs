@@ -83,7 +83,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
 {% properties %}
   {% property name="type" type="string" %}
-    Can be `count` or `sum`. `count` if the progress should be incremented by 1 each time. `sum` if the progress should be summed from the specified `field` property.
+    Can be `count`, `shared` or `sum`. `count` if the progress should be incremented by 1 each time. `sum` if the progress should be summed from the specified `field` property. `shared` if the progress should be shared with other accounts that have memberships to the same Promotion.
   {% /property %}
 
   {% property name="field" type="string" %}
@@ -94,12 +94,8 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     The chosen number to reach for completion of the Promotion.
   {% /property %}
 
-  {% property name="progressIsShared" type="boolean" %}
-    If true, the progress of the Promotion will be shared with other accounts that have memberships to the same Promotion.
-  {% /property %}
-
-  {% property name="maxProgressPerAccount" type="number" %}
-    The maximum progress that can be achieved by a single account for this Promotion. Only supplied if `progressIsShared` is true.
+  {% property name="progress" type="number" %}
+    The shared progress of the Promotion.
   {% /property %}
 {% /properties %}
 
@@ -152,6 +148,10 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
   {% property name="operator" type="string" %}
     The operator to use when looking at the value of the field. Can be `equals`, `not`, `greater-than`, `less-than`.
+  {% /property %}
+
+  {% property name="type" type="string" %}
+    The type of condition. Can be `participation-limit`.
   {% /property %}
 {% /properties %}
 
