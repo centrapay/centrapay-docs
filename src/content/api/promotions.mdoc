@@ -93,6 +93,14 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% property name="amount" type="number" %}
     The chosen number to reach for completion of the Promotion.
   {% /property %}
+
+  {% property name="progressIsShared" type="boolean" %}
+    If true, the progress of the Promotion will be shared with other accounts that have memberships to the same Promotion.
+  {% /property %}
+
+  {% property name="maxProgressPerAccount" type="number" %}
+    The maximum progress that can be achieved by a single account for this Promotion. Only supplied if `progressIsShared` is true.
+  {% /property %}
 {% /properties %}
 
 ## Promotion Reward Model
