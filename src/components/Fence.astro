@@ -5,7 +5,8 @@ const content = (await Astro.slots.render("default")).trim()
   .replaceAll('&#39;', '\'')
   .replaceAll('&quot;', '"')
   .replaceAll('&lt;', '<')
-  .replaceAll('&gt;', '>');
+  .replaceAll('&gt;', '>')
+  .replaceAll('&amp;', '&');
 
 const Component = Astro.props["data-language"] !== 'mermaid' ? CodeFence : Mermaid;
 ---

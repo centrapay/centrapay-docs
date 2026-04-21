@@ -1,0 +1,195 @@
+---
+title: Connect Your Users to Payap
+description: Let your users link their accounts, view balances, pay at participating merchants, and more
+nav:
+  path: Payap
+  order: 1
+---
+
+By integrating with Payap as a third-party provider, your users will be able to connect their account (such as a loyalty program, or a digital asset) to their Payap wallet, view their balance, and spend at participating merchants on the Centrapay network.
+
+There are three phases to the integration:
+
+1. **Connect** — The user authorizes Payap to access their account (e.g. their loyalty membership) via OAuth 2.0.
+2. **Fetch** — Payap retrieves the user's assets (e.g. points balances) from your system.
+3. **Spend** — The user pays with their connected assets at participating merchants.
+
+## Asset Type Registration
+
+Before users can connect their account, you must register your asset type with Payap. This is a one-time setup step done in coordination with the Payap team. Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to begin this process.
+
+Your asset type defines how Payap identifies and displays your integration as a payment method.
+
+| Field         | Type   | Description                                                          | Example       |
+| ------------- | ------ | -------------------------------------------------------------------- | ------------- |
+| `name`        | String | A unique identifier for the asset type as a payment method.          | payap-example |
+| `description` | String | A short, human-readable label shown to users and in reports.         | Payap Points  |
+
+## Connecting an Account
+
+Users connect their third-party account to Payap via the OAuth 2.0 authorization code flow. You must implement an authorization endpoint, a token endpoint, and a token revocation endpoint.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant Payap
+  participant Payap Backend
+  participant Third Party
+
+  Payap->>Payap Backend: Request to connect to the third party
+  Payap Backend-->>Payap: Authorization URL returned
+  Payap-->>Third Party: User visits authorization URL to authorize the connection request
+  note over Third Party: User approves the connection request
+  Third Party-->>Payap: User is redirected back to Payap with an authorization code
+  Payap->>Payap Backend: Sends the authorization code to exchange for tokens
+  Payap Backend->>Third Party: Exchanges the authorization code for tokens
+  Third Party-->>Payap Backend: Access and refresh tokens returned
+  Payap Backend-->>Payap: Third party account successfully connected
+```
+
+## OAuth 2.0 Requirements
+
+You must implement the standard OAuth 2.0 authorization code flow with PKCE (Proof Key for Code Exchange). The following endpoints and capabilities are required:
+
+- Authorization endpoint
+- Token endpoint
+- Token revocation endpoint
+- Supported scopes
+- Long-lived refresh tokens
+
+### Authorization Request
+
+Payap initiates the connection by redirecting the user to your authorization endpoint with the following parameters:
+
+```bash {% title="Authorization Request" %}
+GET https://your.domain/authorize?
+  response_type=code
+  &client_id={payapClientId}
+  &redirect_uri={redirectUri}
+  &scope=assets:read assets:pay
+  &state={state}
+  &code_challenge={codeChallenge}
+  &code_challenge_method=S256
+```
+
+Your authorization endpoint must:
+- Support the `assets:read` and `assets:pay` scopes which are used for reading and paying with the assets.
+- Validate the `client_id`, `redirect_uri`, `scope`.
+- Present a login and consent UI so the user can authenticate and approve the requested scopes.
+
+Once the user has authenticated and consented, redirect them back to Payap's `redirect_uri` with the authorization code:
+
+```http {% title="Authorization Redirect Example" %}
+HTTP/1.1 302 Found
+Location: https://service.payap.com/callback?code=SplxlOBeZQQYbYS6WxSbIA&state=abc123
+```
+
+### Token Exchange
+
+Payap will exchange the authorization code for tokens by calling your token endpoint:
+
+```bash {% title="Token Request" %}
+curl -X POST https://your.domain/token \
+  -d "grant_type=authorization_code" \
+  -d "code=SplxlOBeZQQYbYS6WxSbIA" \
+  -d "client_id={payapClientId}" \
+  -d "redirect_uri={redirectUri}" \
+  -d "code_verifier={codeVerifier}"
+```
+
+Your token endpoint must validate the authorization `code` and the `code_verifier`, then return an access token and a long-lived refresh token:
+
+```json {% title="Token Response" %}
+{
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"
+}
+```
+
+Payap stores the access and refresh tokens securely on its backend and will use the refresh token to obtain a new access token when the current one expires.
+
+## Fetching Assets
+
+Assets are fetched live each time a user opens their Payap wallet. Payap's backend calls your endpoints using the access token obtained during the OAuth flow.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant Payap
+  participant Payap Backend
+  participant Third Party
+
+  Payap->>Payap Backend: Request to list assets
+  Payap Backend->>Third Party: GET /assets
+  Third Party-->>Payap Backend: Assets returned
+  Payap Backend-->>Payap: Assets returned
+  Payap->>Payap Backend: Request to get the balance of an asset
+  Payap Backend->>Third Party: GET /assets/:assetId
+  Third Party-->>Payap Backend: Asset returned with balance
+  Payap Backend-->>Payap: Asset returned with balance
+```
+
+### Asset Model
+
+|    Name     |  Type  | Necessity |                                        Description                                        |
+| ----------- | ------ | --------- | ----------------------------------------------------------------------------------------- |
+| id          | String | required  | A unique identifier for the asset in your system.                                         |
+| userId      | String | required  | A unique identifier for the user in your system.                                          |
+| balance     | String | required  | The current balance in the smallest denomination for the supported currency (e.g. cents). |
+| description | String | required  | A short, human-readable label for the asset.                                              |
+
+### List Assets Endpoint
+
+You must implement a list endpoint that returns all assets the user has authorized. Payap calls this endpoint after the OAuth flow completes to add an entry in the user's wallet for each asset returned.
+
+```bash {% title="List Assets Request" %}
+GET https://your.domain/assets
+Authorization: Bearer ${accessToken}
+```
+
+```json {% title="List Assets Response" %}
+[
+  {
+    "id": "12345",
+    "userId": "54321",
+    "balance": "50",
+    "description": "Everyday Account"
+  },
+  {
+    "id": "56789",
+    "userId": "54321",
+    "balance": "100",
+    "description": "Everyday Account"
+  }
+]
+```
+
+### Get Asset Endpoint
+
+Payap calls this endpoint each time the user opens their wallet to display the current balance. The `assetId` is the value returned from the list assets endpoint.
+
+```bash {% title="Get Asset Request" %}
+GET https://your.domain/assets/:assetId
+Authorization: Bearer ${accessToken}
+```
+
+```json {% title="Get Asset Response" %}
+{
+  "id": "56789",
+  "userId": "54321",
+  "balance": "100",
+  "description": "Everyday Account"
+}
+```
+
+## Paying with Assets
+
+> You only need to implement this section if you are a Payap partner. If you are a Centrapay partner then refer to this [guide](/guides/integrating-third-party-asset) instead.
+
+Refer to [Allow Your Users to Pay via Payap](/guides/payap-third-party-payment-integration) for more information.
+
+## Notifications
+
+We can send webhooks for various events whenever any activity is done using your asset for e.g. payment successful, payment failed etc. Get in touch to find out more.
