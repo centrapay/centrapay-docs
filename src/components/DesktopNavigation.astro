@@ -1,6 +1,6 @@
 ---
 import Navigation from './Navigation.vue';
-const { path, navigation } = Astro.props;
+const { path, navigation, showHeadings = true } = Astro.props;
 ---
 <div
   id="sidebar"
@@ -10,7 +10,7 @@ const { path, navigation } = Astro.props;
     <Navigation
       navigation={navigation}
       path={path}
-      showHeadings={false}
+      showHeadings={showHeadings}
       client:load
     />
   </div>
