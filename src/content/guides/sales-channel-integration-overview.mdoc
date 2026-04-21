@@ -1,0 +1,69 @@
+---
+title: Sales Channel Integration Overview
+description: An introduction to integrating a sales channel with Centrapay, covering core concepts, key building blocks, and where to start.
+nav:
+  path: Sales Channel Integrations
+  order: 1
+---
+
+A sales channel integration connects your payment experience — whether a physical terminal, point of sale system, or online checkout — to Centrapay's payment platform. Once integrated, your merchants can accept payment via any Centrapay-enabled app or asset.
+
+## How it Works
+
+At a high level, every Centrapay payment follows the same pattern: a merchant integration creates a [Payment Request](/api/payment-requests), a patron pays it using their Centrapay app or asset, and the merchant integration receives confirmation.
+
+```mermaid
+sequenceDiagram
+  participant Patron
+  participant Integration as Merchant Integration
+  participant Centrapay
+
+  Integration->>Centrapay: Create Payment Request
+  Centrapay-->>Integration: Payment Request (status: new)
+  Note over Integration,Patron: Connect with Patron (QR code or barcode)
+  Patron->>Centrapay: Pay Payment Request
+  loop Poll every second
+    Integration->>Centrapay: Get Payment Request
+    Centrapay-->>Integration: Payment Request (status: new)
+  end
+  Centrapay-->>Integration: Payment Request (status: paid)
+  Note over Integration: Show confirmation ✅
+```
+
+## Core Building Blocks
+
+| Concept | Description |
+| --- | --- |
+| [Payment Request](/api/payment-requests) | Represents the merchant's intention to receive payment. You create one per transaction and poll it for status changes. |
+| [Merchant Config](/api/merchant-configs) | Defines the set of payment methods available to a merchant. You reference a `merchantConfigId` when creating Payment Requests. |
+| [Asset Types](/api/asset-types) | The payment instruments patrons can use (e.g. digital wallets, tokens, closed-loop cards). The Merchant Config controls which asset types are accepted. |
+| API Key | Authenticates your integration against Centrapay APIs. The `merchant terminal` role is used for in-person integrations. |
+
+## Integration Types
+
+Choose the integration type that matches your channel:
+
+| Type | Best For |
+| --- | --- |
+| [Payment Terminal](/guides/payment-terminals) | Hardware terminals managed by an integrator on behalf of multiple merchants. API calls are centralised in a backend. |
+| [Point of Sale](/guides/point-of-sale) | POS software integrated directly into a merchant's existing system. A single `merchant terminal` API key authenticates the POS. |
+| [E-commerce](/guides/ecommerce-website) | Online checkouts using redirect or popup payment flows. Centrapay provides an SDK for in-page integration. |
+
+All three integration types share the same underlying payment protocol. The difference is in how you connect with the patron and how API keys are managed.
+
+## Connecting with Patrons
+
+Centrapay supports two ways for a merchant integration to connect with a patron:
+
+- **[QR Code Flow](/guides/merchant-integration-qr-code-flow)** — your integration creates a Payment Request and displays a QR code. The patron scans it using their app. Best when you have a customer-facing display.
+- **[Barcode Flow](/guides/merchant-integration-barcode-flow)** — the patron displays a barcode on their device and your integration scans it to create a Payment Request. Best when you have a barcode scanner but no customer-facing display.
+
+We recommend implementing both flows to support the widest range of patron apps and assets.
+
+## Getting Started
+
+1. Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to be issued an Integrator Account and API key.
+2. Centrapay will provide you with a `merchantId` and `merchantConfigId` to use when creating Payment Requests in the test environment.
+3. Choose your integration type and follow the relevant guide to implement the core payment flow.
+4. Review the [protocol extensions](/guides/requesting-payment#protocol-extensions) and add any that your integration requires.
+5. Once your integration is complete, Centrapay will provide a certification checklist before you go live.
