@@ -1,0 +1,67 @@
+---
+// No props — tab labels and content come from child Tab components
+---
+<div data-tabs>
+  <div role="tablist" data-tab-list class="not-prose mb-0 flex gap-0 border-b border-outline-opaque"></div>
+  <slot />
+</div>
+
+<style is:global>
+  [data-tabs] button[role="tab"] {
+    padding: 0.5rem 1.25rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  [data-tabs] button[role="tab"][aria-selected="false"] {
+    color: var(--color-content-secondary);
+  }
+  [data-tabs] button[role="tab"][aria-selected="true"] {
+    border-bottom-color: var(--color-content-primary);
+    color: var(--color-content-primary);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-tabs]').forEach((wrapper) => {
+    const tabList = wrapper.querySelector('[data-tab-list]');
+    const panels = Array.from(wrapper.querySelectorAll('[data-tab-panel]'));
+
+    // Capture Mermaid diagram source before it gets replaced with SVG,
+    // so we can restore and re-render when a hidden tab becomes visible.
+    wrapper.querySelectorAll('.mermaid').forEach((el) => {
+      el.dataset.source = el.textContent.trim();
+    });
+
+    panels.forEach((panel, i) => {
+      const id = `tab-panel-${i}-${Math.random().toString(36).slice(2, 7)}`;
+      panel.id = id;
+      if (i > 0) {panel.hidden = true;}
+
+      const btn = document.createElement('button');
+      btn.textContent = panel.dataset.label;
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', String(i === 0));
+      btn.setAttribute('aria-controls', id);
+      tabList.appendChild(btn);
+
+      btn.addEventListener('click', () => {
+        panels.forEach((p, j) => { p.hidden = j !== i; });
+        tabList.querySelectorAll('[role="tab"]').forEach((b, j) => {
+          b.setAttribute('aria-selected', String(j === i));
+        });
+        // Re-render any Mermaid diagrams now that the panel is visible.
+        // Only applies when the tab contains .mermaid elements.
+        if (window.mermaid) {
+          panels[i].querySelectorAll('.mermaid').forEach((el) => {
+            el.textContent = el.dataset.source;
+            el.removeAttribute('data-processed');
+            window.mermaid.run({ nodes: [el] });
+          });
+        }
+      });
+    });
+  });
+</script>
