@@ -20,35 +20,76 @@
             :key="navigationChild.title"
             role="menuitem"
           >
-            <li
-              role="presentation"
-              class="group rounded-md hover:bg-gray-100"
-              :class="{ 'bg-gray-100': path === navigationChild.path}"
-            >
-              <a
-                role="menuitem"
-                class="block py-2 pl-4 text-xs text-gray-600"
-                :href="navigationChild.path"
-              >
+            <template v-if="navigationChild.children?.length && !navigationChild.path">
+              <li class="px-4 pb-1 pt-3 text-xs font-semibold text-gray-400">
                 {{ navigationChild.title }}
-              </a>
-            </li>
-            <div v-if="showHeadings && navigationChild.headings?.length && path === navigationChild.path">
+              </li>
+              <div
+                v-for="subChild in navigationChild.children"
+                :key="subChild.title"
+              >
+                <li
+                  role="presentation"
+                  class="group rounded-md hover:bg-gray-100"
+                  :class="{ 'bg-gray-100': path === subChild.path }"
+                >
+                  <a
+                    role="menuitem"
+                    class="block py-2 pl-6 text-xs text-gray-600"
+                    :href="subChild.path"
+                  >
+                    {{ subChild.title }}
+                  </a>
+                </li>
+                <div v-if="showHeadings && subChild.headings?.length && path === subChild.path">
+                  <li
+                    v-for="navigationGrandchild in subChild.headings"
+                    :key="navigationGrandchild.title"
+                    role="presentation"
+                    class="group rounded-md hover:bg-gray-50"
+                  >
+                    <a
+                      role="menuitem"
+                      class="block py-2 pl-8 text-xs text-gray-600"
+                      :href="`${subChild.path}#${navigationGrandchild.slug}`"
+                    >
+                      {{ navigationGrandchild.text }}
+                    </a>
+                  </li>
+                </div>
+              </div>
+            </template>
+            <template v-else>
               <li
-                v-for="navigationGrandchild in navigationChild.headings"
-                :key="navigationGrandchild.title"
                 role="presentation"
-                class="group rounded-md hover:bg-gray-50"
+                class="group rounded-md hover:bg-gray-100"
+                :class="{ 'bg-gray-100': path === navigationChild.path}"
               >
                 <a
                   role="menuitem"
-                  class="block py-2 pl-6 text-xs text-gray-600"
-                  :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
+                  class="block py-2 pl-4 text-xs text-gray-600"
+                  :href="navigationChild.path"
                 >
-                  {{ navigationGrandchild.text }}
+                  {{ navigationChild.title }}
                 </a>
               </li>
-            </div>
+              <div v-if="showHeadings && navigationChild.headings?.length && path === navigationChild.path">
+                <li
+                  v-for="navigationGrandchild in navigationChild.headings"
+                  :key="navigationGrandchild.title"
+                  role="presentation"
+                  class="group rounded-md hover:bg-gray-50"
+                >
+                  <a
+                    role="menuitem"
+                    class="block py-2 pl-6 text-xs text-gray-600"
+                    :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
+                  >
+                    {{ navigationGrandchild.text }}
+                  </a>
+                </li>
+              </div>
+            </template>
           </div>
         </div>
       </div>
