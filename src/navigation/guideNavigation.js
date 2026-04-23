@@ -6,7 +6,15 @@ const nav = [
   { title: 'Centrapay Experiences' },
   { title: 'Digital Assets' },
   { title: 'Partner Services' },
-  { title: 'Sales Channel Integrations' },
+  {
+    title: 'Sales Channel Integrations',
+    children: [
+      { title: 'Integration Types', order: 2 },
+      { title: 'Payment Flows', order: 3 },
+      { title: 'Operations', order: 4 },
+      { title: 'Extensions', order: 5 },
+    ],
+  },
   { title: 'App Integrations' },
   { title: 'Payap' },
   { title: 'Farmlands' },
