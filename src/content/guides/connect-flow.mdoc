@@ -1,0 +1,117 @@
+---
+title: Connect Flow
+description: How to integrate the Centrapay connect flow.
+nav:
+  path: Sales Channel Integrations
+  order: 17
+---
+
+This guide describes the Centrapay connect flow, which links a wallet to a POS transaction via a [Connection](/api/connections). It covers what both the POS and wallet need to implement.
+
+## Overview
+
+When a patron's wallet is linked to a POS transaction via a Connection, the integration enables:
+
+- Validating the patron's identity before applying discounts or offers
+- Retrieving and applying promotional offers and discounts
+- Redeeming loyalty tokens as partial payment
+
+The POS [creates a Connection](/api/connections#create-connection) and displays the Connection URL as a QR code. When the patron scans it, they authorises the Connection through the wallet, linking the wallet to the transaction. The wallet then determines eligibility for discounts and offers before any payment is taken, and the remaining balance is collected by the POS.
+
+## Payment Flow
+
+```mermaid
+sequenceDiagram
+    participant Wallet
+    participant POS
+    participant Centrapay
+
+    POS->>Centrapay: Create Connection
+    Note over POS: Display QR code (Connection URL)
+
+    Wallet->>POS: Scan QR code
+    Note over Wallet: Validate user identity and link to connection
+    Wallet->>Centrapay: Authorise connection
+    Centrapay-->>Wallet: Return authorised connection
+
+    POS->>Centrapay: Create payment request with connectionId
+
+    par
+        loop Poll until final state
+            POS->>Centrapay: Get payment request
+        end
+    and
+        Wallet->>Centrapay: Get payment request by connectionId
+        Centrapay-->>Wallet: Return payment request
+
+        Note over Wallet: Calculate offers based on line items
+
+        Wallet->>Centrapay: Pay (Uplink API)
+        Note over Wallet: Mark offer or asset as redeemed
+    end
+
+    Centrapay-->>POS: Return payment request with discounts applied
+    Note over POS: Collect remaining balance
+
+    Centrapay->>Wallet: Notify payment request paid
+    Note over Wallet: Update loyalty progress
+```
+
+## Connecting the Wallet
+
+The flow begins when the POS creates a Connection and the patron scans the QR code to link their wallet to the transaction.
+
+**POS:** [Create a Connection](/api/connections#create-connection) and display the returned Connection URL as a QR code.
+
+**Wallet:** Implement the [authorise the connection](/api/connections#authorize-connection) to authorize the connection.
+
+## Requesting payment
+
+Once the connection is authorised, the POS creates a Payment Request tied to the connection.
+
+**POS:** [Create a Payment Request](/api/payment-requests#create-a-payment-request) with the `connectionId` from the Connection. This allows Centrapay to associate the transaction with the patron's wallet so offers can be applied.
+
+**Wallet:** [Get Payment Request by connectionId](/api/payment-requests#get-a-payment-request-by-connection-id) to fetch the payment request details from Centrapay. The payment request will contain line items that can be used to calculate available offers.
+
+## Applying Offers and Processing Payment
+
+The POS and wallet work in parallel — the POS polls for the payment request status while the wallet calculates and applies offers.
+
+**POS:** Begin polling the Payment Request for status changes. If Centrapay returns an updated Payment Request with discounts applied, update the cart accordingly. If the connection wasn't authorised, void the Payment Request after collecting payment.
+
+**Wallet:** Call Centrapay to pay via the [Uplink API](/guides/integrating-third-party-asset).
+
+## Completing the Transaction
+
+**POS:** Once the Payment Request reaches a final state, display the result to the patron.
+
+**Wallet:** Optionally integrate with the paid notification webhook. Use this to update the patron's loyalty progress if applicable.
+
+## Cancellation and Refund
+
+Whether a transaction is cancelled mid-flight or refunded after completion, Centrapay calls the refund endpoint to reverse any payment.
+
+**POS:** Implement the void and refund endpoints.
+
+**Wallet:** Implement the refund Uplink API endpoint.
+
+```mermaid
+sequenceDiagram
+    participant POS
+    participant Centrapay
+    participant BE as App
+
+    POS->>Centrapay: Cancel or refund payment request
+    Centrapay->>BE: Refund (Uplink API)
+    Note over BE: Reinstate asset
+    Note over BE: Revert any loyalty progress
+    BE-->>Centrapay: Response
+    Note over Centrapay: Update Payment Request
+    Centrapay-->>POS: Response
+```
+
+## See Also
+
+- [Connections API](/api/connections) — create and authorise Connections
+- [Payment Request API](/api/payment-requests) - manage payments
+- [Uplink API](/guides/integrating-third-party-asset) - transact assets not managed by Centrapay
