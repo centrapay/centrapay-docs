@@ -20,72 +20,42 @@ The POS [creates a Connection](/api/connections#create-connection) and displays 
 
 ## Payment Flow
 
-{% tabs %}
-{% tab label="POS" %}
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Wallet
     participant POS
     participant Centrapay
 
     POS->>Centrapay: Create Connection
     Note over POS: Display QR code (Connection URL)
 
-    User->>POS: Scan QR code
-    User->>Centrapay: Authorise connection
+    Wallet->>POS: Scan QR code
+    Note over Wallet: Validate user identity and link to connection
+    Wallet->>Centrapay: Authorise connection
+    Centrapay-->>Wallet: Return authorised connection
 
     POS->>Centrapay: Create payment request with connectionId
 
-    loop Poll until final state
-        POS->>Centrapay: Get payment request
+    par
+        loop Poll until final state
+            POS->>Centrapay: Get payment request
+        end
+    and
+        Wallet->>Centrapay: Get payment request by connectionId
+        Centrapay-->>Wallet: Return payment request
+
+        Note over Wallet: Calculate offers based on line items
+
+        Wallet->>Centrapay: Pay (Uplink API)
+        Note over Wallet: Mark offer or asset as redeemed
     end
 
     Centrapay-->>POS: Return payment request with discounts applied
     Note over POS: Collect remaining balance
 
-    Centrapay-->>POS: Return payment request
-    Note over POS: Display result
+    Centrapay->>Wallet: Notify payment request paid
+    Note over Wallet: Update loyalty progress
 ```
-{% /tab %}
-{% tab label="Wallet" %}
-```mermaid
-sequenceDiagram
-    participant App
-    participant POS
-    participant Centrapay
-    participant BE as App Backend
-
-    POS->>Centrapay: Create Connection
-    Note over POS: Display QR code (Connection URL)
-
-    App->>POS: Scan QR code
-    App->>BE: Authorise connection
-    Note over BE: Validate user identity and link to connection
-    BE->>Centrapay: Authorise connection
-    Centrapay-->>BE: Return authorised connection
-    BE-->>App: Response
-
-    POS->>Centrapay: Create payment request with connectionId
-
-    App->>BE: Get payment request by connectionId
-    BE->>Centrapay: Get payment request by connectionId
-    Centrapay-->>BE: Response
-    BE-->>App: Response
-
-    App->>BE: Get offers
-    Note over BE: Calculate offers based on line items
-    BE-->>App: Return offers
-
-    App->>BE: Pay with offer or asset
-    BE->>Centrapay: Pay (Uplink API)
-    Note over BE: Mark offer or asset as redeemed
-    BE-->>Centrapay: Pay successful
-
-    Centrapay->>BE: Notify payment request paid
-    Note over BE: Update loyalty progress
-```
-{% /tab %}
-{% /tabs %}
 
 ## Connecting the Wallet
 

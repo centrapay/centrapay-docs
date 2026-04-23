@@ -122,14 +122,5 @@ export default defineMarkdocConfig({
     mermaid: {
       render: component('./src/components/Mermaid.astro'),
     },
-    tabs: {
-      render: component('./src/components/Tabs.astro'),
-    },
-    tab: {
-      render: component('./src/components/Tab.astro'),
-      attributes: {
-        label: { type: String },
-      },
-    },
   },
 });
