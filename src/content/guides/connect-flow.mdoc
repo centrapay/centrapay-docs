@@ -35,33 +35,16 @@ sequenceDiagram
     User->>Centrapay: Authorise connection
 
     POS->>Centrapay: Create payment request with connectionId
-    Centrapay-->>POS: Return new payment request
 
-    par
-      loop Poll until final state
-          POS->>Centrapay: Get payment request
-      end
-    and
-      Note over POS: Display QR code (Payment Request URL)
-      opt If discounts applied
-        Centrapay-->>POS: Return payment request after discounts
-      end
-      Note over POS: Request remaining amount
-
-      alt If discounts applied
-        alt If non Centrapay Payment
-          POS->>Centrapay: Pay remaining amount
-        else If Centrapay Payment
-          User->>Centrapay: Pay remaining amount
-        end
-      else If no discounts applied and Non Centrapay Payment
-        User->>POS: Pay remaining amount (cash/EFTPOS/Centrapay)
-        POS->>Centrapay: Void Payment Request
-      end
+    loop Poll until final state
+        POS->>Centrapay: Get payment request
     end
 
-    Centrapay-->>POS: Return Payment Request with Final status
-    Note over POS: Display Payment Request Result
+    Centrapay-->>POS: Return payment request with discounts applied
+    Note over POS: Collect remaining balance
+
+    Centrapay-->>POS: Return payment request
+    Note over POS: Display result
 ```
 {% /tab %}
 {% tab label="Wallet" %}
@@ -77,51 +60,29 @@ sequenceDiagram
 
     App->>POS: Scan QR code
     App->>BE: Authorise connection
-    Note over BE: Validate user identity
-    Note over BE: Link user to connection
+    Note over BE: Validate user identity and link to connection
     BE->>Centrapay: Authorise connection
     Centrapay-->>BE: Return authorised connection
-    BE-->>App: 200 OK
+    BE-->>App: Response
 
     POS->>Centrapay: Create payment request with connectionId
-    par
-      loop until final state
-        POS->>Centrapay: Get payment request
-      end
-    and
-      App->>BE: Get payment request by connectionId
-      BE->>Centrapay: Get payment request by connectionId
-      Centrapay-->>BE: Return payment request
-      BE-->>App: Return payment request
 
-      App->>BE: Get offers
-      Note over BE: Calculate offers based on line items
-      BE-->>App: Return offers
+    App->>BE: Get payment request by connectionId
+    BE->>Centrapay: Get payment request by connectionId
+    Centrapay-->>BE: Response
+    BE-->>App: Response
 
-      opt
-        App->>BE: Pay with offer or other asset
-        BE->>Centrapay: Pay (Offer amount)
-        Centrapay->>BE: Pay (Uplink API)
-        Note over BE: Mark offer or asset as redeemed
-        BE-->>Centrapay: Pay successful
-        BE-->>App: 200 OK
-      end
+    App->>BE: Get offers
+    Note over BE: Calculate offers based on line items
+    BE-->>App: Return offers
 
-      opt
-        App->>BE: Pay with token
-        BE->>Centrapay: Pay with token
-        Note over Centrapay: Mark token as redeemed
-        Centrapay-->>BE: Token redemption successful
-        BE-->>App: 200 OK
-      end
+    App->>BE: Pay with offer or asset
+    BE->>Centrapay: Pay (Uplink API)
+    Note over BE: Mark offer or asset as redeemed
+    BE-->>Centrapay: Pay successful
 
-      Centrapay-->>POS: Return payment request
-      Note over POS: Get payment for remaining balance
-      opt
-        Centrapay->>BE: Notify payment request paid
-        Note over BE: Update loyalty progress
-      end
-    end
+    Centrapay->>BE: Notify payment request paid
+    Note over BE: Update loyalty progress
 ```
 {% /tab %}
 {% /tabs %}
@@ -130,29 +91,25 @@ sequenceDiagram
 
 The flow begins when the POS creates a Connection and the patron scans the QR code to link their wallet to the transaction.
 
-**POS:** [Create a Connection](/api/connections#create-connection) and display the returned Connection URL as a QR code. Wait for the connection to reach an authorised state before proceeding.
+**POS:** [Create a Connection](/api/connections#create-connection) and display the returned Connection URL as a QR code.
 
-**Wallet:** Implement the authorise connection endpoint that wallet calls when the patron scans the QR code. Use this call to validate the patron's identity and link them to the connection. Once validated, call Centrapay to [authorise the connection](/api/connections#authorize-connection) and return a `200 OK` to the wallet.
+**Wallet:** Implement the [authorise the connection](/api/connections#authorize-connection) to authorize the connection.
 
 ## Requesting payment
 
-Once the connection is authorised, the POS creates a Payment Request tied to the patron's session.
+Once the connection is authorised, the POS creates a Payment Request tied to the connection.
 
 **POS:** [Create a Payment Request](/api/payment-requests#create-a-payment-request) with the `connectionId` from the Connection. This allows Centrapay to associate the transaction with the patron's wallet so offers can be applied.
 
-**Wallet:** Implement an endpoint that the wallet can call to retrieve the Payment Request by `connectionId`. Use this to fetch the payment request details from Centrapay and return them to the app, including line items that will be used to calculate available offers.
+**Wallet:** [Get Payment Request by connectionId](/api/payment-requests#get-a-payment-request-by-connection-id) to fetch the payment request details from Centrapay. The payment request will contain line items that can be used to calculate available offers.
 
 ## Applying Offers and Processing Payment
 
 The POS and wallet work in parallel — the POS polls for the payment request status while the wallet calculates and applies offers.
 
-**POS:** Begin polling the Payment Request for status changes. If Centrapay returns an updated Payment Request with discounts applied, update the cart accordingly. Once offers have been applied, display the Payment Request QR code and request the remaining balance from the patron via cash, EFTPOS, or a Centrapay payment. If no discounts were applied and the patron pays by a non-Centrapay method, void the Payment Request after collecting payment.
+**POS:** Begin polling the Payment Request for status changes. If Centrapay returns an updated Payment Request with discounts applied, update the cart accordingly. If the connection wasn't authorised, void the Payment Request after collecting payment.
 
-**Wallet:** Implement the endpoints Centrapay calls to retrieve and apply offers:
-
-- **Get offers** — calculate available offers based on the payment request's line items and return them to the wallet.
-- **Pay with offer or asset** — when the app submits an offer or asset for payment, call Centrapay to pay the offer amount via the [Uplink API](/guides/integrating-third-party-asset), then mark the offer or asset as redeemed in the app.
-- **Pay with token** — when the wallet submits a loyalty token, call Centrapay to redeem it against the payment request.
+**Wallet:** Call Centrapay to pay via the [Uplink API](/guides/integrating-third-party-asset).
 
 ## Completing the Transaction
 
@@ -162,11 +119,11 @@ The POS and wallet work in parallel — the POS polls for the payment request st
 
 ## Cancellation and Refund
 
-Whether a transaction is cancelled mid-flight or refunded after completion, Centrapay calls the wallet backend to reverse any redemptions.
+Whether a transaction is cancelled mid-flight or refunded after completion, Centrapay calls the refund endpoint to reverse any payment.
 
-**POS:** Implement the cancel and refund endpoints.
+**POS:** Implement the void and refund endpoints.
 
-**Wallet:** Implement the refund Uplink API endpoint. Use this to reinstate any redeemed offers or assets and revert any loyalty progress that was recorded.
+**Wallet:** Implement the refund Uplink API endpoint.
 
 ```mermaid
 sequenceDiagram
@@ -178,8 +135,9 @@ sequenceDiagram
     Centrapay->>BE: Refund (Uplink API)
     Note over BE: Reinstate asset
     Note over BE: Revert any loyalty progress
-    BE-->>Centrapay: Refunded
-    Centrapay-->>POS: 200 OK
+    BE-->>Centrapay: Response
+    Note over Centrapay: Update Payment Request
+    Centrapay-->>POS: Response
 ```
 
 ## See Also
