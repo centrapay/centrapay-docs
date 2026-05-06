@@ -3,7 +3,7 @@ import CentrapayLogo from './icons/CentrapayLogo.astro';
 import SiteSearch from './SiteSearch.vue';
 import MobileMenu from './MobileMenu.vue';
 
-const { path, navigation } = Astro.props;
+const { path, navigation, showHeadings = true } = Astro.props;
 ---
 <centrapay-header>
   <header class="fixed inset-x-0 z-10 flex h-16 shrink-0 bg-white shadow-sm">
@@ -42,7 +42,7 @@ const { path, navigation } = Astro.props;
       </div>
       <div class="flex items-center">
         <SiteSearch client:load />
-        <MobileMenu client:load data-mobile-menu path={path} navigation={navigation} />
+        <MobileMenu client:load data-mobile-menu path={path} navigation={navigation} showHeadings={showHeadings} />
       </div>
     </div>
   </header>

@@ -3,22 +3,18 @@
     v-slot="{ open }"
     class="static isolate z-50 md:hidden"
   >
-    <div class="py-5">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <PopoverButton class="flex items-center ring-focus-ring focus:outline-hidden focus:ring-2 focus:ring-inset">
-          <NavigationMenu
-            v-if="!open"
-            class="block size-6 text-content-tertiary"
-            aria-hidden="true"
-          />
-          <CloseOutline
-            v-else
-            class="block size-6 text-content-tertiary"
-            aria-hidden="true"
-          />
-        </PopoverButton>
-      </div>
-    </div>
+    <PopoverButton class="flex items-center p-2 ring-focus-ring focus:outline-hidden focus:ring-2 focus:ring-inset">
+      <NavigationMenu
+        v-if="!open"
+        class="block size-6 text-content-tertiary"
+        aria-hidden="true"
+      />
+      <CloseOutline
+        v-else
+        class="block size-6 text-content-tertiary"
+        aria-hidden="true"
+      />
+    </PopoverButton>
 
     <transition
       enter-active-class="transition ease-out duration-200"
@@ -33,6 +29,7 @@
           <Navigation
             :path="path"
             :navigation="navigation"
+            :show-headings="showHeadings"
           />
         </div>
       </PopoverPanel>
@@ -49,5 +46,6 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
   navigation: { type: Object, required: true },
+  showHeadings: { type: Boolean, required: false, default: true },
 });
 </script>
