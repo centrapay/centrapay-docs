@@ -1,0 +1,119 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier.
+  shortCode:
+    type: string
+    description: A short code for the Payment Request.
+  url:
+    type: string
+    description: The URL of the Payment Request.
+  value:
+    x-type: monetary
+    type: object
+    description: The canonical value of the Payment Request. Must be less than 100000000 and positive.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+  status:
+    type: string
+    enum: [new, paid, cancelled, expired]
+    description: The current status of the Payment Request.
+  liveness:
+    type: string
+    enum: [test, main]
+    description: Whether the Payment Request is for testing or live payments.
+  expirySeconds:
+    type: integer
+    description: The number of seconds until the Payment Request expires.
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+  expiresAt:
+    type: string
+    format: date-time
+  lineItems:
+    type: array
+    description: The [Line Items](#line-item-model) being paid for.
+    items:
+      $ref: './line-item.yaml'
+  barcode:
+    type: string
+    description: "[Scanned Code](/api/scanned-codes) used to create the Payment Request."
+  barcodeType:
+    type: string
+    description: "Indicates the provider of a barcode, e.g. `ticketek`."
+  collectionId:
+    type: string
+    description: The identifier of the [Token Collection](/api/tokens).
+  purchaseOrderRef:
+    type: string
+    description: A reference to a purchase order for this Payment Request.
+  invoiceRef:
+    type: string
+    description: A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
+  redirectCancelUrl:
+    type: string
+    x-experimental: true
+    description: URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+  redirectPaidUrl:
+    type: string
+    x-experimental: true
+    description: URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
+  externalRef:
+    type: string
+    description: An external reference to the Payment Request.
+  terminalId:
+    type: string
+    description: The software or logical id of the payment terminal.
+  deviceId:
+    type: string
+    description: The hardware id or serial number of the payment terminal.
+  operatorId:
+    type: string
+    description: POS operator Id.
+  conditionsEnabled:
+    type: boolean
+    description: Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
+  patronNotPresent:
+    type: boolean
+    description: "Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model)."
+  preAuth:
+    type: boolean
+    description: Flag to indicate if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
+  partialAllowed:
+    type: boolean
+    description: Flag to indicate that the Payment Request can be paid for partially.
+  basketAmount:
+    x-type: bignumber
+    type: string
+    description: "The total amount of the transaction including non Centrapay payment methods. Required when `partialAllowed` is `true`."
+  connectionId:
+    type: string
+    x-experimental: true
+    description: The identifier of the [Connection](/api/connections) associated with the payment request.
+  connectionStatus:
+    type: string
+    x-experimental: true
+    description: The status of the [Connection](/api/connections) associated with the payment request.
+  paymentLinkId:
+    type: string
+    x-experimental: true
+    description: The identifier of the [Payment Link](/api/payment-links).
+
+x-examples:
+  paymentRequestId: VYowvZmuw3hbp1va9xqWx7
+  paymentRequestShortCode: CP-X4V-6N
+  paymentRequestUrl: https://app.centrapay.com/pay/$paymentRequestId
+  accountId: Jaim1Cu1Q55uooxSens6yk
+  createdAt: '2023-10-23T22:56:46.145Z'
+  updatedAt: '2023-10-23T22:56:46.145Z'
+  expiresAt: '2023-10-23T22:58:46.145Z'
+  connectionId: cn_9asd9k19
+  paymentLinkId: pl_5srt998b

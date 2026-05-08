@@ -1,0 +1,131 @@
+method: POST
+path: /api/payment-requests
+operationId: createPaymentRequest
+summary: Create a Payment Request
+tags:
+  - Payment Requests
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - configId
+          - value
+        properties:
+          configId:
+            $ref: '../models/merchant-config.yaml#/properties/configId'
+          value:
+            $ref: '../models/payment-request.yaml#/properties/value'
+          barcode:
+            $ref: '../models/payment-request.yaml#/properties/barcode'
+          barcodeType:
+            $ref: '../models/payment-request.yaml#/properties/barcodeType'
+          collectionId:
+            $ref: '../models/payment-request.yaml#/properties/collectionId'
+          expirySeconds:
+            $ref: '../models/payment-request.yaml#/properties/expirySeconds'
+          lineItems:
+            $ref: '../models/payment-request.yaml#/properties/lineItems'
+          purchaseOrderRef:
+            $ref: '../models/payment-request.yaml#/properties/purchaseOrderRef'
+          invoiceRef:
+            $ref: '../models/payment-request.yaml#/properties/invoiceRef'
+          redirectCancelUrl:
+            $ref: '../models/payment-request.yaml#/properties/redirectCancelUrl'
+          redirectPaidUrl:
+            $ref: '../models/payment-request.yaml#/properties/redirectPaidUrl'
+          externalRef:
+            $ref: '../models/payment-request.yaml#/properties/externalRef'
+          terminalId:
+            $ref: '../models/payment-request.yaml#/properties/terminalId'
+          deviceId:
+            $ref: '../models/payment-request.yaml#/properties/deviceId'
+          operatorId:
+            $ref: '../models/payment-request.yaml#/properties/operatorId'
+          conditionsEnabled:
+            $ref: '../models/payment-request.yaml#/properties/conditionsEnabled'
+          patronNotPresent:
+            $ref: '../models/payment-request.yaml#/properties/patronNotPresent'
+          preAuth:
+            $ref: '../models/payment-request.yaml#/properties/preAuth'
+          partialAllowed:
+            $ref: '../models/payment-request.yaml#/properties/partialAllowed'
+          basketAmount:
+            $ref: '../models/payment-request.yaml#/properties/basketAmount'
+          connectionId:
+            $ref: '../models/payment-request.yaml#/properties/connectionId'
+          paymentLinkId:
+            $ref: '../models/payment-request.yaml#/properties/paymentLinkId'
+      example:
+        configId: mc_5efbe2fb96c08357bb2b9242
+        expirySeconds: 120
+        value:
+          amount: '10000'
+          currency: NZD
+        lineItems: $lineItems
+        connectionId: $connectionId
+        paymentLinkId: $paymentLinkId
+responses:
+  '200':
+    description: Payment Request created
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              $ref: '../models/payment-request.yaml#/properties/id'
+            shortCode:
+              $ref: '../models/payment-request.yaml#/properties/shortCode'
+            url:
+              $ref: '../models/payment-request.yaml#/properties/url'
+            merchantId:
+              $ref: '../models/merchant.yaml#/properties/merchantId'
+            merchantName:
+              $ref: '../models/merchant.yaml#/properties/merchantName'
+            configId:
+              $ref: '../models/merchant-config.yaml#/properties/configId'
+            value:
+              $ref: '../models/payment-request.yaml#/properties/value'
+            status:
+              $ref: '../models/payment-request.yaml#/properties/status'
+            liveness:
+              $ref: '../models/payment-request.yaml#/properties/liveness'
+            expirySeconds:
+              $ref: '../models/payment-request.yaml#/properties/expirySeconds'
+            createdAt:
+              $ref: '../models/payment-request.yaml#/properties/createdAt'
+            updatedAt:
+              $ref: '../models/payment-request.yaml#/properties/updatedAt'
+            expiresAt:
+              $ref: '../models/payment-request.yaml#/properties/expiresAt'
+            lineItems:
+              $ref: '../models/payment-request.yaml#/properties/lineItems'
+            connectionId:
+              $ref: '../models/payment-request.yaml#/properties/connectionId'
+            connectionStatus:
+              $ref: '../models/payment-request.yaml#/properties/connectionStatus'
+            paymentLinkId:
+              $ref: '../models/payment-request.yaml#/properties/paymentLinkId'
+        example:
+          id: $paymentRequestId
+          shortCode: $paymentRequestShortCode
+          url: $paymentRequestUrl
+          merchantId: $merchantId
+          merchantName: $merchantName
+          configId: $configId
+          value:
+            amount: '10000'
+            currency: NZD
+          status: new
+          liveness: test
+          expirySeconds: 120
+          createdAt: $createdAt
+          updatedAt: $updatedAt
+          expiresAt: $expiresAt
+          lineItems: $lineItems
+          connectionId: $connectionId
+          connectionStatus: active
+          paymentLinkId: $paymentLinkId

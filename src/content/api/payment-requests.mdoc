@@ -472,117 +472,41 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
 ---
 
-{% endpoint
-  path="/api/payment-requests"
-  filename="payment-requests-create"
-%}
+{% openApiEndpoint operationId="createPaymentRequest" %}
   ## Create a Payment Request
 
   This endpoint allows you to create a Payment Request.
+{% /openApiEndpoint %}
 
-  {% properties %}
-    {% property name="configId" type="string" required=true %}
-      The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
-    {% /property %}
-    {% property name="value" type="monetary" required=true %}
-      The canonical value of the Payment Request. Must be less than 100000000 and positive.
-    {% /property %}
-    {% property name="barcode" type="string" %}
-      [Scanned Code](/api/scanned-codes) used to create the Payment Request.
-    {% /property %}
-    {% property name="barcodeType" type="string" %}
-      Indicates the provider of a barcode, e.g. `ticketek`.
-    {% /property %}
-    {% property name="collectionId" type="string" %}
-      The identifier of the [Token Collection](/api/tokens).
-    {% /property %}
-    {% property name="expirySeconds" type="number" %}
-      The expiry seconds used to configure the Payment Request expiry.
-    {% /property %}
-    {% property name="lineItems" type="array" %}
-      The [Line Items](#line-item-model) being paid for.
-    {% /property %}
-    {% property name="purchaseOrderRef" type="string" %}
-      A reference to a purchase order for this Payment Request.
-    {% /property %}
-    {% property name="invoiceRef" type="string" %}
-      A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
-    {% /property %}
-    {% property name="redirectCancelUrl" type="string" experimental=true %}
-      URL to redirect the user to after they cancel the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
-    {% /property %}
-    {% property name="redirectPaidUrl" type="string" experimental=true %}
-      URL to redirect the user to after they pay the Payment Request. Must start with one of the allowedRedirectUrls for the [Merchant Config](/api/merchant-configs).
-    {% /property %}
-    {% property name="externalRef" type="string" %}
-      An external reference to the Payment Request.
-    {% /property %}
-    {% property name="terminalId" type="string" %}
-      The software or logical id of the payment terminal.
-    {% /property %}
-    {% property name="deviceId" type="string" %}
-      The hardware id or serial number of the payment terminal.
-    {% /property %}
-    {% property name="operatorId" type="string" %}
-      POS operator Id.
-    {% /property %}
-    {% property name="createdByAccountName" type="string" %}
-      Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
-    {% /property %}
-    {% property name="conditionsEnabled" type="boolean" %}
-      Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
-    {% /property %}
-    {% property name="patronNotPresent" type="boolean" %}
-      Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model).
-    {% /property %}
-    {% property name="preAuth" type="boolean" %}
-      Flag to indicate the if the request is a Pre Auth for supported [Asset Types](/api/asset-types).
-    {% /property %}
-    {% property name="partialAllowed" type="boolean" %}
-      Flag to indicate that the Payment Request can be paid for partially.
-    {% /property %}
-    {% property name="basketAmount" type="bignumber" %}
-      The total amount of the transaction including non Centrapay payment methods. Required when `partialAllowed` is `true`.
-    {% /property %}
-    {% property name="connectionId" type="string" %}
-      The identifier of the connection to be linked to the payment request.
-    {% /property %}
-    {% property name="paymentLinkId" type="string" experimental=true  %}
-      The identifier of the [Payment Link](/api/payment-links).
-    {% /property %}
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED" %}
-      The sum value of the line items did not equal the value of the Payment Request.
-    {% /error %}
-    {% error code="400" message="CHECKSUM_FAILED" %}
-      Luhn checksum digit doesn't pass.
-    {% /error %}
-    {% error code="403" message="REDIRECT_URL_INVALID" %}
-      One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
-    {% /error %}
-    {% error code="403" message="PATRON_CODE_INVALID" %}
-      [Patron Code](/api/patron-codes) doesn't exist or has expired.
-    {% /error %}
-    {% error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS" %}
-      No payment options match the requested payment parameters.
-    {% /error %}
-    {% error code="403" message="TOKEN_COLLECTION_NOT_FOUND" %}
-      The token collection does not exist.
-    {% /error %}
-    {% error code="403" message="CONNECTION_NOT_FOUND" %}
-      The connection does not exist.
-    {% /error %}
-    {% error code="403" message="CONNECTION_MERCHANT_MISMATCH" %}
-      The connection is not for the same merchant as the payment request.
-    {% /error %}
-    {% error code="403" message="CONNECTION_CREATED_BY_MISMATCH" %}
-      The connection was not created by the same caller as the payment request.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% properties heading="Errors" %}
+  {% error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED" %}
+    The sum value of the line items did not equal the value of the Payment Request.
+  {% /error %}
+  {% error code="400" message="CHECKSUM_FAILED" %}
+    Luhn checksum digit doesn't pass.
+  {% /error %}
+  {% error code="403" message="REDIRECT_URL_INVALID" %}
+    One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+  {% /error %}
+  {% error code="403" message="PATRON_CODE_INVALID" %}
+    [Patron Code](/api/patron-codes) doesn't exist or has expired.
+  {% /error %}
+  {% error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS" %}
+    No payment options match the requested payment parameters.
+  {% /error %}
+  {% error code="403" message="TOKEN_COLLECTION_NOT_FOUND" %}
+    The token collection does not exist.
+  {% /error %}
+  {% error code="403" message="CONNECTION_NOT_FOUND" %}
+    The connection does not exist.
+  {% /error %}
+  {% error code="403" message="CONNECTION_MERCHANT_MISMATCH" %}
+    The connection is not for the same merchant as the payment request.
+  {% /error %}
+  {% error code="403" message="CONNECTION_CREATED_BY_MISMATCH" %}
+    The connection was not created by the same caller as the payment request.
+  {% /error %}
+{% /properties %}
 
 ---
 

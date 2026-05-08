@@ -1,0 +1,141 @@
+---
+import { getCollection } from 'astro:content';
+import Row from './Row.astro';
+import Column from './Column.astro';
+import CodePanel from './CodePanel.astro';
+import { Code } from 'astro-expressive-code/components';
+import createEndpoint from '../utils/createEndpoint';
+
+const { operationId } = Astro.props;
+
+const schemasCollection = await getCollection('openapiSchemas');
+
+const schemasMap = Object.fromEntries(
+  schemasCollection.map(entry => [entry.id.split('/').pop(), entry.data])
+);
+
+const lookup = schemasCollection.reduce((acc, entry) => ({
+  ...acc,
+  ...(entry.data['x-examples'] ?? {}),
+}), {});
+
+function resolveAll(obj) {
+  if (typeof obj === 'string' && /^\$[a-zA-Z][a-zA-Z0-9]*$/.test(obj)) return resolveAll(lookup[obj.slice(1)] ?? obj);
+  if (typeof obj === 'string' && obj.includes('$')) return obj.replace(/\$([a-zA-Z][a-zA-Z0-9]*)/g, (m, k) => k in lookup ? String(lookup[k]) : m);
+  if (obj && typeof obj === 'object' && '$ref' in obj) {
+    const ref = obj['$ref'];
+    const [filePart, pointer] = ref.split('#');
+    const refId = filePart.split('/').pop().replace('.yaml', '');
+    let target = schemasMap[refId] ?? obj;
+    if (pointer) {
+      for (const part of pointer.replace(/^\//, '').split('/').filter(Boolean)) {
+        target = target?.[part] ?? obj;
+      }
+    }
+    return resolveAll(target);
+  }
+if (Array.isArray(obj)) return obj.map(resolveAll);
+  if (obj && typeof obj === 'object') return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, resolveAll(v)]));
+  return obj;
+}
+
+const endpoints = await getCollection('openapiEndpoints');
+const entry = endpoints.find(e => e.data.operationId === operationId);
+
+if (!entry) throw new Error(`No operation found for operationId: ${operationId}`);
+
+const operation = resolveAll(entry.data);
+
+const endpointData = {
+  method: operation.method,
+  path: operation.path,
+  request: {
+    headers: {
+      'X-Api-Key': '<TOKEN>',
+      ...(operation.requestBody ? { 'Content-Type': 'application/json' } : {}),
+    },
+    payload: operation.requestBody?.content?.['application/json']?.example,
+  },
+  response: operation.responses?.['200']?.content?.['application/json']?.example,
+};
+
+const endpoint = createEndpoint(endpointData);
+
+const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
+
+const schema = operation.requestBody?.content?.['application/json']?.schema;
+const required = schema?.required ?? [];
+
+const properties = Object.entries(schema?.properties ?? {}).map(([name, prop]) => {
+  const type = prop['x-type'] ?? prop.type ?? 'string';
+  const formattedType = type.toLowerCase();
+  const typeLink = customDataTypes.includes(formattedType) ? `/api/data-types#${formattedType}` : undefined;
+  const description = prop.description
+    ? prop.description
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+    : null;
+  return {
+    name,
+    formattedType,
+    typeLink,
+    description,
+    isRequired: required.includes(name),
+    isExperimental: !!prop['x-experimental'],
+    isDeprecated: !!prop['x-deprecated'],
+  };
+});
+
+const badgeClasses = {
+  experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
+  required: 'bg-surface-accent text-content-on-color border-outline-opaque',
+  deprecated: 'text-content-on-color border-outline-opaque bg-red-800',
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary',
+};
+
+const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-caption-2 px-2 py-0.5 rounded-full border`;
+---
+
+<Row>
+  <Column>
+    <slot />
+    {properties.length > 0 && (
+      <div data-attributes class="my-6">
+        <div class="not-prose flex items-center justify-between py-2">
+          <h3 class="type-subtitle-1">Attributes</h3>
+        </div>
+        <ul role="list" class="mt-0 list-none prose-li:m-0 divide-outline-transparent p-0">
+          {properties.map(({ name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated }) => (
+            <li class="px-0 border-b-0">
+              <div class="m-0 flex flex-wrap items-baseline gap-x-3">
+                <h4 class="my-0" id={name}>{name}</h4>
+                <span class="not-prose inline-flex items-center">
+                  {typeLink
+                    ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+                    : <span class={badge('default')}>{formattedType}</span>
+                  }
+                </span>
+                {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+                {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
+                {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
+              </div>
+              <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+                {description && <p set:html={description} />}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </Column>
+  <Column sticky>
+    <CodePanel>
+      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal" />
+    </CodePanel>
+    {endpoint.response &&
+      <CodePanel>
+        <Code code={endpoint.response} lang="json" title="Response" frame="terminal" />
+      </CodePanel>
+    }
+  </Column>
+</Row>

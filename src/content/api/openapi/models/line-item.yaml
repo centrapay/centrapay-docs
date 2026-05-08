@@ -1,0 +1,49 @@
+type: object
+properties:
+  name:
+    type: string
+    description: The name of the line item.
+  sku:
+    type: string
+    description: The SKU of the line item.
+  qty:
+    type: string
+    description: The quantity of the line item.
+  price:
+    type: string
+    description: The price of the line item in the minimum divisible units of the currency.
+  tax:
+    type: string
+    description: The tax rate as a percentage.
+  discount:
+    type: string
+    description: The discount amount in the minimum divisible units of the currency.
+
+x-examples:
+  lineItemHardHat:
+    name: Hard Hat
+    sku: GH1234
+    qty: '1'
+    price: '4000'
+    tax: '15'
+    discount: '400'
+  lineItemToolBelt:
+    name: Tool Belt
+    sku: GH1234
+    qty: '1'
+    price: '6000'
+    tax: '15'
+    discount: '600'
+  lineItems:
+    - name: Hard Hat
+      sku: GH1234
+      qty: '1'
+      price: '4000'
+      tax: '15'
+      discount: '400'
+    - name: Tool Belt
+      sku: GH1234
+      qty: '1'
+      price: '6000'
+      tax: '15'
+      discount: '600'
