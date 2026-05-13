@@ -155,6 +155,46 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% /property %}
 {% /properties %}
 
+## Promotion Activity Model
+
+{% properties %}
+  {% property name="id" type="string" %}
+    The unique identifier for the Promotion Activity.
+  {% /property %}
+
+  {% property name="activityType" type="string" %}
+    The type of activity.
+  {% /property %}
+
+  {% property name="promotionId" type="string" %}
+    The ID of the [Promotion](/api/promotions) that the activity belongs to.
+  {% /property %}
+
+  {% property name="programId" type="string" %}
+    The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  {% /property %}
+
+  {% property name="accountId" type="string" %}
+    The ID of the [Account](/api/accounts) that triggered the activity.
+  {% /property %}
+
+  {% property name="targetProgress" type="string" %}
+    The shared progress of the Promotion at the time of the activity.
+  {% /property %}
+
+  {% property name="status" type="string" %}
+    The status of the Promotion at the time of the activity.
+  {% /property %}
+
+  {% property name="createdAt" type="timestamp" %}
+    The timestamp of when the activity was created.
+  {% /property %}
+
+  {% property name="createdBy" type="crn" %}
+    The User or API Key that created the activity.
+  {% /property %}
+{% /properties %}
+
 ---
 
 {% endpoint
@@ -251,4 +291,16 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   ## List Promotions by Loyalty Program {% badge type="experimental" /%}
 
   Returns a list of Promotions for a [Loyalty Program](/api/loyalty-programs).
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/promotions/{promotionId}/activities"
+  filename="promotions-list-activities"
+%}
+  ## List Activities for Promotion {% badge type="experimental" /%}
+
+  Returns a [paginated](/api/pagination) list of [Promotion Activities](#promotion-activity-model) for a Promotion.
+
 {% /endpoint %}
