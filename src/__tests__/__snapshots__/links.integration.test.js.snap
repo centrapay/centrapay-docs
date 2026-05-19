@@ -496,6 +496,7 @@ exports[`the build should not break any links 1`] = `
   "/guides/partial-payment-extension#partial-payment-flow",
   "/guides/partial-payment-extension#see-also",
   "/guides/patron-not-present",
+  "/guides/payap-onboarding-flow",
   "/guides/payap-third-party-asset-integration",
   "/guides/payap-third-party-asset-integration#asset-type-registration",
   "/guides/payap-third-party-asset-integration#connecting-an-account",

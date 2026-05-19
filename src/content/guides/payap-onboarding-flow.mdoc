@@ -1,0 +1,36 @@
+---
+title: Payap Onboarding Flow
+description: Overview of the merchant onboarding workflow for Payap.
+nav:
+  path: Partner Services
+  order: 2
+---
+
+The following diagram outlines the onboarding workflow for Payap, from signing up a merchant through to activation.
+
+```mermaid
+sequenceDiagram
+    participant SoO as Source of Onboarding
+    participant M as Merchant
+    participant C as Centrapay
+    participant SCP as Sales Channel Provider
+
+    SoO->>C: Sign up merchant
+    C->>M: Send invitation email
+    M->>C: Complete on-boarding process
+    Note over C: Perform checks on merchant
+
+    break Declined
+        C->>SoO: Return decline reason
+    end
+
+    C->>SCP: Send terminal information
+    SCP->>C: Loading response
+
+    break Not Loaded
+        C->>SoO: Return reason not loaded
+    end
+
+    Note over C: Activate merchant
+    C->>M: Send welcome email
+```
