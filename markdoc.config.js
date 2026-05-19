@@ -95,6 +95,14 @@ export default defineMarkdocConfig({
         class: { type: String },
       },
     },
+    logoPreview: {
+      render: component('./src/components/LogoPreview.astro'),
+      attributes: {
+        src: { type: String },
+        alt: { type: String },
+        dark: { type: Boolean },
+      },
+    },
     imageGrid: {
       render: component('./src/components/ImageGrid.astro'),
       attributes: {
