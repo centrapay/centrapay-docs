@@ -1,0 +1,16 @@
+---
+const { src, alt, dark = false } = Astro.props;
+const pngSrc = src.replace('.svg', '.png');
+---
+<div class="flex flex-col gap-3">
+  <div class="flex items-center justify-center min-h-24">
+    <div class={dark ? "flex bg-content-primary px-4 py-4 rounded-lg" : ""}>
+      <img src={src} alt={alt} class="h-16 w-auto" />
+    </div>
+  </div>
+  <div class="flex justify-center gap-2 text-sm">
+    <a href={src} download target="_blank" class="font-medium text-interactive-primary underline hover:text-interactive-secondary-hover">SVG</a>
+    <span class="text-content-tertiary">|</span>
+    <a href={pngSrc} download target="_blank" class="font-medium text-interactive-primary underline hover:text-interactive-secondary-hover">PNG</a>
+  </div>
+</div>
