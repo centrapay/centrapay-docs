@@ -413,7 +413,6 @@ exports[`the build should not break any links 1`] = `
   "/guides/creating-digital-tokens#token-collection",
   "/guides/creating-test-money",
   "/guides/creating-test-money#on-this-page-title",
-  "/guides/creating-test-money#via-api",
   "/guides/creating-test-money#via-centrapay-app",
   "/guides/ecommerce-website",
   "/guides/ecommerce-website#centrapay-checkout-sample",
