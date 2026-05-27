@@ -1,0 +1,58 @@
+---
+title: Asset Provider Extensions
+description: Third-party asset provider checklist requirements for Centrapay integrations. Required when integrating with specific asset types such as Farmlands.
+nav:
+  path: Integration Checklist
+  order: 5
+---
+
+These items are required when integrating with specific asset types or third-party providers.
+
+## 401. Farmlands
+
+#### 401.1 Agree on User Experience with Farmlands and Centrapay
+
+**Integration types:** Farmlands
+
+Farmlands and Centrapay want to ensure that cardholders have a smooth, consistent, and positive experience when paying via Centrapay. Agreeing on the user experience upfront reduces confusion and prevents rework.
+
+This step must be completed before starting the integration.
+
+**How to meet it:**
+
+- Schedule a review session with Farmlands and Centrapay to discuss the proposed payment experience.
+- Provide user flows, wireframes, or screenshots that illustrate how the payment experience will appear to users.
+- Incorporate feedback from both parties and ensure sign-off confirming the final experience meets agreed-upon requirements.
+
+---
+
+#### 401.2 Farmlands End-to-End Testing Sign-Off
+
+**Integration types:** Farmlands
+
+Farmlands must validate the integration to ensure all payment flows, POS interactions, and related functionality perform as expected.
+
+**How to meet it:**
+
+- Complete all required end-to-end testing to verify payment and POS processes function correctly.
+- Submit test results, evidence, or reports to Farmlands for review.
+- Obtain formal sign-off from Farmlands confirming all acceptance criteria have been met.
+
+---
+
+#### 401.3 Apply Farmlands Discounts Only to Farmlands Payments
+
+**Integration types:** Farmlands
+
+Farmlands discounts must only be applied to transactions paid with Farmlands. Allowing discounts on other payment methods could result in incorrect pricing, reconciliation issues, or unintended financial exposure.
+
+**How to meet it:**
+
+- Configure the integration so that Farmlands discounts are only available when the selected payment method is Farmlands.
+- Ensure the discount option is not visible or applicable when any other payment method is chosen.
+- Validate that attempts to apply Farmlands discounts using other payment types are automatically rejected or blocked.
+
+**Evidence:**
+
+- Screenshots or recordings showing Farmlands discounts appear only when Farmlands is the selected payment method.
+- Logs or test reports confirming discounts cannot be applied to other payment methods.
