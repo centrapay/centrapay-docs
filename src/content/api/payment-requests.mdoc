@@ -478,36 +478,6 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   This endpoint allows you to create a Payment Request.
 {% /openApiEndpoint %}
 
-{% properties heading="Errors" %}
-  {% error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED" %}
-    The sum value of the line items did not equal the value of the Payment Request.
-  {% /error %}
-  {% error code="400" message="CHECKSUM_FAILED" %}
-    Luhn checksum digit doesn't pass.
-  {% /error %}
-  {% error code="403" message="REDIRECT_URL_INVALID" %}
-    One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
-  {% /error %}
-  {% error code="403" message="PATRON_CODE_INVALID" %}
-    [Patron Code](/api/patron-codes) doesn't exist or has expired.
-  {% /error %}
-  {% error code="403" message="NO_AVAILABLE_PAYMENT_OPTIONS" %}
-    No payment options match the requested payment parameters.
-  {% /error %}
-  {% error code="403" message="TOKEN_COLLECTION_NOT_FOUND" %}
-    The token collection does not exist.
-  {% /error %}
-  {% error code="403" message="CONNECTION_NOT_FOUND" %}
-    The connection does not exist.
-  {% /error %}
-  {% error code="403" message="CONNECTION_MERCHANT_MISMATCH" %}
-    The connection is not for the same merchant as the payment request.
-  {% /error %}
-  {% error code="403" message="CONNECTION_CREATED_BY_MISMATCH" %}
-    The connection was not created by the same caller as the payment request.
-  {% /error %}
-{% /properties %}
-
 ---
 
 {% endpoint

@@ -10,6 +10,12 @@ paths:
 
 components:
   schemas:
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error code.
     LineItem:
       $ref: './models/line-item.yaml'
     PaymentRequest:
@@ -18,114 +24,6 @@ components:
       $ref: './models/merchant-config.yaml'
     Merchant:
       $ref: './models/merchant.yaml'
-    CreatePaymentRequestBody:
-      type: object
-      required:
-        - configId
-        - value
-      properties:
-        configId:
-          $ref: './models/merchant-config.yaml#/properties/configId'
-        value:
-          $ref: './models/payment-request.yaml#/properties/value'
-        barcode:
-          $ref: './models/payment-request.yaml#/properties/barcode'
-        barcodeType:
-          $ref: './models/payment-request.yaml#/properties/barcodeType'
-        collectionId:
-          $ref: './models/payment-request.yaml#/properties/collectionId'
-        expirySeconds:
-          $ref: './models/payment-request.yaml#/properties/expirySeconds'
-        lineItems:
-          $ref: './models/payment-request.yaml#/properties/lineItems'
-        purchaseOrderRef:
-          $ref: './models/payment-request.yaml#/properties/purchaseOrderRef'
-        invoiceRef:
-          $ref: './models/payment-request.yaml#/properties/invoiceRef'
-        redirectCancelUrl:
-          $ref: './models/payment-request.yaml#/properties/redirectCancelUrl'
-        redirectPaidUrl:
-          $ref: './models/payment-request.yaml#/properties/redirectPaidUrl'
-        externalRef:
-          $ref: './models/payment-request.yaml#/properties/externalRef'
-        terminalId:
-          $ref: './models/payment-request.yaml#/properties/terminalId'
-        deviceId:
-          $ref: './models/payment-request.yaml#/properties/deviceId'
-        operatorId:
-          $ref: './models/payment-request.yaml#/properties/operatorId'
-        createdByAccountName:
-          $ref: './models/payment-request.yaml#/properties/createdByAccountName'
-        conditionsEnabled:
-          $ref: './models/payment-request.yaml#/properties/conditionsEnabled'
-        patronNotPresent:
-          $ref: './models/payment-request.yaml#/properties/patronNotPresent'
-        preAuth:
-          $ref: './models/payment-request.yaml#/properties/preAuth'
-        partialAllowed:
-          $ref: './models/payment-request.yaml#/properties/partialAllowed'
-        basketAmount:
-          $ref: './models/payment-request.yaml#/properties/basketAmount'
-        connectionId:
-          $ref: './models/payment-request.yaml#/properties/connectionId'
-        paymentLinkId:
-          $ref: './models/payment-request.yaml#/properties/paymentLinkId'
-  examples:
-    CreatePaymentRequestBodyExample:
-      value:
-        configId: mc_5efbe2fb96c08357bb2b9242
-        expirySeconds: 120
-        value:
-          amount: '10000'
-          currency: NZD
-        lineItems:
-          - name: Hard Hat
-            sku: GH1234
-            qty: '1'
-            price: '4000'
-            tax: '15'
-            discount: '400'
-          - name: Tool Belt
-            sku: GH1234
-            qty: '1'
-            price: '6000'
-            tax: '15'
-            discount: '600'
-        connectionId: cn_9asd9k19
-        paymentLinkId: pl_5srt998b
-    CreatePaymentRequestResponseExample:
-      value:
-        id: VYowvZmuw3hbp1va9xqWx7
-        shortCode: CP-X4V-6N
-        url: https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7
-        merchantId: 5efbe17d96c083633e2b9241
-        merchantName: NZD Test Merchant
-        configId: mc_5efbe2fb96c08357bb2b9242
-        value:
-          amount: '10000'
-          currency: NZD
-        status: new
-        liveness: test
-        expirySeconds: 120
-        createdAt: '2023-10-23T22:56:46.145Z'
-        updatedAt: '2023-10-23T22:56:46.145Z'
-        expiresAt: '2023-10-23T22:58:46.145Z'
-        lineItems:
-          - name: Hard Hat
-            sku: GH1234
-            qty: '1'
-            price: '4000'
-            tax: '15'
-            discount: '400'
-          - name: Tool Belt
-            sku: GH1234
-            qty: '1'
-            price: '6000'
-            tax: '15'
-            discount: '600'
-        connectionId: cn_9asd9k19
-        connectionStatus: active
-        paymentLinkId: pl_5srt998b
   securitySchemes:
     ApiKey:
       type: apiKey

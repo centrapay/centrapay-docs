@@ -9,10 +9,80 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: '../index.yaml#/components/schemas/CreatePaymentRequestBody'
+        type: object
+        required:
+          - configId
+          - value
+        properties:
+          configId:
+            $ref: '../models/merchant-config.yaml#/properties/configId'
+          value:
+            $ref: '../models/payment-request.yaml#/properties/value'
+          barcode:
+            $ref: '../models/payment-request.yaml#/properties/barcode'
+          barcodeType:
+            $ref: '../models/payment-request.yaml#/properties/barcodeType'
+          collectionId:
+            $ref: '../models/payment-request.yaml#/properties/collectionId'
+          expirySeconds:
+            $ref: '../models/payment-request.yaml#/properties/expirySeconds'
+          lineItems:
+            $ref: '../models/payment-request.yaml#/properties/lineItems'
+          purchaseOrderRef:
+            $ref: '../models/payment-request.yaml#/properties/purchaseOrderRef'
+          invoiceRef:
+            $ref: '../models/payment-request.yaml#/properties/invoiceRef'
+          redirectCancelUrl:
+            $ref: '../models/payment-request.yaml#/properties/redirectCancelUrl'
+          redirectPaidUrl:
+            $ref: '../models/payment-request.yaml#/properties/redirectPaidUrl'
+          externalRef:
+            $ref: '../models/payment-request.yaml#/properties/externalRef'
+          terminalId:
+            $ref: '../models/payment-request.yaml#/properties/terminalId'
+          deviceId:
+            $ref: '../models/payment-request.yaml#/properties/deviceId'
+          operatorId:
+            $ref: '../models/payment-request.yaml#/properties/operatorId'
+          createdByAccountName:
+            $ref: '../models/payment-request.yaml#/properties/createdByAccountName'
+          conditionsEnabled:
+            $ref: '../models/payment-request.yaml#/properties/conditionsEnabled'
+          patronNotPresent:
+            $ref: '../models/payment-request.yaml#/properties/patronNotPresent'
+          preAuth:
+            $ref: '../models/payment-request.yaml#/properties/preAuth'
+          partialAllowed:
+            $ref: '../models/payment-request.yaml#/properties/partialAllowed'
+          basketAmount:
+            $ref: '../models/payment-request.yaml#/properties/basketAmount'
+          connectionId:
+            $ref: '../models/payment-request.yaml#/properties/connectionId'
+          paymentLinkId:
+            $ref: '../models/payment-request.yaml#/properties/paymentLinkId'
       examples:
         default:
-          $ref: '../index.yaml#/components/examples/CreatePaymentRequestBodyExample'
+          value:
+            configId: mc_5efbe2fb96c08357bb2b9242
+            expirySeconds: 120
+            value:
+              amount: '10000'
+              currency: NZD
+            lineItems:
+              - name: Hard Hat
+                sku: GH1234
+                qty: '1'
+                price: '4000'
+                tax: '15'
+                discount: '400'
+              - name: Tool Belt
+                sku: GH1234
+                qty: '1'
+                price: '6000'
+                tax: '15'
+                discount: '600'
+            connectionId: cn_9asd9k19
+            paymentLinkId: pl_5srt998b
 responses:
   '200':
     description: Payment Request created
@@ -22,4 +92,85 @@ responses:
           $ref: '../index.yaml#/components/schemas/PaymentRequest'
         examples:
           default:
-            $ref: '../index.yaml#/components/examples/CreatePaymentRequestResponseExample'
+            value:
+              id: VYowvZmuw3hbp1va9xqWx7
+              shortCode: CP-X4V-6N
+              url: https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7
+              merchantId: 5efbe17d96c083633e2b9241
+              merchantName: NZD Test Merchant
+              configId: mc_5efbe2fb96c08357bb2b9242
+              value:
+                amount: '10000'
+                currency: NZD
+              status: new
+              liveness: test
+              expirySeconds: 120
+              createdAt: '2023-10-23T22:56:46.145Z'
+              updatedAt: '2023-10-23T22:56:46.145Z'
+              expiresAt: '2023-10-23T22:58:46.145Z'
+              lineItems:
+                - name: Hard Hat
+                  sku: GH1234
+                  qty: '1'
+                  price: '4000'
+                  tax: '15'
+                  discount: '400'
+                - name: Tool Belt
+                  sku: GH1234
+                  qty: '1'
+                  price: '6000'
+                  tax: '15'
+                  discount: '600'
+              connectionId: cn_9asd9k19
+              connectionStatus: active
+              paymentLinkId: pl_5srt998b
+  '400':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          $ref: '../index.yaml#/components/schemas/ApiError'
+        examples:
+          LINE_ITEMS_SUM_CHECK_FAILED:
+            description: The sum value of the line items did not equal the value of the Payment Request.
+            value:
+              message: LINE_ITEMS_SUM_CHECK_FAILED
+          CHECKSUM_FAILED:
+            description: Luhn checksum digit doesn't pass.
+            value:
+              message: CHECKSUM_FAILED
+  '403':
+    description: Forbidden
+    content:
+      application/json:
+        schema:
+          $ref: '../index.yaml#/components/schemas/ApiError'
+        examples:
+          REDIRECT_URL_INVALID:
+            description: One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+            value:
+              message: REDIRECT_URL_INVALID
+          PATRON_CODE_INVALID:
+            description: "[Patron Code](/api/patron-codes) doesn't exist or has expired."
+            value:
+              message: PATRON_CODE_INVALID
+          NO_AVAILABLE_PAYMENT_OPTIONS:
+            description: No payment options match the requested payment parameters.
+            value:
+              message: NO_AVAILABLE_PAYMENT_OPTIONS
+          TOKEN_COLLECTION_NOT_FOUND:
+            description: The token collection does not exist.
+            value:
+              message: TOKEN_COLLECTION_NOT_FOUND
+          CONNECTION_NOT_FOUND:
+            description: The connection does not exist.
+            value:
+              message: CONNECTION_NOT_FOUND
+          CONNECTION_MERCHANT_MISMATCH:
+            description: The connection is not for the same merchant as the payment request.
+            value:
+              message: CONNECTION_MERCHANT_MISMATCH
+          CONNECTION_CREATED_BY_MISMATCH:
+            description: The connection was not created by the same caller as the payment request.
+            value:
+              message: CONNECTION_CREATED_BY_MISMATCH

@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
+import Properties from './Properties.astro';
+import ErrorItem from './Error.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
 
@@ -58,6 +60,10 @@ const endpoint = createEndpoint(endpointData);
 
 const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
 
+const formatDescription = (text) => text
+  ?.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+  .replace(/`([^`]+)`/g, '<code>$1</code>') ?? null;
+
 const schema = operation.requestBody?.content?.['application/json']?.schema;
 const required = schema?.required ?? [];
 
@@ -65,11 +71,7 @@ const properties = Object.entries(schema?.properties ?? {}).map(([name, prop]) =
   const type = prop['x-type'] ?? prop.type ?? 'string';
   const formattedType = type.toLowerCase();
   const typeLink = customDataTypes.includes(formattedType) ? `/api/data-types#${formattedType}` : undefined;
-  const description = prop.description
-    ? prop.description
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-    : null;
+  const description = formatDescription(prop.description);
   return {
     name,
     formattedType,
@@ -80,6 +82,17 @@ const properties = Object.entries(schema?.properties ?? {}).map(([name, prop]) =
     isDeprecated: !!prop['x-deprecated'],
   };
 });
+
+const errors = Object.entries(operation.responses ?? {})
+  .filter(([code]) => code !== '200')
+  .flatMap(([code, response]) =>
+    Object.entries(response?.content?.['application/json']?.examples ?? {})
+      .map(([message, example]) => ({
+        code,
+        message,
+        description: formatDescription(example.description),
+      }))
+  );
 
 const badgeClasses = {
   experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
@@ -95,32 +108,36 @@ const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-capt
   <Column>
     <slot />
     {properties.length > 0 && (
-      <div data-attributes class="my-6">
-        <div class="not-prose flex items-center justify-between py-2">
-          <h3 class="type-subtitle-1">Attributes</h3>
-        </div>
-        <ul role="list" class="mt-0 list-none prose-li:m-0 divide-outline-transparent p-0">
-          {properties.map(({ name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated }) => (
-            <li class="px-0 border-b-0">
-              <div class="m-0 flex flex-wrap items-baseline gap-x-3">
-                <h4 class="my-0" id={name}>{name}</h4>
-                <span class="not-prose inline-flex items-center">
-                  {typeLink
-                    ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
-                    : <span class={badge('default')}>{formattedType}</span>
-                  }
-                </span>
-                {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
-                {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
-                {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
-              </div>
-              <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-                {description && <p set:html={description} />}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Properties>
+        {properties.map(({ name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated }) => (
+          <li class="px-0 border-b-0">
+            <div class="m-0 flex flex-wrap items-baseline gap-x-3">
+              <h4 class="my-0" id={name}>{name}</h4>
+              <span class="not-prose inline-flex items-center">
+                {typeLink
+                  ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+                  : <span class={badge('default')}>{formattedType}</span>
+                }
+              </span>
+              {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+              {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
+              {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
+            </div>
+            <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+              {description && <p set:html={description} />}
+            </div>
+          </li>
+        ))}
+      </Properties>
+    )}
+    {errors.length > 0 && (
+      <Properties heading="Errors">
+        {errors.map(({ code, message, description }) => (
+          <ErrorItem code={code} message={message}>
+            {description && <p set:html={description} />}
+          </ErrorItem>
+        ))}
+      </Properties>
     )}
   </Column>
   <Column sticky>
