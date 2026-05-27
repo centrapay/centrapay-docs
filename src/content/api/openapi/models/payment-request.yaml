@@ -2,12 +2,15 @@ type: object
 properties:
   id:
     type: string
+    example: VYowvZmuw3hbp1va9xqWx7
     description: The unique identifier.
   shortCode:
     type: string
+    example: CP-X4V-6N
     description: A short code for the Payment Request.
   url:
     type: string
+    example: https://app.centrapay.com/pay/VYowvZmuw3hbp1va9xqWx7
     description: The URL of the Payment Request.
   value:
     x-type: monetary
@@ -32,15 +35,31 @@ properties:
   createdAt:
     type: string
     format: date-time
+    example: '2023-10-23T22:56:46.145Z'
   updatedAt:
     type: string
     format: date-time
+    example: '2023-10-23T22:56:46.145Z'
   expiresAt:
     type: string
     format: date-time
+    example: '2023-10-23T22:58:46.145Z'
   lineItems:
     type: array
     description: The [Line Items](#line-item-model) being paid for.
+    example:
+      - name: Hard Hat
+        sku: GH1234
+        qty: '1'
+        price: '4000'
+        tax: '15'
+        discount: '400'
+      - name: Tool Belt
+        sku: GH1234
+        qty: '1'
+        price: '6000'
+        tax: '15'
+        discount: '600'
     items:
       $ref: './line-item.yaml'
   barcode:
@@ -78,6 +97,9 @@ properties:
   operatorId:
     type: string
     description: POS operator Id.
+  createdByAccountName:
+    type: string
+    description: Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
   conditionsEnabled:
     type: boolean
     description: Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model).
@@ -96,6 +118,7 @@ properties:
     description: "The total amount of the transaction including non Centrapay payment methods. Required when `partialAllowed` is `true`."
   connectionId:
     type: string
+    example: cn_9asd9k19
     x-experimental: true
     description: The identifier of the [Connection](/api/connections) associated with the payment request.
   connectionStatus:
@@ -104,16 +127,6 @@ properties:
     description: The status of the [Connection](/api/connections) associated with the payment request.
   paymentLinkId:
     type: string
+    example: pl_5srt998b
     x-experimental: true
     description: The identifier of the [Payment Link](/api/payment-links).
-
-x-examples:
-  paymentRequestId: VYowvZmuw3hbp1va9xqWx7
-  paymentRequestShortCode: CP-X4V-6N
-  paymentRequestUrl: https://app.centrapay.com/pay/$paymentRequestId
-  accountId: Jaim1Cu1Q55uooxSens6yk
-  createdAt: '2023-10-23T22:56:46.145Z'
-  updatedAt: '2023-10-23T22:56:46.145Z'
-  expiresAt: '2023-10-23T22:58:46.145Z'
-  connectionId: cn_9asd9k19
-  paymentLinkId: pl_5srt998b

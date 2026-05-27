@@ -14,14 +14,7 @@ const schemasMap = Object.fromEntries(
   schemasCollection.map(entry => [entry.id.split('/').pop(), entry.data])
 );
 
-const lookup = schemasCollection.reduce((acc, entry) => ({
-  ...acc,
-  ...(entry.data['x-examples'] ?? {}),
-}), {});
-
 function resolveAll(obj) {
-  if (typeof obj === 'string' && /^\$[a-zA-Z][a-zA-Z0-9]*$/.test(obj)) return resolveAll(lookup[obj.slice(1)] ?? obj);
-  if (typeof obj === 'string' && obj.includes('$')) return obj.replace(/\$([a-zA-Z][a-zA-Z0-9]*)/g, (m, k) => k in lookup ? String(lookup[k]) : m);
   if (obj && typeof obj === 'object' && '$ref' in obj) {
     const ref = obj['$ref'];
     const [filePart, pointer] = ref.split('#');
@@ -34,7 +27,7 @@ function resolveAll(obj) {
     }
     return resolveAll(target);
   }
-if (Array.isArray(obj)) return obj.map(resolveAll);
+  if (Array.isArray(obj)) return obj.map(resolveAll);
   if (obj && typeof obj === 'object') return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, resolveAll(v)]));
   return obj;
 }
@@ -46,6 +39,8 @@ if (!entry) throw new Error(`No operation found for operationId: ${operationId}`
 
 const operation = resolveAll(entry.data);
 
+const getExample = (mediaType) => Object.values(mediaType?.examples ?? {})[0]?.value;
+
 const endpointData = {
   method: operation.method,
   path: operation.path,
@@ -54,9 +49,9 @@ const endpointData = {
       'X-Api-Key': '<TOKEN>',
       ...(operation.requestBody ? { 'Content-Type': 'application/json' } : {}),
     },
-    payload: operation.requestBody?.content?.['application/json']?.example,
+    payload: getExample(operation.requestBody?.content?.['application/json']),
   },
-  response: operation.responses?.['200']?.content?.['application/json']?.example,
+  response: getExample(operation.responses?.['200']?.content?.['application/json']),
 };
 
 const endpoint = createEndpoint(endpointData);

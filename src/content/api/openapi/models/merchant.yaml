@@ -2,11 +2,9 @@ type: object
 properties:
   merchantId:
     type: string
+    example: 5efbe17d96c083633e2b9241
     description: The Centrapay merchant id.
   merchantName:
     type: string
+    example: NZD Test Merchant
     description: The name of the merchant.
-
-x-examples:
-  merchantId: 5efbe17d96c083633e2b9241
-  merchantName: NZD Test Merchant

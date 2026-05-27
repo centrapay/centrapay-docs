@@ -68,7 +68,7 @@ const openapiEndpoints = defineCollection({
 });
 
 const openapiSchemas = defineCollection({
-  loader: glob({ pattern: 'models/**/*.yaml', base: './src/content/api/openapi' }),
+  loader: glob({ pattern: ['models/**/*.yaml', 'index.yaml'], base: './src/content/api/openapi' }),
 });
 
 export const collections = {
