@@ -44,8 +44,8 @@ const operation = resolveAll(entry.data);
 const getExample = (mediaType) => Object.values(mediaType?.examples ?? {})[0]?.value;
 
 const endpointData = {
-  method: operation.method,
-  path: operation.path,
+  method: operation['x-method'],
+  path: operation['x-path'],
   request: {
     headers: {
       'X-Api-Key': '<TOKEN>',
