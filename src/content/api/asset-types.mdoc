@@ -11,22 +11,27 @@ The following table describes the Asset Types supported for payments.
 The Category column refers to the Centrapay asset type representation if
 applicable. When blank, the Asset is not managed by a Centrapay Account.
 
-|    Asset Type    |                     Description                     |              Category              |          Currencies           |  Flags   |
-| :--------------- | :-------------------------------------------------- | :--------------------------------- | :---------------------------- | :------- |
-| bitcoin          | [Bitcoin](https://bitcoin.org/en/)                  |                                    | `NZD` `AUD`                   | ⚡️       |
-| cca.coke         | Coke tokens                                         | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪 🚫   |
-| centrapay.nzd    | Centrapay NZD wallet                                | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪     |
-| centrapay.token  | Centrapay tokens                                    | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪     |
-| epay             | [EPay NZ giftcards](https://www.giftstation.co.nz/) |                                    | `NZD`                         | ⚡️ 🧪     |
-| farmlands.nzd    | [Farmlands](https://www.farmlands.co.nz/)           | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪 💸 💼 |
-| paypal           | [PayPal](https://www.paypal.com/)                   |                                    | `USD`                         | ⚡️ 🧪 💸   |
-| centrapay.ledger | Centrapay Ledgers                                   | [Ledger](/api/assets#ledger-model) | `NZD`                         | ⚡️ 🧪     |
-| quartz.nzd       | Quartz NZD asset                                    |                                    | `NZD`                         | ⚡️ 🧪     |
-| venmo            | [Venmo](https://venmo.com/)                         |                                    | `USD`                         | ⚡️ 🧪 💸   |
-| uplinkapi        | Uplink API Test asset                               |                                    | `NZD`                         | 🧪        |
-| stadius          | [Stadius](https://stadius.io)                       |                                    | `NZD` `AUD` `USD` `CAD` `EUR` | ⚡️ 🧪     |
-| payap-debit      | Payap Debit Passes                                  |                                    | `NZD`                         | ⚡️ 🧪     |
-| external         | External Asset (cash, EFTPOS, etc.)                 |                                    | `NZD`                         | ⚡️ 🧪     |
+|    Asset Type             |                     Description                     |              Category              |          Currencies           |  Flags      |
+| :------------------------ | :-------------------------------------------------- | :--------------------------------- | :---------------------------- | :---------- |
+| bitcoin                   | [Bitcoin](https://bitcoin.org/en/)                  |                                    | `NZD` `AUD`                   | ⚡️          |
+| cca.coke                  | Coke tokens                                         | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪 🚫    |
+| centrapay.nzd             | Centrapay NZD wallet                                | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪       |
+| centrapay.token           | Centrapay tokens                                    | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪       |
+| epay                      | [EPay NZ giftcards](https://www.giftstation.co.nz/) |                                    | `NZD`                         | ⚡️ 🧪       |
+| farmlands.nzd             | [Farmlands](https://www.farmlands.co.nz/)           | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪 💸 💼 |
+| paypal                    | [PayPal](https://www.paypal.com/)                   |                                    | `USD`                         | ⚡️ 🧪 💸    |
+| centrapay.ledger          | Centrapay Ledgers                                   | [Ledger](/api/assets#ledger-model) | `NZD`                         | ⚡️ 🧪       |
+| quartz.nzd                | BNZ Open Banking via Payap                          |                                    | `NZD`                         | ⚡️ 🧪       |
+| quartz-one-off.nzd        | BNZ Open Banking via BNZ App                        |                                    | `NZD`                         | ⚡️ 🧪       |
+| venmo                     | [Venmo](https://venmo.com/)                         |                                    | `USD`                         | ⚡️ 🧪 💸    |
+| uplinkapi                 | Uplink API Test asset                               |                                    | `NZD`                         | 🧪          |
+| stadius                   | [Stadius](https://stadius.io)                       |                                    | `NZD` `AUD` `USD` `CAD` `EUR` | ⚡️ 🧪       |
+| payap-debit               | Payap Debit Passes                                  |                                    | `NZD`                         | ⚡️ 🧪       |
+| external                  | External Asset (cash, EFTPOS, etc.)                 |                                    | `NZD`                         | ⚡️ 🧪       |
+| asb-payap.nzd             | ASB Open Banking via Payap                          |                                    | `NZD`                         | ⚡️ 🧪       |
+| asb-payap-one-off.nzd     | ASB Open Banking via ASB App                        |                                    | `NZD`                         | ⚡️ 🧪       |
+| westpac-payap.nzd         | Westpac Open Banking via Payap                      |                                    | `NZD`                         | ⚡️ 🧪       |
+| westpac-payap-one-off.nzd | Westpac Open Banking via Westpac App                |                                    | `NZD`                         | ⚡️ 🧪       |
 
 
 ### Flags
