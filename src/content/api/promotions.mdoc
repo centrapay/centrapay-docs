@@ -143,11 +143,11 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% /property %}
 
   {% property name="value" type="string" %}
-    The value that the field must satisfy depending on the `operator`.
+    The value that the field must satisfy depending on the `operator`. Must be an array of strings when using the `in` operator.
   {% /property %}
 
   {% property name="operator" type="string" %}
-    The operator to use when looking at the value of the field. Can be `equals`, `not`, `greater-than`, `less-than`.
+    The operator to use when looking at the value of the field. Can be `equals`, `not`, `in`, `greater-than`, `less-than`.
   {% /property %}
 
   {% property name="type" type="string" %}
