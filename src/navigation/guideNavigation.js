@@ -15,6 +15,7 @@ const nav = [
       { title: 'Extensions', order: 5 },
     ],
   },
+  { title: 'Integration Checklist' },
   { title: 'App Integrations' },
   { title: 'Payap' },
   { title: 'Farmlands' },

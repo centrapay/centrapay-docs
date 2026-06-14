@@ -1,0 +1,391 @@
+---
+title: Payment Protocol Extensions
+description: Optional payment protocol extension checklist requirements, covering pre-auth, payment conditions, patron not present, connect flow, and partial payments.
+nav:
+  path: Integration Checklist
+  order: 4
+---
+
+These items are optional but required when using specific protocol features.
+
+## 301. Pre Auth
+
+#### 301.1 Authorise Pre-Auth Payment Request
+
+**Integration types:** Sales Channel
+
+Authorising a Pre-Auth Payment Request ensures funds are reserved on the customer's account and the transaction can proceed correctly.
+
+**How to meet it:**
+
+- Create a Pre-Auth Payment Request.
+- Authorise the Payment Request.
+
+**Evidence:**
+
+- A Payment Request ID showing the Pre-Auth has been authorised.
+
+**Resources:**
+
+- [Pre Auth Flow](/guides/requesting-pre-auth/)
+
+---
+
+#### 301.2 Pre-Auth Payment Request Confirmation
+
+**Integration types:** Sales Channel
+
+After a Pre-Auth is authorised, a confirmation is required to finalise the transaction and ensure funds are properly captured.
+
+**How to meet it:**
+
+- Create and authorise a Pre-Auth Payment Request.
+- Submit a confirmation against the Payment Request.
+- Verify the transaction is finalised and payment status is updated correctly.
+
+**Evidence:**
+
+- A Payment Request ID showing the Pre-Auth has been confirmed.
+
+**Resources:**
+
+- [Confirm a Pre Auth Payment Request](/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request)
+- [Pre Auth Flow](/guides/requesting-pre-auth/)
+
+---
+
+#### 301.3 Retry Pre-Auth Confirmations on Network Errors
+
+**Integration types:** Sales Channel
+
+If a network error occurs while confirming a Pre-Auth, the confirmation may fail even though the original request was valid. Automatic retries ensure the Pre-Auth is successfully confirmed without creating duplicates.
+
+**How to meet it:**
+
+- Implement automatic retry logic for Pre-Auth confirmations when network errors occur.
+- Ensure retries use the same idempotency key so repeated attempts do not create duplicate confirmations.
+
+**Evidence:**
+
+- Logs showing failed confirmation attempts due to network errors followed by successful retries.
+- Code snippets illustrating the retry logic.
+
+**Resources:**
+
+- [Confirm a Pre Auth Payment Request](/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request)
+
+---
+
+#### 301.4 Release Remaining Funds on Pre-Auth Payment Requests
+
+**Integration types:** Sales Channel
+
+After all orders associated with a Pre-Auth are fulfilled, any remaining funds must be released to prevent funds from being locked.
+
+**How to meet it:**
+
+Release any remaining funds for the Pre-Auth Payment Request once all associated orders are complete.
+
+**Evidence:**
+
+- A Payment Request ID showing a release activity has been recorded.
+- Logs or screenshots demonstrating remaining funds were released.
+
+**Resources:**
+
+- [Release Payment Request](/api/payment-requests#release-funds-held-for-a-pre-auth-payment-request)
+- [Pre Auth Flow](/guides/requesting-pre-auth/)
+
+---
+
+#### 301.5 Refund Pre-Auth Confirmations
+
+**Integration types:** Sales Channel
+
+Customers may need to refund previously authorised Pre-Auth Payment Requests.
+
+**How to meet it:**
+
+Submit a refund for a Pre-Auth Payment Request using the Payment Request ID, and confirm the refund is recorded and reflected in the system.
+
+**Evidence:**
+
+- The Payment Request ID showing the refund has been processed.
+
+**Resources:**
+
+- [Refunding a Payment Request](/api/payment-requests#refund-a-payment-request)
+
+---
+
+#### 301.6 An Invoice Number Is Supplied When Confirming a Payment
+
+**Integration types:** Farmlands, Sales Channel
+
+Providing an invoice number allows transactions to be referenced easily for auditing, reconciliation, or further investigation.
+
+**How to meet it:**
+
+- Include a meaningful invoice number when confirming a Payment Request.
+- Ensure the invoice number is correctly stored and linked to the confirmation.
+
+**Evidence:**
+
+- A Payment Request ID of a Pre-Auth Payment Request with a confirmation that includes an invoice number.
+
+**Resources:**
+
+- [Confirm a Pre Auth Payment Request](/api/payment-requests#make-a-confirmation-against-a-pre-auth-payment-request)
+
+---
+
+## 302. Payment Conditions
+
+#### 302.1 Enable Payment Conditions on Payment Request Creation
+
+**Integration types:** Farmlands, Sales Channel
+
+Payment Requests do not support Payment Conditions unless the `conditionsEnabled` flag is set at creation.
+
+**How to meet it:**
+
+Set `conditionsEnabled` to `true` for every Payment Request that requires conditions.
+
+**Evidence:**
+
+- A Payment Request ID of a Payment Request with `conditionsEnabled` set to `true`.
+
+**Resources:**
+
+- [Creating a Payment Request](/api/payment-requests#create-a-payment-request)
+- [Payment Conditions](/guides/payment-conditions/)
+
+---
+
+#### 302.2 Prompt Users for All Payment Conditions
+
+**Integration types:** Farmlands, Sales Channel
+
+Payment Conditions are dynamic—Centrapay or a third-party asset provider may add, remove, or edit conditions at any time. Integrations must display and prompt for these conditions correctly without requiring rework.
+
+**How to meet it:**
+
+- Display all current Payment Conditions to the user.
+- Prompt the cashier to accept or decline each applicable condition before completing the payment.
+- The prompt must reflect the message included in the Payment Condition.
+
+**Evidence:**
+
+- Screenshots or recordings showing Payment Conditions displayed in the user interface.
+- Demonstrations that the cashier prompt matches the message from the Payment Condition.
+
+**Resources:**
+
+- [Payment Conditions](/guides/payment-conditions/)
+
+---
+
+#### 302.3 Handle Payment Condition Acceptance and Decline
+
+**Integration types:** Farmlands, Sales Channel
+
+Some Payment Conditions require a customer or cashier to accept or decline before a transaction can proceed.
+
+**How to meet it:**
+
+- Prompt the customer or cashier to accept or decline each Payment Condition.
+- Ensure the integration records the acceptance or decline accurately and triggers the correct transaction outcome.
+
+**Evidence:**
+
+- Screenshots or recordings showing the prompt for acceptance or decline.
+- Test cases demonstrating both acceptance and decline scenarios are handled correctly.
+
+**Resources:**
+
+- [Payment Conditions](/guides/payment-conditions/)
+
+---
+
+## 303. Patron Not Present
+
+#### 303.1 Indicate Customer Not Present on Payment Request
+
+**Integration types:** Farmlands, Sales Channel
+
+When a customer is not physically present at the time of the transaction, it must be recorded using the `patronNotPresent` flag. This is important for compliance, reporting, and dispute resolution.
+
+**How to meet it:**
+
+- Ensure the `patronNotPresent` flag is set to `true` for transactions where the customer is not present.
+- Optionally, prompt the cashier to select the "customer not present" option during transaction creation.
+
+**Evidence:**
+
+- A Payment Request ID for a Payment Request where `patronNotPresent` is set to `true`.
+
+**Resources:**
+
+- [Create Payment Request Endpoint](/api/payment-requests#create-a-payment-request)
+- [Patron Not Present](/guides/patron-not-present/)
+
+---
+
+## 304. Connect Flow
+
+#### 304.1 Generate QR Code From Connection URL
+
+**Integration types:** Sales Channel
+
+Converting a connection URL into a QR code allows cashiers or merchants to quickly scan and complete the connection setup.
+
+**How to meet it:**
+
+- Take the `url` field returned in the Create Connection response from the Connections API.
+- Generate a scannable QR code from that URL and display it in the merchant's setup flow.
+- Confirm the QR code resolves to the exact URL and leads to the correct connection step.
+
+**Evidence:**
+
+- Code snippets demonstrating the programmatic generation of the QR code from the connection URL.
+
+**Resources:**
+
+- [Connections](/api/connections/)
+
+---
+
+#### 304.2 Using Connection ID to Create a Payment Request
+
+**Integration types:** Sales Channel
+
+Using the Connection ID when creating a Payment Request ensures the payment is correctly linked to the user.
+
+**How to meet it:**
+
+- Retrieve the Connection ID from the relevant connection object using the Connections API.
+- Use the Connection ID when creating the Payment Request via the Payments API.
+
+**Evidence:**
+
+- A Payment Request ID for a Payment Request created with a Connection ID.
+
+**Resources:**
+
+- [Connections](/api/connections/)
+
+---
+
+#### 304.3 Handling External Payments on Payment Request
+
+**Integration types:** Sales Channel
+
+Sometimes a transaction may be completed outside of Centrapay (e.g. via cash or card). The Payment Request must be completed using `external.main` or `external.test` and the remaining amount calculated correctly.
+
+**How to meet it:**
+
+- Determine the remaining amount on the Payment Request after any discount is applied.
+- Record an external payment using `external.main` or `external.test` as the asset type.
+- Ensure the Payment Request is fully completed by applying the external payment against the remaining amount.
+
+**Evidence:**
+
+- A Payment Request ID of a Payment Request with an external payment applied to it.
+
+**Resources:**
+
+- [Pay Payment Request](/api/payment-requests/#pay-a-payment-request)
+
+---
+
+#### 304.4 Poll Payment Requests and Update Remaining Amount for Customer and Cashier
+
+**Integration types:** Sales Channel
+
+The remaining amount on a Payment Request may change due to discounts being applied or payments being made. Both the customer and cashier must see accurate amounts throughout the transaction.
+
+**How to meet it:**
+
+- Regularly poll the Payment Request to check for updates to the `remainingAmount` field.
+- Update the customer-facing display with the latest remaining amount in real time.
+- Update the cashier-facing interface to reflect any changes.
+
+**Evidence:**
+
+- Logs or screenshots showing the Payment Request being polled and the `remainingAmount` field updating.
+- Recordings demonstrating real-time updates to both the customer and cashier interfaces.
+
+**Resources:**
+
+- [Get Payment Request By Id](/api/payment-requests/#get-a-payment-request)
+- [Get Payment Request By Connection Id](/api/payment-requests/#get-a-payment-request-by-connection-id)
+
+---
+
+## 305. Partial Payments
+
+#### 305.1 Creating Payment Requests for Partial Payments
+
+**Integration types:** Sales Channel
+
+Partial Pay is not a default behaviour. The integrator must opt in when creating a Payment Request so only integrations capable of handling partial payments create requests that support this feature.
+
+**How to meet it:**
+
+Set the `partialPayEnabled` flag to `true` when calling the Create Payment Request endpoint.
+
+**Evidence:**
+
+- A Payment Request ID, confirmed via logs, API request payloads, or database records showing `partialPayEnabled` was set to `true`.
+
+**Resources:**
+
+- [Partial Payments](/guides/partial-payment-extension/)
+
+---
+
+#### 305.2 Setting Amounts for Partial Payment Requests
+
+**Integration types:** Sales Channel
+
+Distinguishing between the amount payable via Centrapay and the total transaction amount ensures accurate settlement and clear messaging to users.
+
+**How to meet it:**
+
+Set the following fields when creating a Payment Request:
+
+- `partialAllowed = true`
+- `value.amount` — the amount payable via Centrapay.
+- `basketAmount` — the total transaction amount including other payment methods. Should equal `value.amount` when the full payment is via Centrapay.
+
+**Evidence:**
+
+- A Payment Request ID with logs, API payloads, or database records confirming `partialAllowed` is `true` with correct values for `value.amount` and `basketAmount`.
+
+**Resources:**
+
+- [Partial Payments](/guides/partial-payment-extension/)
+
+---
+
+#### 305.3 Handling Remaining Amounts in Partial Payments
+
+**Integration types:** Sales Channel
+
+When a partial payment is made via Centrapay, the integration must use the Payment Request's `remainingAmount` field to determine how much the customer still owes and guide the next steps.
+
+**How to meet it:**
+
+After status becomes `paid`:
+
+- Check the `remainingAmount` field.
+- If `remainingAmount > 0`: prompt the user to pay the difference using another method (e.g. cash or card). If they cannot, the Payment Request should be refunded.
+
+**Evidence:**
+
+- Logs or test reports showing how the integration responds when `remainingAmount > 0`.
+- Screen recordings demonstrating the user being prompted for the remaining balance.
+
+**Resources:**
+
+- [Partial Payments — Get Payment Request](/guides/partial-payment-extension/#get-payment-request)

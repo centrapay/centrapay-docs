@@ -1,0 +1,530 @@
+---
+title: Core Requirements
+description: Core Centrapay integration requirements covering user experience, authentication, error handling, payment management, and support. Required for all integration types.
+nav:
+  path: Integration Checklist
+  order: 2
+---
+
+These requirements apply to all integration types unless otherwise noted.
+
+## 101. User Experience
+
+#### 101.1 Integration Experience
+
+**Integration types:** All
+
+Getting agreement on the integration experience ensures both your team and Centrapay have a clear understanding of how the integration should work. It helps guide integrators effectively, shares proven best practices, and reduces the risk of issues during rollout.
+
+This step must be completed before starting the integration.
+
+**How to meet it:**
+
+Confirm with the Centrapay UXD team that the planned integration experience is agreed upon.
+
+**Evidence:**
+
+- Flows or process diagrams
+- Screenshots, annotated mockups, or wireframes
+- Interactive prototypes
+- Storyboards or screen recordings
+
+---
+
+#### 101.2 Display Payment Method to Customer
+
+**Integration types:** All
+
+Customers need to clearly see which payment method was used for a transaction. This ensures transparency, reduces confusion, and improves the overall user experience.
+
+**How to meet it:**
+
+Display the payment method using the **description returned in the `paidBy` attribute** of the Payment Request.
+
+**Evidence:**
+
+- A recording, screenshot, or photo showing the payment method displayed on the customer-facing interface or receipt.
+
+**Resources:**
+
+- [Paid By Model](/api/payment-requests/#paid-by-model)
+
+---
+
+#### 101.3 Payment Option Clearly Displayed to Cashier
+
+**Integration types:** Farmlands, Sales Channel
+
+This ensures minimal cashier training is required and that the correct payment option is always visible.
+
+**How to meet it:**
+
+- If Farmlands is the only payment option the merchant accepts, display **Farmlands** on the interface.
+- If the merchant accepts Farmlands and other payment options, display **Centrapay**.
+
+**Evidence:**
+
+- A screenshot showing the payment option displayed to the cashier.
+
+---
+
+#### 101.4 Collect Brand Assets and Website Content
+
+**Integration types:** All
+
+Centrapay requires brand assets and a short blurb for use on the Centrapay website and Business Portal. Standardised assets and descriptions provide consistency, maintain professionalism, and improve user trust.
+
+**How to meet it:**
+
+- Provide a short written blurb to be used on the Centrapay website.
+- Submit images for the Centrapay website.
+- Submit images for the Business Portal (must be 720×720 pixels, square aspect ratio 1:1).
+
+---
+
+#### 101.5 Centrapay-Branded QR Codes
+
+**Integration types:** Sales Channel
+
+Using Centrapay-branded QR codes ensures customers recognise and trust the payment method.
+
+**How to meet it:**
+
+- Use QR codes that incorporate the Centrapay logo.
+- Ensure QR codes are scannable and redirect to the correct Payment Request or Connect flow.
+- Use QR codes consistently across all merchant materials including receipts, displays, and POS interfaces.
+
+**Evidence:**
+
+- Screenshots or recordings showing Centrapay-branded QR codes displayed on POS, receipts, or customer-facing screens.
+
+---
+
+## 102. Authentication
+
+#### 102.1 API Key Management
+
+**Integration types:** All
+
+API keys are sensitive credentials and must be kept secret to prevent unauthorised access.
+
+**How to meet it:**
+
+- Store API keys in a secure location such as a cloud provider secret manager (e.g. AWS Secrets Manager, Azure Key Vault, or Google Secret Manager).
+- Ensure API keys are not hard-coded in source code or exposed in client-facing applications.
+- Restrict access to API keys to only those who need it.
+- Have a security policy in place for rotating API keys regularly.
+
+**Evidence:**
+
+- Documentation or screenshots showing where the API keys are stored.
+- Evidence that API keys are not exposed in source code or client applications.
+- Access control records showing who has permission to use the API keys.
+- Security policy describing key rotation procedures.
+
+---
+
+#### 102.2 Request Body Verification
+
+**Integration types:** Asset Program
+
+Verifying the request body ensures that data received from Centrapay has not been tampered with.
+
+**How to meet it:**
+
+Compare the request body with the decoded `request_body_sha256` to confirm integrity.
+
+**Evidence:**
+
+- Code snippets demonstrating the comparison.
+- Logs showing successful request body validation.
+
+**Resources:**
+
+- [Third Party Asset Authentication](/guides/integrating-third-party-asset/#authentication)
+
+---
+
+#### 102.3 Merchant-Terminal API Key Usage
+
+**Integration types:** Sales Channel
+
+The `merchant-terminal` role has limited, specific permissions for managing Payment Requests on behalf of merchants. Using this role reduces risk by restricting access.
+
+**How to meet it:**
+
+Only use API Keys with the **merchant-terminal role** when authenticating requests against the Payments API.
+
+**Evidence:**
+
+- A Payment Request ID for a Payment Request created with a merchant-terminal API key.
+
+**Resources:**
+
+- [API Keys](/guides/payment-terminals#api-keys)
+- [Roles & Permissions](/api/auth#roles-and-permissions)
+
+---
+
+#### 102.4 Unique Merchant Config Verification
+
+**Integration types:** Sales Channel
+
+Customers need to clearly see where they are spending. Unique merchant configurations also make it easier to debug issues by clearly identifying which locations are affected.
+
+**How to meet it:**
+
+- Use configurable variables to create Payment Requests with different Merchant Config IDs across multiple devices or locations.
+- Ensure each Payment Request is associated with the correct merchant or location.
+- Verify that each `paymentRequestId` corresponds to the intended `merchantConfigId`.
+
+**Evidence:**
+
+- A list of multiple Payment Request IDs each linked to a unique Merchant Config ID.
+
+**Resources:**
+
+- [Merchant Config](/api/merchant-configs#merchant-config)
+- [Create Payment Request](/api/payment-requests#create-a-payment-request)
+
+---
+
+#### 102.5 Whitelist Centrapay IP Addresses
+
+**Integration types:** Asset Program
+
+Whitelisting Centrapay IP addresses ensures that Centrapay can successfully call Uplink API endpoints.
+
+**How to meet it:**
+
+Configure your network or firewall to allow incoming requests from Centrapay IP addresses.
+
+**Evidence:**
+
+- A successful Payment Request created and paid via the Uplink API.
+- Network or firewall configuration screenshots showing Centrapay IP addresses have been whitelisted.
+
+---
+
+## 103. Timeouts and Errors
+
+#### 103.1 Payment Request Expiry Timeout Handling
+
+**Integration types:** Sales Channel
+
+Proper timeout handling prevents scenarios where a customer successfully pays via Centrapay but the terminal or POS times out before completing the transaction.
+
+**How to meet it:**
+
+The terminal or POS must time out **5–10 seconds after** the Payment Request expires.
+
+**Evidence:**
+
+- Screenshots of POS/terminal timeout configuration.
+- Logs showing the Payment Request expiry timestamp and the corresponding POS/terminal timeout.
+- Test recordings demonstrating correct timeout behaviour.
+
+**Resources:**
+
+- [Error Handling](/guides/merchant-integration-error-handling/)
+
+---
+
+#### 103.2 Automatic Retry on Unknown Errors
+
+**Integration types:** All
+
+Unknown errors can often be resolved by retrying the request. Automatic retries improve the user experience by avoiding unnecessary manual intervention.
+
+Unknown errors include: network or connectivity issues, unexpected API responses, transient server errors, timeouts, and unexpected data or edge cases.
+
+**How to meet it:**
+
+For any API call to Centrapay, if an unknown error occurs, the integration must automatically retry at least once before failing the transaction.
+
+**Evidence:**
+
+- Logs showing an initial unknown error followed by an automatic retry.
+- Payment Request logs indicating multiple attempts for the same Payment Request ID.
+- Code snippets demonstrating automated retry logic.
+
+**Resources:**
+
+- [Merchant Integration Errors](/guides/merchant-integration-error-handling/)
+
+---
+
+#### 103.3 Payment Requests Are Voided After Unknown Errors
+
+**Integration types:** Sales Channel
+
+If the status of a Payment Request cannot be determined, leaving it in an unknown state may result in the customer being charged but the transaction not being fulfilled. Voiding ensures the transaction is closed cleanly.
+
+**How to meet it:**
+
+If a transaction's status cannot be determined after retries, the Payment Request must be voided.
+
+**Evidence:**
+
+- Logs showing retries followed by the void action.
+- Test recordings simulating this scenario and showing the Payment Request is voided correctly.
+- Code snippets demonstrating automated retry and void logic.
+
+**Resources:**
+
+- [Merchant Integration Error Handling — Void Unknown Status](/guides/merchant-integration-error-handling/#void-unknown-status)
+- [Void a Payment Request](/api/payment-requests#void)
+
+---
+
+#### 103.4 Handling Malformed or Unexpected API Responses
+
+**Integration types:** All
+
+Integrations must continue to function even if Centrapay returns an unexpected or unknown error.
+
+**How to meet it:**
+
+Implement error-handling logic that gracefully manages unexpected or malformed responses, including:
+
+- Malformed responses (e.g. invalid JSON, HTML error pages, plain text).
+- Unexpected HTTP status codes (500, 502, 503, 504).
+- Empty or missing responses due to timeouts or dropped connections.
+- Incomplete or corrupted data (missing fields or unexpected schema).
+- TLS handshake failures or abrupt disconnects.
+
+**Evidence:**
+
+- Application logs showing unexpected responses being handled and the system continuing to operate.
+- Automated test reports simulating malformed responses and confirming recovery.
+
+---
+
+#### 103.5 Storing Payment Request IDs and Short Codes
+
+**Integration types:** All, Farmlands
+
+Storing Payment Request IDs and short codes helps with debugging and troubleshooting. Organised records allow quick identification of affected requests.
+
+**How to meet it:**
+
+- Maintain a record of all Payment Request IDs and short codes generated by your integration.
+- Ensure stored IDs are organised and accessible for quick retrieval.
+
+**Evidence:**
+
+- Database records showing stored Payment Request IDs with relevant metadata.
+- Application logs capturing creation and storage of Payment Request IDs.
+
+---
+
+## 104. Managing Payments
+
+#### 104.1 Include Device and Terminal IDs in Payment Requests
+
+**Integration types:** Sales Channel
+
+Providing the device and terminal IDs helps with debugging, auditing, and tracing Payment Requests.
+
+**How to meet it:**
+
+- Include the `deviceId` and `terminalId` when creating each Payment Request.
+- Ensure the IDs correspond to the correct device and terminal being used.
+
+**Evidence:**
+
+- A Payment Request ID for a Payment Request created with the associated `deviceId` and `terminalId`.
+
+**Resources:**
+
+- [Create a Payment Request](/api/payment-requests#create-a-payment-request)
+
+---
+
+#### 104.2 Line Items for Payment Requests
+
+**Integration types:** Farmlands, Sales Channel
+
+Line items are required for Pre-Auth requests.
+
+**How to meet it:**
+
+Include the following fields whenever possible when creating and refunding Payment Requests:
+
+- `name` — the item name.
+- `qty` — quantity of the item.
+- `price` — the price of the item.
+- `sku` — optional, but should be provided whenever available.
+
+**Evidence:**
+
+- A Payment Request ID of a Payment Request created with line items.
+
+**Resources:**
+
+- [Line Items](/guides/line-items/)
+- [Payment Requests](/api/payment-requests)
+
+---
+
+#### 104.3 Refunding Centrapay Payment
+
+**Integration types:** Sales Channel
+
+POS systems or terminals must be able to initiate refunds for payments processed via Centrapay.
+
+**How to meet it:**
+
+- To refund a Payment Request, the Payment Request ID must be known.
+- Print the Payment Request short code on the customer receipt to use for looking up the request.
+- If printing the short code is not feasible, ensure there is an alternative method to link the order to the correct Payment Request.
+
+**Evidence:**
+
+- A Payment Request ID for a refunded Payment Request.
+
+**Resources:**
+
+- [Refund a Payment Request](/api/payment-requests#refund-a-payment-request)
+- [Get Payment Request by Short Code](/api/payment-requests/#get-a-payment-request-by-short-code)
+
+---
+
+#### 104.4 Handling Payment Request Status Updates
+
+**Integration types:** App, Sales Channel
+
+The Payment Request status is the source of truth for determining whether a request has been paid, cancelled, or expired.
+
+**How to meet it:**
+
+- Poll the Payment Request using the Get Payment Request endpoint at regular intervals (e.g. every second).
+- Use the returned status to determine if a Payment Request has been paid, cancelled, or expired, and take the corresponding action.
+- Ensure the polling logic handles errors gracefully.
+
+**Evidence:**
+
+- Logs or screenshots showing how the integration responds to Payment Request status changes.
+- Code snippets illustrating polling logic and response handling.
+
+**Resources:**
+
+- [Get Payment Request](/api/payment-requests#get-a-payment-request)
+
+---
+
+#### 104.5 Payment Request Status Is Clearly Displayed to User
+
+**Integration types:** App, Sales Channel
+
+The user should always see the correct status of a Payment Request.
+
+**How to meet it:**
+
+- Display the current status of the Payment Request clearly in the user interface.
+- Ensure the status updates in real time or as soon as the system receives new information.
+
+**Evidence:**
+
+Screenshots or recordings showing the Payment Request status displayed correctly for each status type:
+
+- **Pending** — payment awaiting completion.
+- **Paid** — payment successfully processed.
+- **Cancelled** — payment cancelled by the customer or merchant.
+- **Expired** — Payment Request timed out before completion.
+
+**Resources:**
+
+- [Payment Request Model](/api/payment-requests#models)
+
+---
+
+#### 104.6 Providing External References in Payment Requests
+
+**Integration types:** Sales Channel
+
+Including an `externalRef` allows merchants to easily track transactions in their own systems and helps cashiers locate payments when processing refunds.
+
+**How to meet it:**
+
+- Provide a meaningful `externalRef` (such as an order number or invoice ID) when creating a Payment Request.
+- Ensure the `externalRef` is unique and consistent within the merchant's system.
+
+**Evidence:**
+
+- A Payment Request ID for a Payment Request that has an `externalRef`.
+
+**Resources:**
+
+- [Payment Requests](/api/payment-requests/#payment-request-model)
+
+---
+
+#### 104.7 Voiding Incomplete Payment Requests
+
+**Integration types:** Sales Channel
+
+Leaving an open Payment Request can lead to unresolved transactions, potential customer confusion, and reconciliation issues. An open Payment Request could also be accidentally paid.
+
+**How to meet it:**
+
+Automatically void any Payment Request as soon as the POS or system determines it will not be completed (e.g. cancelled by the user or merchant).
+
+**Evidence:**
+
+- Logs showing Payment Requests being voided immediately after cancellation or abandonment.
+- Code snippets showing how the void action is triggered programmatically.
+
+**Resources:**
+
+- [Void a Payment Request](/api/payment-requests/#void-a-payment-request)
+
+---
+
+## 105. Support
+
+#### 105.1 Provide Payment Flow Guide and Recording
+
+**Integration types:** All
+
+The Centrapay support team must be able to assist mutual customers quickly. A step-by-step guide and recording of the payment flow ensure support staff can guide merchants and customers through common issues.
+
+**How to meet it:**
+
+- Record a video of the full payment flow from start to finish.
+- Create a written payment flow guide that support staff can use when assisting merchants and customers.
+
+---
+
+#### 105.2 Onboarding Process
+
+**Integration types:** Sales Channel
+
+Onboarding ensures that merchants are correctly identified, notified, and activated in the system.
+
+**How to meet it:**
+
+- Provide a guide showing where to find the merchant onboarding ID, including screenshots or links.
+- Document the end-to-end Go Live process detailing tasks for each party (integrators, Centrapay, Farmlands), including:
+  1. Verifying merchant details.
+  2. Activating the merchant account.
+  3. Providing credentials or POS/test account setup instructions.
+  4. Running a test transaction to confirm functionality.
+  5. Confirming the merchant is fully live and notifying stakeholders.
+- Provide documentation for the Customer Support team so they can assist merchants effectively.
+
+---
+
+#### 105.3 Integrator Contacts and Support Information
+
+**Integration types:** All
+
+Clear contact and support details ensure smooth communication during onboarding, activation, and ongoing support.
+
+**How to meet it:**
+
+Provide:
+
+- Activation and support email addresses.
+- Technical support contacts, including escalation paths.
+- Minimum set of contacts: onboarding contact, L1/L2/L3 support contacts, and a decision-maker contact.
