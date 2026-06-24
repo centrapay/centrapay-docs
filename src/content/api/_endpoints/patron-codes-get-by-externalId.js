@@ -14,6 +14,9 @@ export default {
     expiresAt: '2021-06-08T23:00:00.000Z',
     externalId: '3e9003bbff48d',
     appName: 'centrapay',
-    assetId: 'WRhAxxWpTKb5U7pXyxQjjY'
+    assetId: 'WRhAxxWpTKb5U7pXyxQjjY',
+    metadata: {
+      deviceId: 'device-001',
+    },
   }
 };

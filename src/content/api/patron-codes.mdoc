@@ -46,6 +46,10 @@ A Patron Code is an alternative to presenting a QR code where that option isn’
   {% property name="externalId" type="string" %}
     The external Id of the Patron Code.
   {% /property %}
+
+  {% property name="metadata" type="object" %}
+    Arbitrary key-value data associated with the Patron Code.
+  {% /property %}
 {% /properties %}
 
 ✩ Barcode is a 16 digit number. The first 6 digits are a Centrapay defined prefix, then a 9 digit
@@ -142,6 +146,29 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
   ## Get Patron Code By Namespace and External Id
 
    This endpoint allows you to retrieve a Patron Code by namespace and external id.
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="PATRON_CODE_INVALID" %}
+      Patron Code doesn't exist or it has expired.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/patron-codes/{patronCodeId}/metadata"
+  filename="patron-codes-set-metadata"
+%}
+  ## Set Patron Code Metadata
+
+  This endpoint allows you to set metadata on a Patron Code.
+
+  {% properties %}
+    {% property name="metadata" type="object" required=true %}
+      A map of key-value pairs to attach to the Patron Code. Keys must be alphanumeric with underscores or dashes (max 64 characters). Values must be strings (max 256 characters). Maximum of 10 keys.
+    {% /property %}
+  {% /properties %}
 
   {% properties heading="Errors" %}
     {% error code="403" message="PATRON_CODE_INVALID" %}
