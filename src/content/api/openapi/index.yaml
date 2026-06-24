@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: Centrapay API
+  version: 1.0.0
+
+paths:
+  /api/payment-requests:
+    post:
+      $ref: './endpoints/create-payment-request.yaml'
+
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error code.
+    LineItem:
+      $ref: './models/line-item.yaml'
+    PaymentRequest:
+      $ref: './models/payment-request.yaml'
+    MerchantConfig:
+      $ref: './models/merchant-config.yaml'
+    Merchant:
+      $ref: './models/merchant.yaml'
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
