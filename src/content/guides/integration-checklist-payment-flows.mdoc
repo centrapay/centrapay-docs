@@ -1,0 +1,279 @@
+---
+title: Payment Flow Requirements
+description: Payment flow checklist requirements for Centrapay integrations, covering barcode, QR code, and e-commerce payment flows. At least one flow is required for Sales Channel integrations.
+nav:
+  path: Integration Checklist
+  order: 3
+---
+
+At least one payment flow must be supported for Sales Channel integrations.
+
+## 201. Barcode Payment Flow
+
+#### 201.1 Support for Centrapay App Barcode Scanning
+
+**Integration types:** Farmlands, In-Store, Sales Channel
+
+Barcodes in Centrapay-enabled apps can be up to 16 digits long. Supporting barcode scanning ensures the payment flow is fast, reliable, and user-friendly.
+
+**How to meet it:**
+
+- Ensure your integration can scan and process barcodes from a Centrapay-enabled app.
+- Validate that barcodes of up to 16 digits are correctly read and handled.
+- Handle both successful scans and error scenarios gracefully.
+
+**Evidence:**
+
+- Screenshots or a recording showing a barcode being scanned successfully from the Centrapay app.
+
+**Resources:**
+
+- [Barcode Payment Flow](/guides/merchant-integration-barcode-flow/)
+
+---
+
+#### 201.2 Manual Barcode Entry Support
+
+**Integration types:** Farmlands, In-Store, Sales Channel
+
+If barcode scanning fails or the customer is not physically present with their device, they should still be able to pay via Centrapay by manually entering the barcode.
+
+**How to meet it:**
+
+- Support manual entry of barcodes in the POS or payment interface.
+- Ensure manually entered barcodes are validated and processed correctly.
+
+**Evidence:**
+
+- Screenshots or recording showing a manually entered barcode being processed successfully.
+
+**Resources:**
+
+- [Barcode Payment Flow](/guides/merchant-integration-barcode-flow/)
+
+---
+
+#### 201.3 Complete a Test Payment Using the Barcode Flow
+
+**Integration types:** Farmlands, In-Store, Sales Channel
+
+Testing the barcode payment flow ensures the integration can correctly handle end-to-end payments initiated via barcodes.
+
+**How to meet it:**
+
+- Perform a test payment using the barcode from a Centrapay-enabled app.
+- Confirm the POS or terminal displays accurate payment status after scanning.
+
+**Evidence:**
+
+- A Payment Request ID for a paid Payment Request.
+- Screenshots or recordings showing the barcode scanned and the payment successfully completed.
+
+**Resources:**
+
+- [Barcode Payment Flow](/guides/merchant-integration-barcode-flow/)
+
+---
+
+## 202. QR Code Payment Flow
+
+#### 202.1 Display a Customer-Facing QR Code
+
+**Integration types:** In-Store, Sales Channel
+
+Displaying a customer-facing QR code enables customers to pay using a Centrapay-enabled app. The QR code must be scannable and contain the correct Payment Request URL.
+
+**How to meet it:**
+
+- Generate and display a QR code that links to the Payment Request URL.
+- Ensure the QR code is clearly visible and scannable from the customer's position.
+
+**Evidence:**
+
+- Screenshots or recordings showing the QR code being generated and displayed.
+
+**Resources:**
+
+- [Payment Request Model](/api/payment-requests#payment-request)
+
+---
+
+#### 202.2 Complete a Test Payment Using the QR Code Flow
+
+**Integration types:** In-Store, Sales Channel
+
+Testing the QR code payment flow verifies that payments can be initiated and completed reliably through Centrapay-enabled apps.
+
+**How to meet it:**
+
+- Generate a QR code for a Payment Request and display it on the customer-facing screen.
+- Use a Centrapay-enabled app to scan the QR code and complete a payment.
+- Confirm the payment status updates correctly after the transaction.
+
+**Evidence:**
+
+- Screenshots or screen recordings showing the QR code displayed and scanned using a Centrapay-enabled app.
+
+**Resources:**
+
+- [QR Code Payment Flow](/guides/merchant-integration-qr-code-flow/)
+
+---
+
+#### 202.3 Generate QR Codes from Payment Request URL
+
+**Integration types:** In-Store, Sales Channel
+
+The `url` field in a Payment Request provides a direct link to the payment page. Using this URL to generate QR codes ensures customers can scan and complete the payment flow reliably.
+
+**How to meet it:**
+
+- Use the Payment Request `url` field to generate the QR code.
+- Confirm the generated QR code links directly to the correct Payment Request page.
+- Display the QR code on a customer-facing screen or receipt where it is easily scannable.
+
+**Evidence:**
+
+- Code snippets demonstrating how the Payment Request URL is used to generate the QR code.
+
+**Resources:**
+
+- [QR Code Payment Flow](/guides/merchant-integration-qr-code-flow/)
+- [Payment Request Model](/api/payment-requests/#payment-request-model)
+
+---
+
+## 203. E-Commerce Payment Flow
+
+#### 203.1 Display Centrapay Pay Page to Customer
+
+**Integration types:** Online, Sales Channel
+
+The customer must be able to view and interact with the Centrapay Pay Page—either through a redirect or a popup—so they can complete their payment.
+
+**How to meet it:**
+
+- Redirect the customer or open a popup displaying the Centrapay Pay Page when they select Pay with Centrapay.
+- Ensure the Pay Page loads correctly and is clearly visible before payment completion.
+
+**Evidence:**
+
+- Screenshots or recordings showing the customer presented with the Centrapay Pay Page.
+
+**Resources:**
+
+- [e-commerce Guide](/guides/ecommerce-website/)
+
+---
+
+#### 203.2 Show Payment Status After Customer Returns to Store
+
+**Integration types:** Online, Sales Channel
+
+Customers must be able to verify the status of their payment after returning to the store. Clearly displaying the status reduces confusion and improves trust.
+
+**How to meet it:**
+
+- When a customer returns to the store, display the current status of their Payment Request (paid, cancelled, or expired).
+- Ensure the status is accurate and up to date, retrieved directly from the Payment Request.
+
+**Evidence:**
+
+- Screenshots or recordings showing the correct Payment Request status for each status type.
+
+---
+
+#### 203.3 Show Centrapay Button on Payment Page
+
+**Integration types:** Online, Sales Channel
+
+Customers need to be aware that Centrapay is an available payment option.
+
+**How to meet it:**
+
+- Display the Centrapay payment button clearly and prominently on the payment page.
+- Ensure the button is visible without scrolling and matches Centrapay's branding guidelines.
+- Confirm clicking the button correctly initiates the Centrapay payment flow.
+
+**Evidence:**
+
+- Screenshots or recordings showing the payment page with the Centrapay button clearly visible and functional.
+
+**Resources:**
+
+- [eCommerce Guide](/guides/ecommerce-website/)
+
+---
+
+#### 203.4 Verify Redirect URLs on Payment Requests
+
+**Integration types:** Online, Sales Channel
+
+After a payment reaches a final state, the customer must be redirected to the correct location.
+
+**How to meet it:**
+
+- Include valid redirect URLs when creating each Payment Request.
+- Ensure the customer is redirected to the appropriate page after payment completion (e.g. a success page when paid, a cancellation page if cancelled).
+- Test each redirect to confirm the customer is always taken to the correct page.
+
+**Evidence:**
+
+- Screenshots or recordings showing users redirected to the correct pages for each status type (paid, cancelled, expired).
+
+**Resources:**
+
+- [eCommerce Guide](/guides/ecommerce-website/)
+
+---
+
+#### 203.5 Void Unprocessed Payment Requests on Return
+
+**Integration types:** Online, Sales Channel
+
+If a Payment Request still has a status of `new` after the customer returns, it indicates the payment process may not have completed. Voiding immediately prevents accidental payments and duplicate charges.
+
+**How to meet it:**
+
+When a customer returns to checkout and the Payment Request status is still `new`, void the Payment Request immediately.
+
+**Evidence:**
+
+- Logs showing Payment Requests being voided when the customer returns and the status is `new`.
+- Code snippets showing how voiding is triggered programmatically.
+
+**Resources:**
+
+- [Void Payment Request](/api/payment-requests/#void-a-payment-request)
+- [eCommerce Guide](/guides/ecommerce-website/)
+
+---
+
+#### 203.6 Centrapay Button Design Approval
+
+**Integration types:** Online, Sales Channel
+
+Maintaining a consistent look and feel for the Centrapay payment button ensures customers can recognise and trust the payment option across different integrations.
+
+**How to meet it:**
+
+- Prepare screenshots, mockups, or wireframes of the proposed Centrapay button design.
+- Submit the designs to the Centrapay design team for approval before using them in any integration.
+
+---
+
+#### 203.7 Complete a Test Payment Using E-Commerce
+
+**Integration types:** Online, Sales Channel
+
+Testing the e-commerce payment flow ensures the integration handles Payment Requests end-to-end and customers can complete payments successfully.
+
+**How to meet it:**
+
+- Initiate a Payment Request through the e-commerce integration.
+- Complete the payment using a Centrapay-enabled app.
+- Verify the payment flow behaves correctly including redirects, status updates, and receipts.
+
+**Evidence:**
+
+- Screenshots or screen recordings showing the full e-commerce payment flow completed successfully.
