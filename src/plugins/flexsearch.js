@@ -70,7 +70,9 @@ async function createFlexsearchIndexData() {
     .use(remarkHtml);
 
   for (const filepath of await glob.sync('src/content/**/*.{md,mdoc}')) {
-    const href = filepath.replace(/(src\/content)|\.(mdoc?)/g, '');
+    const href = filepath
+      .replace(/(src\/content)|\.(mdoc?)/g, '')
+      .replace(/^\/merchant-services\//, '/guides/');
     const { data: frontMatter, content } = grayMatter(await fs.readFile(filepath));
     const path = [...frontMatter.nav.path.split('/'), frontMatter.nav.title ?? frontMatter.title];
 

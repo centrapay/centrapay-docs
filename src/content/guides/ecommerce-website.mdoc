@@ -8,12 +8,12 @@ nav:
 ---
 Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our redirect or popup e-commerce payment flows.
 
-## Know before you code
+## Before You Begin
 
-Please get in touch with Centrapay to configure your business for e-commerce.
+Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to configure your business for e-commerce.
 If you decide to use the redirect flow, you will need to inform us of allowed domains for redirect URLs.
 
-Centrapay will provide you with the following resources to allow you to start creating [Payment Requests](/api/payment-requests).
+Centrapay will configure your business to accept test payments and provide you with the following resources to start creating [Payment Requests](/api/payment-requests).
 
 1. API Key.
 2. Merchant ID.
@@ -21,14 +21,65 @@ Centrapay will provide you with the following resources to allow you to start cr
 
 > We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
 
-Centrapay will configure your business to accept test payments before you can accept live payments.
-Accepting live payments requires you to meet our certification requirements.
+Once you have confirmed your integration needs, we will also provide you with a customized integration checklist. Accepting live payments requires you to meet our certification requirements.
 
 ## Centrapay Checkout Sample
 
 A [sample Centrapay e-commerce application](https://github.com/centrapay/centrapay-checkout-sample) is available.
 It includes demos of both the redirect method and the popup method.
 Please refer to the README.md file for configuration instructions.
+
+## Backend Server
+
+Both the redirect and popup methods require a backend server to securely call the Centrapay API using your API key. The client-side examples in this guide call this server at `/api/payment-requests`, which proxies the request to Centrapay so your API key is never exposed to the browser.
+
+All Centrapay API requests are made against the base URL `https://service.centrapay.com`. There is no separate sandbox host — test and live payments use the same URL and are determined by the credentials Centrapay issues you. A [test merchant API key](/api/auth#api-keys) is available for creating test Payment Requests.
+
+```javascript title="Server-side — Node.js/Express"
+import express from 'express';
+import fetch from 'node-fetch';
+
+const { CENTRAPAY_MERCHANT_API_KEY, CENTRAPAY_MERCHANT_CONFIG_ID } = process.env;
+const centrapayBaseUrl = 'https://service.centrapay.com/api';
+
+const app = express();
+app.use(express.json());
+
+app.post('/api/payment-requests', async (req, res) => {
+  try {
+    const response = await fetch(`${centrapayBaseUrl}/payment-requests`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': CENTRAPAY_MERCHANT_API_KEY,
+      },
+      body: JSON.stringify({
+        configId: CENTRAPAY_MERCHANT_CONFIG_ID,
+        ...req.body,
+      }),
+    });
+    const json = await response.json();
+    res.status(response.status).json(json);
+  } catch (error) {
+    console.error('Failed to create payment request:', error);
+    res.status(500).json({ error: 'Failed to create payment request.' });
+  }
+});
+
+app.get('/api/payment-requests/:paymentRequestId', async (req, res) => {
+  try {
+    const response = await fetch(
+      `${centrapayBaseUrl}/payment-requests/${req.params.paymentRequestId}`,
+      { headers: { 'X-Api-Key': CENTRAPAY_MERCHANT_API_KEY } },
+    );
+    const json = await response.json();
+    res.status(response.status).json(json);
+  } catch (error) {
+    console.error('Failed to get payment request:', error);
+    res.status(500).json({ error: 'Failed to get payment request.' });
+  }
+});
+```
 
 ## Redirect Method
 
@@ -78,7 +129,7 @@ autonumber
 > Your merchant must be configured with allowed domains for your redirect URLs.
 
 1. Display Centrapay as a payment option on checkout.
-2. When the customer places an order using the Centrapay payment option, you are expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request).
+2. When the customer places an order using the Centrapay payment option, [Create a Payment Request](/api/payment-requests/#create-a-payment-request).
   **You must define a `redirectPaidUrl` and a `redirectCancelUrl`.**
 
     Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
@@ -87,9 +138,28 @@ autonumber
 
     Centrapay will return a `url` which you are expected to redirect the customer to.
 
+    ```javascript title="Client-side — Browser"
+    const response = await fetch('/api/payment-requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        value: { amount: '100', currency: 'NZD' }, // amount in cents ($1.00)
+        redirectPaidUrl: 'https://example.com/paid',
+        redirectCancelUrl: 'https://example.com/cancel',
+      }),
+    });
+    const paymentRequest = await response.json();
+    if (!response.ok) {
+      throw new Error(paymentRequest.message);
+    }
+    window.location.replace(paymentRequest.url);
+    ```
+
+    See [Create a Payment Request](/api/payment-requests/#create-a-payment-request) for the full list of parameters and error codes.
+
 3. The customer will be redirected to your site at the end of the payment process.
-    - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
-    - If the Payment Request is `cancelled`, `expired`, or `new`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
+    - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
+    - If the Payment Request is `cancelled`, `expired`, or `new`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
     - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
 
 ## Popup Method
@@ -148,7 +218,7 @@ autonumber
 
 ### Implementation
 
-```html title="Sample Integration"
+```html title="Client-side — Browser"
 <html>
 	<head>
 		<script src="https://sdk.centrapay.com/ecommerce/centrapay.js?merchantId={merchantId}"></script>
@@ -158,15 +228,26 @@ autonumber
 		<script type="text/javascript">
       window.centrapay({
         async onClick() {
-          // Create Payment Request
-          // Return Payment Request
+          const response = await fetch('/api/payment-requests', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              value: { amount: '100', currency: 'NZD' }, // amount in cents ($1.00)
+            }),
+          });
+          const paymentRequest = await response.json();
+          if (!response.ok) {
+            throw new Error(paymentRequest.message);
+          }
+          return paymentRequest;
         },
         async onComplete(data) {
-          // Get Payment Request with data.paymentRequestId
+          const response = await fetch(`/api/payment-requests/${data.paymentRequestId}`);
+          const paymentRequest = await response.json();
           if (paymentRequest.status === 'new') {
             // Void Payment Request
           }
-        }
+        },
       });
     </script>
 	</body>
@@ -177,16 +258,18 @@ autonumber
     1. Import the Centrapay SDK using a `<script>` tag.
       This script fetches the necessary JavaScript to access the Centrapay button in the window object.
       Your Merchant ID must be in the query string for SDK retrieval.
-    2. Add a `div` with the id `centrapay-button-container` to render the ‘Pay with Centrapay’ button.
+    2. Add a `div` with the id `centrapay-button-container` to render the 'Pay with Centrapay' button.
 2. Render the Centrapay button and implement the required callbacks.
     1. `onClick`
 
-        This callback is triggered when the customer clicks the ‘Pay with Centrapay’ button.
+        This callback is triggered when the customer clicks the 'Pay with Centrapay' button.
 
         The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request.
         Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
         - [Line Items](/guides/line-items)
         - [Requesting Pre Auth](/guides/requesting-pre-auth)
+
+        See [Create a Payment Request](/api/payment-requests/#create-a-payment-request) for the full list of parameters and error codes.
 
     2. `onComplete`
 
@@ -197,11 +280,3 @@ autonumber
         - If the Payment Request is `paid`, you can redirect the customer to the order confirmation page.
         - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
         - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
-
-
-## Contact Us
-
-Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to configure your business for e-commerce.
-
-Once you have confirmed your integration needs, we will provide you with a customized integration checklist for certification.
-Accepting live payments requires you to meet our certification requirements.
