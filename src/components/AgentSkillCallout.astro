@@ -1,0 +1,33 @@
+---
+import InfoIcon from './icons/InfoIcon.astro';
+
+const AGENT_SKILL_BASE_URL = 'https://github.com/centrapay/skills/blob/master/';
+
+const {
+  skillPath,
+  skillLabel = 'Centrapay e-commerce integration skill',
+} = Astro.props;
+
+const skillUrl = `${AGENT_SKILL_BASE_URL}${skillPath}`;
+---
+
+<div class="not-prose my-5 flex flex-row gap-5 rounded-lg bg-surface-secondary p-5">
+  <InfoIcon class="inline-block size-6 shrink-0 text-content-secondary" />
+  <div class="m-0 flex-1 text-sm leading-5 text-content-tertiary">
+    <p class="font-medium text-content-secondary">
+      Developing with an AI agent?
+    </p>
+    <p class="mt-1">
+      Try using our
+      <a
+        class="font-medium text-interactive-primary underline hover:text-interactive-secondary-hover"
+        href={skillUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {skillLabel}
+      </a>
+      to help guide your implementation.
+    </p>
+  </div>
+</div>
