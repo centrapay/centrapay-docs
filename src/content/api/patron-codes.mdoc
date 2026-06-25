@@ -162,7 +162,9 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
 %}
   ## Set Patron Code Metadata
 
-  This endpoint allows you to set metadata on a Patron Code.
+  This endpoint allows you to set metadata on a Patron Code. Metadata is merged with any existing
+  keys — only the keys provided in the request are affected. To remove a key, set its value to an
+  empty string.
 
   {% properties %}
     {% property name="metadata" type="object" required=true %}
