@@ -3,7 +3,7 @@ export default {
   path: '/api/patron-codes',
   request: {
     headers: {
-      'Authorization': '<TOKEN>',
+      'X-Api-Key': '<TOKEN>',
     },
   },
   response: {
@@ -13,6 +13,6 @@ export default {
     createdAt: '2021-06-08T22:55:00.000Z',
     expiresAt: '2021-06-08T23:00:00.000Z',
     appName: 'centrapay',
-    assetId: 'WRhAxxWpTKb5U7pXyxQjjY'
+    metadata: {},
   }
 };
