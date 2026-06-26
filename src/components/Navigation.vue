@@ -37,7 +37,6 @@
                     role="menuitem"
                     class="block py-2 pl-6 text-xs text-gray-600"
                     :href="subChild.path"
-                    @click="saveScroll"
                   >
                     {{ subChild.title }}
                   </a>
@@ -70,7 +69,6 @@
                   role="menuitem"
                   class="block py-2 pl-4 text-xs text-gray-600"
                   :href="navigationChild.path"
-                  @click="saveScroll"
                 >
                   {{ navigationChild.title }}
                 </a>
@@ -100,28 +98,9 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
   navigation: { type: Object, required: true },
   showHeadings: { type: Boolean, required: false, default: true },
-});
-
-const saveScroll = () => {
-  const sidebar = document.querySelector('#sidebar-content');
-  if (sidebar) {
-    try { localStorage.setItem('sidebar-scroll', String(sidebar.scrollTop)); }
-    catch {}
-  }
-};
-
-onMounted(() => {
-  const sidebar = document.querySelector('#sidebar-content');
-  if (!sidebar) return;
-  try {
-    const saved = localStorage.getItem('sidebar-scroll');
-    if (saved !== null) sidebar.scrollTop = parseInt(saved, 10);
-  } catch {}
 });
 </script>
