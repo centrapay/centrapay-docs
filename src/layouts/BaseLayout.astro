@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import AppShell from '../components/AppShell.astro';
 import IntercomButton from '../components/IntercomButton.vue';
 import Footer from '../components/Footer.astro';
@@ -42,6 +43,8 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+
+    <ViewTransitions />
 
     <!-- Intercom widget -->
     <meta name="referrer" content="no-referrer-when-downgrade">
