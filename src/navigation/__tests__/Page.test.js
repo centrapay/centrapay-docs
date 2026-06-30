@@ -18,7 +18,7 @@ describe('Page', () => {
       const result = Page.fromContent(content);
       expect(result).toEqual({
         path: '/guides/farmlands-pos-guide',
-        title: 'Farmlands POS Integration Guide',
+        title: 'Override',
         nav: {
           order: 1,
           title: 'Override',

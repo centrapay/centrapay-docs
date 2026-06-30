@@ -23,7 +23,7 @@ class Page {
     const routePath = collection === 'merchantServices' ? 'guides' : toKebabCase(collection);
     return new Page({
       path: `/${routePath}/${id}`,
-      title: frontmatter.title,
+      title: frontmatter.nav.title || frontmatter.title,
       nav: frontmatter.nav,
       headings,
     });
