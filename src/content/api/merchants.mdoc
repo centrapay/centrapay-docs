@@ -71,6 +71,10 @@ which define the payment methods available for a Payment Request.
   {% property name="categoryCode" type="string" %}
     The category code assigned to the Merchant by Centrapay. Must be 4 digits.
   {% /property %}
+
+  {% property name="metadata" type="object" %}
+    Arbitrary key-value data associated with the Merchant. See [Set Merchant Metadata](#set-merchant-metadata).
+  {% /property %}
 {% /properties %}
 
 ### Onboarding Statuses
@@ -295,6 +299,25 @@ which define the payment methods available for a Payment Request.
 
     {% property name="onboardingStatusReason" type="string" %}
       The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold` or `deactivated`. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    {% /property %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/merchants/{merchantId}/metadata"
+  filename="merchants-set-metadata"
+%}
+  ## Set Merchant Metadata
+
+  This endpoint allows you to set metadata on a Merchant. Metadata is merged with any existing
+  keys — only the keys provided in the request are affected. To remove a key, set its value to an
+  empty string.
+
+  {% properties %}
+    {% property name="metadata" type="object" required=true %}
+      A map of key-value pairs to attach to the Merchant. Keys must be alphanumeric with underscores or dashes (max 64 characters). Values must be strings (max 256 characters). A maximum of 10 keys is allowed.
     {% /property %}
   {% /properties %}
 {% /endpoint %}
