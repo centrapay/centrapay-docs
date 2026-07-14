@@ -1,125 +1,127 @@
-x-method: POST
-x-path: /api/payment-requests
-operationId: createPaymentRequest
-summary: Create a Payment Request
-tags:
-  - Payment Requests
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - configId
-          - value
-        properties:
-          configId:
-            $ref: '../models/merchant-config.yaml#/properties/configId'
-          value:
-            $ref: '../models/payment-request.yaml#/properties/value'
-          barcode:
-            $ref: '../models/payment-request.yaml#/properties/barcode'
-          barcodeType:
-            $ref: '../models/payment-request.yaml#/properties/barcodeType'
-          collectionId:
-            $ref: '../models/payment-request.yaml#/properties/collectionId'
-          expirySeconds:
-            $ref: '../models/payment-request.yaml#/properties/expirySeconds'
-          lineItems:
-            $ref: '../models/payment-request.yaml#/properties/lineItems'
-          purchaseOrderRef:
-            $ref: '../models/payment-request.yaml#/properties/purchaseOrderRef'
-          invoiceRef:
-            $ref: '../models/payment-request.yaml#/properties/invoiceRef'
-          redirectCancelUrl:
-            $ref: '../models/payment-request.yaml#/properties/redirectCancelUrl'
-          redirectPaidUrl:
-            $ref: '../models/payment-request.yaml#/properties/redirectPaidUrl'
-          externalRef:
-            $ref: '../models/payment-request.yaml#/properties/externalRef'
-          terminalId:
-            $ref: '../models/payment-request.yaml#/properties/terminalId'
-          deviceId:
-            $ref: '../models/payment-request.yaml#/properties/deviceId'
-          operatorId:
-            $ref: '../models/payment-request.yaml#/properties/operatorId'
-          createdByAccountName:
-            $ref: '../models/payment-request.yaml#/properties/createdByAccountName'
-          conditionsEnabled:
-            $ref: '../models/payment-request.yaml#/properties/conditionsEnabled'
-          patronNotPresent:
-            $ref: '../models/payment-request.yaml#/properties/patronNotPresent'
-          preAuth:
-            $ref: '../models/payment-request.yaml#/properties/preAuth'
-          partialAllowed:
-            $ref: '../models/payment-request.yaml#/properties/partialAllowed'
-          basketAmount:
-            $ref: '../models/payment-request.yaml#/properties/basketAmount'
-          connectionId:
-            $ref: '../models/payment-request.yaml#/properties/connectionId'
-          paymentLinkId:
-            $ref: '../models/payment-request.yaml#/properties/paymentLinkId'
-      examples:
-        default:
-          $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestBody'
-responses:
-  '200':
-    description: Payment Request created
+post:
+  x-method: POST
+  x-path: /api/payment-requests
+  operationId: createPaymentRequest
+  summary: Create a Payment Request
+  description: Create a Payment Request for a given Merchant Config and value.
+  tags:
+    - payment-requests
+  requestBody:
+    required: true
     content:
       application/json:
         schema:
-          $ref: '../index.yaml#/components/schemas/PaymentRequest'
+          type: object
+          required:
+            - configId
+            - value
+          properties:
+            configId:
+              $ref: '../models/merchant-config.yaml#/properties/configId'
+            value:
+              $ref: '../models/payment-request.yaml#/properties/value'
+            barcode:
+              $ref: '../models/payment-request.yaml#/properties/barcode'
+            barcodeType:
+              $ref: '../models/payment-request.yaml#/properties/barcodeType'
+            collectionId:
+              $ref: '../models/payment-request.yaml#/properties/collectionId'
+            expirySeconds:
+              $ref: '../models/payment-request.yaml#/properties/expirySeconds'
+            lineItems:
+              $ref: '../models/payment-request.yaml#/properties/lineItems'
+            purchaseOrderRef:
+              $ref: '../models/payment-request.yaml#/properties/purchaseOrderRef'
+            invoiceRef:
+              $ref: '../models/payment-request.yaml#/properties/invoiceRef'
+            redirectCancelUrl:
+              $ref: '../models/payment-request.yaml#/properties/redirectCancelUrl'
+            redirectPaidUrl:
+              $ref: '../models/payment-request.yaml#/properties/redirectPaidUrl'
+            externalRef:
+              $ref: '../models/payment-request.yaml#/properties/externalRef'
+            terminalId:
+              $ref: '../models/payment-request.yaml#/properties/terminalId'
+            deviceId:
+              $ref: '../models/payment-request.yaml#/properties/deviceId'
+            operatorId:
+              $ref: '../models/payment-request.yaml#/properties/operatorId'
+            createdByAccountName:
+              $ref: '../models/payment-request.yaml#/properties/createdByAccountName'
+            conditionsEnabled:
+              $ref: '../models/payment-request.yaml#/properties/conditionsEnabled'
+            patronNotPresent:
+              $ref: '../models/payment-request.yaml#/properties/patronNotPresent'
+            preAuth:
+              $ref: '../models/payment-request.yaml#/properties/preAuth'
+            partialAllowed:
+              $ref: '../models/payment-request.yaml#/properties/partialAllowed'
+            basketAmount:
+              $ref: '../models/payment-request.yaml#/properties/basketAmount'
+            connectionId:
+              $ref: '../models/payment-request.yaml#/properties/connectionId'
+            paymentLinkId:
+              $ref: '../models/payment-request.yaml#/properties/paymentLinkId'
         examples:
           default:
-            $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestResponse'
-  '400':
-    description: Bad Request
-    content:
-      application/json:
-        schema:
-          $ref: '../index.yaml#/components/schemas/ApiError'
-        examples:
-          LINE_ITEMS_SUM_CHECK_FAILED:
-            description: The sum value of the line items did not equal the value of the Payment Request.
-            value:
-              message: LINE_ITEMS_SUM_CHECK_FAILED
-          CHECKSUM_FAILED:
-            description: Luhn checksum digit doesn't pass.
-            value:
-              message: CHECKSUM_FAILED
-  '403':
-    description: Forbidden
-    content:
-      application/json:
-        schema:
-          $ref: '../index.yaml#/components/schemas/ApiError'
-        examples:
-          REDIRECT_URL_INVALID:
-            description: One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
-            value:
-              message: REDIRECT_URL_INVALID
-          PATRON_CODE_INVALID:
-            description: "[Patron Code](/api/patron-codes) doesn't exist or has expired."
-            value:
-              message: PATRON_CODE_INVALID
-          NO_AVAILABLE_PAYMENT_OPTIONS:
-            description: No payment options match the requested payment parameters.
-            value:
-              message: NO_AVAILABLE_PAYMENT_OPTIONS
-          TOKEN_COLLECTION_NOT_FOUND:
-            description: The token collection does not exist.
-            value:
-              message: TOKEN_COLLECTION_NOT_FOUND
-          CONNECTION_NOT_FOUND:
-            description: The connection does not exist.
-            value:
-              message: CONNECTION_NOT_FOUND
-          CONNECTION_MERCHANT_MISMATCH:
-            description: The connection is not for the same merchant as the payment request.
-            value:
-              message: CONNECTION_MERCHANT_MISMATCH
-          CONNECTION_CREATED_BY_MISMATCH:
-            description: The connection was not created by the same caller as the payment request.
-            value:
-              message: CONNECTION_CREATED_BY_MISMATCH
+            $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestBody'
+  responses:
+    '200':
+      description: Payment Request created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-request.yaml'
+          examples:
+            default:
+              $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            LINE_ITEMS_SUM_CHECK_FAILED:
+              description: The sum value of the line items did not equal the value of the Payment Request.
+              value:
+                message: LINE_ITEMS_SUM_CHECK_FAILED
+            CHECKSUM_FAILED:
+              description: Luhn checksum digit doesn't pass.
+              value:
+                message: CHECKSUM_FAILED
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            REDIRECT_URL_INVALID:
+              description: One or more of the supplied redirect urls do not start with one of the `allowedRedirectUrls` on the [Merchant Config](/api/merchant-configs).
+              value:
+                message: REDIRECT_URL_INVALID
+            PATRON_CODE_INVALID:
+              description: "[Patron Code](/api/patron-codes) doesn't exist or has expired."
+              value:
+                message: PATRON_CODE_INVALID
+            NO_AVAILABLE_PAYMENT_OPTIONS:
+              description: No payment options match the requested payment parameters.
+              value:
+                message: NO_AVAILABLE_PAYMENT_OPTIONS
+            TOKEN_COLLECTION_NOT_FOUND:
+              description: The token collection does not exist.
+              value:
+                message: TOKEN_COLLECTION_NOT_FOUND
+            CONNECTION_NOT_FOUND:
+              description: The connection does not exist.
+              value:
+                message: CONNECTION_NOT_FOUND
+            CONNECTION_MERCHANT_MISMATCH:
+              description: The connection is not for the same merchant as the payment request.
+              value:
+                message: CONNECTION_MERCHANT_MISMATCH
+            CONNECTION_CREATED_BY_MISMATCH:
+              description: The connection was not created by the same caller as the payment request.
+              value:
+                message: CONNECTION_CREATED_BY_MISMATCH

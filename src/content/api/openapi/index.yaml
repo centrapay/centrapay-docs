@@ -3,10 +3,12 @@ info:
   title: Centrapay API
   version: 1.0.0
 
+tags:
+  - name: payment-requests
+
 paths:
   /api/payment-requests:
-    post:
-      $ref: './endpoints/create-payment-request.yaml'
+    $ref: './endpoints/create-payment-request.yaml'
 
 components:
   schemas:
@@ -16,14 +18,6 @@ components:
         message:
           type: string
           description: The error code.
-    LineItem:
-      $ref: './models/line-item.yaml'
-    PaymentRequest:
-      $ref: './models/payment-request.yaml'
-    MerchantConfig:
-      $ref: './models/merchant-config.yaml'
-    Merchant:
-      $ref: './models/merchant.yaml'
   securitySchemes:
     ApiKey:
       type: apiKey

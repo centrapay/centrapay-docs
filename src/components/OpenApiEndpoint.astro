@@ -7,92 +7,26 @@ import Properties from './Properties.astro';
 import ErrorItem from './Error.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
+import { resolveRefs, buildEndpointData, getProperties, getErrors } from '../utils/OpenApiResolver.js';
 
 const { operationId } = Astro.props;
 
 const schemasCollection = await getCollection('openapiSchemas');
-
 const schemasMap = Object.fromEntries(
   schemasCollection.map(entry => [entry.id.split('/').pop(), entry.data])
 );
 
-function resolveAll(obj) {
-  if (obj && typeof obj === 'object' && '$ref' in obj) {
-    const ref = obj['$ref'];
-    const [filePart, pointer] = ref.split('#');
-    const refId = filePart.split('/').pop().replace('.yaml', '');
-    let target = schemasMap[refId] ?? obj;
-    if (pointer) {
-      for (const part of pointer.replace(/^\//, '').split('/').filter(Boolean)) {
-        target = target?.[part] ?? obj;
-      }
-    }
-    return resolveAll(target);
-  }
-  if (Array.isArray(obj)) return obj.map(resolveAll);
-  if (obj && typeof obj === 'object') return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, resolveAll(v)]));
-  return obj;
-}
-
 const endpoints = await getCollection('openapiEndpoints');
-const entry = endpoints.find(e => e.data.operationId === operationId);
-
+const entry = endpoints.find(e =>
+  Object.values(e.data).some(op => op?.operationId === operationId)
+);
 if (!entry) throw new Error(`No operation found for operationId: ${operationId}`);
 
-const operation = resolveAll(entry.data);
-
-const getExample = (mediaType) => Object.values(mediaType?.examples ?? {})[0]?.value;
-
-const endpointData = {
-  method: operation['x-method'],
-  path: operation['x-path'],
-  request: {
-    headers: {
-      'X-Api-Key': '<TOKEN>',
-      ...(operation.requestBody ? { 'Content-Type': 'application/json' } : {}),
-    },
-    payload: getExample(operation.requestBody?.content?.['application/json']),
-  },
-  response: getExample(operation.responses?.['200']?.content?.['application/json']),
-};
-
-const endpoint = createEndpoint(endpointData);
-
-const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
-
-const formatDescription = (text) => text
-  ?.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-  .replace(/`([^`]+)`/g, '<code>$1</code>') ?? null;
-
-const schema = operation.requestBody?.content?.['application/json']?.schema;
-const required = schema?.required ?? [];
-
-const properties = Object.entries(schema?.properties ?? {}).map(([name, prop]) => {
-  const type = prop['x-type'] ?? prop.type ?? 'string';
-  const formattedType = type.toLowerCase();
-  const typeLink = customDataTypes.includes(formattedType) ? `/api/data-types#${formattedType}` : undefined;
-  const description = formatDescription(prop.description);
-  return {
-    name,
-    formattedType,
-    typeLink,
-    description,
-    isRequired: required.includes(name),
-    isExperimental: !!prop['x-experimental'],
-    isDeprecated: !!prop['x-deprecated'],
-  };
-});
-
-const errors = Object.entries(operation.responses ?? {})
-  .filter(([code]) => code !== '200')
-  .flatMap(([code, response]) =>
-    Object.entries(response?.content?.['application/json']?.examples ?? {})
-      .map(([message, example]) => ({
-        code,
-        message,
-        description: formatDescription(example.description),
-      }))
-  );
+const pathItem = resolveRefs(entry.data, schemasMap);
+const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
+const endpoint = createEndpoint(buildEndpointData(operation));
+const properties = getProperties(operation.requestBody?.content?.['application/json']?.schema);
+const errors = getErrors(operation.responses);
 
 const badgeClasses = {
   experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
