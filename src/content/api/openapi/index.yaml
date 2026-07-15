@@ -18,6 +18,8 @@ components:
         message:
           type: string
           description: The error code.
+  responses:
+    $ref: './models/responses.yaml'
   securitySchemes:
     ApiKey:
       type: apiKey

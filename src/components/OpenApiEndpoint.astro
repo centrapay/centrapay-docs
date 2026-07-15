@@ -26,7 +26,8 @@ const pathItem = resolveRefs(entry.data, schemasMap);
 const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
 const endpoint = createEndpoint(buildEndpointData(operation));
 const properties = getProperties(operation.requestBody?.content?.['application/json']?.schema);
-const errors = getErrors(operation.responses);
+const commonResponses = Object.values(schemasMap['responses'] ?? {});
+const errors = getErrors(operation.responses, commonResponses);
 
 const badgeClasses = {
   experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',

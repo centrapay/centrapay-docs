@@ -10,8 +10,9 @@ function resolvePointer(target, pointer) {
 
 function resolveRef(ref, schemasMap) {
   const [filePart, pointer] = ref.split('#');
-  const refId = filePart.split('/').pop().replace('.yaml', '');
-  const target = schemasMap[refId];
+  const target = filePart
+    ? schemasMap[filePart.split('/').pop().replace('.yaml', '')]
+    : schemasMap['index'];
   return pointer ? resolvePointer(target, pointer) : target;
 }
 
@@ -20,7 +21,9 @@ const isObject = (obj) => obj && typeof obj === 'object';
 
 export function resolveRefs(obj, schemasMap) {
   if (isRef(obj)) {
-    return resolveRefs(resolveRef(obj['$ref'], schemasMap) ?? obj, schemasMap);
+    const resolved = resolveRef(obj['$ref'], schemasMap);
+    if (resolved === undefined){ return obj; }
+    return resolveRefs(resolved, schemasMap);
   }
   if (Array.isArray(obj)) {
     return obj.map(v => resolveRefs(v, schemasMap));
@@ -33,7 +36,7 @@ export function resolveRefs(obj, schemasMap) {
 
 export function formatDescription(text) {
   return text
-    ?.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    ?.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="font-semibold underline">$1</a>')
     .replace(/`([^`]+)`/g, '<code>$1</code>') ?? null;
 }
 
@@ -57,8 +60,8 @@ export function getProperties(schema) {
   });
 }
 
-export function getErrors(responses) {
-  return Object.entries(responses ?? {})
+export function getErrors(responses, commonResponses = []) {
+  const endpointErrors = Object.entries(responses ?? {})
     .filter(([code]) => code !== '200')
     .flatMap(([code, response]) =>
       Object.entries(response?.content?.['application/json']?.examples ?? {})
@@ -68,6 +71,19 @@ export function getErrors(responses) {
           description: formatDescription(example.description),
         }))
     );
+
+  const sharedErrors = commonResponses
+    .filter(response => response?.['x-status-code'])
+    .flatMap(response =>
+      Object.entries(response?.content?.['application/json']?.examples ?? {})
+        .map(([message, example]) => ({
+          code: response['x-status-code'],
+          message,
+          description: formatDescription(example.description),
+        }))
+    );
+
+  return [...endpointErrors, ...sharedErrors].sort((a, b) => Number(a.code) - Number(b.code));
 }
 
 function buildRequestHeaders(requestBody) {
