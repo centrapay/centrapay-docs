@@ -66,6 +66,15 @@ post:
           default:
             $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestBody'
   responses:
+    '200':
+      description: Payment Request created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-request.yaml'
+          examples:
+            default:
+              $ref: '../models/payment-request.yaml#/x-examples/PaymentRequestResponse'
     '400':
       description: Bad Request
       content:
