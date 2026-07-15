@@ -23,6 +23,10 @@ A Patron Code is an alternative to presenting a QR code where that option isn’
     Date when the Patron Code was created.
   {% /property %}
 
+  {% property name="assetId" type="string" %}
+    Id of the related asset.
+  {% /property %}
+
   {% property name="expiresAt" type="timestamp" %}
     Date when the Patron Code will expire.
   {% /property %}
@@ -41,6 +45,10 @@ A Patron Code is an alternative to presenting a QR code where that option isn’
 
   {% property name="externalId" type="string" %}
     The external Id of the Patron Code.
+  {% /property %}
+
+  {% property name="metadata" type="object" %}
+    Arbitrary key-value data associated with the Patron Code.
   {% /property %}
 {% /properties %}
 
@@ -138,6 +146,31 @@ be used with Payment Requests that will have a liveness of 'test'. The [Asset Ty
   ## Get Patron Code By Namespace and External Id
 
    This endpoint allows you to retrieve a Patron Code by namespace and external id.
+
+  {% properties heading="Errors" %}
+    {% error code="403" message="PATRON_CODE_INVALID" %}
+      Patron Code doesn't exist or it has expired.
+    {% /error %}
+  {% /properties %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/patron-codes/{patronCodeId}/metadata"
+  filename="patron-codes-set-metadata"
+%}
+  ## Set Patron Code Metadata
+
+  This endpoint allows you to set metadata on a Patron Code. Metadata is merged with any existing
+  keys — only the keys provided in the request are affected. To remove a key, set its value to an
+  empty string.
+
+  {% properties %}
+    {% property name="metadata" type="object" required=true %}
+      A map of key-value pairs to attach to the Patron Code. Keys must be alphanumeric with underscores or dashes (max 64 characters). Values must be strings (max 256 characters). Maximum of 10 keys.
+    {% /property %}
+  {% /properties %}
 
   {% properties heading="Errors" %}
     {% error code="403" message="PATRON_CODE_INVALID" %}

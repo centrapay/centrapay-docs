@@ -163,7 +163,7 @@ sequenceDiagram
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-      -H "Authorization: $jwt"
+      -H "X-Api-Key: $api_key"
     ```
 
     ```json {% title="Response" %}
@@ -255,7 +255,7 @@ sequenceDiagram
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-      -H "Authorization: $jwt"
+      -H "X-Api-Key: $api_key"
     ```
 
     ```json {% title="Response" %}
@@ -528,7 +528,7 @@ end
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-      -H "Authorization: $jwt"
+      -H "X-Api-Key: $api_key"
     ```
 
     ```json {% title="Response" %}
@@ -621,7 +621,7 @@ end
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
-      -H "Authorization: $jwt"
+      -H "X-Api-Key: $api_key"
     ```
 
     ```json {% title="Response" %}
@@ -825,7 +825,7 @@ Farmlands Card Partners may optionally [decode a scanned Farmlands Barcode](/api
 
 ```bash {% title="Request" %}
 curl -X POST https://service.centrapay.com/api/decode \
-  -H "Authorization: $jwt" \
+  -H "X-Api-Key: $api_key" \
   -H "Content-Type: application/json" \
   -d '{
     "code": "123456789",

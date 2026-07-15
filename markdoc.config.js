@@ -114,7 +114,8 @@ export default defineMarkdocConfig({
       attributes: {
         image: { type: String },
         caption: { type: String },
-        imageWidth: { type: String },
+        displayWidth: { type: Number },
+        displayHeight: { type: Number },
       },
     },
     properties: {
