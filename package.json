@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && yarn lint:openapi",
+    "lint:openapi": "spectral lint src/content/api/openapi/index.yaml",
     "linkinator": "linkinator dist/",
     "dev": "astro dev",
     "build": "astro build",
@@ -20,6 +21,7 @@
     "@hbsnow/rehype-sectionize": "^1.0.7",
     "@headlessui/vue": "^1.6.0",
     "@intercom/messenger-js-sdk": "^0.0.18",
+    "@stoplight/spectral-cli": "6.16.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "5.15.9",

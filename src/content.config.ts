@@ -65,9 +65,19 @@ const merchantServices = defineCollection({
   }),
 });
 
+const openapiEndpoints = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/api/openapi/endpoints' }),
+});
+
+const openapiSchemas = defineCollection({
+  loader: glob({ pattern: ['models/**/*.yaml', 'index.yaml'], base: './src/content/api/openapi' }),
+});
+
 export const collections = {
   guides,
   connections,
   api,
   merchantServices,
+  openapiEndpoints,
+  openapiSchemas,
 };

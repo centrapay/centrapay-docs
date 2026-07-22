@@ -1,0 +1,60 @@
+BadRequest:
+  x-status-code: '400'
+  description: Malformed Request
+  content:
+    application/json:
+      examples:
+        BAD REQUEST:
+          description: The request is malformed or missing required fields.
+          value:
+            message: BAD REQUEST
+Unauthorized:
+  x-status-code: '401'
+  description: Unauthorized
+  content:
+    application/json:
+      examples:
+        UNAUTHORIZED:
+          description: API key or JWT is missing, expired or invalid. See [Auth](/api/auth).
+          value:
+            message: Missing authentication
+Forbidden:
+  x-status-code: '403'
+  description: Forbidden
+  content:
+    application/json:
+      examples:
+        FORBIDDEN:
+          description: Resource missing, permission denied, or business rule violated.
+          value:
+            message: FORBIDDEN
+NotFound:
+  x-status-code: '404'
+  description: Not Found
+  content:
+    application/json:
+      examples:
+        NOT FOUND:
+          description: The requested resource does not exist or you do not have access.
+          value:
+            message: NOT FOUND
+TooManyRequests:
+  x-status-code: '429'
+  description: Too Many Requests
+  content:
+    application/json:
+      examples:
+        RATE LIMIT EXCEEDED:
+          description: Centrapay API rate limits have been exceeded. See [Rate Limits](/api/rate-limits).
+          value:
+            message: RATE LIMIT EXCEEDED
+InternalServerError:
+  x-status-code: '500'
+  description: Internal Server Error
+  content:
+    application/json:
+      examples:
+        SERVER ERROR:
+          description: Something went wrong on our end. Retrying should solve the issue.
+          value:
+            message: SERVER ERROR

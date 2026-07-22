@@ -1,0 +1,6 @@
+type: object
+properties:
+  configId:
+    type: string
+    example: mc_5efbe2fb96c08357bb2b9242
+    description: The [Merchant Config](/api/merchant-configs) id used to configure the payment options.
