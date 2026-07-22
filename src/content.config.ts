@@ -9,6 +9,8 @@ const guides = defineCollection({
     img: z.string().optional(),
     draft: z.boolean().optional().default(false),
     iframe: z.boolean().optional().default(false),
+    agentSkill: z.string().optional(),
+    copyAsMarkdown: z.boolean().optional().default(false),
     nav: z.object({
       title: z.string().optional(),
       path: z.string(),

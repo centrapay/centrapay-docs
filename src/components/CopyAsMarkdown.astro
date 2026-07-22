@@ -1,0 +1,61 @@
+---
+const { markdown } = Astro.props;
+const buttonId = `copy-md-${crypto.randomUUID()}`;
+---
+
+<div class="not-prose shrink-0">
+  <button
+    id={buttonId}
+    type="button"
+    class="inline-flex items-center gap-2 rounded-md border border-outline-opaque bg-surface-primary px-3 py-1.5 text-sm font-medium text-content-secondary shadow-xs transition-colors hover:bg-surface-secondary focus:outline-hidden focus:ring-2 focus:ring-focus-ring"
+  >
+    <svg
+      aria-hidden="true"
+      class="copy-markdown-icon size-4"
+      fill="none"
+      viewBox="0 0 18 18"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2.5 13.5C1.94772 13.5 1.5 13.0523 1.5 12.5V2.5C1.5 1.94772 1.94772 1.5 2.5 1.5H12.5C13.0523 1.5 13.5 1.94772 13.5 2.5"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      />
+      <path
+        clip-rule="evenodd"
+        d="M4.5 6C4.5 5.17157 5.17157 4.5 6 4.5H15C15.8284 4.5 16.5 5.17157 16.5 6V15C16.5 15.8284 15.8284 16.5 15 16.5H6C5.17157 16.5 4.5 15.8284 4.5 15V6Z"
+        fill-rule="evenodd"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+      />
+    </svg>
+    <span class="copy-markdown-label">Copy as Markdown</span>
+    <span class="copy-markdown-copied hidden">Copied to Clipboard!</span>
+  </button>
+</div>
+
+<script define:vars={{ markdown, buttonId }}>
+  /* eslint-disable no-undef */
+  const button = document.getElementById(buttonId);
+  const label = button.querySelector('.copy-markdown-label');
+  const copied = button.querySelector('.copy-markdown-copied');
+  const icon = button.querySelector('.copy-markdown-icon');
+
+  button.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(markdown);
+
+    label.classList.add('hidden');
+    icon.classList.add('hidden');
+    copied.classList.remove('hidden');
+
+    window.setTimeout(() => {
+      label.classList.remove('hidden');
+      icon.classList.remove('hidden');
+      copied.classList.add('hidden');
+    }, 2000);
+  });
+</script>
