@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint . && yarn lint:openapi",
-    "lint:openapi": "spectral lint src/content/api/openapi/index.yaml",
+    "lint": "eslint . && spectral lint --fail-severity=warn src/content/api/openapi/index.yaml",
     "linkinator": "linkinator dist/",
     "dev": "astro dev",
     "build": "astro build",

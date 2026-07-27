@@ -5,3 +5,12 @@ rules:
   info-contact: off
   info-description: off
   oas3-api-servers: off
+
+overrides:
+  # components.responses is rendered on every endpoint page via a filesystem
+  # glob over models/**/*.yaml (see OpenApiEndpoint.astro), not via $ref, so
+  # Spectral can't see that it's used and flags it as dead.
+  - files:
+      - "src/content/api/openapi/index.yaml#/components/responses"
+    rules:
+      oas3-unused-component: off
