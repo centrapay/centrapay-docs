@@ -29,6 +29,11 @@ export default {
           field: 'amount',
           value: '99',
           operator: 'greater-than'
+        },
+        {
+          type: 'merchantId',
+          value: 'C4QnjXvj8At6SMsEN4LRi9',
+          operator: 'equals'
         }
       ],
       description: 'The amount of the payment must be greater than $1.',
@@ -65,6 +70,12 @@ export default {
         field: 'amount',
         value: '99',
         operator: 'greater-than'
+      },
+      {
+        type: 'merchantId',
+        field: 'merchantId',
+        value: 'C4QnjXvj8At6SMsEN4LRi9',
+        operator: 'equals'
       }
     ],
     description: 'The amount of the payment must be greater than $1.',
