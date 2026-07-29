@@ -32,7 +32,7 @@ export default {
         },
         {
           type: 'merchantId',
-          value: 'C4QnjXvj8At6SMsEN4LRi9',
+          value: '5ee0c486308f590260d9a07f',
           operator: 'equals'
         }
       ],
@@ -74,7 +74,7 @@ export default {
       {
         type: 'merchantId',
         field: 'merchantId',
-        value: 'C4QnjXvj8At6SMsEN4LRi9',
+        value: '5ee0c486308f590260d9a07f',
         operator: 'equals'
       }
     ],
