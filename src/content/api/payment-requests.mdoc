@@ -646,6 +646,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% error code="403" message="PAYMENT_DECLINED" %}
       The payment parameters were valid but payment was declined because additional payment restrictions were violated.
     {% /error %}
+    {% error code="403" message="PAYMENT_UNCONFIRMED" %}
+      Confirmation of payment success or failure was not received from the provider within the expected time.
+    {% /error %}
   {% /properties %}
 
 {% /endpoint %}

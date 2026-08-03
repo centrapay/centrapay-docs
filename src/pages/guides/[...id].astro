@@ -1,11 +1,16 @@
 ---
+import fs from 'node:fs/promises';
+import grayMatter from 'gray-matter';
 import { getCollection } from '../../utils/getCollection';
 import { render } from 'astro:content';
+import AgentSkillCallout from '../../components/AgentSkillCallout.astro';
+import CopyAsMarkdown from '../../components/CopyAsMarkdown.astro';
 import Prose from '../../components/Prose.astro';
 import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import guideNavigation from '../../navigation/guideNavigation';
 import merchantServicesNavigation from '../../navigation/merchantServicesNavigation';
+import toAgentMarkdown from '../../utils/toAgentMarkdown';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -19,8 +24,15 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const previewImg = entry.data.img || '/default-cover.jpg';
-const { title, description } = entry.data;
+const { title, description, agentSkill, copyAsMarkdown } = entry.data;
 const navigation = entry.collection === 'merchantServices' ? merchantServicesNavigation : guideNavigation;
+
+const contentDirectory = entry.collection === 'merchantServices' ? 'merchant-services' : entry.collection;
+const contentPath = `./src/content/${contentDirectory}/${entry.id}.mdoc`;
+const { content: guideBody } = grayMatter(await fs.readFile(contentPath, 'utf-8'));
+const agentMarkdown = copyAsMarkdown
+  ? toAgentMarkdown({ title, description, body: guideBody })
+  : undefined;
 ---
 <BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
   <div class="relative mx-auto xl:mx-0">
@@ -29,14 +41,24 @@ const navigation = entry.collection === 'merchantServices' ? merchantServicesNav
         <div class="min-w-0 max-w-3xl flex-auto px-8 pb-16 pt-8">
           <article>
             <Prose>
-              <header class="flex flex-col gap-1" >
-                <p class="type-overline text-content-primary" >
+              <header class="flex flex-col gap-1">
+                <p class="type-overline text-content-primary">
                   Guides
                 </p>
-                <h1>
-                  { title }
-                </h1>
+                <div class="flex items-start justify-between gap-4">
+                  <h1>
+                    { title }
+                  </h1>
+                  { agentMarkdown && (
+                    <CopyAsMarkdown markdown={agentMarkdown} />
+                  ) }
+                </div>
               </header>
+              { agentSkill && (
+                <div class="not-prose mt-6">
+                  <AgentSkillCallout skillPath={agentSkill} />
+                </div>
+              ) }
               <Content />
             </Prose>
           </article>
