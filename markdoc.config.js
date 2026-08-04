@@ -72,6 +72,12 @@ export default defineMarkdocConfig({
         path: { type: String },
       },
     },
+    openApiEndpoint: {
+      render: component('./src/components/OpenApiEndpoint.astro'),
+      attributes: {
+        operationId: { type: String },
+      },
+    },
     error: {
       render: component('./src/components/Error.astro'),
       attributes: {
