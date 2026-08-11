@@ -248,10 +248,6 @@ Promotions are a mechanism to reward accounts for completing certain actions.
       Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model). Only supplied if `type` is `challenge`.
     {% /property %}
 
-    {% property name="target" type="object" deprecated=true %}
-      Use `params.target` instead. Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model). Only supplied if `type` is `challenge`.
-    {% /property %}
-
     {% property name="type" type="string" required=true %}
       The type of Promotion. Can be `challenge`. `challenge` rewards the account once, after the challenge target is met.
     {% /property %}
