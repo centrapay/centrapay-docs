@@ -54,8 +54,12 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
   {% /property %}
 
+  {% property name="params" type="object" %}
+    Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+  {% /property %}
+
   {% property name="target" type="object" %}
-    Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+    Deprecated, use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
 
   {% property name="type" type="string" %}
@@ -76,6 +80,14 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
   {% property name="createdBy" type="crn" %}
     The User or API Key that created the Promotion.
+  {% /property %}
+{% /properties %}
+
+## Promotion Params Model
+
+{% properties %}
+  {% property name="target" type="object" %}
+    Describes how to complete the promotion. Only supplied if `type` is `challenge`. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
 {% /properties %}
 
@@ -232,8 +244,12 @@ Promotions are a mechanism to reward accounts for completing certain actions.
       The type of [Event](/api/events) that will trigger increments and completions of the Promotion.
     {% /property %}
 
+    {% property name="params" type="object" %}
+      Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model). Only supplied if `type` is `challenge`.
+    {% /property %}
+
     {% property name="target" type="object" %}
-      Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model). Only supplied if `type` is `challenge`.
+      Deprecated, use `params.target` instead. Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model). Only supplied if `type` is `challenge`.
     {% /property %}
 
     {% property name="type" type="string" required=true %}
