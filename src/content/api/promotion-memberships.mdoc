@@ -62,8 +62,8 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
     Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
   {% /property %}
 
-  {% property name="target" type="object" %}
-    Deprecated, use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
+  {% property name="target" type="object" deprecated=true %}
+    Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
 
   {% property name="type" type="string" %}

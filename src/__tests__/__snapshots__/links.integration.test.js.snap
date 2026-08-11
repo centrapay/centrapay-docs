@@ -326,6 +326,7 @@ exports[`the build should not break any links 1`] = `
   "/api/promotions#promotion-activity-model",
   "/api/promotions#promotion-condition-model",
   "/api/promotions#promotion-model",
+  "/api/promotions#promotion-params-model",
   "/api/promotions#promotion-reward-model",
   "/api/promotions#promotion-target-model",
   "/api/quotas",
