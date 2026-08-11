@@ -58,8 +58,12 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
     The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
   {% /property %}
 
-  {% property name="target" type="object" %}
-    Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+  {% property name="params" type="object" %}
+    Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+  {% /property %}
+
+  {% property name="target" type="object" deprecated=true %}
+    Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
 
   {% property name="type" type="string" %}

@@ -30,6 +30,12 @@ export default {
           type: 'count',
           amount: 1
         },
+        params: {
+          target: {
+            type: 'count',
+            amount: 1
+          }
+        },
         type: 'challenge',
         conditions: [
           {
