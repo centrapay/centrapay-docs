@@ -12,17 +12,19 @@ export default {
       mediaUploadId: '26yUWG6wFgmva8UaDiCTWq',
       startsAt: '2023-02-16T00:47:54.131Z',
       endsAt: '2024-02-16T00:47:54.131Z',
-      rewards: [
-        {
-          assetType: 'centrapay.nzd.main',
-          amount: '500',
-        }
-      ],
       eventType: 'payment',
       params: {
         target: {
           type: 'count',
           amount: '1'
+        },
+        rewards: {
+          and: [
+            {
+              assetType: 'centrapay.nzd.main',
+              amount: '500',
+            }
+          ]
         }
       },
       type: 'challenge',
@@ -70,6 +72,17 @@ export default {
       target: {
         type: 'count',
         amount: '1'
+      },
+      rewards: {
+        and: [
+          {
+            assetType: 'centrapay.nzd.main',
+            amount: '500',
+          },
+          {
+            promotionId: '8aoMfscvtuewsuJzmzBzAs',
+          }
+        ]
       }
     },
     type: 'challenge',
