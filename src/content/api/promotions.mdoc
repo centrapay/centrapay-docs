@@ -46,8 +46,8 @@ Promotions are a mechanism to reward accounts for completing certain actions.
     The timestamp of when the Promotion ends.
   {% /property %}
 
-  {% property name="rewards" type="array" %}
-    A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
+  {% property name="rewards" type="array" deprecated=true %}
+    Use `params.rewards` instead. A flattened list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion. Retained on responses for backwards compatibility.
   {% /property %}
 
   {% property name="eventType" type="string" %}
@@ -89,6 +89,10 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% property name="target" type="object" %}
     Describes how to complete the promotion. Only supplied if `type` is `challenge`. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
+
+  {% property name="rewards" type="object" %}
+    Describes the rewards the account will receive upon completing the Promotion. Only supplied if `type` is `challenge`. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+  {% /property %}
 {% /properties %}
 
 ## Promotion Target Model
@@ -108,6 +112,16 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
   {% property name="progress" type="number" %}
     The shared progress of the Promotion.
+  {% /property %}
+{% /properties %}
+
+## Promotion Rewards Model
+
+Rewards are expressed as a tree of `and` groups rather than a flat list, so that rewards can be grouped for future conditional logic. Each item in an `and` array is either a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or another nested Promotion Rewards group. Every leaf reward in the tree is issued when the Promotion is completed.
+
+{% properties %}
+  {% property name="and" type="array" required=true %}
+    A list of [Promotion Rewards](/api/promotions#promotion-reward-model) and/or nested Promotion Rewards groups.
   {% /property %}
 {% /properties %}
 
@@ -234,10 +248,6 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
     {% property name="endsAt" type="timestamp" %}
       The timestamp of when the Promotion ends.
-    {% /property %}
-
-    {% property name="rewards" type="array" %}
-      A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
     {% /property %}
 
     {% property name="eventType" type="string" required=true %}

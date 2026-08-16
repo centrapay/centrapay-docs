@@ -34,6 +34,14 @@ export default {
           target: {
             type: 'count',
             amount: 1
+          },
+          rewards: {
+            and: [
+              {
+                assetType: 'centrapay.nzd.main',
+                amount: '500',
+              }
+            ]
           }
         },
         type: 'challenge',
