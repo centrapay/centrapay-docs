@@ -317,6 +317,7 @@ exports[`the build should not break any links 1`] = `
   "/api/promotion-memberships",
   "/api/promotion-memberships#list-promotion-memberships-by-account",
   "/api/promotion-memberships#promotion-membership-model",
+  "/api/promotion-memberships#promotion-membership-progress-model",
   "/api/promotions",
   "/api/promotions#create-promotion",
   "/api/promotions#get-promotion",
