@@ -45,6 +45,9 @@ export default {
                 amount: '500',
               }
             ]
+          },
+          progress: {
+            current: 0,
           }
         },
         type: 'challenge',

@@ -59,7 +59,7 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
   {% /property %}
 
   {% property name="params" type="object" %}
-    Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+    Type-specific parameters for the Promotion, plus the membership's progress. See [Promotion Params Model](/api/promotions#promotion-params-model) and [Promotion Membership Progress Model](/api/promotion-memberships#promotion-membership-progress-model).
   {% /property %}
 
   {% property name="target" type="object" deprecated=true %}
@@ -78,8 +78,8 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
     Displayable description for the Promotion.
   {% /property %}
 
-  {% property name="progress" type="number" %}
-    The Account's progress towards completing the Promotion.
+  {% property name="progress" type="number" deprecated=true %}
+    Use `params.progress.current` instead. Retained on responses for backwards compatibility.
   {% /property %}
 
   {% property name="status" type="number" %}
@@ -104,6 +104,14 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
 
   {% property name="test" type="boolean" %}
     `true` if the promotion membership is for testing purposes only.
+  {% /property %}
+{% /properties %}
+
+## Promotion Membership Progress Model
+
+{% properties %}
+  {% property name="current" type="number" %}
+    The Account's progress towards completing the Promotion.
   {% /property %}
 {% /properties %}
 
