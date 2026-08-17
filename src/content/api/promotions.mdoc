@@ -145,7 +145,7 @@ The shape of `params` depends on the Promotion's `type`.
 
 ## Promotion Rewards Model
 
-Rewards are expressed as a tree of `and`/`or` groups rather than a flat list, so that rewards can be grouped for future conditional logic. Each item in the group's array is either a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or another nested Promotion Rewards group. For `challenge` promotions, every leaf reward in the tree is issued when the Promotion is completed, so only `and` is allowed. For `draw` promotions, `or` is also allowed, to be used once winner selection logic decides which branch of rewards is issued; a group must have exactly one of `and` or `or`.
+Rewards are expressed as a tree of `and`/`or` groups rather than a flat list, so that rewards can be grouped for conditional logic. Each item in the group's array is either a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or another nested Promotion Rewards group. For `challenge` promotions, every leaf reward in the tree is issued when the Promotion is completed, so only `and` is allowed. For `draw` promotions, `or` is also allowed, to be used once winner selection logic decides which branch of rewards is issued; a group must have exactly one of `and` or `or`.
 
 {% properties %}
   {% property name="and" type="array" %}
