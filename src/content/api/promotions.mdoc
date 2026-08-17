@@ -63,7 +63,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% /property %}
 
   {% property name="type" type="string" %}
-    The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds. Draw promotions are not yet fully implemented - reward issuance based on drawn winners is not yet supported.
+    The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
   {% /property %}
 
   {% property name="conditions" type="array" %}
@@ -95,7 +95,7 @@ The shape of `params` depends on the Promotion's `type`.
   {% /property %}
 
   {% property name="rewards" type="object" %}
-    Describes the rewards the account will receive upon completing the Promotion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model). `target` must not be supplied.
+    Describes the rewards the account will receive upon completing the Promotion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
   {% /property %}
 {% /properties %}
 
@@ -103,23 +103,23 @@ The shape of `params` depends on the Promotion's `type`.
 
 {% properties %}
   {% property name="rewards" type="object" %}
-    Describes the rewards that will be issued to the drawn winner(s). See [Promotion Rewards Model](/api/promotions#promotion-rewards-model). `target` must not be supplied.
+    Describes the rewards that will be issued to the drawn winner(s). See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
   {% /property %}
 
   {% property name="progress" type="object" required=true %}
-    The entrant bounds for the draw. See [Promotion Draw Progress Model](/api/promotions#promotion-draw-progress-model).
+    The entrant bounds for the draw. See [Promotion Progress Model](/api/promotions#promotion-progress-model).
   {% /property %}
 {% /properties %}
 
-## Promotion Draw Progress Model
+## Promotion Progress Model
 
 {% properties %}
-  {% property name="minimum" type="number" required=true %}
-    The minimum number of entrants required before the draw can be run.
+  {% property name="minimum" type="number" %}
+    The minimum number of progress required to be eligible for the rewards.
   {% /property %}
 
-  {% property name="maximum" type="number" required=true %}
-    The maximum number of entrants the draw will accept.
+  {% property name="maximum" type="number" %}
+    The maximum number of progress a single account can get.
   {% /property %}
 {% /properties %}
 
@@ -291,7 +291,7 @@ Rewards are expressed as a tree of `and`/`or` groups rather than a flat list, so
     {% /property %}
 
     {% property name="type" type="string" required=true %}
-      The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds. Draw promotions are not yet fully implemented - reward issuance based on drawn winners is not yet supported.
+      The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
     {% /property %}
 
     {% property name="conditions" type="array" %}
