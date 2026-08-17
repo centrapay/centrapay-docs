@@ -113,6 +113,14 @@ Promotion Memberships represents an [Account's](/api/accounts) membership to a [
   {% property name="current" type="number" %}
     The Account's progress towards completing the Promotion.
   {% /property %}
+
+  {% property name="minimum" type="number" %}
+    Only supplied if the Promotion's `type` is `draw`. The minimum progress required to be eligible for the rewards. See [Promotion Progress Model](/api/promotions#promotion-progress-model).
+  {% /property %}
+
+  {% property name="maximum" type="number" %}
+    Only supplied if the Promotion's `type` is `draw`. The maximum progress a single account can get. See [Promotion Progress Model](/api/promotions#promotion-progress-model).
+  {% /property %}
 {% /properties %}
 
 ---
