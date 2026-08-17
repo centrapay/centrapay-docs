@@ -63,7 +63,7 @@ Promotions are a mechanism to reward accounts for completing certain actions.
   {% /property %}
 
   {% property name="type" type="string" %}
-    The type of Promotion. Can be `challenge`. `challenge` rewards the account once, after the challenge target is met.
+    The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds. Draw promotions are not yet fully implemented - reward issuance based on drawn winners is not yet supported.
   {% /property %}
 
   {% property name="conditions" type="array" %}
@@ -85,13 +85,41 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
 ## Promotion Params Model
 
+The shape of `params` depends on the Promotion's `type`.
+
+### Challenge Params
+
 {% properties %}
   {% property name="target" type="object" %}
-    Describes how to complete the promotion. Only supplied if `type` is `challenge`. See [Promotion Target](/api/promotions#promotion-target-model).
+    Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
   {% /property %}
 
   {% property name="rewards" type="object" %}
-    Describes the rewards the account will receive upon completing the Promotion. Only supplied if `type` is `challenge`. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+    Describes the rewards the account will receive upon completing the Promotion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model). `target` must not be supplied.
+  {% /property %}
+{% /properties %}
+
+### Draw Params
+
+{% properties %}
+  {% property name="rewards" type="object" %}
+    Describes the rewards that will be issued to the drawn winner(s). See [Promotion Rewards Model](/api/promotions#promotion-rewards-model). `target` must not be supplied.
+  {% /property %}
+
+  {% property name="progress" type="object" required=true %}
+    The entrant bounds for the draw. See [Promotion Draw Progress Model](/api/promotions#promotion-draw-progress-model).
+  {% /property %}
+{% /properties %}
+
+## Promotion Draw Progress Model
+
+{% properties %}
+  {% property name="minimum" type="number" required=true %}
+    The minimum number of entrants required before the draw can be run.
+  {% /property %}
+
+  {% property name="maximum" type="number" required=true %}
+    The maximum number of entrants the draw will accept.
   {% /property %}
 {% /properties %}
 
@@ -117,11 +145,15 @@ Promotions are a mechanism to reward accounts for completing certain actions.
 
 ## Promotion Rewards Model
 
-Rewards are expressed as a tree of `and` groups rather than a flat list, so that rewards can be grouped for future conditional logic. Each item in an `and` array is either a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or another nested Promotion Rewards group. Every leaf reward in the tree is issued when the Promotion is completed.
+Rewards are expressed as a tree of `and`/`or` groups rather than a flat list, so that rewards can be grouped for future conditional logic. Each item in the group's array is either a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or another nested Promotion Rewards group. For `challenge` promotions, every leaf reward in the tree is issued when the Promotion is completed, so only `and` is allowed. For `draw` promotions, `or` is also allowed, to be used once winner selection logic decides which branch of rewards is issued; a group must have exactly one of `and` or `or`.
 
 {% properties %}
-  {% property name="and" type="array" required=true %}
-    A list of [Promotion Rewards](/api/promotions#promotion-reward-model) and/or nested Promotion Rewards groups.
+  {% property name="and" type="array" %}
+    A list of [Promotion Rewards](/api/promotions#promotion-reward-model) and/or nested Promotion Rewards groups, all of which are issued. Mutually exclusive with `or`.
+  {% /property %}
+
+  {% property name="or" type="array" %}
+    A list of [Promotion Rewards](/api/promotions#promotion-reward-model) and/or nested Promotion Rewards groups, of which one branch is issued. Only supplied if the Promotion's `type` is `draw`. Mutually exclusive with `and`.
   {% /property %}
 {% /properties %}
 
@@ -254,12 +286,12 @@ Rewards are expressed as a tree of `and` groups rather than a flat list, so that
       The type of [Event](/api/events) that will trigger increments and completions of the Promotion.
     {% /property %}
 
-    {% property name="params" type="object" %}
-      Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model). Only supplied if `type` is `challenge`.
+    {% property name="params" type="object" required=true %}
+      Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
     {% /property %}
 
     {% property name="type" type="string" required=true %}
-      The type of Promotion. Can be `challenge`. `challenge` rewards the account once, after the challenge target is met.
+      The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds. Draw promotions are not yet fully implemented - reward issuance based on drawn winners is not yet supported.
     {% /property %}
 
     {% property name="conditions" type="array" %}
