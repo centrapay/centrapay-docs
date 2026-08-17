@@ -59,6 +59,10 @@ A Business represents a company registered with the New Zealand Companies Office
     The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
   {% /property %}
 
+  {% property name="location" type="location" %}
+    The physical address of the Business.
+  {% /property %}
+
   {% property name="onboardingStatus" type="crn" %}
     The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
   {% /property %}
@@ -130,6 +134,10 @@ A Business represents a company registered with the New Zealand Companies Office
     {% property name="taxNumber" type="object" %}
       The value-added tax configuration.
     {% /property %}
+
+    {% property name="location" type="location" %}
+      The physical address of the business.
+    {% /property %}
   {% /properties %}
 
   {% properties heading="Errors" %}
@@ -168,6 +176,10 @@ A Business represents a company registered with the New Zealand Companies Office
 
     {% property name="farmlandsBusinessNumber" type="string" %}
       The number associated with your Farmlands business.
+    {% /property %}
+
+    {% property name="location" type="location" %}
+      The physical address of the business.
     {% /property %}
   {% /properties %}
 {% /endpoint %}

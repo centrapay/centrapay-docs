@@ -11,6 +11,13 @@ export default {
       taxNumber: {
         value: '123-456-789',
         type: 'nz-gst'
+      },
+      location: {
+        street: '1 Head Office Way',
+        city: 'Wellington',
+        state: 'Wellington',
+        postCode: '6011',
+        country: 'NZ'
       }
     },
   },
@@ -29,6 +36,13 @@ export default {
     taxNumber: {
       value: '123-456-789',
       type: 'nz-gst',
+    },
+    location: {
+      street: '1 Head Office Way',
+      city: 'Wellington',
+      state: 'Wellington',
+      postCode: '6011',
+      country: 'NZ'
     },
     onboardingStatus: 'applied'
   }

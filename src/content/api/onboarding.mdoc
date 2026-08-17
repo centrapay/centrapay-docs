@@ -47,6 +47,10 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Trading name of the business (3-100 characters). Defaults to `legalName` if omitted.
   {% /property %}
 
+  {% property name="location" type="object" %}
+    Physical location of the business. See [Location Model](#location-model).
+  {% /property %}
+
   {% property name="contactEmail" type="string" required=true %}
     Contact email used for onboarding and notifications. Must be a valid email address.
   {% /property %}
@@ -239,6 +243,10 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
 
     {% property name="tradingName" type="string" %}
       Trading name (3-100 characters). Defaults to `legalName` if omitted.
+    {% /property %}
+
+    {% property name="location" type="object" %}
+      Physical location of the business. See [Location Model](#location-model).
     {% /property %}
 
     {% property name="contactEmail" type="string" required=true %}
