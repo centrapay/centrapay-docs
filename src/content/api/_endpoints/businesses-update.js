@@ -11,7 +11,14 @@ export default {
         value: '123-456-789',
         type: 'nz-gst'
       },
-      farmlandsBusinessNumber: '12345678'
+      farmlandsBusinessNumber: '12345678',
+      location: {
+        street: '1 Head Office Way',
+        city: 'Wellington',
+        state: 'Wellington',
+        postCode: '6011',
+        country: 'NZ'
+      }
     },
   },
   response: {
@@ -31,6 +38,13 @@ export default {
       type: 'nz-gst',
     },
     farmlandsBusinessNumber: '12345678',
+    location: {
+      street: '1 Head Office Way',
+      city: 'Wellington',
+      state: 'Wellington',
+      postCode: '6011',
+      country: 'NZ'
+    },
     onboardingStatus: 'applied'
   }
 };

@@ -9,6 +9,13 @@ export default {
     payload: {
       legalName: 'Centrapay Cafe Limited',
       tradingName: 'Centrapay Cafe',
+      location: {
+        street: '1 Head Office Way',
+        city: 'Wellington',
+        state: 'Wellington',
+        postCode: '6011',
+        country: 'NZ'
+      },
       contactEmail: 'admin@centracafe.example',
       contactName: 'Alice Anderson',
       externalId: 'ext-cafe-001',
@@ -70,6 +77,13 @@ export default {
     id: 'bo_1a2b3c4d5e6f7g8h9i0j',
     legalName: 'Centrapay Cafe Limited',
     tradingName: 'Centrapay Cafe',
+    location: {
+      street: '1 Head Office Way',
+      city: 'Wellington',
+      state: 'Wellington',
+      postCode: '6011',
+      country: 'NZ'
+    },
     contactEmail: 'admin@centracafe.example',
     contactName: 'Alice Anderson',
     externalId: 'ext-cafe-001',
