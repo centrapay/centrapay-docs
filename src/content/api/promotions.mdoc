@@ -191,6 +191,10 @@ Rewards are expressed as a tree of `and`/`or` groups rather than a flat list, so
   {% property name="issued" type="boolean" %}
     When the promotion is completed, `issued` shows whether the reward was issued to the account.
   {% /property %}
+
+  {% property name="issuedToAccountIds" type="array" %}
+    The IDs of the accounts this reward was issued to. Only supplied once the draw for a `draw` Promotion has been run. An empty array means the reward went unclaimed. Where a reward is grouped with `and`, every reward in the group lists the same accounts, since a winner of that group receives all of them.
+  {% /property %}
 {% /properties %}
 
 ## Promotion Condition Model
