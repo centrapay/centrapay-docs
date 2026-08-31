@@ -649,6 +649,9 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
     {% error code="403" message="PAYMENT_UNCONFIRMED" %}
       Confirmation of payment success or failure was not received from the provider within the expected time.
     {% /error %}
+    {% error code="403" message="REMAINING_AMOUNT_EXCEEDED" %}
+      The payment amount exceeds the remaining amount on the Payment Request.
+    {% /error %}
   {% /properties %}
 
 {% /endpoint %}
