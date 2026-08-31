@@ -1,11 +1,15 @@
 import { HTTPSnippet } from 'httpsnippet';
 
+// An empty indent keeps the curl continuation lines flush against the left edge.
 const supportedClients = {
   curl: {
     targetId: 'shell',
-    options: { short: true, indent: ' ', prettifyJson: true },
+    options: { short: true, indent: '' },
   },
 };
+
+// How a single quote is escaped inside a single quoted shell string.
+const escapedQuote = '\'\\\'\'';
 
 function validateData(data) {
   if (typeof data !== 'object') {
@@ -49,13 +53,28 @@ function createSnippet(data) {
   return new HTTPSnippet(harObject);
 }
 
+// httpsnippet breaks after the method and emits the body on a single line, so
+// pull the url back onto the command and pretty print the payload in place.
+function formatCurl(code) {
+  return code
+    .replace(/^(curl .*) \\\n(\S+)/, '$1 $2')
+    .replace(/-d '(.*)'$/m, (match, body) => {
+      try {
+        const payload = JSON.parse(body.replaceAll(escapedQuote, '\''));
+        return `-d '${JSON.stringify(payload, null, 2).replaceAll('\'', escapedQuote)}'`;
+      } catch {
+        return match;
+      }
+    });
+}
+
 function createRequests(data) {
   const snippet = createSnippet(data);
   const requests = {};
   Object.entries(supportedClients).forEach(([clientId, details]) => {
     requests[clientId] = {
       lang: details.targetId,
-      code: snippet.convert(details.targetId, clientId, details.options)
+      code: formatCurl(snippet.convert(details.targetId, clientId, details.options))
     };
   });
   return requests;

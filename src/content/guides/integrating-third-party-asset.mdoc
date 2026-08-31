@@ -9,6 +9,32 @@ By integrating with Centrapay as a third-party asset provider, you can take adva
 
 Once you have defined your asset as a [Payment Method](#defining-a-payment-method) with Centrapay and implemented the required [Uplink APIs](#uplink-api-spec), consumers will be able to spend your digital asset using one of our payment flows wherever merchants accept your digital asset.
 
+## Payment Flow
+
+```mermaid
+sequenceDiagram
+	participant P as Patron
+	participant T as Terminal
+	participant C as Centrapay
+	participant A as Asset Provider
+	T->>C: Create Payment Request
+	P->>T: Scan QR Code
+	P->>+C: Get Payment Request
+	C-->>-P: Return Payment Request
+	note over P: Display Payment Details
+	par While not successful
+		loop
+			T->>C: Poll for Payment Confirmation
+		end
+		P->>+C: Pay Payment Request
+		C->>+A: Call Pay with Transaction Attempt
+		A-->>-C: Success/Failure
+		C-->>-P: Success/Failure
+		note over P: Display Payment Result
+	end
+	note over T: Display Payment Result
+```
+
 ## Defining a Payment Method
 
 We require a way of identifying your asset in order to route payments to the correct asset provider. You must define a payment method namespace, description, and list of supported currencies.
@@ -31,7 +57,7 @@ Valid examples are `centrapay-example` or `bitcoin`.
 The liveness of a payment method can be either main or test. This can be used to accept test assets through Centrapay.
 
 - Test and main assets must share the same namespace but end in `test` or `main`. For example, `centrapay.main` and `centrapay.test`.
-- Integrating a test asset is optional.
+- Integrating a test asset is required.
 - A set of uplink APIs must be provided for both main and test.
 - [Centrapay Merchants](/api/merchants) need a test flag in order to accept test assets.
 
@@ -65,7 +91,11 @@ Integrations are required to tolerate any unknown fields. Over time as new funct
 
 ### Contact Details
 
-Centrapay requires at least one email address to notify you of integration failures or changes. You may choose to provide us with multiple emails for different priorities of communication.
+Centrapay requires at least one email address to notify you of integration failures, changes, and API spec enhancements. You may choose to provide us with multiple emails for different priorities of communication.
+
+### Settlement
+
+It is the responsibility of the Asset Integrator to settle funds with a merchant.
 
 ### Protocol
 
@@ -152,10 +182,6 @@ The request_body_sha256 property should be used to verify that the request paylo
 
 If any of the above assertions are not met the request must be rejected.
 
-### Settlement
-
-It is the responsibility of the Asset Integrator to settle funds with a merchant.
-
 ### Transaction Idempotency
 
 The `transactionId` is used for idempotency for `HTTP POST` requests. Centrapay **does not** guarantee endpoints will be called only once per transaction. It is expected that you will enforce transaction idempotency. In the event that the idempotency is violated, Centrapay expects a `200 OK` response as described in the endpoint specification.
@@ -166,7 +192,9 @@ A 2XX response should be returned from all endpoints for both successful and fai
 
 For failed transaction attempts, the response body should contain a failure reason. These are defined by each endpoint specification.
 
-Centrapay will retry a transaction attempt immediately when an HTTP response status code ≥ 500 is thrown. The [Get Transaction Endpoint](#get-transaction-endpoint) will be used to resolve transaction attempts if an unexpected error is thrown after retrying.
+Requests will time out after 60 seconds if no response is received.
+
+Centrapay will retry a transaction attempt once, immediately, when an HTTP response status code ≥ 500 is thrown, when the connection is aborted, or when no response is received. If that retry also fails, the transaction attempt is left unresolved and will later be checked with the [Get Transaction Endpoint](#get-transaction-endpoint) — see [Unresolved Transactions](#unresolved-transactions).
 
 ## Uplink API Spec
 
@@ -190,90 +218,28 @@ Centrapay will retry a transaction attempt immediately when an HTTP response sta
 | refundable           | Boolean                                | optional   | Required if type is payment and status is successful. A flag indicating whether a payment is refundable. |
 | refundBefore         | [Timestamp](/api/data-types#timestamp) | optional   | The latest time at which a refund can be initiated.                                                      |
 | paymentRequestId     | String                                 | optional   | A unique identifier for the original Payment request.                                                    |
-| idempotencyKey       | String                                 | deprecated | A unique value that can be used to recognize subsequent retries of the same request.                     |
+| paymentTransactionId | String                                 | required   | Refund requests only. The `transactionId` of the original payment being refunded.                        |
+| idempotencyKey       | String                                 | deprecated | Sent on Pay and Refund requests with the same value as `transactionId`. This field is deprecated use `transactionId` for idempotency. |
+
+`merchantCategoryCode` and `merchantLocation` are only present on Pay requests — they are not part of the response, and are not returned by the Get Transaction Endpoint.
 
 ### Statuses
 
 | Name       | Description                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| pending    | The transaction is processing.                                                                                                   |
 | successful | The transaction has been successfully processed.                                                                                 |
 | failed     | The transaction has been unable to be successfully processed. A failure reason is expected to be provided when status is failed. |
 
+Pay and Refund must resolve synchronously with a `successful` or `failed` status.
+
+{% endpoint
+  path="https://your.endpoint/pay"
+  filename="third-party-asset-pay"
+%}
 ### Pay Endpoint
 
-This endpoint is used to initiate payment. If payment is completed asynchronously, the status will be `pending` and the [get transaction endpoint](#get-transaction-endpoint) will be used to poll until the status is `successful` or `failed`.
-
-```mermaid
-sequenceDiagram
-	participant P as Patron
-	participant T as Terminal
-	participant C as Centrapay
-	participant A as Asset Provider
-	T->>C: Create Payment Request
-	P->>T: Scan QR Code
-	par While not successful
-		loop
-			T->>C: Poll for Payment Confirmation
-		end
-		P->>+C: Pay Payment Request
-		C->>+A: Call Pay with Transaction Attempt
-		A-->>-C: Success/Failure
-		C-->>-P: Success/Failure
-		note over P: Display Payment Result
-	end
-	note over T: Display Successful Payment
-```
-
-```bash {% title="Request" %}
-curl -X POST https://your.endpoint/pay \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"currency": "NZD",
-		"amount": "1000",
-		"authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-		"merchantName": "Centrapay Cafe",
-		"merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-		"merchantCategoryCode": "2481",
-    "merchantLocation": {
-      "lat": "-36.8483579",
-      "lng": "174.7725834",
-      "city": "Auckland",
-      "postCode": "1010",
-      "country": "NZ",
-      "street": "17 South Street"
-    },
-    "paymentRequestId": "LTsofbYSldsp35psd",
-		"idempotencyKey": "UttDGTHjr7DgKoKwWpTKb",
-		"transactionId": "UttDGTHjr7DgKoKwWpTKb"
-  }'
-```
-
-```json {% title="Response" %}
-{
-  "currency": "NZD",
-  "amount": "1000",
-  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-  "merchantName": "Centrapay Cafe",
-  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "merchantCategoryCode": "2481",
-  "merchantLocation": {
-    "lat": "-36.8483579",
-    "lng": "174.7725834",
-    "city": "Auckland",
-    "postCode": "1010",
-    "country": "NZ",
-    "street": "17 South Street"
-  },
-  "paymentRequestId": "LTsofbYSldsp35psd",
-  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
-  "type": "payment",
-  "status": "successful",
-  "refundable": true,
-  "refundBefore": "2023-06-09T00:52:22.468Z"
-}
-```
+This endpoint is used to initiate payment. It must resolve synchronously with a status of `successful` or `failed`.
+{% /endpoint %}
 
 **Failure Reasons**
 
@@ -282,122 +248,66 @@ curl -X POST https://your.endpoint/pay \
 | INSUFFICIENT_ASSET_VALUE | The patron does not have the sufficient asset amount to complete the transaction.                                                       |
 | ASSET_REDEMPTION_DENIED  | The asset redemption has been unsuccessful due to the provided payment parameters e.g. currency not supported or unknown authorization. |
 
+---
+
+{% endpoint
+  path="https://your.endpoint/refund"
+  filename="third-party-asset-refund"
+%}
 ### Refund Endpoint
 
 This endpoint is used to refund a Payment Request with status `paid`. Refunds must be synchronous i.e. the status must be `successful` or `failed`.
 
 It is expected that partial refunds are supported.
+{% /endpoint %}
 
-```bash {% title="Request" %}
-curl -X POST https://your.endpoint/refund \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"currency": "NZD",
-		"amount": "1000",
-		"paymentTransactionId": "HFCD73hsbJHBDd9gs3t",
-		"transactionId": "dDHF8743fVzdsg84f6"
-		"idempotencyKey": "dDHF8743fVzdsg84f6"
-	}'
-```
+---
 
-```json {% title="Response" %}
-{
-  "currency": "NZD",
-  "amount": "1000",
-  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-  "merchantName": "Centrapay Cafe",
-  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "merchantCategoryCode": "2481",
-  "transactionId": "HFCD73hsbJHBDd9gs3t",
-  "type": "refund",
-  "status": "successful"
-}
-```
-
-**Failure Reasons**
-
-| Name                        | Description                                                                                    |
-| --------------------------- | ---------------------------------------------------------------------------------------------- |
-| PARTIAL_REFUNDS_NOT_ALLOWED | The Amount provided is less than the value of the payment and partial refunds are not allowed. |
-
-### Cancel Endpoint
-
-After initiating a transaction with the pay endpoint, the status may be `pending`. During this time something may have happened to prevent the payment request from being paid (e.g. payment request timeout or merchant network issues).
-
-The Cancel endpoint can be used to stop processing a transaction that has status `pending`. If the Cancel endpoint is called for a transaction that already has `successful` or `failed`, it is expected that an error will be thrown.
-
-Once the Cancel endpoint is called, the transaction status should be `failed`. This is a synchronous call and cannot return status `pending`. The reason for cancellation will be passed through as a failureReason.
-
-```bash {% title="Request" %}
-curl -X POST https://your.endpoint/cancel \
-	-H "Authorization: ${jwt}" \
-	-H "Content-Type: application/json" \
-	-d '{
-		"transactionId": "UttDGTHjr7DgKoKwWpTKb",
-		"failureReason": "PAYMENT_REQUEST_EXPIRED"
-	}'
-```
-
-```json {% title="Response" %}
-{
-  "currency": "NZD",
-  "amount": "1000",
-  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-  "merchantName": "Centrapay Cafe",
-  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "merchantCategoryCode": "2481",
-  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
-  "type": "payment",
-  "status": "failed",
-  "failureReason": "PAYMENT_REQUEST_EXPIRED"
-}
-```
-
-**Failure Reasons**
-
-| Name                    | Description                                                 |
-| ----------------------- | ----------------------------------------------------------- |
-| CANCELLED_BY_MERCHANT   | The merchant has initiated a cancel of the payment request. |
-| PAYMENT_REQUEST_EXPIRED | The payment request has expired before being paid.          |
-
+{% endpoint
+  path="https://your.endpoint/get"
+  filename="third-party-asset-get"
+%}
 ### Get Transaction Endpoint
 
-This endpoint is used resolve a Transaction Attempt when the transaction is pending or has an unknown state.
+This endpoint is used to resolve a Transaction Attempt when its outcome is unknown to Centrapay — for example, to resolve a Pay call that could not be confirmed (see [Unresolved Transactions](#unresolved-transactions)).
 
-Polling will continue until either the transaction attempt status is successful or failed, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
+Centrapay may call this endpoint until either the transaction attempt status is `successful` or `failed`, or the Centrapay Payment Request is no longer payable (e.g. it has expired).
 
 You should return a 2XX response with an empty body `{}` if the transaction does not exist in your system.
+{% /endpoint %}
 
-```bash {% title="Request" %}
-curl https://your.endpoint/get?transactionId=UttDGTHjr7DgKoKwWpTKb
-	-H "Authorization: ${jwt}"
+---
+
+### Unresolved Transactions
+
+When Centrapay can't confirm the outcome of a Pay call — for example, if your endpoint times out or returns an unexpected error. When this happens we check the outcome with the [Get Transaction Endpoint](#get-transaction-endpoint) at a later stage to determine the result.
+
+- If the Get Transaction Endpoint reports the transaction as `successful`, We finalize the Payment Request as successful if the Payment Request isn't in a final state.
+- If the Payment Request has already reached a final state (`cancelled`, `expired` or `paid`) by the time this check happens, since the Payment Request is no longer payable, Centrapay will call your Refund endpoint to reverse it.
+- Otherwise, the Payment Request is marked as failed on Centrapay's side. Your integration is not notified of this separately — you should still expect the [Get Transaction Endpoint](#get-transaction-endpoint) to be called for a `transactionId` that never completes.
+
+```mermaid
+sequenceDiagram
+	participant C as Centrapay
+	participant A as Asset Provider
+	C->>A: Call Pay with Transaction Attempt
+	A--xC: Timeout / 5xx / no response
+	C->>A: Retry Pay with Transaction Attempt
+	A--xC: Timeout / 5xx / no response
+	note over C, A: Payment Request reaches final state
+	C->>+A: Get Transaction
+	A-->>-C: status
+	alt status is successful
+		note over C: Payment is marked as successful
+		C->>+A: Refund
+		A-->>-C: Success/Failure
+	else status is failed or unknown
+		note over C: Payment is marked failed
+	end
 ```
 
-```json {% title="Response" %}
-{
-  "currency": "NZD",
-  "amount": "1000",
-  "authorization": "WRhAxxWpTKb5U7pXyxQjjY",
-  "merchantName": "Centrapay Cafe",
-  "merchantId": "MhocUmpxxmgdHjr7DgKoKw",
-  "merchantCategoryCode": "2481",
-  "transactionId": "UttDGTHjr7DgKoKwWpTKb",
-  "type": "payment",
-  "status": "successful",
-  "refundable": "true",
-  "refundBefore": "2023-06-09T00:52:22.468Z"
-}
-```
+## Certification
 
-## Implementation Checklist
+Once you have defined your [Payment Method](#defining-a-payment-method), implemented the [Uplink endpoints](#uplink-api-spec) for both main and test liveness, and provided your [Contact Details](#contact-details), you must complete an integration certification against the [Integration Checklist](/guides/integration-checklist), including the [Third-Party Asset Provider Extensions](/guides/integration-checklist-asset-providers) applicable to your asset, before merchants can accept your asset as a payment method.
 
-To enable merchants to accept your asset as a payment method, you must complete an integration certification. When you're ready or need assistance/have questions integrating, please contact the Centrapay Engineering team at integrations@centrapay.com.
-
-- Payment Method
-  - Namespace
-  - Description
-  - Supported Currencies
-- Uplink urls for main liveness payment method
-- (Optional) Uplink urls for test liveness payment method
-- An email address to contact for API spec enhancements
+When you're ready or need assistance/have questions integrating, please contact the Centrapay Engineering team at [integrations@centrapay.com](mailto:integrations@centrapay.com).
