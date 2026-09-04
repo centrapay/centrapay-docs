@@ -34,9 +34,9 @@ post:
                 type: accept-condition
                 value:
                   currency: NZD
-                  amount: 100
+                  amount: '100'
                 paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
-                conditionId: '1'
+                conditionId: 1
                 createdAt: '2022-05-12T01:17:00.000Z'
                 createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
                 paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
