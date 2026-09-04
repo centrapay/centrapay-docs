@@ -113,7 +113,7 @@ function createSection({ title, href, path, deprecated }) {
 }
 
 function finalizeSection({ title, href, path, description, deprecated, keywords, prose }) {
-  const identifiers = normalizeWhitespace([...new Set(keywords)].join(' '));
+  const identifiers = normalizeWhitespace([...new Set(keywords)].join(', '));
   const narrative = normalizeWhitespace(prose.join(' ')).slice(0, MAX_PROSE_LENGTH);
   const content = normalizeWhitespace(
     [identifiers, narrative, ...expandIdentifiers(`${title} ${identifiers}`)].join(' ')
@@ -124,6 +124,11 @@ function finalizeSection({ title, href, path, description, deprecated, keywords,
     title,
     description,
     ...(content ? { content } : {}),
+    // Kept apart from `content` (which flattens everything for search) so a
+    // result's snippet can be built from readable prose, or from the
+    // keyword list, without the two bleeding into each other mid-sentence.
+    ...(narrative ? { prose: narrative } : {}),
+    ...(identifiers ? { keywords: identifiers } : {}),
     ...(deprecated ? { deprecated: true } : {}),
   };
 }

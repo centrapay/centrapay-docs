@@ -86,7 +86,16 @@
                               deprecated
                             </span>
                           </span>
-                          <p class="block truncate text-content-tertiary">
+                          <p
+                            v-if="result.snippet"
+                            class="block truncate text-content-tertiary"
+                          >
+                            {{ result.snippet.prefix }}<mark class="bg-transparent font-semibold text-content-secondary">{{ result.snippet.match }}</mark>{{ result.snippet.suffix }}
+                          </p>
+                          <p
+                            v-else
+                            class="block truncate text-content-tertiary"
+                          >
                             {{ result.description }}
                           </p>
                           <div class="mt-2 truncate text-content-tertiary">
