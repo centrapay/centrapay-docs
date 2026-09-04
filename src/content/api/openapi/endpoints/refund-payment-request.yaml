@@ -1,0 +1,161 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/refund
+  operationId: refundPaymentRequest
+  summary: Refund a Payment Request
+  description: Initiate a refund of a Payment Request. The refund will be completed asynchronously.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - value
+            - externalRef
+          properties:
+            value:
+              x-type: monetary
+              type: object
+              description: The canonical value of the Payment Request. Must be less than 100000000 and positive.
+              properties:
+                amount:
+                  type: string
+                currency:
+                  type: string
+            externalRef:
+              type: string
+              description: An external reference to the refund.
+            invoiceRef:
+              type: string
+              description: A reference to an invoice for the refund. Must be less than or equal to 128 characters.
+            confirmationIdempotencyKey:
+              type: string
+              description: Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
+            lineItems:
+              type: array
+              description: The [Line Items](#line-item-model) being refunded.
+              items:
+                $ref: '../models/line-item.yaml'
+            merchantConfigId:
+              type: string
+              description: The [Merchant Config](/api/merchant-configs) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
+        examples:
+          default:
+            value:
+              value:
+                amount: '3600'
+                currency: NZD
+              externalRef: e8df06e2-13a5-48b4-b670-3fd6d815fe0a
+              lineItems:
+                - name: Hard Hat
+                  sku: GH1234
+                  qty: '1'
+                  price: '4000'
+                  tax: '15'
+                  discount: '400'
+  responses:
+    '200':
+      description: Payment Request refund initiated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                type: refund
+                value:
+                  currency: NZD
+                  amount: '3600'
+                assetType: centrapay.nzd.main
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                shortCode: CP-C7F-ZS5-015
+                merchantName: Centrapay Café
+                merchantId: 5ee0c486308f590260d9a07f
+                merchantAccountId: C4QnjXvj8At6SMsEN4LRi9
+                merchantConfigId: mc_5ee168e8597be5002af7b454
+                createdAt: '2021-06-12T01:17:00.000Z'
+                createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                activityNumber: '3'
+                invoiceRef: sy8CRmo3sp3ArOpnfmb423
+                lineItems:
+                  - name: Hard Hat
+                    sku: GH1234
+                    qty: '1'
+                    price: '4000'
+                    tax: '15'
+                    discount: '400'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            LINE_ITEMS_SUM_CHECK_FAILED:
+              description: The sum value of the line items did not equal the value of the refund.
+              value:
+                message: LINE_ITEMS_SUM_CHECK_FAILED
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            NOT_PAID:
+              description: The Payment Request has not been paid.
+              value:
+                message: NOT_PAID
+            ALREADY_REFUNDED:
+              description: The Payment Request already been refunded. If you want to perfom additional refunds then an `externalRef` is required.
+              value:
+                message: ALREADY_REFUNDED
+            INVALID_AMOUNT:
+              description: The refund requested is greater than the refundable amount.
+              value:
+                message: INVALID_AMOUNT
+            REPEAT_REFERENCE:
+              description: A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.
+              value:
+                message: REPEAT_REFERENCE
+            PARTIAL_REFUNDS_NOT_ALLOWED:
+              description: The Asset does not support partial refunds.
+              value:
+                message: PARTIAL_REFUNDS_NOT_ALLOWED
+            INACTIVE_ASSET:
+              description: The Asset is not refundable. It may have been disabled, expired, or already refunded.
+              value:
+                message: INACTIVE_ASSET
+            REFUND_NOT_SUPPORTED:
+              description: The Asset type does not support refunds.
+              value:
+                message: REFUND_NOT_SUPPORTED
+            REFUND_WINDOW_EXCEEDED:
+              description: The time since the payment exceeds the window of time a payment request can be refunded in.
+              value:
+                message: REFUND_WINDOW_EXCEEDED
+            PRE_AUTH_PENDING:
+              description: The Pre Auth Payment Request has yet to be authorized.
+              value:
+                message: PRE_AUTH_PENDING
+            CONFIRMATION_NOT_FOUND:
+              description: The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.
+              value:
+                message: CONFIRMATION_NOT_FOUND
+            REFUND_DECLINED:
+              description: The refund parameters were valid but refund was declined because additional business rules were violated.
+              value:
+                message: REFUND_DECLINED

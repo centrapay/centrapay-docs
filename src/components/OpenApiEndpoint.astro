@@ -7,7 +7,7 @@ import Properties from './Properties.astro';
 import ErrorItem from './Error.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
-import { resolveRefs, buildEndpointData, getProperties, getErrors } from '../utils/OpenApiResolver.js';
+import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors } from '../utils/OpenApiResolver.js';
 
 const { operationId } = Astro.props;
 
@@ -25,7 +25,10 @@ if (!entry) throw new Error(`No operation found for operationId: ${operationId}`
 const pathItem = resolveRefs(entry.data, schemasMap);
 const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
 const endpoint = createEndpoint(buildEndpointData(operation));
-const properties = getProperties(operation.requestBody?.content?.['application/json']?.schema);
+const properties = [
+  ...getParameterProperties(operation.parameters),
+  ...getProperties(operation.requestBody?.content?.['application/json']?.schema),
+];
 const commonResponses = Object.values(schemasMap['responses'] ?? {});
 const errors = getErrors(operation.responses, commonResponses);
 

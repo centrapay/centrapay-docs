@@ -60,6 +60,23 @@ export function getProperties(schema) {
   });
 }
 
+export function getParameterProperties(parameters) {
+  return (parameters ?? [])
+    .filter(param => param?.in === 'query')
+    .map(param => {
+      const type = (param.schema?.['x-type'] ?? param.schema?.type ?? 'string').toLowerCase();
+      return {
+        name: param.name,
+        formattedType: type,
+        typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
+        description: formatDescription(param.description),
+        isRequired: !!param.required,
+        isExperimental: !!param['x-experimental'],
+        isDeprecated: !!param['x-deprecated'],
+      };
+    });
+}
+
 export function getErrors(responses, commonResponses = []) {
   const endpointErrors = Object.entries(responses ?? {})
     .filter(([code]) => code !== '200')
@@ -94,14 +111,42 @@ function buildRequestHeaders(requestBody) {
   return headers;
 }
 
+function getParamExample(param) {
+  return param.example ?? param.schema?.example;
+}
+
+function applyParam(path, queryString, param) {
+  const example = getParamExample(param);
+  if (example === undefined) {
+    return path;
+  }
+  if (param.in === 'path') {
+    return path.replace(`{${param.name}}`, String(example));
+  }
+  if (param.in === 'query') {
+    queryString[param.name] = String(example);
+  }
+  return path;
+}
+
+// eslint-disable-next-line complexity
 export function buildEndpointData(operation) {
+  const queryString = {};
+  let path = operation['x-path'];
+  for (const param of operation.parameters ?? []) {
+    path = applyParam(path, queryString, param);
+  }
+  const request = {
+    headers: buildRequestHeaders(operation.requestBody),
+    payload: getExample(operation.requestBody?.content?.['application/json']),
+  };
+  if (Object.keys(queryString).length > 0) {
+    request.queryString = queryString;
+  }
   return {
     method: operation['x-method'],
-    path: operation['x-path'],
-    request: {
-      headers: buildRequestHeaders(operation.requestBody),
-      payload: getExample(operation.requestBody?.content?.['application/json']),
-    },
+    path,
+    request,
     response: getExample(operation.responses?.['200']?.content?.['application/json']),
   };
 }
