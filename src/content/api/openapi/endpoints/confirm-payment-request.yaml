@@ -3,7 +3,12 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/confirm
   operationId: confirmPaymentRequest
   summary: Confirm Pre Auth Payment Request
-  description: Make a confirmation against a Pre Auth Payment Request.
+  description: |
+    This endpoint allows you to make a confirmation against a Pre Auth Payment Request.
+
+    An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
+    If our endpoint does not respond, you must retry until you get back a 200 or 403.
+    If we recive 2 requests with the same `idempotencyKey`, we won't process the second and return the first response.
   tags:
     - payment-requests
   parameters:

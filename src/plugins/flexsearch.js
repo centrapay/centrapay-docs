@@ -1,8 +1,17 @@
 import fs from 'fs/promises';
+import { basename } from 'path';
 import glob from 'glob';
 import Slugger from 'github-slugger';
 import grayMatter from 'gray-matter';
+import { load as loadYaml } from 'js-yaml';
 import Markdoc from '@markdoc/markdoc';
+import {
+  orderEndpoints,
+  getPaymentRequestsSections,
+  firstParagraph,
+  PAYMENT_REQUESTS_HREF,
+  PAYMENT_REQUESTS_PATH,
+} from '../utils/openApiPage.js';
 
 // Mirrors the tokenizer `@astrojs/markdoc` builds for this site: `allowComments`
 // is always on, and `allowIndentation` follows `ignoreIndentation` in
@@ -237,6 +246,139 @@ function isExcluded(frontMatter, includeDrafts) {
   return Boolean(frontMatter.draft) && !includeDrafts;
 }
 
+export function stripMarkdown(text) {
+  return normalizeWhitespace(
+    (text ?? '')
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[`*_>#]/g, '')
+      .replace(/\|/g, ' ')
+      .replace(/^\s*-\s+/gm, '')
+  );
+}
+
+function requestPropertyNames(operation) {
+  const schema = operation.requestBody?.content?.['application/json']?.schema;
+  return Object.keys(schema?.properties ?? {});
+}
+
+function errorMessages(operation) {
+  return Object.entries(operation.responses ?? {})
+    .filter(([code]) => code !== '200')
+    .flatMap(([, response]) => Object.keys(response?.content?.['application/json']?.examples ?? {}));
+}
+
+function endpointKeywords(operation) {
+  return [
+    operation.operationId,
+    operation['x-path'],
+    ...(operation.parameters ?? []).map(param => param.name),
+    ...requestPropertyNames(operation),
+    ...errorMessages(operation),
+  ];
+}
+
+function modelDetails(section, models) {
+  const data = models[section.name];
+  return {
+    ...section,
+    description: firstParagraph(stripMarkdown(data['x-intro'] ?? '')),
+    keywords: Object.keys(data.properties ?? {}),
+    prose: [stripMarkdown(data['x-intro'] ?? ''), stripMarkdown(data['x-outro'] ?? '')],
+  };
+}
+
+function extraDetails(section, extras) {
+  const extra = extras.find(item => item.title === section.title);
+  return { ...section, description: '', keywords: [], prose: [stripMarkdown(extra.body)] };
+}
+
+function endpointDetails(section, byOperationId) {
+  const operation = byOperationId[section.operationId];
+  return {
+    ...section,
+    description: firstParagraph(stripMarkdown(operation.description ?? '')),
+    keywords: endpointKeywords(operation),
+    prose: [stripMarkdown(operation.description ?? '')],
+  };
+}
+
+function sectionDetails(section, context) {
+  if (section.kind === 'model') {
+    return modelDetails(section, context.models);
+  }
+  if (section.kind === 'extra') {
+    return extraDetails(section, context.extras);
+  }
+  return endpointDetails(section, context.byOperationId);
+}
+
+// Search entries for the spec-driven Payment Requests page, shaped like the
+// entries buildPageEntries produces for mdoc pages.
+export function buildOpenApiEntries({ href, path, page, endpointFiles, models }) {
+  const ordered = orderEndpoints({ paths: page.paths }, endpointFiles);
+  const byOperationId = Object.fromEntries(
+    endpointFiles.flatMap(file => file.operations.map(op => [op.operationId, op]))
+  );
+  const sections = getPaymentRequestsSections({
+    models: page.models.map(name => ({ name, title: models[name]['x-title'] ?? name })),
+    extras: page.extras,
+    endpoints: ordered,
+  });
+  const details = sections.map(section => sectionDetails(section, {
+    models,
+    extras: page.extras,
+    byOperationId,
+  }));
+  return [
+    finalizeSection({
+      title: page.title,
+      href,
+      path,
+      description: page.description,
+      deprecated: false,
+      keywords: [],
+      prose: [stripMarkdown(page.intro)],
+    }),
+    ...details.map(section => finalizeSection({
+      title: section.title,
+      href: `${href}#${section.anchor}`,
+      path,
+      description: section.description,
+      deprecated: false,
+      keywords: section.keywords,
+      prose: section.prose,
+    })),
+  ];
+}
+
+async function loadYamlFile(filepath) {
+  return loadYaml(await fs.readFile(filepath, 'utf8'));
+}
+
+export async function createOpenApiIndexEntries() {
+  const index = await loadYamlFile('src/content/api/openapi/index.yaml');
+  const page = index.info['x-page'];
+  const endpointFiles = [];
+  for (const filepath of glob.sync('src/content/api/openapi/endpoints/*.yaml').sort()) {
+    endpointFiles.push({
+      name: basename(filepath, '.yaml'),
+      operations: Object.values(await loadYamlFile(filepath)),
+    });
+  }
+  const models = {};
+  for (const filepath of glob.sync('src/content/api/openapi/models/*.yaml').sort()) {
+    models[basename(filepath, '.yaml')] = await loadYamlFile(filepath);
+  }
+  return buildOpenApiEntries({
+    href: PAYMENT_REQUESTS_HREF,
+    path: PAYMENT_REQUESTS_PATH,
+    page: { ...page, paths: index.paths },
+    endpointFiles,
+    models,
+  });
+}
+
 export async function createFlexsearchIndexData({ includeDrafts = true } = {}) {
   const entries = [];
   for (const filepath of glob.sync('src/content/**/*.mdoc').sort()) {
@@ -251,6 +393,7 @@ export async function createFlexsearchIndexData({ includeDrafts = true } = {}) {
       content,
     }));
   }
+  entries.push(...await createOpenApiIndexEntries());
   const indexData = Object.fromEntries(entries.map((entry, id) => [id, entry]));
   await fs.writeFile('public/index-data.json', JSON.stringify(indexData));
   return indexData;

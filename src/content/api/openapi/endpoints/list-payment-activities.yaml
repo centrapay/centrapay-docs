@@ -3,7 +3,9 @@ get:
   x-path: /api/payment-activities
   operationId: listPaymentActivities
   summary: List Payment Activities for a Merchant
-  description: List Payment Activities for a Merchant.
+  description: |
+    This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Merchant.
+    Results are [paginated](/api/pagination/) and ordered by descending activity created date.
   tags:
     - payment-requests
   parameters:

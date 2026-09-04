@@ -1,15 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
+import Slugger from 'github-slugger';
+import { marked } from 'marked';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
 import Properties from './Properties.astro';
 import ErrorItem from './Error.astro';
+import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
 import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors } from '../utils/OpenApiResolver.js';
 
-const { operationId } = Astro.props;
+const { operationId, anchor } = Astro.props;
 
 const schemasCollection = await getCollection('openapiSchemas');
 const schemasMap = Object.fromEntries(
@@ -32,40 +35,24 @@ const properties = [
 const commonResponses = Object.values(schemasMap['responses'] ?? {});
 const errors = getErrors(operation.responses, commonResponses);
 
-const badgeClasses = {
-  experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
-  required: 'bg-surface-accent text-content-on-color border-outline-opaque',
-  deprecated: 'text-content-on-color border-outline-opaque bg-red-800',
-  default: 'text-content-primary border-outline-opaque bg-surface-tertiary',
-};
-
-const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-caption-2 px-2 py-0.5 rounded-full border`;
+const hasSlot = Astro.slots.has('default');
+const headingId = anchor ?? new Slugger().slug(operation.summary);
 ---
 
 <Row>
   <Column>
-    <slot />
+    {hasSlot
+      ? <slot />
+      : (
+        <>
+          <h2 id={headingId}>{operation.summary}</h2>
+          {operation.description && <div set:html={marked.parse(operation.description)} />}
+        </>
+      )
+    }
     {properties.length > 0 && (
       <Properties>
-        {properties.map(({ name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated }) => (
-          <li class="px-0 border-b-0">
-            <div class="m-0 flex flex-wrap items-baseline gap-x-3">
-              <h4 class="my-0" id={name}>{name}</h4>
-              <span class="not-prose inline-flex items-center">
-                {typeLink
-                  ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
-                  : <span class={badge('default')}>{formattedType}</span>
-                }
-              </span>
-              {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
-              {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
-              {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
-            </div>
-            <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-              {description && <p set:html={description} />}
-            </div>
-          </li>
-        ))}
+        {properties.map(property => <OpenApiPropertyItem {...property} />)}
       </Properties>
     )}
     {errors.length > 0 && (

@@ -3,7 +3,7 @@ get:
   x-path: /api/payment-requests/{paymentRequestId}
   operationId: getPaymentRequest
   summary: Get a Payment Request
-  description: Retrieve a Payment Request.
+  description: This endpoint allows you to retrieve a Payment Request.
   tags:
     - payment-requests
   parameters:

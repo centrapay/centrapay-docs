@@ -3,7 +3,9 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline
   operationId: declinePaymentCondition
   summary: Decline a Payment Condition
-  description: Decline a Payment Condition listed in `merchantConditions` with status `awaiting-merchant`. Returns a Payment Activity.
+  description: |
+    Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
+    Returns a [Payment Activity](#payment-activity-model).
   tags:
     - payment-requests
   parameters:

@@ -3,7 +3,9 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept
   operationId: acceptPaymentCondition
   summary: Accept a Payment Condition
-  description: Accept a Payment Condition listed in `merchantConditions` with status `awaiting-merchant`. Returns a Payment Activity.
+  description: |
+    Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
+    Returns a [Payment Activity](#payment-activity-model).
   tags:
     - payment-requests
   parameters:

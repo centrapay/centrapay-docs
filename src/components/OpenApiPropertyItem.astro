@@ -1,0 +1,30 @@
+---
+const { name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated } = Astro.props;
+
+const badgeClasses = {
+  experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
+  required: 'bg-surface-accent text-content-on-color border-outline-opaque',
+  deprecated: 'text-content-on-color border-outline-opaque bg-red-800',
+  default: 'text-content-primary border-outline-opaque bg-surface-tertiary',
+};
+
+const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-caption-2 px-2 py-0.5 rounded-full border`;
+---
+
+<li class="px-0 border-b-0">
+  <div class="m-0 flex flex-wrap items-baseline gap-x-3">
+    <h4 class="my-0" id={name}>{name}</h4>
+    <span class="not-prose inline-flex items-center">
+      {typeLink
+        ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+        : <span class={badge('default')}>{formattedType}</span>
+      }
+    </span>
+    {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+    {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
+    {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
+  </div>
+  <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+    {description && <p set:html={description} />}
+  </div>
+</li>

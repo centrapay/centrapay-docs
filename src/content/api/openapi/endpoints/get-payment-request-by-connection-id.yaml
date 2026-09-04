@@ -3,7 +3,9 @@ get:
   x-path: /api/connections/{connectionId}/latest-payment-request
   operationId: getPaymentRequestByConnectionId
   summary: Get a Payment Request by Connection Id
-  description: Returns the latest Payment Request that is associated with the provided Connection.
+  description: |
+    This endpoint returns the latest Payment Request that is associated with the provided [Connection](/api/connections).
+    The caller of the endpoint must be the account that authorized the connection.
   tags:
     - payment-requests
   parameters:

@@ -1,0 +1,30 @@
+x-title: Asset Totals
+x-intro: |
+  The Asset Totals provides a sum of every transaction for each [Asset Type](/api/asset-types)
+type: object
+properties:
+  type:
+    type: string
+    description: The Asset Type used for the payment.
+  description:
+    type: string
+    description: A human readable description of the Asset Type used.
+  settlementDate:
+    x-type: timestamp
+    type: string
+    format: date-time
+    description: The estimated date that the Merchant can expect settlement of funds.
+  total:
+    x-type: monetary
+    type: object
+    description: The total monetary value of the Asset Type used to pay a Payment Request.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+  lineItems:
+    type: array
+    description: The [Line Items](#line-item-model) paid for by the Asset Type.
+    items:
+      $ref: './line-item.yaml'

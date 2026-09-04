@@ -3,7 +3,13 @@ get:
   x-path: /api/me/patron-code-payment-request
   operationId: getPaymentRequestByPatronCode
   summary: Get a Payment Request linked to a Patron Code
-  description: Returns the latest Payment Request with status `new` that has been attached to a Patron Code.
+  description: |
+    This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](/api/patron-codes).
+    The Payment Request may have been created with a reference to any Patron Code owned by the user's
+    account.
+
+    This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
+    them to find the Payment Request and proceed to pay.
   tags:
     - payment-requests
   responses:
