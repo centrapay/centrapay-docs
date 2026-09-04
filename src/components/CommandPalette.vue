@@ -48,10 +48,16 @@
                   class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-hidden"
                 >
                   <div
-                    v-if="results.length === 0"
+                    v-if="isLoading"
+                    class="relative cursor-default select-none px-4 py-2 text-content-tertiary"
+                  >
+                    Loading search&hellip;
+                  </div>
+                  <div
+                    v-else-if="results.length === 0"
                     class="relative cursor-default select-none px-4 py-2"
                   >
-                    Nothing found.
+                    No results for &ldquo;{{ query }}&rdquo;.
                   </div>
                   <ComboboxOption
                     v-for="(result, resultIndex) in results"
@@ -71,8 +77,14 @@
                         :href="result.href"
                       >
                         <div class="w-full truncate">
-                          <span class="block truncate font-medium text-content-secondary">
-                            {{ result.title }}
+                          <span class="flex items-center gap-2 font-medium text-content-secondary">
+                            <span class="truncate">{{ result.title }}</span>
+                            <span
+                              v-if="result.deprecated"
+                              class="type-caption-2 shrink-0 rounded-full border border-outline-opaque bg-red-800 px-2 py-0.5 text-content-on-color"
+                            >
+                              deprecated
+                            </span>
                           </span>
                           <p class="block truncate text-content-tertiary">
                             {{ result.description }}
@@ -108,7 +120,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, shallowRef, watch, computed, onMounted } from 'vue';
 import {
   TransitionRoot,
   TransitionChild,
@@ -120,37 +132,27 @@ import {
   ComboboxOption,
 } from '@headlessui/vue';
 import Search from './icons/Search.vue';
-import flexsearch from 'flexsearch/dist/flexsearch.bundle.min';
-
-let data = {};
-const index = new flexsearch.Document({
-  tokenize: 'full',
-  document: {
-    id: 'id',
-    index: ['title', 'description', 'href'],
-  },
-});
+import { loadSearchIndex, searchSite } from '../utils/searchIndex.js';
 
 const query = ref('');
 const selected = ref(undefined);
+// shallowRef keeps Vue from making the FlexSearch index deeply reactive, which
+// would be expensive and serves no purpose.
+const searchIndex = shallowRef(null);
 
-const { isOpen } = defineProps({
-  isOpen: Boolean,
-});
 const emit = defineEmits(['close']);
 
+const isLoading = computed(() => !searchIndex.value);
+
 const results = computed(() => {
-  if (query.value === '') {
+  if (!searchIndex.value) {
     return [];
   }
-  const searchResults = index.search(query.value);
-  const uniqueIds = Array.from(new Set(searchResults.map(r => r.result).flat()));
-  return uniqueIds.map(id => data[id]);
+  return searchSite(searchIndex.value, query.value);
 });
 
 onMounted(async () => {
-  data = await (await fetch('/index-data.json')).json();
-  Object.entries(data).forEach(([key, val]) => index.add({ id: key, ...val }));
+  searchIndex.value = await loadSearchIndex();
 });
 
 watch(selected, () => {
