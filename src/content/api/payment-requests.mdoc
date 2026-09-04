@@ -19,8 +19,6 @@ Payment requests can also be refunded for a short period of time after being pai
 
 Payment request state transitions can be notified to webhooks.
 
-Centrapay Payment Requests are serviced via two sets of endpoints; the “next” version (documented on this page) and the “legacy” version (documented at [Legacy Payment Requests](/api/legacy-payment-requests)).
-
 ---
 
 ## Payment Request Model
@@ -181,7 +179,7 @@ Centrapay Payment Requests are serviced via two sets of endpoints; the “next�
   {% /property %}
 {% /properties %}
 
-⭐️ For Payment Options which specify an address, there’s a requirement to make a transaction on an external ledger. Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay-a-payment-request) using the legacy payment API.
+⭐️ For Payment Options which specify an address, there’s a requirement to make a transaction on an external ledger. Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay-a-payment-request).
 
 ---
 
