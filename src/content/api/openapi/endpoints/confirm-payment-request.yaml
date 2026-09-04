@@ -1,0 +1,141 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/confirm
+  operationId: confirmPaymentRequest
+  summary: Confirm Pre Auth Payment Request
+  description: Make a confirmation against a Pre Auth Payment Request.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - idempotencyKey
+            - invoiceRef
+            - lineItems
+          properties:
+            idempotencyKey:
+              type: string
+              description: This is an identifier from your system to enforce uniqueness.
+            invoiceRef:
+              type: string
+              description: A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
+            lineItems:
+              type: array
+              description: The [Line Items](#line-item-model) being confirmed.
+              items:
+                $ref: '../models/line-item.yaml'
+            value:
+              x-type: monetary
+              type: object
+              description: The canonical value of the confirmation. Must be less than 100000000 and positive.
+              properties:
+                amount:
+                  type: string
+                currency:
+                  type: string
+        examples:
+          default:
+            value:
+              value:
+                amount: '6190'
+                currency: NZD
+              idempotencyKey: e8df06e2-13a5-48b4-b670-3fd6d815fe0a
+              invoiceRef: '2022-08-03T16:56:50-06:00'
+              lineItems:
+                - name: Coffee Grounds
+                  sku: GH1234
+                  qty: '1'
+                  price: '4195'
+                  tax: '15.00'
+                - name: Centrapay Cafe Mug
+                  sku: SB456
+                  qty: '25'
+                  price: '1995'
+                  tax: '15.00'
+                  discount: '199'
+                  restricted: true
+                  productId: '19412345123459'
+                  classification:
+                    type: GS1
+                    code: '10001874'
+                    name: CROCKERY
+                    props:
+                      '20001479': '30008960'
+  responses:
+    '200':
+      description: Pre Auth Payment Request confirmed
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                shortCode: CP-C7F-ZS5
+                value:
+                  amount: '6190'
+                  currency: NZD
+                preAuth: true
+                type: confirmation
+                idempotencyKey: e8df06e2-13a5-48b4-b670-3fd6d815fe0a
+                createdAt: '2021-06-08T04:04:27.426Z'
+                updatedAt: '2021-06-08T04:04:27.426Z'
+                lineItems:
+                  - name: Coffee Grounds
+                    sku: GH1234
+                    qty: '1'
+                    price: '4195'
+                    tax: '15.00'
+                  - name: Centrapay Cafe Mug
+                    sku: SB456
+                    qty: '25'
+                    price: '1995'
+                    tax: '15.00'
+                    discount: '199'
+                invoiceRef: '2022-08-03T16:56:50-06:00'
+                createdByAccountId: Jaim1Cu1Q55uooxSens6yk
+                createdByAccountName: Bob's Burgers Intergration
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_PAYMENT_REQUEST_TYPE:
+              description: The Payment Request is not related to a Pre Auth.
+              value:
+                message: INVALID_PAYMENT_REQUEST_TYPE
+            PRE_AUTH_RELEASED:
+              description: The Payment Request has been released or Pre Auth has expired. Remaining funds have been returned to the Patron.
+              value:
+                message: PRE_AUTH_RELEASED
+            PRE_AUTH_PENDING:
+              description: The Payment Request has not been authorized.
+              value:
+                message: PRE_AUTH_PENDING
+            REQUEST_CANCELLED:
+              description: The Payment Request has been cancelled.
+              value:
+                message: REQUEST_CANCELLED
+            INVALID_AMOUNT:
+              description: The confirmation is greater then the remaining funds on the authroization.
+              value:
+                message: INVALID_AMOUNT
+            IDEMPOTENT_OPERATION_FAILED:
+              description: There has already been a confirmation against the Payment Request with the same idempotencyKey but different content.
+              value:
+                message: IDEMPOTENT_OPERATION_FAILED

@@ -478,39 +478,23 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}"
-  filename="payment-requests-get"
-%}
+{% openApiEndpoint operationId="getPaymentRequest" %}
   ## Get a Payment Request
 
   This endpoint allows you to retrieve a Payment Request.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/short-code/{shortCode}"
-  filename="payment-requests-get-by-short-code"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByShortCode" %}
   ## Get a Payment Request by Short Code
 
   This endpoint returns the latest Payment Request that matches the given short code.
-
-  {% properties heading="Errors" %}
-    {% error code="400" message="CHECKSUM_FAILED" %}
-      Luhn checksum digit doesn't pass.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/me/patron-code-payment-request"
-  filename="payment-requests-get-by-patron-code"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByPatronCode" %}
   ## Get a Payment Request linked to a Patron Code
 
   This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](/api/patron-codes).
@@ -519,284 +503,75 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
   them to find the Payment Request and proceed to pay.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/connections/{connectionId}/latest-payment-request"
-  filename="payment-requests-get-by-connectionId"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByConnectionId" %}
   ## Get a Payment Request by Connection Id
 
   This endpoint returns the latest Payment Request that is associated with the provided [Connection](/api/connections).
   The caller of the endpoint must be the account that authorized the connection.
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/external-ref/{externalRef}"
-  filename="payment-requests-list-by-external-ref"
-%}
+{% openApiEndpoint operationId="listPaymentRequestsByExternalRef" %}
   ## List Payment Requests by External Reference
 
   This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
   Results are [paginated](/api/pagination/).
-
-  {% properties %}
-    {% property name="merchantAccountId" type="string" required=true %}
-      The [Account](/api/accounts/) of the merchant that the Payment Request was created for.
-    {% /property %}
-    {% property name="pageKey" type="string" %}
-      Used to retrieve the next page of items.
-      Note: The `pageKey` value, if provided, needs to be URL-encoded.
-    {% /property %}
-    {% property name="paginationLimit" type="string" %}
-      Maximum number of Payment Requests to return.
-    {% /property %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/summary"
-  filename="payment-requests-get-summary"
-%}
+{% openApiEndpoint operationId="getPaymentRequestSummary" %}
   ## Get Payment Request Summary
 
   This endpoint allows you to retrieve the summary of a Payment Request while the status is `new`.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/pay"
-  filename="payment-requests-pay"
-%}
+{% openApiEndpoint operationId="payPaymentRequest" %}
   ## Pay a Payment Request
 
   To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types), `idempotencyKey` and one of `assetId`, `transactionId` or `authorization`.
   - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
   - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
   - Use `authorization` to authorize an external transaction.
-
-  {% properties %}
-    {% property name="assetType" type="string" required=true %}
-      An [Asset Type](/api/asset-types) reference.
-    {% /property %}
-    {% property name="idempotencyKey" type="string" required=true %}
-      A unique identifier that prevents duplicate processing of the same request. See [idempotency](/api/idempotency).
-    {% /property %}
-    {% property name="assetId" type="string" %}
-      The id of the Asset being used to make payment.
-    {% /property %}
-    {% property name="transactionId" type="string" %}
-      Used to verify an external transaction eg Bitcoin.
-    {% /property %}
-    {% property name="authorization" type="string" %}
-      Used to authorize an external transaction.
-    {% /property %}
-    {% property name="mode" type="string" %}
-      The mode of payment. Valid values are `partial-payment` and `multi-asset-payment`.
-    {% /property %}
-    {% property name="amount" type="string" %}
-      The value required to pay using the canonical units for the Asset Type.
-    {% /property %}
-    {% property name="externalPaymentRef" type="string" %}
-      An external reference to the payment. Required when `assetType` is `farmlands.nzd.*`.
-    {% /property %}
-    {% property name="lineItems" type="array" %}
-      The [Line Items](#line-item-model) associated with this payment attempt. This field is only allowed for `centrapay.token.*` payments. If omitted for `centrapay.token.*` payments, the highest-value valid line item from the payment request will be used by default.
-    {% /property %}
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="INVALID_ASSET_TYPE" %}
-      Either the merchant is not configured with the provided asset type or the asset type does not exist.
-    {% /error %}
-    {% error code="403" message="REQUEST_EXPIRED" %}
-      Action cannot be completed because the request has expired.
-    {% /error %}
-    {% error code="403" message="REQUEST_PAID" %}
-      Action cannot be completed because the request has been paid.
-    {% /error %}
-    {% error code="403" message="REQUEST_CANCELLED" %}
-      Action cannot be completed because the request has already been cancelled.
-    {% /error %}
-    {% error code="403" message="INACTIVE_ASSET" %}
-      The asset is not spendable. It may have been disabled, expired, or already spent.
-    {% /error %}
-    {% error code="403" message="INVALID_MERCHANT_CONFIG" %}
-      The merchant is not configured properly to satisfy the Payment Request. This could be due to incorrect information, or the merchant’s credentials might be blocked by an external service.
-    {% /error %}
-    {% error code="403" message="QUOTA_EXCEEDED" %}
-      The payment pay request exceeds the allowed spend quota supplied.
-    {% /error %}
-    {% error code="403" message="INSUFFICIENT_ASSET_VALUE" %}
-      The asset has insufficient funds to pay the Payment Request or the transaction amount received by Centrapay is less than the total of the payment.
-    {% /error %}
-    {% error code="403" message="ASSET_REDEMPTION_DENIED" %}
-      The asset redemption has been unsuccessful due to an error with provided payment parameters, the Merchant, or the Asset.
-    {% /error %}
-    {% error code="403" message="PAYMENT_DECLINED" %}
-      The payment parameters were valid but payment was declined because additional payment restrictions were violated.
-    {% /error %}
-    {% error code="403" message="PAYMENT_UNCONFIRMED" %}
-      Confirmation of payment success or failure was not received from the provider within the expected time.
-    {% /error %}
-    {% error code="403" message="REMAINING_AMOUNT_EXCEEDED" %}
-      The payment amount exceeds the remaining amount on the Payment Request.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/refund"
-  filename="payment-requests-refund"
-%}
+{% openApiEndpoint operationId="refundPaymentRequest" %}
   ## Refund a Payment Request
 
   This endpoint allows you to initiate a refund of a Payment Request. The refund will be completed asynchronously.
-
-  {% properties %}
-    {% property name="value" type="monetary" required=true %}
-      The canonical value of the Payment Request. Must be less than 100000000 and positive.
-    {% /property %}
-    {% property name="externalRef" type="string" required=true %}
-      An external reference to the refund.
-    {% /property %}
-    {% property name="invoiceRef" type="string" %}
-      A reference to an invoice for the refund. Must be less than or equal to 128 characters.
-    {% /property %}
-    {% property name="confirmationIdempotencyKey" type="string" %}
-      Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
-    {% /property %}
-    {% property name="lineItems" type="array" %}
-      The [Line Items](#line-item-model) being refunded.
-    {% /property %}
-    {% property name="merchantConfigId" type="string" %}
-      The [Merchant Config](/api/merchant-configs) id of the refunding merchant when refunding a `farmlands.nzd.*` payment.
-    {% /property %}
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="400" message="LINE_ITEMS_SUM_CHECK_FAILED" %}
-      The sum value of the line items did not equal the value of the refund.
-    {% /error %}
-    {% error code="403" message="NOT_PAID" %}
-      The Payment Request has not been paid.
-    {% /error %}
-    {% error code="403" message="ALREADY_REFUNDED" %}
-      The Payment Request already been refunded.
-      If you want to perfom additional refunds then an `externalRef` is required.
-    {% /error %}
-    {% error code="403" message="INVALID_AMOUNT" %}
-      The refund requested is greater than the refundable amount.
-    {% /error %}
-    {% error code="403" message="REPEAT_REFERENCE" %}
-      A refund has already been requested with the same external reference.
-      Refunding the payment request twice with the same external reference is not allowed.
-      If the amount of the refund is the same we assume it is a repeat request and return 200.
-    {% /error %}
-    {% error code="403" message="PARTIAL_REFUNDS_NOT_ALLOWED" %}
-      The Asset does not support partial refunds.
-    {% /error %}
-    {% error code="403" message="INACTIVE_ASSET" %}
-      The Asset is not refundable. It may have been disabled, expired, or already refunded.
-    {% /error %}
-    {% error code="403" message="REFUND_NOT_SUPPORTED" %}
-      The Asset type does not support refunds.
-    {% /error %}
-    {% error code="403" message="REFUND_WINDOW_EXCEEDED" %}
-      The time since the payment exceeds the window of time a payment request can be refunded in.
-    {% /error %}
-    {% error code="403" message="PRE_AUTH_PENDING" %}
-      The Pre Auth Payment Request has yet to be authorized.
-    {% /error %}
-    {% error code="403" message="CONFIRMATION_NOT_FOUND" %}
-      The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.
-    {% /error %}
-    {% error code="403" message="REFUND_DECLINED" %}
-      The refund parameters were valid but refund was declined because additional business rules were violated.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/void"
-  filename="payment-requests-void"
-%}
+{% openApiEndpoint operationId="voidPaymentRequest" %}
   ## Void a Payment Request
 
   Voiding a payment request will cancel the request and trigger any refunds if necessary.
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="VOID_WINDOW_EXCEEDED" %}
-      The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use [Refund](#refund-a-payment-request) endpoint to reverse the payment.
-    {% /error %}
-    {% error code="403" message="ALREADY_REFUNDED" %}
-      The Payment Request already been refunded.
-    {% /error %}
-    {% error code="403" message="REPEAT_REFERENCE" %}
-      A refund has already been requested with the same external reference.
-      Refunding the payment request twice with the same external reference is not allowed.
-      If the amount of the refund is the same we assume it is a repeat request and return 200.
-    {% /error %}
-    {% error code="403" message="INACTIVE_ASSET" %}
-      The Asset is not refundable. It may have been disabled, expired, or already refunded.
-    {% /error %}
-    {% error code="403" message="REFUND_NOT_SUPPORTED" %}
-      The Asset type does not support refunds.
-    {% /error %}
-    {% error code="403" message="REQUEST_EXPIRED" %}
-      The Payment Request has expired.
-    {% /error %}
-    {% error code="403" message="PRE_AUTH_ALREADY_CONFIRMED" %}
-      The Pre Auth Payment Request already has confirmations. Use [Refund](#refund-a-payment-request) endpoint to reverse the transaction.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/release"
-  filename="payment-requests-release"
-%}
+{% openApiEndpoint operationId="releasePaymentRequest" %}
   ## Release Pre Auth funds
 
   This endpoint allows you to release funds held for a Pre Auth Payment Request.
 
   When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
   If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="INVALID_PAYMENT_REQUEST_TYPE" %}
-      The Payment Request is not related to a Pre Auth.
-    {% /error %}
-    {% error code="403" message="PRE_AUTH_RELEASED" %}
-      `preAuthExpiresAt` has passed.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/confirm"
-  filename="payment-requests-confirm"
-%}
+{% openApiEndpoint operationId="confirmPaymentRequest" %}
   ## Confirm Pre Auth Payment Request
 
   This endpoint allows you to make a confirmation against a Pre Auth Payment Request.
@@ -804,123 +579,40 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
   An `idempotencyKey` is a identifier from your system used for guaranteeing at least once delivery of your request.
   If our endpoint does not respond, you must retry until you get back a 200 or 403.
   If we recive 2 requests with the same `idempotencyKey`, we won't process the second and return the first response.
-
-  {% properties %}
-    {% property name="idempotencyKey" type="string" required=true %}
-      This is an identifier from your system to enforce uniqueness.
-    {% /property %}
-    {% property name="invoiceRef" type="string" required=true %}
-      A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
-    {% /property %}
-    {% property name="lineItems" type="array" required=true %}
-      The [Line Items](#line-item-model) being confirmed.
-    {% /property %}
-    {% property name="value" type="monetary" %}
-      The canonical value of the confirmation. Must be less than 100000000 and positive.
-    {% /property %}
-  {% /properties %}
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="INVALID_PAYMENT_REQUEST_TYPE" %}
-      The Payment Request is not related to a Pre Auth.
-    {% /error %}
-    {% error code="403" message="PRE_AUTH_RELEASED" %}
-      The Payment Request has been released or Pre Auth has expired. Remaining funds have been returned to the Patron.
-    {% /error %}
-    {% error code="403" message="PRE_AUTH_PENDING" %}
-      The Payment Request has not been authorized.
-    {% /error %}
-    {% error code="403" message="REQUEST_CANCELLED" %}
-      The Payment Request has been cancelled.
-    {% /error %}
-    {% error code="403" message="INVALID_AMOUNT" %}
-      The confirmation is greater then the remaining funds on the authroization.
-    {% /error %}
-    {% error code="403" message="IDEMPOTENT_OPERATION_FAILED" %}
-      There has already been a confirmation against the Payment Request with the same idempotencyKey but different content.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-activities"
-  filename="payment-activities-list"
-%}
+{% openApiEndpoint operationId="listPaymentActivities" %}
   ## List Payment Activities for a Merchant
 
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Merchant.
   Results are [paginated](/api/pagination/) and ordered by descending activity created date.
-
-  {% properties %}
-    {% property name="merchantId" type="string" required=true %}
-      The id of the [Merchant](/api/merchants/) the Payment Request is on behalf of.
-    {% /property %}
-    {% property name="pageKey" type="string" required=true %}
-      Used to retrieve the next page of items.
-      Note: The `pageKey` value, if provided, needs to be URL-encoded.
-    {% /property %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/activities"
-  filename="payment-requests-list-payment-activities"
-%}
+{% openApiEndpoint operationId="listPaymentRequestActivities" %}
   ## List Payment Activities for a Payment Request
 
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
   Results are ordered by descending activity created date.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept"
-  filename="payment-requests-conditions-accept"
-%}
+{% openApiEndpoint operationId="acceptPaymentCondition" %}
   ## Accept a Payment Condition
 
   Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="PATRON_NOT_AUTHORIZED" %}
-      The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition.
-    {% /error %}
-    {% error code="403" message="MERCHANT_NOT_AUTHORIZED" %}
-      The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition.
-    {% /error %}
-    {% error code="403" message="CONDITION_ALREADY_SET" %}
-      The Payment Condition has already been accepted or declined.
-    {% /error %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline"
-  filename="payment-requests-conditions-decline"
-%}
+{% openApiEndpoint operationId="declinePaymentCondition" %}
   ## Decline a Payment Condition
 
   Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
   Returns a [Payment Activity](#payment-activity-model).
-
-  {% properties heading="Errors" %}
-    {% error code="403" message="PATRON_NOT_AUTHORIZED" %}
-      The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to decline the condition.
-    {% /error %}
-    {% error code="403" message="MERCHANT_NOT_AUTHORIZED" %}
-      The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to decline the condition.
-    {% /error %}
-    {% error code="403" message="CONDITION_ALREADY_SET" %}
-      The Payment Condition has already been accepted or declined.
-    {% /error %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}

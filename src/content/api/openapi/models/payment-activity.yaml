@@ -1,0 +1,76 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Payment Activity.
+  type:
+    type: string
+    description: The Payment Activity Type. See Payment Activity Types.
+  value:
+    x-type: monetary
+    type: object
+    description: The value of the Payment Activity. Must be less than 100000000 and positive.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+  paymentRequestId:
+    type: string
+    description: The Payment Request's id.
+  merchantId:
+    $ref: './merchant.yaml#/properties/merchantId'
+  merchantConfigId:
+    type: string
+    description: The Payment Request's [Merchant Config](/api/merchant-configs) id.
+  merchantAccountId:
+    type: string
+    description: The Payment Request's Merchant [Account](/api/accounts) id.
+  merchantName:
+    $ref: './merchant.yaml#/properties/merchantName'
+  createdAt:
+    type: string
+    format: date-time
+    example: '2021-06-12T01:17:00.000Z'
+  createdBy:
+    x-type: crn
+    type: string
+    description: The identity that created the activity.
+  paymentRequestCreatedBy:
+    x-type: crn
+    type: string
+    description: The identity that created the Payment Request.
+  activityNumber:
+    x-type: bignumber
+    type: string
+    description: Unique sequential number for the activity.
+  shortCode:
+    type: string
+    description: A shorter id that can be used for up to two years.
+  assetType:
+    type: string
+    description: The Asset Type for the `payment` or `refund` activity.
+  external:
+    type: boolean
+    description: '`true` if the Payment Activity is recording a transaction that occurred outside the Centrapay system.'
+  cancellationReason:
+    type: string
+    description: The reason that the Payment Request was cancelled. See Cancellation Reasons.
+  conditionId:
+    type: integer
+    description: The id of a Condition if the activity was for a Condition being accepted or declined.
+  idempotencyKey:
+    type: string
+    description: Required when confirming a Payment Request. This is an identifier from your system to enforce uniqueness.
+  confirmationIdempotencyKey:
+    type: string
+    description: Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
+  preAuth:
+    type: boolean
+    description: '`true` if the related Payment Request is a Pre Auth.'
+  paidBy:
+    type: object
+    description: Shows the Paid By when a Payment Request is paid.
+  strategy:
+    type: object
+    description: Details about the specifics for a refund. See Strategy Model.
