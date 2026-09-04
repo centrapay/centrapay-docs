@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+import Properties from './Properties.astro';
+import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
+import { resolveRefs, getProperties } from '../utils/OpenApiResolver.js';
+
+const { name, anchor } = Astro.props;
+
+const schemasCollection = await getCollection('openapiSchemas');
+const schemasMap = Object.fromEntries(
+  schemasCollection.map(entry => [entry.id.split('/').pop().replace(/\.yaml$/, ''), entry.data])
+);
+
+const schema = resolveRefs(schemasMap[name], schemasMap);
+if (!schema) throw new Error(`No model found for name: ${name}`);
+
+const title = schemasMap[name]['x-title'] ?? name;
+const intro = schemasMap[name]['x-intro'];
+const outro = schemasMap[name]['x-outro'];
+const properties = getProperties(schema);
+---
+
+<h2 id={anchor}>{title}</h2>
+{intro && <div set:html={marked.parse(intro)} />}
+{properties.length > 0 && (
+  <Properties>
+    {properties.map(property => <OpenApiPropertyItem {...property} />)}
+  </Properties>
+)}
+{outro && <div set:html={marked.parse(outro)} />}

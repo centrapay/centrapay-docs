@@ -1,0 +1,14 @@
+x-title: Accepted Collections
+x-intro: |
+  If a Payment Request contains a `centrapay.token.*` Payment Option, an array of Accepted Collections will be present inside the `centrapay.token` Payment Option.
+  The Accepted Collections returned can be used to determine if a [Centrapay Token](/api/tokens) can be used to pay a Payment Request, and the Line Items able to be purchased using the Token.
+type: object
+properties:
+  id:
+    type: string
+    description: The id of a collection that the Merchant accepts for the given Payment Request.
+  lineItems:
+    type: array
+    description: The [Line Items](#line-item-model) that can be purchased by a [Centrapay Token](/api/tokens) with matching collection id.
+    items:
+      $ref: './line-item.yaml'

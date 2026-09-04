@@ -3,7 +3,11 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/release
   operationId: releasePaymentRequest
   summary: Release Pre Auth funds
-  description: Release funds held for a Pre Auth Payment Request.
+  description: |
+    This endpoint allows you to release funds held for a Pre Auth Payment Request.
+
+    When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
+    If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
   tags:
     - payment-requests
   parameters:

@@ -3,7 +3,9 @@ get:
   x-path: /api/payment-requests/external-ref/{externalRef}
   operationId: listPaymentRequestsByExternalRef
   summary: List Payment Requests by External Reference
-  description: Returns a list of Payment Requests that match the given external reference.
+  description: |
+    This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
+    Results are [paginated](/api/pagination/).
   tags:
     - payment-requests
   parameters:

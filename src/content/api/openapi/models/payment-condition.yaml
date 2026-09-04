@@ -1,0 +1,26 @@
+x-title: Payment Condition Model
+x-intro: |
+  Some [Asset Types](/api/asset-types) require conditional approval to pay. Possible Payment Conditions include confirming proof of ID
+  or confirming a promotional item was purchased.
+
+  The `conditionsEnabled` flag should be set to true when [Creating a Payment Request](#create-a-payment-request) to indicate that
+  Payment Conditions can be accepted. If a Payment Condition arises, the absence of the `conditionsEnabled` flag will result in the
+  Payment Request being cancelled.
+
+  Conditions can either be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition). If a condition is declined,
+  the Payment Request will be cancelled.
+type: object
+properties:
+  id:
+    x-type: bignumber
+    type: string
+    description: An enumerated identifier for the Payment Condition.
+  name:
+    type: string
+    description: The name of the condition.
+  message:
+    type: string
+    description: The human-readable description of the condition.
+  status:
+    type: string
+    description: "The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`."

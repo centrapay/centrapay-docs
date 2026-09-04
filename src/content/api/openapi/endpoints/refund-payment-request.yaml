@@ -3,7 +3,7 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/refund
   operationId: refundPaymentRequest
   summary: Refund a Payment Request
-  description: Initiate a refund of a Payment Request. The refund will be completed asynchronously.
+  description: This endpoint allows you to initiate a refund of a Payment Request. The refund will be completed asynchronously.
   tags:
     - payment-requests
   parameters:

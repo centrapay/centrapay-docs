@@ -3,7 +3,7 @@ get:
   x-path: /api/payment-requests/short-code/{shortCode}
   operationId: getPaymentRequestByShortCode
   summary: Get a Payment Request by Short Code
-  description: Returns the latest Payment Request that matches the given short code.
+  description: This endpoint returns the latest Payment Request that matches the given short code.
   tags:
     - payment-requests
   parameters:

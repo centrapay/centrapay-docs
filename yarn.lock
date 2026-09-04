@@ -3991,8 +3991,10 @@ __metadata:
     gray-matter: "npm:^4.0.3"
     httpsnippet: "npm:^3.0.1"
     husky: "npm:^9.1.7"
+    js-yaml: "npm:5.4.1"
     jsdom: "npm:^22.1.0"
     linkinator: "npm:^5.0.2"
+    marked: "npm:18.0.11"
     mermaid: "npm:^11.10.0"
     path: "npm:^0.12.7"
     tailwindcss: "npm:^4.1.11"
@@ -7480,6 +7482,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:5.4.1":
+  version: 5.4.1
+  resolution: "js-yaml@npm:5.4.1"
+  dependencies:
+    argparse: "npm:^2.0.1"
+  bin:
+    js-yaml: bin/js-yaml.mjs
+  checksum: 10/6fff9ee00bd59aeb7e1484b4281f5e927b117cbfbf3ffa6c0fef0c58519317eb61527e93c4aa70f417709229bc1eeed63cba773913577a64405975a72fba7180
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^3.13.1":
   version: 3.14.2
   resolution: "js-yaml@npm:3.14.2"
@@ -8023,6 +8036,15 @@ __metadata:
   version: 3.0.4
   resolution: "markdown-table@npm:3.0.4"
   checksum: 10/bc699819e6a15607e5def0f21aa862aa061cf1f49877baa93b0185574f6ab143591afe0e18b94d9b15ea80c6a693894150dbccfacf4f6767160dc32ae393dfe0
+  languageName: node
+  linkType: hard
+
+"marked@npm:18.0.11":
+  version: 18.0.11
+  resolution: "marked@npm:18.0.11"
+  bin:
+    marked: bin/marked.js
+  checksum: 10/6da69f17820c7442358d751e902d3e0e06fef957e1178d634db938cf339c4504399c9f11a953b0a116b1e5bebc1c7fb52726777cc6c351f2c9f39e4a8276e21a
   languageName: node
   linkType: hard
 

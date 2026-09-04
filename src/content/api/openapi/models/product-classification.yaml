@@ -1,0 +1,22 @@
+x-title: Product Classification
+type: object
+properties:
+  type:
+    type: string
+    description: |
+      The classification type.
+      Currently only `GS1` is supported.
+      See [GS1 Global Product Classification](https://www.gs1.org/standards/gpc).
+      When `GS1` is used as the product classification type then the product code should be the GPC product brick identifier.
+  code:
+    type: string
+    description: The classification code.
+  name:
+    type: string
+    description: The classification title.
+  props:
+    type: object
+    description: |
+      The product classification properties.
+      Classification properties allow optional additional product characterizing attrubutes to be supplied.
+      In the case of GS1 product classifications this corresponds to the GPC brick attributes.

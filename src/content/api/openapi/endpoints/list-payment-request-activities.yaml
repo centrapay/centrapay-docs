@@ -3,7 +3,9 @@ get:
   x-path: /api/payment-requests/{paymentRequestId}/activities
   operationId: listPaymentRequestActivities
   summary: List Payment Activities for a Payment Request
-  description: List Payment Activities for a Payment Request.
+  description: |
+    This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
+    Results are ordered by descending activity created date.
   tags:
     - payment-requests
   parameters:

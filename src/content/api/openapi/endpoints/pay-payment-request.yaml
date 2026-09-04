@@ -3,7 +3,11 @@ post:
   x-path: /api/payment-requests/{paymentRequestId}/pay
   operationId: payPaymentRequest
   summary: Pay a Payment Request
-  description: Pay a Payment Request using an Asset.
+  description: |
+    To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types), `idempotencyKey` and one of `assetId`, `transactionId` or `authorization`.
+    - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
+    - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
+    - Use `authorization` to authorize an external transaction.
   tags:
     - payment-requests
   parameters:

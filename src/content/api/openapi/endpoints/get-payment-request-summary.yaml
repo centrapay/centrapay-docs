@@ -3,7 +3,7 @@ get:
   x-path: /api/payment-requests/{paymentRequestId}/summary
   operationId: getPaymentRequestSummary
   summary: Get Payment Request Summary
-  description: Retrieve the summary of a Payment Request while the status is `new`.
+  description: This endpoint allows you to retrieve the summary of a Payment Request while the status is `new`.
   tags:
     - payment-requests
   parameters:

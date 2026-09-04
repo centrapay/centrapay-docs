@@ -1,3 +1,7 @@
+x-title: Payment Activity Model
+x-intro: |
+  A Payment Activity records a transaction that has happened on a Payment Request.
+  Payment Activities are created when a Payment Request has been `created`, `paid`, `refunded`, `cancelled`, or `expired`.
 type: object
 properties:
   id:
@@ -5,7 +9,7 @@ properties:
     description: The unique identifier of the Payment Activity.
   type:
     type: string
-    description: The Payment Activity Type. See Payment Activity Types.
+    description: The [Payment Activity Type](#payment-activity-types).
   value:
     x-type: monetary
     type: object
@@ -32,6 +36,7 @@ properties:
     type: string
     format: date-time
     example: '2021-06-12T01:17:00.000Z'
+    description: When the activity was created.
   createdBy:
     x-type: crn
     type: string
@@ -55,7 +60,7 @@ properties:
     description: '`true` if the Payment Activity is recording a transaction that occurred outside the Centrapay system.'
   cancellationReason:
     type: string
-    description: The reason that the Payment Request was cancelled. See Cancellation Reasons.
+    description: The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
   conditionId:
     type: integer
     description: The id of a Condition if the activity was for a Condition being accepted or declined.
@@ -70,7 +75,7 @@ properties:
     description: '`true` if the related Payment Request is a Pre Auth.'
   paidBy:
     type: object
-    description: Shows the Paid By when a Payment Request is paid.
+    description: Shows the [Paid By](#paid-by-model) when a Payment Request is paid.
   strategy:
     type: object
-    description: Details about the specifics for a refund. See Strategy Model.
+    description: Details about the specifics for a refund. See [Strategy Model](#strategy-model)

@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Prose from '../../components/Prose.astro';
+import OpenApiEndpoint from '../../components/OpenApiEndpoint.astro';
+import OpenApiModel from '../../components/OpenApiModel.astro';
+import navigation from '../../navigation/apiNavigation';
+import { orderEndpoints, getPaymentRequestsSections } from '../../utils/openApiPage';
+
+const schemasCollection = await getCollection('openapiSchemas');
+const schemasMap = Object.fromEntries(
+  schemasCollection.map(entry => [entry.id.split('/').pop().replace(/\.yaml$/, ''), entry.data])
+);
+const index = schemasMap['index'];
+const page = index.info['x-page'];
+
+const endpointEntries = await getCollection('openapiEndpoints');
+const endpointFiles = endpointEntries.map(entry => ({
+  name: entry.id.split('/').pop().replace(/\.yaml$/, ''),
+  operations: Object.values(entry.data),
+}));
+const orderedEndpoints = orderEndpoints(index, endpointFiles);
+
+const sections = getPaymentRequestsSections({
+  models: page.models.map(name => ({ name, title: schemasMap[name]['x-title'] ?? name })),
+  extras: page.extras,
+  endpoints: orderedEndpoints,
+});
+
+const previewImg = '/default-cover.jpg';
+---
+
+<BaseLayout title={page.title} description={page.description} img={previewImg} navigation={navigation}>
+  <div class="max-w-6xl w-full relative mx-auto flex justify-center">
+    <div class="min-w-0 flex-auto p-8">
+      <article>
+        <Prose>
+          <header>
+            <h1>
+              { page.title }
+            </h1>
+          </header>
+          <div set:html={marked.parse(page.intro)} />
+          {sections.map(section => (
+            <>
+              <hr />
+              {section.kind === 'model' && (
+                <OpenApiModel name={section.name} anchor={section.anchor} />
+              )}
+              {section.kind === 'extra' && (
+                <>
+                  {section.depth === 3
+                    ? <h3 id={section.anchor}>{section.title}</h3>
+                    : <h2 id={section.anchor}>{section.title}</h2>
+                  }
+                  <div set:html={marked.parse(section.body)} />
+                </>
+              )}
+              {section.kind === 'endpoint' && (
+                <OpenApiEndpoint operationId={section.operationId} anchor={section.anchor} />
+              )}
+            </>
+          ))}
+        </Prose>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
