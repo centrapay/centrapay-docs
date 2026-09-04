@@ -47,7 +47,7 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Trading name of the business (3-100 characters). Defaults to `legalName` if omitted.
   {% /property %}
 
-  {% property name="location" type="object" %}
+  {% property name="location" type="object" required=true %}
     Physical location of the business. See [Location Model](#location-model).
   {% /property %}
 
@@ -257,7 +257,7 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
       Trading name (3-100 characters). Defaults to `legalName` if omitted.
     {% /property %}
 
-    {% property name="location" type="object" %}
+    {% property name="location" type="object" required=true %}
       Physical location of the business. See [Location Model](#location-model).
     {% /property %}
 

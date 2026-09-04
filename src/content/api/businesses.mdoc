@@ -59,7 +59,7 @@ A Business represents a company registered with the New Zealand Companies Office
     The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
   {% /property %}
 
-  {% property name="location" type="location" %}
+  {% property name="location" type="location" required=true %}
     The physical address of the Business.
   {% /property %}
 
@@ -135,7 +135,7 @@ A Business represents a company registered with the New Zealand Companies Office
       The value-added tax configuration.
     {% /property %}
 
-    {% property name="location" type="location" %}
+    {% property name="location" type="location" required=true %}
       The physical address of the business.
     {% /property %}
   {% /properties %}
@@ -178,7 +178,7 @@ A Business represents a company registered with the New Zealand Companies Office
       The number associated with your Farmlands business.
     {% /property %}
 
-    {% property name="location" type="location" %}
+    {% property name="location" type="location" required=true %}
       The physical address of the business.
     {% /property %}
   {% /properties %}
