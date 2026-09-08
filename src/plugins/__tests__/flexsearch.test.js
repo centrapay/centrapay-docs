@@ -105,6 +105,23 @@ describe('buildPageEntries', () => {
     expect(section.content).toContain('The active duration of all Tokens.');
   });
 
+  it('keeps keywords and prose in separate fields, so a snippet never mixes them', () => {
+    const [, section] = build([
+      '## Asset Program Errors',
+      'Explains why creating an Asset Program can fail.',
+      '',
+      '{% properties heading="Errors" %}',
+      '{% error code="422" message="COLLECTION_IDS_INVALID" %}',
+      'The Collection Ids provided do not exist.',
+      '{% /error %}',
+      '{% /properties %}',
+    ].join('\n'));
+    expect(section.keywords).toContain('COLLECTION_IDS_INVALID');
+    expect(section.keywords).not.toContain('provided do not exist');
+    expect(section.prose).toContain('The Collection Ids provided do not exist.');
+    expect(section.prose).not.toContain('COLLECTION_IDS_INVALID');
+  });
+
   it('indexes error codes', () => {
     const [, section] = build([
       '## Pay a Payment Request',
