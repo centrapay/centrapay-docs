@@ -83,6 +83,14 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
   {% /property %}
 
+  {% property name="sendInvitation" type="boolean" %}
+    Whether to send the onboarding sign-up invitation email to the contact. Defaults to `true`.
+  {% /property %}
+
+  {% property name="stakeholders" type="array" %}
+    Optional array of user IDs to assign as stakeholders once the business is onboarded.
+  {% /property %}
+
   {% property name="createdAt" type="timestamp" %}
     Timestamp when the onboarding request was created.
   {% /property %}
@@ -138,6 +146,14 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
   {% property name="location" type="object" %}
     Physical location of the merchant. Required if `type` is `physical`. See [Location Model](#location-model).
   {% /property %}
+
+  {% property name="redirectUrls" type="array" %}
+    Allowed redirect URLs for e-commerce merchants. Required if `type` is `e-commerce`.
+  {% /property %}
+
+  {% property name="searchHidden" type="boolean" %}
+    Whether the merchant should be hidden from the merchant search API.
+  {% /property %}
 {% /properties %}
 
 ## Location Model
@@ -175,16 +191,40 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     The unique identifier of the asset program that the business will accept (max 35 characters).
   {% /property %}
 
-  {% property name="params.settlementAccountNumber" type="string" required=true %}
+  {% property name="params.settlementAccountNumber" type="string" %}
     The settlement bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits).
   {% /property %}
 
   {% property name="params.chargeAccountNumber" type="string" %}
-    The billing bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits). Defaults to settlement account if omitted.
+    The billing bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits). Defaults to settlement account if omitted. Only allowed if `settlementAccountNumber` is also provided.
   {% /property %}
 
-  {% property name="params.externalMerchantId" type="string" required=true %}
+  {% property name="params.externalMerchantId" type="string" %}
     Merchant identifier in the partner system (max 35 characters).
+  {% /property %}
+
+  {% property name="params.billingConfig" type="object" %}
+    Optional billing configuration; only allowed for asset programs enabled for PayAP billing. See [Billing Config Model](#billing-config-model).
+  {% /property %}
+{% /properties %}
+
+## Billing Config Model
+
+{% properties %}
+  {% property name="rates" type="object" required=true %}
+    Billing rates by channel. Each of `inStore`, `eCommerce`, and `shopify` is an array of rate entries. See [Rate Model](#rate-model).
+  {% /property %}
+{% /properties %}
+
+### Rate Model
+
+{% properties %}
+  {% property name="period" type="number" %}
+    The period number this rate applies to. Required on every entry except the last, which must omit it (representing the ongoing rate).
+  {% /property %}
+
+  {% property name="percentage" type="number" required=true %}
+    The rate percentage. For `inStore`, must be one of `0.0`, `0.18`, `0.20`, `0.30`, `0.35`, `0.39`. For `eCommerce`, must be one of `0.0`, `0.59`. For `shopify`, must be one of `0.0`, `0.59`, `0.99`.
   {% /property %}
 {% /properties %}
 
@@ -199,8 +239,8 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Terminal distributor (3-100 characters).
   {% /property %}
 
-  {% property name="params.deviceId" type="string" required=true %}
-    Software device ID (max 35 characters).
+  {% property name="params.deviceId" type="string" %}
+    Software device ID (max 35 characters). Required unless `vendor` is `nomad`.
   {% /property %}
 
   {% property name="params.serialNumber" type="string" %}
@@ -280,6 +320,14 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     {% property name="metadata" type="object" %}
       Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
     {% /property %}
+
+    {% property name="sendInvitation" type="boolean" %}
+      Whether to send the onboarding sign-up invitation email to the contact. Defaults to `true`.
+    {% /property %}
+
+    {% property name="stakeholders" type="array" %}
+      Optional array of user IDs to assign as stakeholders once the business is onboarded.
+    {% /property %}
   {% /properties %}
 
   ### Error Responses
@@ -303,6 +351,25 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
   {% error code="403" message="INVALID_SALES_CHANNEL" %}
     The vendor and/or reseller did not match a valid sales channel in Centrapay.
   {% /error %}
+
+  {% error code="403" message="LIVENESS_MISMATCH" %}
+    The account and asset program do not match on test/live status.
+  {% /error %}
+
+  {% error code="403" message="BILLING_CONFIG_NOT_ALLOWED" %}
+    `assetProgram.params.billingConfig` was supplied but is not permitted for the given asset program.
+  {% /error %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/businesses/onboard"
+  filename="onboarding-create-ecommerce"
+%}
+  ### E-commerce Example
+
+  Example request for onboarding an e-commerce merchant. E-commerce merchants require `redirectUrls` instead of a `location`, and typically use an e-commerce platform such as Shopify as their sales channel.
 {% /endpoint %}
 
 ---
