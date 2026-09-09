@@ -202,30 +202,6 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
   {% property name="params.externalMerchantId" type="string" %}
     Merchant identifier in the partner system (max 35 characters).
   {% /property %}
-
-  {% property name="params.billingConfig" type="object" %}
-    Optional billing configuration; only allowed for asset programs enabled for PayAP billing. See [Billing Config Model](#billing-config-model).
-  {% /property %}
-{% /properties %}
-
-## Billing Config Model
-
-{% properties %}
-  {% property name="rates" type="object" required=true %}
-    Billing rates by channel. Each of `inStore`, `eCommerce`, and `shopify` is an array of rate entries. See [Rate Model](#rate-model).
-  {% /property %}
-{% /properties %}
-
-### Rate Model
-
-{% properties %}
-  {% property name="period" type="number" %}
-    The period number this rate applies to. Required on every entry except the last, which must omit it (representing the ongoing rate).
-  {% /property %}
-
-  {% property name="percentage" type="number" required=true %}
-    The rate percentage. For `inStore`, must be one of `0.0`, `0.18`, `0.20`, `0.30`, `0.35`, `0.39`. For `eCommerce`, must be one of `0.0`, `0.59`. For `shopify`, must be one of `0.0`, `0.59`, `0.99`.
-  {% /property %}
 {% /properties %}
 
 ## Sales Channel Model
@@ -354,10 +330,6 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
 
   {% error code="403" message="LIVENESS_MISMATCH" %}
     The account and asset program do not match on test/live status.
-  {% /error %}
-
-  {% error code="403" message="BILLING_CONFIG_NOT_ALLOWED" %}
-    `assetProgram.params.billingConfig` was supplied but is not permitted for the given asset program.
   {% /error %}
 {% /endpoint %}
 
