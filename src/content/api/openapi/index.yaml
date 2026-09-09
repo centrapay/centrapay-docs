@@ -9,6 +9,22 @@ tags:
 paths:
   /api/payment-requests:
     $ref: './endpoints/create-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}:
+    $ref: './endpoints/get-payment-request.yaml'
+  /api/payment-requests/short-code/{shortCode}:
+    $ref: './endpoints/get-payment-request-by-short-code.yaml'
+  /api/me/patron-code-payment-request:
+    $ref: './endpoints/get-payment-request-by-patron-code.yaml'
+  /api/connections/{connectionId}/latest-payment-request:
+    $ref: './endpoints/get-payment-request-by-connection-id.yaml'
+  /api/payment-requests/external-ref/{externalRef}:
+    $ref: './endpoints/list-payment-requests-by-external-ref.yaml'
+  /api/payment-requests/{paymentRequestId}/summary:
+    $ref: './endpoints/get-payment-request-summary.yaml'
+  /api/payment-activities:
+    $ref: './endpoints/list-payment-activities.yaml'
+  /api/payment-requests/{paymentRequestId}/activities:
+    $ref: './endpoints/list-payment-request-activities.yaml'
 
 components:
   schemas:

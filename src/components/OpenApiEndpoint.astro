@@ -7,7 +7,7 @@ import Properties from './Properties.astro';
 import ErrorItem from './Error.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
-import { resolveRefs, buildEndpointData, getProperties, getErrors } from '../utils/OpenApiResolver.js';
+import { resolveRefs, buildEndpointData, getProperties, getParameters, getErrors } from '../utils/OpenApiResolver.js';
 
 const { operationId } = Astro.props;
 
@@ -26,6 +26,7 @@ const pathItem = resolveRefs(entry.data, schemasMap);
 const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
 const endpoint = createEndpoint(buildEndpointData(operation));
 const properties = getProperties(operation.requestBody?.content?.['application/json']?.schema);
+const parameters = getParameters(operation);
 const commonResponses = Object.values(schemasMap['responses'] ?? {});
 const errors = getErrors(operation.responses, commonResponses);
 
@@ -42,6 +43,27 @@ const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-capt
 <Row>
   <Column>
     <slot />
+    {parameters.length > 0 && (
+      <Properties heading="Query Parameters">
+        {parameters.map(({ name, formattedType, typeLink, description, isRequired }) => (
+          <li class="px-0 border-b-0">
+            <div class="m-0 flex flex-wrap items-baseline gap-x-3">
+              <h4 class="my-0" id={name}>{name}</h4>
+              <span class="not-prose inline-flex items-center">
+                {typeLink
+                  ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+                  : <span class={badge('default')}>{formattedType}</span>
+                }
+              </span>
+              {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+            </div>
+            <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+              {description && <p set:html={description} />}
+            </div>
+          </li>
+        ))}
+      </Properties>
+    )}
     {properties.length > 0 && (
       <Properties>
         {properties.map(({ name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated }) => (
