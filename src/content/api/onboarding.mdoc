@@ -83,6 +83,10 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
   {% /property %}
 
+  {% property name="sendInvitation" type="boolean" %}
+    Whether to send the onboarding sign-up invitation email to the contact. Defaults to `true`.
+  {% /property %}
+
   {% property name="createdAt" type="timestamp" %}
     Timestamp when the onboarding request was created.
   {% /property %}
@@ -138,6 +142,14 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
   {% property name="location" type="object" %}
     Physical location of the merchant. Required if `type` is `physical`. See [Location Model](#location-model).
   {% /property %}
+
+  {% property name="redirectUrls" type="array" %}
+    Allowed redirect URLs for e-commerce merchants. Required if `type` is `e-commerce`.
+  {% /property %}
+
+  {% property name="searchHidden" type="boolean" %}
+    Whether the merchant should be hidden from the [Merchant Search](/api/merchants#search-merchants) API.
+  {% /property %}
 {% /properties %}
 
 ## Location Model
@@ -175,16 +187,16 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     The unique identifier of the asset program that the business will accept (max 35 characters).
   {% /property %}
 
-  {% property name="params.settlementAccountNumber" type="string" required=true %}
+  {% property name="params.settlementAccountNumber" type="string" %}
     The settlement bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits).
   {% /property %}
 
   {% property name="params.chargeAccountNumber" type="string" %}
-    The billing bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits). Defaults to settlement account if omitted.
+    The billing bank account in the format `XX-XXXX-XXXXXXX-XXX` (18-19 digits). Defaults to settlement account if omitted. Only allowed if `settlementAccountNumber` is also provided.
   {% /property %}
 
-  {% property name="params.externalMerchantId" type="string" required=true %}
-    Merchant identifier in the partner system (max 35 characters).
+  {% property name="params.externalMerchantId" type="string" %}
+    Merchant identifier in the partner system (max 35 characters). If omitted, Centrapay will assign one.
   {% /property %}
 {% /properties %}
 
@@ -199,8 +211,8 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     Terminal distributor (3-100 characters).
   {% /property %}
 
-  {% property name="params.deviceId" type="string" required=true %}
-    Software device ID (max 35 characters).
+  {% property name="params.deviceId" type="string" %}
+    Software device ID (max 35 characters). Required unless `vendor` is `nomad`.
   {% /property %}
 
   {% property name="params.serialNumber" type="string" %}
@@ -280,6 +292,10 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
     {% property name="metadata" type="object" %}
       Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
     {% /property %}
+
+    {% property name="sendInvitation" type="boolean" %}
+      Whether to send the onboarding sign-up invitation email to the contact. Defaults to `true`.
+    {% /property %}
   {% /properties %}
 
   ### Error Responses
@@ -303,6 +319,21 @@ Optionally, acquirers can specify which sales channels (such as payment terminal
   {% error code="403" message="INVALID_SALES_CHANNEL" %}
     The vendor and/or reseller did not match a valid sales channel in Centrapay.
   {% /error %}
+
+  {% error code="403" message="LIVENESS_MISMATCH" %}
+    The account and asset program do not match on test/live status.
+  {% /error %}
+{% /endpoint %}
+
+---
+
+{% endpoint
+  path="/api/businesses/onboard"
+  filename="onboarding-create-ecommerce"
+%}
+  ### E-commerce Example
+
+  Example request for onboarding an e-commerce merchant. E-commerce merchants require `redirectUrls` instead of a `location`, and typically use an e-commerce platform such as Shopify as their sales channel.
 {% /endpoint %}
 
 ---
