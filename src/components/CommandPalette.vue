@@ -25,14 +25,14 @@
           <Combobox v-model="selected">
             <div class="relative mt-1 w-full">
               <form
-                class="flex flex-row w-full cursor-default items-center gap-2 overflow-hidden rounded-lg bg-white text-left text-sm shadow-md p-squish-2 focus:outline-hidden"
+                class="flex flex-row w-full cursor-default items-center gap-2 overflow-hidden rounded-lg bg-surface-primary text-left text-sm shadow-md p-squish-2 focus:outline-hidden"
               >
                 <label for="query-input">
                   <Search class="left-4 w-6" />
                 </label>
                 <ComboboxInput
                   id="query-input"
-                  class="w-full border-none text-sm leading-5 text-gray-900 outline-hidden"
+                  class="w-full border-none text-sm leading-5 text-content-primary outline-hidden"
                   placeholder="Search..."
                   @change="query = $event.target.value"
                 />
@@ -45,7 +45,7 @@
               >
                 <ComboboxOptions
                   v-if="query !== ''"
-                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black/5 focus:outline-hidden"
+                  class="absolute mt-1 max-h-[65vh] w-full overflow-auto rounded-md bg-surface-primary py-1 text-sm shadow-lg ring-1 ring-outline-opaque focus:outline-hidden"
                 >
                   <div
                     v-if="isLoading"

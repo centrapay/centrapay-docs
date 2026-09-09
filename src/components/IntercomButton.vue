@@ -2,7 +2,7 @@
   <button
     id="intercom-button"
     type="button"
-    class="fixed bottom-6 right-6 z-50 flex size-16 items-center justify-center rounded-full border border-gray-200 bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
+    class="fixed bottom-6 right-6 z-50 flex size-16 items-center justify-center rounded-full border border-outline-opaque bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
     @click="openIntercom"
   >
     <span class="sr-only">Open support widget</span>

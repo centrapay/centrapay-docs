@@ -74,7 +74,7 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
       }
     </script>
   </head>
-  <body>
+  <body class="bg-surface-primary text-content-primary">
     <header>
     </header>
     <div class="flex h-screen w-screen flex-col">
@@ -87,10 +87,22 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
     </div>
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       mermaid.initialize({
         startOnLoad: true,
         theme: 'base',
-        themeVariables: {
+        themeVariables: isDark ? {
+          mainBkg: '#1F2937',
+          actorBkg: '#1F2937',
+          primaryColor: '#1F2937',
+          primaryTextColor: '#F9FAFB',
+          primaryBorderColor: '#374151',
+          secondaryColor: '#1F2937',
+          noteBkgColor: '#F9FAFB',
+          noteTextColor: '#1F2937',
+          labelBoxBkgColor: '#111827',
+          clusterBkg: '#1F2937',
+        } : {
           mainBkg: '#F8F8F8',
           actorBkg: '#F8F8F8',
           primaryColor: '#F8F8F8',
