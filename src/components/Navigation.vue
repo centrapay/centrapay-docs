@@ -21,7 +21,7 @@
             role="menuitem"
           >
             <template v-if="navigationChild.children?.length && !navigationChild.path">
-              <li class="px-4 pb-1 pt-3 text-xs font-semibold text-gray-400">
+              <li class="px-4 pb-1 pt-3 text-xs font-semibold text-content-tertiary">
                 {{ navigationChild.title }}
               </li>
               <div
@@ -30,12 +30,12 @@
               >
                 <li
                   role="presentation"
-                  class="group rounded-md hover:bg-gray-100"
-                  :class="{ 'bg-gray-100': path === subChild.path }"
+                  class="group rounded-md hover:bg-surface-tertiary"
+                  :class="{ 'bg-surface-tertiary': path === subChild.path }"
                 >
                   <a
                     role="menuitem"
-                    class="block py-2 pl-6 text-xs text-gray-600"
+                    class="block py-2 pl-6 text-xs text-content-tertiary"
                     :href="subChild.path"
                   >
                     {{ subChild.title }}
@@ -46,11 +46,11 @@
                     v-for="navigationGrandchild in subChild.headings"
                     :key="navigationGrandchild.title"
                     role="presentation"
-                    class="group rounded-md hover:bg-gray-50"
+                    class="group rounded-md hover:bg-surface-secondary"
                   >
                     <a
                       role="menuitem"
-                      class="block py-2 pl-8 text-xs text-gray-600"
+                      class="block py-2 pl-8 text-xs text-content-tertiary"
                       :href="`${subChild.path}#${navigationGrandchild.slug}`"
                     >
                       {{ navigationGrandchild.text }}
@@ -62,12 +62,12 @@
             <template v-else>
               <li
                 role="presentation"
-                class="group rounded-md hover:bg-gray-100"
-                :class="{ 'bg-gray-100': path === navigationChild.path}"
+                class="group rounded-md hover:bg-surface-tertiary"
+                :class="{ 'bg-surface-tertiary': path === navigationChild.path}"
               >
                 <a
                   role="menuitem"
-                  class="block py-2 pl-4 text-xs text-gray-600"
+                  class="block py-2 pl-4 text-xs text-content-tertiary"
                   :href="navigationChild.path"
                 >
                   {{ navigationChild.title }}
@@ -78,11 +78,11 @@
                   v-for="navigationGrandchild in navigationChild.headings"
                   :key="navigationGrandchild.title"
                   role="presentation"
-                  class="group rounded-md hover:bg-gray-50"
+                  class="group rounded-md hover:bg-surface-secondary"
                 >
                   <a
                     role="menuitem"
-                    class="block py-2 pl-6 text-xs text-gray-600"
+                    class="block py-2 pl-6 text-xs text-content-tertiary"
                     :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
                   >
                     {{ navigationGrandchild.text }}

@@ -25,19 +25,19 @@
       leave-to-class="opacity-0 -translate-y-1"
     >
       <PopoverPanel class="absolute inset-x-0 inset-y-16 -z-10">
-        <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t border-gray-200 bg-surface-primary pb-4 pt-2">
-          <div class="flex flex-col gap-1 border-b border-gray-200 px-4 pb-4 pt-2">
+        <div class="relative max-h-[calc(100vh-64px)] w-full flex-1 overflow-y-scroll border-t border-outline-opaque bg-surface-primary pb-4 pt-2">
+          <div class="flex flex-col gap-1 border-b border-outline-opaque px-4 pb-4 pt-2">
             <a
               href="/"
-              class="rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-content-primary"
+              class="rounded-lg bg-surface-tertiary px-3 py-2 text-sm font-medium text-content-tertiary hover:bg-surface-tertiary-hover hover:text-content-primary"
             >Guides</a>
             <a
               href="/api/introduction"
-              class="rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-content-primary"
+              class="rounded-lg bg-surface-tertiary px-3 py-2 text-sm font-medium text-content-tertiary hover:bg-surface-tertiary-hover hover:text-content-primary"
             >API Reference</a>
             <a
               href="/guides/merchant-introduction"
-              class="rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 hover:text-content-primary"
+              class="rounded-lg bg-surface-tertiary px-3 py-2 text-sm font-medium text-content-tertiary hover:bg-surface-tertiary-hover hover:text-content-primary"
             >Merchant Services</a>
           </div>
           <Navigation

@@ -1,14 +1,14 @@
 <template>
   <button
-    class="flex flex-row h-10 items-center gap-3 overflow-hidden rounded-none border-gray-300 bg-white p-0 text-left ring-0 focus:outline-hidden focus:ring-0 md:mr-4 md:w-64 md:rounded-lg md:border md:px-4 md:pr-0 md:shadow-xs"
+    class="flex flex-row h-10 items-center gap-3 overflow-hidden rounded-none border-outline-opaque bg-surface-primary p-0 text-left ring-0 focus:outline-hidden focus:ring-0 md:mr-4 md:w-64 md:rounded-lg md:border md:px-4 md:pr-0 md:shadow-xs"
     @click="openCommandPalette"
     @pointerenter="warmSearchIndex"
     @focus="warmSearchIndex"
   >
     <SearchLogo class="size-6 md:size-4" />
-    <span class="hidden flex-auto text-gray-500 md:flex">Search</span>
+    <span class="hidden flex-auto text-content-tertiary md:flex">Search</span>
     <kbd
-      class="hidden h-full items-center justify-center bg-gray-50 px-3 font-sans text-sm font-medium leading-5 text-gray-700 md:flex"
+      class="hidden h-full items-center justify-center bg-surface-secondary px-3 font-sans text-sm font-medium leading-5 text-content-secondary md:flex"
     >
       {{ shortcutHint }}
     </kbd>
