@@ -6,7 +6,7 @@ const { path, navigation, showHeadings = true } = Astro.props;
   id="sidebar"
   class="hidden md:fixed md:flex md:h-full md:w-64 md:flex-col"
 >
-  <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white py-5">
+  <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-outline-opaque bg-surface-primary py-5">
     <Navigation
       navigation={navigation}
       path={path}
