@@ -478,39 +478,23 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}"
-  filename="payment-requests-get"
-%}
+{% openApiEndpoint operationId="getPaymentRequest" %}
   ## Get a Payment Request
 
   This endpoint allows you to retrieve a Payment Request.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/short-code/{shortCode}"
-  filename="payment-requests-get-by-short-code"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByShortCode" %}
   ## Get a Payment Request by Short Code
 
   This endpoint returns the latest Payment Request that matches the given short code.
-
-  {% properties heading="Errors" %}
-    {% error code="400" message="CHECKSUM_FAILED" %}
-      Luhn checksum digit doesn't pass.
-    {% /error %}
-  {% /properties %}
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/me/patron-code-payment-request"
-  filename="payment-requests-get-by-patron-code"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByPatronCode" %}
   ## Get a Payment Request linked to a Patron Code
 
   This endpoint returns the latest Payment Request with status `new` that has been attached to a [Patron Code](/api/patron-codes).
@@ -519,56 +503,33 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
   This endpoint should be polled just after a user's Patron Code has been scanned. This will allow
   them to find the Payment Request and proceed to pay.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/connections/{connectionId}/latest-payment-request"
-  filename="payment-requests-get-by-connectionId"
-%}
+{% openApiEndpoint operationId="getPaymentRequestByConnectionId" %}
   ## Get a Payment Request by Connection Id
 
   This endpoint returns the latest Payment Request that is associated with the provided [Connection](/api/connections).
   The caller of the endpoint must be the account that authorized the connection.
-
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/external-ref/{externalRef}"
-  filename="payment-requests-list-by-external-ref"
-%}
+{% openApiEndpoint operationId="listPaymentRequestsByExternalRef" %}
   ## List Payment Requests by External Reference
 
   This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
   Results are [paginated](/api/pagination/).
-
-  {% properties %}
-    {% property name="merchantAccountId" type="string" required=true %}
-      The [Account](/api/accounts/) of the merchant that the Payment Request was created for.
-    {% /property %}
-    {% property name="pageKey" type="string" %}
-      Used to retrieve the next page of items.
-      Note: The `pageKey` value, if provided, needs to be URL-encoded.
-    {% /property %}
-    {% property name="paginationLimit" type="string" %}
-      Maximum number of Payment Requests to return.
-    {% /property %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/summary"
-  filename="payment-requests-get-summary"
-%}
+{% openApiEndpoint operationId="getPaymentRequestSummary" %}
   ## Get Payment Request Summary
 
   This endpoint allows you to retrieve the summary of a Payment Request while the status is `new`.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
@@ -845,37 +806,21 @@ Payment Activities are created when a Payment Request has been `created`, `paid`
 
 ---
 
-{% endpoint
-  path="/api/payment-activities"
-  filename="payment-activities-list"
-%}
+{% openApiEndpoint operationId="listPaymentActivities" %}
   ## List Payment Activities for a Merchant
 
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Merchant.
   Results are [paginated](/api/pagination/) and ordered by descending activity created date.
-
-  {% properties %}
-    {% property name="merchantId" type="string" required=true %}
-      The id of the [Merchant](/api/merchants/) the Payment Request is on behalf of.
-    {% /property %}
-    {% property name="pageKey" type="string" required=true %}
-      Used to retrieve the next page of items.
-      Note: The `pageKey` value, if provided, needs to be URL-encoded.
-    {% /property %}
-  {% /properties %}
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
-{% endpoint
-  path="/api/payment-requests/{paymentRequestId}/activities"
-  filename="payment-requests-list-payment-activities"
-%}
+{% openApiEndpoint operationId="listPaymentRequestActivities" %}
   ## List Payment Activities for a Payment Request
 
   This endpoint allows you to list [Payment Activities](#payment-activity-model) for a Payment Request.
   Results are ordered by descending activity created date.
-{% /endpoint %}
+{% /openApiEndpoint %}
 
 ---
 
