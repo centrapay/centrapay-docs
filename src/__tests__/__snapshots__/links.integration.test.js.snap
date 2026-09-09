@@ -247,7 +247,6 @@ exports[`the build should not break any links 1`] = `
   "/api/onboarding",
   "/api/onboarding#api-behavior",
   "/api/onboarding#asset-program-model",
-  "/api/onboarding#billing-config-model",
   "/api/onboarding#create-an-onboarding-request",
   "/api/onboarding#get-an-onboarding-request",
   "/api/onboarding#glossary",
