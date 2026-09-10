@@ -2,6 +2,71 @@ openapi: 3.0.0
 info:
   title: Centrapay API
   version: 1.0.0
+  x-page:
+    title: Payment Requests
+    description: Payment request models and related endpoints
+    nav:
+      path: Payment Requests
+      order: 1
+    intro: |
+      Payment Requests represent the intention for a merchant to receive payment for goods and services. Payment Requests define the amount to be paid and the Asset Types that are acceptable for payment.
+
+      A Payment Request is shared with, and paid by, a patron. The [Payment Flows Guide](/guides/payment-flows/) has more details regarding negotiation of Payment Requests.
+
+      Payment Requests have the following statuses:
+      - `new`: after being created.
+      - `paid`: after being paid with one or more transactions.
+      - `cancelled`: after being cancelled or voided by the merchant.
+      - `expired`: after expiry time is reached without being paid or cancelled.
+
+      Payment requests can also be refunded for a short period of time after being paid.
+
+      Payment request state transitions can be notified to webhooks.
+    models:
+      - payment-request
+      - payment-option
+      - accepted-collections
+      - payment-condition
+      - line-item
+      - product-classification
+      - paid-by
+      - asset-totals
+      - payment-activity
+      - strategy
+    extras:
+      - title: Payment Activity Types
+        depth: 3
+        body: |
+          |       Name        |                                                 Description                                                 |
+          | ----------------- | ----------------------------------------------------------------------------------------------------------- |
+          | request           | [Payment Request](#payment-request-model) was created.                                                      |
+          | preAuthRequest    | [Payment Request](#payment-request-model) was created with the `preAuth` flag set to "true".                |
+          | paid              | [Payment Request](#payment-request-model) was paid.                                                         |
+          | payment           | A payment was made towards the [Payment Request](#payment-request-model).                                   |
+          | refund            | Funds were returned to the shopper.                                                                         |
+          | cancellation      | [Payment Request](#payment-request-model) was cancelled by the merchant or the shopper.                     |
+          | expiry            | [Payment Request](#payment-request-model) wasn't paid before time out.                                      |
+          | accept-condition  | A [Payment Condition](#payment-condition-model) was accepted.                                               |
+          | decline-condition | A [Payment Condition](#payment-condition-model) was declined.                                               |
+          | authorization     | A Pre Auth [Payment Request](#payment-request-model) was approved and confirmations can be made against it. |
+          | confirmation      | Funds on a Pre Auth have been drawn down on.                                                                |
+          | release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.                  |
+      - title: Cancellation Reasons
+        depth: 2
+        body: |
+          |            Reason            |                                                                                                     Description                                                                                                      |
+          | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+          | CANCELLED_BY_MERCHANT        | The merchant cancelled the Payment Request by calling the cancel or void endpoint.                                                                                                                                   |
+          | CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                                                                                                |
+          | PATRON_CODE_INVALID          | The patron code on the Payment Request was invalid.                                                                                                                                                                  |
+          | PAYMENT_FAILED               | The Payment Request failed for an unknown reason.                                                                                                                                                                    |
+          | PATRON_CODE_EXPIRED          | The patron code on the Payment Request has expired.                                                                                                                                                                  |
+          | DECLINED_BY_PATRON           | The payment was declined by the patron during approval steps.                                                                                                                                                        |
+          | DECLINED_BY_MERCHANT         | The payment was declined by the merchant during approval steps.                                                                                                                                                      |
+          | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
+          | PAYMENT_REQUEST_EXPIRED      | The Payment Request has expired.                                                                                                                                                                                     |
+          | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
+          | INACTIVE_ASSET               | The asset used to pay the Payment Request is inactive.                                                                                                                                                               |
 
 tags:
   - name: payment-requests
@@ -9,6 +74,36 @@ tags:
 paths:
   /api/payment-requests:
     $ref: './endpoints/create-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}:
+    $ref: './endpoints/get-payment-request.yaml'
+  /api/payment-requests/short-code/{shortCode}:
+    $ref: './endpoints/get-payment-request-by-short-code.yaml'
+  /api/me/patron-code-payment-request:
+    $ref: './endpoints/get-payment-request-by-patron-code.yaml'
+  /api/connections/{connectionId}/latest-payment-request:
+    $ref: './endpoints/get-payment-request-by-connection-id.yaml'
+  /api/payment-requests/external-ref/{externalRef}:
+    $ref: './endpoints/list-payment-requests-by-external-ref.yaml'
+  /api/payment-requests/{paymentRequestId}/summary:
+    $ref: './endpoints/get-payment-request-summary.yaml'
+  /api/payment-requests/{paymentRequestId}/pay:
+    $ref: './endpoints/pay-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}/refund:
+    $ref: './endpoints/refund-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}/void:
+    $ref: './endpoints/void-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}/release:
+    $ref: './endpoints/release-payment-request.yaml'
+  /api/payment-requests/{paymentRequestId}/confirm:
+    $ref: './endpoints/confirm-payment-request.yaml'
+  /api/payment-activities:
+    $ref: './endpoints/list-payment-activities.yaml'
+  /api/payment-requests/{paymentRequestId}/activities:
+    $ref: './endpoints/list-payment-request-activities.yaml'
+  /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept:
+    $ref: './endpoints/accept-payment-condition.yaml'
+  /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline:
+    $ref: './endpoints/decline-payment-condition.yaml'
 
 components:
   schemas:

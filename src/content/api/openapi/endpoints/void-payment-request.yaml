@@ -1,0 +1,76 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/void
+  operationId: voidPaymentRequest
+  summary: Void a Payment Request
+  description: Voiding a payment request will cancel the request and trigger any refunds if necessary.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  responses:
+    '200':
+      description: Payment Request voided
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                type: refund
+                value:
+                  currency: NZD
+                  amount: '1000'
+                assetType: centrapay.nzd.main
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                shortCode: CP-C7F-ZS5-032
+                merchantName: Centrapay Café
+                merchantId: 26d3Cp3rJmbMHnuNJmks2N
+                merchantAccountId: C4QnjXvj8At6SMsEN4LRi9
+                merchantConfigId: 5efbe2fb96c08357bb2b9242
+                createdAt: '2021-06-08T04:04:27.426Z'
+                createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                activityNumber: '3'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            VOID_WINDOW_EXCEEDED:
+              description: The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use Refund endpoint to reverse the payment.
+              value:
+                message: VOID_WINDOW_EXCEEDED
+            ALREADY_REFUNDED:
+              description: The Payment Request already been refunded.
+              value:
+                message: ALREADY_REFUNDED
+            REPEAT_REFERENCE:
+              description: A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.
+              value:
+                message: REPEAT_REFERENCE
+            INACTIVE_ASSET:
+              description: The Asset is not refundable. It may have been disabled, expired, or already refunded.
+              value:
+                message: INACTIVE_ASSET
+            REFUND_NOT_SUPPORTED:
+              description: The Asset type does not support refunds.
+              value:
+                message: REFUND_NOT_SUPPORTED
+            REQUEST_EXPIRED:
+              description: The Payment Request has expired.
+              value:
+                message: REQUEST_EXPIRED
+            PRE_AUTH_ALREADY_CONFIRMED:
+              description: The Pre Auth Payment Request already has confirmations. Use Refund endpoint to reverse the transaction.
+              value:
+                message: PRE_AUTH_ALREADY_CONFIRMED

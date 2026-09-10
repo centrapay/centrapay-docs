@@ -1,0 +1,10 @@
+x-title: Paid By Model
+x-intro: |
+  The Paid By provides a summary of the transactions after the Payment Request was paid.
+type: object
+properties:
+  assetTotals:
+    type: array
+    description: The [Asset Totals](#asset-totals) for each transacted Asset Type.
+    items:
+      $ref: './asset-totals.yaml'

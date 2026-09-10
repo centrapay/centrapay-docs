@@ -3,7 +3,7 @@ post:
   x-path: /api/payment-requests
   operationId: createPaymentRequest
   summary: Create a Payment Request
-  description: Create a Payment Request for a given Merchant Config and value.
+  description: This endpoint allows you to create a Payment Request for a given Merchant Config and value.
   tags:
     - payment-requests
   requestBody:

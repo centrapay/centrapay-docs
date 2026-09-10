@@ -1,0 +1,61 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/release
+  operationId: releasePaymentRequest
+  summary: Release Pre Auth funds
+  description: |
+    This endpoint allows you to release funds held for a Pre Auth Payment Request.
+
+    When you call release on a Pre Auth Payment Request any remaining funds that were being held for the authorization are returned to the asset, and a release Payment Activity is returned.
+    If the authorization never completed, the Payment Request will instead be cancelled, and a cancellation Payment Activity will be returned.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  responses:
+    '200':
+      description: Pre Auth funds released
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                type: release
+                value:
+                  currency: NZD
+                  amount: '100'
+                assetType: centrapay.nzd.main
+                preAuth: true
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                shortCode: CP-C7F-ZS5-015
+                merchantName: Centrapay Café
+                merchantId: 5ee0c486308f590260d9a07f
+                merchantAccountId: C4QnjXvj8At6SMsEN4LRi9
+                merchantConfigId: 5ee168e8597be5002af7b454
+                createdAt: '2021-06-12T01:17:00.000Z'
+                createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                activityNumber: '3'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_PAYMENT_REQUEST_TYPE:
+              description: The Payment Request is not related to a Pre Auth.
+              value:
+                message: INVALID_PAYMENT_REQUEST_TYPE
+            PRE_AUTH_RELEASED:
+              description: '`preAuthExpiresAt` has passed.'
+              value:
+                message: PRE_AUTH_RELEASED

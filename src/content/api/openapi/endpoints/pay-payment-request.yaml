@@ -1,0 +1,153 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/pay
+  operationId: payPaymentRequest
+  summary: Pay a Payment Request
+  description: |
+    To pay a Payment Request you must supply the name of the [Asset Type](/api/asset-types), `idempotencyKey` and one of `assetId`, `transactionId` or `authorization`.
+    - Use `assetId` if the [Asset Type](/api/asset-types) is managed by Centrapay.
+    - Use `transactionId` to verify an external transaction such as a Bitcoin payment.
+    - Use `authorization` to authorize an external transaction.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - assetType
+            - idempotencyKey
+          properties:
+            assetType:
+              type: string
+              description: An [Asset Type](/api/asset-types) reference.
+            idempotencyKey:
+              type: string
+              description: A unique identifier that prevents duplicate processing of the same request. See [idempotency](/api/idempotency).
+            assetId:
+              type: string
+              description: The id of the Asset being used to make payment.
+            transactionId:
+              type: string
+              description: Used to verify an external transaction eg Bitcoin.
+            authorization:
+              type: string
+              description: Used to authorize an external transaction.
+            mode:
+              type: string
+              description: The mode of payment. Valid values are `partial-payment` and `multi-asset-payment`.
+            amount:
+              x-type: bignumber
+              type: string
+              description: The value required to pay using the canonical units for the Asset Type.
+            externalPaymentRef:
+              type: string
+              description: An external reference to the payment. Required when `assetType` is `farmlands.nzd.*`.
+            lineItems:
+              type: array
+              description: The [Line Items](#line-item-model) associated with this payment attempt. This field is only allowed for `centrapay.token.*` payments. If omitted for `centrapay.token.*` payments, the highest-value valid line item from the payment request will be used by default.
+              items:
+                $ref: '../models/line-item.yaml'
+        examples:
+          default:
+            value:
+              idempotencyKey: b62-11ec-9072-3e22fb52e878
+              assetType: centrapay.nzd.main
+              assetId: WRhAxxWpTKb5U7pXyxQjjY
+              amount: '200'
+              mode: partial-payment
+              externalPaymentRef: 62e4b0d7-551b-4b93-8b62-28265b4457d1
+  responses:
+    '200':
+      description: Payment Request paid
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                type: payment
+                value:
+                  currency: NZD
+                  amount: '1000'
+                idempotencyKey: 8b62-11ec-9072-3e22fb52e878
+                assetType: centrapay.nzd.main
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                shortCode: CP-C7F-ZS5-015
+                merchantName: Centrapay Café
+                merchantId: 26d3Cp3rJmbMHnuNJmks2N
+                merchantAccountId: C4QnjXvj8At6SMsEN4LRi9
+                merchantConfigId: 5efbe2fb96c08357bb2b9242
+                createdAt: '2021-06-08T04:04:27.426Z'
+                createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                activityNumber: '2'
+                mode: partial-payment
+                id: 94a564c9a66d4893b7edf8ccafe3c5fb
+                externalPaymentRef: 62e4b0d7-551b-4b93-8b62-28265b4457d1
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_ASSET_TYPE:
+              description: Either the merchant is not configured with the provided asset type or the asset type does not exist.
+              value:
+                message: INVALID_ASSET_TYPE
+            REQUEST_EXPIRED:
+              description: Action cannot be completed because the request has expired.
+              value:
+                message: REQUEST_EXPIRED
+            REQUEST_PAID:
+              description: Action cannot be completed because the request has been paid.
+              value:
+                message: REQUEST_PAID
+            REQUEST_CANCELLED:
+              description: Action cannot be completed because the request has already been cancelled.
+              value:
+                message: REQUEST_CANCELLED
+            INACTIVE_ASSET:
+              description: The asset is not spendable. It may have been disabled, expired, or already spent.
+              value:
+                message: INACTIVE_ASSET
+            INVALID_MERCHANT_CONFIG:
+              description: The merchant is not configured properly to satisfy the Payment Request. This could be due to incorrect information, or the merchant's credentials might be blocked by an external service.
+              value:
+                message: INVALID_MERCHANT_CONFIG
+            QUOTA_EXCEEDED:
+              description: The payment pay request exceeds the allowed spend quota supplied.
+              value:
+                message: QUOTA_EXCEEDED
+            INSUFFICIENT_ASSET_VALUE:
+              description: The asset has insufficient funds to pay the Payment Request or the transaction amount received by Centrapay is less than the total of the payment.
+              value:
+                message: INSUFFICIENT_ASSET_VALUE
+            ASSET_REDEMPTION_DENIED:
+              description: The asset redemption has been unsuccessful due to an error with provided payment parameters, the Merchant, or the Asset.
+              value:
+                message: ASSET_REDEMPTION_DENIED
+            PAYMENT_DECLINED:
+              description: The payment parameters were valid but payment was declined because additional payment restrictions were violated.
+              value:
+                message: PAYMENT_DECLINED
+            PAYMENT_UNCONFIRMED:
+              description: Confirmation of payment success or failure was not received from the provider within the expected time.
+              value:
+                message: PAYMENT_UNCONFIRMED
+            REMAINING_AMOUNT_EXCEEDED:
+              description: The payment amount exceeds the remaining amount on the Payment Request.
+              value:
+                message: REMAINING_AMOUNT_EXCEEDED
