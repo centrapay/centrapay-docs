@@ -9,10 +9,10 @@ const nav = [
   {
     title: 'Sales Channel Integrations',
     children: [
-      { title: 'Integration Types', order: 2 },
-      { title: 'Payment Flows', order: 3 },
-      { title: 'Operations', order: 4 },
-      { title: 'Extensions', order: 5 },
+      { title: 'Integration Types', order: 3 },
+      { title: 'Payment Flows', order: 4 },
+      { title: 'Operations', order: 5 },
+      { title: 'Extensions', order: 6 },
     ],
   },
   { title: 'Integration Checklist' },
