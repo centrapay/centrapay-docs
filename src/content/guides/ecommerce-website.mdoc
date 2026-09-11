@@ -12,14 +12,11 @@ Centrapay enables businesses to process payments with connected Centrapay assets
 
 ## Before You Begin
 
-Contact [integrations@centrapay.com](mailto:integrations@centrapay.com) to configure your business for e-commerce.
-If you decide to use the redirect flow, you will need to inform us of allowed domains for redirect URLs.
+Follow the [Getting Started](/guides/getting-started) guide to create your Centrapay account and create an API key.
 
-Centrapay will configure your business to accept test payments and provide you with the following resources to start creating [Payment Requests](/api/payment-requests).
+If you decide to use the redirect flow, you can add your allowed domains for redirect URLs in the Business Portal.
 
-1. API Key.
-2. Merchant ID.
-3. Merchant Config ID.
+You will also need a [Merchant ID](/api/merchants#create-merchant) and [Merchant Config ID](/api/merchant-configs#create-merchant-config) to start creating [Payment Requests](/api/payment-requests).
 
 > We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
 
@@ -35,7 +32,7 @@ Please refer to the README.md file for configuration instructions.
 
 Both the redirect and popup methods require a backend server to securely call the Centrapay API using your API key. The client-side examples in this guide call this server at `/api/payment-requests`, which proxies the request to Centrapay so your API key is never exposed to the browser.
 
-All Centrapay API requests are made against the base URL `https://service.centrapay.com`. There is no separate sandbox host — test and live payments use the same URL and are determined by the credentials Centrapay issues you. A [test merchant API key](/api/auth#api-keys) is available for creating test Payment Requests.
+All Centrapay API requests are made against the base URL `https://service.centrapay.com`. There is no separate sandbox host — test and live payments use the same URL and are determined by the API key you use.
 
 ```javascript title="Server-side — Node.js/Express"
 import express from 'express';
