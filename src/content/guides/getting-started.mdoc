@@ -1,0 +1,85 @@
+---
+title: Getting Started
+description: How to create a Centrapay account, enable test mode, and create and manage the API keys your integration needs.
+nav:
+  title: Getting Started
+  path: Sales Channel Integrations
+  order: 2
+---
+
+This guide walks you through setting up a Centrapay account, enabling test mode, and creating the API keys your integration needs.
+
+## 1. Create an Account and a Business
+
+Go to the [Centrapay Business Portal](https://app.centrapay.com/business/) and create a Centrapay account. When you first sign in, follow the prompts to create your business.
+
+![The Add your first business form, with legal name, trading name and NZBN fields](/getting-started/create-business.png)
+
+Once created, you are taken into the Business Portal.
+
+![The Centrapay Business Portal dashboard for a newly created business](/getting-started/business-portal.png)
+
+## 2. Open the Developer Section
+
+Select **Developer** at the bottom of the sidebar. From here you can turn test mode on and off, and create and manage API keys.
+
+![The Developer section highlighted in the sidebar, showing the Start building with Centrapay panel](/getting-started/developer-section.png)
+
+## 3. Enable Test Mode
+
+The first time you open the Developer section, select **Get started**, then confirm **Start in test mode**. Centrapay automatically creates the test account, the test business, and the test account membership.
+
+![The About test mode dialog with the Start in test mode button](/getting-started/enable-test-mode.png)
+
+Test mode data is fully isolated from the production environment and no real funds are moved. You can switch between test mode and live mode at any time using the toggle in the Developer section.
+
+![The Developer section in test mode, with the test mode toggle highlighted](/getting-started/test-mode.png)
+
+## 4. Create an API Key
+
+In test mode, select **Create API key** to create a test key and choose the role you need. Keys created in test mode can only access test resources and cannot be used in production.
+
+![The Create API key panel with key name and role fields](/getting-started/create-api-key.png)
+
+> The key is shown in full only once, at the moment it is created. Save it somewhere secure straight away.
+
+![The Save your key dialog showing the secret key with a copy button](/getting-started/save-api-key.png)
+
+## 5. Revoke an API Key
+
+Revoke a key promptly if it has been exposed, if someone leaves your team, or if it is no longer in use. Find the key in the API Keys list and select **Revoke**.
+
+![The API keys list with the Revoke action highlighted on a key](/getting-started/revoke-api-key.png)
+
+> Revoking takes effect immediately and cannot be undone.
+
+![The revoke confirmation dialog warning that revoking cannot be undone](/getting-started/revoke-api-key-modal.png)
+
+## 6. Build Your Integration
+
+With your test environment ready, implement the core payment flow for your channel:
+
+| Type | Best For |
+| --- | --- |
+| [Payment Terminal](/guides/payment-terminals) | Hardware terminals managed by an integrator on behalf of multiple merchants. |
+| [Point of Sale](/guides/point-of-sale) | POS software integrated directly into a merchant's existing system. |
+| [E-commerce](/guides/ecommerce-website) | Online checkouts using redirect or popup payment flows. |
+
+Implement both ways of connecting with a patron, so that you support the widest possible range of patron apps and assets:
+
+- [QR Code Flow](/guides/merchant-integration-qr-code-flow)
+- [Barcode Flow](/guides/merchant-integration-barcode-flow)
+
+Related API references: [Payment Requests](/api/payment-requests), [Merchant Configs](/api/merchant-configs), and [Asset Types](/api/asset-types).
+
+Also review the [protocol extensions](/guides/requesting-payment#protocol-extensions) and add any that your integration requires.
+
+Follow [Testing Payments](/guides/creating-test-money) to create test money so you can pay your test Payment Requests.
+
+## 7. Integration Checklist
+
+Before going live, work through the [Integration Checklist](/guides/integration-checklist) to confirm your integration is complete.
+
+## 8. Contact Us to Go Live
+
+Once your integration is complete, get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will provide a certification checklist before you go live.
