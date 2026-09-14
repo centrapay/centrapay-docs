@@ -60,6 +60,23 @@ export function getProperties(schema) {
   });
 }
 
+export function getParameters(operation, location = 'query') {
+  return (operation.parameters ?? [])
+    .filter(param => param.in === location)
+    .map(param => {
+      const schema = param.schema ?? {};
+      const type = (schema['x-type'] ?? schema.type ?? 'string').toLowerCase();
+      return {
+        name: param.name,
+        formattedType: type,
+        typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
+        description: formatDescription(param.description),
+        isRequired: !!param.required,
+        example: param.example,
+      };
+    });
+}
+
 export function getErrors(responses, commonResponses = []) {
   const endpointErrors = Object.entries(responses ?? {})
     .filter(([code]) => code !== '200')
@@ -86,12 +103,19 @@ export function getErrors(responses, commonResponses = []) {
   return [...endpointErrors, ...sharedErrors].sort((a, b) => Number(a.code) - Number(b.code));
 }
 
-function buildRequestHeaders(requestBody) {
-  const headers = { 'X-Api-Key': '<TOKEN>' };
-  if (requestBody) {
+function buildRequestHeaders(operation) {
+  const headers = { [operation['x-auth-header'] ?? 'X-Api-Key']: '<TOKEN>' };
+  if (operation.requestBody) {
     headers['Content-Type'] = 'application/json';
   }
   return headers;
+}
+
+function buildQueryString(operation) {
+  const entries = getParameters(operation)
+    .map(param => [param.name, param.example])
+    .filter(([, example]) => example !== undefined);
+  return entries.length > 0 ? Object.fromEntries(entries) : undefined;
 }
 
 export function buildEndpointData(operation) {
@@ -99,7 +123,8 @@ export function buildEndpointData(operation) {
     method: operation['x-method'],
     path: operation['x-path'],
     request: {
-      headers: buildRequestHeaders(operation.requestBody),
+      headers: buildRequestHeaders(operation),
+      queryString: buildQueryString(operation),
       payload: getExample(operation.requestBody?.content?.['application/json']),
     },
     response: getExample(operation.responses?.['200']?.content?.['application/json']),
