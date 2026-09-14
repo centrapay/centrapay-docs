@@ -1,3 +1,35 @@
 @import "tailwindcss";
 
 @config "../../tailwind.config.js";
+
+:root {
+  --color-surface-primary: #FFFFFF;
+  --color-surface-secondary: #F8F8F8;
+  --color-surface-tertiary: #F3F4F6;
+  --color-surface-tertiary-hover: #E5E7EB;
+  --color-content-primary: #111827;
+  --color-content-secondary: #1F2937;
+  --color-content-tertiary: #6B7280;
+  --color-outline-opaque: #D1D5DB;
+  --color-outline-transparent: #00000008;
+  --color-interactive-primary: #111827;
+  --color-interactive-secondary: #4B5563;
+  --color-interactive-secondary-hover: #6B7280;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface-primary: #111827;
+    --color-surface-secondary: #1F2937;
+    --color-surface-tertiary: #374151;
+    --color-surface-tertiary-hover: #4B5563;
+    --color-content-primary: #F9FAFB;
+    --color-content-secondary: #E5E7EB;
+    --color-content-tertiary: #9CA3AF;
+    --color-outline-opaque: #4B5563;
+    --color-outline-transparent: #FFFFFF14;
+    --color-interactive-primary: #F9FAFB;
+    --color-interactive-secondary: #9CA3AF;
+    --color-interactive-secondary-hover: #6B7280;
+  }
+}
