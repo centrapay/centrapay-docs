@@ -26,7 +26,7 @@ properties:
     type: string
     example: '1'
     description: The product quantity (eg. item count, weight, volume etc).
-  unitOfMeasure:
+  unitMeasure:
     type: string
     example: kg
     description: A free-text label describing the unit of `qty` (eg. kg, L, seat). Display only, maximum 20 characters.
