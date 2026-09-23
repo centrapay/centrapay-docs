@@ -1,4 +1,13 @@
+import { getCollection } from 'astro:content';
+
 const CUSTOM_DATA_TYPES = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
+
+export async function loadSchemasMap() {
+  const schemasCollection = await getCollection('openapiSchemas');
+  return Object.fromEntries(
+    schemasCollection.map(entry => [entry.id.split('/').pop().replace(/\.yaml$/, ''), entry.data])
+  );
+}
 
 function resolvePointer(target, pointer) {
   let result = target;
@@ -44,20 +53,30 @@ export function getExample(mediaType) {
   return Object.values(mediaType?.examples ?? {})[0]?.value;
 }
 
+function formatProperty(name, prop, schema, isRequired) {
+  const type = (schema?.['x-type'] ?? schema?.type ?? 'string').toLowerCase();
+  return {
+    name,
+    formattedType: type,
+    typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
+    description: formatDescription(prop.description),
+    isRequired,
+    isExperimental: !!prop['x-experimental'],
+    isDeprecated: !!prop['x-deprecated'],
+  };
+}
+
 export function getProperties(schema) {
   const required = schema?.required ?? [];
-  return Object.entries(schema?.properties ?? {}).map(([name, prop]) => {
-    const type = (prop['x-type'] ?? prop.type ?? 'string').toLowerCase();
-    return {
-      name,
-      formattedType: type,
-      typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
-      description: formatDescription(prop.description),
-      isRequired: required.includes(name),
-      isExperimental: !!prop['x-experimental'],
-      isDeprecated: !!prop['x-deprecated'],
-    };
-  });
+  return Object.entries(schema?.properties ?? {}).map(([name, prop]) =>
+    formatProperty(name, prop, prop, required.includes(name))
+  );
+}
+
+export function getParameterProperties(parameters) {
+  return (parameters ?? [])
+    .filter(param => param?.in === 'path' || param?.in === 'query')
+    .map(param => formatProperty(param.name, param, param.schema, !!param.required));
 }
 
 export function getErrors(responses, commonResponses = []) {
@@ -94,14 +113,42 @@ function buildRequestHeaders(requestBody) {
   return headers;
 }
 
+function getParamExample(param) {
+  return param.example ?? param.schema?.example;
+}
+
+function applyParam(path, queryString, param) {
+  const example = getParamExample(param);
+  if (example === undefined) {
+    return path;
+  }
+  if (param.in === 'path') {
+    return path.replace(`{${param.name}}`, String(example));
+  }
+  if (param.in === 'query') {
+    queryString[param.name] = String(example);
+  }
+  return path;
+}
+
+// eslint-disable-next-line complexity
 export function buildEndpointData(operation) {
+  const queryString = {};
+  let path = operation['x-path'];
+  for (const param of operation.parameters ?? []) {
+    path = applyParam(path, queryString, param);
+  }
+  const request = {
+    headers: buildRequestHeaders(operation.requestBody),
+    payload: getExample(operation.requestBody?.content?.['application/json']),
+  };
+  if (Object.keys(queryString).length > 0) {
+    request.queryString = queryString;
+  }
   return {
     method: operation['x-method'],
-    path: operation['x-path'],
-    request: {
-      headers: buildRequestHeaders(operation.requestBody),
-      payload: getExample(operation.requestBody?.content?.['application/json']),
-    },
+    path,
+    request,
     response: getExample(operation.responses?.['200']?.content?.['application/json']),
   };
 }

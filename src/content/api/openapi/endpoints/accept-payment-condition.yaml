@@ -1,0 +1,68 @@
+post:
+  x-method: POST
+  x-path: /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/accept
+  operationId: acceptPaymentCondition
+  summary: Accept a Payment Condition
+  description: |
+    Accept a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
+    Returns a [Payment Activity](#payment-activity-model).
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+    - name: conditionId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: '1'
+      description: An enumerated identifier for the Payment Condition.
+  responses:
+    '200':
+      description: Payment Condition accepted
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-activity.yaml'
+          examples:
+            default:
+              value:
+                type: accept-condition
+                value:
+                  currency: NZD
+                  amount: '100'
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                conditionId: 1
+                createdAt: '2022-05-12T01:17:00.000Z'
+                createdBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                paymentRequestCreatedBy: 'crn::user:0af834c8-1110-11ec-9072-3e22fb52e878'
+                activityNumber: '2'
+                merchantAccountId: C4QnjXvj8At6SMsEN4LRi9
+                merchantId: 5ee0c486308f590260d9a07f
+                merchantConfigId: 5ee168e8597be5002af7b454
+                merchantName: Centrapay Café
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            PATRON_NOT_AUTHORIZED:
+              description: The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition.
+              value:
+                message: PATRON_NOT_AUTHORIZED
+            MERCHANT_NOT_AUTHORIZED:
+              description: The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition.
+              value:
+                message: MERCHANT_NOT_AUTHORIZED
+            CONDITION_ALREADY_SET:
+              description: The Payment Condition has already been accepted or declined.
+              value:
+                message: CONDITION_ALREADY_SET

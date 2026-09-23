@@ -1,26 +1,59 @@
+x-title: Line Item Model
+x-intro: |
+  An order item for which payment is requested.
+  The currency and units for a Line Item price will be consistent with the Payment Request value and the sum of Line Item prices should equal the Payment Request value.
+
+  Line items can include a discount amount.
+  A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
 type: object
+required:
+  - name
+  - qty
+  - price
 properties:
   name:
     type: string
     example: Hard Hat
-    description: The name of the line item.
+    description: The product description.
   sku:
     type: string
     example: GH1234
-    description: The SKU of the line item.
+    description: The product (stock keeping unit) code. Required for [Token](/api/tokens/) redemptions.
   qty:
+    x-type: bignumber
     type: string
     example: '1'
-    description: The quantity of the line item.
+    description: The product quantity (eg. item count, weight, volume etc).
   price:
+    x-type: bignumber
     type: string
     example: '4000'
-    description: The price of the line item in the minimum divisible units of the currency.
+    description: "The total price in cents for the line item (eg. `price = product price * qty - discounts + tax`)."
   tax:
+    x-type: bignumber
     type: string
     example: '15'
-    description: The tax rate as a percentage.
+    description: Tax rate (percentage).
   discount:
+    x-type: bignumber
     type: string
     example: '400'
-    description: The discount amount in the minimum divisible units of the currency.
+    description: Discount amount in cents (tax exclusive).
+  productId:
+    type: string
+    description: Manufacturer's product identifier (eg GTIN/EAN).
+  restricted:
+    type: boolean
+    description: Disallow payment with a “restricted” [Asset Type](/api/asset-types).
+  classification:
+    type: object
+    description: "[Product Classification](#product-classification)."
+    properties:
+      type:
+        type: string
+      code:
+        type: string
+      name:
+        type: string
+      props:
+        type: object

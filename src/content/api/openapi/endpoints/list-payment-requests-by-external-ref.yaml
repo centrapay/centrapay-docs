@@ -1,0 +1,81 @@
+get:
+  x-method: GET
+  x-path: /api/payment-requests/external-ref/{externalRef}
+  operationId: listPaymentRequestsByExternalRef
+  summary: List Payment Requests by External Reference
+  description: |
+    This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
+    Results are [paginated](/api/pagination/).
+  tags:
+    - payment-requests
+  parameters:
+    - name: externalRef
+      in: path
+      required: true
+      schema:
+        type: string
+      example: e8df06e2-13a5-48b4-b670-3fd6d815fe0a
+      description: An external reference to the Payment Request.
+    - name: merchantAccountId
+      in: query
+      required: true
+      schema:
+        type: string
+      example: 1mdj7bj95gjo92r0ux6wfy69gj3h77
+      description: The [Account](/api/accounts/) of the merchant that the Payment Request was created for.
+    - name: pageKey
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Used to retrieve the next page of items. Note that the `pageKey` value, if provided, needs to be URL-encoded.
+    - name: paginationLimit
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Maximum number of Payment Requests to return.
+  responses:
+    '200':
+      description: Payment Requests listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '../models/payment-request.yaml'
+              pageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: MhocUmpxxmgdHjr7DgKoKw
+                    url: https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw
+                    merchantName: Centrapay Café
+                    value:
+                      currency: NZD
+                      amount: '8991'
+                    createdAt: '2021-06-08T04:04:27.426Z'
+                    expiresAt: '2021-06-08T04:06:27.426Z'
+                    paymentOptions:
+                      - amount: '8991'
+                        assetType: centrapay.nzd.test
+                      - amount: '6190'
+                        assetType: centrapay.token.test
+                        acceptedCollections:
+                          - id: QWNB6jurnBczmvXDVfRuMK
+                            lineItems:
+                              - name: Coffee Grounds
+                                sku: GH1234
+                                qty: '1'
+                                price: '4195'
+                                tax: '15.00'
+                    status: new
+                    liveness: test
+                    connectionId: cn_9asd9k19
+                    connectionStatus: active
+                pageKey: '12312312'

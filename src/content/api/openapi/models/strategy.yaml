@@ -1,0 +1,21 @@
+x-title: Strategy Model
+type: object
+properties:
+  refunds:
+    type: array
+    description: The list of refunds that will be processed.
+  refunds.assetId:
+    type: string
+    description: The ID of the Asset that will be refunded.
+  refunds.assetType:
+    type: string
+    description: The [Asset Type](/api/asset-types) of the Asset that will be refunded.
+  refunds.completedPaymentId:
+    type: string
+    description: "ID of a Payment Activity of `type: payment` that the refund is against."
+  refunds.amount:
+    type: string
+    description: The amount that will be refunded back to the Asset.
+  refunds.collectionId:
+    type: string
+    description: The ID of the [Token Collection](/api/token-collections) if applicable.

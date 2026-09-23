@@ -1,0 +1,65 @@
+get:
+  x-method: GET
+  x-path: /api/payment-requests/{paymentRequestId}/summary
+  operationId: getPaymentRequestSummary
+  summary: Get Payment Request Summary
+  description: This endpoint allows you to retrieve the summary of a Payment Request while the status is `new`.
+  tags:
+    - payment-requests
+  parameters:
+    - name: paymentRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The Payment Request id.
+  responses:
+    '200':
+      description: Payment Request summary retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-request.yaml'
+          examples:
+            default:
+              value:
+                id: MhocUmpxxmgdHjr7DgKoKw
+                url: https://app.centrapay.com/pay/MhocUmpxxmgdHjr7DgKoKw
+                merchantId: 26d3Cp3rJmbMHnuNJmks2N
+                merchantName: Centrapay Café
+                value:
+                  currency: NZD
+                  amount: '8991'
+                createdAt: '2021-06-08T04:04:27.426Z'
+                expiresAt: '2021-06-08T04:06:27.426Z'
+                paymentOptions:
+                  - amount: '8991'
+                    assetType: centrapay.nzd.test
+                  - amount: '6190'
+                    assetType: centrapay.token.test
+                    acceptedCollections:
+                      - id: QWNB6jurnBczmvXDVfRuMK
+                        lineItems:
+                          - name: Coffee Grounds
+                            sku: GH1234
+                            qty: '1'
+                            price: '4195'
+                            tax: '15.00'
+                partialAllowed: true
+                basketAmount: '8991'
+                remainingAmount: '8991'
+                status: new
+                lineItems:
+                  - name: Coffee Grounds
+                    sku: GH1234
+                    qty: '1'
+                    price: '4195'
+                    tax: '15.00'
+                  - name: Centrapay Cafe Mug
+                    sku: SB456
+                    qty: '25'
+                    price: '1995'
+                    tax: '15.00'
+                    discount: '199'
+                liveness: test
