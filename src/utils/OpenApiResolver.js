@@ -1,4 +1,13 @@
+import { getCollection } from 'astro:content';
+
 const CUSTOM_DATA_TYPES = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
+
+export async function loadSchemasMap() {
+  const schemasCollection = await getCollection('openapiSchemas');
+  return Object.fromEntries(
+    schemasCollection.map(entry => [entry.id.split('/').pop().replace(/\.yaml$/, ''), entry.data])
+  );
+}
 
 function resolvePointer(target, pointer) {
   let result = target;
@@ -62,7 +71,7 @@ export function getProperties(schema) {
 
 export function getParameterProperties(parameters) {
   return (parameters ?? [])
-    .filter(param => param?.in === 'query')
+    .filter(param => param?.in === 'path' || param?.in === 'query')
     .map(param => {
       const type = (param.schema?.['x-type'] ?? param.schema?.type ?? 'string').toLowerCase();
       return {

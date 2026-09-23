@@ -10,14 +10,11 @@ import ErrorItem from './Error.astro';
 import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
-import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors } from '../utils/OpenApiResolver.js';
+import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors, loadSchemasMap } from '../utils/OpenApiResolver.js';
 
 const { operationId, anchor } = Astro.props;
 
-const schemasCollection = await getCollection('openapiSchemas');
-const schemasMap = Object.fromEntries(
-  schemasCollection.map(entry => [entry.id.split('/').pop(), entry.data])
-);
+const schemasMap = await loadSchemasMap();
 
 const endpoints = await getCollection('openapiEndpoints');
 const entry = endpoints.find(e =>
