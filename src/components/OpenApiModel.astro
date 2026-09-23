@@ -2,11 +2,9 @@
 import { marked } from 'marked';
 import Properties from './Properties.astro';
 import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
-import { resolveRefs, getProperties, loadSchemasMap } from '../utils/OpenApiResolver.js';
+import { resolveRefs, getProperties } from '../utils/OpenApiResolver.js';
 
-const { name, anchor } = Astro.props;
-
-const schemasMap = await loadSchemasMap();
+const { name, anchor, schemasMap } = Astro.props;
 
 const schema = resolveRefs(schemasMap[name], schemasMap);
 if (!schema) throw new Error(`No model found for name: ${name}`);

@@ -53,37 +53,30 @@ export function getExample(mediaType) {
   return Object.values(mediaType?.examples ?? {})[0]?.value;
 }
 
+function formatProperty(name, prop, schema, isRequired) {
+  const type = (schema?.['x-type'] ?? schema?.type ?? 'string').toLowerCase();
+  return {
+    name,
+    formattedType: type,
+    typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
+    description: formatDescription(prop.description),
+    isRequired,
+    isExperimental: !!prop['x-experimental'],
+    isDeprecated: !!prop['x-deprecated'],
+  };
+}
+
 export function getProperties(schema) {
   const required = schema?.required ?? [];
-  return Object.entries(schema?.properties ?? {}).map(([name, prop]) => {
-    const type = (prop['x-type'] ?? prop.type ?? 'string').toLowerCase();
-    return {
-      name,
-      formattedType: type,
-      typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
-      description: formatDescription(prop.description),
-      isRequired: required.includes(name),
-      isExperimental: !!prop['x-experimental'],
-      isDeprecated: !!prop['x-deprecated'],
-    };
-  });
+  return Object.entries(schema?.properties ?? {}).map(([name, prop]) =>
+    formatProperty(name, prop, prop, required.includes(name))
+  );
 }
 
 export function getParameterProperties(parameters) {
   return (parameters ?? [])
     .filter(param => param?.in === 'path' || param?.in === 'query')
-    .map(param => {
-      const type = (param.schema?.['x-type'] ?? param.schema?.type ?? 'string').toLowerCase();
-      return {
-        name: param.name,
-        formattedType: type,
-        typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
-        description: formatDescription(param.description),
-        isRequired: !!param.required,
-        isExperimental: !!param['x-experimental'],
-        isDeprecated: !!param['x-deprecated'],
-      };
-    });
+    .map(param => formatProperty(param.name, param, param.schema, !!param.required));
 }
 
 export function getErrors(responses, commonResponses = []) {

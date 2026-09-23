@@ -44,7 +44,7 @@ const previewImg = '/default-cover.jpg';
             <>
               <hr />
               {section.kind === 'model' && (
-                <OpenApiModel name={section.name} anchor={section.anchor} />
+                <OpenApiModel name={section.name} anchor={section.anchor} schemasMap={schemasMap} />
               )}
               {section.kind === 'extra' && (
                 <>
@@ -56,7 +56,7 @@ const previewImg = '/default-cover.jpg';
                 </>
               )}
               {section.kind === 'endpoint' && (
-                <OpenApiEndpoint operationId={section.operationId} anchor={section.anchor} />
+                <OpenApiEndpoint operationId={section.operationId} anchor={section.anchor} schemasMap={schemasMap} />
               )}
             </>
           ))}

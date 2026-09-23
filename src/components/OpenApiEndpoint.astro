@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import Slugger from 'github-slugger';
 import { marked } from 'marked';
 import Row from './Row.astro';
 import Column from './Column.astro';
@@ -10,11 +9,9 @@ import ErrorItem from './Error.astro';
 import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
-import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors, loadSchemasMap } from '../utils/OpenApiResolver.js';
+import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors } from '../utils/OpenApiResolver.js';
 
-const { operationId, anchor } = Astro.props;
-
-const schemasMap = await loadSchemasMap();
+const { operationId, anchor, schemasMap } = Astro.props;
 
 const endpoints = await getCollection('openapiEndpoints');
 const entry = endpoints.find(e =>
@@ -31,22 +28,12 @@ const properties = [
 ];
 const commonResponses = Object.values(schemasMap['responses'] ?? {});
 const errors = getErrors(operation.responses, commonResponses);
-
-const hasSlot = Astro.slots.has('default');
-const headingId = anchor ?? new Slugger().slug(operation.summary);
 ---
 
 <Row>
   <Column>
-    {hasSlot
-      ? <slot />
-      : (
-        <>
-          <h2 id={headingId}>{operation.summary}</h2>
-          {operation.description && <div set:html={marked.parse(operation.description)} />}
-        </>
-      )
-    }
+    <h2 id={anchor}>{operation.summary}</h2>
+    {operation.description && <div set:html={marked.parse(operation.description)} />}
     {properties.length > 0 && (
       <Properties>
         {properties.map(property => <OpenApiPropertyItem {...property} />)}
