@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedContentCard from '../components/FeaturedContentCard.astro';
+import Card from '../components/Card.astro';
 import { getEntry } from 'astro:content';
 import navigation from '../navigation/guideNavigation';
 const paymentFlowsGuide = await getEntry('guides', 'payment-flows');
 const farmlandsPortal = await getEntry('guides', 'farmlands-portal');
 const farmlandsPosIntegrationGuide = await getEntry('guides', 'farmlands-pos-integration');
+const gettingStartedGuide = await getEntry('guides', 'getting-started');
 
 const description = 'Learn to connect with Centrapay experiences.';
 const img = '/homepage-preview.png';
@@ -30,6 +32,25 @@ const img = '/homepage-preview.png';
           integrations@centrapay.com.
         </a>
       </p>
+    </div>
+    <div class="mb-16">
+      <Card>
+        <a href=`guides/${gettingStartedGuide.id}` class="group flex h-full flex-col md:flex-row">
+          <div class="h-48 overflow-hidden rounded-t md:h-auto md:w-2/5 md:rounded-l md:rounded-tr-none">
+            <img
+              class="size-full object-cover transition-transform duration-200 ease-in group-hover:scale-105"
+              src="/payment-flows-cover.png"
+              alt=""
+            >
+          </div>
+          <div class="flex flex-col justify-center gap-4 p-6 md:w-3/5">
+            <p class="type-overline text-brand-accent">Sales Channel Integrations</p>
+            <h2 class="type-headline-3 group-hover:underline">{gettingStartedGuide.data.title}</h2>
+            <p class="text-content-secondary">{gettingStartedGuide.data.description}</p>
+            <p class="font-semibold text-content-primary">Start integrating →</p>
+          </div>
+        </a>
+      </Card>
     </div>
     <div>
       <h2 class="type-headline-2">Featured Docs</h2>
