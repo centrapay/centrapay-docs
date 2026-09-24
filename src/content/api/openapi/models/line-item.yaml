@@ -5,6 +5,8 @@ x-intro: |
 
   Line items can include a discount amount.
   A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
+
+  Either `price` or `unitPrice` must be supplied. If `price` is supplied it is used as-is; if only `unitPrice` is supplied, `price` is computed as `unitPrice * qty`. When both are supplied, `price` takes priority and is not validated against `unitPrice * qty`.
 type: object
 required:
   - name
@@ -24,11 +26,19 @@ properties:
     type: string
     example: '1'
     description: The product quantity (eg. item count, weight, volume etc).
+  unitMeasure:
+    type: string
+    example: kg
+    description: A free-text label describing the unit of `qty` (eg. kg, L, seat). Display only, maximum 20 characters.
   price:
     x-type: bignumber
     type: string
     example: '4000'
-    description: "The total price in cents for the line item (eg. `price = product price * qty - discounts + tax`)."
+    description: "The total price in cents for the line item (eg. `price = product price * qty - discounts + tax`). Either `price` or `unitPrice` is required; if both are supplied, `price` takes priority."
+  unitPrice:
+    type: string
+    example: '4000'
+    description: The price of a single unit of `qty`, in cents. Used to compute `price` when `price` is not supplied.
   tax:
     x-type: bignumber
     type: string
@@ -39,6 +49,13 @@ properties:
     type: string
     example: '400'
     description: Discount amount in cents (tax exclusive).
+  metadata:
+    type: object
+    additionalProperties:
+      type: string
+    example:
+      color: red
+    description: A set of up to 20 key-value string pairs for storing additional structured information about the line item. Keys may be up to 40 characters; values up to 500 characters.
   productId:
     type: string
     description: Manufacturer's product identifier (eg GTIN/EAN).
