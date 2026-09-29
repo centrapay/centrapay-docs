@@ -1,0 +1,48 @@
+---
+title: Shared Promotions
+description: Let a whole community contribute to one goal and reward everyone who took part.
+nav:
+  title: Shared Goals
+  path: Digital Assets/Loyalty Programs
+  order: 2
+---
+A shared Promotion pools the progress of every member toward a single community goal. For example, once members have made 1,000 payments between them, everyone who contributed earns a reward.
+
+Shared Promotions are challenges with a `shared` target. Each member still gets their own [Promotion Membership](/api/promotion-memberships), but qualifying Events move one shared tally that lives on the Promotion itself.
+
+## The Shared Target
+
+Set `params.target.type` to `shared` and `amount` to the community goal. Every qualifying Event adds 1 to the shared tally, regardless of who generated it.
+
+```json {% title="1,000 payments unlock a reward" %}
+{
+  "type": "challenge",
+  "eventType": "payment-request:paid",
+  "params": {
+    "target": {
+      "type": "shared",
+      "amount": "1000"
+    },
+    "rewards": {
+      "and": [
+        { "assetType": "centrapay.nzd.main", "amount": "500" }
+      ]
+    }
+  }
+}
+```
+
+The running total is exposed as `params.target.progress` on the [Promotion](/api/promotions#promotion-target-model). It starts at zero and never exceeds `amount` - once the goal is reached, further Events stop contributing.
+
+A shared Promotion must not be given an `endsAt`. A community goal has to stay open until it is reached, so the only thing that ends the Promotion is reaching its target.
+
+## Reaching the Goal
+
+When the shared tally reaches `amount`, the Promotion ends by itself. Ending it finalises every membership under it:
+
+- members who contributed at least once are completed, and their rewards are issued;
+- members who never contributed expire without a reward.
+
+## Tracking the Tally
+
+[List Activities for Promotion](/api/promotions#list-activities-for-promotion) returns a paginated history of the Promotion. Shared Promotions record a `promotion:shared-progress-incremented` [activity](/api/promotions#promotion-activity-model) for every contribution, carrying the contributing `accountId` and the `targetProgress` at that moment.
