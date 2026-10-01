@@ -104,9 +104,10 @@ autonumber
   MP->>CP: Redirect to Payment Request url
   Note over CP: Show Payment Request details
   Consumer->>CP: Complete payment
-  alt ✅ Success
+  Note over CP: Check Payment Request status
+  alt Payment Request has status 'paid'
   CP->>MP: Redirect to redirectPaidUrl
-  else
+  else Payment Request has status 'cancelled' or 'expired'
   CP->>MP: Redirect to redirectCancelUrl
   end
   MP->>+MS: Get Payment Request
@@ -119,7 +120,6 @@ autonumber
   CP-->>-MS: Return Payment Request
   MS-->>-MP: Return Payment Request
   end
-  MP-->>CP: Return
   Note over MP: Checkout complete ✅
 ```
 
@@ -158,8 +158,13 @@ autonumber
 
 3. The customer will be redirected to your site at the end of the payment process.
     - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
-    - If the Payment Request is `cancelled`, `expired`, or `new`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
-    - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
+    - If the Payment Request is `cancelled` or `expired`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
+
+4. On your redirect pages, read the `paymentRequestId` query parameter and [Get the Payment Request](/api/payment-requests/#get-a-payment-request) to confirm its status.
+
+    - If the Payment Request is `paid`, you can show the customer the order confirmation page.
+    - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
+    - If the Payment Request is still `new`, the payment was not completed and you are responsible for [Voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
 
 ## Popup Method
 
@@ -274,8 +279,8 @@ autonumber
 
         This callback is triggered when the checkout process finishes or the customer closes the payment popup.
         Your callback will receive a `data` object containing the Payment Request ID.
-        You are expected to [get the Payment Request](/api/payment-requests/#get-a-payment-request) and act on its status.
+        You are expected to [Get the Payment Request](/api/payment-requests/#get-a-payment-request) and act on its status.
 
         - If the Payment Request is `paid`, you can redirect the customer to the order confirmation page.
         - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
-        - If the Payment Request is `new`, you are responsible for [voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
+        - If the Payment Request is `new`, you are responsible for [Voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
