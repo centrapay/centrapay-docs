@@ -2,8 +2,8 @@ import { defineMarkdocConfig, component, nodes } from '@astrojs/markdoc/config';
 
 export default defineMarkdocConfig({
   nodes: {
-    // Astro 7 stopped trimming the trailing dash a `{% badge %}` leaves in a
-    // heading id. Keep trimming so existing anchors, nav and search stay valid.
+    // Trim the trailing dash a `{% badge %}` leaves in a heading id so
+    // existing anchors, nav and search links stay valid.
     heading: {
       ...nodes.heading,
       transform(node, config) {
