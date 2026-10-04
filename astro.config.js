@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import flexsearchPlugin from './src/plugins/flexsearch';
 
 // Rehype plugins
@@ -25,9 +26,12 @@ export default defineConfig({
     }),
     markdoc({ ignoreIndentation: true }),
   ],
+  // astro 7 defaults to a native markdown processor; keep unified for the rehype plugin
   markdown: {
-    rehypePlugins: [ rehypeSectionize ],
+    processor: unified({ rehypePlugins: [ rehypeSectionize ] }),
   },
+  // astro 7 defaults to 'jsx' whitespace rules, which strip spaces between inline elements
+  compressHTML: true,
   vite: {
     plugins: [flexsearchPlugin(), tailwindcss()]
   },
