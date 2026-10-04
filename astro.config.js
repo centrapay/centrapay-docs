@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import flexsearchPlugin from './src/plugins/flexsearch';
 
 // Rehype plugins
@@ -26,7 +27,7 @@ export default defineConfig({
     markdoc({ ignoreIndentation: true }),
   ],
   markdown: {
-    rehypePlugins: [ rehypeSectionize ],
+    processor: unified({ rehypePlugins: [ rehypeSectionize ] }),
   },
   vite: {
     plugins: [flexsearchPlugin(), tailwindcss()]
