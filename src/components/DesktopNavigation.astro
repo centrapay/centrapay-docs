@@ -36,7 +36,9 @@ const { path, navigation, showHeadings = true } = Astro.props;
     } else if (savedScroll !== null) {
       leftSidebar.scrollTop = parseInt(savedScroll, 10);
     }
-  } catch {}
+  } catch {
+    // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+  }
 
   // Make sure the current page is visible, e.g. when arriving from search or a new tab.
   if (activeLink) {
@@ -60,12 +62,16 @@ const { path, navigation, showHeadings = true } = Astro.props;
         pathname: trimSlash(link.pathname),
         offset: offsetInSidebar(link),
       }));
-    } catch {}
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+    }
   });
 
   window.addEventListener('pagehide', () => {
     try {
       sessionStorage.setItem(scrollKey, leftSidebar.scrollTop);
-    } catch {}
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+    }
   });
 </script>
