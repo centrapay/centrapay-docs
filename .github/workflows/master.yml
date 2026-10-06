@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [ master ]
     types: [ opened, reopened, synchronize ]
+  merge_group:
 
 permissions:
   actions: read
@@ -29,6 +30,7 @@ jobs:
            | tee $GITHUB_OUTPUT
 
   lint:
+    if: github.ref != 'refs/heads/master'
     needs: [ setup ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
@@ -49,6 +51,7 @@ jobs:
       - run: ./scripts/trivy.sh
 
   test:
+    if: github.ref != 'refs/heads/master'
     needs: [ setup ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
@@ -99,6 +102,7 @@ jobs:
           path: centrapay-docs-prod.tar
 
   integration:
+    if: github.ref != 'refs/heads/master'
     needs: [ setup, build-prod ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
@@ -116,9 +120,19 @@ jobs:
       - run: yarn linkinator
       - run: yarn integration
 
+  checks:
+    if: always()
+    needs: [ lint, test, build-dev, build-prod, integration ]
+    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fail if any required job failed or was cancelled
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: exit 1
+
   deploy-dev:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev-preview'
-    needs: [ setup, lint, test, build-dev, build-prod, integration ]
+    needs: [ setup, build-dev, build-prod, checks ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
     environment:
