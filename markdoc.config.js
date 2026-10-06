@@ -2,6 +2,18 @@ import { defineMarkdocConfig, component, nodes } from '@astrojs/markdoc/config';
 
 export default defineMarkdocConfig({
   nodes: {
+    // Trim the trailing dash a `{% badge %}` leaves in a heading id so
+    // existing anchors, nav and search links stay valid.
+    heading: {
+      ...nodes.heading,
+      transform(node, config) {
+        const tag = nodes.heading.transform(node, config);
+        if (typeof tag.attributes.id === 'string') {
+          tag.attributes.id = tag.attributes.id.replace(/-$/, '');
+        }
+        return tag;
+      },
+    },
     blockquote: {
       ...nodes.blockquote,
       render: component('./src/components/Note.astro'),
