@@ -74,7 +74,7 @@ Confirmations against authorized funds have limits:
 Authorized funds that have not been confirmed can optionally be [released](/api/payment-requests#release-pre-auth-funds) so that the asset holder is granted access to their remaining funds without needing to wait for the authorization to expire.
 Once releasing any remaining authorized funds is successful, the Payment Request `preAuthStatus` is set to `released`.
 
->Authorizations automatically expire after 3 months. Any unreleased funds are subsequently released to the Patron.
+>Authorizations automatically expire at the Payment Request's `preAuthExpiresAt`, which depends on the asset type used. Any unreleased funds can then be released to the Patron.
 
 ### Refund
 
