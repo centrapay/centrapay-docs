@@ -38,7 +38,7 @@
                     role="menuitem"
                     class="block py-2 pl-6 text-xs text-content-tertiary"
                     :aria-current="isActive(subChild) ? 'page' : undefined"
-                    :href="subChild.path"
+                    :href="pageHref(subChild)"
                   >
                     {{ subChild.title }}
                   </a>
@@ -55,7 +55,7 @@
                       role="menuitem"
                       class="block py-2 pl-8 text-xs text-content-tertiary"
                       :aria-current="isActiveHeading(subChild, navigationGrandchild) ? 'location' : undefined"
-                      :href="`${subChild.path}#${navigationGrandchild.slug}`"
+                      :href="`${pageHref(subChild)}#${navigationGrandchild.slug}`"
                     >
                       {{ navigationGrandchild.text }}
                     </a>
@@ -73,7 +73,7 @@
                   role="menuitem"
                   class="block py-2 pl-4 text-xs text-content-tertiary"
                   :aria-current="isActive(navigationChild) ? 'page' : undefined"
-                  :href="navigationChild.path"
+                  :href="pageHref(navigationChild)"
                 >
                   {{ navigationChild.title }}
                 </a>
@@ -90,7 +90,7 @@
                     role="menuitem"
                     class="block py-2 pl-6 text-xs text-content-tertiary"
                     :aria-current="isActiveHeading(navigationChild, navigationGrandchild) ? 'location' : undefined"
-                    :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
+                    :href="`${pageHref(navigationChild)}#${navigationGrandchild.slug}`"
                   >
                     {{ navigationGrandchild.text }}
                   </a>
@@ -207,6 +207,11 @@ onUnmounted(() => {
   window.removeEventListener('hashchange', onHashChange);
   cancelAnimationFrame(scrollFrame);
 });
+
+// Pages are served from folders, so link with a trailing slash to avoid a redirect on every click.
+function pageHref(item) {
+  return item.path.endsWith('/') ? item.path : `${item.path}/`;
+}
 
 function isActive(item) {
   return props.path === item.path;
