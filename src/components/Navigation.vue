@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
@@ -128,7 +128,8 @@ function findItem(items) {
   }
 }
 
-const currentHeadings = findItem(props.navigation.items)?.headings || [];
+// The path changes without remounting when the sidebar is kept between pages.
+const currentHeadings = computed(() => findItem(props.navigation.items)?.headings || []);
 
 function hashSlug() {
   return decodeURIComponent(window.location.hash.slice(1));
@@ -139,14 +140,14 @@ function hashSlug() {
 function updateActiveSlug() {
   const threshold = window.innerHeight * 0.2;
   let slug = '';
-  for (const heading of currentHeadings) {
+  for (const heading of currentHeadings.value) {
     const element = document.getElementById(heading.slug);
     if (element && element.getBoundingClientRect().top <= threshold) {
       slug = heading.slug;
     }
   }
   const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  if (atBottom && currentHeadings.some(heading => heading.slug === hashSlug())) {
+  if (atBottom && currentHeadings.value.some(heading => heading.slug === hashSlug())) {
     slug = hashSlug();
   }
   activeSlug.value = slug;
@@ -193,10 +194,26 @@ watch(activeSlug, async () => {
   }
 });
 
-onMounted(() => {
-  if (!currentHeadings.length) {
+// When moving to another page in the same section, the previous page's headings collapse and
+// the new page's expand. Keep the clicked link where it was and make sure it's visible.
+watch(() => props.path, async () => {
+  const link = props.path && root.value?.querySelector(`a[href="${pageHref({ path: props.path })}"]`);
+  const scroller = scrollParent(link);
+  const topBefore = link?.getBoundingClientRect().top;
+  await nextTick();
+  updateActiveSlug();
+  if (!link || !scroller) {
     return;
   }
+  scroller.scrollTop += link.getBoundingClientRect().top - topBefore;
+  const linkRect = link.getBoundingClientRect();
+  const scrollerRect = scroller.getBoundingClientRect();
+  if (linkRect.top < scrollerRect.top || linkRect.bottom > scrollerRect.bottom) {
+    scroller.scrollTop += linkRect.top - scrollerRect.top - (scrollerRect.height - linkRect.height) / 2;
+  }
+}, { flush: 'pre' });
+
+onMounted(() => {
   updateActiveSlug();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('hashchange', onHashChange);

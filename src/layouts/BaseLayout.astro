@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import AppShell from '../components/AppShell.astro';
 import IntercomButton from '../components/IntercomButton.vue';
 import Footer from '../components/Footer.astro';
@@ -32,6 +33,8 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width">
     <title>{metaTitle}</title>
+    <!-- Load pages in the background so the sidebar stays in place between pages -->
+    <ClientRouter />
     <meta name="description" content={description}>
     <meta property="img" content={img}>
 
@@ -49,7 +52,8 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
     <!-- Datadog -->
     <script is:inline define:vars={{env, version, datadogEnabled}}>
       /* eslint-disable no-undef */
-      if (datadogEnabled === 'true') {
+      // With client-side navigation this script can run again; only set up RUM once.
+      if (datadogEnabled === 'true' && !window.DD_RUM) {
         (function(h,o,u,n,d) {
           h = h[d] = h[d] || {q: [],onReady: function(c){h.q.push(c);}};
           d = o.createElement(u);d.async = 1;d.src = n;
@@ -83,13 +87,13 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
         <Footer />
       </AppShell>
       {/* Always render for debugging */}
-      <IntercomButton client:load app-id={intercomAppId || 'iufdeibu'} />
+      <IntercomButton client:load transition:persist app-id={intercomAppId || 'iufdeibu'} />
     </div>
-    <script type="module">
+    <script type="module" data-astro-rerun>
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: 'base',
         themeVariables: isDark ? {
           mainBkg: '#1F2937',
@@ -118,6 +122,8 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
           diagramMarginY: 50,
         }
       });
+      // Render the diagrams on this page; re-runs after each client-side navigation.
+      mermaid.run();
     </script>
   </body>
 </html>
