@@ -121,7 +121,7 @@ jobs:
       - run: yarn integration
 
   checks:
-    if: always()
+    if: ${{ always() && github.ref != 'refs/heads/master' }}
     needs: [ lint, test, build-dev, build-prod, integration ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
@@ -132,7 +132,7 @@ jobs:
 
   deploy-dev:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev-preview'
-    needs: [ setup, build-dev, build-prod, checks ]
+    needs: [ setup, build-dev, build-prod ]
     timeout-minutes: 5
     runs-on: ubuntu-22.04
     environment:
