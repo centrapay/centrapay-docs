@@ -38,7 +38,8 @@
                     role="menuitem"
                     class="block py-2 pl-6 text-xs text-content-tertiary"
                     :aria-current="isActive(subChild) ? 'page' : undefined"
-                    :href="subChild.path"
+                    :href="pageHref(subChild)"
+                    @click="onPageLinkClick($event, subChild)"
                   >
                     {{ subChild.title }}
                   </a>
@@ -55,7 +56,7 @@
                       role="menuitem"
                       class="block py-2 pl-8 text-xs text-content-tertiary"
                       :aria-current="isActiveHeading(subChild, navigationGrandchild) ? 'location' : undefined"
-                      :href="`${subChild.path}#${navigationGrandchild.slug}`"
+                      :href="`${pageHref(subChild)}#${navigationGrandchild.slug}`"
                     >
                       {{ navigationGrandchild.text }}
                     </a>
@@ -73,7 +74,8 @@
                   role="menuitem"
                   class="block py-2 pl-4 text-xs text-content-tertiary"
                   :aria-current="isActive(navigationChild) ? 'page' : undefined"
-                  :href="navigationChild.path"
+                  :href="pageHref(navigationChild)"
+                  @click="onPageLinkClick($event, navigationChild)"
                 >
                   {{ navigationChild.title }}
                 </a>
@@ -90,7 +92,7 @@
                     role="menuitem"
                     class="block py-2 pl-6 text-xs text-content-tertiary"
                     :aria-current="isActiveHeading(navigationChild, navigationGrandchild) ? 'location' : undefined"
-                    :href="`${navigationChild.path}#${navigationGrandchild.slug}`"
+                    :href="`${pageHref(navigationChild)}#${navigationGrandchild.slug}`"
                   >
                     {{ navigationGrandchild.text }}
                   </a>
@@ -207,6 +209,24 @@ onUnmounted(() => {
   window.removeEventListener('hashchange', onHashChange);
   cancelAnimationFrame(scrollFrame);
 });
+
+// Pages are served from folders, so link with a trailing slash to avoid a redirect on every click.
+function pageHref(item) {
+  return item.path.endsWith('/') ? item.path : `${item.path}/`;
+}
+
+// Clicking the current page would reload it (a link without a #section isn't an in-page jump),
+// so scroll back to the top instead.
+function onPageLinkClick(event, item) {
+  const opensNewTab = event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0;
+  if (opensNewTab || !isActive(item)) {
+    return;
+  }
+  event.preventDefault();
+  history.pushState(null, '', pageHref(item));
+  window.scrollTo({ top: 0 });
+  updateActiveSlug();
+}
 
 function isActive(item) {
   return props.path === item.path;
