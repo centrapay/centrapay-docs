@@ -1,12 +1,9 @@
 ---
 import Navigation from './Navigation.vue';
 const { path, navigation, showHeadings = true } = Astro.props;
-// Keep the sidebar in place when moving between pages of the same section (e.g. API).
-const section = path?.split('/')[1] || 'home';
 ---
 <div
   id="sidebar"
-  transition:persist={`sidebar-${section}`}
   class="hidden md:fixed md:flex md:h-full md:w-64 md:flex-col"
 >
   <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-outline-opaque bg-surface-primary py-5">
@@ -20,57 +17,61 @@ const section = path?.split('/')[1] || 'home';
 </div>
 
 <script is:inline>
-  // With client-side navigation this script runs on every page, but the sidebar is kept between
-  // pages of the same section, so each sidebar is only set up once.
-  (() => {
-    const leftSidebar = document.querySelector('#sidebar > #sidebar-content');
-    if (leftSidebar.dataset.ready) {
+  const leftSidebar = document.querySelector('#sidebar > #sidebar-content');
+  // Guides, API and Connections have different sidebars, so remember each separately.
+  const scrollKey = `sidebar-scroll:${window.location.pathname.split('/')[1]}`;
+  const clickedLinkKey = 'sidebar-clicked-link';
+  const trimSlash = pathname => pathname.replace(/\/$/, '');
+  const activeLink = leftSidebar.querySelector('[aria-current="page"]');
+  const offsetInSidebar = link => link.getBoundingClientRect().top - leftSidebar.getBoundingClientRect().top;
+
+  try {
+    // Opening a page expands its headings and collapses the previous page's, which shifts the
+    // links around. Keep the clicked link at the same height it was at when it was clicked.
+    const clickedLink = JSON.parse(sessionStorage.getItem(clickedLinkKey));
+    sessionStorage.removeItem(clickedLinkKey);
+    const savedScroll = sessionStorage.getItem(scrollKey);
+    if (activeLink && clickedLink?.pathname === trimSlash(window.location.pathname)) {
+      leftSidebar.scrollTop += offsetInSidebar(activeLink) - clickedLink.offset;
+    } else if (savedScroll !== null) {
+      leftSidebar.scrollTop = parseInt(savedScroll, 10);
+    }
+  } catch {
+    // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+  }
+
+  // Make sure the current page is visible, e.g. when arriving from search or a new tab.
+  if (activeLink) {
+    const linkRect = activeLink.getBoundingClientRect();
+    const sidebarRect = leftSidebar.getBoundingClientRect();
+    if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
+      leftSidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebarRect.height - linkRect.height) / 2;
+    }
+  }
+
+  leftSidebar.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    const isOtherPage = link
+      && link.origin === window.location.origin
+      && trimSlash(link.pathname) !== trimSlash(window.location.pathname);
+    if (!isOtherPage) {
       return;
     }
-    leftSidebar.dataset.ready = 'true';
-    // Guides, API and Connections have different sidebars, so remember each separately.
-    const scrollKey = `sidebar-scroll:${window.location.pathname.split('/')[1]}`;
-
-    function restoreScroll() {
-      try {
-        const savedScroll = sessionStorage.getItem(scrollKey);
-        if (savedScroll !== null) {
-          leftSidebar.scrollTop = parseInt(savedScroll, 10);
-        }
-      } catch {
-        // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
-      }
+    try {
+      sessionStorage.setItem(clickedLinkKey, JSON.stringify({
+        pathname: trimSlash(link.pathname),
+        offset: offsetInSidebar(link),
+      }));
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
     }
+  });
 
-    // Make sure the current page is visible, e.g. when arriving from search or a new tab.
-    function revealActiveLink() {
-      const activeLink = leftSidebar.querySelector('[aria-current="page"]');
-      if (!activeLink) {
-        return;
-      }
-      const linkRect = activeLink.getBoundingClientRect();
-      const sidebarRect = leftSidebar.getBoundingClientRect();
-      if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
-        leftSidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebarRect.height - linkRect.height) / 2;
-      }
+  window.addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem(scrollKey, leftSidebar.scrollTop);
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
     }
-
-    function saveScroll() {
-      // Only the sidebar still on the page has a position worth saving.
-      if (!leftSidebar.isConnected) {
-        return;
-      }
-      try {
-        sessionStorage.setItem(scrollKey, leftSidebar.scrollTop);
-      } catch {
-        // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
-      }
-    }
-
-    restoreScroll();
-    revealActiveLink();
-    window.addEventListener('pagehide', saveScroll);
-    // Leaving for another section swaps this sidebar out.
-    document.addEventListener('astro:before-swap', saveScroll);
-  })();
+  });
 </script>
