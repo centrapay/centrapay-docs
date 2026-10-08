@@ -18,14 +18,60 @@ const { path, navigation, showHeadings = true } = Astro.props;
 
 <script is:inline>
   const leftSidebar = document.querySelector('#sidebar > #sidebar-content');
-  const leftSidebarScroll = localStorage.getItem('sidebar-scroll');
+  // Guides, API and Connections have different sidebars, so remember each separately.
+  const scrollKey = `sidebar-scroll:${window.location.pathname.split('/')[1]}`;
+  const clickedLinkKey = 'sidebar-clicked-link';
+  const trimSlash = pathname => pathname.replace(/\/$/, '');
+  const activeLink = leftSidebar.querySelector('[aria-current="page"]');
+  const offsetInSidebar = link => link.getBoundingClientRect().top - leftSidebar.getBoundingClientRect().top;
 
-  if (leftSidebarScroll !== null) {
-    const scroller = leftSidebarScroll > 1000 ? 1000 : leftSidebarScroll;
-    leftSidebar.scrollTop = parseInt(scroller, 10);
+  try {
+    // Opening a page expands its headings and collapses the previous page's, which shifts the
+    // links around. Keep the clicked link at the same height it was at when it was clicked.
+    const clickedLink = JSON.parse(sessionStorage.getItem(clickedLinkKey));
+    sessionStorage.removeItem(clickedLinkKey);
+    const savedScroll = sessionStorage.getItem(scrollKey);
+    if (activeLink && clickedLink?.pathname === trimSlash(window.location.pathname)) {
+      leftSidebar.scrollTop += offsetInSidebar(activeLink) - clickedLink.offset;
+    } else if (savedScroll !== null) {
+      leftSidebar.scrollTop = parseInt(savedScroll, 10);
+    }
+  } catch {
+    // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
   }
 
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('sidebar-scroll', leftSidebar.scrollTop);
+  // Make sure the current page is visible, e.g. when arriving from search or a new tab.
+  if (activeLink) {
+    const linkRect = activeLink.getBoundingClientRect();
+    const sidebarRect = leftSidebar.getBoundingClientRect();
+    if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
+      leftSidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebarRect.height - linkRect.height) / 2;
+    }
+  }
+
+  leftSidebar.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    const isOtherPage = link
+      && link.origin === window.location.origin
+      && trimSlash(link.pathname) !== trimSlash(window.location.pathname);
+    if (!isOtherPage) {
+      return;
+    }
+    try {
+      sessionStorage.setItem(clickedLinkKey, JSON.stringify({
+        pathname: trimSlash(link.pathname),
+        offset: offsetInSidebar(link),
+      }));
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem(scrollKey, leftSidebar.scrollTop);
+    } catch {
+      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+    }
   });
 </script>
