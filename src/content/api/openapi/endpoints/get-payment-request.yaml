@@ -3,7 +3,17 @@ get:
   x-path: /api/payment-requests/{paymentRequestId}
   operationId: getPaymentRequest
   summary: Get a Payment Request
-  description: This endpoint allows you to retrieve a Payment Request.
+  description: |
+    This endpoint allows you to retrieve a Payment Request.
+
+    When polling for payment confirmation, use the Payment Request status to decide what to do next:
+
+    | Payment Request Status |                                              Integrator Behavior                                               |
+    | ---------------------- | --------------------------------------------------------------------------------------------------------------- |
+    | new                    | Check for [Payment Conditions](/guides/payment-conditions) then poll again for status change. |
+    | paid                   | Show Confirmation. Stop polling.                                                                                |
+    | expired                | Show payment timed-out message. Stop polling.                                                                   |
+    | cancelled              | Show cancellation reason. Stop polling.                                                                         |
   tags:
     - payment-requests
   parameters:

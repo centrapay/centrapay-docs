@@ -67,14 +67,23 @@ With your test environment ready, implement the core payment flow for your chann
 | [Point of Sale](/guides/point-of-sale) | POS software integrated directly into a merchant's existing system. |
 | [E-commerce](/guides/ecommerce-website) | Online checkouts using redirect or popup payment flows. |
 
-Implement both ways of connecting with a patron, so that you support the widest possible range of patron apps and assets:
-
-- [QR Code Flow](/guides/merchant-integration-qr-code-flow)
-- [Barcode Flow](/guides/merchant-integration-barcode-flow)
-
 Related API references: [Payment Requests](/api/payment-requests), [Merchant Configs](/api/merchant-configs), and [Asset Types](/api/asset-types).
 
-Also review the [protocol extensions](/guides/requesting-payment#protocol-extensions) and add any that your integration requires.
+Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+
+- [Line Items](/guides/line-items)
+- [Payment Conditions](/guides/payment-conditions)
+- [Requesting Pre Auth](/guides/requesting-pre-auth)
+- [Patron Not Present](/guides/patron-not-present)
+- [Partial Payment](/guides/partial-payment-extension)
+
+We strongly recommend Centrapay APIs are invoked from your backend and not directly from your payment terminals, POS devices or the browser. Centralizing the invocation of our APIs from your backend offers the following benefits:
+
+1. Merchant network administrators will not need to make additional firewall changes.
+2. Your Centrapay API keys can be managed centrally inside your secured network.
+3. TLS negotiation with Centrapay APIs can be managed independently of terminal hardware and software updates.
+
+Handle network issues and unknown errors as described in [Merchant Integration Error Handling](/guides/merchant-integration-error-handling), including voiding Payment Requests whose status can't be determined.
 
 Follow [Testing Payments](/guides/creating-test-money) to create test money so you can pay your test Payment Requests.
 

@@ -41,6 +41,23 @@
                     {{ subChild.title }}
                   </a>
                 </li>
+                <div v-if="isExpanded(subChild)">
+                  <li
+                    v-for="childPage in subChild.children"
+                    :key="childPage.title"
+                    role="presentation"
+                    class="group rounded-md hover:bg-surface-tertiary"
+                    :class="{ 'bg-surface-tertiary': path === childPage.path }"
+                  >
+                    <a
+                      role="menuitem"
+                      class="block py-2 pl-8 text-xs text-content-tertiary"
+                      :href="childPage.path"
+                    >
+                      {{ childPage.title }}
+                    </a>
+                  </li>
+                </div>
                 <div v-if="showHeadings && subChild.headings?.length && path === subChild.path">
                   <li
                     v-for="navigationGrandchild in subChild.headings"
@@ -103,4 +120,9 @@ const props = defineProps({
   navigation: { type: Object, required: true },
   showHeadings: { type: Boolean, required: false, default: true },
 });
+
+// Like page headings, child pages only show while you're on the page or one of its children.
+function isExpanded(page) {
+  return props.path === page.path || !!page.children?.some(child => child.path === props.path);
+}
 </script>

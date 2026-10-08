@@ -1,0 +1,48 @@
+---
+title: QR Code Flow for Payment Terminals
+description: How a payment terminal accepts payments by displaying a QR code for the patron to scan.
+nav:
+  path: Sales Channel Integrations/Integration Types/Payment Terminal
+  title: QR Code Flow
+  order: 1
+---
+The diagram below shows a terminal accepting a payment by displaying a QR code.
+
+```mermaid
+sequenceDiagram
+	autonumber
+
+	participant Patron
+	participant Terminal
+	participant Centrapay
+
+	Terminal->>Centrapay: Create Payment Request
+	Centrapay-->>Terminal: Payment Request created
+
+	note over Terminal: Display QR Code
+
+	Patron->>Terminal: Scan QR Code
+
+	par
+		loop Poll until final state
+			Terminal->>Centrapay: Get Payment Request
+		end
+	and
+		Patron->>Centrapay: Pay Payment Request
+	end
+
+	opt Payment cancelled at the terminal or status unknown
+		Terminal->>Centrapay: Void Payment Request
+	end
+
+	note over Terminal: ✅ Display Payment Result
+	note over Patron: ✅ Display Payment Result
+```
+
+1. When the Merchant starts a payment, the terminal [creates a Payment Request](/api/payment-requests#create-a-payment-request) and displays its QR code.
+2. The Patron scans the QR code with their Centrapay app and pays the Payment Request.
+3. The terminal [polls the Payment Request](/api/payment-requests#get-a-payment-request) until its status is no longer `new`, then displays the result.
+4. If the payment is cancelled at the terminal, or the terminal can't determine the payment status, it [voids the Payment Request](/api/payment-requests#void-a-payment-request). See [Merchant Integration Error Handling](/guides/merchant-integration-error-handling).
+5. Paid Payment Requests can later be [refunded](/api/payment-requests#refund-a-payment-request). See [Initiating Refunds](/guides/initiating-refunds).
+
+See [Payment Flows](/guides/payment-flows) for an overview of the API calls required for different payment flows.
