@@ -35,6 +35,27 @@ describe('Navigation', () => {
       });
     });
 
+    test('Content whose nav path ends with a page title is a child of that page', () => {
+      const page = (title, path, order) => ({
+        collection: 'guides',
+        id: title.toLowerCase().replace(/ /g, '-'),
+        data: { title, nav: { path, order } },
+      });
+      const navigation = Navigation.create({
+        nav: [ { title: 'Guides' } ],
+        content: [
+          page('Point of Sale', 'Guides', 1),
+          page('Barcode Flow', 'Guides/Point of Sale', 2),
+          page('QR Code Flow', 'Guides/Point of Sale', 1),
+        ],
+      });
+      const [ pointOfSale ] = navigation.items[0].children;
+      expect(navigation.items[0].children).toHaveLength(1);
+      expect(pointOfSale.title).toEqual('Point of Sale');
+      expect(pointOfSale.children.map(c => c.title)).toEqual([ 'QR Code Flow', 'Barcode Flow' ]);
+      expect(pointOfSale.children[0].path).toEqual('/guides/qr-code-flow');
+    });
+
     test('Content is child of nav', () => {
       expect(
         Navigation.create({

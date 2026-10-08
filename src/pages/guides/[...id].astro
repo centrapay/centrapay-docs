@@ -10,6 +10,7 @@ import TocNav from '../../components/TocNav.vue';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import guideNavigation from '../../navigation/guideNavigation';
 import merchantServicesNavigation from '../../navigation/merchantServicesNavigation';
+import inlinePartials from '../../utils/inlinePartials';
 import toAgentMarkdown from '../../utils/toAgentMarkdown';
 
 export async function getStaticPaths() {
@@ -31,7 +32,7 @@ const contentDirectory = entry.collection === 'merchantServices' ? 'merchant-ser
 const contentPath = `./src/content/${contentDirectory}/${entry.id}.mdoc`;
 const { content: guideBody } = grayMatter(await fs.readFile(contentPath, 'utf-8'));
 const agentMarkdown = copyAsMarkdown
-  ? toAgentMarkdown({ title, description, body: guideBody })
+  ? toAgentMarkdown({ title, description, body: await inlinePartials(guideBody, contentPath) })
   : undefined;
 ---
 <BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>

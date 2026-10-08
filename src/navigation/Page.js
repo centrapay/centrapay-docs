@@ -29,6 +29,19 @@ class Page {
     });
   }
 
+  // Pages whose nav path is this page's path (e.g. `Integration Types/Point of Sale`) are listed
+  // under this page in the sidebar.
+  withChildPages({ content, parentPath }) {
+    const path = [...parentPath, this.navTitle].join('/');
+    const children = content.filter(c => c.data.nav.path === path)
+      .map(Page.fromContent)
+      .sort((a, b) => a.order - b.order);
+    if (children.length) {
+      this.children = children;
+    }
+    return this;
+  }
+
   get to() {
     return this.path;
   }

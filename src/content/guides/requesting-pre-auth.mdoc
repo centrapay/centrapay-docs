@@ -21,8 +21,6 @@ Pre Auth payments go through an orthogonal payment flow compared to Centrapay’
 
 > The example below shows the integrator polling for the Payment Request, this is not needed for e-commerce as the integrator will be informed when the authorization has completed.
 
-> See also: [Requesting Payment](/guides/requesting-payment).
-
 ```mermaid
 sequenceDiagram
 	autonumber
@@ -53,7 +51,7 @@ sequenceDiagram
 
 ### Authorize
 
-An authorization is created when the [Payment Request is created](/api/payment-requests#create-a-payment-request) with the `preAuth` flag while [Requesting Payment](/guides/requesting-payment).
+An authorization is created when the [Payment Request is created](/api/payment-requests#create-a-payment-request) with the `preAuth` flag.
 
 Once the authorization is successful, the Payment Request `preAuthStatus` is set to `authorized`.
 

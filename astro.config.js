@@ -60,5 +60,6 @@ export default defineConfig({
     '/api/': '/api/introduction/',
     '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
     '/guides/compatible-devices': '/guides/compatible-solutions',
+    '/guides/requesting-payment/': '/guides/point-of-sale/',
   },
 });

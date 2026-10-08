@@ -2,9 +2,9 @@
 title: Barcode Flow for Merchants
 description: How merchants can accept payments by scanning a barcode presented by the patron.
 nav:
-  path: Sales Channel Integrations/Payment Flows
+  path: Sales Channel Integrations/Integration Types/Point of Sale
   title: Barcode Flow
-  order: 3
+  order: 2
 ---
 Connecting with patrons using our Barcode Flow requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](/api/payment-requests#create-a-payment-request).
 
@@ -32,7 +32,7 @@ sequenceDiagram
 		loop Poll until final state
 			POS Server->>Centrapay: Get Payment Request
 		end
-
+	and
 		Patron->>Centrapay: Pay Payment Request
 	end
 

@@ -6,33 +6,39 @@ nav:
   order: 2
 ---
 
+## Introduction
+
 Integrating a point of sale (POS) terminal with Centrapay APIs allows merchants to accept payment via any Centrapay-enabled apps without installing additional POS hardware or software.
 
-## Core Requirements
+### Before You Begin
+
+{% partial file="../../partials/sales-channel-prerequisites.mdoc" /%}
+
+### Core Requirements
 
 Centrapay POS integrations must be able to [create](/api/payment-requests#create-a-payment-request), [void](/api/payment-requests#void-a-payment-request) and [refund](/api/payment-requests#refund-a-payment-request) Payment Requests on behalf of Merchants.
 
 The POS authenticates against Centrapay APIs using a single “merchant terminal” API key.
 
-- [Requesting Payment](/guides/requesting-payment) MUST connect with the patron using either the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
+- The POS MUST connect with the patron using either the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
 - [Merchant integration errors](/guides/merchant-integration-error-handling) MUST be handled correctly.
 - [Initiating refunds](/guides/initiating-refunds) MUST be performed using the `id` or `shortCode` [Payment Request](/api/payment-requests#payment-request-model) fields.
 - The `id` or `shortCode` MUST be made available to the patron (e.g. on paper print-out).
 - Paid [Asset Types](/api/asset-types) MUST be made available for merchant [Transaction Reporting](/guides/transaction-reporting).
 
-### Optional Protocol Extensions
+## Payment Flow
 
-Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
+The POS connects with the patron using one of two flows. In both, the POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request) and [polls it](/api/payment-requests#get-a-payment-request) until its status is no longer `new`.
 
-- [Line Items](/guides/line-items)
-- [Payment Conditions](/guides/payment-conditions)
-- [Requesting Pre Auth](/guides/requesting-pre-auth)
-- [Patron Not Present](/guides/patron-not-present)
-- [Partial Payment](/guides/partial-payment-extension)
+- [QR Code Flow](/guides/merchant-integration-qr-code-flow): the POS displays a QR code for the patron to scan with their Centrapay app.
+- [Barcode Flow](/guides/merchant-integration-barcode-flow): the POS scans a barcode presented by the patron.
 
+## Interface Guidelines
 
-## Contact Us
+Please use the [Centrapay Brand Assets](https://centrapay.com/brand-assets/) when building the UI for Centrapay payments.
 
-Contact integrations@centrapay.com to get started with API keys.
-
-Once you have confirmed your integration needs we will then provide you with a customized integration checklist for certification.
+- **Payment option:** Show Centrapay as a payment option the cashier can clearly see. If Farmlands is the only payment option the merchant accepts, show **Farmlands** instead.
+- **QR codes:** Display Centrapay QR codes with the Centrapay logo in the centre.
+- **Payment status:** Clearly show the current status of the [Payment Request](/api/payment-requests#payment-request-model), and update it as soon as the status changes.
+- **Payment method:** Show the payment method used on the customer-facing interface or receipt, using the description in the Payment Request's [`paidBy`](/api/payment-requests#paid-by-model) field.
+- **Receipts:** Print the Payment Request `id` or `shortCode` on the receipt so it can be used for [refunds](/guides/initiating-refunds).
