@@ -82,6 +82,7 @@ export default defineMarkdocConfig({
       attributes: {
         filename: { type: String },
         path: { type: String },
+        stacked: { type: Boolean },
       },
     },
     openApiEndpoint: {
