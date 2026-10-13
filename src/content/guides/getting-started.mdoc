@@ -59,6 +59,14 @@ Revoke a key promptly if it has been exposed, if someone leaves your team, or if
 
 ## 6. Build Your Integration
 
+Before you begin, you need:
+
+- **An API key:** an API key with the “merchant terminal” role, created in [step 4](#4-create-an-api-key). A “merchant terminal” key can create, void and refund Payment Requests on behalf of merchants.
+
+    > See [API Key Best Practice](/api/auth#best-practice).
+
+- **A Merchant Config ID:** each Payment Request must be created with the `configId` of the Merchant's [Merchant Config](/api/merchant-configs), which sets the payment methods the merchant accepts.
+
 With your test environment ready, implement the core payment flow for your channel:
 
 | Type | Best For |
@@ -67,21 +75,26 @@ With your test environment ready, implement the core payment flow for your chann
 | [Point of Sale](/guides/point-of-sale) | POS software integrated directly into a merchant's existing system. |
 | [E-commerce](/guides/ecommerce-website) | Online checkouts using redirect or popup payment flows. |
 
-Implement both ways of connecting with a patron, so that you support the widest possible range of patron apps and assets:
+Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
 
-- [QR Code Flow](/guides/merchant-integration-qr-code-flow)
-- [Barcode Flow](/guides/merchant-integration-barcode-flow)
+- [Line Items](/guides/line-items)
+- [Payment Conditions](/guides/payment-conditions)
+- [Requesting Pre Auth](/guides/requesting-pre-auth)
+- [Patron Not Present](/guides/patron-not-present)
+- [Partial Payment](/guides/partial-payment-extension)
 
-Related API references: [Payment Requests](/api/payment-requests), [Merchant Configs](/api/merchant-configs), and [Asset Types](/api/asset-types).
-
-Also review the [protocol extensions](/guides/requesting-payment#protocol-extensions) and add any that your integration requires.
+Handle network issues and unknown errors as described in [Merchant Integration Error Handling](/guides/merchant-integration-error-handling), including voiding Payment Requests whose status can't be determined.
 
 Follow [Testing Payments](/guides/creating-test-money) to create test money so you can pay your test Payment Requests.
 
-## 7. Integration Checklist
+## 7. Initiate Refunds
 
-Before going live, work through the [Integration Checklist](/guides/integration-checklist) to confirm your integration is complete.
+Paid Payment Requests can be [refunded](/api/payment-requests#refund-a-payment-request). [Refunds](/guides/initiating-refunds) MUST be initiated using the `id` or `shortCode` of the [Payment Request](/api/payment-requests#payment-request-model), so one of them MUST be made available to the patron (e.g. on a printed receipt).
 
-## 8. Contact Us to Go Live
+## 8. Integration Checklist
 
-Once your integration is complete, get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will provide a certification checklist before you go live.
+Get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com) and Centrapay will provide the [Integration Checklist](/guides/integration-checklist) for your integration. Work through the checklist and provide evidence for each item, so Centrapay can confirm your integration is complete.
+
+## 9. Contact Us to Go Live
+
+Once your checklist is complete, contact [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will set up your account for live payments, so you can create your live API key and go live.

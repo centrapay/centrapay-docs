@@ -21,7 +21,7 @@
             :key="navigationChild.title"
             role="menuitem"
           >
-            <template v-if="navigationChild.children?.length && !navigationChild.path">
+            <template v-if="!navigationChild.path">
               <li class="px-4 pb-1 pt-3 text-xs font-semibold text-content-tertiary">
                 {{ navigationChild.title }}
               </li>
