@@ -2,28 +2,28 @@
 title: QR Code Flow for Merchants
 description: How merchants can accept payments by presenting a QR code to the patron.
 nav:
-  path: Sales Channel Integrations/Integration Types/Point of Sale
+  path: Sales Channel Integrations/Payment Flows
   title: QR Code Flow
   order: 1
 ---
 Connecting with patrons using our QR Code Flow requires the merchant integration to create a [Payment Request](/api/payment-requests) and present a QR Code for the patron to scan.
 
-The sequence diagram below indicates the expected flow of behavior between the patron, the Point of Sale (POS) and Centrapay.
+The sequence diagram below indicates the expected flow of behavior between the patron, the Point of Sale (POS) or terminal, and Centrapay.
 
 ```mermaid
 sequenceDiagram
 	autonumber
 
 	participant Patron
-	participant POS
-  participant POS Server
+	participant POS as POS/Terminal
+  participant Server as POS/Terminal Server
 	participant Centrapay
 
-  POS->>POS Server: Request Payment
+  POS->>Server: Request Payment
 
-	POS Server->>Centrapay: Create Payment Request
+	Server->>Centrapay: Create Payment Request
 
-  POS Server->>POS: Send Payment Request Details
+  Server->>POS: Send Payment Request Details
 
 	note over POS: Present QR Code
 
@@ -31,20 +31,20 @@ sequenceDiagram
 
 	par
 		loop Poll until final state
-			POS Server->>Centrapay: Get Payment Request
+			Server->>Centrapay: Get Payment Request
 		end
 	and
 		Patron->>Centrapay: Pay Payment Request
 	end
 
-  POS Server->>POS: Send Payment Status
+  Server->>POS: Send Payment Status
 
 	Note over POS: ✅ Display Successful Payment
 	Note over Patron: ✅ Display Successful Payment
 ```
 
-1. The POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request).
-   The POS then presents a QR code to the Patron on a customer-facing display.
+1. The POS/Terminal server [creates a Payment Request](/api/payment-requests#create-a-payment-request).
+   The POS/Terminal then presents a QR code to the Patron on a customer-facing display.
 
     > The QR code decodes to a URL of the form `https://app.centrapay.com/pay/{paymentRequestId}`
 
@@ -88,7 +88,7 @@ sequenceDiagram
     ```
 
 2. The patron scans the QR code using a Centrapay-enabled app.
-3. The POS server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
+3. The POS/Terminal server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -121,9 +121,9 @@ sequenceDiagram
     }
     ```
 
-4. While the POS server continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request)
+4. While the POS/Terminal server continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request)
    via their Centrapay integrated app. When the Payment Request status is in a final state (`paid`, `cancelled` or `expired`).
-   The POS server stops polling and the POS displays the result.
+   The POS/Terminal server stops polling and the POS/Terminal displays the result.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw/pay \

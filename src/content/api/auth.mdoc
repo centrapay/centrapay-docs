@@ -38,6 +38,14 @@ curl -X GET https://service.centrapay.com/api/account-memberships \
 
 Follow the [Getting Started](/guides/getting-started) guide to create your own test API key.
 
+### Best Practice
+
+We strongly recommend Centrapay APIs are invoked from your backend and not directly from your payment terminals, POS devices or the browser. Centralizing the invocation of our APIs from your backend offers the following benefits:
+
+1. Merchant network administrators will not need to make additional firewall changes.
+2. Your Centrapay API keys can be managed centrally inside your secured network.
+3. TLS negotiation with Centrapay APIs can be managed independently of terminal hardware and software updates.
+
 ## User Access Tokens
 
 User access tokens provide time-limited access to all Centrapay accounts for

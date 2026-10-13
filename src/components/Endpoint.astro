@@ -6,6 +6,8 @@ import { Code } from 'astro-expressive-code/components'
 import createEndpoint from '../utils/createEndpoint';
 
 const { path, filename } = Astro.props;
+// Guides have a narrow content column, so stack the code panels under the description there
+const stacked = Astro.props.stacked ?? Astro.url.pathname.startsWith('/guides/');
 
 if (!filename) {
   throw new Error(`Filename is required for Endpoint ${path}`);
@@ -18,12 +20,9 @@ if (!endpoint) {
 }
 ---
 
-<Row>
-  <Column>
+{ stacked ? (
+  <div class="[&>:first-child]:mt-0">
     <slot/>
-  </Column>
-
-  <Column sticky>
     <CodePanel>
       <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
     </CodePanel>
@@ -33,5 +32,23 @@ if (!endpoint) {
         <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
       </CodePanel>
     }
-  </Column>
-</Row>
+  </div>
+) : (
+  <Row>
+    <Column>
+      <slot/>
+    </Column>
+
+    <Column sticky>
+      <CodePanel>
+        <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
+      </CodePanel>
+
+      { endpoint.response &&
+        <CodePanel>
+          <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
+        </CodePanel>
+      }
+    </Column>
+  </Row>
+)}
