@@ -1,48 +1,229 @@
 ---
 title: Error Handling
-description: How to deal with inconsistencies in Payment Request statuses due to network issues or race conditions.
+description: How to catch and respond to Centrapay API errors, network problems and inconsistencies in Payment Request statuses.
 nav:
   path: Sales Channel Integrations/Operations
   title: Error Handling
   order: 3
 ---
-Below are our guidelines for dealing with inconsistencies in [Payment Request](/api/payment-requests) statuses due to network issues, race conditions, or [asset](/api/asset-types/) specific behaviours.
+Catch and respond to invalid requests, business rule errors, network problems, and more.
 
-## Respect Payment Status
+Centrapay returns many kinds of errors. They can reflect external events, like a patron's barcode expiring or a network interruption, or problems in your code, like an invalid API call.
 
-Use the Payment Request status as the source of truth when determining if a Payment Request is paid or expired. For example, if cancelling a Payment Request fails with a `REQUEST_PAID` error then the terminal should respond accordingly; either by showing the transaction as paid or [initiating a void](/api/payment-requests#void-a-payment-request) instead.
+## Parse Error Data
 
-### Void Unknown Status
+When Centrapay returns an error to your API request, the response has a non-`2xx` HTTP status and a body with details about the error.
 
-If the status of a transaction cannot be determined to be successful after retrying, then the Payment Request should be voided. [Voiding a Payment Request](/api/payment-requests#void-a-payment-request) will cancel the request and trigger any refunds if necessary.
-
-## Display Error Reasons
-
-Centrapay has a limited set of error messages to simplify integration for our third-party partners.
-Due to this, the same error message can be returned for different reasons.
-Centrapay provides additional details in the `reason` field to enhance error messages and assist with debugging.
-Integrators may choose to display the `reason` to provide more information to the user, however, it is recommended that`reason` is not used to drive application logic.
+| Property | Description |
+| --- | --- |
+| `statusCode` | The HTTP status code. Use it to find the [type of error](#types-of-error-and-responses). |
+| `error` | The HTTP status name, for example `Forbidden`. |
+| `message` | The error code, for example `NO_AVAILABLE_PAYMENT_OPTIONS`. The possible codes are documented on each endpoint. |
+| `reason` | Optional. A more detailed description of the error, to help with debugging. |
 
 ```json
 {
   "statusCode": 403,
-  "message": "ERROR_MESSAGE",
   "error": "Forbidden",
+  "message": "NO_AVAILABLE_PAYMENT_OPTIONS",
   "reason": "A more detailed description of the reason for the error"
 }
 ```
 
+The same `message` can be returned for different reasons, so Centrapay adds the `reason` field to help. You may display the `reason` to the user, but don't use it to drive application logic. Use `statusCode` and `message` instead.
+
+To handle errors, use all of the techniques below.
+
+| Technique | Purpose |
+| --- | --- |
+| [Catch errors](#catch-errors) | Recover when an API call fails. |
+| [Respect the Payment Request status](#respect-payment-status) | Find out what actually happened to a payment. |
+| [Configure the POS timeout](#configure-pos-timeout) | Avoid timing out while the patron is still paying. |
+
+## Catch Errors
+
+Check the HTTP status of every response from Centrapay. If it isn't `2xx`, parse the error body and use its `statusCode` and `message` to decide how to handle the error, such as asking the patron for another payment method, retrying, or fixing the request. See [Types of Error and Responses](#types-of-error-and-responses). If there's no response at all, or the body can't be parsed, the result is unknown. Handle it as described in [Unknown Errors](#unknown-errors).
+
+```javascript {% title="Node.js" %}
+async function createPaymentRequest(body) {
+  let response;
+  let errorBody;
+  try {
+    response = await fetch('https://service.centrapay.com/api/payment-requests', {
+      method: 'POST',
+      headers: {
+        'X-Api-Key': process.env.CENTRAPAY_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+    errorBody = await response.json();
+  } catch (e) {
+    // No response, or a malformed one: the outcome is unknown.
+    console.log('Unknown error. Retry, then check the Payment Request status.');
+    throw e;
+  }
+
+  const { statusCode, message } = errorBody;
+  if (statusCode === 429 || statusCode >= 500) {
+    // Temporary: retry (after the Retry-After header for 429),
+    // then check the Payment Request status.
+    console.log(`Temporary error (${statusCode}). Retrying.`);
+  } else {
+    // 400, 401, 403: retrying won't help. Handle the message,
+    // e.g. ask the patron for another payment method.
+    console.log(`Payment Request not created: ${message}`);
+  }
+  throw errorBody;
+}
+```
+
+## Types of Error and Responses
+
+Centrapay APIs respond with `200`, `400`, `401`, `403`, `404` or `429` HTTP status codes, and in rare cases `5xx`. Use the HTTP status of the error to find its type, then follow the advice for that type.
+
+| Name | Status | Description |
+| --- | --- | --- |
+| [Invalid request error](#invalid-request-errors) | `400`, `404` | The request is malformed, or uses the wrong URL or HTTP method. |
+| [Authentication error](#authentication-errors) | `401` | Centrapay can't authenticate you with the API key provided. |
+| [Business rule error](#business-rule-errors) | `403` | The request was valid, but a business rule prevented it, or the resource doesn't exist or you don't have permission. |
+| [Rate limit error](#rate-limit-errors) | `429` | You made too many API calls in too short a time. |
+| [Unknown error](#unknown-errors) | `5xx`, no response, or a malformed response | Something went wrong between your system and Centrapay, or on Centrapay's end. The outcome is unknown. |
+
+Each endpoint documents its error codes, with their HTTP status and what they mean.
+
+## Invalid Request Errors
+
+**Status:** `400`, `404`
+
+**Problem:** The request is malformed, for example a required field is missing or has the wrong format, or the URL or HTTP method is wrong.
+
+**Solutions:** The problem is with the request itself, so don't retry it unchanged. Use the `message` to find the problem and fix your integration:
+
+- Make sure you set `Content-Type: application/json`.
+- Check the HTTP body fields, query parameters and path parameters are set correctly.
+- Check the HTTP method (`POST`, `PUT`, `GET` etc.) and URL against the examples in the documentation.
+- Make sure your [object IDs](/api/object-ids) have the correct prefix, if present.
+
+```json {% title="400 Malformed Request" %}
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "amount is required"
+}
+```
+
+```json {% title="404 Route Not Found" %}
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "Not Found"
+}
+```
+
+## Authentication Errors
+
+**Status:** `401`
+
+**Problem:** The API key is missing, expired or invalid.
+
+**Solutions:** Use the correct [API key](/api/auth#api-keys), and make sure it hasn't been revoked. Don't retry until the key is fixed.
+
+```json {% title="401 Unauthorized" %}
+{
+  "statusCode": 401,
+  "error": "Unauthorized",
+  "message": "Missing authentication"
+}
+```
+
+## Business Rule Errors
+
+**Status:** `403`
+
+**Problem:** The request was valid, but a business rule prevented it, for example the patron's barcode has expired. A `403` with the message `Forbidden` means the resource doesn't exist or your API key doesn't have permission to access it.
+
+**Solutions:** These errors can occur when your integration is working correctly. Use the `message` to decide what to do next.
+
+For the message `Forbidden`:
+
+- Check the resource ID is correct.
+- Check your API key has membership for the account that owns the resource you are accessing.
+- Check the role of your API key has permission. See [Roles and Permissions](/api/auth#roles-and-permissions).
+
+```json {% title="403 Resource missing or permission denied" %}
+{
+  "statusCode": 403,
+  "error": "Forbidden",
+  "message": "Forbidden"
+}
+```
+
+```json {% title="403 Business rule violated" %}
+{
+  "statusCode": 403,
+  "error": "Forbidden",
+  "message": "NO_AVAILABLE_PAYMENT_OPTIONS"
+}
+```
+
+## Rate Limit Errors
+
+**Status:** `429`, with the message `RATE_LIMIT_EXCEEDED`
+
+**Problem:** You made too many API calls in too short a time.
+
+**Solutions:** Wait for the number of seconds in the `Retry-After` response header, then retry. If the error continues, increase the delay exponentially. See [Rate Limits](/api/rate-limits) for further advice.
+
+```json {% title="429 Too Many Requests" %}
+{
+  "statusCode": 429,
+  "error": "Too Many Requests",
+  "message": "RATE_LIMIT_EXCEEDED"
+}
+```
+
+## Unknown Errors
+
+**Status:** `5xx`, no response, or a malformed response
+
+**Problem:** Something went wrong between your system and Centrapay, or on Centrapay's end. Unknown errors include:
+
+- Network or connectivity issues, TLS handshake failures or abrupt disconnects.
+- Empty or missing responses due to timeouts or dropped connections.
+- Unexpected HTTP status codes (500, 502, 503, 504).
+- Malformed responses (e.g. invalid JSON, HTML error pages, plain text).
+- Incomplete or corrupted data (missing fields or unexpected schema).
+
+**Solutions:** Treat the result of the API call as unknown. Don't assume that it succeeded or that it failed. For any API call to Centrapay, if an unknown error occurs, the integration must automatically retry at least once before failing the transaction. If the status of a Payment Request still can't be determined after retrying, [void it](#void-incomplete-payment-requests).
+
+A `5xx` error means something has gone wrong on Centrapay's end, and retrying usually solves it. A Centrapay engineer usually investigates, but bug reports are welcome at [integrations@centrapay.com](mailto:integrations@centrapay.com).
+
+> Retries must reuse the original idempotency value, so a retry isn't processed twice. For example, retry a [Pre Auth confirmation](/api/payment-requests#confirm-pre-auth-payment-request) with the same `idempotencyKey`, and a [refund](/api/payment-requests#refund-a-payment-request) with the same `externalRef`.
+
+## Respect Payment Status
+
+The Payment Request status is the source of truth for whether a payment went through. Don't assume a payment failed or succeeded based on what the POS or terminal saw. Always [get the Payment Request](/api/payment-requests#get-a-payment-request) and act on its status.
+
+For example, if a request times out and you're not sure whether the patron paid, get the Payment Request before showing the result. If it's `paid`, either complete the sale or, if the sale should not go ahead, [void the Payment Request](/api/payment-requests#void-a-payment-request) to refund the patron.
+
+## Void Incomplete Payment Requests
+
+[Void the Payment Request](/api/payment-requests#void-a-payment-request) as soon as the POS or terminal determines it will not be completed. Leaving it open could lead to unresolved transactions or the Payment Request being paid by accident. Void it when:
+
+- The patron or merchant cancels, or the patron abandons the payment.
+- Its status still can't be determined after [retrying](#unknown-errors).
+
+Voiding cancels the Payment Request and triggers any refunds if necessary.
+
 ## Configure POS Timeout
 
-Payment Requests have a configurable timeout which defaults to 2 minutes. Integrators should make sure that the payment terminal times out 5-10 seconds **after** the Payment Request.
+Payment Requests have a configurable timeout which defaults to 2 minutes. Integrators should make sure that the payment terminal times out 5-10 seconds **after** the Payment Request.
 
 For example, if the Point of Sale (POS) has a 90-second payment timeout then the Payment Request could be created with an 85-second timeout to prevent the payment terminal from expiring at the same time as the Payment Request is paid.
-
-## Retry Unknown Errors
-
-When faced with an unknown error while checking the status of a Payment Request, POS integrations should retry at least once before voiding the transaction.
-
-> Retries should use the appropriate idempotency key where applicable.
 
 ## Resolving Persistent Errors
 

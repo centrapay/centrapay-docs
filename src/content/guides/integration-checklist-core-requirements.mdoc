@@ -216,17 +216,18 @@ Proper timeout handling prevents scenarios where a customer successfully pays vi
 
 **How to meet it:**
 
-The terminal or POS must time out **5–10 seconds after** the Payment Request expires.
+Time out the terminal or POS **5–10 seconds after** the Payment Request expires, as described in [Configure POS Timeout](/guides/merchant-integration-error-handling#configure-pos-timeout).
 
 **Evidence:**
 
 - Screenshots of POS/terminal timeout configuration.
 - Logs showing the Payment Request expiry timestamp and the corresponding POS/terminal timeout.
 - Test recordings demonstrating correct timeout behaviour.
+- Code snippets showing how the terminal or POS timeout is set relative to the Payment Request expiry.
 
 **Resources:**
 
-- [Error Handling](/guides/merchant-integration-error-handling/)
+- [Configure POS Timeout](/guides/merchant-integration-error-handling#configure-pos-timeout)
 
 ---
 
@@ -236,11 +237,9 @@ The terminal or POS must time out **5–10 seconds after** the Payment Request e
 
 Unknown errors can often be resolved by retrying the request. Automatic retries improve the user experience by avoiding unnecessary manual intervention.
 
-Unknown errors include: network or connectivity issues, unexpected API responses, transient server errors, timeouts, and unexpected data or edge cases.
-
 **How to meet it:**
 
-For any API call to Centrapay, if an unknown error occurs, the integration must automatically retry at least once before failing the transaction.
+Automatically retry any API call to Centrapay at least once when an unknown error occurs, as described in [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors).
 
 **Evidence:**
 
@@ -250,7 +249,7 @@ For any API call to Centrapay, if an unknown error occurs, the integration must 
 
 **Resources:**
 
-- [Merchant Integration Errors](/guides/merchant-integration-error-handling/)
+- [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors)
 
 ---
 
@@ -262,7 +261,7 @@ If the status of a Payment Request cannot be determined, leaving it in an unknow
 
 **How to meet it:**
 
-If a transaction's status cannot be determined after retries, the Payment Request must be voided.
+Void the Payment Request if its status cannot be determined after retries, as described in [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests).
 
 **Evidence:**
 
@@ -272,8 +271,8 @@ If a transaction's status cannot be determined after retries, the Payment Reques
 
 **Resources:**
 
-- [Merchant Integration Error Handling — Void Unknown Status](/guides/merchant-integration-error-handling/#void-unknown-status)
-- [Void a Payment Request](/api/payment-requests#void)
+- [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests)
+- [Void a Payment Request](/api/payment-requests#void-a-payment-request)
 
 ---
 
@@ -285,18 +284,17 @@ Integrations must continue to function even if Centrapay returns an unexpected o
 
 **How to meet it:**
 
-Implement error-handling logic that gracefully manages unexpected or malformed responses, including:
-
-- Malformed responses (e.g. invalid JSON, HTML error pages, plain text).
-- Unexpected HTTP status codes (500, 502, 503, 504).
-- Empty or missing responses due to timeouts or dropped connections.
-- Incomplete or corrupted data (missing fields or unexpected schema).
-- TLS handshake failures or abrupt disconnects.
+Handle malformed, empty and unexpected responses gracefully, as described in [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors).
 
 **Evidence:**
 
 - Application logs showing unexpected responses being handled and the system continuing to operate.
 - Automated test reports simulating malformed responses and confirming recovery.
+- Code snippets showing how malformed or unexpected responses are handled.
+
+**Resources:**
+
+- [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors)
 
 ---
 
@@ -398,9 +396,7 @@ The Payment Request status is the source of truth for determining whether a requ
 
 **How to meet it:**
 
-- Poll the Payment Request using the Get Payment Request endpoint at regular intervals (e.g. every second).
-- Use the returned status to determine if a Payment Request has been paid, cancelled, or expired, and take the corresponding action.
-- Ensure the polling logic handles errors gracefully.
+Poll the Payment Request and act on each status, as described in [Poll for Payment Status](/guides/merchant-integration-error-handling#poll-for-payment-status).
 
 **Evidence:**
 
@@ -409,6 +405,7 @@ The Payment Request status is the source of truth for determining whether a requ
 
 **Resources:**
 
+- [Poll for Payment Status](/guides/merchant-integration-error-handling#poll-for-payment-status)
 - [Get Payment Request](/api/payment-requests#get-a-payment-request)
 
 ---
@@ -468,7 +465,7 @@ Leaving an open Payment Request can lead to unresolved transactions, potential c
 
 **How to meet it:**
 
-Automatically void any Payment Request as soon as the POS or system determines it will not be completed (e.g. cancelled by the user or merchant).
+Void any Payment Request as soon as the POS or terminal determines it will not be completed, as described in [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests).
 
 **Evidence:**
 
@@ -477,7 +474,8 @@ Automatically void any Payment Request as soon as the POS or system determines i
 
 **Resources:**
 
-- [Void a Payment Request](/api/payment-requests/#void-a-payment-request)
+- [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests)
+- [Void a Payment Request](/api/payment-requests#void-a-payment-request)
 
 ---
 
