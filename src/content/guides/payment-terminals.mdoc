@@ -8,17 +8,11 @@ nav:
 
 ## Introduction
 
-Integrating a merchant terminal with Centrapay APIs requires creating, cancelling, voiding and refunding [Payment Requests](/api/payment-requests) on behalf of Merchants using a “merchant terminal” API key.
-
-### Before You Begin
-
-{% partial file="../../partials/sales-channel-prerequisites.mdoc" /%}
+Integrating a payment terminal with Centrapay APIs allows merchants to accept payment via any Centrapay-enabled apps using the payment terminals they already have, without installing additional hardware.
 
 ## Payment Flow
 
-The terminal accepts payments by displaying a QR code for the patron to scan with their Centrapay app. It [creates a Payment Request](/api/payment-requests#create-a-payment-request) and [polls it](/api/payment-requests#get-a-payment-request) until its status is no longer `new`.
-
-- [QR Code Flow](/guides/payment-terminal-qr-code-flow): the sequence diagram and steps for a terminal payment.
+- [QR Code Flow](/guides/merchant-integration-qr-code-flow): the terminal displays a QR code for the patron to scan with their Centrapay app.
 
 ## Interface Guidelines
 

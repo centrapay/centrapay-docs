@@ -21,7 +21,7 @@
             :key="navigationChild.title"
             role="menuitem"
           >
-            <template v-if="navigationChild.children?.length && !navigationChild.path">
+            <template v-if="!navigationChild.path">
               <li class="px-4 pb-1 pt-3 text-xs font-semibold text-content-tertiary">
                 {{ navigationChild.title }}
               </li>
@@ -44,25 +44,6 @@
                     {{ subChild.title }}
                   </a>
                 </li>
-                <div v-if="isExpanded(subChild)">
-                  <li
-                    v-for="childPage in subChild.children"
-                    :key="childPage.title"
-                    role="presentation"
-                    class="group rounded-md"
-                    :class="isActive(childPage) ? 'bg-surface-tertiary-hover' : 'hover:bg-surface-tertiary'"
-                  >
-                    <a
-                      role="menuitem"
-                      class="block py-2 pl-8 text-xs text-content-tertiary"
-                      :aria-current="isActive(childPage) ? 'page' : undefined"
-                      :href="pageHref(childPage)"
-                      @click="onPageLinkClick($event, childPage)"
-                    >
-                      {{ childPage.title }}
-                    </a>
-                  </li>
-                </div>
                 <div v-if="showHeadingsFor(subChild)">
                   <li
                     v-for="navigationGrandchild in subChild.headings"
@@ -265,10 +246,5 @@ function isActiveHeading(item, heading) {
 
 function hasActiveHeading(item) {
   return showHeadingsFor(item) && item.headings.some(heading => isActiveHeading(item, heading));
-}
-
-// Like page headings, child pages only show while you're on the page or one of its children.
-function isExpanded(page) {
-  return props.path === page.path || !!page.children?.some(child => child.path === props.path);
 }
 </script>

@@ -87,10 +87,14 @@ Handle network issues and unknown errors as described in [Merchant Integration E
 
 Follow [Testing Payments](/guides/creating-test-money) to create test money so you can pay your test Payment Requests.
 
-## 7. Integration Checklist
+## 7. Initiate Refunds
 
-Before going live, work through the [Integration Checklist](/guides/integration-checklist) to confirm your integration is complete.
+Paid Payment Requests can be [refunded](/api/payment-requests#refund-a-payment-request). [Refunds](/guides/initiating-refunds) MUST be initiated using the `id` or `shortCode` of the [Payment Request](/api/payment-requests#payment-request-model), so one of them MUST be made available to the patron (e.g. on a printed receipt).
 
-## 8. Contact Us to Go Live
+## 8. Integration Checklist
 
-Once your integration is complete, get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will provide a certification checklist before you go live.
+Get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com) and Centrapay will provide the [Integration Checklist](/guides/integration-checklist) for your integration. Work through the checklist and provide evidence for each item, so Centrapay can confirm your integration is complete.
+
+## 9. Contact Us to Go Live
+
+Once your checklist is complete, contact [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will set up your account for live payments, so you can create your live API key and go live.

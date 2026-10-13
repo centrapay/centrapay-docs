@@ -10,25 +10,7 @@ nav:
 
 Integrating a point of sale (POS) terminal with Centrapay APIs allows merchants to accept payment via any Centrapay-enabled apps without installing additional POS hardware or software.
 
-### Before You Begin
-
-{% partial file="../../partials/sales-channel-prerequisites.mdoc" /%}
-
-### Core Requirements
-
-Centrapay POS integrations must be able to [create](/api/payment-requests#create-a-payment-request), [void](/api/payment-requests#void-a-payment-request) and [refund](/api/payment-requests#refund-a-payment-request) Payment Requests on behalf of Merchants.
-
-The POS authenticates against Centrapay APIs using a single “merchant terminal” API key.
-
-- The POS MUST connect with the patron using either the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
-- [Merchant integration errors](/guides/merchant-integration-error-handling) MUST be handled correctly.
-- [Initiating refunds](/guides/initiating-refunds) MUST be performed using the `id` or `shortCode` [Payment Request](/api/payment-requests#payment-request-model) fields.
-- The `id` or `shortCode` MUST be made available to the patron (e.g. on paper print-out).
-- Paid [Asset Types](/api/asset-types) MUST be made available for merchant [Transaction Reporting](/guides/transaction-reporting).
-
 ## Payment Flow
-
-The POS connects with the patron using one of two flows. In both, the POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request) and [polls it](/api/payment-requests#get-a-payment-request) until its status is no longer `new`.
 
 - [QR Code Flow](/guides/merchant-integration-qr-code-flow): the POS displays a QR code for the patron to scan with their Centrapay app.
 - [Barcode Flow](/guides/merchant-integration-barcode-flow): the POS scans a barcode presented by the patron.
