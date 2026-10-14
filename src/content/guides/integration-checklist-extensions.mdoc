@@ -62,7 +62,8 @@ If a network error occurs while confirming a Pre-Auth, the confirmation may fail
 
 **How to meet it:**
 
-Automatically retry Pre-Auth confirmations on network errors using the same idempotency key, as described in [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors).
+- Implement automatic retry logic for Pre-Auth confirmations when network errors occur.
+- Ensure retries use the same idempotency key so repeated attempts do not create duplicate confirmations.
 
 **Evidence:**
 
