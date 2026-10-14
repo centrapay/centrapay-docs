@@ -216,14 +216,13 @@ Proper timeout handling prevents scenarios where a customer successfully pays vi
 
 **How to meet it:**
 
-Time out the terminal or POS **5–10 seconds after** the Payment Request expires, as described in [Configure POS Timeout](/guides/merchant-integration-error-handling#configure-pos-timeout).
+The terminal or POS must time out **5–10 seconds after** the Payment Request expires.
 
 **Evidence:**
 
 - Screenshots of POS/terminal timeout configuration.
 - Logs showing the Payment Request expiry timestamp and the corresponding POS/terminal timeout.
 - Test recordings demonstrating correct timeout behaviour.
-- Code snippets showing how the terminal or POS timeout is set relative to the Payment Request expiry.
 
 **Resources:**
 
@@ -239,7 +238,7 @@ Unknown errors can often be resolved by retrying the request. Automatic retries 
 
 **How to meet it:**
 
-Automatically retry any API call to Centrapay at least once when an unknown error occurs, as described in [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors).
+For any API call to Centrapay, if an unknown error occurs, the integration must automatically retry at least once before failing the transaction.
 
 **Evidence:**
 
@@ -290,7 +289,6 @@ Handle malformed, empty and unexpected responses gracefully, as described in [Un
 
 - Application logs showing unexpected responses being handled and the system continuing to operate.
 - Automated test reports simulating malformed responses and confirming recovery.
-- Code snippets showing how malformed or unexpected responses are handled.
 
 **Resources:**
 
@@ -396,7 +394,9 @@ The Payment Request status is the source of truth for determining whether a requ
 
 **How to meet it:**
 
-Poll the Payment Request and act on each status, as described in [Poll for Payment Status](/guides/merchant-integration-error-handling#poll-for-payment-status).
+- Poll the Payment Request using the Get Payment Request endpoint at regular intervals (e.g. every second).
+- Use the returned status to determine if a Payment Request has been paid, cancelled, or expired, and take the corresponding action.
+- Ensure the polling logic handles errors gracefully.
 
 **Evidence:**
 
@@ -405,7 +405,6 @@ Poll the Payment Request and act on each status, as described in [Poll for Payme
 
 **Resources:**
 
-- [Poll for Payment Status](/guides/merchant-integration-error-handling#poll-for-payment-status)
 - [Get Payment Request](/api/payment-requests#get-a-payment-request)
 
 ---
@@ -465,7 +464,7 @@ Leaving an open Payment Request can lead to unresolved transactions, potential c
 
 **How to meet it:**
 
-Void any Payment Request as soon as the POS or terminal determines it will not be completed, as described in [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests).
+Automatically void any Payment Request as soon as the POS or system determines it will not be completed (e.g. cancelled by the user or merchant).
 
 **Evidence:**
 
