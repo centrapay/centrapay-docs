@@ -2,8 +2,9 @@
 title: Loyalty Programs
 description: Complete promotions and earn points with Centrapay.
 nav:
-  path: Digital Assets
-  order: 5
+  title: Overview
+  path: Digital Assets/Loyalty Programs
+  order: 1
 ---
 A Loyalty Program is a collection of Promotions that reward accounts for completing certain actions. For example, a Loyalty Program could be set up to reward accounts with points every time they make a payment.
 
@@ -28,17 +29,19 @@ sequenceDiagram
 ```
 
 1. [Create Loyalty Program](/api/loyalty-programs/#create-loyalty-program)
-    - A Loyalty Program is a container for the Promotions that will be created in step 2.
-2. [Create Promotion(s)](/api/promotions/#create-promotion)
+    - A Loyalty Program is a container for the Promotions that will be created in step 3.
+2. [Activate Loyalty Program](/api/loyalty-programs/#activate-loyalty-program)
+    - A Loyalty Program must be activated before it can be used.
+3. [Create Promotion(s)](/api/promotions/#create-promotion)
     - Promotions contain conditions, a target, and a reward.
-3. [Create Account](/api/accounts/#create-an-account)
+4. [Create Account](/api/accounts/#create-an-account)
     - This will be the account that will participate in the Loyalty Program.
-4. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/#create-loyalty-program-memberships)
+5. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/#create-loyalty-program-memberships)
     - This will onboard the Account to the Loyalty Program. A Promotion Membership will be created for each Promotion under the Loyalty Program.
     - A Promotion Membership contains the progress for the Account towards completing the Promotion.
-5. [Create Events](/api/events/#create-event)
+6. [Create Events](/api/events/#create-event)
     - When Accounts perform actions, Events are generated that are used to increment progress on their Promotion Memberships. Centrapay generates some Events internally but you can use this API if you'd like to send us Events from your own application.
-6. [List Promotion Memberships for Account](/api/promotion-memberships/#list-promotion-memberships-by-account)
+7. [List Promotion Memberships for Account](/api/promotion-memberships/#list-promotion-memberships-by-account)
     - This will return the Account's Promotion Memberships along with their current progress and whether they have been completed or not.
 
 ## Events
@@ -61,13 +64,20 @@ When an Event is generated for an Account, Centrapay will look up all the Promot
 
 ## Creating Promotions
 
+### Type
+
+A Promotion's `type` decides how progress is counted and when rewards are handed out.
+
+- `challenge` sets a target to reach. Each Account works toward the target on its own, unless the target is [`shared`](/guides/loyalty-programs-shared-promotions), in which case the whole community contributes to one goal.
+- `draw` collects entries and picks winners when the Promotion ends. See [Draw Promotions](/guides/loyalty-programs-draw-promotions).
+
 ### eventType
 
 `eventType` must match the `type` on the Event that will cause the Promotion Membership to be incremented.
 
-There are some native Event types that Centrapay generates that you can use. They can be found [here](/api/centrapay-event-types/).
+There are some native Event types that Centrapay generates that you can use, such as `payment-request:paid`.
 
-You should NOT send us Events with a `type` that matches any of those in the linked page above. You CAN create Promotions with those Event types if you wish to reward Accounts for native Centrapay Events.
+You should NOT send us Events with a `type` that Centrapay generates itself. You CAN create Promotions with those Event types if you wish to reward Accounts for native Centrapay Events.
 
 ### Conditions
 
@@ -77,8 +87,14 @@ Each condition has a `field` property that references a field in the `data` obje
 
 ### Target
 
-This defines how much progress is needed to complete the Promotion Membership.
+The target, set in `params.target`, defines how much progress is needed to complete the Promotion Membership. How that progress is counted depends on the target's `type`.
+
+- `count` adds 1 per qualifying Event.
+- `sum` adds the value of the Event field named by `field`.
+- [`shared`](/guides/loyalty-programs-shared-promotions) pools the progress of every member toward one goal.
+
+Draw Promotions have no target.
 
 ### Rewards
 
-Rewards are given to the Account when the Promotion Membership is completed. The Account will receive ALL the rewards defined on the Promotion.
+Rewards are set in `params.rewards` as an `and` group, and are given to the Account when the Promotion Membership is completed. The Account will receive ALL the rewards in the group. [Draw Promotions](/guides/loyalty-programs-draw-promotions) instead use an `or` group, where each branch is a separate prize.
