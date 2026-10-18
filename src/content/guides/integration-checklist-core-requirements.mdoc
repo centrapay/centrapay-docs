@@ -226,7 +226,7 @@ The terminal or POS must time out **5–10 seconds after** the Payment Request e
 
 **Resources:**
 
-- [Error Handling](/guides/merchant-integration-error-handling/)
+- [Configure POS Timeout](/guides/merchant-integration-error-handling#configure-pos-timeout)
 
 ---
 
@@ -235,8 +235,6 @@ The terminal or POS must time out **5–10 seconds after** the Payment Request e
 **Integration types:** All
 
 Unknown errors can often be resolved by retrying the request. Automatic retries improve the user experience by avoiding unnecessary manual intervention.
-
-Unknown errors include: network or connectivity issues, unexpected API responses, transient server errors, timeouts, and unexpected data or edge cases.
 
 **How to meet it:**
 
@@ -250,7 +248,7 @@ For any API call to Centrapay, if an unknown error occurs, the integration must 
 
 **Resources:**
 
-- [Merchant Integration Errors](/guides/merchant-integration-error-handling/)
+- [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors)
 
 ---
 
@@ -272,8 +270,8 @@ If a transaction's status cannot be determined after retries, the Payment Reques
 
 **Resources:**
 
-- [Merchant Integration Error Handling — Void Unknown Status](/guides/merchant-integration-error-handling/#void-unknown-status)
-- [Void a Payment Request](/api/payment-requests#void)
+- [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests)
+- [Void a Payment Request](/api/payment-requests#void-a-payment-request)
 
 ---
 
@@ -285,18 +283,16 @@ Integrations must continue to function even if Centrapay returns an unexpected o
 
 **How to meet it:**
 
-Implement error-handling logic that gracefully manages unexpected or malformed responses, including:
-
-- Malformed responses (e.g. invalid JSON, HTML error pages, plain text).
-- Unexpected HTTP status codes (500, 502, 503, 504).
-- Empty or missing responses due to timeouts or dropped connections.
-- Incomplete or corrupted data (missing fields or unexpected schema).
-- TLS handshake failures or abrupt disconnects.
+Handle malformed, empty and unexpected responses gracefully, as described in [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors).
 
 **Evidence:**
 
 - Application logs showing unexpected responses being handled and the system continuing to operate.
 - Automated test reports simulating malformed responses and confirming recovery.
+
+**Resources:**
+
+- [Unknown Errors](/guides/merchant-integration-error-handling#unknown-errors)
 
 ---
 
@@ -477,7 +473,8 @@ Automatically void any Payment Request as soon as the POS or system determines i
 
 **Resources:**
 
-- [Void a Payment Request](/api/payment-requests/#void-a-payment-request)
+- [Void Incomplete Payment Requests](/guides/merchant-integration-error-handling#void-incomplete-payment-requests)
+- [Void a Payment Request](/api/payment-requests#void-a-payment-request)
 
 ---
 
