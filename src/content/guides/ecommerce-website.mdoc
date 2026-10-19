@@ -10,14 +10,6 @@ nav:
 ---
 Centrapay enables businesses to process payments with connected Centrapay assets online. To process online payments, businesses need to integrate with one of our redirect or popup e-commerce payment flows.
 
-## Before You Begin
-
-If you decide to use the redirect flow, you can add your allowed domains for redirect URLs in the Business Portal.
-
-> We strongly recommend Centrapay APIs are invoked from your backend where your API key is securely stored.
-
-Once you have confirmed your integration needs, we will also provide you with a customized integration checklist. Accepting live payments requires you to meet our certification requirements.
-
 ## Centrapay Checkout Sample
 
 A [sample Centrapay e-commerce application](https://github.com/centrapay/centrapay-checkout-sample) is available.
@@ -27,8 +19,6 @@ Please refer to the README.md file for configuration instructions.
 ## Backend Server
 
 Both the redirect and popup methods require a backend server to securely call the Centrapay API using your API key. The client-side examples in this guide call this server at `/api/payment-requests`, which proxies the request to Centrapay so your API key is never exposed to the browser.
-
-All Centrapay API requests are made against the base URL `https://service.centrapay.com`. There is no separate sandbox host — test and live payments use the same URL and are determined by the API key you use.
 
 ```javascript title="Server-side — Node.js/Express"
 import express from 'express';
@@ -121,15 +111,13 @@ autonumber
 
 ### Implementation
 
-> Your merchant must be configured with allowed domains for your redirect URLs.
-
 1. Display Centrapay as a payment option on checkout.
 2. When the customer places an order using the Centrapay payment option, [Create a Payment Request](/api/payment-requests/#create-a-payment-request).
   **You must define a `redirectPaidUrl` and a `redirectCancelUrl`.**
 
-    Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
-    - [Line Items](/guides/line-items)
-    - [Requesting Pre Auth](/guides/requesting-pre-auth)
+    > When you add your E-commerce merchant site in the Business Portal, enter your website in the **Website** field, and select **Add another website** for any other domains. Your `redirectPaidUrl` and `redirectCancelUrl` must use one of these domains.
+
+    ![The Add a Merchant Site form with the E-commerce merchant site type selected and a website entered](/appIcons/e-commerce/ecommerce-merchant.png)
 
     Centrapay will return a `url` which you are expected to redirect the customer to.
 
@@ -265,10 +253,6 @@ autonumber
         This callback is triggered when the customer clicks the 'Pay with Centrapay' button.
 
         The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request.
-        Our payment protocol supports several optional extensions. Please review the extensions below and determine which ones you need for your integration.
-        - [Line Items](/guides/line-items)
-        - [Requesting Pre Auth](/guides/requesting-pre-auth)
-
         See [Create a Payment Request](/api/payment-requests/#create-a-payment-request) for the full list of parameters and error codes.
 
     2. `onComplete`
