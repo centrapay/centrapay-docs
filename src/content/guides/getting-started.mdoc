@@ -57,7 +57,25 @@ Revoke a key promptly if it has been exposed, if someone leaves your team, or if
 
 ![The revoke confirmation dialog warning that revoking cannot be undone](/getting-started/revoke-api-key-modal.png)
 
-## 6. Build Your Integration
+## 6. Add Your Merchant Sites
+
+Create a merchant for your business in the Business Portal. Each merchant has a [Merchant Config](/api/merchant-configs), which tells Centrapay which merchant a payment goes to and which payment methods the merchant accepts.
+
+Make sure you're in test mode. Go to **Merchants** and select **Add a merchant site**.
+
+![The Merchant Sites page, with Merchants in the sidebar and the Add a merchant site button highlighted](/getting-started/add-merchant-site1.png)
+
+Enter the merchant details, select the merchant site type that matches your integration (**In-store** or **E-commerce**), and select **Add** to add the merchant.
+
+![The Add a merchant site form, showing the merchant site type and physical address fields](/getting-started/add-merchant-site2.png)
+
+![The Merchant Sites list showing the new merchant site](/getting-started/add-merchant-site3.png)
+
+Then go to the **Developer** section and find the merchant's Merchant Config ID in the **Merchant Config IDs** list. You will need this ID as the `configId` when you create Payment Requests in [step 7](#7-build-your-integration).
+
+![The Developer section with the merchant's Config ID highlighted in the Merchant Config IDs list](/getting-started/add-merchant-site4.png)
+
+## 7. Build Your Integration
 
 Before you begin, you need:
 
@@ -65,9 +83,11 @@ Before you begin, you need:
 
     > See [API Key Best Practice](/api/auth#best-practice).
 
-- **A Merchant Config ID:** each Payment Request must be created with the `configId` of the Merchant's [Merchant Config](/api/merchant-configs), which sets the payment methods the merchant accepts.
+- **A Merchant Config ID:** the `configId` of your merchant, from [step 6](#6-add-your-merchant-sites). Each Payment Request must be created with this ID as its `configId`.
 
-With your test environment ready, implement the core payment flow for your channel:
+Make all API requests to `https://service.centrapay.com`. There is no separate sandbox host: test and live payments use the same URL, and your API key decides which one you're using. While you build, use the test API key from [step 4](#4-create-an-api-key).
+
+Then implement the core payment flow for your channel:
 
 | Type | Best For |
 | --- | --- |
@@ -88,14 +108,14 @@ Handle network issues and unknown errors as described in [Merchant Integration E
 
 Follow [Testing Payments](/guides/creating-test-money) to create test money so you can pay your test Payment Requests.
 
-## 7. Initiate Refunds
+## 8. Initiate Refunds
 
 Paid Payment Requests can be [refunded](/api/payment-requests#refund-a-payment-request). [Refunds](/guides/initiating-refunds) MUST be initiated using the `id` or `shortCode` of the [Payment Request](/api/payment-requests#payment-request-model), so one of them MUST be made available to the patron (e.g. on a printed receipt).
 
-## 8. Integration Checklist
+## 9. Integration Checklist
 
 Get in touch at [integrations@centrapay.com](mailto:integrations@centrapay.com) and Centrapay will provide the [Integration Checklist](/guides/integration-checklist) for your integration. Work through the checklist and provide evidence for each item, so Centrapay can confirm your integration is complete.
 
-## 9. Contact Us to Go Live
+## 10. Contact Us to Go Live
 
 Once your checklist is complete, contact [integrations@centrapay.com](mailto:integrations@centrapay.com). Centrapay will set up your account for live payments, so you can create your live API key and go live.
