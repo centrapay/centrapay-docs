@@ -8,7 +8,8 @@ export default {
     },
     payload: {
       name: 'Centrapay Cafe',
-      type: 'org'
+      type: 'org',
+      region: 'NZ',
     },
   },
   response: {
