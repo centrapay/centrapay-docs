@@ -90,16 +90,24 @@ individual account.
       Account type, must be either "org" or "individual".
     {% /property %}
 
+    {% property name="region" type="string" %}
+      The region that the Account will operate in. Required for "org" Accounts, not allowed for "individual" Accounts. Can be "NZ", "AU", or "US".
+    {% /property %}
+
     {% property name="owner" type="string" %}
       Id of user to add as member with "account-owner" role.
     {% /property %}
 
     {% property name="test" type="boolean" %}
-      A flag indicating if the Account is for testing. Test Accounts will not be able to create non-test Accounts.
+      A flag indicating if the Account is for testing. Test Accounts will not be able to create non-test Accounts. Defaults to the parent Account's value when a parent Account is set.
     {% /property %}
 
-    {% property name="region" type="string" %}
-      The region that the Account will operate in. Required for 'org' Accounts, not allowed for 'individual' Accounts. Can be "NZ", "AU", or "US".
+    {% property name="parentAccountId" type="string" %}
+      The id of the parent Account. The caller must be authorized to create child Accounts on the parent Account.
+    {% /property %}
+
+    {% property name="subscriptions" type="array" %}
+      Subscriptions to assign to the Account. Only allowed for test "org" Accounts. Can include "integrator:sales-channel".
     {% /property %}
   {% /properties %}
 {% /endpoint %}
