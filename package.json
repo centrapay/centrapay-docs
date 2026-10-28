@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@astrojs/markdoc": "2.0.9",
-    "@astrojs/markdown-remark": "7.2.4",
+    "@astrojs/markdown-remark": "7.3.0",
     "@astrojs/vue": "7.0.3",
     "@babel/eslint-parser": "^7.14.7",
     "@eslint/js": "^9.10.0",
@@ -25,7 +25,7 @@
     "@stoplight/spectral-cli": "6.16.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "7.2.8",
+    "astro": "7.3.2",
     "astro-expressive-code": "^0.44.2",
     "eslint": "^9.10.0",
     "eslint-plugin-astro": "^1.2.4",
@@ -52,11 +52,12 @@
     "path": "^0.12.7",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.6.2",
-    "vitest": "^4.1.11",
+    "vitest": "^4.1.12",
     "vue": "^3.5.12"
   },
   "resolutions": {
-    "form-data@npm:4.0.0": "4.0.6"
+    "form-data@npm:4.0.0": "4.0.6",
+    "postcss-selector-parser@npm:6.0.10": "6.1.5"
   },
   "packageManager": "yarn@4.5.1"
 }
