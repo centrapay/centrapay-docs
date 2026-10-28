@@ -6,9 +6,9 @@ nav:
   order: 1
 ---
 
-The recommended way to test payment integrations is using the `centrapay.nzd.test` asset. If your integration works with the Centrapay app, it will work with any app on the Centrapay platform.
+Test your payment integration with Centrapay test money, the `centrapay.nzd.test` asset, which behaves like real money but doesn't move any real funds. To test a payment, you act as the customer using the **Centrapay wallet**, Centrapay's consumer app at [app.centrapay.com](https://app.centrapay.com), where customers hold their assets and pay by scanning a payment QR code. Add test money to your wallet, then use it to pay your test Payment Requests. Any app on the Centrapay platform pays the same way as the Centrapay wallet, so if your integration works with the wallet, it works with all of them.
 
-1. **Create an account**: Go to [https://app.centrapay.com](https://app.centrapay.com), create an account, and log in.
+1. **Create a personal account**: Go to the Centrapay wallet at [app.centrapay.com](https://app.centrapay.com), sign up as a customer, and log in.
 2. **Enable test assets**: Navigate to [https://app.centrapay.com/config](https://app.centrapay.com/config). Under Features, toggle **Test Assets Enabled** on, then tap **Apply Changes**. You'll be redirected back to the wallet page, where a **Topup** option is now available.
 3. **Top up**: Tap **Topup** in the bottom navigation. Select an amount and tap **Topup** — funds are added to your account instantly.
 4. **Pay**: Tap **Scan**, point the camera at a payment QR code, and complete the payment using your test balance.

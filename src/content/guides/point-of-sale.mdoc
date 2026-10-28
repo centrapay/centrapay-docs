@@ -17,10 +17,16 @@ Integrating a point of sale (POS) terminal with Centrapay APIs allows merchants 
 
 ## Interface Guidelines
 
-Please use the [Centrapay Brand Assets](https://centrapay.com/brand-assets/) when building the UI for Centrapay payments.
+Use the [Centrapay Logos](/guides/centrapay-logos) when building the UI for Centrapay payments.
 
-- **Payment option:** Show Centrapay as a payment option the cashier can clearly see. If Farmlands is the only payment option the merchant accepts, show **Farmlands** instead.
-- **QR codes:** Display Centrapay QR codes with the Centrapay logo in the centre.
-- **Payment status:** Clearly show the current status of the [Payment Request](/api/payment-requests#payment-request-model), and update it as soon as the status changes.
-- **Payment method:** Show the payment method used on the customer-facing interface or receipt, using the description in the Payment Request's [`paidBy`](/api/payment-requests#paid-by-model) field.
-- **Receipts:** Print the Payment Request `id` or `shortCode` on the receipt so it can be used for [refunds](/guides/initiating-refunds).
+### Payment Option
+
+Always display **Centrapay** as a payment option. Choose the **Centrapay logo** format that best suits the POS system's design. Use the [Centrapay brand orange](/guides/centrapay-logos#brand-colour) wherever possible.
+
+![A POS payment screen with an orange Centrapay payment option button](/guideline/guideline-03.png)
+
+### QR Code
+
+The payment QR code screen must display the **Centrapay logo**, for example above or below the QR code, or in the centre of the QR code. The copy can be "**Scan to pay**" or "**Scan to pay with Centrapay**".
+
+![A POS screen showing a Centrapay QR code with the Centrapay logo and Scan to pay with Centrapay copy](/guideline/guideline-04.png)
