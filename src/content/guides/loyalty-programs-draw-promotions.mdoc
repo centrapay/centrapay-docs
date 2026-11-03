@@ -1,0 +1,74 @@
+---
+title: Draw Promotions
+description: Collect entries from members and draw winners for a limited pool of prizes.
+nav:
+  title: Draws
+  path: Digital Assets/Loyalty Programs
+  order: 3
+---
+A draw rewards a limited number of members chosen at random, rather than everyone who qualifies.
+
+Members earn entries by generating qualifying Events. When the Promotion ends, Centrapay picks winners from those entries, issues the prizes, and closes the Promotion.
+
+## How a Draw Differs
+
+| | Challenge | Draw |
+| :--- | :--- | :--- |
+| `endsAt` | Optional | Required - it is when the draw runs |
+| `params.target` | Required | Not allowed |
+| `params.progress` | Not allowed | Required |
+| `repeatable` | Allowed | Not allowed |
+| Reward supply | Optional | Required on every reward |
+
+## Earning Entries
+
+A draw has no target. Instead, `params.progress` sets the bounds on how many entries a single Account can earn.
+
+{% properties %}
+  {% property name="minimum" type="number" required=true %}
+    The progress an Account must reach before it starts earning entries. The qualifying Event that takes the Account to `minimum` earns its first entry, and every qualifying Event after that earns another.
+  {% /property %}
+
+  {% property name="maximum" type="number" %}
+    The most progress a single Account can accumulate. Once reached, the Account stops earning entries. Leave it out for an uncapped draw.
+  {% /property %}
+{% /properties %}
+
+More entries mean better odds: an Account that earns six entries has six chances of being picked, but can still only win once.
+
+## Prizes
+
+A draw's rewards describe prize tiers rather than a single payout, so `params.rewards` is an `or` group. Each direct child of that `or` is a separate prize that is drawn for on its own.
+
+Every prize must declare a `totalSupply`, and that is what sets how many winners it has. Multiply `amount` by the number of winners you want: a prize of `amount` 1000 awarded to ten members needs a `totalSupply` of 10000.
+
+```json {% title="One grand prize, then ten runner-up prizes" %}
+{
+  "type": "draw",
+  "eventType": "payment-request:paid",
+  "endsAt": "2026-03-01T00:00:00.000Z",
+  "params": {
+    "progress": {
+      "minimum": 5
+    },
+    "rewards": {
+      "or": [
+        { "assetType": "centrapay.nzd.main", "amount": "10000", "totalSupply": "10000" },
+        { "assetType": "centrapay.nzd.main", "amount": "1000", "totalSupply": "10000" }
+      ]
+    }
+  }
+}
+```
+
+The example above enters an Account after five qualifying payments, and offers one grand prize of $100, then ten runner-up prizes of $10 each.
+
+## Running the Draw
+
+The draw runs when `endsAt` passes. No API call is needed.
+
+Winners are drawn one prize at a time, each from the whole pool of entries. An Account can win at most once across the entire draw, so once it is picked its remaining entries are set aside. If a prize has more winners than there are eligible entries, the leftover prizes go unclaimed.
+
+Each reward on the Promotion then carries an `issuedToAccountIds` array naming its winners; an empty array means nobody won that prize.
+
+Once prizes are issued the Promotion is ended, completing the winners' memberships and expiring everyone else's.
