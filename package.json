@@ -39,7 +39,7 @@
     "eslint-plugin-vue": "^9.28.0",
     "flexsearch": "^0.7.43",
     "github-slugger": "^2.0.0",
-    "glob": "^9.0.0",
+    "glob": "^14.0.0",
     "globals": "^15.9.0",
     "gray-matter": "^4.0.3",
     "httpsnippet": "^3.0.1",
