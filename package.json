@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . && spectral lint --fail-severity=warn src/content/api/openapi/index.yaml",
-    "linkinator": "linkinator dist/",
+    "linkinator": "linkinator dist/ --config linkinator.config.json",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
