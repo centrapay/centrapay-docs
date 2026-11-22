@@ -1,0 +1,57 @@
+put:
+  x-method: PUT
+  x-path: /api/accounts/{accountId}/api-keys/{apiKeyName}
+  operationId: updateApiKey
+  summary: Update an API Key
+  description: This endpoint allows you to enable or disable an API key.
+  tags:
+    - api-keys
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+    - name: apiKeyName
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MyAPIkey
+      description: The API Key name.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - enabled
+          properties:
+            enabled:
+              $ref: '../models/api-key.yaml#/properties/enabled'
+        examples:
+          default:
+            value:
+              enabled: false
+  responses:
+    '200':
+      description: API Key updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/api-key.yaml'
+          examples:
+            default:
+              value:
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                name: MyAPIkey
+                createdAt: '2020-06-01T22:34:31.308Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                modifiedAt: '2020-07-02T22:34:31.308Z'
+                modifiedBy: crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyAPIkey
+                enabled: false
+                version: '2'
+                role: merchant-terminal

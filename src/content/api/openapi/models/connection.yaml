@@ -1,0 +1,45 @@
+x-title: Connection Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Connection.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Connection.
+  createdByAccountName:
+    type: string
+    description: The name of the Account that created the Connection.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Connection was created.
+  status:
+    type: string
+    description: The status of the Connection. Can be `created` or `authorized`.
+  url:
+    type: string
+    description: The url of the Connection.
+  merchantId:
+    type: string
+    description: The [Merchant](/api/merchants/) the Connection is made on behalf of.
+  test:
+    type: boolean
+    description: '`true` if the Connection is for testing purposes only.'
+  walletId:
+    type: string
+    description: The id of the Wallet that authorized the Connection.
+  walletName:
+    type: string
+    description: The name of the Wallet that authorized the Connection.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Connection was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Connection.

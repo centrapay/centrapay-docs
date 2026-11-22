@@ -1,0 +1,40 @@
+get:
+  x-method: GET
+  x-path: /api/asset-transfers/{assetTransferId}
+  operationId: getAssetTransfer
+  summary: Get an Asset Transfer
+  description: 'This endpoint allows you to retrieve an [Asset Transfer](#asset-transfer-model).'
+  tags:
+    - asset-transfers
+  parameters:
+    - name: assetTransferId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: M7Kn2stAxNa6ri7h
+      description: The Asset Transfer id.
+  responses:
+    '200':
+      description: Asset Transfer retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-transfer.yaml
+          examples:
+            default:
+              value:
+                id: M7Kn2stAxNa6ri7h
+                status: claimed
+                value: '6000'
+                assetId: YGRo6TYYSxH3js7
+                assetType: centrapay.token.main
+                description: Centrapay Token
+                message: Happy birthday
+                senderName: My Cafe
+                recipientAccountId: 9EDxUT91TMsUjoqoQeBuLQ
+                claimedByAccountId: 9EDxUT91TMsUjoqoQeBuLQ
+                recipientAlias: +64******2345
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-02T01:03:37.222Z'
+                suppressNotifications: false

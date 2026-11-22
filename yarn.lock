@@ -2239,9 +2239,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stoplight/spectral-cli@npm:6.16.1":
-  version: 6.16.1
-  resolution: "@stoplight/spectral-cli@npm:6.16.1"
+"@stoplight/spectral-cli@npm:6.17.1":
+  version: 6.17.1
+  resolution: "@stoplight/spectral-cli@npm:6.17.1"
   dependencies:
     "@scarf/scarf": "npm:^1.4.0"
     "@stoplight/json": "npm:~3.21.0"
@@ -2265,7 +2265,7 @@ __metadata:
     yargs: "npm:~17.7.2"
   bin:
     spectral: dist/index.js
-  checksum: 10/c3cad3a5bbe8f4efd31806367cbc02f263c7bc52297c26a7da8a18d72a3180ce33f4f0c17b0f20a06f1094298c9513427e1bfbc89b4077ad3cbffb90b64de9cc
+  checksum: 10/8046254569f120a2d20f27359d0d7bf77e3833bd1d41931b0fbf0fa5e29489ecbc6ce5059f23ffb305c79e482608e5340bcc2cf1413b9487b9b4b08707f87d82
   languageName: node
   linkType: hard
 
@@ -4404,7 +4404,7 @@ __metadata:
     "@headlessui/vue": "npm:^1.6.0"
     "@intercom/messenger-js-sdk": "npm:^0.0.18"
     "@markdoc/markdoc": "npm:0.5.4"
-    "@stoplight/spectral-cli": "npm:6.16.1"
+    "@stoplight/spectral-cli": "npm:6.17.1"
     "@tailwindcss/typography": "npm:^0.5.15"
     "@tailwindcss/vite": "npm:^4.1.11"
     astro: "npm:7.3.3"

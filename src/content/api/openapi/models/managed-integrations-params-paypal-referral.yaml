@@ -1,0 +1,12 @@
+x-title: paypal-referral
+type: object
+required:
+  - centrapayMerchantId
+  - email
+properties:
+  centrapayMerchantId:
+    type: string
+    description: The ID of the Centrapay merchant that will be onboarded.
+  email:
+    type: string
+    description: The email address to send the PayPal referral to.

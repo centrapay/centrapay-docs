@@ -1,0 +1,40 @@
+get:
+  x-method: GET
+  x-path: /api/merchants/{merchantId}/supported-wallets
+  x-experimental: true
+  operationId: listMerchantSupportedWallets
+  summary: List Supported Wallets for Merchant
+  description: This endpoint allows you to retrieve a list of [Wallets](#wallet-model) that a merchant supports. Wallets are filtered to match the merchant's supported assets.
+  tags:
+    - wallets
+  x-request-headers: {}
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: MhocUmpxxmgdHjr7DgKoKw
+      description: The ID of the merchant for which to list matching wallets.
+  responses:
+    '200':
+      description: Wallets listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/wallet.yaml'
+          examples:
+            default:
+              value:
+                - id: payap
+                  name: Payap
+                  accountId: abc123
+                  connectUrl: https://app.payap.com/join
+                  payUrl: https://app.payap.com/pay
+                  status: created
+                  assetTypes:
+                    - id: quartz.nzd
+                    - id: centrapay.token
+                      collectionId: 98h1d312

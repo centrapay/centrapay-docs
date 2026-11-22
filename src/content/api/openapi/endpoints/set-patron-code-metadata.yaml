@@ -1,0 +1,62 @@
+post:
+  x-method: POST
+  x-path: /api/patron-codes/{patronCodeId}/metadata
+  operationId: setPatronCodeMetadata
+  summary: Set Patron Code Metadata
+  description: |
+    This endpoint allows you to set metadata on a Patron Code. Metadata is merged with any existing
+    keys — only the keys provided in the request are affected. To remove a key, set its value to an
+    empty string.
+  tags:
+    - patron-codes
+  parameters:
+    - name: patronCodeId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The Patron Code id.
+      example: V17FByEP9gm1shSG6a1Zzx
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - metadata
+          properties:
+            metadata:
+              type: object
+              description: A map of key-value pairs to attach to the Patron Code. Keys must be alphanumeric with underscores or dashes (max 64 characters). Values must be strings (max 256 characters). Maximum of 10 keys.
+        examples:
+          default:
+            value:
+              metadata:
+                deviceId: device-001
+  responses:
+    '200':
+      description: Patron Code metadata set
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                patronCodeId: V17FByEP9gm1shSG6a1Zzx
+                createdAt: '2021-06-08T22:55:00.000Z'
+                createdBy: crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyApiKey
+                metadata:
+                  deviceId: device-001
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            PATRON_CODE_INVALID:
+              description: Patron Code doesn't exist or it has expired.
+              value:
+                message: PATRON_CODE_INVALID

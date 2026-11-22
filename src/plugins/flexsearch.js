@@ -6,12 +6,14 @@ import grayMatter from 'gray-matter';
 import { load as loadYaml } from 'js-yaml';
 import Markdoc from '@markdoc/markdoc';
 import {
-  orderEndpoints,
-  getPaymentRequestsSections,
+  getPageSections,
+  indexOperations,
   firstParagraph,
-  PAYMENT_REQUESTS_HREF,
-  PAYMENT_REQUESTS_PATH,
+  pageHref,
+  pageNavPath,
+  OPENAPI_DIR,
 } from '../utils/openApiPage.js';
+import { getProperties, requestSchema } from '../utils/OpenApiResolver.js';
 
 // Mirrors the tokenizer `@astrojs/markdoc` builds for this site: `allowComments`
 // is always on, and `allowIndentation` follows `ignoreIndentation` in
@@ -263,13 +265,12 @@ export function stripMarkdown(text) {
 }
 
 function requestPropertyNames(operation) {
-  const schema = operation.requestBody?.content?.['application/json']?.schema;
-  return Object.keys(schema?.properties ?? {});
+  return getProperties(requestSchema(operation)).map(property => property.name);
 }
 
 function errorMessages(operation) {
   return Object.entries(operation.responses ?? {})
-    .filter(([code]) => code !== '200')
+    .filter(([code]) => !/^2\d\d$/.test(code))
     .flatMap(([, response]) => Object.keys(response?.content?.['application/json']?.examples ?? {}));
 }
 
@@ -288,53 +289,42 @@ function modelDetails(section, models) {
   return {
     ...section,
     description: firstParagraph(stripMarkdown(data['x-intro'] ?? '')),
-    keywords: Object.keys(data.properties ?? {}),
+    keywords: getProperties(data).map(property => property.name),
     prose: [stripMarkdown(data['x-intro'] ?? ''), stripMarkdown(data['x-outro'] ?? '')],
   };
 }
 
-function extraDetails(section, extras) {
-  const extra = extras.find(item => item.title === section.title);
-  return { ...section, description: '', keywords: [], prose: [stripMarkdown(extra.body)] };
+function extraDetails(section) {
+  return { ...section, description: '', keywords: [], prose: [stripMarkdown(section.body)] };
 }
 
-function endpointDetails(section, byOperationId) {
-  const operation = byOperationId[section.operationId];
+function endpointDetails(section, operations) {
+  const operation = operations[section.operationId];
   return {
     ...section,
-    description: firstParagraph(stripMarkdown(operation.description ?? '')),
+    description: firstParagraph(stripMarkdown(section.description ?? '')),
     keywords: endpointKeywords(operation),
-    prose: [stripMarkdown(operation.description ?? '')],
+    prose: [stripMarkdown(section.description ?? '')],
   };
 }
 
-function sectionDetails(section, context) {
+function sectionDetails(section, { models, operations }) {
   if (section.kind === 'model') {
-    return modelDetails(section, context.models);
+    return modelDetails(section, models);
   }
   if (section.kind === 'extra') {
-    return extraDetails(section, context.extras);
+    return extraDetails(section);
   }
-  return endpointDetails(section, context.byOperationId);
+  return endpointDetails(section, operations);
 }
 
-// Search entries for the spec-driven Payment Requests page, shaped like the
-// entries buildPageEntries produces for mdoc pages.
-export function buildOpenApiEntries({ href, path, page, endpointFiles, models }) {
-  const ordered = orderEndpoints({ paths: page.paths }, endpointFiles);
-  const byOperationId = Object.fromEntries(
-    endpointFiles.flatMap(file => file.operations.map(op => [op.operationId, op]))
-  );
-  const sections = getPaymentRequestsSections({
-    models: page.models.map(name => ({ name, title: models[name]['x-title'] ?? name })),
-    extras: page.extras,
-    endpoints: ordered,
-  });
-  const details = sections.map(section => sectionDetails(section, {
-    models,
-    extras: page.extras,
-    byOperationId,
-  }));
+// Search entries for a spec-driven API page, shaped like the entries
+// buildPageEntries produces for mdoc pages.
+export function buildOpenApiEntries({ id, page, endpointFiles, models }) {
+  const href = pageHref(id);
+  const path = pageNavPath(page);
+  const operations = indexOperations(endpointFiles);
+  const sections = getPageSections(page, { models, operations });
   return [
     finalizeSection({
       title: page.title,
@@ -345,12 +335,12 @@ export function buildOpenApiEntries({ href, path, page, endpointFiles, models })
       keywords: [],
       prose: [stripMarkdown(page.intro)],
     }),
-    ...details.map(section => finalizeSection({
+    ...sections.map(section => sectionDetails(section, { models, operations })).map(section => finalizeSection({
       title: section.title,
       href: `${href}#${section.anchor}`,
       path,
       description: section.description,
-      deprecated: false,
+      deprecated: section.badges.includes('deprecated'),
       keywords: section.keywords,
       prose: section.prose,
     })),
@@ -361,27 +351,25 @@ async function loadYamlFile(filepath) {
   return loadYaml(await fs.readFile(filepath, 'utf8'));
 }
 
+async function loadYamlDir(dir) {
+  const files = {};
+  for (const filepath of glob.sync(`${OPENAPI_DIR}/${dir}/*.yaml`).sort()) {
+    files[basename(filepath, '.yaml')] = await loadYamlFile(filepath);
+  }
+  return files;
+}
+
 export async function createOpenApiIndexEntries() {
-  const index = await loadYamlFile('src/content/api/openapi/index.yaml');
-  const page = index.info['x-page'];
-  const endpointFiles = [];
-  for (const filepath of glob.sync('src/content/api/openapi/endpoints/*.yaml').sort()) {
-    endpointFiles.push({
-      name: basename(filepath, '.yaml'),
-      operations: Object.values(await loadYamlFile(filepath)),
-    });
-  }
-  const models = {};
-  for (const filepath of glob.sync('src/content/api/openapi/models/*.yaml').sort()) {
-    models[basename(filepath, '.yaml')] = await loadYamlFile(filepath);
-  }
-  return buildOpenApiEntries({
-    href: PAYMENT_REQUESTS_HREF,
-    path: PAYMENT_REQUESTS_PATH,
-    page: { ...page, paths: index.paths },
+  const endpointFiles = Object.entries(await loadYamlDir('endpoints'))
+    .map(([name, pathItem]) => ({ name, operations: Object.values(pathItem) }));
+  const models = await loadYamlDir('models');
+  const pages = await loadYamlDir('pages');
+  return Object.entries(pages).flatMap(([id, page]) => buildOpenApiEntries({
+    id,
+    page,
     endpointFiles,
     models,
-  });
+  }));
 }
 
 export async function createFlexsearchIndexData({ includeDrafts = true } = {}) {

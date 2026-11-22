@@ -1,0 +1,157 @@
+put:
+  x-method: PUT
+  x-path: /api/managed-integrations/{type}/{externalId}
+  operationId: createOrUpdateManagedIntegration
+  summary: Create or Update Managed Integration
+  description: This endpoint allows you to create or update a Managed Integration.
+  tags:
+    - managed-integrations
+  parameters:
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - paypal-referral
+          - payap
+      example: paypal-referral
+      description: The Managed Integration type.
+    - name: externalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Managed Integration external id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - enabled
+            - params
+          properties:
+            enabled:
+              type: boolean
+              description: Flag indicating whether the Managed Integration should become active or inactive.
+            params:
+              type: object
+              description: '[Params](#params-model) depending on the Managed Integration type.'
+            test:
+              type: boolean
+              default: false
+              description: Flag indicating the Managed Integration is for testing, this cannot be changed once the resource has been created.
+        examples:
+          default:
+            value:
+              enabled: true
+              params:
+                centrapayMerchantId: 5ffcaf432003060007b98343
+                email: test@centrapay.com
+  responses:
+    '200':
+      description: Managed Integration created or updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/managed-integration.yaml'
+          examples:
+            default:
+              value:
+                id: 5ee0c486308f590260d9a07f
+                type: paypal-referral
+                externalId: DKTs3U38hdhfEqwF1JKoT2
+                enabled: true
+                params:
+                  centrapayMerchantId: 5ffcaf432003060007b98343
+                  email: test@centrapay.com
+                status: provisioning
+                claimedByAccountId: Jaim1Cu1Q55uooxSens6yk
+                claimedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                claimedAt: '2020-06-12T01:17:46.499Z'
+                inProgress: true
+                createdAt: '2020-06-11T01:17:46.499Z'
+                createdBy: 'crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedAt: '2020-06-12T01:17:46.499Z'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_PARAMS:
+              description: Invalid [Params](#params-model) provided for Managed Integration type.
+              value:
+                message: INVALID_PARAMS
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            MERCHANT_LIVENESS_MISMATCH:
+              description: The `test` flag on the merchant doesn't match the `test` flag on the `paypal-referral` managed integration.
+              value:
+                message: MERCHANT_LIVENESS_MISMATCH
+            MERCHANT_NOT_FOUND:
+              description: The merchant is not found with the `centrapayMerchantId` on the `paypal-referral` managed integration.
+              value:
+                message: MERCHANT_NOT_FOUND
+get:
+  x-method: GET
+  x-path: /api/managed-integrations/{type}/{externalId}
+  operationId: getManagedIntegration
+  summary: Get Managed Integration
+  description: This endpoint allows you to retrieve a Managed Integration by type and external id.
+  tags:
+    - managed-integrations
+  parameters:
+    - name: type
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - paypal-referral
+          - payap
+      example: paypal-referral
+      description: The Managed Integration type.
+    - name: externalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Managed Integration external id.
+  responses:
+    '200':
+      description: Managed Integration retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/managed-integration.yaml'
+          examples:
+            default:
+              value:
+                id: 5ee0c486308f590260d9a07f
+                type: paypal-referral
+                externalId: DKTs3U38hdhfEqwF1JKoT2
+                enabled: true
+                params:
+                  centrapayMerchantId: 5ffcaf432003060007b98343
+                  email: test@centrapay.com
+                status: provisioning
+                claimedByAccountId: Jaim1Cu1Q55uooxSens6yk
+                claimedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                claimedAt: '2020-06-12T01:17:46.499Z'
+                inProgress: true
+                createdAt: '2020-06-11T01:17:46.499Z'
+                createdBy: 'crn:BIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedAt: '2020-06-12T01:17:46.499Z'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'

@@ -1,0 +1,21 @@
+title: Managed Integrations
+description: Managed Integration model and related endpoints
+nav:
+  path: Integrations
+  order: 3
+intro: |
+  A Managed Integration is an [Integration](/api/integrations) which a third party can control.
+sections:
+  - model: managed-integration
+    rule: false
+  - model: managed-integrations-invitation-summary
+  - model: managed-integrations-terminal
+  - title: Params Model
+  - model: managed-integrations-params-paypal-referral
+    rule: false
+    depth: 3
+  - model: managed-integrations-params-payap
+    depth: 3
+  - endpoint: createOrUpdateManagedIntegration
+  - endpoint: getManagedIntegration
+  - endpoint: listAccountManagedIntegrations

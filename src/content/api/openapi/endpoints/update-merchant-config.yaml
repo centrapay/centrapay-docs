@@ -1,0 +1,141 @@
+put:
+  x-method: PUT
+  x-path: /api/merchants/{merchantId}/configs/{configId}
+  operationId: updateMerchantConfig
+  summary: Update Merchant Config
+  description: This endpoint allows you to update a Merchant Config.
+  tags:
+    - merchant-configs
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+    - name: configId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: mc_5ee168e8597be5002af7baed
+      description: The Merchant Config id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            paymentOptions:
+              type: array
+              description: A list of [Payment Option Configs](#payment-option-config-model).
+              items:
+                $ref: '../models/payment-option-config.yaml'
+            allowedRedirectUrls:
+              $ref: '../models/merchant-config-model.yaml#/properties/allowedRedirectUrls'
+        examples:
+          default:
+            value:
+              paymentOptions:
+                - type: bitcoin.main
+                - type: centrapay.nzd.main
+                  walletId: 1234c486308f3f0a23f0f92b
+                - type: farmlands.nzd.main
+                  farmlandsMerchantNumber: DbgY2SyD5M85zkePJjsQEf
+  responses:
+    '200':
+      description: Merchant Config updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-config-model.yaml'
+          examples:
+            default:
+              value:
+                id: mc_5ee168e8597be5002af7baed
+                merchantId: 5ee0c486308f590260d9a07f
+                createdAt: '2021-11-12T01:17:46.499Z'
+                updatedAt: '2021-12-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                paymentOptions:
+                  - type: bitcoin.main
+                  - type: centrapay.nzd.main
+                    walletId: 1234c486308f3f0a23f0f92b
+                  - type: farmlands.nzd.main
+                    farmlandsMerchantNumber: DbgY2SyD5M85zkePJjsQEf
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            PAYMENT_OPTION_TYPE_DOES_NOT_EXIST:
+              description: A payment option `type` is not a known [Asset Type](/api/asset-types).
+              value:
+                message: PAYMENT_OPTION_TYPE_DOES_NOT_EXIST
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_WALLET_TYPE:
+              description: '`walletId` does not belong to a [Settlement Wallet Asset](/api/wallet-assets#settlement-wallet-assets).'
+              value:
+                message: INVALID_WALLET_TYPE
+            LIVENESS_MISMATCH:
+              description: Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
+              value:
+                message: LIVENESS_MISMATCH
+            COLLECTIONS_INVALID:
+              description: An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
+              value:
+                message: COLLECTIONS_INVALID
+get:
+  x-method: GET
+  x-path: /api/merchants/{merchantId}/configs/{configId}
+  deprecated: true
+  operationId: getMerchantConfigLegacy
+  summary: Get Merchant Config
+  description: This endpoint allows you to retrieve a Merchant Config by Merchant id and Merchant Config id.
+  tags:
+    - merchant-configs
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+    - name: configId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: mc_5ee168e8597be5002af7b454
+      description: The Merchant Config id.
+  responses:
+    '200':
+      description: Merchant Config retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-config-model.yaml'
+          examples:
+            default:
+              value:
+                id: mc_5ee168e8597be5002af7b454
+                merchantId: 5ee0c486308f590260d9a07f
+                createdAt: '2021-11-12T01:17:46.499Z'
+                updatedAt: '2021-11-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                paymentOptions:
+                  - type: farmlands.nzd.main
+                    farmlandsMerchantNumber: DbgY2SyD5M85zkePJjsQEf

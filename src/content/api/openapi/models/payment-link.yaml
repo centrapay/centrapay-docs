@@ -1,0 +1,42 @@
+x-title: Payment Link Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Payment Link.
+  status:
+    type: string
+    enum:
+      - active
+      - archived
+    description: The status of the Payment Link. Can be "active" or "archived".
+  name:
+    type: string
+    description: The display name of the Payment Link.
+  merchantId:
+    type: string
+    description: The [Merchant](/api/merchants/) the Payment Link is made on behalf of.
+  paymentRequestId:
+    type: string
+    description: The [Payment Request](/api/payment-requests/) the Payment Link is associated with.
+  test:
+    type: boolean
+    description: '`true` if the Payment Link is for testing purposes only.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Payment Link was created.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Payment Link was updated.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The identity that created the Payment Link.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The identity that updated the Payment Link.

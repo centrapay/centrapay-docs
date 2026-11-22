@@ -1,0 +1,40 @@
+post:
+  x-method: POST
+  x-path: /api/funds-transfers/{fundsTransferId}/abort
+  operationId: abortFundsTransfer
+  summary: Abort Funds Transfer
+  description: |
+    This endpoint allows you to abort a Funds Transfer.
+  tags:
+    - funds-transfers
+  parameters:
+    - name: fundsTransferId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5thg2RPBZEfYTPJdQ63Cre
+      description: The Funds Transfer id.
+  responses:
+    '200':
+      description: Funds Transfer aborted
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: OK
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            ABORT_WITHDRAWAL_NOT_SUPPORTED:
+              description: Aborting funds transfers of type `withdrawal` is not supported.
+              value:
+                message: ABORT_WITHDRAWAL_NOT_SUPPORTED
+            FUNDS_TRANSFER_ALREADY_COMPLETE:
+              description: The funds transfer is already complete.
+              value:
+                message: FUNDS_TRANSFER_ALREADY_COMPLETE

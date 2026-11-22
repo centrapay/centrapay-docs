@@ -1,0 +1,23 @@
+x-title: Allowed Products Model
+x-experimental: true
+type: object
+properties:
+  sku:
+    type: string
+    description: The SKU of the product that is to be accepted.
+  name:
+    type: string
+    description: Display name of the product.
+  maxValue:
+    type: object
+    x-type: monetary
+    description: The maximum value that the product can be redeemed for.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+required:
+  - sku
+  - name
+  - maxValue

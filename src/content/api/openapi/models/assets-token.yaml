@@ -1,0 +1,46 @@
+x-title: Token Model
+x-experimental: true
+x-intro: |
+  Tokens are assets which can only be spent in full. Every token is associated with a collection, which defines the branding and general rules for the tokens, such as active duration.
+
+  Tokens have the following attributes along with the base asset fields.
+type: object
+properties:
+  collectionId:
+    type: string
+    description: The [token collection](/api/tokens#token-collection-model) that will govern the branding and redemption rules for the token.
+  collectionType:
+    type: string
+    description: The type of the token collection.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The identity that created the token.
+  activeFrom:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The date when the asset becomes spendable.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The date when the asset expires.
+  img:
+    type: string
+    description: The img URL of the token.
+  issuer:
+    type: string
+    description: The name of the [Business](/api/businesses) that issued the token.
+  issuerWebsite:
+    type: string
+    description: The URL of the issuer of the token.
+  issuerImg:
+    type: string
+    description: The img URL of the issuer that the token belongs to.
+  externalId:
+    type: string
+    description: The asset identifier from the issuing system.
+  mediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the token.

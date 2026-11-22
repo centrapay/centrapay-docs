@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Prose from '../../components/Prose.astro';
+import OpenApiEndpoint from '../../components/OpenApiEndpoint.astro';
+import OpenApiHeading from '../../components/OpenApiHeading.astro';
+import OpenApiModel from '../../components/OpenApiModel.astro';
+import OpenApiMarkdown from '../../components/OpenApiMarkdown.astro';
+import navigation from '../../navigation/apiNavigation';
+import { loadOpenApiPages } from '../../utils/openApiLoader.js';
+import { createMarkdownRenderer } from '../../utils/openApiPage.js';
+
+export async function getStaticPaths() {
+  const pages = await loadOpenApiPages();
+  return pages.map(({ id, page, sections, schemasMap }) => ({
+    params: { openapiPage: id },
+    props: { page, sections, schemasMap },
+  }));
+}
+
+const { page, sections, schemasMap } = Astro.props;
+const previewImg = '/default-cover.jpg';
+---
+
+<BaseLayout title={page.title} description={page.description} img={previewImg} navigation={navigation}>
+  <div class="max-w-6xl w-full relative mx-auto flex justify-center">
+    <div class="min-w-0 flex-auto p-8">
+      <article>
+        <Prose>
+          <header>
+            <h1>
+              { page.title }
+            </h1>
+          </header>
+          {page.intro && <OpenApiMarkdown segments={createMarkdownRenderer()(page.intro)} />}
+          {sections.map(section => (
+            <>
+              {section.rule && <hr />}
+              {section.kind === 'model' && (
+                <OpenApiModel name={section.name} anchor={section.anchor} subheadingAnchors={section.subheadingAnchors} depth={section.depth} badges={section.badges} schemasMap={schemasMap} />
+              )}
+              {section.kind === 'extra' && (
+                <>
+                  <OpenApiHeading depth={section.depth} anchor={section.anchor} title={section.title} badges={section.badges} />
+                  <OpenApiMarkdown segments={createMarkdownRenderer(section.subheadingAnchors)(section.body)} />
+                </>
+              )}
+              {section.kind === 'endpoint' && (
+                <OpenApiEndpoint operationId={section.operationId} exampleName={section.exampleName} title={section.title} description={section.description} anchor={section.anchor} subheadingAnchors={section.subheadingAnchors} depth={section.depth} badges={section.badges} schemasMap={schemasMap} />
+              )}
+            </>
+          ))}
+        </Prose>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

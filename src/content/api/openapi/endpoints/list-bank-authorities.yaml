@@ -1,0 +1,131 @@
+get:
+  x-method: GET
+  x-path: /api/bank-authorities
+  deprecated: true
+  operationId: listBankAuthorities
+  summary: List Bank Authorities
+  description: |
+    If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
+  tags:
+    - bank-accounts
+  responses:
+    '200':
+      description: Bank Authorities listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../models/bank-account.yaml
+          examples:
+            default:
+              value:
+                - id: WRhAxxWpTKb5U7pXyxQjjY
+                  accountId: Jaim1Cu1Q55uooxSens6yk
+                  bankAccountNumber: 12-1234-1234567-123
+                  bankAccountName: John Doe
+                  status: created
+                  verified: false
+                  directDebitAuthorized: true
+                  createdAt: '2020-06-12T01:17:46.499Z'
+                  approvals: []
+                - id: b5URhAxxWpTKyxQjjY7pXW
+                  accountId: Jaim1Cu1Q55uooxSens6yk
+                  bankAccountNumber: 12-1234-1234567-123
+                  bankAccountName: Jane Doe
+                  status: active
+                  verified: true
+                  directDebitAuthorized: true
+                  createdAt: '2020-06-12T01:17:46.499Z'
+                  approvals:
+                    - type: settlement
+                      status: pending
+                      updatedAt: '2021-11-08T21:52:39.915Z'
+post:
+  x-method: POST
+  x-path: /api/bank-authorities
+  deprecated: true
+  operationId: createBankAuthority
+  summary: Create Bank Authority
+  description: |
+    If you're creating new interfaces, please work with [Create Bank Account](#create-bank-account).
+
+    Creating a Bank Authority both creates a new Bank Account and a direct debit authority. By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+  tags:
+    - bank-accounts
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - accountId
+            - phoneNumber
+            - bankAccountNumber
+            - bankAccountName
+          properties:
+            accountId:
+              type: string
+              description: The id of the owning Centrapay [Account](/api/accounts).
+            fullName:
+              type: string
+              description: The first and last name of the user.
+            phoneNumber:
+              type: string
+              description: The user's phone number.
+            emailAddress:
+              type: string
+              description: The user's email address.
+            bankAccountNumber:
+              type: string
+              description: The user's Bank Account number.
+            bankAccountName:
+              type: string
+              description: The name on the Bank Account provided by the user.
+        examples:
+          default:
+            value:
+              fullName: John Doe
+              accountId: Jaim1Cu1Q55uooxSens6yk
+              phoneNumber: '+64212345678'
+              emailAddress: John.doe@email.com
+              bankAccountNumber: 12-1234-1234567-123
+              bankAccountName: John Doe
+  responses:
+    '200':
+      description: Bank Authority created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/bank-account.yaml
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                bankAccountNumber: 12-1234-1234567-123
+                bankAccountName: John Doe
+                status: created
+                verified: false
+                directDebitAuthorized: true
+                createdAt: '2020-06-12T01:17:46.499Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                modifiedAt: '2020-06-12T01:17:46.499Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                approvals: []
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            BANK_AUTHORITY_LIMIT_EXCEEDED:
+              description: The account already has the max amount of bank accounts.
+              value:
+                message: BANK_AUTHORITY_LIMIT_EXCEEDED
+            BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED:
+              description: There are already two bank accounts for the provided bank account number, which is the maximum allowed.
+              value:
+                message: BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED

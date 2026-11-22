@@ -1,0 +1,11 @@
+x-title: Accepted Asset Model
+type: object
+properties:
+  assetType:
+    type: string
+    description: The [type](/api/asset-types) of the asset
+  products:
+    type: array
+    items:
+      $ref: './merchants-product.yaml'
+    description: List of [Products](#product-model) supported by the asset type. Only available for [centrapay.token](/api/assets#token-model) and [centrapay.ledger](/api/assets#ledger-model) asset types.

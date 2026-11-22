@@ -1,0 +1,53 @@
+x-title: Integration Request Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Integration Request.
+  accountId:
+    type: string
+    description: The Integration Request's owning Centrapay [Account](/api/accounts/) id.
+  merchantId:
+    type: string
+    description: The [Merchant](/api/merchants) id for the Integration Request.
+  type:
+    type: string
+    description: The type of the Integration Request. Refer to [Integration Types](#integration-types).
+  status:
+    type: string
+    description: The current status of the Integration Request. Supported values are `active`, `available`, `pending`, `rejected` and `disabled`.
+  terminalId:
+    type: string
+    description: Epay terminalId for the Integration Request. Required if type is `epay`.
+  terminal:
+    type: object
+    description: The terminal configuration. Required for all terminal vendors except Vista. Refer to [Terminal](#terminal).
+  product:
+    type: object
+    description: The requested Epay gift card types to support. Refer to [Product](#product).
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Integration Request was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Integration Request.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Integration Request was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Integration Request.
+  notifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Integration Request was submitted to the terminal provider in order to enable the terminal for Centrapay acceptance.
+  externalId:
+    type: string
+    description: The external identifier for the integration. Required for `shopify` integration requests.

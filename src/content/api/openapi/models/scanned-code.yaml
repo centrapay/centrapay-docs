@@ -1,0 +1,25 @@
+x-title: Scanned Code Model
+type: object
+properties:
+  code:
+    type: string
+    description: The utf8 representation of data decoded from what was scanned.
+  scannedBy:
+    type: string
+    enum:
+      - merchant
+    description: The party that scanned the code. Can be `merchant`.
+  provider:
+    type: string
+    enum:
+      - paypal
+      - venmo
+      - farmlands
+      - centrapay
+    description: The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
+  displayName:
+    type: string
+    description: A formatted name that can be displayed in a client.
+  merchantConfigId:
+    type: string
+    description: The ID of the [Merchant Config](/api/merchant-configs).

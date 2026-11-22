@@ -1,0 +1,61 @@
+post:
+  x-method: POST
+  x-path: /api/media-uploads
+  x-experimental: true
+  operationId: createMediaUpload
+  summary: Create a Media Upload
+  description: |
+    This endpoint allows you to upload a file to Centrapay.
+  tags:
+    - media-uploads
+  x-request-postData:
+    mimeType: multipart/form-data
+    params:
+      - name: purpose
+        value: branding-logo
+      - name: file
+        fileName: /path/to/a/file.png
+        contentType: image/png
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - file
+            - purpose
+          properties:
+            file:
+              type: string
+              format: binary
+              description: A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
+            purpose:
+              type: string
+              description: The [purpose](#purpose) of the Media Upload.
+  responses:
+    '200':
+      description: Media Upload created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/media-upload.yaml
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            FILE_TYPE_INVALID:
+              description: Invalid file extension or mime type provided for the purpose.
+              value:
+                message: FILE_TYPE_INVALID
+            FILE_TOO_LARGE:
+              description: File size exceeds the allowed threshold.
+              value:
+                message: FILE_TOO_LARGE

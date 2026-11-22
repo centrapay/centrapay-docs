@@ -1,0 +1,106 @@
+post:
+  x-method: POST
+  x-path: /api/collections
+  x-experimental: true
+  operationId: createTokenCollection
+  summary: Create Token Collection
+  description: |
+    This endpoint allows you to create a [Token Collection](#token-collection-model).
+  tags:
+    - tokens
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - accountId
+            - type
+          properties:
+            name:
+              type: string
+              description: The display name of the Collection.
+            accountId:
+              type: string
+              description: The [Account](/api/accounts/) that will own the Collection.
+            tokenExpiresAfter:
+              type: object
+              description: The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+            tokenExpiresAt:
+              type: string
+              format: date-time
+              x-type: timestamp
+              description: A date that all tokens will expire on if they haven’t expired earlier.
+            type:
+              type: string
+              description: The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+            maxValue:
+              type: object
+              x-type: monetary
+              description: The maximum agreed value that any merchants will be settled for a Token redemption. Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
+              properties:
+                amount:
+                  type: string
+                currency:
+                  type: string
+            mediaUploadId:
+              type: string
+              description: The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+            externalId:
+              type: string
+              description: An identifier to associate the Collection with an external campaign or event.
+        examples:
+          default:
+            value:
+              name: Bread
+              accountId: T3y6hogYA4d612BExypWYH
+              tokenExpiresAfter:
+                period: month
+                duration: '1'
+              maxValue:
+                currency: NZD
+                amount: '400'
+              type: product
+              mediaUploadId: '12345'
+              externalId: ABC
+  responses:
+    '200':
+      description: Token Collection created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/token-collection.yaml
+          examples:
+            default:
+              value:
+                id: c_Xv990BzkgfoDS7bBls50pd
+                name: Bread
+                accountId: T3y6hogYA4d612BExypWYH
+                tokenExpiresAfter:
+                  period: month
+                  duration: '1'
+                maxValue:
+                  currency: NZD
+                  amount: '400'
+                test: true
+                type: product
+                status: active
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                createdAt: '2021-05-12T04:30:11.001Z'
+                mediaUploadId: '12345'
+                img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                issuer: Centrapay
+                externalId: ABC
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            EXTERNAL_ID_ALREADY_USED:
+              description: A collection has already been created for this account with the given externalId.
+              value:
+                message: EXTERNAL_ID_ALREADY_USED

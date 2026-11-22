@@ -1,0 +1,205 @@
+post:
+  x-method: POST
+  x-path: /api/asset-transfers
+  operationId: createAssetTransfer
+  summary: Create an Asset Transfer
+  description: |
+    Transfer an asset to a recipient. Some assets can be transfered only in whole
+    (eg tokens) while others can be transfered only in part (eg money).
+
+    Some assets can be transferred without supplying a recipient. A `url` field will be
+    returned in these cases. The `url` will link to a page to claim the asset.
+  tags:
+    - asset-transfers
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - assetId
+          properties:
+            assetId:
+              type: string
+              description: Id of a discrete asset to transfer or wallet asset to draw from.
+            recipientAlias:
+              type: string
+              description: Phone number, email or handle of receiver.
+            description:
+              type: string
+              description: Shows up in transaction history against the transfer. 200 character limit.
+            message:
+              type: string
+              description: Shows up in transaction history against the transfer. 100 character limit.
+            value:
+              type: string
+              x-type: bignumber
+              description: Amount to send. Required for money transfers. Units depend on the asset type.
+            senderName:
+              type: string
+              description: Human readable name for the sender. 30 character limit.
+            suppressNotifications:
+              type: boolean
+              description: Suppress notifications from Centrapay (SMS/Email).
+            expiresAt:
+              type: string
+              format: date-time
+              x-type: timestamp
+              description: The time that the asset transfer will expire.
+            claimType:
+              type: string
+              x-experimental: true
+              description: '''multi'' if the asset transfer can be claimed by multiple users, ''single'' if it can only be claimed by one user. Defaults to ''single''.'
+            valueConfig:
+              type: object
+              x-experimental: true
+              description: The configuration of the value of the asset being transferred for each claim. Required if `claimType` is `multi`. The value must be less than or equal to the total value of the asset transfer.
+            claimConditions:
+              type: array
+              x-experimental: true
+              items:
+                type: object
+              description: Array of claim conditions that must be met to successfully claim the asset transfer.
+            loyaltyProgramId:
+              type: string
+              description: The ID of the [Loyalty Program](/api/loyalty-programs) to associate with this asset transfer.
+        examples:
+          default:
+            value:
+              assetId: YGRo6TYYSxH3js7
+              value: '1000'
+              message: Happy birthday
+              senderName: My Cafe
+              claimType: multi
+              valueConfig:
+                type: flat
+                params:
+                  amount: '100'
+              claimConditions:
+                - type: frequency
+                  params:
+                    period: lifetime
+                    limit: '1'
+              expiresAt: '2020-05-03T01:03:37.222Z'
+              loyaltyProgramId: WRhAxxWpTKb5U7pXyxQjjY
+  responses:
+    '200':
+      description: Asset Transfer created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-transfer.yaml
+          examples:
+            default:
+              value:
+                id: M7Kn2stAxNa6ri7h
+                status: created
+                value: '1000'
+                assetId: YGRo6TYYSxH3js7
+                assetType: centrapay.ledger.main
+                assetCollectionId: c_Xv990BzkgfoDS7bBls50pd
+                description: Centrapay Ledger
+                message: Happy birthday
+                senderName: My Cafe
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-02T01:03:37.222Z'
+                suppressNotifications: false
+                claimType: multi
+                expiresAt: '2020-05-03T01:03:37.222Z'
+                valueConfig:
+                  type: flat
+                  params:
+                    amount: '100'
+                claimConditions:
+                  - type: frequency
+                    params:
+                      period: lifetime
+                      limit: '1'
+                remainingValue: '1000'
+                loyaltyProgramId: WRhAxxWpTKb5U7pXyxQjjY
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            INSUFFICIENT_WALLET_BALANCE:
+              description: The value of the asset-transfer exceeds the balance on the wallet asset.
+              value:
+                message: INSUFFICIENT_WALLET_BALANCE
+            QUOTA_EXCEEDED:
+              description: The transfer exceeds one or more spend quota limits. See [Quota Error Response](/api/quotas#errors).
+              value:
+                message: QUOTA_EXCEEDED
+            ASSET_NOT_ACTIVE:
+              description: The asset is not active and cannot be transferred.
+              value:
+                message: ASSET_NOT_ACTIVE
+            RECIPIENT_MISSING:
+              description: The asset must be transferred with a recipient supplied.
+              value:
+                message: RECIPIENT_MISSING
+            INVALID_ASSET_TYPE:
+              description: The [asset's type](/api/asset-types/) does not support transfers.
+              value:
+                message: INVALID_ASSET_TYPE
+            LOYALTY_PROGRAM_NOT_FOUND:
+              description: The loyalty program does not exist.
+              value:
+                message: LOYALTY_PROGRAM_NOT_FOUND
+get:
+  x-method: GET
+  x-path: /api/asset-transfers
+  x-experimental: true
+  operationId: listAssetTransfers
+  summary: List Asset Transfers
+  description: |
+    Returns a [paginated](/api/pagination/) list of Asset Transfers.
+  tags:
+    - asset-transfers
+  parameters:
+    - name: recipientAccountId
+      in: query
+      schema:
+        type: string
+      example: oS3Xom2au3Ooy9aihai
+      description: The Centrapay Account id of the recipient.
+    - name: senderAccountId
+      in: query
+      schema:
+        type: string
+      description: The Centrapay Account id of the sender.
+  responses:
+    '200':
+      description: Asset Transfers listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/asset-transfer.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: M7Kn2stAxNa6ri7h
+                    status: created
+                    value: '6000'
+                    assetId: YGRo6TYYSxH3js7
+                    description: $60 Giftcard
+                    message: Happy birthday
+                    senderName: My Cafe
+                    senderAccountId: aBc932S9182qwCDqwer
+                    recipientAccountId: 9EDxUT91TMsUjoqoQeBuLQ
+                    claimedByAccountId: 9EDxUT91TMsUjoqoQeBuLQ
+                    recipientAlias: +64*****2345
+                    createdAt: '2020-05-01T12:30:00.000Z'
+                    updatedAt: '2020-05-02T01:03:37.222Z'
+                    suppressNotifications: false

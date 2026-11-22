@@ -1,0 +1,13 @@
+x-title: Promotion Membership Progress Model
+type: object
+properties:
+  current:
+    type: string
+    x-type: bignumber
+    description: The Account's progress towards completing the Promotion.
+  minimum:
+    type: number
+    description: Only supplied if the Promotion's `type` is `draw`. The minimum progress required to be eligible for the rewards. See [Promotion Progress Model](/api/promotions#promotion-progress-model).
+  maximum:
+    type: number
+    description: Only supplied if the Promotion's `type` is `draw`. The maximum progress a single account can get. See [Promotion Progress Model](/api/promotions#promotion-progress-model).

@@ -74,6 +74,39 @@ const openapiSchemas = defineCollection({
   loader: glob({ pattern: ['models/**/*.yaml', 'index.yaml'], base: './src/content/api/openapi' }),
 });
 
+// Page layout for spec-driven API pages: which models, prose and endpoints
+// appear, in what order. See src/utils/openApiPage.js.
+const openapiPages = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/api/openapi/pages' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    nav: z.object({
+      title: z.string().optional(),
+      path: z.string(),
+      order: z.number(),
+    }),
+    intro: z.string().optional(),
+    // `rule: false` drops the horizontal rule drawn above a section.
+    sections: z.array(z.union([
+      z.object({ model: z.string(), depth: z.number().optional(), rule: z.boolean().optional() }).strict(),
+      z.object({
+        endpoint: z.string(),
+        example: z.string().optional(),
+        depth: z.number().optional(),
+        rule: z.boolean().optional(),
+      }).strict(),
+      z.object({
+        title: z.string(),
+        depth: z.number().optional(),
+        rule: z.boolean().optional(),
+        body: z.string().optional(),
+        badges: z.array(z.enum(['experimental', 'deprecated'])).optional(),
+      }).strict(),
+    ])),
+  }),
+});
+
 export const collections = {
   guides,
   connections,
@@ -81,4 +114,5 @@ export const collections = {
   merchantServices,
   openapiEndpoints,
   openapiSchemas,
+  openapiPages,
 };

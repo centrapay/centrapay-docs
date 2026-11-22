@@ -1,0 +1,81 @@
+x-title: Onboarding Request Model
+type: object
+required:
+  - legalName
+  - location
+  - contactEmail
+  - merchant
+  - assetProgram
+properties:
+  id:
+    type: string
+    description: The unique identifier for the onboarding request, prefixed with `bo_`.
+  nzbn:
+    type: string
+    description: The 13-digit New Zealand Business Number. Optional identifier.
+  legalName:
+    type: string
+    description: Registered legal name of the business (3-100 characters).
+  tradingName:
+    type: string
+    description: Trading name of the business (3-100 characters). Defaults to `legalName` if omitted.
+  location:
+    type: object
+    description: Physical location of the business. See [Location Model](#location-model).
+    allOf:
+      - $ref: './onboarding-location.yaml'
+  contactEmail:
+    type: string
+    description: Contact email used for onboarding and notifications. Must be a valid email address.
+  contactName:
+    type: string
+    description: Contact name used for onboarding and notifications (3-100 characters). If omitted, defaults to `merchant.contactName` or the part before @ in `contactEmail`.
+  externalId:
+    type: string
+    description: Secondary identifier for acquirers to find their onboarding request (max 35 characters). Used for idempotency - submitting the same `externalId` with the same payload will return the existing request instead of creating a duplicate.
+  taxNumber:
+    type: object
+    description: Tax number information for the business. See [Tax Number Model](#tax-number-model).
+    allOf:
+      - $ref: './onboarding-tax-number.yaml'
+  merchant:
+    type: object
+    description: Merchant information including name, location, and contact details. See [Merchant Model](#merchant-model).
+    allOf:
+      - $ref: './onboarding-merchant.yaml'
+  assetProgram:
+    type: object
+    description: Asset program configuration including settlement account details. See [Asset Program Model](#asset-program-model).
+    allOf:
+      - $ref: './onboarding-asset-program.yaml'
+  salesChannels:
+    type: array
+    description: Optional array of sales channel configurations for payment terminals. See [Sales Channel Model](#sales-channel-model).
+    items:
+      $ref: './onboarding-sales-channel.yaml'
+  metadata:
+    type: object
+    description: Optional key-value pairs for additional contextual information (max 10 entries). Keys can be up to 100 characters and values up to 500 characters.
+    additionalProperties:
+      type: string
+  sendInvitation:
+    type: boolean
+    description: Whether to send the onboarding sign-up invitation email to the contact. Defaults to `true`.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Timestamp when the onboarding request was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the onboarding request.
+  status:
+    type: string
+    enum:
+      - pending
+      - in-progress
+      - completed
+      - failed
+      - aborted
+    description: 'Current status of the onboarding request: `pending`, `in-progress`, `completed`, `failed` or `aborted`.'

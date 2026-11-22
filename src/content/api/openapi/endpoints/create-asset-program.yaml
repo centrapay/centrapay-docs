@@ -1,0 +1,165 @@
+post:
+  x-method: POST
+  x-path: /api/asset-programs
+  x-experimental: true
+  operationId: createAssetProgram
+  summary: Create Asset Program
+  description: |
+    This endpoint allows you to create an [Asset Program](#asset-program-model).
+  tags:
+    - asset-programs
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - accountId
+            - assetTypes
+            - termsOfServiceUrl
+            - collectionIds
+            - privacyPolicyUrl
+          properties:
+            name:
+              type: string
+              description: The display name of the Asset Program.
+            accountId:
+              type: string
+              description: The [Account](/api/accounts/) that will own the Asset Program.
+            assetTypes:
+              type: array
+              items:
+                type: string
+              description: The list of [Asset Types](/api/asset-types) that are a part of the Asset Program.
+            termsOfServiceUrl:
+              type: string
+              description: URL to the Asset Program's terms of service document.
+            collectionIds:
+              type: array
+              items:
+                type: string
+              description: The list of collection ids associated with the Asset Program.
+            privacyPolicyUrl:
+              type: string
+              description: URL to the Asset Program's privacy policy document.
+            mediaUploadId:
+              type: string
+              description: The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
+        examples:
+          default:
+            value:
+              name: My Asset Program
+              assetTypes:
+                - payap-debit
+              mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+              accountId: Jaim1Cu1Q55uooxSens6yk
+              termsOfServiceUrl: https://example.com/terms
+              privacyPolicyUrl: https://example.com/privacy
+              collectionIds:
+                - c_Xv990BzkgfoDS7bBls50pd
+  responses:
+    '200':
+      description: Asset Program created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-program.yaml
+          examples:
+            default:
+              value:
+                id: ap_WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                assetTypes:
+                  - payap-debit
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+                name: My Asset Program
+                privacyPolicyUrl: https://example.com/privacy
+                published: true
+                termsOfServiceUrl: https://example.com/terms
+                test: true
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                collectionIds:
+                  - c_Xv990BzkgfoDS7bBls50pd
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            ACCOUNT_TYPE_INVALID:
+              description: The Account must be type `org`.
+              value:
+                message: ACCOUNT_TYPE_INVALID
+            MEDIA_UPLOAD_INVALID:
+              description: The media upload id does not reference a media upload.
+              value:
+                message: MEDIA_UPLOAD_INVALID
+            COLLECTION_IDS_INVALID:
+              description: The collectionIds array contains one or more invalid collection ids.
+              value:
+                message: COLLECTION_IDS_INVALID
+get:
+  x-method: GET
+  x-path: /api/asset-programs
+  x-experimental: true
+  operationId: listAssetPrograms
+  summary: List Asset Programs
+  description: |
+    This endpoint allows you to list published [Asset Programs](#asset-program-model).
+  tags:
+    - asset-programs
+  parameters:
+    - name: pageKey
+      in: query
+      schema:
+        type: string
+      description: The page key used in pagination to fetch the next page of results.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: integer
+      description: The maximum number of results per page. Maximum value is 100. Defaults to 50.
+  responses:
+    '200':
+      description: Asset Programs listed
+      x-render-properties: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/asset-program.yaml
+                description: The list of Asset Programs.
+              nextPageKey:
+                type: string
+                description: The page key to use for fetching the next page of results, if more results are available.
+          examples:
+            default:
+              value:
+                items:
+                  - id: ap_WRhAxxWpTKb5U7pXyxQjjY
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    assetTypes:
+                      - payap-debit
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+                    name: My Asset Program
+                    privacyPolicyUrl: https://example.com/privacy
+                    published: true
+                    termsOfServiceUrl: https://example.com/terms
+                    test: true
+                    updatedAt: '2021-08-25T00:02:49.488Z'
+                    updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    collectionIds:
+                      - c_Xv990BzkgfoDS7bBls50pd
+                nextPageKey: eyJjcmVhdGVkQXQiOiIyMDIxLTA4LTI1VDAwOjAyOjQ5LjQ4OFoifQ==

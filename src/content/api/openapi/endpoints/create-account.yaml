@@ -1,0 +1,67 @@
+post:
+  x-method: POST
+  x-path: /api/accounts
+  operationId: createAccount
+  summary: Create an Account
+  description: This endpoint allows you to create an Account.
+  tags:
+    - accounts
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - type
+          properties:
+            name:
+              type: string
+              description: The name of the Account.
+            type:
+              type: string
+              description: Account type, must be either "org" or "individual".
+            region:
+              type: string
+              description: The region that the Account will operate in. Required for "org" Accounts, not allowed for "individual" Accounts. Can be "NZ", "AU", or "US".
+            owner:
+              type: string
+              description: Id of user to add as member with "account-owner" role.
+            test:
+              type: boolean
+              description: A flag indicating if the Account is for testing. Test Accounts will not be able to create non-test Accounts. Defaults to the parent Account's value when a parent Account is set.
+            parentAccountId:
+              type: string
+              description: The id of the parent Account. The caller must be authorized to create child Accounts on the parent Account.
+            subscriptions:
+              type: array
+              items:
+                type: string
+              description: Subscriptions to assign to the Account. Only allowed for test "org" Accounts. Can include "integrator:sales-channel".
+        examples:
+          default:
+            value:
+              name: Centrapay Cafe
+              type: org
+              region: NZ
+  responses:
+    '200':
+      description: Account created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/account.yaml'
+          examples:
+            default:
+              value:
+                id: Jaim1Cu1Q55uooxSens6yk
+                name: Centrapay Cafe
+                type: org
+                region: NZ
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                createdAt: '2020-06-12T01:17:46.499Z'
+                modifiedAt: '2020-06-12T01:17:46.499Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                version: '1'
+                subscriptions: []

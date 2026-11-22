@@ -1,0 +1,34 @@
+x-title: Batch Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Batch's unique identifier.
+  accountId:
+    type: string
+    description: The id of the Centrapay [Account](/api/accounts) that submitted the Batch.
+  url:
+    type: string
+    description: The url where the file is located.
+  status:
+    type: string
+    description: The current [Lifecycle Stage](#batch-lifecycle) of the batch.
+  type:
+    type: string
+    description: '[Batch Type](#batch-types) id used to describe the batch content.'
+  totalCount:
+    type: string
+    x-type: bignumber
+    description: The number of items processed.
+  errorCount:
+    type: string
+    x-type: bignumber
+    description: Total [Error](#error) counted.
+  errors:
+    type: array
+    items:
+      type: object
+    description: '[Error](#error) list for the batch.'
+  test:
+    type: boolean
+    description: true if the batch is for testing purposes only.

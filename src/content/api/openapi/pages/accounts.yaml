@@ -1,0 +1,20 @@
+title: Accounts
+description: Account model and related endpoints
+nav:
+  path: Accounts
+  order: 1
+intro: |
+  An Account represents a permission boundary around Centrapay resources.
+  Accounts can have [API Keys](/api/api-keys/) and [Account Memberships](/api/account-memberships/) which grant access to the resources.
+
+  Accounts are classified as either "individual" or "org". Individual accounts
+  can only have a single member and Centrapay users can only be a member of a single
+  individual account.
+sections:
+  - model: account
+    rule: false
+  - model: accounts-subscription
+  - endpoint: createAccount
+  - endpoint: getAccount
+  - endpoint: updateAccount
+  - endpoint: updateAccountSubscriptions

@@ -1,0 +1,69 @@
+post:
+  x-method: POST
+  x-path: /api/decode
+  operationId: decodeScannedCode
+  summary: Decode Scanned Code
+  description: This endpoint allows you to decode a scanned code.
+  tags:
+    - scanned-codes
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - code
+            - scannedBy
+            - merchantConfigId
+          properties:
+            code:
+              $ref: '../models/scanned-code.yaml#/properties/code'
+            scannedBy:
+              $ref: '../models/scanned-code.yaml#/properties/scannedBy'
+            merchantConfigId:
+              $ref: '../models/scanned-code.yaml#/properties/merchantConfigId'
+        examples:
+          default:
+            value:
+              code: '123456789'
+              scannedBy: merchant
+              merchantConfigId: mc_5ee168e8597be5002af7b454
+  responses:
+    '200':
+      description: Scanned Code decoded
+      content:
+        application/json:
+          schema:
+            $ref: '../models/scanned-code.yaml'
+          examples:
+            default:
+              value:
+                code: '123456789'
+                scannedBy: merchant
+                merchantConfigId: mc_5ee168e8597be5002af7b454
+                provider: farmlands
+                displayName: Farmlands Card
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            UNKNOWN_CODE:
+              description: The code doesn’t exist or is no longer active in our system.
+              value:
+                message: UNKNOWN_CODE
+            MERCHANT_CONFIG_NOT_FOUND:
+              description: The supplied merchant config does not exist.
+              value:
+                message: MERCHANT_CONFIG_NOT_FOUND
+            INVALID_MERCHANT_CONFIG:
+              description: The merchant config does not have a payment option that can satisfy the scanned code.
+              value:
+                message: INVALID_MERCHANT_CONFIG
+            LIVENESS_MISMATCH:
+              description: The caller is a test account but the merchant config belongs to a live [Merchant](/api/merchants).
+              value:
+                message: LIVENESS_MISMATCH

@@ -1,0 +1,30 @@
+x-title: Media Upload Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Media Upload's unique identifier.
+  file:
+    type: object
+    description: A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
+  purpose:
+    type: string
+    description: The [purpose](#purpose) of the Media Upload.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Media Upload was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Media Upload.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Media Upload was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Media Upload.

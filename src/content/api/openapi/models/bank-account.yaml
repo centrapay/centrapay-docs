@@ -1,0 +1,59 @@
+x-title: Bank Account Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Bank Account's unique identifier.
+  bankAccountNumber:
+    type: string
+    description: The user's Bank Account number.
+  bankAccountName:
+    type: string
+    description: The name on the Bank Account provided by the user.
+  preferredBankAccountName:
+    type: string
+    description: The preferred bank account name for the Bank Account provided by the user. This is only available on Bank Accounts of type [quartz](#bank-account-type).
+  accountId:
+    type: string
+    description: The id of the owning Centrapay [Account](/api/accounts).
+  status:
+    type: string
+    description: The current status of the Bank Account.
+  verified:
+    type: boolean
+    description: Flag indicating the Bank Account is verified, allowing it to be used to Top Up.
+  type:
+    type: string
+    description: The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
+  directDebitAuthorized:
+    type: boolean
+    description: Flag indicating the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+  approvals:
+    type: array
+    items:
+      $ref: ../models/bank-account-approval-type-summary.yaml
+    description: A list of [Bank Account Approval Type Summaries](#bank-account-approval-type-summary-model).
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account was created.
+  modifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account was updated.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Bank Account.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Bank Account.
+  test:
+    type: boolean
+    description: A flag which is present if the Bank Account is for testing.
+  enduringPaymentConsentAuthorized:
+    type: boolean
+    description: Flag indicating whether the bank account can be used for creating [enduring payment consents](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only present on [quartz](#bank-account-type) bank accounts.

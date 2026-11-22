@@ -1,0 +1,14 @@
+---
+import CodeFence from './CodeFence.astro';
+
+// Renders segments from createMarkdownRenderer: HTML as is, code fences with
+// the same component Markdoc pages use.
+const { segments = [] } = Astro.props;
+---
+
+<div>
+  {segments.map(segment => segment.kind === 'code'
+    ? <CodeFence code={segment.code} lang={segment.lang} title={segment.title} />
+    : <Fragment set:html={segment.html} />
+  )}
+</div>

@@ -1,0 +1,47 @@
+x-title: Loyalty Program Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Loyalty Program.
+  name:
+    type: string
+    description: The display name of the Loyalty Program.
+  description:
+    type: string
+    description: The displayable description for the Loyalty Program.
+  mediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+  img:
+    type: string
+    description: The img URL of the Loyalty Program.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that will own the Loyalty Program.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Loyalty Program was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Loyalty Program.
+  test:
+    type: boolean
+    description: '`true` if the Loyalty Program is for testing purposes only.'
+  status:
+    type: string
+    description: '`draft` if the loyalty program is not ready yet. `active` if the loyalty program is ready for consumers to start joining and earning.'
+  memberCount:
+    type: string
+    description: The number of [Loyalty Program Memberships](/api/loyalty-program-memberships) that have been created for the loyalty program.
+  visibility:
+    type: string
+    description: The visibility setting for the Loyalty Program. Valid values are `public` or `unlisted`.
+  joinConditions:
+    type: array
+    items:
+      $ref: ../models/loyalty-programs-join-condition.yaml
+    description: The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.

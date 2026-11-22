@@ -1,0 +1,55 @@
+get:
+  x-method: GET
+  x-path: /api/merchants/{merchantId}/settlements
+  operationId: listMerchantSettlements
+  summary: List Settlements
+  description: |
+    This endpoint allows you to list Settlements.
+  tags:
+    - settlements
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The [Merchant](/api/merchants/) id.
+  responses:
+    '200':
+      description: Settlements listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/settlement.yaml
+          examples:
+            default:
+              value:
+                items:
+                  - id: 89028sh9308f590260d9a07f
+                    status: confirmed
+                    currency: NZD
+                    createdAt: '2021-11-12T01:17:46.499Z'
+                    createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    settledAt: '2021-11-13T11:59:59.999Z'
+                    settledBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    settlementAmount: '2500'
+                    settlementBankAccountId: 67e0c486308f590260d9a139
+                    settlementBankTransferId: MhocUmpxxmgdHjr7DgKoKw
+                    type: centrapay
+                    test: false
+                  - id: 9ds2cs89028sh90260d9f91h
+                    status: awaiting-confirmation
+                    currency: NZD
+                    createdAt: '2021-11-13T01:17:46.499Z'
+                    createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    settlementAmount: '2200'
+                    settlementBankAccountId: 67e0c486308f590260d9a139
+                    settlementBankTransferId: 57SyRRgZ1U8Kq2wKpCnSR5
+                    type: centrapay
+                    test: false

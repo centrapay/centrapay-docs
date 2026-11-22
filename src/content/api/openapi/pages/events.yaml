@@ -1,0 +1,9 @@
+title: Events
+description: Events and related endpoints
+nav:
+  path: Events
+  order: 1
+intro: |
+  An event is a record of a user action or outcome. Centrapay performs various tasks in response to events.
+sections:
+  - endpoint: createAccountEvent

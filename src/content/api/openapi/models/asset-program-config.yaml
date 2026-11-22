@@ -1,0 +1,45 @@
+x-title: Asset Program Config Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Asset Program Config.
+  assetProgramId:
+    type: string
+    description: The id of the [Asset Program](/api/asset-programs) the Config belongs to.
+  assetProgramMembershipId:
+    type: string
+    description: The id of the [Asset Program Membership](/api/asset-program-memberships) the Config belongs to.
+  merchantId:
+    type: string
+    description: The id of the [Merchant](/api/merchants) associated with the config.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+  enabled:
+    type: boolean
+    description: '`true` if the Asset Program Config is enabled for payments.'
+  status:
+    type: string
+    description: 'The status of the Asset Program Config. Possible values: `pending`, `active`, `inactive`.'
+  test:
+    type: boolean
+    description: '`true` if the Asset Program Config is for testing purposes only.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program Config was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Asset Program Config.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program Config was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Asset Program Config.

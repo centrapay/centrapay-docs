@@ -1,0 +1,50 @@
+x-title: Asset Program Membership Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Asset Program Membership.
+  assetProgramId:
+    type: string
+    description: The id of the [Asset Program](/api/asset-programs) the Membership belongs to.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+  status:
+    type: string
+    description: 'The status of the Asset Program Membership. Possible values: `created`, `active`, `inactive`.'
+  tosAcceptedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program Membership terms of service were accepted.
+  approvedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    nullable: true
+    description: When the Asset Program Membership was approved by the Asset Program owner.
+  test:
+    type: boolean
+    description: '`true` if the Asset Program Membership is for testing purposes only. This is based on the Asset Program.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program Membership was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Asset Program Membership.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program Membership was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Asset Program Membership.
+  billingBankAccountId:
+    type: string
+    description: The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.

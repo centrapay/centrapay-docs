@@ -1,0 +1,52 @@
+post:
+  x-method: POST
+  x-path: /api/bank-accounts/{bankAccountId}/archive
+  operationId: archiveBankAccount
+  summary: Archive Bank Account
+  description: |
+    Archives the supplied bank account. This endpoint is currently only supported for `quartz` bank accounts.
+  tags:
+    - bank-accounts
+  parameters:
+    - name: bankAccountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: b5URhAxxWpTKyxQjjY7pXW
+      description: The Bank Account id.
+  responses:
+    '200':
+      description: Bank Account archived
+      content:
+        application/json:
+          schema:
+            $ref: ../models/bank-account.yaml
+          examples:
+            default:
+              value:
+                id: b5URhAxxWpTKyxQjjY7pXW
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                bankAccountNumber: 12-1234-1234567-123
+                bankAccountName: Jane Doe
+                preferredBankAccountName: Everyday Account
+                balance: '123'
+                availableBalance: '100'
+                status: archived
+                verified: true
+                directDebitAuthorized: true
+                createdAt: '2020-06-12T01:17:46.499Z'
+                type: quartz
+                test: true
+                enduringPaymentConsentAuthorized: false
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            INVALID_BANK_ACCOUNT_TYPE:
+              description: The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
+              value:
+                message: INVALID_BANK_ACCOUNT_TYPE

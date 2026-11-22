@@ -1,0 +1,47 @@
+x-title: Wallet Asset Transaction Model
+type: object
+properties:
+  activityNumber:
+    type: string
+    x-type: bignumber
+    description: Unique sequential Wallet Asset transaction number.
+  amount:
+    type: string
+    x-type: bignumber
+    description: Absolute transaction amount in cents.
+  value:
+    type: string
+    x-type: bignumber
+    description: Change to the Wallet Asset's balance in cents when the transaction was applied.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Transaction timestamp as ISO 8601 date string.
+  activityType:
+    type: string
+    description: 'Hints to the type of transaction: undefined or `returned-asset-transfer`.'
+  destWalletId:
+    type: string
+    description: Id of the destination Wallet Asset if applicable.
+  srcWalletId:
+    type: string
+    description: Id of the source Wallet Asset if applicable.
+  destParty:
+    type: string
+    description: Display value for party receiving funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  srcParty:
+    type: string
+    description: Display value for party providing funds if applicable. Values may include a merchant name, user handle, masked user email, masked user phone, or bank account.
+  paymentRequestId:
+    type: string
+    description: Unique identifier of the related [Payment Request](/api/payment-requests) if applicable.
+  topupId:
+    type: string
+    description: Unique identifier of the related top up [Funds Transfer](/api/funds-transfers) request if applicable.
+  assetTransferId:
+    type: string
+    description: Unique identifier of the related [Asset Transfer](/api/asset-transfers) request if applicable.
+  withdrawalId:
+    type: string
+    description: Unique identifier of the related [Withdrawal](/api/funds-transfers) request if applicable.

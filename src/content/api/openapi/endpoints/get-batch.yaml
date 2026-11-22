@@ -1,0 +1,39 @@
+get:
+  x-method: GET
+  x-path: /api/batches/{batchId}
+  operationId: getBatch
+  summary: Get Batch
+  description: |
+    This endpoint allows you to retrieve a Batch by id.
+  tags:
+    - batches
+  parameters:
+    - name: batchId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: AVH5uG4gRLYK6YR8JyrViN
+      description: The Batch id.
+  responses:
+    '200':
+      description: Batch retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/batch.yaml
+          examples:
+            default:
+              value:
+                id: AVH5uG4gRLYK6YR8JyrViN
+                accountId: C4QnjXvj8At6SMsEN4LRi9
+                url: https://sabtestcardcomcentrapay.blob.core.windows.net/outbound/1234
+                status: complete
+                type: farmlands-external-asset
+                test: true
+                totalCount: '160000'
+                errorCount: '1'
+                errors:
+                  - externalId: 69d64d80-f9bd-4057-bc5b-1c55685d995b
+                    index: '1954'
+                    message: INVALID_BARCODE_LENGTH

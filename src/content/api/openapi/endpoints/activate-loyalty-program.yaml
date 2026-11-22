@@ -1,0 +1,40 @@
+post:
+  x-method: POST
+  x-path: /api/loyalty-programs/{loyaltyProgramId}/activate
+  x-experimental: true
+  operationId: activateLoyaltyProgram
+  summary: Activate Loyalty Program
+  description: |
+    Allows the user to set the status of the [Loyalty Program](#loyalty-program-model) to `active`.
+  tags:
+    - loyalty-programs
+  parameters:
+    - name: loyaltyProgramId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The Loyalty Program id.
+  responses:
+    '200':
+      description: Loyalty Program activated
+      content:
+        application/json:
+          schema:
+            $ref: ../models/loyalty-program.yaml
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                name: Centrapay Cafe Loyalty Program
+                description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!'
+                mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+                img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                test: true
+                status: active
+                memberCount: '0'
+                visibility: public

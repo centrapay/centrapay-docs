@@ -1,0 +1,60 @@
+post:
+  x-method: POST
+  x-path: /api/bank-accounts/{bankAccountId}/set-preferred-name
+  operationId: setBankAccountPreferredName
+  summary: Set Preferred Bank Account Name
+  description: This endpoint allows you to set the preferred name of a [Bank Account](#bank-account-model).
+  tags:
+    - bank-accounts
+  parameters:
+    - name: bankAccountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The Bank Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - preferredBankAccountName
+          properties:
+            preferredBankAccountName:
+              type: string
+              maxLength: 20
+              description: The preferred name for the Bank Account. Maximum 20 characters.
+        examples:
+          default:
+            value:
+              preferredBankAccountName: Everyday Account
+  responses:
+    '200':
+      description: Preferred Bank Account name set
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                activityNumber: '1'
+                createdAt: '2020-06-12T01:17:46.499Z'
+                bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+                type: set-preferred-bank-account-name
+                preferredBankAccountName: Everyday Account
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            INVALID_BANK_ACCOUNT_TYPE:
+              description: The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
+              value:
+                message: INVALID_BANK_ACCOUNT_TYPE

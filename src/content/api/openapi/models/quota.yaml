@@ -1,0 +1,23 @@
+x-title: Quota Model
+type: object
+properties:
+  type:
+    type: string
+    description: The quota's type. See [Supported Quota Types](#supported-quota-types).
+  limit:
+    x-type: bignumber
+    type: string
+    description: The quota's upper usage limit.
+  usage:
+    x-type: bignumber
+    type: string
+    description: The quota's current usage.
+  assetType:
+    type: string
+    description: The type of asset the quota is scoped to, eg `centrapay.nzd.main`.
+  period:
+    type: string
+    description: 'The recurring, time-bound quota''s duration: `daily`, `monthly` or `yearly`.'
+  interval:
+    type: string
+    description: 'The specific day, month or year the quota applies to, eg: `2020-01-01`, `2020-01`, `2020`.'

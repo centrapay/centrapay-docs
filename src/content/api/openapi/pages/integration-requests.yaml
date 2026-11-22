@@ -1,0 +1,36 @@
+title: Integration Requests
+description: Integration Request models and related endpoints
+nav:
+  path: Integrations
+  order: 2
+intro: |
+  An Integration Request allows Centrapay users to request the creation of an [Integration](/api/integrations/) on a Centrapay Account.
+sections:
+  - model: integration-request
+    rule: false
+  - model: integration-requests-terminal
+    rule: false
+    depth: 3
+  - model: integration-requests-product
+    depth: 3
+  - title: Integration Types
+    rule: false
+    depth: 3
+    body: |
+      |   Name   |                        Description                         |
+      | -------- | ---------------------------------------------------------- |
+      | epay     | Asset provider [ePay](https://www.giftstation.co.nz/)      |
+      | invenco  | Terminal vendor [invenco](https://www.invenco.com/)        |
+      | skyzer   | Terminal vendor [skyzer](https://www.skyzer.co.nz)         |
+      | smartpay | Terminal vendor [smartpay](https://www.smartpay.co.nz)     |
+      | verifone | Terminal vendor [Verifone](https://www.verifone.com/en/nz) |
+      | vista    | Terminal vendor [vista](https://www.vista.co)              |
+      | windcave | Terminal vendor [Windcave](https://www.windcave.com/)      |
+      | shopify  | E-commerce provider [Shopify](https://www.shopify.com/)    |
+  - endpoint: createIntegrationRequest
+  - endpoint: getIntegrationRequest
+  - endpoint: searchIntegrationRequests
+  - endpoint: configureIntegrationRequest
+  - endpoint: getIntegrationRequestConfig
+  - endpoint: activateIntegrationRequest
+  - endpoint: deleteIntegrationRequest

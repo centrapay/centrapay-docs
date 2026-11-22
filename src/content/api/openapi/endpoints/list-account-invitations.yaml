@@ -1,0 +1,63 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/invitations
+  x-experimental: true
+  operationId: listAccountInvitations
+  summary: List Invitations by Account Id
+  description: This endpoint allows you list Invitations for an Account.
+  tags:
+    - invitations
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Hopo4g34sLVdjEMBs2p19F
+      description: The Account id.
+  responses:
+    '200':
+      description: Invitations listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '../models/invitation.yaml'
+          examples:
+            default:
+              value:
+                items:
+                  - id: DKTs3U38hdhfEqwF1JKoT2
+                    code: WIj211vFs9cNACwBb04vQw
+                    type: account-membership
+                    resourceId: Hopo4g34sLVdjEMBs2p19F
+                    resourceType: account
+                    expiresAt: '2021-08-26T00:02:49.488Z'
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    updatedAt: '2021-08-25T00:02:49.488Z'
+                    updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    recipientAlias: user@org.com
+                    params:
+                      role: account-owner
+                      accountName: Centrapay Cafe
+                    status: created
+                  - id: JKKDMU38hd01hfEqwF1oT2
+                    code: Rk7vNq2XbT9mLsHc4ZpWdE
+                    type: account-membership
+                    resourceId: Hopo4g34sLVdjEMBs2p19F
+                    resourceType: account
+                    expiresAt: '2021-08-26T00:02:49.488Z'
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    updatedAt: '2021-08-25T00:02:49.488Z'
+                    updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                    recipientAlias: john.doe@org.com
+                    params:
+                      role: cashier
+                      accountName: Centrapay Cafe
+                    status: sent

@@ -1,0 +1,9 @@
+x-title: Params Model
+type: object
+properties:
+  role:
+    type: string
+    description: The role assigned to the recipient, for invitations of type `account-membership`. Supported values are `account-owner` and `cashier`.
+  accountName:
+    type: string
+    description: The name of the account that the recipient is invited to, for invitations of type `account-membership`

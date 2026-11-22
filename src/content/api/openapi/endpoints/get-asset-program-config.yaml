@@ -1,0 +1,40 @@
+get:
+  x-method: GET
+  x-path: /api/asset-program-configs/{id}
+  x-experimental: true
+  operationId: getAssetProgramConfig
+  summary: Get Asset Program Config
+  description: |
+    This endpoint allows you to retrieve a specific [Asset Program Config](#asset-program-config-model).
+  tags:
+    - asset-program-configs
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: apc_WRhAxxWpTKb5U7pXyxQjjY
+      description: The unique identifier of the Asset Program Config.
+  responses:
+    '200':
+      description: Asset Program Config retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-program-config.yaml
+          examples:
+            default:
+              value:
+                id: apc_WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                assetProgramId: ap_WRhAxxWpTKb5U7pXyxQjjY
+                assetProgramMembershipId: apm_Xv990BzkgfoDS7bBls50pd
+                merchantId: 5ee0c486308f590260d9a07f
+                enabled: true
+                status: active
+                test: true
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99

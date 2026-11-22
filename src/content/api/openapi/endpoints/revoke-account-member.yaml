@@ -1,0 +1,37 @@
+delete:
+  x-method: DELETE
+  x-path: /api/accounts/{accountId}/members/{userId}
+  operationId: revokeAccountMember
+  summary: Revoke Member
+  description: This endpoint allows you to revoke a users membership to an account.
+  tags:
+    - account-memberships
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: da75ad90-9a5b-4df0-8374-f48b3a8fbfcc
+      description: The id of the user the Membership belongs to.
+  responses:
+    '200':
+      description: Member revoked
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            LAST_OWNER_NOT_REVOKABLE:
+              description: The last remaining membership to an account cannot be revoked.
+              value:
+                message: LAST_OWNER_NOT_REVOKABLE

@@ -1,0 +1,89 @@
+x-title: Asset Transfer Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier.
+  status:
+    type: string
+    description: The status of the Asset Transfer. See [Asset Transfer lifecycle](#asset-transfer-lifecycle) for possible values.
+  value:
+    type: string
+    x-type: bignumber
+    description: Amount to send. Required for money transfers. Units depend on the asset type.
+  assetId:
+    type: string
+    description: Id of a discrete asset to transfer or wallet asset to draw from.
+  assetType:
+    type: string
+    description: The [Asset Type](/api/asset-types/) being transferred.
+  assetCollectionId:
+    type: string
+    x-experimental: true
+    description: The [Token Collection](/api/tokens#token-collection-model) id being transferred.
+  description:
+    type: string
+    description: Shows up in transaction history against the transfer. 200 character limit.
+  message:
+    type: string
+    description: Shows up in transaction history against the transfer. 100 character limit.
+  lastSentTo:
+    type: string
+    description: The phone number or email address of the last recipient.
+  senderName:
+    type: string
+    description: Human readable name for the sender. 30 character limit.
+  recipientAccountId:
+    type: string
+    description: The Centrapay Account id of the recipient.
+  senderAccountId:
+    type: string
+    description: The Centrapay Account id of the sender.
+  claimedByAccountId:
+    type: string
+    description: The Centrapay Account that claimed the Asset Transfer.
+  recipientAlias:
+    type: string
+    description: Phone number, email or handle of receiver and who make a request for asset transfer
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Transfer was created.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Transfer was updated.
+  suppressNotifications:
+    type: boolean
+    description: Suppress notifications from Centrapay (SMS/Email).
+  url:
+    type: string
+    description: A URL where the asset can be claimed if a recipient is not supplied.
+  claimType:
+    type: string
+    x-experimental: true
+    description: '''multi'' if the asset transfer can be claimed by multiple users, ''single'' if it can only be claimed by one user.'
+  valueConfig:
+    type: object
+    x-experimental: true
+    description: The configuration of the value of the asset being transferred for each claim.
+  claimConditions:
+    type: array
+    x-experimental: true
+    description: Array of claim conditions that must be met to successfully claim the asset transfer.
+    items:
+      type: object
+  remainingValue:
+    type: string
+    x-experimental: true
+    description: The remaining value of the asset that has not been claimed.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The time that the asset transfer will expire.
+  loyaltyProgramId:
+    type: string
+    description: The ID of the [Loyalty Program](/api/loyalty-programs) associated with this asset transfer.

@@ -1,0 +1,6 @@
+x-title: Settlement Config Model
+type: object
+properties:
+  bankAccountId:
+    type: string
+    description: The id of the bank account funds should be settled into. This must belong to the account

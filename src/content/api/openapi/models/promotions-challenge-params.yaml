@@ -1,0 +1,11 @@
+x-title: Challenge Params
+type: object
+properties:
+  target:
+    type: object
+    description: Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+  rewards:
+    type: object
+    description: Describes the rewards the account will receive upon completing the Promotion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+required:
+  - target

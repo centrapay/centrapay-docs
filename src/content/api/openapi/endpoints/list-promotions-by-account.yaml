@@ -1,0 +1,68 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/promotions
+  x-experimental: true
+  operationId: listPromotionsByAccount
+  summary: List Promotions by Account
+  description: |
+    Returns a [paginated](/api/pagination/) list of Promotions for an [Account](/api/accounts).
+  tags:
+    - promotions
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 57SyRRgZ1U8Kq2wKpCnSR5
+      description: The [Account](/api/accounts) id.
+  responses:
+    '200':
+      description: Promotions listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/promotion.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: 8aoMfscvtuewsuJzmzBzAs
+                    accountId: 57SyRRgZ1U8Kq2wKpCnSR5
+                    programId: WRhAxxWpTKb5U7pXyxQjjY
+                    name: Spend a Buck
+                    summary: Make a payment
+                    description: The amount of the payment must be greater than $1.
+                    mediaUploadId: 26yUWG6wFgmva8UaDiCTWq
+                    img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                    startsAt: '2023-02-16T00:47:54.131Z'
+                    endsAt: '2024-02-16T00:47:54.131Z'
+                    rewards:
+                      - assetType: centrapay.nzd.main
+                        amount: '500'
+                    eventType: payment
+                    target:
+                      type: count
+                      amount: '1'
+                    params:
+                      target:
+                        type: count
+                        amount: '1'
+                      rewards:
+                        and:
+                          - assetType: centrapay.nzd.main
+                            amount: '500'
+                    type: challenge
+                    conditions:
+                      - field: amount
+                        value: '99'
+                        operator: greater-than
+                    createdAt: '2023-02-08T04:04:27.426Z'
+                    createdBy: crn::user:1234

@@ -1,0 +1,6 @@
+x-title: Product Model
+type: object
+properties:
+  id:
+    type: string
+    description: Product's unique identifier.

@@ -1,0 +1,55 @@
+x-title: Asset Program Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Asset Program.
+  name:
+    type: string
+    description: The display name of the Asset Program.
+  assetTypes:
+    type: array
+    items:
+      type: string
+    description: One or more [Asset Types](/api/asset-types) that can be accepted as part of the Asset Program.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that owns the Asset Program.
+  test:
+    type: boolean
+    description: '`true` if the Asset Program is for testing purposes only. This is based on the Account that owns the Asset Program.'
+  mediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the Asset Program.
+  published:
+    type: boolean
+    description: '`true` if the Asset Program is published and visible to merchants. Defaults to `true`.'
+  privacyPolicyUrl:
+    type: string
+    description: URL to the Asset Program's privacy policy document.
+  termsOfServiceUrl:
+    type: string
+    description: URL to the Asset Program's terms of service document.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Asset Program.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Program was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Asset Program.
+  collectionIds:
+    type: array
+    items:
+      type: string
+    description: The list of collection ids associated with the Asset Program.

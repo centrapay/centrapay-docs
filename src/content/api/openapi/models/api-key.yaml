@@ -1,0 +1,36 @@
+x-title: API Key Model
+type: object
+properties:
+  accountId:
+    type: string
+    description: The id of the Centrapay [Account](/api/accounts) the API Key is scoped to.
+  name:
+    type: string
+    description: The alphanumeric name of the API key, must be unique within the account.
+  role:
+    type: string
+    description: 'Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.'
+  enabled:
+    type: boolean
+    description: Flag indicating the API Key is usable for authentication.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the API Key was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the API Key.
+  modifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the API Key was modified.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that modified the API Key.
+  version:
+    type: string
+    description: An API Key version that is incremented when the API Key is updated.

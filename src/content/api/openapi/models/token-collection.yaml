@@ -1,0 +1,63 @@
+x-title: Token Collection Model
+type: object
+required:
+  - name
+  - accountId
+  - type
+properties:
+  name:
+    type: string
+    description: The display name of the Collection.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that will own the Collection.
+  tokenExpiresAfter:
+    type: object
+    description: The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+  tokenExpiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: A date that all tokens will expire on if they haven’t expired earlier.
+  type:
+    type: string
+    description: The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+  maxValue:
+    type: object
+    x-type: monetary
+    description: The maximum agreed value that any merchants will be settled for a Token redemption. Required for Collections of type `discount`, where it defines the value that each Token will discount from a payment.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+  id:
+    type: string
+    description: The unique identifier of the Token Collection.
+  test:
+    type: boolean
+    description: '`true` if the Token Collection is for testing purposes only.'
+  status:
+    type: string
+    description: 'The status of the Token Collection. Valid values: `active`.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Timestamp at which the Token Collection was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The identity that created the Token Collection.
+  mediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the Collection.
+  externalId:
+    type: string
+    description: An identifier to associate the Collection with an external campaign or event.
+  img:
+    type: string
+    description: The img URL of the Collection.
+  issuer:
+    type: string
+    description: The name of the [Business](/api/businesses/) linked to the Account.

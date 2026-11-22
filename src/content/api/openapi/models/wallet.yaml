@@ -1,0 +1,29 @@
+x-title: Wallet Model
+type: object
+properties:
+  id:
+    type: string
+    description: A unique and human readable identifier of the wallet.
+  name:
+    type: string
+    description: The displayable name of the wallet.
+  accountId:
+    type: string
+    description: The account that owns the wallet.
+  connectUrl:
+    type: string
+    description: The URL that we will redirect to for the Connect flow.
+  payUrl:
+    type: string
+    description: The URL that we will redirect to for payments.
+  logoMediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the Wallet.
+  primaryColorHex:
+    type: string
+    description: A hex color code used to visually represent the wallet or brand in the UI.
+  assetTypes:
+    type: array
+    description: List of [Asset Types](#asset-types-model) that the wallet supports.
+    items:
+      $ref: './wallets-asset-types.yaml'

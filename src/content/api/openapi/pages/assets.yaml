@@ -1,0 +1,25 @@
+title: Assets
+description: Asset models and related endpoints
+nav:
+  path: Assets
+  order: 1
+intro: |
+  Centrapay digital assets are resources that represent the ability for a
+  Centrapay account to perform transactions where value is exchanged. Assets can
+  be spent to satisfy [Payment Requests](/api/payment-requests), withdrawn to a bank account via
+  [Funds Transfers](/api/funds-transfers) and sent to other Centrapay users via [Asset Transfers](/api/asset-transfers).
+
+  Assets are categorized as either Money or Tokens. Depending on its
+  asset category, an asset will have different attributes available and different
+  rules governing how it can be obtained, shared or spent.
+sections:
+  - model: asset
+    rule: false
+  - model: assets-money
+  - model: assets-token
+  - model: assets-ledger
+  - endpoint: getAsset
+  - endpoint: getAssetSummary
+  - endpoint: listAccountAssets
+  - endpoint: archiveAsset
+  - endpoint: getAssetByExternalId

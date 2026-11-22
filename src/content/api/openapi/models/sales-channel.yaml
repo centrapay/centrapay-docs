@@ -1,0 +1,63 @@
+x-title: Sales Channel Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Sales Channel.
+  name:
+    type: string
+    description: The display name of the Sales Channel.
+  type:
+    type: string
+    enum:
+      - reseller
+      - provider
+    description: The type of the Sales Channel integration either `reseller` or `provider`.
+  accountId:
+    type: string
+    description: Id of the [Account](/api/accounts/) that owns the Sales Channel.
+  test:
+    type: boolean
+    description: '`true` if the Sales Channel is for testing purposes only. This is based on the Account that owns the Sales Channel.'
+  providerSalesChannelId:
+    type: string
+    description: The id of the Sales Channel for the device provider. Required if `type` is `reseller`.
+  deviceId:
+    type: boolean
+    description: '`true` if a device id is required to onboard to Sales Channel.'
+  deviceModel:
+    type: boolean
+    description: '`true` if a device model is required to onboard to Sales Channel.'
+  deviceSerialNumber:
+    type: boolean
+    description: '`true` if a device serial number is required to onboard to Sales Channel.'
+  notificationEmail:
+    type: string
+    description: Email to notify for requests to connect to Sales Channel.
+  notificationFrequency:
+    type: string
+    enum:
+      - daily
+      - weekly
+    description: Frequency of notification emails. Valid values are `weekly` and `daily`.
+  notificationUrl:
+    type: string
+    description: Url for web hook notifications for requests to connect to Sales Channel.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Sales Channel was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Sales Channel.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Sales Channel was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Sales Channel.

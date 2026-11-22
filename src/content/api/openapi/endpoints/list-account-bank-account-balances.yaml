@@ -1,0 +1,42 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/bank-account-balances
+  x-experimental: true
+  operationId: listAccountBankAccountBalances
+  summary: List Bank Account Balances
+  description: |
+    This endpoint allows you to retrieve the [balances](#bank-account-balance-model) of an Account's Bank Accounts.
+  tags:
+    - bank-accounts
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The [Account](/api/accounts) id.
+  responses:
+    '200':
+      description: Bank Account balances retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/bank-account-balance.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - bankAccountId: b3f9ba1abff64775877d4a2fb073b123
+                    bankAccountNumber: 12-1234-1234567-123
+                    balance: '101.00'
+                    availableBalance: '101.00'
+                    test: true
+                nextPageKey: 48a16140-24d2-4aec-b52f-a9d4f8f23876

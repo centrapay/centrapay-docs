@@ -1,0 +1,13 @@
+title: Wallets
+description: Wallet model and related endpoints
+nav:
+  path: Wallets
+  order: 1
+intro: |
+  A Wallet is a representation of a consumer application.
+sections:
+  - model: wallet
+    rule: false
+  - model: wallets-asset-types
+  - endpoint: createWallet
+  - endpoint: listMerchantSupportedWallets

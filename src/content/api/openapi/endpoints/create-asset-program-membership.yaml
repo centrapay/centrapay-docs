@@ -1,0 +1,87 @@
+post:
+  x-method: POST
+  x-path: /api/asset-program-memberships
+  x-experimental: true
+  operationId: createAssetProgramMembership
+  summary: Create Asset Program Membership
+  description: |
+    This endpoint allows you to create an [Asset Program Membership](#asset-program-membership-model).
+  tags:
+    - asset-program-memberships
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - assetProgramId
+            - accountId
+          properties:
+            assetProgramId:
+              type: string
+              description: The id of the [Asset Program](/api/asset-programs) the Membership belongs to.
+            accountId:
+              type: string
+              description: The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
+            accept:
+              type: boolean
+              description: '`true` to automatically accept the terms of service for the membership. Requires `asset-program-memberships:accept` permission on the account.'
+            approve:
+              type: boolean
+              description: '`true` to automatically approve the membership. Requires `asset-program-memberships:approve` permission on the Asset Program owner account.'
+            billingBankAccountId:
+              type: string
+              description: The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.
+        examples:
+          default:
+            value:
+              assetProgramId: ap_WRhAxxWpTKb5U7pXyxQjjY
+              accountId: Jaim1Cu1Q55uooxSens6yk
+              accept: true
+              approve: false
+              billingBankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+  responses:
+    '200':
+      description: Asset Program Membership created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-program-membership.yaml
+          examples:
+            default:
+              value:
+                id: apm_Xv990BzkgfoDS7bBls50pd
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                assetProgramId: ap_WRhAxxWpTKb5U7pXyxQjjY
+                status: created
+                test: true
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                updatedAt: '2021-08-25T00:03:15.123Z'
+                updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                tosAcceptedAt: '2021-08-25T00:03:15.123Z'
+                billingBankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            ACCOUNT_TYPE_INVALID:
+              description: The Account must be type `org`.
+              value:
+                message: ACCOUNT_TYPE_INVALID
+            LIVENESS_MISMATCH:
+              description: The liveness of the [Account](/api/accounts) doesn't match the liveness of the [Asset Program](/api/asset-programs).
+              value:
+                message: LIVENESS_MISMATCH
+            ALREADY_A_MEMBER_OF_ASSET_PROGRAM:
+              description: The Account is already a member of the Asset Program.
+              value:
+                message: ALREADY_A_MEMBER_OF_ASSET_PROGRAM
+            BILLING_BANK_ACCOUNT_REQUIRED:
+              description: A billing bank account is required before the membership can be accepted or approved.
+              value:
+                message: BILLING_BANK_ACCOUNT_REQUIRED

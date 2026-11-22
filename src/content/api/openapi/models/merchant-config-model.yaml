@@ -1,0 +1,32 @@
+x-title: Merchant Config Model
+type: object
+properties:
+  paymentOptions:
+    type: array
+    description: Array of [Payment Option Configs](#payment-option-config-model).
+    items:
+      $ref: './payment-option-config.yaml'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Merchant Config was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Merchant Config.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Merchant Config was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Merchant Config.
+  allowedRedirectUrls:
+    type: array
+    x-experimental: true
+    description: Allowed prefixes for the `redirectUrl` property on Payment Requests created with this Config.
+    items:
+      type: string

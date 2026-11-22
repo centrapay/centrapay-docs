@@ -1,0 +1,15 @@
+x-title: Token Expires After Model
+type: object
+required:
+  - period
+  - duration
+properties:
+  period:
+    type: string
+    description: Supported values are `hour`, `day`, `week`, `month` and `year`.
+  duration:
+    type: string
+    description: Number of `period` until token expiration.
+  ceil:
+    type: string
+    description: Interval to round token expiry up to. Supported values are `day`, `week`, `month` and `year`, and must not be longer than `period`. Not supported when `period` is `hour`.

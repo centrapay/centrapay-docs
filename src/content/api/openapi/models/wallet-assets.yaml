@@ -1,0 +1,44 @@
+x-title: Wallet Assets Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Wallet Asset.
+  accountId:
+    type: string
+    description: The Wallet Asset's owning Centrapay [Account](/api/accounts/) id.
+  category:
+    type: string
+    description: Asset category (`money`, `giftcard`, `token`).
+  type:
+    type: string
+    description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
+  liveness:
+    type: string
+    description: Either `main` (live payments allowed) or `test`.
+  description:
+    type: string
+    description: Displayable asset description.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Timestamp at which the Wallet Asset was created.
+  status:
+    type: string
+    description: '`active` if the Wallet Asset can be used for payments.'
+  currency:
+    type: string
+    description: Currency code, eg "NZD".
+  balance:
+    type: string
+    x-type: bignumber
+    description: Current balance in the currency's smallest denomination (ie. cents).
+  availableBalance:
+    type: string
+    x-type: bignumber
+    description: The balance of the asset that is available for transfers or purchases.
+  settlement:
+    type: boolean
+    x-experimental: true
+    description: '`true` if the Wallet Asset is a [Settlement Wallet Asset](#settlement-wallet-assets).'

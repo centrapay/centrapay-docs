@@ -1,0 +1,39 @@
+x-title: Loyalty Program Membership Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Loyalty Program Membership.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts/) that is being onboarded to the Loyalty Program.
+  programId:
+    type: string
+    description: The id of the Loyalty Program that the Membership is created for.
+  name:
+    type: string
+    description: The display name of the Loyalty Program.
+  description:
+    type: string
+    description: The displayable description for the Loyalty Program.
+  status:
+    type: string
+    description: The status of the Loyalty Program Membership.
+  mediaUploadId:
+    type: string
+    description: The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+  img:
+    type: string
+    description: The img URL of the Loyalty Program.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Loyalty Program Membership was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Loyalty Program Membership.
+  test:
+    type: boolean
+    description: '`true` if the Loyalty Program Membership is for testing purposes only.'

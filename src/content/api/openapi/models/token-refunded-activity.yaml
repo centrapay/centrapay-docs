@@ -1,0 +1,11 @@
+x-title: Token Refunded Activity Model
+x-intro: |
+  This records the refunding of a token. Used when activityType is `token`. This extends the [Asset Activity Model](#asset-activity-model)
+type: object
+properties:
+  idempotencyKey:
+    type: string
+    description: Client-supplied identifier that prevents double creation
+  action:
+    type: string
+    description: type of action for token activities. Will be `refund` for all new activities

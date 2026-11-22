@@ -1,0 +1,35 @@
+post:
+  x-method: POST
+  x-path: /api/payment-links/{paymentLinkId}/archive
+  x-experimental: true
+  operationId: archivePaymentLink
+  summary: Archive Payment Link
+  description: This endpoint allows you to archive a Payment Link.
+  tags:
+    - payment-links
+  parameters:
+    - name: paymentLinkId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: pl_WRhAxxWpTKb5U7pXyxQjjY
+      description: The Payment Link id.
+  responses:
+    '200':
+      description: Payment Link archived
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-link.yaml'
+          examples:
+            default:
+              value:
+                id: pl_WRhAxxWpTKb5U7pXyxQjjY
+                name: Front Checkout
+                status: archived
+                createdAt: '2021-08-25T00:02:49.488Z'
+                updatedAt: '2022-08-25T00:02:49.488Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                merchantId: 5ee0c486308f590260d9a07f

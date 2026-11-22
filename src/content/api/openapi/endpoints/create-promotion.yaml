@@ -1,0 +1,221 @@
+post:
+  x-method: POST
+  x-path: /api/loyalty-programs/{loyaltyProgramId}/promotions
+  x-experimental: true
+  operationId: createPromotion
+  summary: Create Promotion
+  description: This endpoint allows you to create a [Promotion](#promotion-model).
+  tags:
+    - promotions
+  parameters:
+    - name: loyaltyProgramId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The [Loyalty Program](/api/loyalty-programs) id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - eventType
+            - params
+            - type
+          properties:
+            name:
+              type: string
+              description: The display name of the Promotion.
+            summary:
+              type: string
+              description: The display summary for the Promotion.
+            mediaUploadId:
+              type: string
+              description: The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+            startsAt:
+              type: string
+              format: date-time
+              x-type: timestamp
+              description: The timestamp of when the Promotion starts.
+            endsAt:
+              type: string
+              format: date-time
+              x-type: timestamp
+              description: The timestamp of when the Promotion ends.
+            eventType:
+              type: string
+              description: The type of [Event](/api/events) that will trigger increments and completions of the Promotion.
+            params:
+              type: object
+              description: Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+            type:
+              type: string
+              description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+            conditions:
+              type: array
+              items:
+                $ref: ../models/promotion-condition.yaml
+              description: The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+            description:
+              type: string
+              description: Displayable description for the Promotion.
+            repeatable:
+              type: boolean
+              description: Flag indicating that the promotion will reward itself upon completion. This will mean that members can complete the promotion an unlimited number of times.
+        examples:
+          default:
+            value:
+              name: Spend a Buck
+              summary: Make a payment
+              mediaUploadId: 26yUWG6wFgmva8UaDiCTWq
+              startsAt: '2023-02-16T00:47:54.131Z'
+              endsAt: '2024-02-16T00:47:54.131Z'
+              eventType: payment
+              params:
+                target:
+                  type: count
+                  amount: '1'
+                rewards:
+                  and:
+                    - assetType: centrapay.nzd.main
+                      amount: '500'
+              type: challenge
+              conditions:
+                - field: amount
+                  value: '99'
+                  operator: greater-than
+                - type: merchantId
+                  value: 5ee0c486308f590260d9a07f
+                  operator: equals
+              description: The amount of the payment must be greater than $1.
+              repeatable: true
+  responses:
+    '200':
+      description: Promotion created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/promotion.yaml
+          examples:
+            default:
+              value:
+                id: 8aoMfscvtuewsuJzmzBzAs
+                accountId: 57SyRRgZ1U8Kq2wKpCnSR5
+                programId: WRhAxxWpTKb5U7pXyxQjjY
+                name: Spend a Buck
+                summary: Make a payment
+                mediaUploadId: 26yUWG6wFgmva8UaDiCTWq
+                img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                startsAt: '2023-02-16T00:47:54.131Z'
+                endsAt: '2024-02-16T00:47:54.131Z'
+                rewards:
+                  - assetType: centrapay.nzd.main
+                    amount: '500'
+                eventType: payment
+                target:
+                  type: count
+                  amount: '1'
+                params:
+                  target:
+                    type: count
+                    amount: '1'
+                  rewards:
+                    and:
+                      - assetType: centrapay.nzd.main
+                        amount: '500'
+                type: challenge
+                conditions:
+                  - field: amount
+                    value: '99'
+                    operator: greater-than
+                  - type: merchantId
+                    field: merchantId
+                    value: 5ee0c486308f590260d9a07f
+                    operator: equals
+                description: The amount of the payment must be greater than $1.
+                createdAt: '2023-02-08T04:04:27.426Z'
+                createdBy: crn::user:1234
+                repeatable: true
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            PROMOTION_REWARDS_INVALID:
+              description: One or more of the rewards ledgers does not exist or permissions are invalid.
+              value:
+                message: PROMOTION_REWARDS_INVALID
+get:
+  x-method: GET
+  x-path: /api/loyalty-programs/{loyaltyProgramId}/promotions
+  x-experimental: true
+  operationId: listPromotionsByLoyaltyProgram
+  summary: List Promotions by Loyalty Program
+  description: |
+    Returns a list of Promotions for a [Loyalty Program](/api/loyalty-programs).
+  tags:
+    - promotions
+  parameters:
+    - name: loyaltyProgramId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The [Loyalty Program](/api/loyalty-programs) id.
+  responses:
+    '200':
+      description: Promotions listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/promotion.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: 8aoMfscvtuewsuJzmzBzAs
+                    accountId: 57SyRRgZ1U8Kq2wKpCnSR5
+                    programId: WRhAxxWpTKb5U7pXyxQjjY
+                    name: Spend a Buck
+                    summary: Make a payment
+                    description: The amount of the payment must be greater than $1.
+                    mediaUploadId: 26yUWG6wFgmva8UaDiCTWq
+                    img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                    startsAt: '2023-02-16T00:47:54.131Z'
+                    endsAt: '2024-02-16T00:47:54.131Z'
+                    rewards:
+                      - assetType: centrapay.nzd.main
+                        amount: '500'
+                    eventType: payment
+                    target:
+                      type: count
+                      amount: '1'
+                    params:
+                      target:
+                        type: count
+                        amount: '1'
+                      rewards:
+                        and:
+                          - assetType: centrapay.nzd.main
+                            amount: '500'
+                    type: challenge
+                    conditions:
+                      - field: amount
+                        value: '100'
+                        operator: greater-than
+                    createdAt: '2023-02-08T04:04:27.426Z'
+                    createdBy: crn::user:1234

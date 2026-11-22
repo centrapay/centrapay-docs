@@ -1,0 +1,36 @@
+get:
+  x-method: GET
+  x-path: /api/payment-links/{paymentLinkId}
+  x-experimental: true
+  operationId: getPaymentLink
+  summary: Get Payment Link
+  description: This endpoint allows you to retrieve a Payment Link.
+  tags:
+    - payment-links
+  parameters:
+    - name: paymentLinkId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: pl_WRhAxxWpTKb5U7pXyxQjjY
+      description: The Payment Link id.
+  responses:
+    '200':
+      description: Payment Link retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/payment-link.yaml'
+          examples:
+            default:
+              value:
+                id: pl_WRhAxxWpTKb5U7pXyxQjjY
+                status: active
+                name: Front Checkout
+                merchantId: 5ee0c486308f590260d9a07f
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                createdAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedAt: '2022-08-25T00:02:49.488Z'

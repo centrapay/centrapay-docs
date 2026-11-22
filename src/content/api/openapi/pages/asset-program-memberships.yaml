@@ -1,0 +1,19 @@
+title: Asset Program Memberships
+description: Membership to an Asset Programs
+nav:
+  path: Asset Programs
+  order: 2
+intro: |
+  A Membership to an [Asset Program](/api/asset-programs).
+
+  An Asset Program Membership represents the formal relationship between a business account and an Asset Program. This membership must be approved by the asset program owner and accepted by the business account to be in effect. The membership establishes the business's eligibility to participate in the Asset Program and is a prerequisite for Asset Program Configs to become active. While Asset Program Configs can be created at any time, they will only become active once both approval and acceptance are complete, allowing merchants to accept the program's assets as payment.
+sections:
+  - model: asset-program-membership
+    rule: false
+  - endpoint: createAssetProgramMembership
+  - endpoint: getAssetProgramMembership
+  - endpoint: listAssetProgramMembershipsByAssetProgram
+  - endpoint: listAssetProgramMembershipsByAccount
+  - endpoint: acceptAssetProgramMembership
+  - endpoint: approveAssetProgramMembership
+  - endpoint: setAssetProgramMembershipBillingBankAccount

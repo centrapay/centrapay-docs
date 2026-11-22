@@ -1,0 +1,67 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/assets
+  operationId: listAccountAssets
+  summary: List Assets for Account
+  description: |
+    Returns a [paginated](/api/pagination) list of Assets for an account. This will not return archived assets.
+  tags:
+    - assets
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Te2uDM7xhDLWGVJU3nzwnh
+      description: The Account id.
+    - name: externalId
+      in: query
+      schema:
+        type: string
+      description: The asset identifier from the issuing system.
+  responses:
+    '200':
+      description: Assets listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/asset.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: WRhAxxWpTKb5U7pXyxQjjY
+                    accountId: Te2uDM7xhDLWGVJU3nzwnh
+                    category: money
+                    type: centrapay.nzd.main
+                    liveness: main
+                    description: NZD
+                    createdAt: '2021-01-01T00:00:00.000Z'
+                    status: active
+                    currency: NZD
+                    balance: '2000'
+                    availableBalance: '2000'
+                  - id: Aj7rtHmd7rDeWoJgw9MPHe
+                    accountId: Te2uDM7xhDLWGVJU3nzwnh
+                    category: token
+                    type: centrapay.token.main
+                    liveness: main
+                    createdAt: '2020-05-01T12:30:00.000Z'
+                    status: active
+                    activeFrom: '2020-05-01T12:30:00.000Z'
+                    expiresAt: '2020-12-31T00:00:00.000Z'
+                    description: Centrapay Token
+                    collectionId: c_4Hq8WmZ2rTn6YbPkD9xVfL
+                    collectionType: product
+                    issuerImg: https://static.centrapay.com/assets/brands/centraperk/logo.png
+                    img: http://www.centrapay.com/path/to/img.png
+                    issuer: Centraperk
+                    issuerWebsite: www.centrapay.com

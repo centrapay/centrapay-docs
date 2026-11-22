@@ -1,0 +1,43 @@
+x-title: Asset Transaction Activity Model
+x-intro: |
+  The `destParty` and `srcParty` are optionally provided only on transactions of
+  type `transfer`. Values may include a merchant name, user handle, masked user
+  email, masked user phone, or bank account.
+
+  The `otherParty` is optionally provided only on transactions of type
+  `increment-balance` and `decrement-balance`. Values may include bank account
+  number.
+
+  This extends the [asset activity model](#asset-activity-model)
+type: object
+properties:
+  ref:
+    type: string
+    description: ID of the Centrapay resource that initiated the transaction.
+  refType:
+    type: string
+    description: Name of the Centrapay resource that initiated the transaction.
+  type:
+    type: string
+    description: Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`.
+  kind:
+    type: string
+    description: Human readable value indicating the reason for the transaction.
+  srcAssetId:
+    type: string
+    description: ID of the source asset.
+  destAssetId:
+    type: string
+    description: ID of the destination asset.
+  srcParty:
+    type: string
+    description: Display value for party providing funds.
+  destParty:
+    type: string
+    description: Display value for party receiving funds.
+  otherParty:
+    type: string
+    description: Display value for party providing or receiving funds.
+  amount:
+    type: string
+    description: Amount of transaction in cents.

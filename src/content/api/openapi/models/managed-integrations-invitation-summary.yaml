@@ -1,0 +1,16 @@
+x-title: Invitation Summary Model
+x-intro: |
+  A summary of the [Invitation](/api/invitations) for a Managed Integration.
+type: object
+properties:
+  id:
+    type: string
+    description: The Invitation's unique identifier.
+  code:
+    type: string
+    description: The Invitation code.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Invitation expires.

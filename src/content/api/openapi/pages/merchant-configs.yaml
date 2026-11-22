@@ -1,0 +1,16 @@
+title: Merchant Configs
+description: Merchant Config model and related endpoints
+nav:
+  path: Merchants
+  order: 2
+intro: |
+  A Merchant Config defines the available payment options for paying a [Payment Request](/api/payment-requests).
+sections:
+  - model: merchant-config-model
+    rule: false
+  - model: payment-option-config
+  - endpoint: createMerchantConfig
+  - endpoint: getMerchantConfigById
+  - endpoint: listMerchantConfigs
+  - endpoint: updateMerchantConfig
+  - endpoint: getMerchantConfigLegacy

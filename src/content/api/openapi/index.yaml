@@ -2,76 +2,166 @@ openapi: 3.0.0
 info:
   title: Centrapay API
   version: 1.0.0
-  x-page:
-    title: Payment Requests
-    description: Payment request models and related endpoints
-    nav:
-      path: Payment Requests
-      order: 1
-    intro: |
-      Payment Requests represent the intention for a merchant to receive payment for goods and services. Payment Requests define the amount to be paid and the Asset Types that are acceptable for payment.
-
-      A Payment Request is shared with, and paid by, a patron. The [Payment Flows Guide](/guides/payment-flows/) has more details regarding negotiation of Payment Requests.
-
-      Payment Requests have the following statuses:
-      - `new`: after being created.
-      - `paid`: after being paid with one or more transactions.
-      - `cancelled`: after being cancelled or voided by the merchant.
-      - `expired`: after expiry time is reached without being paid or cancelled.
-
-      Payment requests can also be refunded for a short period of time after being paid.
-
-      Payment request state transitions can be notified to webhooks.
-    models:
-      - payment-request
-      - payment-option
-      - accepted-collections
-      - payment-condition
-      - line-item
-      - product-classification
-      - paid-by
-      - asset-totals
-      - payment-activity
-      - strategy
-    extras:
-      - title: Payment Activity Types
-        depth: 3
-        body: |
-          |       Name        |                                                 Description                                                 |
-          | ----------------- | ----------------------------------------------------------------------------------------------------------- |
-          | request           | [Payment Request](#payment-request-model) was created.                                                      |
-          | preAuthRequest    | [Payment Request](#payment-request-model) was created with the `preAuth` flag set to "true".                |
-          | paid              | [Payment Request](#payment-request-model) was paid.                                                         |
-          | payment           | A payment was made towards the [Payment Request](#payment-request-model).                                   |
-          | refund            | Funds were returned to the shopper.                                                                         |
-          | cancellation      | [Payment Request](#payment-request-model) was cancelled by the merchant or the shopper.                     |
-          | expiry            | [Payment Request](#payment-request-model) wasn't paid before time out.                                      |
-          | accept-condition  | A [Payment Condition](#payment-condition-model) was accepted.                                               |
-          | decline-condition | A [Payment Condition](#payment-condition-model) was declined.                                               |
-          | authorization     | A Pre Auth [Payment Request](#payment-request-model) was approved and confirmations can be made against it. |
-          | confirmation      | Funds on a Pre Auth have been drawn down on.                                                                |
-          | release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.                  |
-      - title: Cancellation Reasons
-        depth: 2
-        body: |
-          |            Reason            |                                                                                                     Description                                                                                                      |
-          | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-          | CANCELLED_BY_MERCHANT        | The merchant cancelled the Payment Request by calling the cancel or void endpoint.                                                                                                                                   |
-          | CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                                                                                                |
-          | PATRON_CODE_INVALID          | The patron code on the Payment Request was invalid.                                                                                                                                                                  |
-          | PAYMENT_FAILED               | The Payment Request failed for an unknown reason.                                                                                                                                                                    |
-          | PATRON_CODE_EXPIRED          | The patron code on the Payment Request has expired.                                                                                                                                                                  |
-          | DECLINED_BY_PATRON           | The payment was declined by the patron during approval steps.                                                                                                                                                        |
-          | DECLINED_BY_MERCHANT         | The payment was declined by the merchant during approval steps.                                                                                                                                                      |
-          | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
-          | PAYMENT_REQUEST_EXPIRED      | The Payment Request has expired.                                                                                                                                                                                     |
-          | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-          | INACTIVE_ASSET               | The asset used to pay the Payment Request is inactive.                                                                                                                                                               |
 
 tags:
+  - name: accounts
+    description: "Accounts"
+  - name: asset-programs
+    description: "Asset Programs"
+  - name: assets
+    description: "Assets"
+  - name: bank-accounts
+    description: "Bank Accounts"
+  - name: connections
+    description: "Connections"
+  - name: events
+    description: "Events"
+  - name: loyalty-programs
+    description: "Loyalty Programs"
+  - name: merchants
+    description: "Merchants"
   - name: payment-requests
+    description: "Payment Requests"
+  - name: scanned-codes
+    description: "Scanned Codes"
+  - name: wallets
+    description: "Wallets"
+  - name: account-memberships
+    description: "Account Memberships"
+  - name: asset-activities
+    description: "Asset Activities"
+  - name: asset-program-memberships
+    description: "Asset Program Memberships"
+  - name: bank-account-approvals
+    description: "Bank Account Approvals"
+  - name: integration-requests
+    description: "Integration Requests"
+  - name: loyalty-program-memberships
+    description: "Loyalty Program Memberships"
+  - name: merchant-configs
+    description: "Merchant Configs"
+  - name: patron-codes
+    description: "Patron Codes"
+  - name: payment-links
+    description: "Payment Links"
+  - name: asset-program-configs
+    description: "Asset Program Configs"
+  - name: asset-transfers
+    description: "Asset Transfers"
+  - name: bank-account-connection-intents
+    description: "Bank Account Connection Intents"
+  - name: businesses
+    description: "Businesses"
+  - name: managed-integrations
+    description: "Managed Integrations"
+  - name: promotions
+    description: "Promotions"
+  - name: sales-channels
+    description: "Sales Channels"
+  - name: funds-transfers
+    description: "Funds Transfers"
+  - name: promotion-memberships
+    description: "Promotion Memberships"
+  - name: sales-channel-memberships
+    description: "Sales Channel Memberships"
+  - name: tokens
+    description: "Tokens"
+  - name: api-keys
+    description: "API Keys"
+  - name: wallet-assets
+    description: "Wallet Assets"
+  - name: batches
+    description: "Batches"
+  - name: invitations
+    description: "Invitations"
+  - name: media-uploads
+    description: "Media Uploads"
+  - name: profiles
+    description: "Profiles"
+  - name: quotas
+    description: "Quotas"
+  - name: onboarding
+    description: "Business Onboarding"
+  - name: settlements
+    description: "Settlements"
 
 paths:
+  /api/accounts:
+    $ref: './endpoints/create-account.yaml'
+  /api/accounts/{accountId}:
+    $ref: './endpoints/get-account.yaml'
+  /api/accounts/{accountId}/subscriptions:
+    $ref: './endpoints/update-account-subscriptions.yaml'
+  /api/asset-programs:
+    $ref: './endpoints/create-asset-program.yaml'
+  /api/asset-programs/{id}:
+    $ref: './endpoints/get-asset-program.yaml'
+  /api/asset-programs/{id}/set-privacy-policy-url:
+    $ref: './endpoints/set-asset-program-privacy-policy-url.yaml'
+  /api/asset-programs/{id}/set-terms-of-service-url:
+    $ref: './endpoints/set-asset-program-terms-of-service-url.yaml'
+  /api/assets/{assetId}:
+    $ref: './endpoints/get-asset.yaml'
+  /api/assets/{assetId}/summary:
+    $ref: './endpoints/get-asset-summary.yaml'
+  /api/accounts/{accountId}/assets:
+    $ref: './endpoints/list-account-assets.yaml'
+  /api/assets/{assetId}/archive:
+    $ref: './endpoints/archive-asset.yaml'
+  /api/assets/{assetType}/external-id/{externalId}:
+    $ref: './endpoints/get-asset-by-external-id.yaml'
+  /api/bank-accounts:
+    $ref: './endpoints/create-bank-account.yaml'
+  /api/bank-accounts/{bankAccountId}/direct-debit-authorities:
+    $ref: './endpoints/add-bank-account-direct-debit-authority.yaml'
+  /api/bank-accounts/{bankAccountId}:
+    $ref: './endpoints/get-bank-account.yaml'
+  /api/accounts/{accountId}/bank-account-balances:
+    $ref: './endpoints/list-account-bank-account-balances.yaml'
+  /api/bank-accounts/{bankAccountId}/verify:
+    $ref: './endpoints/verify-bank-account.yaml'
+  /api/accounts/{accountId}/bank-accounts:
+    $ref: './endpoints/list-account-bank-accounts.yaml'
+  /api/bank-accounts/{bankAccountId}/set-preferred-name:
+    $ref: './endpoints/set-bank-account-preferred-name.yaml'
+  /api/bank-accounts/{bankAccountId}/archive:
+    $ref: './endpoints/archive-bank-account.yaml'
+  /api/bank-authorities/{bankAccountId}/verify:
+    $ref: './endpoints/verify-bank-authority.yaml'
+  /api/bank-authorities:
+    $ref: './endpoints/list-bank-authorities.yaml'
+  /api/bank-authorities/{bankAccountId}:
+    $ref: './endpoints/get-bank-authority.yaml'
+  /api/connections:
+    $ref: './endpoints/create-connection.yaml'
+  /api/connections/{connectionId}/authorize:
+    $ref: './endpoints/authorize-connection.yaml'
+  /api/connections/{connectionId}/summary:
+    $ref: './endpoints/get-connection-summary.yaml'
+  /api/accounts/{accountId}/events:
+    $ref: './endpoints/create-account-event.yaml'
+  /api/loyalty-programs:
+    $ref: './endpoints/create-loyalty-program.yaml'
+  /api/accounts/{accountId}/loyalty-programs:
+    $ref: './endpoints/list-loyalty-programs-by-account.yaml'
+  /api/loyalty-programs/{id}:
+    $ref: './endpoints/get-loyalty-program.yaml'
+  /api/loyalty-programs/{loyaltyProgramId}/activate:
+    $ref: './endpoints/activate-loyalty-program.yaml'
+  /api/loyalty-programs/{loyaltyProgramId}/visibility:
+    $ref: './endpoints/set-loyalty-program-visibility.yaml'
+  /api/merchants:
+    $ref: './endpoints/create-merchant.yaml'
+  /api/merchants/{merchantId}:
+    $ref: './endpoints/get-merchant.yaml'
+  /api/accounts/{accountId}/merchants:
+    $ref: './endpoints/list-merchants-for-account.yaml'
+  /api/merchants/{merchantId}/set-onboarding-status:
+    $ref: './endpoints/set-merchant-onboarding-status.yaml'
+  /api/merchants/{merchantId}/metadata:
+    $ref: './endpoints/set-merchant-metadata.yaml'
+  /api/merchants/search:
+    $ref: './endpoints/search-merchants.yaml'
   /api/payment-requests:
     $ref: './endpoints/create-payment-request.yaml'
   /api/payment-requests/{paymentRequestId}:
@@ -104,6 +194,198 @@ paths:
     $ref: './endpoints/accept-payment-condition.yaml'
   /api/payment-requests/{paymentRequestId}/conditions/{conditionId}/decline:
     $ref: './endpoints/decline-payment-condition.yaml'
+  /api/decode:
+    $ref: './endpoints/decode-scanned-code.yaml'
+  /api/wallets:
+    $ref: './endpoints/create-wallet.yaml'
+  /api/merchants/{merchantId}/supported-wallets:
+    $ref: './endpoints/list-merchant-supported-wallets.yaml'
+  /api/accounts/{accountId}/members:
+    $ref: './endpoints/add-account-member.yaml'
+  /api/accounts/{accountId}/members/{userId}:
+    $ref: './endpoints/revoke-account-member.yaml'
+  /api/account-memberships:
+    $ref: './endpoints/list-account-memberships.yaml'
+  /api/users/{userId}/account-memberships:
+    $ref: './endpoints/list-user-account-memberships.yaml'
+  /api/assets/{assetId}/transactions:
+    $ref: './endpoints/list-asset-transactions.yaml'
+  /api/asset-activities:
+    $ref: './endpoints/list-asset-activities.yaml'
+  /api/asset-program-memberships:
+    $ref: './endpoints/create-asset-program-membership.yaml'
+  /api/asset-program-memberships/{id}:
+    $ref: './endpoints/get-asset-program-membership.yaml'
+  /api/asset-programs/{id}/asset-program-memberships:
+    $ref: './endpoints/list-asset-program-memberships-by-asset-program.yaml'
+  /api/accounts/{id}/asset-program-memberships:
+    $ref: './endpoints/list-asset-program-memberships-by-account.yaml'
+  /api/asset-program-memberships/{id}/accept:
+    $ref: './endpoints/accept-asset-program-membership.yaml'
+  /api/asset-program-memberships/{id}/approve:
+    $ref: './endpoints/approve-asset-program-membership.yaml'
+  /api/asset-program-memberships/{id}/set-billing-bank-account:
+    $ref: './endpoints/set-asset-program-membership-billing-bank-account.yaml'
+  /api/bank-account-approvals:
+    $ref: './endpoints/request-bank-account-approval.yaml'
+  /api/bank-account-approvals/{bankAccountApprovalId}:
+    $ref: './endpoints/get-bank-account-approval.yaml'
+  /api/bank-account-approvals/{bankAccountApprovalId}/accept:
+    $ref: './endpoints/accept-bank-account-approval.yaml'
+  /api/bank-account-approvals/{bankAccountApprovalId}/decline:
+    $ref: './endpoints/decline-bank-account-approval.yaml'
+  /api/bank-accounts/{bankAccountId}/approvals:
+    $ref: './endpoints/list-bank-account-approvals.yaml'
+  /api/integration-requests:
+    $ref: './endpoints/create-integration-request.yaml'
+  /api/integration-requests/{integrationRequestId}:
+    $ref: './endpoints/get-integration-request.yaml'
+  /api/integration-requests/{integrationRequestId}/configs:
+    $ref: './endpoints/configure-integration-request.yaml'
+  /api/integration-requests/{integrationRequestId}/activate:
+    $ref: './endpoints/activate-integration-request.yaml'
+  /api/loyalty-programs/{loyaltyProgramId}/memberships:
+    $ref: './endpoints/create-loyalty-program-membership.yaml'
+  /api/accounts/{accountId}/loyalty-program-memberships:
+    $ref: './endpoints/list-loyalty-program-memberships.yaml'
+  /api/merchants/{merchantId}/configs:
+    $ref: './endpoints/create-merchant-config.yaml'
+  /api/merchant-configs/{configId}:
+    $ref: './endpoints/get-merchant-config-by-id.yaml'
+  /api/merchants/{merchantId}/configs/{configId}:
+    $ref: './endpoints/update-merchant-config.yaml'
+  /api/patron-codes:
+    $ref: './endpoints/create-patron-code.yaml'
+  /api/patron-codes/{patronCodeId}:
+    $ref: './endpoints/get-patron-code.yaml'
+  /api/patron-codes/barcode/{barcode}:
+    $ref: './endpoints/get-patron-code-by-barcode.yaml'
+  /api/patron-codes/{namespace}/external-id/{externalId}:
+    $ref: './endpoints/get-patron-code-by-external-id.yaml'
+  /api/patron-codes/{patronCodeId}/metadata:
+    $ref: './endpoints/set-patron-code-metadata.yaml'
+  /api/payment-links/{paymentLinkId}:
+    $ref: './endpoints/get-payment-link.yaml'
+  /api/payment-links/{paymentLinkId}/summary:
+    $ref: './endpoints/get-payment-link-summary.yaml'
+  /api/merchants/{merchantId}/payment-links:
+    $ref: './endpoints/list-payment-links.yaml'
+  /api/payment-links/{paymentLinkId}/archive:
+    $ref: './endpoints/archive-payment-link.yaml'
+  /api/asset-program-memberships/{id}/asset-program-configs:
+    $ref: './endpoints/create-asset-program-config.yaml'
+  /api/asset-program-configs/{id}:
+    $ref: './endpoints/get-asset-program-config.yaml'
+  /api/asset-programs/{id}/asset-program-configs:
+    $ref: './endpoints/list-asset-program-configs-by-asset-program.yaml'
+  /api/accounts/{id}/asset-program-configs:
+    $ref: './endpoints/list-asset-program-configs-by-account.yaml'
+  /api/asset-transfers:
+    $ref: './endpoints/create-asset-transfer.yaml'
+  /api/asset-transfers/{assetTransferId}:
+    $ref: './endpoints/get-asset-transfer.yaml'
+  /api/asset-transfers/{assetTransferId}/summary:
+    $ref: './endpoints/get-asset-transfer-summary.yaml'
+  /api/asset-transfers/{assetTransferId}/claim:
+    $ref: './endpoints/claim-asset-transfer.yaml'
+  /api/me/resolve-claimable-assets:
+    $ref: './endpoints/resolve-claimable-assets.yaml'
+  /api/asset-transfers/{assetTransferId}/cancel:
+    $ref: './endpoints/cancel-asset-transfer.yaml'
+  /api/bank-account-connection-intents:
+    $ref: './endpoints/create-bank-account-connection-intent.yaml'
+  /api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize:
+    $ref: './endpoints/authorize-bank-account-connection-intent.yaml'
+  /api/businesses:
+    $ref: './endpoints/create-business.yaml'
+  /api/businesses/{businessId}:
+    $ref: './endpoints/update-business.yaml'
+  /api/accounts/{accountId}/business:
+    $ref: './endpoints/get-account-business.yaml'
+  /api/nzbn-search:
+    $ref: './endpoints/search-nzbn.yaml'
+  /api/nzbn/{nzbn}:
+    $ref: './endpoints/get-nzbn-details.yaml'
+  /api/businesses/{businessId}/set-onboarding-status:
+    $ref: './endpoints/set-business-onboarding-status.yaml'
+  /api/managed-integrations/{type}/{externalId}:
+    $ref: './endpoints/create-or-update-managed-integration.yaml'
+  /api/accounts/{accountId}/managed-integrations:
+    $ref: './endpoints/list-account-managed-integrations.yaml'
+  /api/loyalty-programs/{loyaltyProgramId}/promotions:
+    $ref: './endpoints/create-promotion.yaml'
+  /api/promotions/{promotionId}:
+    $ref: './endpoints/get-promotion.yaml'
+  /api/accounts/{accountId}/promotions:
+    $ref: './endpoints/list-promotions-by-account.yaml'
+  /api/promotions/{promotionId}/activities:
+    $ref: './endpoints/list-promotion-activities.yaml'
+  /api/sales-channels:
+    $ref: './endpoints/create-sales-channel.yaml'
+  /api/topups/{topupId}:
+    $ref: './endpoints/get-topup.yaml'
+  /api/topups:
+    $ref: './endpoints/list-topups.yaml'
+  /api/accounts/{accountId}/topups:
+    $ref: './endpoints/list-account-topups.yaml'
+  /api/withdrawals:
+    $ref: './endpoints/create-withdrawal.yaml'
+  /api/withdrawals/{withdrawalId}:
+    $ref: './endpoints/get-withdrawal.yaml'
+  /api/funds-transfers/{fundsTransferId}/abort:
+    $ref: './endpoints/abort-funds-transfer.yaml'
+  /api/accounts/{accountId}/promotion-memberships:
+    $ref: './endpoints/list-promotion-memberships-by-account.yaml'
+  /api/sales-channel-memberships:
+    $ref: './endpoints/create-sales-channel-membership.yaml'
+  /api/collections:
+    $ref: './endpoints/create-token-collection.yaml'
+  /api/accounts/{accountId}/collections:
+    $ref: './endpoints/list-token-collections.yaml'
+  /api/collections/{collectionId}/redemption-conditions:
+    $ref: './endpoints/create-redemption-condition.yaml'
+  /api/collections/{collectionId}/redemption-conditions/{redemptionConditionId}/set-allowed-products:
+    $ref: './endpoints/set-redemption-condition-allowed-products.yaml'
+  /api/tokens:
+    $ref: './endpoints/create-token.yaml'
+  /api/accounts/{accountId}/api-keys:
+    $ref: './endpoints/create-api-key.yaml'
+  /api/accounts/{accountId}/api-keys/{apiKeyName}:
+    $ref: './endpoints/update-api-key.yaml'
+  /api/wallet-assets:
+    $ref: './endpoints/create-wallet-asset.yaml'
+  /api/wallets/{walletId}/transactions:
+    $ref: './endpoints/list-wallet-asset-transactions.yaml'
+  /api/batches:
+    $ref: './endpoints/create-batch.yaml'
+  /api/batches/{batchId}:
+    $ref: './endpoints/get-batch.yaml'
+  /api/invitations:
+    $ref: './endpoints/create-invitation.yaml'
+  /api/invitations/code/{code}:
+    $ref: './endpoints/get-invitation-by-code.yaml'
+  /api/accounts/{accountId}/invitations:
+    $ref: './endpoints/list-account-invitations.yaml'
+  /api/invitations/{invitationId}/accept:
+    $ref: './endpoints/accept-invitation.yaml'
+  /api/invitations/{invitationId}/revoke:
+    $ref: './endpoints/revoke-invitation.yaml'
+  /api/media-uploads:
+    $ref: './endpoints/create-media-upload.yaml'
+  /api/media-uploads/{mediaUploadId}/location:
+    $ref: './endpoints/get-media-upload-location.yaml'
+  /api/me/profile/update:
+    $ref: './endpoints/update-profile.yaml'
+  /api/users/{userId}/profile:
+    $ref: './endpoints/get-user-profile.yaml'
+  /api/accounts/{accountId}/quotas:
+    $ref: './endpoints/list-account-quotas.yaml'
+  /api/businesses/onboard:
+    $ref: './endpoints/create-onboarding-request.yaml'
+  /api/businesses/onboard/{id}:
+    $ref: './endpoints/get-onboarding-request.yaml'
+  /api/merchants/{merchantId}/settlements:
+    $ref: './endpoints/list-merchant-settlements.yaml'
 
 components:
   schemas:

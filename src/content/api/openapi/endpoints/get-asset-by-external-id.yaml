@@ -1,0 +1,47 @@
+get:
+  x-method: GET
+  x-path: /api/assets/{assetType}/external-id/{externalId}
+  operationId: getAssetByExternalId
+  summary: Get Asset by External Id
+  description: This endpoint allows you to retrieve an Asset by its external id.
+  tags:
+    - assets
+  parameters:
+    - name: assetType
+      in: path
+      required: true
+      schema:
+        type: string
+      example: farmlands.nzd.main
+      description: The [Asset Type](/api/asset-types) id.
+    - name: externalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: TiYi6haDzdkasmdfhIGz
+      description: The asset identifier from the issuing system.
+  responses:
+    '200':
+      description: Asset retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset.yaml
+          examples:
+            default:
+              value:
+                id: 3Liye29ypHRGm4pvdLWuUt
+                accountId: gyTCZPpSbGZTBAFRa5Kgqo
+                balance: '1234'
+                availableBalance: '1234'
+                createdBy: crn:gyTCZPpSbGZTBAFRa5Kgqo:api-key:FarmlandsBatchKey
+                createdAt: '2024-04-23T22:11:57.158Z'
+                liveness: main
+                type: farmlands.nzd.main
+                status: active
+                activityNumber: '1'
+                description: Farmlands Ledger Address
+                externalId: TiYi6haDzdkasmdfhIGz
+                meta:
+                  lastBatchUpdateAt: '2024-04-23T22:11:57.158Z'

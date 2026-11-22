@@ -1,0 +1,73 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/quotas
+  x-experimental: true
+  operationId: listAccountQuotas
+  summary: Get Account Quotas
+  description: |
+    Retrieve quota limits and usages for the current intervals. Ie, all quotas for the current day, current month and current year as well as any quotas that are not associated with a temporal period.
+
+    ### Errors
+
+    If a quota limit is exceeded by an action that enforces quota limits, an error response will be returned. The quotas field will contain all quota limits that are exceeded with the usage set to the amount that the quota would have been updated to if the action was completed.
+
+    ```json
+    {
+      "message": "QUOTA_EXCEEDED",
+      "quotas": [
+        {
+          "limit": "9999",
+          "interval": "2021",
+          "period": "yearly",
+          "usage": "10000",
+          "type": "topup",
+          "assetType": "centrapay.nzd.main"
+        }
+      ]
+    }
+    ```
+  tags:
+    - quotas
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+  responses:
+    '200':
+      description: Quotas retrieved
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/quota.yaml'
+          examples:
+            default:
+              value:
+                - limit: '1000'
+                  interval: 2021-03
+                  period: monthly
+                  usage: '500'
+                  type: spend
+                  assetType: centrapay.nzd.main
+                - limit: '9999'
+                  interval: '2021'
+                  period: yearly
+                  usage: '1555'
+                  type: spend
+                  assetType: centrapay.nzd.main
+                - limit: '1000'
+                  interval: 2021-03
+                  period: monthly
+                  usage: '500'
+                  type: topup
+                  assetType: centrapay.nzd.main
+                - limit: '9999'
+                  interval: '2021'
+                  period: yearly
+                  usage: '5000'
+                  type: topup
+                  assetType: centrapay.nzd.main

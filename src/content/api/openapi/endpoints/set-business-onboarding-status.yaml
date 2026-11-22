@@ -1,0 +1,49 @@
+post:
+  x-method: POST
+  x-path: /api/businesses/{businessId}/set-onboarding-status
+  operationId: setBusinessOnboardingStatus
+  summary: Set Business Onboarding Status
+  description: This endpoint allows you to set the [onboarding status](#onboarding-statuses) of a Business.
+  tags:
+    - businesses
+  parameters:
+    - name: businessId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Business id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - onboardingStatus
+          properties:
+            onboardingStatus:
+              $ref: '../models/business.yaml#/properties/onboardingStatus'
+            onboardingStatusReason:
+              $ref: '../models/business.yaml#/properties/onboardingStatusReason'
+        examples:
+          default:
+            value:
+              onboardingStatus: deactivated
+              onboardingStatusReason: change-of-ownership
+  responses:
+    '200':
+      description: Onboarding status set
+      content:
+        application/json:
+          examples:
+            default:
+              value:
+                type: set-onboarding-status
+                onboardingStatus: deactivated
+                onboardingStatusReason: change-of-ownership
+                businessId: DKTs3U38hdhfEqwF1JKoT2
+                createdAt: '2020-06-12T01:17:46.499Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                activityNumber: '2'

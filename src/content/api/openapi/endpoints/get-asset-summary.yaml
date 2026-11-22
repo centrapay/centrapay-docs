@@ -1,0 +1,33 @@
+get:
+  x-method: GET
+  x-path: /api/assets/{assetId}/summary
+  operationId: getAssetSummary
+  summary: Get Asset Summary
+  description: 'This endpoint allows you to retrieve a summary of an Asset.'
+  tags:
+    - assets
+  x-request-headers: {}
+  parameters:
+    - name: assetId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: L75M3L56N2PtBSt8g7uXLU
+      description: The Asset id.
+  responses:
+    '200':
+      description: Asset summary retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                id: L75M3L56N2PtBSt8g7uXLU
+                issuer: Centraperk Cafe
+                description: Free Coffee
+                expiresAt: '2020-12-31T00:00:00.000Z'
+                img: https://static.centrapay.com/assets/brands/centraperk/cafe-token.png
+                liveness: test

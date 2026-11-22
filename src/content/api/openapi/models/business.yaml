@@ -1,0 +1,58 @@
+x-title: Business Model
+type: object
+required:
+  - location
+properties:
+  id:
+    type: string
+    description: The unique identifier.
+  accountId:
+    type: string
+    description: The Centrapay accountId for an org account.
+  accountName:
+    type: string
+    description: The Centrapay account name for an org account.
+  nzbn:
+    type: string
+    description: The unique NZBN identifier.
+  name:
+    type: string
+    description: Legal name recorded in the Companies Register.
+  tradingName:
+    type: string
+    description: Trading name recorded in the Companies Register.
+  companyNumber:
+    type: string
+    description: Company number recorded in the Companies Register.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Business was created.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Business was updated.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Business.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Business.
+  taxNumber:
+    type: object
+    description: The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
+  location:
+    type: object
+    x-type: location
+    description: The physical address of the Business.
+  onboardingStatus:
+    type: string
+    enum: [applied, provisioning, active, on-hold, deactivated, archived]
+    description: The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+  onboardingStatusReason:
+    type: string
+    description: The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.

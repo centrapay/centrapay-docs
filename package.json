@@ -22,7 +22,7 @@
     "@headlessui/vue": "^1.6.0",
     "@intercom/messenger-js-sdk": "^0.0.18",
     "@markdoc/markdoc": "0.5.4",
-    "@stoplight/spectral-cli": "6.16.1",
+    "@stoplight/spectral-cli": "6.17.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "7.3.3",

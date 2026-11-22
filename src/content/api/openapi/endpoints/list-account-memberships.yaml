@@ -1,0 +1,24 @@
+get:
+  x-method: GET
+  x-path: /api/account-memberships
+  operationId: listAccountMemberships
+  summary: List Account Memberships for Authenticated Subject
+  description: This endpoint allows you to retrieve the accounts that the authenticated subject is a member of.
+  tags:
+    - account-memberships
+  responses:
+    '200':
+      description: Account Memberships listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/account-membership.yaml'
+          examples:
+            default:
+              value:
+                - accountName: Centrapay Tea Warehouse
+                  accountId: 5uooxSens6ykJaim1Cu1Q5
+                  accountType: org
+                  role: account-owner

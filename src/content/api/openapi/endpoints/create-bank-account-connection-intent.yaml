@@ -1,0 +1,87 @@
+post:
+  x-method: POST
+  x-path: /api/bank-account-connection-intents
+  x-experimental: true
+  operationId: createBankAccountConnectionIntent
+  summary: Create Bank Account Connection Intent
+  description: |
+    This endpoint allows you to create a Bank Account Connection Intent.
+  tags:
+    - bank-account-connection-intents
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - accountId
+            - type
+          properties:
+            accountId:
+              type: string
+              description: The id of the owning [Account](/api/accounts/).
+            type:
+              type: string
+              description: The type of Bank Account Connection Intent.
+              enum:
+                - account-information-consent
+                - enduring-payment-consent
+            bankAccountId:
+              type: string
+              description: The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `enduring-payment-consent`.
+            test:
+              type: boolean
+              description: A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts/) used for testing.
+            name:
+              type: string
+              description: The name of the consent. Only available if type is `enduring-payment-consent`.
+            period:
+              type: string
+              description: The period after which the amount spent using the consent will be reset. Only available if type is `enduring-payment-consent`. Valid values are `daily`, `weekly`, `fortnightly`, `monthly` and `yearly`. Defaults to `daily`.
+              enum:
+                - daily
+                - weekly
+                - fortnightly
+                - monthly
+                - yearly
+            totalAmount:
+              type: string
+              description: The total cent value of transactions the consent can be used for within the period. Only available if type is `enduring-payment-consent`.
+        examples:
+          default:
+            value:
+              accountId: B4u4WZCu3joZFVWT3XjWW3
+              type: account-information-consent
+              test: true
+  responses:
+    '200':
+      description: Bank Account Connection Intent created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/bank-account-connection-intent.yaml
+          examples:
+            default:
+              value:
+                id: 3KVjuKW2CZCJeJVqPxwkX7
+                accountId: B4u4WZCu3joZFVWT3XjWW3
+                type: account-information-consent
+                status: created
+                createdAt: '2022-03-31T02:56:29.000Z'
+                createdBy: crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey
+                updatedAt: '2022-03-31T02:56:29.000Z'
+                updatedBy: crn:B4u4WZCu3joZFVWT3XjWW3:api-key:MyApiKey
+                authorizationUrl: https://example.com/authorization-url
+                test: true
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            LIVENESS_MISMATCH:
+              description: Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
+              value:
+                message: LIVENESS_MISMATCH

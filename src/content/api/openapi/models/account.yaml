@@ -1,0 +1,44 @@
+x-title: Account Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier.
+  type:
+    type: string
+    description: Account type, must be either 'org' or 'individual'.
+  name:
+    type: string
+    description: The display name of the Account.
+  region:
+    type: string
+    description: The region that the Account will operate in.
+  test:
+    type: boolean
+    description: A flag which is only present if the Account is for testing.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Account was created.
+  modifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Account was updated.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Account.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Account.
+  subscriptions:
+    type: array
+    description: A list of [Subscriptions](#subscription-model) on the Account.
+    items:
+      $ref: './accounts-subscription.yaml'
+  parentAccountId:
+    type: string
+    description: The unique identifier of the parent account to which the current account is linked. This field establishes a hierarchical relationship between accounts, indicating that the current account was created by the specified parent account.

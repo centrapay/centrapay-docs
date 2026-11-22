@@ -1,0 +1,65 @@
+post:
+  x-method: POST
+  x-path: /api/bank-account-approvals
+  x-experimental: true
+  operationId: requestBankAccountApproval
+  summary: Request Bank Account Approval
+  description: |
+    This endpoint allows you to request a Bank Account Approval.
+  tags:
+    - bank-account-approvals
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - bankAccountId
+          properties:
+            mediaUploadId:
+              type: string
+              description: The id of the associated [Media Upload](/api/media-uploads).
+            bankAccountId:
+              type: string
+              description: The id of the associated [Bank Account](/api/bank-accounts).
+            type:
+              type: string
+              description: The [Bank Account Approval Type](#bank-account-approval-types). Defaults to `settlement`.
+        examples:
+          default:
+            value:
+              mediaUploadId: uooxSens6ykJaim1Cu1Q55
+              bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+              type: settlement
+  responses:
+    '200':
+      description: Bank Account Approval requested
+      content:
+        application/json:
+          schema:
+            $ref: ../models/bank-account-approval.yaml
+          examples:
+            default:
+              value:
+                id: DcTs3U38HdhfEqwF1GKoT3
+                mediaUploadId: uooxSens6ykJaim1Cu1Q55
+                bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                type: settlement
+                status: created
+                createdAt: '2021-11-08T21:52:39.915Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                modifiedAt: '2021-11-08T21:52:39.915Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            APPROVAL_ALREADY_IN_PROGRESS:
+              description: There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
+              value:
+                message: APPROVAL_ALREADY_IN_PROGRESS

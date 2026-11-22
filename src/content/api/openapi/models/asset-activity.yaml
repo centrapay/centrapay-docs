@@ -1,0 +1,25 @@
+x-title: Asset Activity Model
+x-intro: |
+  All Asset Activities extend this base model. This contains all properties that are shared between the activities
+type: object
+properties:
+  assetId:
+    type: string
+    description: ID of the Asset the activity is for
+  activityNumber:
+    type: string
+    description: Unique sequential Asset activity number
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Activity was created.
+  createdBy:
+    type: string
+    description: The service that created the activity
+  activityType:
+    type: string
+    description: The [Asset Activity Type](#asset-activity-types)
+  accountId:
+    type: string
+    description: The account that owns the asset

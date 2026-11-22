@@ -1,0 +1,119 @@
+post:
+  x-method: POST
+  x-path: /api/withdrawals
+  x-experimental: true
+  operationId: createWithdrawal
+  summary: Create Withdrawal
+  description: |
+    This endpoint allows you to create a withdrawal.
+  tags:
+    - funds-transfers
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - amount
+            - assetId
+            - bankAccountId
+          properties:
+            amount:
+              type: string
+              x-type: bignumber
+              description: Total amount of the transaction in cents.
+            assetId:
+              type: string
+              description: The id of the asset.
+            bankAccountId:
+              type: string
+              description: The id of the bank account.
+        examples:
+          default:
+            value:
+              amount: '10000'
+              assetId: Te2uDM7xhDLWGVJU3nzwnh
+              bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+  responses:
+    '200':
+      description: Withdrawal created
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                id: hg2RfYTQ635tPBZEPJdCre
+                assetId: Te2uDM7xhDLWGVJU3nzwnh
+                bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                accountId: aBc932S9182qwCDqwer
+                type: withdrawal
+                amount: '10000'
+                status: created
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-01T12:30:00.000Z'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            BANK_AUTHORITY_WALLET_MISMATCH:
+              description: The wallet asset and the bank account for the withdrawal request do not belong to the same account.
+              value:
+                message: BANK_AUTHORITY_WALLET_MISMATCH
+            INSUFFICIENT_WALLET_BALANCE:
+              description: The wallet asset balance is less than the required amount.
+              value:
+                message: INSUFFICIENT_WALLET_BALANCE
+            INVALID_WALLET_TYPE:
+              description: The wallet asset type does not support withdrawals. See [settlement wallet assets](/api/wallet-assets#settlement-wallet-assets).
+              value:
+                message: INVALID_WALLET_TYPE
+            BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL:
+              description: The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
+              value:
+                message: BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL
+get:
+  x-method: GET
+  x-path: /api/withdrawals
+  x-experimental: true
+  operationId: listWithdrawals
+  summary: List Withdrawals
+  description: |
+    This endpoint allows you to list the withdrawals for authorized accounts.
+  tags:
+    - funds-transfers
+  responses:
+    '200':
+      description: Withdrawals listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+          examples:
+            default:
+              value:
+                - id: 5thg2RPBZEfYTPJdQ63Cre
+                  assetId: Te2uDM7xhDLWGVJU3nzwnh
+                  bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                  accountId: aBc932S9182qwCDqwer
+                  type: withdrawal
+                  amount: '10000'
+                  status: created
+                  createdAt: '2020-05-01T12:30:00.000Z'
+                  updatedAt: '2020-05-01T12:30:00.000Z'
+                - id: hg2RfYTQ635tPBZEPJdCre
+                  assetId: Te2uDM7xhDLWGVJU3nzwnh
+                  bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                  accountId: aBc932S9182qwCDqwer
+                  type: withdrawal
+                  amount: '10000'
+                  status: done
+                  createdAt: '2020-05-01T12:30:00.000Z'
+                  updatedAt: '2020-05-01T12:30:00.000Z'

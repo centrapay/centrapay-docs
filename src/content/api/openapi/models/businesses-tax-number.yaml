@@ -1,0 +1,9 @@
+x-title: Tax Number Model
+type: object
+properties:
+  value:
+    type: string
+    description: The tax number.
+  type:
+    type: string
+    description: Type of value-added tax. Can be `nz-gst`.
