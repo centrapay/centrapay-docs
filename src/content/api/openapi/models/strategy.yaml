@@ -18,4 +18,4 @@ properties:
     description: The amount that will be refunded back to the Asset.
   refunds.collectionId:
     type: string
-    description: The ID of the [Token Collection](/api/token-collections) if applicable.
+    description: The ID of the [Token Collection](/api/tokens#token-collection-model) if applicable.
