@@ -1,0 +1,16 @@
+title: Invitations
+description: Invitation model and related endpoints
+nav:
+  path: Invitations
+  order: 13
+intro: |
+  An Invitation can be used to allow users to claim ownership of a resource on the Centrapay platform.
+sections:
+  - model: invitation
+    rule: false
+  - model: invitations-params
+  - endpoint: createInvitation
+  - endpoint: getInvitationByCode
+  - endpoint: listAccountInvitations
+  - endpoint: acceptInvitation
+  - endpoint: revokeInvitation

@@ -1,0 +1,60 @@
+put:
+  x-method: PUT
+  x-path: /api/accounts/{accountId}/subscriptions
+  operationId: updateAccountSubscriptions
+  summary: Update Subscriptions
+  description: This endpoint allows you to update the subscriptions on an account.
+  tags:
+    - accounts
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - subscriptions
+          properties:
+            subscriptions:
+              type: array
+              items:
+                type: string
+              description: The list of subscriptions to assign to the account.
+        examples:
+          default:
+            value:
+              subscriptions:
+                - merchant
+  responses:
+    '200':
+      description: Subscriptions updated
+      content:
+        application/json:
+          examples:
+            default:
+              value:
+                subscriptions:
+                  - merchant
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_ACCOUNT_ID:
+              description: The account does not exist.
+              value:
+                message: INVALID_ACCOUNT_ID
+            INVALID_SUBSCRIPTION:
+              description: One of the subscriptions in the list is not valid.
+              value:
+                message: INVALID_SUBSCRIPTION

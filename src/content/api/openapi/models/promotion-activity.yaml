@@ -1,0 +1,33 @@
+x-title: Promotion Activity Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier for the Promotion Activity.
+  activityType:
+    type: string
+    description: The type of activity.
+  promotionId:
+    type: string
+    description: The ID of the [Promotion](/api/promotions) that the activity belongs to.
+  programId:
+    type: string
+    description: The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  accountId:
+    type: string
+    description: The ID of the [Account](/api/accounts) that triggered the activity.
+  targetProgress:
+    type: string
+    description: The shared progress of the Promotion at the time of the activity.
+  status:
+    type: string
+    description: The status of the Promotion at the time of the activity.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the activity was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the activity.

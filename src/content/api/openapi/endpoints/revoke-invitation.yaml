@@ -1,0 +1,57 @@
+post:
+  x-method: POST
+  x-path: /api/invitations/{invitationId}/revoke
+  x-experimental: true
+  operationId: revokeInvitation
+  summary: Revoke Invitation
+  description: This endpoint allows you to revoke an Invitation.
+  tags:
+    - invitations
+  parameters:
+    - name: invitationId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Invitation id.
+  responses:
+    '200':
+      description: Invitation revoked
+      content:
+        application/json:
+          schema:
+            $ref: '../models/invitation.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                code: WIj211vFs9cNACwBb04vQw
+                type: account-membership
+                resourceId: Hopo4g34sLVdjEMBs2p19F
+                resourceType: account
+                recipientAlias: user@org.com
+                params:
+                  role: cashier
+                  accountName: Centrapay Cafe
+                createdAt: '2021-08-25T00:02:49.488Z'
+                expiresAt: '2021-08-26T00:02:49.488Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                updatedAt: '2021-08-25T03:15:10.000Z'
+                updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                status: revoked
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVITATION_EXPIRED:
+              description: The Invitation is expired.
+              value:
+                message: INVITATION_EXPIRED
+            INVITATION_ACCEPTED:
+              description: The Invitation has already been accepted.
+              value:
+                message: INVITATION_ACCEPTED

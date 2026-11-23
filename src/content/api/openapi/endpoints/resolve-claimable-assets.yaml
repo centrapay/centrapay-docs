@@ -1,0 +1,25 @@
+post:
+  x-method: POST
+  x-path: /api/me/resolve-claimable-assets
+  x-experimental: true
+  operationId: resolveClaimableAssets
+  summary: Resolve Claimable Assets
+  description: |
+    When you send another centrapay user cash or assets, they're automatically assigned to them.
+    However, if they're not signed up yet then these assets are not immediately assigned.
+
+    If unclaimed, asset transfers are returned after 2 weeks.
+
+    New accounts should call this endpoint to allocate assets that you've been sent.
+  tags:
+    - asset-transfers
+  responses:
+    '200':
+      description: Claimable assets resolved
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value: {}

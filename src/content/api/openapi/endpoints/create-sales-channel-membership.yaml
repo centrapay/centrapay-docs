@@ -1,0 +1,61 @@
+post:
+  x-method: POST
+  x-path: /api/sales-channel-memberships
+  x-experimental: true
+  operationId: createSalesChannelMembership
+  summary: Create Sales Channel Membership
+  description: This endpoint allows you to create a [Sales Channel Membership](#sales-channel-membership-model).
+  tags:
+    - sales-channel-memberships
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - salesChannelId
+            - merchantId
+          properties:
+            salesChannelId:
+              type: string
+              description: The id of the [Sales Channel](/api/sales-channels) the Membership belongs to.
+            merchantId:
+              type: string
+              description: The id of the [Merchant](/api/merchants) the Membership is scoped to.
+        examples:
+          default:
+            value:
+              salesChannelId: sc_8nJwSXau7vL5S9rXo3CaCy
+              merchantId: SRqGn945cofvBFumd1NMYA
+  responses:
+    '200':
+      description: Sales Channel Membership created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/sales-channel-membership.yaml'
+          examples:
+            default:
+              value:
+                id: scm_5DuWxSsYueGn5KiNME5EAU
+                accountId: 3xxehZLwMvzAqQyDxNpRSs
+                createdAt: '2025-04-24T04:32:55.083Z'
+                createdBy: 'crn::user:b5fdc893-160d-414f-9da8-c2d38c6480c0'
+                merchantId: SRqGn945cofvBFumd1NMYA
+                salesChannelId: sc_8nJwSXau7vL5S9rXo3CaCy
+                test: true
+                updatedAt: '2025-04-24T04:32:55.083Z'
+                updatedBy: 'crn::user:b5fdc893-160d-414f-9da8-c2d38c6480c0'
+                status: created
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            LIVENESS_MISMATCH:
+              description: The liveness of the [Merchant](/api/merchants)'s [Account](/api/accounts) doesn't match the liveness of the [Sales Channel](/api/sales-channels).
+              value:
+                message: LIVENESS_MISMATCH

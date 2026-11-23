@@ -1,0 +1,43 @@
+get:
+  x-method: GET
+  x-path: /api/assets/{assetId}
+  operationId: getAsset
+  summary: Get Asset
+  description: This endpoint allows you to retrieve an Asset.
+  tags:
+    - assets
+  parameters:
+    - name: assetId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: L75M3L56N2PtBSt8g7uXLU
+      description: The Asset id.
+  responses:
+    '200':
+      description: Asset retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset.yaml
+          examples:
+            default:
+              value:
+                id: L75M3L56N2PtBSt8g7uXLU
+                accountId: 9aFdxZNbqmFhzJFqozreqesEeaoh2f
+                category: token
+                type: centrapay.token.main
+                liveness: main
+                createdAt: '2024-04-23T22:11:57.158Z'
+                status: active
+                activeFrom: '2024-04-23T22:11:56.924Z'
+                expiresAt: '2024-05-07T22:11:56.924Z'
+                description: Centrapay Token
+                collectionId: c_4Hq8WmZ2rTn6YbPkD9xVfL
+                collectionType: product
+                issuerImg: https://static.centrapay.com/assets/brands/centraperk/logo.png
+                img: http://www.centrapay.com/path/to/img.png
+                issuer: Centraperk
+                issuerWebsite: www.centrapay.com
+                mediaUploadId: P9picAvVyA7c7d1GMytWG7

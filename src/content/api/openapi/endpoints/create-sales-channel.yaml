@@ -1,0 +1,104 @@
+post:
+  x-method: POST
+  x-path: /api/sales-channels
+  x-experimental: true
+  operationId: createSalesChannel
+  summary: Create Sales Channel
+  description: This endpoint allows you to create a [Sales Channel](#sales-channel-model).
+  tags:
+    - sales-channels
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - type
+            - accountId
+          properties:
+            name:
+              type: string
+              description: The display name of the Sales Channel.
+            type:
+              type: string
+              enum:
+                - reseller
+                - provider
+              description: The type of the Sales Channel integration either `reseller` or `provider`.
+            accountId:
+              type: string
+              description: Id of the [Account](/api/accounts/) that owns the Sales Channel.
+            providerSalesChannelId:
+              type: string
+              description: The id of the Sales Channel for the device provider. Required if `type` is `reseller`, otherwise not allowed.
+            deviceId:
+              type: boolean
+              description: '`true` if the device id is required to onboard to Sales Channel.'
+            deviceModel:
+              type: boolean
+              description: '`true` if the device model is required to onboard to Sales Channel.'
+            deviceSerialNumber:
+              type: boolean
+              description: '`true` if a device serial number is required to onboard to Sales Channel.'
+            notificationEmail:
+              type: string
+              description: Email to notify for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
+            notificationFrequency:
+              type: string
+              enum:
+                - daily
+                - weekly
+              description: Frequency of notification emails. Valid values are `weekly` and `daily`. Required if `notificationEmail` is set and `notificationUrl` is not.
+            notificationUrl:
+              type: string
+              description: Url for web hook notifications for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
+        examples:
+          default:
+            value:
+              accountId: Jaim1Cu1Q55uooxSens6yk
+              deviceId: true
+              deviceModel: true
+              deviceSerialNumber: true
+              name: My Sales Channel
+              notificationEmail: support@centrapay.com
+              notificationFrequency: weekly
+              providerSalesChannelId: sc_5efbe17d96c083633e2b9241
+              type: reseller
+  responses:
+    '200':
+      description: Sales Channel created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/sales-channel.yaml'
+          examples:
+            default:
+              value:
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99'
+                deviceId: true
+                deviceModel: true
+                deviceSerialNumber: true
+                id: sc_WRhAxxWpTKb5U7pXyxQjjY
+                name: My Sales Channel
+                notificationEmail: support@centrapay.com
+                notificationFrequency: weekly
+                providerSalesChannelId: sc_5efbe17d96c083633e2b9241
+                test: true
+                type: reseller
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            ACCOUNT_TYPE_INVALID:
+              description: The Account must be type `org`.
+              value:
+                message: ACCOUNT_TYPE_INVALID

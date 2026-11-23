@@ -1,0 +1,82 @@
+post:
+  x-method: POST
+  x-path: /api/invitations
+  x-experimental: true
+  operationId: createInvitation
+  summary: Create Invitation
+  description: This endpoint allows you to create an Invitation.
+  tags:
+    - invitations
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - type
+            - resourceId
+            - resourceType
+            - recipientAlias
+            - params
+          properties:
+            type:
+              $ref: '../models/invitation.yaml#/properties/type'
+            resourceId:
+              $ref: '../models/invitation.yaml#/properties/resourceId'
+            resourceType:
+              $ref: '../models/invitation.yaml#/properties/resourceType'
+            recipientAlias:
+              $ref: '../models/invitation.yaml#/properties/recipientAlias'
+            params:
+              type: object
+              description: '[Params](#params-model) depending on the Invitation type.'
+        examples:
+          default:
+            value:
+              type: account-membership
+              resourceId: Hopo4g34sLVdjEMBs2p19F
+              resourceType: account
+              recipientAlias: user@org.com
+              params:
+                role: cashier
+  responses:
+    '200':
+      description: Invitation created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/invitation.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                code: WIj211vFs9cNACwBb04vQw
+                type: account-membership
+                resourceId: Hopo4g34sLVdjEMBs2p19F
+                resourceType: account
+                expiresAt: '2021-08-26T00:02:49.488Z'
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                recipientAlias: user@org.com
+                params:
+                  role: cashier
+                  accountName: Centrapay Cafe
+                status: created
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVALID_ACCOUNT_TYPE:
+              description: The resourceId is associated with an account with a non `org` type.
+              value:
+                message: INVALID_ACCOUNT_TYPE
+            RECIPIENT_ALREADY_INVITED:
+              description: An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
+              value:
+                message: RECIPIENT_ALREADY_INVITED

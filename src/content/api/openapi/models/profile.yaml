@@ -1,0 +1,30 @@
+x-title: Profile Model
+type: object
+properties:
+  userId:
+    type: string
+    description: The Centrapay user id.
+  givenName:
+    type: string
+    description: First name.
+  familyName:
+    type: string
+    description: Last name.
+  featureUpdates:
+    type: boolean
+    description: Whether a user would like to receive emails for feature updates.
+  marketingUpdates:
+    type: boolean
+    description: Whether a user would like to receive emails for marketing updates.
+  email:
+    type: string
+    description: Email address.
+  emailVerified:
+    type: boolean
+    description: Flag indicating the verification status of the email address.
+  phoneNumber:
+    type: string
+    description: The user's phone number.
+  phoneVerified:
+    type: boolean
+    description: Flag indicating the verification status of the phone number.

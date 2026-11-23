@@ -1,0 +1,11 @@
+x-title: Draw Params
+type: object
+required:
+  - progress
+properties:
+  rewards:
+    type: object
+    description: Describes the rewards that will be issued to the drawn winner(s). See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+  progress:
+    type: object
+    description: The entrant bounds for the draw. See [Promotion Progress Model](/api/promotions#promotion-progress-model).

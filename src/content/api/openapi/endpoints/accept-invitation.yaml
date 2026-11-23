@@ -1,0 +1,90 @@
+post:
+  x-method: POST
+  x-path: /api/invitations/{invitationId}/accept
+  x-experimental: true
+  operationId: acceptInvitation
+  summary: Accept Invitation
+  description: This endpoint allows you to accept an Invitation.
+  tags:
+    - invitations
+  x-request-headers:
+    Authorization: <TOKEN>
+  parameters:
+    - name: invitationId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Invitation id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - code
+            - accountId
+          properties:
+            code:
+              $ref: '../models/invitation.yaml#/properties/code'
+            accountId:
+              $ref: '../models/invitation.yaml#/properties/acceptedByAccountId'
+        examples:
+          default:
+            value:
+              code: WIj211vFs9cNACwBb04vQw
+              accountId: Jaim1Cu1Q55uooxSens6yk
+  responses:
+    '200':
+      description: Invitation accepted
+      content:
+        application/json:
+          schema:
+            $ref: '../models/invitation.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                code: WIj211vFs9cNACwBb04vQw
+                type: account-membership
+                resourceId: Hopo4g34sLVdjEMBs2p19F
+                resourceType: account
+                expiresAt: '2021-08-26T00:02:49.488Z'
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                accepted: true
+                acceptedAt: '2021-08-25T10:12:22.122Z'
+                acceptedBy: crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878
+                acceptedByAccountId: Jaim1Cu1Q55uooxSens6yk
+                updatedAt: '2021-08-25T10:12:22.122Z'
+                updatedBy: crn::user:e2837e88-d408-11eb-8eac-3e22fb52e878
+                recipientAlias: user@org.com
+                params:
+                  role: cashier
+                  accountName: Centrapay Cafe
+                status: accepted
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            INVITATION_EXPIRED:
+              description: The Invitation is expired.
+              value:
+                message: INVITATION_EXPIRED
+            INVITATION_ALREADY_ACCEPTED:
+              description: The Invitation has already been accepted.
+              value:
+                message: INVITATION_ALREADY_ACCEPTED
+            RECIPIENT_ALIAS_MISMATCH:
+              description: The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation.
+              value:
+                message: RECIPIENT_ALIAS_MISMATCH
+            INVITATION_REVOKED:
+              description: The Invitation was revoked.
+              value:
+                message: INVITATION_REVOKED

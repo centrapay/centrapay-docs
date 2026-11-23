@@ -1,0 +1,63 @@
+x-title: Managed Integration Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Managed Integration's unique identifier.
+  type:
+    type: string
+    enum:
+      - paypal-referral
+      - payap
+    description: The type of Managed Integration. Supported types are `paypal-referral` and `payap`.
+  enabled:
+    type: boolean
+    description: Flag indicating whether the Managed Integration should become active or inactive.
+  status:
+    type: string
+    description: Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`.
+  externalId:
+    type: string
+    description: Field used to reference an id from an external system.
+  params:
+    type: object
+    description: '[Params](#params-model) depending on the Managed Integration type.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Managed Integration was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Managed Integration.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Managed Integration was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Managed Integration.
+  claimedByAccountId:
+    type: string
+    description: Centrapay account id used to claim the Managed Integration.
+  claimedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that claimed the Managed Integration.
+  claimedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Managed Integration was claimed.
+  invitation:
+    type: object
+    description: A summary of the associated [Invitation](/api/invitations). See [Invitation Summary](#invitation-summary-model).
+  inProgress:
+    type: boolean
+    description: Flag indicating whether a status transition is in progress.
+  test:
+    type: boolean
+    description: A flag which is present if the Managed Integration is for testing.

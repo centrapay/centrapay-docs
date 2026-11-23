@@ -1,0 +1,53 @@
+post:
+  x-method: POST
+  x-path: /api/bank-account-connection-intents/{bankAccountConnectionIntentId}/authorize
+  x-experimental: true
+  operationId: authorizeBankAccountConnectionIntent
+  summary: Authorize Bank Account Connection Intent
+  description: |
+    This endpoint allows you to authorize a Bank Account Connection Intent.
+  tags:
+    - bank-account-connection-intents
+  parameters:
+    - name: bankAccountConnectionIntentId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 3KVjuKW2CZCJeJVqPxwkX7
+      description: The Bank Account Connection Intent id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Authorization code returned from third-party.
+        examples:
+          default:
+            value:
+              code: hKpKupTM391pE10xfQiorMxXarRKAHRhTfH_x
+  responses:
+    '200':
+      description: Bank Account Connection Intent authorized
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value: {}
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            AUTHORIZATION_PENDING:
+              description: User has not completed steps to authorize the consent
+              value:
+                message: AUTHORIZATION_PENDING

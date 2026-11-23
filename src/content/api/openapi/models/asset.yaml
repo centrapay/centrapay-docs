@@ -1,0 +1,40 @@
+x-title: Asset Model
+x-intro: |
+  All assets have the following fields along with the additional fields that are
+  specific to its category. Assets which don't have a category are experimental and the model may change.
+type: object
+properties:
+  id:
+    type: string
+    description: The Asset's unique identifier.
+  accountId:
+    type: string
+    description: The Asset's owning Centrapay Account id.
+  category:
+    type: string
+    description: Asset category ("money", "giftcard", "token").
+  type:
+    type: string
+    description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
+  liveness:
+    type: string
+    description: Either "main" (live payments allowed) or "test".
+  description:
+    type: string
+    description: Displayable asset description.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Date when the asset was created or issued.
+  status:
+    type: string
+    description: '"active" if the asset can be used for payments.'
+  meta:
+    type: object
+    x-experimental: true
+    description: Additional data that may only appear in the [Get Asset](#get-asset) response.
+  name:
+    type: string
+    x-experimental: true
+    description: The name of the asset when created from an [enduring payment consent](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only valid for `quartz.nzd` assets.

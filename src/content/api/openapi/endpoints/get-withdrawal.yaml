@@ -1,0 +1,37 @@
+get:
+  x-method: GET
+  x-path: /api/withdrawals/{withdrawalId}
+  x-experimental: true
+  operationId: getWithdrawal
+  summary: Get Withdrawal
+  description: |
+    This endpoint allows you to retrieve a Withdrawal by id.
+  tags:
+    - funds-transfers
+  parameters:
+    - name: withdrawalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The Withdrawal id.
+  responses:
+    '200':
+      description: Withdrawal retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                assetId: Te2uDM7xhDLWGVJU3nzwnh
+                bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                accountId: aBc932S9182qwCDqwer
+                type: withdrawal
+                amount: '10000'
+                status: created
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-01T12:30:00.000Z'

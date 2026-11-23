@@ -1,0 +1,36 @@
+get:
+  x-method: GET
+  x-path: /api/topups/{topupId}
+  operationId: getTopup
+  summary: Get Top Up
+  description: |
+    This endpoint allows you to retrieve a Top Up by id.
+  tags:
+    - funds-transfers
+  parameters:
+    - name: topupId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The Top Up id.
+  responses:
+    '200':
+      description: Top Up retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                assetId: Te2uDM7xhDLWGVJU3nzwnh
+                bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                accountId: aBc932S9182qwCDqwer
+                type: topup
+                amount: '10000'
+                status: created
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-01T12:30:00.000Z'

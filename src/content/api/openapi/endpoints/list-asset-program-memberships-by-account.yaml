@@ -1,0 +1,67 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{id}/asset-program-memberships
+  x-experimental: true
+  operationId: listAssetProgramMembershipsByAccount
+  summary: List Asset Program Memberships by Account
+  description: |
+    This endpoint allows you to list [Asset Program Memberships](#asset-program-membership-model) for a specific Account.
+  tags:
+    - asset-program-memberships
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The unique identifier of the Account.
+    - name: status
+      in: query
+      schema:
+        type: string
+      description: 'Filter memberships by status. Possible values: `created`, `active`, `inactive`.'
+    - name: pageKey
+      in: query
+      schema:
+        type: string
+      description: The page key used in pagination to fetch the next page of results.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: number
+      description: The maximum number of results per page. Maximum value is 100. Defaults to 50.
+  responses:
+    '200':
+      description: Asset Program Memberships listed
+      x-render-properties: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/asset-program-membership.yaml
+                description: The list of Asset Program Memberships.
+              nextPageKey:
+                type: string
+                description: The page key to use for fetching the next page of results, if more results are available.
+          examples:
+            default:
+              value:
+                items:
+                  - id: apm_Xv990BzkgfoDS7bBls50pd
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    assetProgramId: ap_WRhAxxWpTKb5U7pXyxQjjY
+                    status: active
+                    test: true
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    updatedAt: '2021-08-25T00:02:49.488Z'
+                    updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    tosAcceptedAt: '2021-08-25T00:03:15.123Z'
+                    approvedAt: '2021-08-25T00:05:30.456Z'
+                    billingBankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+                nextPageKey: eyJjcmVhdGVkQXQiOiIyMDIxLTA4LTI1VDAwOjAyOjQ5LjQ4OFoifQ==

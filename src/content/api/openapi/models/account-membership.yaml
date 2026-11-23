@@ -1,0 +1,52 @@
+x-title: Account Membership Model
+x-intro: |
+  A Member contains extended information about a user's access to an account.
+type: object
+properties:
+  accountId:
+    type: string
+    description: The id of the [Account](/api/accounts/) the Membership is scoped to.
+  accountType:
+    type: string
+    description: The type of the [Account](/api/accounts/) the Membership is scoped to.
+  accountName:
+    type: string
+    description: The name of the [Account](/api/accounts/) the Membership is scoped to.
+  userId:
+    type: string
+    description: The id of the user the Membership belongs to.
+  role:
+    type: string
+    description: The role governing Membership permissions.
+  subject:
+    type: string
+    x-type: crn
+    description: User or API key resource name for the membership.
+  createdAt:
+    type: string
+    x-type: timestamp
+    description: When the Membership was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: Resource that created the member.
+  modifiedAt:
+    type: string
+    x-type: timestamp
+    description: When the Membership was last modified.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: Resource that last modified the account member.
+  testAccount:
+    type: boolean
+    description: A flag which is present if the [Account](/api/accounts/) is test.
+  firstName:
+    type: string
+    description: First name of the user the membership belongs to.
+  lastName:
+    type: string
+    description: Last name of the user the membership belongs to.
+  email:
+    type: string
+    description: Email of the user the membership belongs to.

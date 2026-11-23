@@ -1,13 +1,4 @@
-import { getCollection } from 'astro:content';
-
 const CUSTOM_DATA_TYPES = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
-
-export async function loadSchemasMap() {
-  const schemasCollection = await getCollection('openapiSchemas');
-  return Object.fromEntries(
-    schemasCollection.map(entry => [entry.id.split('/').pop().replace(/\.yaml$/, ''), entry.data])
-  );
-}
 
 function resolvePointer(target, pointer) {
   let result = target;
@@ -49,8 +40,20 @@ export function formatDescription(text) {
     .replace(/`([^`]+)`/g, '<code>$1</code>') ?? null;
 }
 
-export function getExample(mediaType) {
-  return Object.values(mediaType?.examples ?? {})[0]?.value;
+// The named example, or the first (default) one, or a single `example`.
+export function getExample(mediaType, name) {
+  const examples = mediaType?.examples ?? {};
+  const example = name ? examples[name] : Object.values(examples)[0];
+  return example ? example.value : mediaType?.example;
+}
+
+// The success response example and whether it's JSON (eg `OK` as text/plain).
+export function responseExample(operation, exampleName) {
+  const [contentType, mediaType] = Object.entries(successResponse(operation.responses)?.content ?? {})[0] ?? [];
+  return {
+    value: getExample(mediaType, exampleName),
+    isJson: !contentType || contentType === 'application/json',
+  };
 }
 
 function formatProperty(name, prop, schema, isRequired) {
@@ -66,10 +69,19 @@ function formatProperty(name, prop, schema, isRequired) {
   };
 }
 
-export function getProperties(schema) {
+// The request body schema, whatever its media type (JSON, multipart, ...).
+export function requestSchema(operation) {
+  return Object.values(operation.requestBody?.content ?? {})[0]?.schema;
+}
+
+// An object property marked `x-flatten` is listed as its child properties,
+// named `parent.child`, instead of as a single row.
+export function getProperties(schema, prefix = '') {
   const required = schema?.required ?? [];
-  return Object.entries(schema?.properties ?? {}).map(([name, prop]) =>
-    formatProperty(name, prop, prop, required.includes(name))
+  return Object.entries(schema?.properties ?? {}).flatMap(([name, prop]) =>
+    prop['x-flatten']
+      ? getProperties(prop, `${prefix}${name}.`)
+      : [formatProperty(`${prefix}${name}`, prop, prop, required.includes(name))]
   );
 }
 
@@ -79,9 +91,27 @@ export function getParameterProperties(parameters) {
     .map(param => formatProperty(param.name, param, param.schema, !!param.required));
 }
 
+const isSuccess = code => /^2\d\d$/.test(code);
+
+// The documented success response: 200 when present, otherwise the first 2xx.
+export function successResponse(responses) {
+  const code = Object.keys(responses ?? {}).filter(isSuccess).sort()[0];
+  return code ? responses[code] : undefined;
+}
+
+// Response attributes are only listed when the success response opts in with
+// `x-render-properties`; most pages document the response via its model.
+export function getResponseProperties(responses) {
+  const response = successResponse(responses);
+  if (!response?.['x-render-properties']) {
+    return [];
+  }
+  return getProperties(response.content?.['application/json']?.schema);
+}
+
 export function getErrors(responses, commonResponses = []) {
   const endpointErrors = Object.entries(responses ?? {})
-    .filter(([code]) => code !== '200')
+    .filter(([code]) => !isSuccess(code))
     .flatMap(([code, response]) =>
       Object.entries(response?.content?.['application/json']?.examples ?? {})
         .map(([message, example]) => ({
@@ -105,10 +135,13 @@ export function getErrors(responses, commonResponses = []) {
   return [...endpointErrors, ...sharedErrors].sort((a, b) => Number(a.code) - Number(b.code));
 }
 
-function buildRequestHeaders(requestBody) {
-  const headers = { 'X-Api-Key': '<TOKEN>' };
-  if (requestBody) {
-    headers['Content-Type'] = 'application/json';
+// Requests authenticate with an API key unless the operation documents its own
+// headers via `x-request-headers` (eg a user JWT, or `{}` for public routes).
+function buildRequestHeaders(operation) {
+  const headers = { ...(operation['x-request-headers'] ?? { 'X-Api-Key': '<TOKEN>' }) };
+  const contentType = Object.keys(operation.requestBody?.content ?? {})[0];
+  if (contentType) {
+    headers['Content-Type'] = contentType;
   }
   return headers;
 }
@@ -132,16 +165,21 @@ function applyParam(path, queryString, param) {
 }
 
 // eslint-disable-next-line complexity
-export function buildEndpointData(operation) {
+export function buildEndpointData(operation, exampleName) {
   const queryString = {};
   let path = operation['x-path'];
   for (const param of operation.parameters ?? []) {
     path = applyParam(path, queryString, param);
   }
   const request = {
-    headers: buildRequestHeaders(operation.requestBody),
-    payload: getExample(operation.requestBody?.content?.['application/json']),
+    headers: buildRequestHeaders(operation),
+    payload: getExample(operation.requestBody?.content?.['application/json'], exampleName),
   };
+  // Non-JSON bodies (eg multipart uploads) are passed to httpsnippet as a HAR
+  // postData object, since they can't be expressed as a JSON example.
+  if (operation['x-request-postData']) {
+    request.postData = operation['x-request-postData'];
+  }
   if (Object.keys(queryString).length > 0) {
     request.queryString = queryString;
   }
@@ -149,6 +187,6 @@ export function buildEndpointData(operation) {
     method: operation['x-method'],
     path,
     request,
-    response: getExample(operation.responses?.['200']?.content?.['application/json']),
+    response: responseExample(operation, exampleName).value,
   };
 }

@@ -1,0 +1,150 @@
+post:
+  x-method: POST
+  x-path: /api/integration-requests
+  x-experimental: true
+  operationId: createIntegrationRequest
+  summary: Create an Integration Request
+  description: This endpoint allows you to create an Integration Request.
+  tags:
+    - integration-requests
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - merchantId
+            - type
+          properties:
+            merchantId:
+              type: string
+              description: The [Merchant](/api/merchants) id for the Integration Request.
+            type:
+              type: string
+              enum:
+                - verifone
+                - windcave
+                - epay
+                - invenco
+                - smartpay
+                - skyzer
+                - vista
+                - shopify
+                - epay-pos
+                - eftpos-central
+                - sektor
+                - nomad
+                - fat-zebra
+              description: The type of the Integration Request. Refer to [Integration Types](#integration-types).
+            terminal:
+              type: object
+              description: The terminal configuration. Required for all terminal vendors except Vista. Not allowed for `vista`, `epay`, `shopify`, `nomad` and `fat-zebra`. Refer to [Terminal](#terminal).
+            product:
+              type: object
+              description: The requested Epay gift card types to support. Required if type is `epay`, and not allowed for other types. Refer to [Product](#product).
+            externalId:
+              type: string
+              description: The external identifier for the integration. Required for `shopify` integration requests, and not allowed for other types.
+        examples:
+          default:
+            value:
+              merchantId: 5ee0c486308f590260d9a07f
+              type: verifone
+              terminal:
+                terminalId: '002039390093939'
+                deviceId: 002-039-390
+  responses:
+    '200':
+      description: Integration Request created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/integration-request.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                merchantId: 5ee0c486308f590260d9a07f
+                type: verifone
+                status: pending
+                createdAt: '2020-06-12T01:17:46.499Z'
+                updatedAt: '2020-06-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                terminal:
+                  terminalId: '002039390093939'
+                  deviceId: 002-039-390
+get:
+  x-method: GET
+  x-path: /api/integration-requests
+  operationId: searchIntegrationRequests
+  summary: Search Integration Requests
+  description: |
+    Returns a [paginated](/api/pagination/) response of Integration Requests.
+  tags:
+    - integration-requests
+  parameters:
+    - name: accountId
+      in: query
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Integration Request's owning Centrapay Account id. Required unless `pending` is `true`. Omitting it lists pending Integration Requests across all accounts, which requires global read access permission.
+    - name: type
+      in: query
+      schema:
+        type: string
+        enum:
+          - verifone
+          - windcave
+          - epay
+          - invenco
+          - smartpay
+          - skyzer
+          - vista
+          - shopify
+          - epay-pos
+          - eftpos-central
+          - sektor
+          - nomad
+          - fat-zebra
+      example: epay
+      description: The type of Integration Request.
+    - name: pending
+      in: query
+      schema:
+        type: boolean
+      example: true
+      description: When set to `true`, only include Integration Requests with pending status.
+  responses:
+    '200':
+      description: Integration Requests listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '../models/integration-request.yaml'
+              next:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: DKTs3U38hdhfEqwF1JKoT2
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    merchantId: 5ee0c486308f590260d9a07f
+                    type: epay
+                    status: pending
+                    terminalId: '11000021'
+                    createdAt: '2020-06-12T01:17:46.499Z'
+                    updatedAt: '2020-06-12T01:17:46.499Z'
+                    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    product:
+                      name: koha-card

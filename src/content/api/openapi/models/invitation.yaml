@@ -1,0 +1,65 @@
+x-title: Invitation Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Invitation's unique identifier.
+  code:
+    type: string
+    description: The Invitation code.
+  type:
+    type: string
+    description: The type of invitation. Supported values are `account-membership`.
+  resourceId:
+    type: string
+    description: The id of the related resource.
+  resourceType:
+    type: string
+    description: The type of the related resource. Supported values are `account`.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Invitation expires.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Invitation was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Invitation.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Invitation was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Invitation.
+  accepted:
+    type: boolean
+    description: A flag indicating whether the Invitation has been accepted.
+  acceptedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Invitation was accepted.
+  acceptedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that accepted the Invitation.
+  acceptedByAccountId:
+    type: string
+    description: The [Account](/api/accounts) id of the user accepting the Invitation.
+  recipientAlias:
+    type: string
+    description: The email address of the user accepting the Invitation.
+  params:
+    type: object
+    description: '[Params](#params-model) dependent on the Invitation type.'
+  status:
+    type: string
+    description: The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.

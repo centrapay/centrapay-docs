@@ -1,0 +1,11 @@
+x-title: Promotion Progress Model
+type: object
+properties:
+  minimum:
+    type: integer
+    description: The minimum progress required to be eligible for the rewards.
+  maximum:
+    type: integer
+    description: The maximum progress a single account can get.
+required:
+  - minimum

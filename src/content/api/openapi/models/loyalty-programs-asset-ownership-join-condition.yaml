@@ -1,0 +1,10 @@
+x-title: Asset Ownership Join Condition
+x-intro: |
+  When `type` is `asset-ownership`, the `params` object must contain:
+type: object
+required:
+  - assetType
+properties:
+  assetType:
+    type: string
+    description: The [Asset Type](/api/asset-types) that the Account must own to join the Loyalty Program.

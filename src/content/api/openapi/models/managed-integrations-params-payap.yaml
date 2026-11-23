@@ -1,0 +1,105 @@
+x-title: payap
+type: object
+required:
+  - companyName
+  - primaryContactName
+  - primaryContactEmail
+  - partnerMerchantId
+  - merchantName
+  - merchantContactName
+  - terminals
+properties:
+  nzbn:
+    type: string
+    description: The unique NZBN identifier.
+  companyName:
+    type: string
+    description: The name of the company.
+  tradingName:
+    type: string
+    description: The trading name of the company.
+  entityType:
+    type: string
+    description: The type of the entity.
+  businessStreetNumberName:
+    type: string
+    description: The street number and name where the business is located.
+  businessSuburb:
+    type: string
+    description: The suburb where the business is located.
+  businessTown:
+    type: string
+    description: The town where the business is located.
+  businessCountry:
+    type: string
+    minLength: 2
+    maxLength: 2
+    description: The two-letter country code where the business is located.
+  businessPostcode:
+    type: string
+    minLength: 4
+    maxLength: 10
+    description: The post code where the business is located.
+  primaryContactName:
+    type: string
+    description: The name of the primary contact of the business.
+  primaryContactEmail:
+    type: string
+    format: email
+    description: The email address of the primary contact of the business.
+  partnerMerchantId:
+    type: string
+    description: The unique id of the merchant in your system.
+  merchantName:
+    type: string
+    description: The name of the merchant.
+  merchantType:
+    type: string
+    description: The type of the merchant, eg `physical` or `e-commerce`. When `physical`, `merchantStreetNumberName`, `merchantTown` and `merchantCountry` are required.
+  merchantCategoryCode:
+    type: string
+    minLength: 4
+    maxLength: 4
+    description: The four-character merchant category code.
+  merchantContactName:
+    type: string
+    description: The merchant contact name.
+  merchantEmail:
+    type: string
+    format: email
+    description: The merchant email address.
+  merchantContactNumber:
+    type: string
+    description: The merchant contact number.
+  merchantStreetNumberName:
+    type: string
+    description: The street number and name where the merchant is located. Required if `merchantType` is `physical`.
+  merchantSuburb:
+    type: string
+    description: The suburb where the merchant is located.
+  merchantTown:
+    type: string
+    description: The town where the merchant is located. Required if `merchantType` is `physical`.
+  merchantCountry:
+    type: string
+    minLength: 2
+    maxLength: 2
+    description: The two-letter country code where the merchant is located. Required if `merchantType` is `physical`.
+  merchantPostcode:
+    type: string
+    minLength: 4
+    maxLength: 10
+    description: The post code where the merchant is located.
+  settlementAcct:
+    type: string
+    pattern: '^[0-9]{2}(-[0-9]{4})(-[0-9]{7})(-[0-9]{2,3})$'
+    description: The bank account number for settlement, eg `12-1234-1234567-00`.
+  chargeAcct:
+    type: string
+    pattern: '^[0-9]{2}(-[0-9]{4})(-[0-9]{7})(-[0-9]{2,3})$'
+    description: The bank account number for charges, eg `12-1234-1234567-00`.
+  terminals:
+    type: array
+    items:
+      $ref: './managed-integrations-terminal.yaml'
+    description: Array of [Terminal](#terminal-model) information. May be empty.

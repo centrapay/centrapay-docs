@@ -1,0 +1,50 @@
+x-title: Bank Account Approval Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Bank Account Approval's unique identifier.
+  bankAccountId:
+    type: string
+    description: The id of the associated [Bank Account](/api/bank-accounts/).
+  accountId:
+    type: string
+    description: The id of the owning Centrapay [Account](/api/accounts/).
+  type:
+    type: string
+    description: The type of Bank Account Approval. See [Bank Account Approval Types](#bank-account-approval-types).
+  status:
+    type: string
+    description: The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Approval was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Bank Account Approval.
+  modifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Approval was updated.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Bank Account Approval.
+  approvalActivities:
+    type: array
+    items:
+      $ref: ../models/bank-account-approval-activity.yaml
+    description: An array of [Bank Account Approval Activities](#bank-account-approval-activity-model) associated with the Bank Account Approval.
+  mediaUploadId:
+    type: string
+    description: The id of the associated [Media Upload](/api/media-uploads). Required for type `settlement`.
+  refreshToken:
+    type: string
+    description: A long lived access token for access to a third-party system. Required for type `account-information-consent` and `enduring-payment-consent`.
+  consentId:
+    type: string
+    description: A unique identifier for an authorization in a third-party system.

@@ -1,0 +1,85 @@
+post:
+  x-method: POST
+  x-path: /api/loyalty-programs
+  x-experimental: true
+  operationId: createLoyaltyProgram
+  summary: Create Loyalty Program
+  description: |
+    This endpoint allows you to create a [Loyalty Program](#loyalty-program-model).
+  tags:
+    - loyalty-programs
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - accountId
+          properties:
+            name:
+              type: string
+              description: The display name of the Loyalty Program.
+            accountId:
+              type: string
+              description: The [Account](/api/accounts/) that will own the Loyalty Program.
+            description:
+              type: string
+              description: The displayable description for the Loyalty Program.
+            mediaUploadId:
+              type: string
+              description: The id of the [Media Upload](/api/media-uploads/) image of the Loyalty Program.
+            joinConditions:
+              type: array
+              items:
+                $ref: ../models/loyalty-programs-join-condition.yaml
+              description: The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.
+        examples:
+          default:
+            value:
+              name: Centrapay Cafe Loyalty Program
+              description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!'
+              mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+              accountId: Jaim1Cu1Q55uooxSens6yk
+              joinConditions:
+                - type: asset-ownership
+                  params:
+                    assetType: quartz.nzd.main
+  responses:
+    '200':
+      description: Loyalty Program created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/loyalty-program.yaml
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                name: Centrapay Cafe Loyalty Program
+                description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!'
+                mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+                img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                test: true
+                status: draft
+                memberCount: '0'
+                visibility: public
+                joinConditions:
+                  - type: asset-ownership
+                    params:
+                      assetType: quartz.nzd.main
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            INVALID_ACCOUNT_TYPE:
+              description: The Account must be type `org`.
+              value:
+                message: INVALID_ACCOUNT_TYPE

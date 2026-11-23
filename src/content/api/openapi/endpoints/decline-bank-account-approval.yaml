@@ -1,0 +1,55 @@
+post:
+  x-method: POST
+  x-path: /api/bank-account-approvals/{bankAccountApprovalId}/decline
+  x-experimental: true
+  operationId: declineBankAccountApproval
+  summary: Decline Bank Account Approval
+  description: |
+    This endpoint allows you to decline a Bank Account Approval.
+  tags:
+    - bank-account-approvals
+  parameters:
+    - name: bankAccountApprovalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DcTs3U38HdhfEqwF1GKoT3
+      description: The Bank Account Approval id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - reason
+          properties:
+            reason:
+              type: string
+              description: The reason for declining the Bank Account Approval.
+        examples:
+          default:
+            value:
+              reason: No details match
+  responses:
+    '200':
+      description: Bank Account Approval declined
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value: {}
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            APPROVAL_ALREADY_REVIEWED:
+              description: The Bank Account Approval has already been accepted or declined.
+              value:
+                message: APPROVAL_ALREADY_REVIEWED

@@ -1,0 +1,17 @@
+x-title: Asset Sent Activity Model
+x-intro: |
+  This records the sending of an asset. Used when activityType is `sent`. This extends the [Asset Activity Model](#asset-activity-model)
+type: object
+properties:
+  recipientAlias:
+    type: string
+    description: The alias of the user who received the asset
+  senderAccountId:
+    type: string
+    description: The accountId of the user who sent the asset
+  sender:
+    type: string
+    description: The name of the user who sent the asset
+  status:
+    type: string
+    description: The current status of the asset

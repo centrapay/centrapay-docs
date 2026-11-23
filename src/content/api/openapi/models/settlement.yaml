@@ -1,0 +1,46 @@
+x-title: Settlement Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier for the Settlement.
+  status:
+    type: string
+    description: The status of the Settlement.
+  currency:
+    type: string
+    description: The Settlement currency.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Settlement was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Settlement.
+  settledAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The time when Settlement was completed.
+  settledBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that completed the Settlement.
+  settlementAmount:
+    type: string
+    x-type: bignumber
+    description: The total amount of the Settlement.
+  settlementBankAccountId:
+    type: string
+    description: The ID of the [Bank Account](/api/bank-accounts/) used for Settlement.
+  settlementBankTransferId:
+    type: string
+    description: The ID of the Bank Transfer used for Settlement.
+  type:
+    type: string
+    description: The type of the Settlement.
+  test:
+    type: boolean
+    description: Flag indicating whether the Settlement is a test resource.

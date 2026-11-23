@@ -1,0 +1,36 @@
+x-title: Redemption Condition Model
+x-experimental: true
+type: object
+properties:
+  merchantId:
+    type: string
+    description: The identifier of the [Merchant](/api/merchants) that is accepting the collection.
+  allowedProducts:
+    type: array
+    items:
+      $ref: ./allowed-products.yaml
+    description: List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+  id:
+    type: string
+    description: The unique identifier of the Redemption Condition.
+  collectionId:
+    type: string
+    description: The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the Token.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Timestamp at which the Redemption Condition was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The identity that created the Redemption Condition.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: Timestamp at which the Redemption Condition was last updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The identity that last updated the Redemption Condition.

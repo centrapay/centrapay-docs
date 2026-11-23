@@ -1,0 +1,40 @@
+title: Asset Activities
+description: Asset Activity models and related endpoints
+nav:
+  path: Assets
+  order: 2
+intro: |
+  Asset Activities are actions that have been taken in relation to an asset. These range from transactions, to status changes, to redemption of an asset.
+sections:
+  - model: asset-activity
+    rule: false
+  - model: asset-transaction-activity
+    rule: false
+  - model: token-refunded-activity
+    rule: false
+  - model: token-redeemed-activity
+    rule: false
+  - model: asset-created-activity
+    rule: false
+  - model: asset-received-activity
+    rule: false
+  - model: asset-sent-activity
+    rule: false
+  - title: Asset Activity Types
+    rule: false
+    depth: 3
+    body: |
+      |       Name              |                                                 Description                                                                   |
+      | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+      | token                   | [Token](/api/assets#token-model) was refunded. Uses [Token refunded Model](#token-refunded-activity-model)                    |
+      | value-in                | [Asset](/api/assets#asset-model) value has been increased. Uses [Asset Transaction Model](#asset-transaction-activity-model)  |
+      | value-out               | [Asset](/api/assets#asset-model) value has been decreased. Uses [Asset Transaction Model](#asset-transaction-activity-model)  |
+      | archive-asset           | [Asset](/api/assets#asset-model) was archived. Uses [Asset Activity Model](#asset-activity-model)                             |
+      | activate-asset          | [Asset](/api/assets#asset-model) was activated. Uses [Asset Activity Model](#asset-activity-model)                            |
+      | disable-asset           | [Asset](/api/assets#asset-model) was disabled.  Uses [Asset Activity Model](#asset-activity-model)                            |
+      | token-redeemed          | [Token](/api/assets#token-model) was redeemed. Uses [Token Redeemed Model](#token-redeemed-activity-model)                    |
+      | created                 | [Asset](/api/assets#asset-model) was created. Uses [Asset Created Model](#asset-created-activity-model)                       |
+      | received                | [Asset](/api/assets#asset-model) was received. Uses [Asset Received Model](#asset-received-activity-model)                    |
+      | sent                    | [Asset](/api/assets#asset-model) was sent. Uses [Asset Sent Model](#asset-sent-activity-model)                                |
+  - endpoint: listAssetTransactions
+  - endpoint: listAssetActivities

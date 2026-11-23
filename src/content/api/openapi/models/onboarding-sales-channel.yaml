@@ -1,0 +1,24 @@
+x-title: Sales Channel Model
+type: object
+properties:
+  params:
+    type: object
+    x-flatten: true
+    required:
+      - vendor
+    properties:
+      vendor:
+        type: string
+        description: Terminal software/hardware vendor (3-100 characters). Must match a supported vendor, eg `verifone`, `windcave` or `shopify` (matched case-insensitively).
+      reseller:
+        type: string
+        description: Terminal distributor (3-100 characters).
+      deviceId:
+        type: string
+        description: Software device ID (max 35 characters). Required unless `vendor` is `nomad`.
+      serialNumber:
+        type: string
+        description: Hardware serial number (max 35 characters).
+      deviceModel:
+        type: string
+        description: Terminal model (3-100 characters), e.g., `Verifone P630`.

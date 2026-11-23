@@ -1,0 +1,42 @@
+post:
+  x-method: POST
+  x-path: /api/connections
+  x-experimental: true
+  operationId: createConnection
+  summary: Create Connection
+  description: This endpoint allows you to create a [Connection](#connection-model).
+  tags:
+    - connections
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - merchantId
+          properties:
+            merchantId:
+              type: string
+              description: The [Merchant](/api/merchants/) to create the Connection on behalf of.
+        examples:
+          default:
+            value:
+              merchantId: 5ee0c486308f590260d9a07f
+  responses:
+    '200':
+      description: Connection created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/connection.yaml'
+          examples:
+            default:
+              value:
+                id: cn_8Bq2WpDkH3sJvYt5RxLm7n
+                merchantId: 5ee0c486308f590260d9a07f
+                status: created
+                createdByAccountName: Salespoint
+                url: https://app.centrapay.com/connect/cn_8Bq2WpDkH3sJvYt5RxLm7n
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'

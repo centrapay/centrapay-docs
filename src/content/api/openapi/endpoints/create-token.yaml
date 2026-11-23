@@ -1,0 +1,80 @@
+post:
+  x-method: POST
+  x-path: /api/tokens
+  x-experimental: true
+  operationId: createToken
+  summary: Create Token
+  description: |
+    This endpoint allows you to create a Token.
+  tags:
+    - tokens
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - collectionId
+            - idempotencyKey
+          properties:
+            collectionId:
+              type: string
+              description: The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token. Currently only Collections of type `product` are supported.
+            idempotencyKey:
+              type: string
+              description: Client-supplied identifier that prevents double creation.
+            externalId:
+              type: string
+              description: The asset identifier from the issuing system.
+            accountId:
+              type: string
+              description: The Account to create the token for. Defaults to the Account on the Token Collection.
+        examples:
+          default:
+            value:
+              collectionId: c_Jaim1Cu1Q55uooxSens6yk
+              idempotencyKey: payment-de32dd90-b46c-11ea-93c3-83a333b86e7b
+              externalId: '23403283262'
+  responses:
+    '200':
+      description: Token created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/assets-token.yaml
+          examples:
+            default:
+              value:
+                id: NqYjGHzkL3s6v9TFbwWcdR
+                accountId: WRhAxxWpTKb5U7pXyxQjjP
+                category: token
+                collectionId: c_Jaim1Cu1Q55uooxSens6yk
+                status: active
+                createdAt: '2021-01-17T18:00:23.000Z'
+                activeFrom: '2021-01-17T18:00:23.000Z'
+                expiresAt: '2022-01-18T18:00:23.000Z'
+                liveness: test
+                createdBy: crn:WRhAxxWpTKb5U7pXyxQjjP:api-key:MyAssetIssuerKey
+                description: My Cafe Token
+                issuerImg: https://static.centrapay.com/assets/brands/centraperk/logo.png
+                img: https://static.centrapay.com/assets/brands/centraperk/cafe-token.png
+                issuer: Centraperk Cafe
+                issuerWebsite: www.centraperk-cafe.com
+                type: centrapay.token.test
+                externalId: '23403283262'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            TOKEN_ALREADY_CREATED:
+              description: Token with supplied parameters already exists.
+              value:
+                message: TOKEN_ALREADY_CREATED
+            LIVENESS_MISMATCH:
+              description: The account is test and the collection's liveness is main or vice versa.
+              value:
+                message: LIVENESS_MISMATCH

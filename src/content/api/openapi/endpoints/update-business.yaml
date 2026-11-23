@@ -1,0 +1,82 @@
+put:
+  x-method: PUT
+  x-path: /api/businesses/{businessId}
+  x-experimental: true
+  operationId: updateBusiness
+  summary: Update Business
+  description: This endpoint allows you to update a Business.
+  tags:
+    - businesses
+  parameters:
+    - name: businessId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Business id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            tradingName:
+              type: string
+              description: The trading name of the business.
+            taxNumber:
+              type: object
+              description: The value-added tax configuration.
+            farmlandsBusinessNumber:
+              type: string
+              description: The number associated with your Farmlands business.
+            location:
+              type: object
+              x-type: location
+              description: The physical address of the business.
+        examples:
+          default:
+            value:
+              taxNumber:
+                value: 123-456-789
+                type: nz-gst
+              farmlandsBusinessNumber: '12345678'
+              location:
+                street: 1 Head Office Way
+                city: Wellington
+                state: Wellington
+                postCode: '6011'
+                country: NZ
+  responses:
+    '200':
+      description: Business updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/business.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                accountName: Centrapay
+                nzbn: '9429046246448'
+                name: CENTRAPAY LIMITED
+                tradingName: CentraPay
+                companyNumber: '6340244'
+                createdAt: '2020-06-12T01:17:46.499Z'
+                updatedAt: '2020-06-12T01:17:46.499Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                taxNumber:
+                  value: 123-456-789
+                  type: nz-gst
+                farmlandsBusinessNumber: '12345678'
+                location:
+                  street: 1 Head Office Way
+                  city: Wellington
+                  state: Wellington
+                  postCode: '6011'
+                  country: NZ
+                onboardingStatus: applied

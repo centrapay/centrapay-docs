@@ -1,0 +1,59 @@
+get:
+  x-method: GET
+  x-path: /api/merchants/{merchantId}/payment-links
+  x-experimental: true
+  operationId: listPaymentLinks
+  summary: List Payment Links
+  description: This endpoint allows you to retrieve a [paginated](/api/pagination) list of active Payment Links for a merchant.
+  tags:
+    - payment-links
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+    - name: pageKey
+      in: query
+      schema:
+        type: string
+      description: Used to retrieve the next page of items.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 20
+        default: 10
+      description: Maximum number of Payment Links to return (1-20). Defaults to 10.
+  responses:
+    '200':
+      description: Payment Links listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '../models/payment-link.yaml'
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: pl_WRhAxxWpTKb5U7pXyxQjjY
+                    status: active
+                    name: Front Checkout
+                    merchantId: 5ee0c486308f590260d9a07f
+                    paymentRequestId: MhocUmpxxmgdHjr7DgKoKw
+                    test: true
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    updatedAt: '2021-08-25T00:02:49.488Z'
+                    updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                nextPageKey: eyJwayI6IlBheW1lbnRMaW5rI3BsX1dSaEF4eFdwVEtiNVU3cFh5eFFqalkiLCJzayI6IiNQYXltZW50TGluayIsImdzaTFQayI6Ik1lcmNoYW50IzVlZTBjNDg2MzA4ZjU5MDI2MGQ5YTA3ZiIsImdzaTFTayI6IlN0YXR1cyNhY3RpdmUifQ==

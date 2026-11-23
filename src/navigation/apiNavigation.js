@@ -1,12 +1,8 @@
 import { getCollection } from '../utils/getCollection';
-import { getCollection as getContentCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import Navigation from '../navigation/Navigation';
-import {
-  orderEndpoints,
-  getPaymentRequestsSections,
-  PAYMENT_REQUESTS_ID,
-} from '../utils/openApiPage';
-import { loadSchemasMap } from '../utils/OpenApiResolver.js';
+import { navHeadings } from '../utils/openApiPage';
+import { loadOpenApiPages } from '../utils/openApiLoader.js';
 
 const nav = [
   { title: 'API Reference' },
@@ -32,32 +28,16 @@ const nav = [
   { title: 'Webhooks' },
 ];
 
-// The Payment Requests page is rendered from the OpenAPI spec instead of an
-// mdoc file, so its navigation entry is built from the spec here.
-async function getPaymentRequestsEntry() {
-  const schemasMap = await loadSchemasMap();
-  const index = schemasMap['index'];
-  const page = index.info['x-page'];
-
-  const endpointEntries = await getContentCollection('openapiEndpoints');
-  const endpointFiles = endpointEntries.map(entry => ({
-    name: entry.id.split('/').pop().replace(/\.yaml$/, ''),
-    operations: Object.values(entry.data),
-  }));
-  const sections = getPaymentRequestsSections({
-    models: page.models.map(name => ({ name, title: schemasMap[name]['x-title'] ?? name })),
-    extras: page.extras,
-    endpoints: orderEndpoints(index, endpointFiles),
-  });
-
-  return {
+// Spec-driven pages are rendered from the OpenAPI spec instead of mdoc files,
+// so their navigation entries are built from the spec here.
+async function getOpenApiEntries() {
+  const pages = await loadOpenApiPages();
+  return pages.map(({ id, page, sections }) => ({
     collection: 'api',
-    id: PAYMENT_REQUESTS_ID,
+    id,
     data: { title: page.title, nav: page.nav },
-    headings: sections
-      .filter(section => section.depth === 2)
-      .map(section => ({ depth: 2, slug: section.anchor, text: section.title })),
-  };
+    headings: navHeadings(sections),
+  }));
 }
 
 const collections = await getCollection('api');
@@ -66,7 +46,7 @@ const content = await Promise.all(collections.map(async page => {
   page.headings = headings.filter(heading => heading.depth === 2);
   return page;
 }));
-content.push(await getPaymentRequestsEntry());
+content.push(...await getOpenApiEntries());
 
 const navigation = Navigation.create({ nav, content });
 

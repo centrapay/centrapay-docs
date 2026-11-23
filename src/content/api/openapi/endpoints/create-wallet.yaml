@@ -1,0 +1,89 @@
+post:
+  x-method: POST
+  x-path: /api/wallets
+  x-experimental: true
+  operationId: createWallet
+  summary: Create Wallet
+  description: This endpoint allows you to create a [Wallet](#wallet-model).
+  tags:
+    - wallets
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - id
+            - name
+            - accountId
+            - assetTypes
+          properties:
+            id:
+              type: string
+              description: A unique and human readable identifier of the Wallet.
+            name:
+              type: string
+              description: The displayable name of the Wallet.
+            accountId:
+              type: string
+              description: The account that owns the wallet.
+            connectUrl:
+              type: string
+              description: The URL to redirect to for the Connect flow.
+            payUrl:
+              type: string
+              description: The URL to redirect to for payments.
+            logoMediaUploadId:
+              type: string
+              description: The ID of the [Media Upload](/api/media-uploads/) image for the Wallet.
+            primaryColorHex:
+              type: string
+              description: A hex color code (e.g., `#FF5733`) used to visually represent the wallet or brand in the UI.
+            assetTypes:
+              type: array
+              items:
+                $ref: '../models/wallets-asset-types.yaml'
+              description: A list of asset types supported by the Wallet. Each item must include an `id`, and a `collectionId` if the asset type is `centrapay.token` or `centrapay.ledger`.
+        examples:
+          default:
+            value:
+              id: payap
+              name: Payap
+              accountId: abc123
+              connectUrl: https://app.payap.com/join
+              payUrl: https://app.payap.com/pay
+              logoMediaUploadId: abcd
+              primaryColorHex: '#abc123'
+              assetTypes:
+                - id: quartz.nzd
+                - id: centrapay.token
+                  collectionId: 98h1d312
+                - id: centrapay.token
+                  collectionId: ca9h0221sacw
+  responses:
+    '200':
+      description: Wallet created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/wallet.yaml'
+          examples:
+            default:
+              value:
+                id: payap
+                name: Payap
+                accountId: abc123
+                connectUrl: https://app.payap.com/join
+                payUrl: https://app.payap.com/pay
+                logoMediaUploadId: abcd
+                primaryColorHex: '#abc123'
+                status: created
+                assetTypes:
+                  - id: quartz.nzd
+                  - id: centrapay.token
+                    collectionId: 98h1d312
+                  - id: centrapay.token
+                    collectionId: ca9h0221sacw
+                createdAt: '2020-05-01T12:30:00.000Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey

@@ -1,0 +1,53 @@
+post:
+  x-method: POST
+  x-path: /api/assets/{assetId}/archive
+  operationId: archiveAsset
+  summary: Archive Asset
+  description: |
+    Archive supported asset types by asset id. Currently tokens, and `quartz.nzd` assets may be archived.
+  tags:
+    - assets
+  parameters:
+    - name: assetId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: V1NXc8KJC7b8QKGws13hYR
+      description: The Asset id.
+  responses:
+    '200':
+      description: Asset archived
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset.yaml
+          examples:
+            default:
+              value:
+                id: V1NXc8KJC7b8QKGws13hYR
+                accountId: 9gXmHuaFsiG6gmh6zoUDXCsJ6rtYA8
+                category: token
+                type: centrapay.token.main
+                liveness: main
+                createdAt: '2024-04-23T22:07:05.738Z'
+                status: archived
+                activeFrom: '2024-04-23T22:07:05.602Z'
+                expiresAt: '2024-05-07T22:07:05.602Z'
+                description: Centrapay Token
+                collectionId: c_4Hq8WmZ2rTn6YbPkD9xVfL
+                collectionType: product
+                issuerImg: https://static.centrapay.com/assets/brands/centraperk/logo.png
+                issuer: Centraperk
+                issuerWebsite: www.centrapay.com
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            UNSUPPORTED_ASSET_TYPE:
+              description: Asset type can not be archived
+              value:
+                message: UNSUPPORTED_ASSET_TYPE

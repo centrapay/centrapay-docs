@@ -1,0 +1,42 @@
+get:
+  x-method: GET
+  x-path: /api/nzbn/{nzbn}
+  x-experimental: true
+  operationId: getNzbnDetails
+  summary: Get Business Details from NZ Company Register
+  description: This endpoint allows you to retrieve a company's details from the NZ Companies Register by NZBN.
+  tags:
+    - businesses
+  parameters:
+    - name: nzbn
+      in: path
+      required: true
+      schema:
+        type: string
+      example: '9429046246448'
+      description: The NZBN identifier.
+  responses:
+    '200':
+      description: Business details retrieved
+      content:
+        application/json:
+          examples:
+            default:
+              value:
+                nzbn: '9429046246448'
+                companyName: CENTRAPAY LIMITED
+                tradingName: CentraPay
+                companyNumber: '6340244'
+                directors:
+                  - firstName: John
+                    lastName: DOE
+                    addressLines:
+                      - 7 Tara Street
+                      - Downmore
+                      - Auckland
+                  - firstName: Jane
+                    lastName: DOE
+                    addressLines:
+                      - 82 Greatwood Road
+                      - Northclover
+                      - Auckland

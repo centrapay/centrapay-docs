@@ -1,0 +1,42 @@
+x-title: Bank Account Connection Intent Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Bank Account Connection Intent's unique identifier.
+  accountId:
+    type: string
+    description: The id of the owning Centrapay [Account](/api/accounts/).
+  type:
+    type: string
+    description: The type of Bank Account Connection Intent. See [Bank Account Connection Intent Types](#bank-account-connection-intent-types).
+  status:
+    type: string
+    description: The current status of the Bank Account Connection Intent. Supported values are `created`, `authorized` and `failed`.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Connection Intent was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Bank Account Connection Intent.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Connection Intent was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Bank Account Connection Intent.
+  authorizationUrl:
+    type: string
+    description: A URL to the third-party beginning the authorization flow.
+  test:
+    type: boolean
+    description: A flag which is present if the intention is to connect with a [Bank Account](/api/bank-accounts) used for testing.
+  name:
+    type: string
+    description: The name of the consent. Only present if type is `enduring-payment-consent`.

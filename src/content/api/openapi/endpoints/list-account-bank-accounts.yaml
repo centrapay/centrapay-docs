@@ -1,0 +1,62 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/bank-accounts
+  operationId: listAccountBankAccounts
+  summary: List Bank Accounts
+  description: |
+    This endpoint allows you to list the Bank Accounts for an account.
+  tags:
+    - bank-accounts
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The [Account](/api/accounts) id.
+  responses:
+    '200':
+      description: Bank Accounts listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../models/bank-account.yaml
+          examples:
+            default:
+              value:
+                - id: XZbPLViMzekVBbF7QMqgaY
+                  accountId: Jaim1Cu1Q55uooxSens6yk
+                  status: created
+                  bankAccountNumber: 02-0500-0568903-097
+                  bankAccountName: Pocket Money
+                  directDebitAuthorized: false
+                  bankRegion: nz
+                  createdBy: crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7
+                  createdAt: '2022-04-19T05:43:40.425Z'
+                  verified: false
+                  modifiedBy: crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7
+                  modifiedAt: '2022-04-19T05:43:40.425Z'
+                  approvals: []
+                  type: quartz
+                  test: true
+                  enduringPaymentConsentAuthorized: false
+                - id: 3Kfdm8cuW1W6f8AoWJREs4
+                  accountId: Jaim1Cu1Q55uooxSens6yk
+                  status: created
+                  bankAccountNumber: 00-1213-1231299-999
+                  bankAccountName: Jean
+                  directDebitAuthorized: false
+                  bankRegion: nz
+                  createdBy: crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7
+                  createdAt: '2022-02-22T03:27:57.138Z'
+                  verified: false
+                  modifiedBy: crn::user:57142ecc-e5e4-456a-8312-1fad4fdef3c7
+                  modifiedAt: '2022-02-22T03:27:57.138Z'
+                  approvals:
+                    - type: settlement
+                      status: pending
+                      updatedAt: '2021-11-08T21:52:39.915Z'
+                  type: centrapay

@@ -1,0 +1,14 @@
+x-title: Tax Number Model
+type: object
+required:
+  - value
+  - type
+properties:
+  value:
+    type: string
+    description: The GST number (e.g., `123-456-789`).
+  type:
+    type: string
+    enum:
+      - nz-gst
+    description: Must be `nz-gst`.

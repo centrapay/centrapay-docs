@@ -1,0 +1,52 @@
+post:
+  x-method: POST
+  x-path: /api/merchants/{merchantId}/set-onboarding-status
+  operationId: setMerchantOnboardingStatus
+  summary: Set Merchant Onboarding Status
+  description: This endpoint allows you to set the onboarding status of a Merchant.
+  tags:
+    - merchants
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - onboardingStatus
+          properties:
+            onboardingStatus:
+              $ref: '../models/merchant-model.yaml#/properties/onboardingStatus'
+            onboardingStatusReason:
+              type: string
+              description: The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold`, `deactivated` or `archived`, and not allowed otherwise. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+        examples:
+          default:
+            value:
+              onboardingStatus: deactivated
+              onboardingStatusReason: change-of-ownership
+  responses:
+    '200':
+      description: Merchant onboarding status set
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                type: set-onboarding-status
+                onboardingStatus: deactivated
+                onboardingStatusReason: change-of-ownership
+                merchantId: 5ee0c486308f590260d9a07f
+                createdAt: '2021-09-12T01:11:22.491Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                activityNumber: '2'

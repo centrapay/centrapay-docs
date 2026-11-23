@@ -1,0 +1,41 @@
+get:
+  x-method: GET
+  x-path: /api/payment-links/{paymentLinkId}/summary
+  x-experimental: true
+  operationId: getPaymentLinkSummary
+  summary: Get Payment Link Summary
+  description: This endpoint allows you to retrieve the summary of a Payment Link. This endpoint does not require [Auth](/api/auth).
+  tags:
+    - payment-links
+  x-request-headers: {}
+  parameters:
+    - name: paymentLinkId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: pl_WRhAxxWpTKb5U7pXyxQjjY
+      description: The Payment Link id.
+  responses:
+    '200':
+      description: Payment Link summary retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - id
+              - merchantId
+            properties:
+              id:
+                $ref: '../models/payment-link.yaml#/properties/id'
+              merchantId:
+                $ref: '../models/payment-link.yaml#/properties/merchantId'
+              paymentRequestId:
+                $ref: '../models/payment-link.yaml#/properties/paymentRequestId'
+          examples:
+            default:
+              value:
+                id: pl_WRhAxxWpTKb5U7pXyxQjjY
+                merchantId: 5ee0c486308f590260d9a07f
+                paymentRequestId: MhocUmpxxmgdHjr7DgKoKw

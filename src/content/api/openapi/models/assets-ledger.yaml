@@ -1,0 +1,45 @@
+x-title: Ledger Model
+x-experimental: true
+x-intro: |
+  A ledger is a single asset that maintains a balance of multiple tokens belonging to an account. All tokens in a ledger come from a specific collection. Multiple tokens can be spent or sent at once from the ledger.
+
+  Ledgers have the following attributes along with the base asset fields.
+type: object
+properties:
+  collectionId:
+    type: string
+    description: The [Token Collection](/api/tokens#token-collection-model) that all tokens in the ledger belong to.
+  collectionType:
+    type: string
+    description: The type of the token collection.
+  tokenValue:
+    type: object
+    x-type: monetary
+    description: The value of each token in the ledger. Taken from the `maxValue` property on the token collection.
+    properties:
+      amount:
+        type: string
+      currency:
+        type: string
+  createdBy:
+    type: string
+    x-type: crn
+    description: The identity that created the ledger.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The date when the ledger expires.
+  balanceExpiresAfter:
+    type: object
+    description: The active duration of tokens that are issued to this ledger.
+  img:
+    type: string
+    description: The img URL of the ledger.
+  issuerAccountId:
+    type: string
+    description: The ID of the Account that issued the tokens in the ledger.
+  balance:
+    type: string
+    x-type: bignumber
+    description: Current number of tokens in the ledger.

@@ -1,0 +1,40 @@
+x-title: Money Model
+x-intro: |
+  Money assets, being backed by real currency, are the most flexible asset types.
+  Money is accepted for most payment requests, can be sent in arbitrary amounts
+  and does not expire.
+
+  Money assets have the following attributes along with the base asset fields.
+type: object
+properties:
+  currency:
+    type: string
+    description: Currency code, eg "NZD".
+  balance:
+    type: string
+    x-type: bignumber
+    description: Current balance in the currency's smallest denomination (ie. cents).
+  availableBalance:
+    type: string
+    x-type: bignumber
+    description: The balance of the asset that is available for transfers or purchases.
+  settlement:
+    type: boolean
+    x-experimental: true
+    description: The asset is configured for [Settlements](/api/wallet-assets#settlement-wallet-assets).
+  period:
+    type: string
+    x-experimental: true
+    description: The period after which the `balance` will be reset. This field is only available on the [quartz](/api/asset-types) asset type. Possible values are `daily`, `weekly`, `fortnightly`, `monthly` or `yearly`.
+  periodStartedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    x-experimental: true
+    description: Datetime when the current period was started. This field is only available on the [quartz](/api/asset-types) asset type.
+  periodEndingAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    x-experimental: true
+    description: Datetime when the current period will end. This field is only available on the [quartz](/api/asset-types) asset type.

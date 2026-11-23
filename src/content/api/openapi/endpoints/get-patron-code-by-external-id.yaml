@@ -1,0 +1,55 @@
+get:
+  x-method: GET
+  x-path: /api/patron-codes/{namespace}/external-id/{externalId}
+  operationId: getPatronCodeByExternalId
+  summary: Get Patron Code By Namespace and External Id
+  description: |
+    This endpoint allows you to retrieve a Patron Code by namespace and external id.
+  tags:
+    - patron-codes
+  parameters:
+    - name: namespace
+      in: path
+      required: true
+      schema:
+        type: string
+      example: namespace-test
+      description: The Patron Code namespace.
+    - name: externalId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 3e9003bbff48d
+      description: The external Id of the Patron Code.
+  responses:
+    '200':
+      description: Patron Code retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/patron-code.yaml
+          examples:
+            default:
+              value:
+                id: V17FByEP9gm1shSG6a1Zzx
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                barcode: '9990001234567895'
+                createdAt: '2021-06-08T22:55:00.000Z'
+                expiresAt: '2021-06-08T23:00:00.000Z'
+                externalId: 3e9003bbff48d
+                appName: centrapay
+                assetId: WRhAxxWpTKb5U7pXyxQjjY
+                metadata:
+                  deviceId: device-001
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            PATRON_CODE_INVALID:
+              description: Patron Code doesn't exist or it has expired.
+              value:
+                message: PATRON_CODE_INVALID

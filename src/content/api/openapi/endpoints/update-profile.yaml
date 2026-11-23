@@ -1,0 +1,62 @@
+post:
+  x-method: POST
+  x-path: /api/me/profile/update
+  x-experimental: true
+  operationId: updateProfile
+  summary: Update Profile
+  description: Update a user’s mutable attributes. At least one field must be provided in the request.
+  tags:
+    - profiles
+  x-request-headers:
+    Authorization: <TOKEN>
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            givenName:
+              $ref: '../models/profile.yaml#/properties/givenName'
+            familyName:
+              $ref: '../models/profile.yaml#/properties/familyName'
+            featureUpdates:
+              $ref: '../models/profile.yaml#/properties/featureUpdates'
+            marketingUpdates:
+              $ref: '../models/profile.yaml#/properties/marketingUpdates'
+            email:
+              $ref: '../models/profile.yaml#/properties/email'
+        examples:
+          default:
+            value:
+              givenName: John
+              familyName: Doe
+              featureUpdates: false
+              marketingUpdates: true
+              email: john.doe@centrapay.com
+  responses:
+    '200':
+      description: Profile updated. The response echoes the updated fields.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              givenName:
+                $ref: '../models/profile.yaml#/properties/givenName'
+              familyName:
+                $ref: '../models/profile.yaml#/properties/familyName'
+              featureUpdates:
+                $ref: '../models/profile.yaml#/properties/featureUpdates'
+              marketingUpdates:
+                $ref: '../models/profile.yaml#/properties/marketingUpdates'
+              email:
+                $ref: '../models/profile.yaml#/properties/email'
+          examples:
+            default:
+              value:
+                givenName: John
+                familyName: Doe
+                featureUpdates: false
+                marketingUpdates: true
+                email: john.doe@centrapay.com

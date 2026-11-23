@@ -1,0 +1,53 @@
+post:
+  x-method: POST
+  x-path: /api/merchants/{merchantId}/metadata
+  operationId: setMerchantMetadata
+  summary: Set Merchant Metadata
+  description: |
+    This endpoint allows you to set metadata on a Merchant. Metadata is merged with any existing
+    keys — only the keys provided in the request are affected. To remove a key, set its value to an
+    empty string.
+  tags:
+    - merchants
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - metadata
+          properties:
+            metadata:
+              type: object
+              description: A map of key-value pairs to attach to the Merchant. Keys must be alphanumeric with underscores or dashes (max 64 characters). Values must be strings (max 256 characters) containing only letters, numbers, spaces and `_-.,@:/`. A maximum of 10 keys is allowed.
+              additionalProperties:
+                type: string
+        examples:
+          default:
+            value:
+              metadata:
+                deviceId: device-001
+  responses:
+    '200':
+      description: Merchant metadata set
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                merchantId: 5ee0c486308f590260d9a07f
+                createdAt: '2021-09-12T01:11:22.491Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                metadata:
+                  deviceId: device-001

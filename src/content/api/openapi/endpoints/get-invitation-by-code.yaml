@@ -1,0 +1,42 @@
+get:
+  x-method: GET
+  x-path: /api/invitations/code/{code}
+  x-experimental: true
+  operationId: getInvitationByCode
+  summary: Get Invitation By Code
+  description: This endpoint allows you to retrieve an Invitation by code.
+  tags:
+    - invitations
+  parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WIj211vFs9cNACwBb04vQw
+      description: The Invitation code.
+  responses:
+    '200':
+      description: Invitation retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/invitation.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                code: WIj211vFs9cNACwBb04vQw
+                type: account-membership
+                resourceId: Hopo4g34sLVdjEMBs2p19F
+                resourceType: account
+                expiresAt: '2021-08-26T00:02:49.488Z'
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                recipientAlias: user@org.com
+                params:
+                  role: cashier
+                  accountName: Centrapay Cafe
+                status: created

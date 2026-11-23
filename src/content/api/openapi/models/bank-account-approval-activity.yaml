@@ -1,0 +1,21 @@
+x-title: Bank Account Approval Activity Model
+type: object
+properties:
+  activityNumber:
+    type: number
+    description: Unique sequential Bank Account Approval Activity number.
+  approvalId:
+    type: string
+    description: The id of the associated [Bank Account Approval](#bank-account-approval-model).
+  activityType:
+    type: string
+    description: The type of the Bank Account Approval Activity.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Approval Activity was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Bank Account Approval Activity.

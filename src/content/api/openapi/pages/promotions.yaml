@@ -1,0 +1,35 @@
+title: Promotions
+description: Promotion model and related endpoints
+nav:
+  path: Loyalty Programs
+  order: 3
+intro: |
+  Promotions are a mechanism to reward accounts for completing certain actions.
+sections:
+  - model: promotion
+    rule: false
+  - model: promotion-params
+    rule: false
+  - model: promotions-challenge-params
+    rule: false
+    depth: 3
+  - model: promotions-draw-params
+    rule: false
+    depth: 3
+  - model: promotion-progress
+    rule: false
+  - model: promotion-target
+    rule: false
+  - model: promotion-rewards
+    rule: false
+  - model: promotion-reward
+    rule: false
+  - model: promotion-condition
+    rule: false
+  - model: promotion-activity
+    rule: false
+  - endpoint: createPromotion
+  - endpoint: getPromotion
+  - endpoint: listPromotionsByAccount
+  - endpoint: listPromotionsByLoyaltyProgram
+  - endpoint: listPromotionActivities

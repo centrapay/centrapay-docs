@@ -1,0 +1,70 @@
+x-title: Promotion Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier for the Promotion.
+  accountId:
+    type: string
+    description: The ID of the [Account](/api/accounts) that owns the Promotion.
+  name:
+    type: string
+    description: The display name of the Promotion.
+  programId:
+    type: string
+    description: The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  summary:
+    type: string
+    description: The display summary for the Promotion.
+  mediaUploadId:
+    type: string
+    description: The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+  img:
+    type: string
+    description: The img URL of the Promotion.
+  startsAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion starts.
+  endsAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion ends.
+  rewards:
+    type: array
+    items:
+      $ref: ../models/promotion-reward.yaml
+    description: Use `params.rewards` instead. A flattened list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion. Retained on responses for backwards compatibility.
+    x-deprecated: true
+  eventType:
+    type: string
+    description: The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
+  params:
+    type: object
+    description: Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+  target:
+    type: object
+    description: Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
+    x-deprecated: true
+  type:
+    type: string
+    description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+  conditions:
+    type: array
+    items:
+      $ref: ../models/promotion-condition.yaml
+    description: The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+  description:
+    type: string
+    description: Displayable description for the Promotion.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Promotion.

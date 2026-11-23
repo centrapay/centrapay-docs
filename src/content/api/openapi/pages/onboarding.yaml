@@ -1,0 +1,45 @@
+title: Business Onboarding
+description: Business onboarding model and endpoints for registering merchants
+nav:
+  path: Onboarding
+  order: 20
+intro: |
+  The Business Onboarding API allows acquirers to register businesses and merchants with Centrapay so they can begin accepting payments through supported asset programs.
+
+  Optionally, acquirers can specify which sales channels (such as payment terminals) should be enabled for that merchant.
+sections:
+  - title: API Behavior
+    rule: false
+    body: |
+      - **Validation** - Request validation is performed synchronously and errors are returned immediately for invalid data
+      - **Processing** - After accepting the request, Centrapay processes the onboarding asynchronously in the background
+      - **Completion** - When sufficient information is provided, the merchant will be onboarded and enabled for the relevant asset program. If information is missing or incomplete, the merchant may need to provide additional details to complete the onboarding process
+      - **Invitations** - If the business is new to Centrapay, an invitation is sent to the contact email so the merchant can claim their account
+  - title: Glossary
+    rule: false
+    body: |
+      | Term | Description |
+      |------|-------------|
+      | **Acquirer** | A third party with a relationship to a merchant. The acquirer initiates onboarding by supplying merchant details. |
+      | **[Merchant](/api/merchants)** | A business entity that will accept payments through Centrapay. |
+      | **[Sales Channel](/api/sales-channels)** | A payment terminal provider configured within Centrapay. |
+      | **[Asset Program](/api/asset-programs)** | A payment program that enables merchants to accept specific payment methods. |
+      | **Vendor** | The organization that manufactures or provides the payment device or software. |
+      | **Reseller** | The distributor or third party that sells or supports the terminal to the merchant. |
+  - model: onboarding-request
+    rule: false
+  - model: onboarding-tax-number
+    rule: false
+  - model: onboarding-merchant
+    rule: false
+  - model: onboarding-location
+    rule: false
+  - model: onboarding-asset-program
+    rule: false
+  - model: onboarding-sales-channel
+    rule: false
+  - endpoint: createOnboardingRequest
+  - endpoint: createOnboardingRequest
+    example: ecommerce
+    depth: 3
+  - endpoint: getOnboardingRequest

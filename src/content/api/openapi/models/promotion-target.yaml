@@ -1,0 +1,17 @@
+x-title: Promotion Target Model
+type: object
+properties:
+  type:
+    type: string
+    description: Can be `count`, `shared` or `sum`. `count` if the progress should be incremented by 1 each time. `sum` if the progress should be summed from the specified `field` property. `shared` if the progress should be shared with other accounts that have memberships to the same Promotion.
+  field:
+    type: string
+    description: Only supplied if `type` is `sum`. This denotes which field to sum on the [Event](/api/events) to reach the target amount.
+  amount:
+    type: string
+    x-type: bignumber
+    description: The chosen number to reach for completion of the Promotion.
+  progress:
+    type: string
+    x-type: bignumber
+    description: The shared progress of the Promotion.

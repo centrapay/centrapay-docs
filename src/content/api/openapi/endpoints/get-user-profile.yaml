@@ -1,0 +1,32 @@
+get:
+  x-method: GET
+  x-path: /api/users/{userId}/profile
+  x-experimental: true
+  operationId: getUserProfile
+  summary: Get Profile
+  description: This endpoint allows you to retrieve a user's Profile.
+  tags:
+    - profiles
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: da75ad90-9a5b-4df0-8374-f48b3a8fbfcc
+      description: The user id.
+  responses:
+    '200':
+      description: Profile retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/profile.yaml'
+          examples:
+            default:
+              value:
+                userId: da75ad90-9a5b-4df0-8374-f48b3a8fbfcc
+                givenName: John
+                familyName: Doe
+                marketingUpdates: true
+                email: john.doe@centrapay.com

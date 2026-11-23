@@ -1,0 +1,29 @@
+get:
+  x-method: GET
+  x-path: /api/nzbn-search
+  x-experimental: true
+  operationId: searchNzbn
+  summary: Search NZ Company Register
+  description: This endpoint returns a list of companies that match the queried param on company name, nzbn number or company number. Results are ordered by relevance.
+  tags:
+    - businesses
+  parameters:
+    - name: q
+      in: query
+      required: true
+      schema:
+        type: string
+      example: centrapay
+      description: The search term for a business.
+  responses:
+    '200':
+      description: Companies listed
+      content:
+        application/json:
+          examples:
+            default:
+              value:
+                items:
+                  - nzbn: '9429046246448'
+                    companyName: CENTRAPAY LIMITED
+                    companyNumber: '6340244'

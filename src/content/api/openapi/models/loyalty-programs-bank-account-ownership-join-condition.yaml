@@ -1,0 +1,10 @@
+x-title: Bank Account Ownership Join Condition
+x-intro: |
+  When `type` is `bank-account-ownership`, the `params` object must contain:
+type: object
+required:
+  - bank
+properties:
+  bank:
+    type: string
+    description: The bank account identifier that the Account must own to join the Loyalty Program.

@@ -1,0 +1,74 @@
+post:
+  x-method: POST
+  x-path: /api/batches
+  operationId: createBatch
+  summary: Create Batch
+  description: |
+    Initialize loading of entities from a batch file.
+  tags:
+    - batches
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - type
+            - url
+            - accountId
+          properties:
+            type:
+              type: string
+              description: '[Batch Type](#batch-types) used to describe the batch content.'
+              enum:
+                - farmlands-external-asset
+                - ticketek-ticket
+                - payap-merchant
+                - business-onboard
+            url:
+              type: string
+              description: The url where the file is located.
+            accountId:
+              type: string
+              description: Centrapay Account Id that submitted the Batch.
+            test:
+              type: boolean
+              description: true if the batch is for testing purposes only.
+        examples:
+          default:
+            value:
+              type: farmlands-external-asset
+              url: https://sabtestcardcomcentrapay.blob.core.windows.net/outbound/1234
+              accountId: C4QnjXvj8At6SMsEN4LRi9
+              test: true
+  responses:
+    '200':
+      description: Batch created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/batch.yaml
+          examples:
+            default:
+              value:
+                id: AVH5uG4gRLYK6YR8JyrViN
+                accountId: C4QnjXvj8At6SMsEN4LRi9
+                url: https://sabtestcardcomcentrapay.blob.core.windows.net/outbound/1234
+                status: created
+                type: farmlands-external-asset
+                test: true
+                totalCount: '0'
+                errorCount: '0'
+                errors: []
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            LIVENESS_MISSMATCH:
+              description: accountId `test` flag is not the same as submitted Batch’s `test` flag.
+              value:
+                message: LIVENESS_MISSMATCH

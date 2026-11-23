@@ -1,0 +1,34 @@
+x-title: Terminal Model
+type: object
+required:
+  - provider
+properties:
+  provider:
+    type: string
+    enum:
+      - verifone
+      - windcave
+      - epay
+      - invenco
+      - smartpay
+      - skyzer
+      - vista
+      - shopify
+      - epay-pos
+      - eftpos-central
+      - sektor
+      - nomad
+      - fat-zebra
+    description: The terminal provider. Refer to [Integration Types](/api/integration-requests#integration-types).
+  terminalId:
+    type: string
+    description: The software or logical id of the payment terminal. Either `terminalId` or `kitId` is required.
+  kitId:
+    type: string
+    description: The hardware id or serial number of the payment terminal. Either `terminalId` or `kitId` is required.
+  reseller:
+    type: string
+    description: The terminal reseller.
+  kitType:
+    type: string
+    description: The model of the payment terminal.

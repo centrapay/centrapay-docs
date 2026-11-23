@@ -1,0 +1,101 @@
+post:
+  x-method: POST
+  x-path: /api/accounts/{accountId}/api-keys
+  operationId: createApiKey
+  summary: Create an API Key
+  description: This endpoint allows you to create an API key.
+  tags:
+    - api-keys
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - role
+          properties:
+            name:
+              $ref: '../models/api-key.yaml#/properties/name'
+            role:
+              $ref: '../models/api-key.yaml#/properties/role'
+        examples:
+          default:
+            value:
+              name: MyAPIkey
+              role: merchant-terminal
+  responses:
+    '200':
+      description: API Key created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/api-key.yaml'
+          examples:
+            default:
+              value:
+                name: MyAPIkey
+                createdAt: '2020-06-01T22:32:56.631Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                modifiedAt: '2020-06-01T22:32:56.631Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                enabled: true
+                role: merchant-terminal
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                version: '1'
+                secret: EoaEL7skkedBBy9MzrBSyxG95vUAKjYkiFvWEfiAx
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/api-keys
+  operationId: listApiKeys
+  summary: List API Keys
+  description: This endpoint allows you to list all API Keys for an Account.
+  tags:
+    - api-keys
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  responses:
+    '200':
+      description: API Keys listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/api-key.yaml'
+          examples:
+            default:
+              value:
+                - accountId: Jaim1Cu1Q55uooxSens6yk
+                  name: MyOtherAPIkey
+                  createdAt: '2020-06-01T21:57:25.888Z'
+                  createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                  modifiedAt: '2020-06-01T21:57:25.888Z'
+                  modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                  enabled: false
+                  version: '1'
+                  role: merchant-terminal
+                - accountId: Jaim1Cu1Q55uooxSens6yk
+                  name: MyAPIkey
+                  createdAt: '2020-06-01T22:34:31.308Z'
+                  createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                  modifiedAt: '2020-06-01T22:34:31.308Z'
+                  modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:AdminKey
+                  enabled: true
+                  version: '1'
+                  role: merchant-terminal

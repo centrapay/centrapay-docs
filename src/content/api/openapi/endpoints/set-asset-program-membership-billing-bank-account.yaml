@@ -1,0 +1,56 @@
+post:
+  x-method: POST
+  x-path: /api/asset-program-memberships/{id}/set-billing-bank-account
+  x-experimental: true
+  operationId: setAssetProgramMembershipBillingBankAccount
+  summary: Set Asset Program Membership Billing Bank Account
+  description: |
+    This endpoint allows you to set the Billing [Bank Account](/api/bank-accounts) on an [Asset Program Membership](#asset-program-membership-model).
+  tags:
+    - asset-program-memberships
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: apm_Xv990BzkgfoDS7bBls50pd
+      description: The Asset Program Membership id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - billingBankAccountId
+          properties:
+            billingBankAccountId:
+              type: string
+              description: The id of the [Bank Account](/api/bank-accounts) to set as the billing bank account for the Asset Program Membership.
+        examples:
+          default:
+            value:
+              billingBankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+  responses:
+    '200':
+      description: Billing Bank Account set
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-program-membership.yaml
+          examples:
+            default:
+              value:
+                id: apm_Xv990BzkgfoDS7bBls50pd
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                assetProgramId: ap_WRhAxxWpTKb5U7pXyxQjjY
+                status: active
+                test: true
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                updatedAt: '2021-08-25T00:02:49.488Z'
+                updatedBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                tosAcceptedAt: '2021-08-25T00:03:15.123Z'
+                approvedAt: '2021-08-25T00:05:30.456Z'
+                billingBankAccountId: WRhAxxWpTKb5U7pXyxQjjY

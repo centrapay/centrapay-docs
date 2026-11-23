@@ -1,0 +1,81 @@
+post:
+  x-method: POST
+  x-path: /api/bank-accounts/{bankAccountId}/direct-debit-authorities
+  operationId: addBankAccountDirectDebitAuthority
+  summary: Add Direct Debit Authority to a Bank Account
+  description: |
+    By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
+  tags:
+    - bank-accounts
+  parameters:
+    - name: bankAccountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: WRhAxxWpTKb5U7pXyxQjjY
+      description: The Bank Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - phoneNumber
+            - fullName
+            - emailAddress
+          properties:
+            phoneNumber:
+              type: string
+              description: The user's phone number.
+            fullName:
+              type: string
+              description: The first and last name of the user.
+            emailAddress:
+              type: string
+              description: The user's email address.
+        examples:
+          default:
+            value:
+              phoneNumber: '+64212345678'
+              fullName: John Doe
+              emailAddress: john.doe@gmail.com
+  responses:
+    '200':
+      description: Direct debit authority added
+      content:
+        application/json:
+          schema:
+            $ref: ../models/bank-account.yaml
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                bankAccountNumber: 12-1234-1234567-123
+                bankAccountName: John Doe
+                directDebitAuthorized: true
+                status: created
+                verified: false
+                type: centrapay
+                createdAt: '2020-06-12T01:17:46.499Z'
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                modifiedAt: '2020-06-12T01:17:46.499Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                approvals: []
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            DIRECT_DEBIT_ALREADY_AUTHORIZED:
+              description: This bank authority cannot be changed as all fields have been set.
+              value:
+                message: DIRECT_DEBIT_ALREADY_AUTHORIZED
+            DIRECT_DEBIT_LIMIT_EXCEEDED:
+              description: The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
+              value:
+                message: DIRECT_DEBIT_LIMIT_EXCEEDED

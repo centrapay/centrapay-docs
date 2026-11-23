@@ -1,0 +1,70 @@
+post:
+  x-method: POST
+  x-path: /api/accounts/{accountId}/events
+  x-experimental: true
+  operationId: createAccountEvent
+  summary: Create Event
+  description: This endpoint allows you to create an [Event](/api/events).
+  tags:
+    - events
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - type
+            - idempotencyKey
+          properties:
+            type:
+              type: string
+              description: The type of Event.
+            idempotencyKey:
+              type: string
+              description: Client-supplied identifier that prevents double creation.
+            data:
+              type: object
+              description: An object containing any relevant metadata.
+        examples:
+          default:
+            value:
+              type: user-login
+              idempotencyKey: login-de32dd90-b46c-11ea-93c3-83a333b86e7b
+              data:
+                userId: b657195e-dc2f-11ea-8566-e7710d592c99-123
+  responses:
+    '200':
+      description: Event created
+      content:
+        application/json:
+          examples:
+            default:
+              value:
+                id: L75M3L56N2PtBSt8g7uXLU
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                type: user-login
+                data:
+                  userId: b657195e-dc2f-11ea-8566-e7710d592c99-123
+                idempotencyKey: login-de32dd90-b46c-11ea-93c3-83a333b86e7b
+                createdAt: '2020-05-01T12:30:00.000Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            EVENT_ALREADY_EXISTS:
+              description: An Event with this `idempotencyKey` has already been created for the account.
+              value:
+                message: EVENT_ALREADY_EXISTS

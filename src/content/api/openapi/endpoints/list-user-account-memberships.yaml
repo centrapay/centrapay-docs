@@ -1,0 +1,36 @@
+get:
+  x-method: GET
+  x-path: /api/users/{userId}/account-memberships
+  operationId: listUserAccountMemberships
+  summary: List Account Memberships for a User
+  description: This endpoint allows you to retrieve the accounts that a user is a member of.
+  tags:
+    - account-memberships
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: da75ad90-9a5b-4df0-8374-f48b3a8fbfcc
+      description: The user id.
+  responses:
+    '200':
+      description: Account Memberships listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/account-membership.yaml'
+          examples:
+            default:
+              value:
+                - accountName: Centrapay Cafe
+                  accountId: Jaim1Cu1Q55uooxSens6yk
+                  accountType: org
+                  role: account-owner
+                - accountName: Centrapay Tea Warehouse
+                  accountId: 5uooxSens6ykJaim1Cu1Q5
+                  accountType: org
+                  role: account-owner

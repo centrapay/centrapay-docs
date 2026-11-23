@@ -1,0 +1,23 @@
+x-title: Bank Account Balance Model
+x-experimental: true
+x-intro: |
+  The Bank Account balance, retrieved using Open Banking flows. The supported Bank Account type is `quartz`.
+type: object
+properties:
+  bankAccountId:
+    type: string
+    description: The unique identifier of the Centrapay Bank Account.
+  bankAccountNumber:
+    type: string
+    description: The user's Bank Account number.
+  balance:
+    type: string
+    x-type: bignumber
+    description: The Open Banking Bank Account balance.
+  availableBalance:
+    type: string
+    x-type: bignumber
+    description: The Open Banking Bank Account available balance.
+  test:
+    type: boolean
+    description: A flag which is present if the Bank Account is for testing.

@@ -1,0 +1,11 @@
+title: Scanned Codes
+description: Scanned Code model and related endpoints
+nav:
+  path: Scanned Codes
+  order: 1
+intro: |
+  A scanned code is a barcode that a merchant scans. The code can be used to create a [Payment Request](/api/payment-requests).
+sections:
+  - model: scanned-code
+    rule: false
+  - endpoint: decodeScannedCode

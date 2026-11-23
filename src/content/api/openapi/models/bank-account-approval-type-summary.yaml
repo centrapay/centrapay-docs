@@ -1,0 +1,18 @@
+x-title: Bank Account Approval Type Summary Model
+x-experimental: true
+x-intro: |
+  A summary of the [Bank Account Approvals](/api/bank-account-approvals) for a Bank Account.
+  There is one object per type of Bank Account Approval, which provides a summary of the approval status.
+type: object
+properties:
+  type:
+    type: string
+    description: The type of Bank Account Approval Summary.
+  status:
+    type: string
+    description: The summarized status of the Bank Account Approvals. Supported values are `pending`, `approved` and `declined`.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Approval Summary was updated.

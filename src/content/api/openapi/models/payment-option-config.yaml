@@ -1,0 +1,32 @@
+x-title: Payment Option Config Model
+x-outro: |
+  See [Asset Types](/api/asset-types) for values that may be present in the `type` field.
+
+  > Test payment options should never be used for live merchant configurations.
+type: object
+required:
+  - type
+properties:
+  type:
+    type: string
+    description: Type of payment method. See supported payment types below.
+  walletId:
+    type: string
+    description: Merchant's Centrapay Settlement Wallet Asset to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet asset may be created and then assigned.
+  paypalMerchantAccountId:
+    type: string
+    description: Id of the PayPal merchants account. Required for `paypal` and `venmo` types.
+  paypalStoreId:
+    type: string
+    description: Id of the PayPal merchants store. Required for `paypal` and `venmo` types.
+  farmlandsMerchantNumber:
+    type: string
+    description: Id of the Farmlands merchant that funds will be transferred to.
+  externalMerchantId:
+    type: string
+    description: Id of the external merchant. Required for `epay`, `stadius`, `quartz`, `payap-debit` and `uplinkapi.test` types.
+  collectionIds:
+    type: array
+    items:
+      type: string
+    description: Ids of the [Token Collections](/api/tokens#token-collection-model), which must be `discount` collections. Required for `centrapay.ledger` types.

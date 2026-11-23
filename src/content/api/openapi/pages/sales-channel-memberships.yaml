@@ -1,0 +1,11 @@
+title: Sales Channel Memberships
+description: Membership to a Sales Channel
+nav:
+  path: Onboarding
+  order: 4
+intro: |
+  A Membership to a [Sales Channel](/api/sales-channels).
+sections:
+  - model: sales-channel-membership
+    rule: false
+  - endpoint: createSalesChannelMembership

@@ -1,0 +1,33 @@
+get:
+  x-method: GET
+  x-path: /api/connections/{connectionId}/summary
+  operationId: getConnectionSummary
+  summary: Get Connection Summary
+  description: This endpoint allows you to retrieve the summary of a Connection.
+  tags:
+    - connections
+  x-request-headers: {}
+  parameters:
+    - name: connectionId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: cn_8Bq2WpDkH3sJvYt5RxLm7n
+      description: The Connection id.
+  responses:
+    '200':
+      description: Connection summary retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/connection.yaml'
+          examples:
+            default:
+              value:
+                id: cn_8Bq2WpDkH3sJvYt5RxLm7n
+                merchantId: 5ee0c486308f590260d9a07f
+                status: created
+                createdByAccountName: Salespoint
+                url: https://app.centrapay.com/connect/cn_8Bq2WpDkH3sJvYt5RxLm7n
+                createdAt: '2021-08-25T00:02:49.488Z'

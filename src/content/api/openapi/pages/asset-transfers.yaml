@@ -1,0 +1,37 @@
+title: Asset Transfers
+description: Asset transfer lifecycle and related endpoints
+nav:
+  path: Assets
+  order: 3
+intro: |
+  An asset transfer is an asynchronous exchange of an asset or an amount to a recipient.
+
+  A recipient is an existing Centrapay user or someone who can create an account to claim the asset transfer by verifying
+  their phone number or email.
+
+  After an asset transfer is completed the recipientAlias, lastSentTo and
+  message fields are scrubbed to avoid storing PII.
+sections:
+  - model: asset-transfer
+    rule: false
+  - title: Asset Transfer lifecycle
+    body: |
+      Asset Transfer goes through different lifecycle stages.
+
+      ![Asset Transfer Lifecycle](/asset-lifecycle.png)
+
+      |   State   |                                                    Description                                                     |
+      | :-------- | :----------------------------------------------------------------------------------------------------------------- |
+      | created   | Asset transfer successfully created                                                                                |
+      | sent      | Asset transfer notification (sms, email) was sent to a new user                                                    |
+      | expired   | Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state |
+      | returned  | Asset transfer expired and was returned to original owner                                                          |
+      | claimed   | Asset transfer was successfully completed                                                                          |
+      | cancelled | Asset transfer was cancelled.                                                                                      |
+  - endpoint: createAssetTransfer
+  - endpoint: getAssetTransfer
+  - endpoint: getAssetTransferSummary
+  - endpoint: claimAssetTransfer
+  - endpoint: resolveClaimableAssets
+  - endpoint: listAssetTransfers
+  - endpoint: cancelAssetTransfer

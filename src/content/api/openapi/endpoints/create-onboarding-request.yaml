@@ -1,0 +1,293 @@
+post:
+  x-method: POST
+  x-path: /api/businesses/onboard
+  operationId: createOnboardingRequest
+  summary: Create an Onboarding Request
+  description: |
+    This endpoint allows acquirers to submit a business for onboarding. The request is validated synchronously, and onboarding is processed asynchronously in the background.
+
+    ### Idempotency
+
+    If you provide an `externalId`, the API will prevent duplicate submissions. If you submit the same `externalId` with the same payload, the API will return the existing onboarding request with a 200 status code. If you submit the same `externalId` with a different payload, the API will return a 403 error with the code `DUPLICATE_EXTERNAL_ID`.
+
+    ### Required Permissions
+
+    The API key must have the `business:onboard` permission for the target account.
+  tags:
+    - onboarding
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - legalName
+            - location
+            - contactEmail
+            - merchant
+            - assetProgram
+          properties:
+            nzbn:
+              type: string
+              description: 13-digit NZ Business Number. Optional identifier.
+            legalName:
+              type: string
+              description: Registered legal name (3-100 characters).
+            tradingName:
+              type: string
+              description: Trading name (3-100 characters). Defaults to `legalName` if omitted.
+            location:
+              type: object
+              description: Physical location of the business. See [Location Model](#location-model).
+              allOf:
+                - $ref: ../models/onboarding-location.yaml
+            contactEmail:
+              type: string
+              description: Contact email for onboarding and notifications.
+            contactName:
+              type: string
+              description: Contact name (3-100 characters). Defaults to `merchant.contactName` or email prefix if omitted.
+            externalId:
+              type: string
+              description: Unique client-side identifier (max 35 characters) for idempotency.
+            taxNumber:
+              type: object
+              description: Tax number information. See [Tax Number Model](#tax-number-model).
+              allOf:
+                - $ref: ../models/onboarding-tax-number.yaml
+            merchant:
+              type: object
+              description: Merchant details. See [Merchant Model](#merchant-model).
+              allOf:
+                - $ref: ../models/onboarding-merchant.yaml
+            assetProgram:
+              type: object
+              description: Asset program configuration. See [Asset Program Model](#asset-program-model).
+              allOf:
+                - $ref: ../models/onboarding-asset-program.yaml
+            salesChannels:
+              type: array
+              description: Optional sales channel configurations. See [Sales Channel Model](#sales-channel-model).
+              items:
+                $ref: ../models/onboarding-sales-channel.yaml
+            metadata:
+              $ref: ../models/onboarding-request.yaml#/properties/metadata
+            sendInvitation:
+              $ref: ../models/onboarding-request.yaml#/properties/sendInvitation
+        examples:
+          default:
+            value:
+              legalName: Centrapay Cafe Limited
+              tradingName: Centrapay Cafe
+              location:
+                street: 1 Head Office Way
+                city: Wellington
+                state: Wellington
+                postCode: '6011'
+                country: NZ
+              contactEmail: admin@centracafe.example
+              contactName: Alice Anderson
+              externalId: ext-cafe-001
+              taxNumber:
+                value: 123-456-789
+                type: nz-gst
+              merchant:
+                name: Centrapay Cafe
+                categoryCode: '5812'
+                type: physical
+                contactName: Bob Brown
+                contactEmail: manager@centracafe.example
+                contactPhone: '6491234567'
+                location:
+                  street: 123 Example Street
+                  suburb: Newtown
+                  city: Wellington
+                  state: Wellington
+                  postCode: '6021'
+                  country: NZ
+              assetProgram:
+                assetProgramId: YGRo6TYYSxH3js7
+                params:
+                  settlementAccountNumber: 12-3456-7890123-00
+                  chargeAccountNumber: 12-3456-7890123-01
+                  externalMerchantId: ext-merchant-789
+              salesChannels:
+                - params:
+                    vendor: Verifone
+                    reseller: Example Reseller
+                    deviceId: device-001
+                    serialNumber: SN123456
+                    deviceModel: Verifone P630
+                - params:
+                    vendor: Verifone
+                    reseller: Example Reseller
+                    deviceId: device-002
+                    serialNumber: SN123457
+                    deviceModel: Verifone P630
+              metadata:
+                referenceId: ref-12345
+                notes: Onboarding request submitted via partner portal
+          ecommerce:
+            summary: E-commerce Example
+            description: Example request for onboarding an e-commerce merchant. E-commerce merchants require `merchant.redirectUrls` instead of a `merchant.location`, and typically use an e-commerce platform such as Shopify as their sales channel.
+            value:
+              legalName: Centrapay Online Limited
+              tradingName: Centrapay Online Store
+              location:
+                street: 1 Online Way
+                city: Wellington
+                postCode: '6011'
+                country: NZ
+              contactEmail: admin@centraonline.example
+              contactName: Alice Anderson
+              externalId: ext-online-001
+              taxNumber:
+                value: 123-456-789
+                type: nz-gst
+              merchant:
+                name: Centrapay Online Store
+                categoryCode: '5999'
+                type: e-commerce
+                contactName: Carol Chen
+                contactEmail: ecommerce@centraonline.example
+                contactPhone: '6491234568'
+                redirectUrls:
+                  - https://centraonline.example/checkout/callback
+              assetProgram:
+                assetProgramId: YGRo6TYYSxH3js7
+                params:
+                  settlementAccountNumber: 12-3456-7890123-00
+                  externalMerchantId: ext-merchant-online-789
+              salesChannels:
+                - params:
+                    vendor: shopify
+                    deviceId: centraonline.myshopify.com
+              metadata:
+                referenceId: ref-67890
+  responses:
+    '200':
+      description: Onboarding Request created
+      content:
+        application/json:
+          schema:
+            $ref: ../models/onboarding-request.yaml
+          examples:
+            default:
+              value:
+                id: bo_8xKfR3vPq2NmTcWzYhJ7Ue
+                legalName: Centrapay Cafe Limited
+                tradingName: Centrapay Cafe
+                location:
+                  street: 1 Head Office Way
+                  city: Wellington
+                  state: Wellington
+                  postCode: '6011'
+                  country: NZ
+                contactEmail: admin@centracafe.example
+                contactName: Alice Anderson
+                externalId: ext-cafe-001
+                taxNumber:
+                  value: 123-456-789
+                  type: nz-gst
+                merchant:
+                  name: Centrapay Cafe
+                  categoryCode: '5812'
+                  type: physical
+                  contactName: Bob Brown
+                  contactEmail: manager@centracafe.example
+                  contactPhone: '6491234567'
+                  location:
+                    street: 123 Example Street
+                    suburb: Newtown
+                    city: Wellington
+                    state: Wellington
+                    postCode: '6021'
+                    country: NZ
+                assetProgram:
+                  assetProgramId: YGRo6TYYSxH3js7
+                  params:
+                    settlementAccountNumber: 12-3456-7890123-00
+                    chargeAccountNumber: 12-3456-7890123-01
+                    externalMerchantId: ext-merchant-789
+                salesChannels:
+                  - params:
+                      vendor: verifone
+                      reseller: Example Reseller
+                      deviceId: device-001
+                      serialNumber: SN123456
+                      deviceModel: Verifone P630
+                  - params:
+                      vendor: verifone
+                      reseller: Example Reseller
+                      deviceId: device-002
+                      serialNumber: SN123457
+                      deviceModel: Verifone P630
+                metadata:
+                  referenceId: ref-12345
+                  notes: Onboarding request submitted via partner portal
+                sendInvitation: true
+                status: pending
+                createdAt: '2025-07-25T10:30:00.000Z'
+                createdBy: crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyApiKey
+            ecommerce:
+              summary: E-commerce Example
+              value:
+                id: bo_5GtLw9QeHs4BvXnRk2YpZa
+                legalName: Centrapay Online Limited
+                tradingName: Centrapay Online Store
+                location:
+                  street: 1 Online Way
+                  city: Wellington
+                  postCode: '6011'
+                  country: NZ
+                contactEmail: admin@centraonline.example
+                contactName: Alice Anderson
+                externalId: ext-online-001
+                taxNumber:
+                  value: 123-456-789
+                  type: nz-gst
+                merchant:
+                  name: Centrapay Online Store
+                  categoryCode: '5999'
+                  type: e-commerce
+                  contactName: Carol Chen
+                  contactEmail: ecommerce@centraonline.example
+                  contactPhone: '6491234568'
+                  redirectUrls:
+                    - https://centraonline.example/checkout/callback
+                assetProgram:
+                  assetProgramId: YGRo6TYYSxH3js7
+                  params:
+                    settlementAccountNumber: 12-3456-7890123-00
+                    chargeAccountNumber: 12-3456-7890123-00
+                    externalMerchantId: ext-merchant-online-789
+                salesChannels:
+                  - params:
+                      vendor: shopify
+                      deviceId: centraonline.myshopify.com
+                metadata:
+                  referenceId: ref-67890
+                sendInvitation: true
+                status: pending
+                createdAt: '2025-07-25T10:30:00.000Z'
+                createdBy: crn:Jaim1Cu1Q55uooxSens6yk:api-key:MyApiKey
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            DUPLICATE_EXTERNAL_ID:
+              description: The supplied `externalId` has already been used with a different payload.
+              value:
+                message: DUPLICATE_EXTERNAL_ID
+            INVALID_SALES_CHANNEL:
+              description: The `vendor` of a sales channel did not match a supported sales channel vendor in Centrapay.
+              value:
+                message: INVALID_SALES_CHANNEL
+            LIVENESS_MISMATCH:
+              description: The account and asset program do not match on test/live status.
+              value:
+                message: LIVENESS_MISMATCH

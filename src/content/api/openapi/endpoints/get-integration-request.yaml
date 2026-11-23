@@ -1,0 +1,65 @@
+get:
+  x-method: GET
+  x-path: /api/integration-requests/{integrationRequestId}
+  x-experimental: true
+  operationId: getIntegrationRequest
+  summary: Get an Integration Request
+  description: This endpoint allows you to get an Integration Request.
+  tags:
+    - integration-requests
+  parameters:
+    - name: integrationRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Integration Request id.
+  responses:
+    '200':
+      description: Integration Request retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/integration-request.yaml'
+          examples:
+            default:
+              value:
+                id: DKTs3U38hdhfEqwF1JKoT2
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                merchantId: 5ee0c486308f590260d9a07f
+                type: epay
+                status: pending
+                terminalId: '11000021'
+                createdAt: '2020-06-12T01:17:46.499Z'
+                updatedAt: '2020-06-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                product:
+                  name: koha-card
+                notifiedAt: '2020-06-13T05:00:00.000Z'
+delete:
+  x-method: DELETE
+  x-path: /api/integration-requests/{integrationRequestId}
+  x-experimental: true
+  operationId: deleteIntegrationRequest
+  summary: Delete Integration Request
+  description: This endpoint allows you to delete an Integration Request.
+  tags:
+    - integration-requests
+  parameters:
+    - name: integrationRequestId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Integration Request id.
+  responses:
+    '200':
+      description: Integration Request deleted
+      content:
+        application/json:
+          examples:
+            default:
+              value: {}

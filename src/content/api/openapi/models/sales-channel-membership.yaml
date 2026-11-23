@@ -1,0 +1,39 @@
+x-title: Sales Channel Membership Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the Sales Channel Membership.
+  salesChannelId:
+    type: string
+    description: The id of the [Sales Channel](/api/sales-channels) the Membership belongs to.
+  merchantId:
+    type: string
+    description: The id of the [Merchant](/api/merchants) the Membership is scoped to.
+  accountId:
+    type: string
+    description: The [Account](/api/accounts) that owns the [Merchant](/api/merchants).
+  test:
+    type: boolean
+    description: '`true` if the Sales Channel Membership is for testing purposes only. This is based on the [Merchant](/api/merchants).'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Sales Channel Membership was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Sales Channel Membership.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Sales Channel Membership was updated.
+  updatedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that updated the Sales Channel Membership.
+  status:
+    type: string
+    description: The current status of the Sales Channel Membership. Supported values are `created`, `provisioning`, `active`, `suspending` and `deactivated`.

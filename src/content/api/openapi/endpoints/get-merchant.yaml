@@ -1,0 +1,120 @@
+get:
+  x-method: GET
+  x-path: /api/merchants/{merchantId}
+  operationId: getMerchant
+  summary: Get Merchant
+  description: This endpoint allows you to retrieve a Merchant by id.
+  tags:
+    - merchants
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+  responses:
+    '200':
+      description: Merchant retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-model.yaml'
+          examples:
+            default:
+              value:
+                id: 5ee0c486308f590260d9a07f
+                accountId: yqwyya0rzz3vvshqw0474u89xtj5fn
+                name: Parisian - Brown
+                test: false
+                country: NZ
+                onboardingStatus: applied
+                createdAt: '2021-11-12T01:17:46.499Z'
+                updatedAt: '2021-11-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+put:
+  x-method: PUT
+  x-path: /api/merchants/{merchantId}
+  operationId: updateMerchant
+  summary: Update Merchant
+  description: This endpoint allows you to update a Merchant.
+  tags:
+    - merchants
+  parameters:
+    - name: merchantId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 5ee0c486308f590260d9a07f
+      description: The Merchant id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              $ref: '../models/merchant-model.yaml#/properties/name'
+            settlementConfig:
+              $ref: '../models/merchant-model.yaml#/properties/settlementConfig'
+            location:
+              type: object
+              x-type: location
+              description: Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query.
+            categoryCode:
+              $ref: '../models/merchant-model.yaml#/properties/categoryCode'
+        examples:
+          default:
+            value:
+              name: Centrapay Café
+              location:
+                street: 125 Queen Street
+                city: Auckland
+                postCode: '1010'
+                country: NZ
+              settlementConfig:
+                bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+  responses:
+    '200':
+      description: Merchant updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-model.yaml'
+          examples:
+            default:
+              value:
+                id: 5ee0c486308f590260d9a07f
+                accountId: yqwyya0rzz3vvshqw0474u89xtj5fn
+                name: Centrapay Café
+                test: false
+                country: NZ
+                onboardingStatus: applied
+                location:
+                  lat: -36.8483579
+                  lng: 174.7725834
+                  city: Auckland
+                  country: NZ
+                  postCode: '1010'
+                  street: 125 Queen Street
+                settlementConfig:
+                  bankAccountId: WRhAxxWpTKb5U7pXyxQjjY
+                createdAt: '2021-09-12T01:11:22.491Z'
+                updatedAt: '2021-11-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            BANK_ACCOUNT_MISMATCH:
+              description: The bank account in the settlement config does not belong to the same account.
+              value:
+                message: BANK_ACCOUNT_MISMATCH

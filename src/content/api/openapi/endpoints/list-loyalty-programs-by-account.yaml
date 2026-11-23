@@ -1,0 +1,60 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}/loyalty-programs
+  x-experimental: true
+  operationId: listLoyaltyProgramsByAccount
+  summary: List Loyalty Programs by Account Id
+  description: |
+    Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
+  tags:
+    - loyalty-programs
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  responses:
+    '200':
+      description: Loyalty Programs listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: ../models/loyalty-program.yaml
+              nextPageKey:
+                type: string
+          examples:
+            default:
+              value:
+                items:
+                  - id: WRhAxxWpTKb5U7pXyxQjjY
+                    name: Centrapay Cafe Loyalty Program
+                    description: 'Centrapay Cafe Loyalty: Earn rewards, enjoy perks! Join now!'
+                    mediaUploadId: 8aoMfscvtuewsuJzmzBzAs
+                    img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    test: true
+                    status: draft
+                    memberCount: '0'
+                    visibility: public
+                  - id: DKTs3U38hdhfEqwF1JKoT2
+                    name: Centra Tea Warehouse Loyalty Program
+                    description: 'Centra Tea Warehouse Loyalty: Earn rewards, enjoy perks! Join now!'
+                    mediaUploadId: Hopo4g34sLVdjEMBs2p19F
+                    img: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    createdAt: '2021-08-25T00:02:49.488Z'
+                    createdBy: crn::user:b657195e-dc2f-11ea-8566-e7710d592c99
+                    test: true
+                    status: active
+                    memberCount: '5'
+                    visibility: unlisted

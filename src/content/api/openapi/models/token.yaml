@@ -1,0 +1,16 @@
+x-title: Token Model
+x-experimental: true
+type: object
+properties:
+  collectionId:
+    type: string
+    description: The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token.
+  idempotencyKey:
+    type: string
+    description: Client-supplied identifier that prevents double creation.
+  externalId:
+    type: string
+    description: The asset identifier from the issuing system.
+  accountId:
+    type: string
+    description: The Account to create the token for. Defaults to the Account on the Token Collection.

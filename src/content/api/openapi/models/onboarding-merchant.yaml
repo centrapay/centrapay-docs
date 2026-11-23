@@ -1,0 +1,41 @@
+x-title: Merchant Model
+type: object
+required:
+  - name
+  - categoryCode
+  - type
+properties:
+  name:
+    type: string
+    description: Display name of the merchant (2-100 characters).
+  categoryCode:
+    type: string
+    description: ISO 18245 Merchant category code (4 digits).
+  type:
+    type: string
+    enum:
+      - physical
+      - e-commerce
+    description: Must be either `physical` or `e-commerce`.
+  contactName:
+    type: string
+    description: Merchant contact name (3-100 characters).
+  contactEmail:
+    type: string
+    description: Merchant contact email. Must be a valid email address.
+  contactPhone:
+    type: string
+    description: Merchant contact phone number (max 20 characters).
+  location:
+    type: object
+    description: Physical location of the merchant. Required if `type` is `physical`. See [Location Model](#location-model).
+    allOf:
+      - $ref: './onboarding-location.yaml'
+  redirectUrls:
+    type: array
+    description: Allowed redirect URLs for e-commerce merchants. Required if `type` is `e-commerce`.
+    items:
+      type: string
+  searchHidden:
+    type: boolean
+    description: Whether the merchant should be hidden from the [Merchant Search](/api/merchants#search-merchants) API.

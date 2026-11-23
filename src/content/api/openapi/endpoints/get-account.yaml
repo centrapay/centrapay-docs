@@ -1,0 +1,88 @@
+get:
+  x-method: GET
+  x-path: /api/accounts/{accountId}
+  operationId: getAccount
+  summary: Get an Account
+  description: This endpoint allows you to retrieve an Account.
+  tags:
+    - accounts
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  responses:
+    '200':
+      description: Account retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/account.yaml'
+          examples:
+            default:
+              value:
+                id: Jaim1Cu1Q55uooxSens6yk
+                name: Centrapay Cafe
+                type: org
+                region: NZ
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                createdAt: '2020-06-12T01:17:46.499Z'
+                modifiedAt: '2020-06-12T01:17:46.499Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                version: '1'
+                subscriptions: []
+put:
+  x-method: PUT
+  x-path: /api/accounts/{accountId}
+  operationId: updateAccount
+  summary: Update an Account
+  description: This endpoint allows you to update an account.
+  tags:
+    - accounts
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: Jaim1Cu1Q55uooxSens6yk
+      description: The Account id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              description: The name of the Account.
+        examples:
+          default:
+            value:
+              name: Shortland St Cafe
+  responses:
+    '200':
+      description: Account updated
+      content:
+        application/json:
+          schema:
+            $ref: '../models/account.yaml'
+          examples:
+            default:
+              value:
+                id: Jaim1Cu1Q55uooxSens6yk
+                name: Shortland St Cafe
+                type: org
+                region: NZ
+                createdBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                createdAt: '2020-06-12T01:17:46.499Z'
+                modifiedAt: '2020-06-12T02:35:12.112Z'
+                modifiedBy: crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey
+                version: '2'
+                subscriptions: []

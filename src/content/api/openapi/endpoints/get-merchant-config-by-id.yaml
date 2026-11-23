@@ -1,0 +1,46 @@
+get:
+  x-method: GET
+  x-path: /api/merchant-configs/{configId}
+  operationId: getMerchantConfigById
+  summary: Get Merchant Config by Id
+  description: This endpoint allows you to retrieve a Merchant Config by id.
+  tags:
+    - merchant-configs
+  parameters:
+    - name: configId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: mc_5ee168e8597be5002af7b454
+      description: The Merchant Config id.
+  responses:
+    '200':
+      description: Merchant Config retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-config-model.yaml'
+          examples:
+            default:
+              value:
+                id: mc_5ee168e8597be5002af7b454
+                merchantId: 5ee0c486308f590260d9a07f
+                createdAt: '2021-11-12T01:17:46.499Z'
+                updatedAt: '2021-11-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                paymentOptions:
+                  - type: farmlands.nzd.main
+                    farmlandsMerchantNumber: DbgY2SyD5M85zkePJjsQEf
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            LIVENESS_MISMATCH:
+              description: The caller is a test account but the Merchant Config belongs to a live [Merchant](/api/merchants).
+              value:
+                message: LIVENESS_MISMATCH

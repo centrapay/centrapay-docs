@@ -1,0 +1,50 @@
+post:
+  x-method: POST
+  x-path: /api/asset-transfers/{assetTransferId}/cancel
+  operationId: cancelAssetTransfer
+  summary: Cancel an Asset Transfer
+  description: 'This endpoint allows you to cancel an [Asset Transfer](#asset-transfer-model).'
+  tags:
+    - asset-transfers
+  parameters:
+    - name: assetTransferId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: M7Kn2stAxNa6ri7h
+      description: The Asset Transfer id.
+  responses:
+    '200':
+      description: Asset Transfer cancelled
+      content:
+        application/json:
+          schema:
+            $ref: ../models/asset-transfer.yaml
+          examples:
+            default:
+              value:
+                id: M7Kn2stAxNa6ri7h
+                status: cancelled
+                assetId: YGRo6TYYSxH3js7
+                value: '6000'
+                description: $60 Giftcard
+                message: Happy birthday
+                senderName: My Cafe
+                senderAccountId: aBc932S9182qwCDqwer
+                recipientAccountId: 9EDxUT91TMsUjoqoQeBuLQ
+                recipientAlias: +64*****2345
+                createdAt: '2020-05-01T12:30:00.000Z'
+                updatedAt: '2020-05-02T01:03:37.222Z'
+                suppressNotifications: false
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ../index.yaml#/components/schemas/ApiError
+          examples:
+            INVALID_ASSET_TRANSFER_STATUS:
+              description: The asset transfer status is invalid and cannot be cancelled.
+              value:
+                message: INVALID_ASSET_TRANSFER_STATUS

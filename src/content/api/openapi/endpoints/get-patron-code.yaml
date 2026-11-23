@@ -1,0 +1,36 @@
+get:
+  x-method: GET
+  x-path: /api/patron-codes/{patronCodeId}
+  operationId: getPatronCode
+  summary: Get Patron Code
+  description: |
+    This endpoint allows you to retrieve a Patron Code by id.
+  tags:
+    - patron-codes
+  parameters:
+    - name: patronCodeId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: V17FByEP9gm1shSG6a1Zzx
+      description: The Patron Code id.
+  responses:
+    '200':
+      description: Patron Code retrieved
+      content:
+        application/json:
+          schema:
+            $ref: ../models/patron-code.yaml
+          examples:
+            default:
+              value:
+                id: V17FByEP9gm1shSG6a1Zzx
+                accountId: Jaim1Cu1Q55uooxSens6yk
+                barcode: '9990001234567895'
+                createdAt: '2021-06-08T22:55:00.000Z'
+                expiresAt: '2021-06-08T23:00:00.000Z'
+                appName: centrapay
+                assetId: WRhAxxWpTKb5U7pXyxQjjY
+                metadata:
+                  deviceId: device-001

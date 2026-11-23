@@ -1,0 +1,35 @@
+get:
+  x-method: GET
+  x-path: /api/asset-transfers/{assetTransferId}/summary
+  operationId: getAssetTransferSummary
+  summary: Get Asset Transfer Summary
+  description: 'This endpoint allows you to retrieve a summary of an [Asset Transfer](#asset-transfer-model).'
+  tags:
+    - asset-transfers
+  x-request-headers: {}
+  parameters:
+    - name: assetTransferId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: M7Kn2stAxNa6ri7h
+      description: The Asset Transfer id.
+  responses:
+    '200':
+      description: Asset Transfer summary retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            default:
+              value:
+                id: M7Kn2stAxNa6ri7h
+                status: created
+                assetId: YGRo6TYYSxH3js7
+                message: Happy birthday
+                senderName: My Cafe
+                createdAt: '2020-05-01T12:30:00.000Z'
+                url: https://app.centrapay.com/transfer/M7Kn2stAxNa6ri7h
+                assetCollectionId: c_Xv990BzkgfoDS7bBls50pd

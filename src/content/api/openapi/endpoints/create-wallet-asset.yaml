@@ -1,0 +1,98 @@
+post:
+  x-method: POST
+  x-path: /api/wallet-assets
+  operationId: createWalletAsset
+  summary: Create a Wallet Asset
+  description: This endpoint allows you to create a Wallet Asset.
+  tags:
+    - wallet-assets
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - accountId
+            - ledgerId
+          properties:
+            accountId:
+              type: string
+              description: The Wallet Asset's owning Centrapay [Account](/api/accounts/) id.
+            ledgerId:
+              type: string
+              enum: [centrapay.nzd.main, centrapay.nzd.test]
+              description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
+            settlement:
+              $ref: '../models/wallet-assets.yaml#/properties/settlement'
+        examples:
+          default:
+            value:
+              accountId: Te2uDM7xhDLWGVJU3nzwnh
+              ledgerId: centrapay.nzd.main
+              settlement: true
+  responses:
+    '200':
+      description: Wallet Asset created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/wallet-assets.yaml'
+          examples:
+            default:
+              value:
+                id: WRhAxxWpTKb5U7pXyxQjjY
+                accountId: Te2uDM7xhDLWGVJU3nzwnh
+                category: money
+                type: centrapay.nzd.main
+                liveness: main
+                description: NZD
+                createdAt: '2021-01-01T00:00:00.000Z'
+                status: active
+                currency: NZD
+                balance: '0'
+                availableBalance: '0'
+                settlement: true
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            ACCOUNT_MAX_WALLETS_REACHED:
+              description: The maximum number of wallet assets for the given ledger has been reached.
+              value:
+                message: ACCOUNT_MAX_WALLETS_REACHED
+get:
+  x-method: GET
+  x-path: /api/wallet-assets
+  operationId: listWalletAssets
+  summary: List Wallet Assets
+  description: This endpoint allows you to list authorized Wallet Assets.
+  tags:
+    - wallet-assets
+  responses:
+    '200':
+      description: Wallet Assets listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/wallet-assets.yaml'
+          examples:
+            default:
+              value:
+                - id: WRhAxxWpTKb5U7pXyxQjjY
+                  accountId: Te2uDM7xhDLWGVJU3nzwnh
+                  ledgerId: centrapay.nzd.main
+                  currency: NZD
+                  balance: '2000'
+                  availableBalance: '2000'
+                - id: NQ1yeromwnWPD2hY41L2yS
+                  accountId: Te2uDM7xhDLWGVJU3nzwnh
+                  ledgerId: centrapay.nzd.test
+                  currency: NZD
+                  balance: '20'
+                  availableBalance: '20'

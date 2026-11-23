@@ -1,0 +1,8 @@
+---
+import Badge from './Badge.astro';
+
+const { depth = 2, anchor, title, badges = [] } = Astro.props;
+const Tag = depth === 3 ? 'h3' : 'h2';
+---
+
+<Tag id={anchor}>{title}{badges.map(type => <> <Badge type={type} /></>)}</Tag>

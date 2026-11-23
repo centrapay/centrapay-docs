@@ -1,0 +1,32 @@
+get:
+  x-method: GET
+  x-path: /api/media-uploads/{mediaUploadId}/location
+  x-experimental: true
+  operationId: getMediaUploadLocation
+  summary: Get Media Upload Location
+  description: |
+    This endpoint allows you to retrieve the upload location of a media file.
+  tags:
+    - media-uploads
+  parameters:
+    - name: mediaUploadId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: DKTs3U38hdhfEqwF1JKoT2
+      description: The Media Upload id.
+  responses:
+    '200':
+      description: Media Upload location retrieved
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              url:
+                type: string
+          examples:
+            default:
+              value:
+                url: https://media-upload.centrapay.com/image.png?jhbdsfau67ewejshb=487hsdjhbdgs743

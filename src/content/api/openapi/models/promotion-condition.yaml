@@ -1,0 +1,15 @@
+x-title: Promotion Condition Model
+type: object
+properties:
+  field:
+    type: string
+    description: The field to look at in the [Event](/api/events) object. Required unless `type` is set, in which case it is not allowed.
+  value:
+    type: string
+    description: The value that the field must satisfy depending on the `operator`. Must be an array of strings when using the `in` operator.
+  operator:
+    type: string
+    description: The operator to use when looking at the value of the field. Can be `equals`, `not`, `in`, `greater-than`, `less-than`.
+  type:
+    type: string
+    description: The type of condition. Can be `participation-limit`, `merchantId`, `merchantAccountId`, or `accountId`.

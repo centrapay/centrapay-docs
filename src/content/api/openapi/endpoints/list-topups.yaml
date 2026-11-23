@@ -1,0 +1,39 @@
+get:
+  x-method: GET
+  x-path: /api/topups
+  operationId: listTopups
+  summary: List Top Ups For Authorized Accounts
+  description: |
+    This endpoint allows you to list the Top Ups for authorized accounts.
+  tags:
+    - funds-transfers
+  responses:
+    '200':
+      description: Top Ups listed
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+          examples:
+            default:
+              value:
+                - id: 5thg2RPBZEfYTPJdQ63Cre
+                  assetId: Te2uDM7xhDLWGVJU3nzwnh
+                  bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                  accountId: aBc932S9182qwCDqwer
+                  type: topup
+                  amount: '10000'
+                  status: created
+                  createdAt: '2020-05-01T12:30:00.000Z'
+                  updatedAt: '2020-05-01T12:30:00.000Z'
+                - id: hg2RfYTQ635tPBZEPJdCre
+                  assetId: Te2uDM7xhDLWGVJU3nzwnh
+                  bankAccountId: FRhAzzWpTKb5U7pZygQjjY
+                  accountId: aBc932S9182qwCDqwer
+                  type: topup
+                  amount: '10000'
+                  status: created
+                  createdAt: '2020-05-01T12:30:00.000Z'
+                  updatedAt: '2020-05-01T12:30:00.000Z'

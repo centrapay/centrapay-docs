@@ -1,0 +1,27 @@
+x-title: Location Model
+type: object
+required:
+  - street
+  - city
+  - country
+properties:
+  street:
+    type: string
+    description: Street number and name (max 255 characters).
+  suburb:
+    type: string
+    description: Suburb (max 255 characters).
+  city:
+    type: string
+    description: Town or city (max 255 characters).
+  state:
+    type: string
+    description: Region or state (max 255 characters).
+  postCode:
+    type: string
+    description: Postal code (4-10 characters).
+  country:
+    type: string
+    enum:
+      - NZ
+    description: ISO 3166-1 alpha-2 country code. Must be `NZ`.

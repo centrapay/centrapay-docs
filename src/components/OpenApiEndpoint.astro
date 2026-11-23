@@ -1,17 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
-import { marked } from 'marked';
 import Row from './Row.astro';
 import Column from './Column.astro';
 import CodePanel from './CodePanel.astro';
 import Properties from './Properties.astro';
 import ErrorItem from './Error.astro';
 import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
+import OpenApiHeading from './OpenApiHeading.astro';
 import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
-import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors } from '../utils/OpenApiResolver.js';
+import { createMarkdownRenderer } from '../utils/openApiPage.js';
+import OpenApiMarkdown from './OpenApiMarkdown.astro';
+import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors, requestSchema, getResponseProperties, responseExample } from '../utils/OpenApiResolver.js';
 
-const { operationId, anchor, schemasMap } = Astro.props;
+// A section showing a named example of an operation (exampleName) renders the
+// example's own title, description and payload, without the attribute and
+// error lists already documented under the operation's main section.
+const { operationId, exampleName, title, description, anchor, depth, badges, subheadingAnchors, schemasMap } = Astro.props;
 
 const endpoints = await getCollection('openapiEndpoints');
 const entry = endpoints.find(e =>
@@ -21,22 +26,32 @@ if (!entry) throw new Error(`No operation found for operationId: ${operationId}`
 
 const pathItem = resolveRefs(entry.data, schemasMap);
 const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
-const endpoint = createEndpoint(buildEndpointData(operation));
-const properties = [
+const endpoint = createEndpoint(buildEndpointData(operation, exampleName));
+// Non-JSON responses (eg a plain `OK`) are shown as is rather than as JSON.
+const response = responseExample(operation, exampleName);
+const responseCode = response.isJson ? endpoint.response : response.value;
+const responseLang = response.isJson ? 'json' : 'text';
+const properties = exampleName ? [] : [
   ...getParameterProperties(operation.parameters),
-  ...getProperties(operation.requestBody?.content?.['application/json']?.schema),
+  ...getProperties(requestSchema(operation)),
 ];
+const responseProperties = exampleName ? [] : getResponseProperties(operation.responses);
 const commonResponses = Object.values(schemasMap['responses'] ?? {});
-const errors = getErrors(operation.responses, commonResponses);
+const errors = exampleName ? [] : getErrors(operation.responses, commonResponses);
 ---
 
 <Row>
   <Column>
-    <h2 id={anchor}>{operation.summary}</h2>
-    {operation.description && <div set:html={marked.parse(operation.description)} />}
+    <OpenApiHeading depth={depth} anchor={anchor} title={title} badges={badges} />
+    {description && <OpenApiMarkdown segments={createMarkdownRenderer(subheadingAnchors)(description)} />}
     {properties.length > 0 && (
       <Properties>
         {properties.map(property => <OpenApiPropertyItem {...property} />)}
+      </Properties>
+    )}
+    {responseProperties.length > 0 && (
+      <Properties heading="Response">
+        {responseProperties.map(property => <OpenApiPropertyItem {...property} />)}
       </Properties>
     )}
     {errors.length > 0 && (
@@ -53,9 +68,9 @@ const errors = getErrors(operation.responses, commonResponses);
     <CodePanel>
       <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal" />
     </CodePanel>
-    {endpoint.response &&
+    {responseCode &&
       <CodePanel>
-        <Code code={endpoint.response} lang="json" title="Response" frame="terminal" />
+        <Code code={responseCode} lang={responseLang} title="Response" frame="terminal" />
       </CodePanel>
     }
   </Column>

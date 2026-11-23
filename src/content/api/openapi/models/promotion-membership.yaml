@@ -1,0 +1,92 @@
+x-title: Promotion Membership Model
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier for the Promotion Membership.
+  accountId:
+    type: string
+    description: The ID of the [Account](/api/accounts) that has the membership to the Promotion.
+  name:
+    type: string
+    description: The display name of the Promotion.
+  programId:
+    type: string
+    description: The ID of the [Loyalty Program](/api/loyalty-programs) that the Promotion belongs to.
+  promotionId:
+    type: string
+    description: The ID of the Promotion.
+  summary:
+    type: string
+    description: The display summary for the Promotion.
+  mediaUploadId:
+    type: string
+    description: The ID of the [Media Upload](/api/media-uploads/) image of the Promotion.
+  img:
+    type: string
+    description: The img URL of the Promotion.
+  startsAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion starts.
+  endsAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion ends.
+  rewards:
+    type: array
+    items:
+      $ref: ../models/promotion-reward.yaml
+    description: A list of [Rewards](/api/promotions#promotion-reward-model) that the account will receive upon completing the Promotion.
+  eventType:
+    type: string
+    description: The [type of Event](/api/events) that will trigger increments and completions of the Promotion.
+  params:
+    type: object
+    description: Type-specific parameters for the Promotion, plus the membership's progress. See [Promotion Params Model](/api/promotions#promotion-params-model) and [Promotion Membership Progress Model](/api/promotion-memberships#promotion-membership-progress-model).
+  target:
+    type: object
+    description: Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
+    x-deprecated: true
+  type:
+    type: string
+    description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+  conditions:
+    type: array
+    items:
+      $ref: ../models/promotion-condition.yaml
+    description: The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+  description:
+    type: string
+    description: Displayable description for the Promotion.
+  progress:
+    type: string
+    x-type: bignumber
+    description: Use `params.progress.current` instead. Retained on responses for backwards compatibility.
+    x-deprecated: true
+  status:
+    type: string
+    description: The status of the Promotion Membership. Can be `active`, `expired`, or `complete`.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion Membership was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Promotion Membership.
+  modifiedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: The timestamp of when the Promotion Membership was last modified.
+  modifiedBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that last modified the Promotion Membership.
+  test:
+    type: boolean
+    description: '`true` if the promotion membership is for testing purposes only.'

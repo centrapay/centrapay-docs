@@ -1,0 +1,54 @@
+post:
+  x-method: POST
+  x-path: /api/connections/{connectionId}/authorize
+  x-experimental: true
+  operationId: authorizeConnection
+  summary: Authorize Connection
+  description: This endpoint allows you to authorize a [Connection](#connection-model).
+  tags:
+    - connections
+  parameters:
+    - name: connectionId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: cn_8Bq2WpDkH3sJvYt5RxLm7n
+      description: The Connection id.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - walletId
+          properties:
+            walletId:
+              type: string
+              description: The ID of the wallet that is authorizing the Connection
+        examples:
+          default:
+            value:
+              walletId: vendswift-nz
+  responses:
+    '200':
+      description: Connection authorized
+      content:
+        application/json:
+          schema:
+            $ref: '../models/connection.yaml'
+          examples:
+            default:
+              value:
+                id: cn_8Bq2WpDkH3sJvYt5RxLm7n
+                merchantId: 5ee0c486308f590260d9a07f
+                status: authorized
+                createdByAccountName: Salespoint
+                url: https://app.centrapay.com/connect/cn_8Bq2WpDkH3sJvYt5RxLm7n
+                createdAt: '2021-08-25T00:02:49.488Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                walletId: vendswift-nz
+                walletName: VendSwift
+                updatedAt: '2022-08-25T00:02:49.488Z'
+                updatedBy: 'crn::user:b657195e-dc2f-11ea-8566-e7710d592c99'

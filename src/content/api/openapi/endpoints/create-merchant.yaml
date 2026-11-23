@@ -1,0 +1,143 @@
+post:
+  x-method: POST
+  x-path: /api/merchants
+  operationId: createMerchant
+  summary: Create Merchant
+  description: This endpoint allows you to create a Merchant.
+  tags:
+    - merchants
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - accountId
+            - name
+            - country
+          properties:
+            accountId:
+              $ref: '../models/merchant-model.yaml#/properties/accountId'
+            name:
+              $ref: '../models/merchant-model.yaml#/properties/name'
+            country:
+              $ref: '../models/merchant-model.yaml#/properties/country'
+            test:
+              type: boolean
+              x-deprecated: true
+              description: Ignored. A Merchant is a test merchant if its owning [Account](/api/accounts) is a test account.
+            settlementConfig:
+              $ref: '../models/merchant-model.yaml#/properties/settlementConfig'
+            type:
+              type: string
+              enum:
+                - physical
+                - e-commerce
+              description: 'Valid values: `physical` or `e-commerce`.'
+            location:
+              type: object
+              x-type: location
+              description: Physical Location of Merchant. It is highly recommended that you provide this otherwise, users won't be able to find you with our [Merchant Search](#search-merchants) API if they perform a origin + distance query. This field is forbidden when the provided type is `e-commerce`.
+            categoryCode:
+              $ref: '../models/merchant-model.yaml#/properties/categoryCode'
+        examples:
+          default:
+            value:
+              accountId: C4QnjXvj8At6SMsEN4LRi9
+              name: Centrapay Cafe Auckland
+              country: NZ
+  responses:
+    '200':
+      description: Merchant created
+      content:
+        application/json:
+          schema:
+            $ref: '../models/merchant-model.yaml'
+          examples:
+            default:
+              value:
+                id: 5ee0c486308f590260d9a07f
+                accountId: C4QnjXvj8At6SMsEN4LRi9
+                name: Centrapay Cafe Auckland
+                country: NZ
+                test: false
+                onboardingStatus: applied
+                createdAt: '2021-11-12T01:17:46.499Z'
+                updatedAt: '2021-11-12T01:17:46.499Z'
+                createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../index.yaml#/components/schemas/ApiError'
+          examples:
+            BANK_ACCOUNT_MISMATCH:
+              description: The bank account in the settlement config does not belong to the same account.
+              value:
+                message: BANK_ACCOUNT_MISMATCH
+            ACCOUNT_REGION_MISMATCH:
+              description: The merchant's "country" does not match the "region" on the Account.
+              value:
+                message: ACCOUNT_REGION_MISMATCH
+            INVALID_ACCOUNT:
+              description: The Account is not an organisation account.
+              value:
+                message: INVALID_ACCOUNT
+get:
+  x-method: GET
+  x-path: /api/merchants
+  deprecated: true
+  operationId: listMerchants
+  summary: List Merchants
+  description: Returns a [paginated](/api/pagination) list of Merchants which belong to the authenticated subject.
+  tags:
+    - merchants
+  responses:
+    '200':
+      description: Merchants listed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '../models/merchant-model.yaml'
+          examples:
+            default:
+              value:
+                items:
+                  - accountId: 3xsjxxwmnpkunjbcpekyekc84rzxr4
+                    country: NZ
+                    id: 5f6bf6ff81552101f8ff6122
+                    name: Adams, Runolfsdottir and Botsford
+                    test: false
+                    onboardingStatus: applied
+                    createdAt: '2021-11-12T01:17:46.499Z'
+                    updatedAt: '2021-11-12T01:17:46.499Z'
+                    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                  - accountId: 3xsjxxwmnpkunjbcpekyekc84rzxr4
+                    country: NZ
+                    id: 5f6bf6ff81552101f8ff6123
+                    name: Vandervort Inc
+                    test: false
+                    onboardingStatus: applied
+                    createdAt: '2021-11-12T01:17:46.499Z'
+                    updatedAt: '2021-11-12T01:17:46.499Z'
+                    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                  - accountId: 3xsjxxwmnpkunjbcpekyekc84rzxr4
+                    country: NZ
+                    id: 5f6bf6ff81552101f8ff6124
+                    name: West, O'Reilly and Huels
+                    test: false
+                    onboardingStatus: applied
+                    createdAt: '2021-11-12T01:17:46.499Z'
+                    updatedAt: '2021-11-12T01:17:46.499Z'
+                    createdBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'
+                    updatedBy: 'crn:WIj211vFs9cNACwBb04vQw:api-key:MyApiKey'

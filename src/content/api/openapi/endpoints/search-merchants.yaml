@@ -1,0 +1,114 @@
+get:
+  x-method: GET
+  x-path: /api/merchants/search
+  operationId: searchMerchants
+  summary: Search Merchants
+  description: |
+    Returns a [paginated](/api/pagination) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth); if auth is provided, each loyalty program in the results also includes `isMember`.
+  tags:
+    - merchants
+  parameters:
+    - name: origin
+      in: query
+      schema:
+        type: string
+      example: '-36.8484,174.7633'
+      description: The point to be searched around, formatted as a latitude,longitude. Required if `distance` is provided.
+    - name: distance
+      in: query
+      schema:
+        type: number
+      example: 100
+      description: The distance from the origin to be searched around in km. Required if `origin` is provided.
+    - name: asset
+      in: query
+      schema:
+        type: string
+      example: 'centrapay.token.main,Xv990BzkgfoDS7bBls50pd'
+      description: A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's collectionId for [centrapay.token](/api/assets#token-model) and [centrapay.ledger](/api/assets#ledger-model) asset types. Can be repeated to match merchants accepting any of several assets.
+    - name: name
+      in: query
+      schema:
+        type: string
+      description: Name of the merchant
+    - name: pageKey
+      in: query
+      schema:
+        type: integer
+      example: 10
+      description: The `nextPageKey` from a previous response, used to fetch the next page of merchants.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: integer
+      example: 10
+      description: Maximum amount of merchants to return. Required if `pageKey` is provided.
+    - name: accountId
+      in: query
+      schema:
+        type: string
+      description: The ID of the [Account](/api/accounts) that owns the merchant.
+    - name: categoryCode
+      in: query
+      schema:
+        type: string
+      example: '5812'
+      description: The category code assigned to the Merchant by Centrapay. Must be 4 digits. Multiple codes can be provided as a comma-separated list.
+    - name: test
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: Set to `true` to search for test merchants.
+    - name: hasLoyaltyProgram
+      in: query
+      schema:
+        type: boolean
+      example: true
+      description: Set to `true` to only return merchants with public loyalty programs.
+  responses:
+    '200':
+      description: Merchant Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              totalItems:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '../models/merchant-search-result.yaml'
+              nextPageKey:
+                type: integer
+          examples:
+            default:
+              value:
+                totalItems: 100
+                items:
+                  - id: Ksh5Gx8dvVTq4yJpHn3ZeR
+                    name: Centrapay Café
+                    accountId: Jaim1Cu1Q55uooxSens6yk
+                    acceptedAssets:
+                      - assetType: centrapay.token.main
+                        products:
+                          - id: Xv990BzkgfoDS7bBls50pd
+                      - assetType: centrapay.nzd.main
+                      - assetType: epay.main
+                    location:
+                      lat: '-36.8483579'
+                      lng: '174.7725834'
+                      city: Auckland
+                      country: NZ
+                      postCode: '1010'
+                      state: Auckland
+                      street: 125 Queen Street
+                      suburb: Auckland Central
+                    categoryCode: '5812'
+                    loyaltyPrograms:
+                      - id: 5f6bf6ff81552101f8ff6122
+                        isMember: true
+                      - id: 5f6bf6ff81552101f8ff6123
+                        isMember: false
+                nextPageKey: 20
