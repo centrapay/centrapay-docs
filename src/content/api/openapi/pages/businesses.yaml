@@ -1,37 +1,11 @@
 title: Businesses
-description: Business model and related endpoints.
+description: Business endpoints
 nav:
   path: Accounts
   order: 3
 intro: |
   A Business represents a company registered with the New Zealand Companies Office. It is associated with a single [Account](/api/accounts).
 sections:
-  - model: business
-    rule: false
-  - title: Onboarding Statuses
-    rule: false
-    depth: 3
-    body: |
-      |    Status    |                                                                 Description                                                                 |                                   Allowed Reasons                                   |
-      | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------- |
-      | applied      | Identifies businesses that have registered to be activated for the Centrapay service.                                                       |                                                                                     |
-      | provisioning | Identifies businesses that are in the process of being activated for the Centrapay service.                                                 |                                                                                     |
-      | active       | Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                     |
-      | deactivated  | Identifies businesses that have been de-registered for the Centrapay service.                                                               | data-quality-issues,change-of-ownership, centrapay-discontinued, duplicate, blocked |
-      | on-hold      | Identifies businesses that have been placed on hold.                                                                                        | seasonal-business-closure,  no-response                                             |
-  - title: Onboarding Status Reasons
-    rule: false
-    depth: 3
-    body: |
-      |          Reason           |                           Description                            |
-      | :------------------------ | :--------------------------------------------------------------- |
-      | duplicate                 | The business already exists in the Centrapay system.             |
-      | data-quality-issues       | Data quality issues are preventing the business from onboarding. |
-      | no-response               | No response has been received from the business.                 |
-      | change-of-ownership       | The business has changed ownership.                              |
-      | centrapay-discontinued    | The business is no longer using Centrapay.                       |
-      | seasonal-business-closure | The business has closed temporarily.                             |
-  - model: businesses-tax-number
   - endpoint: createBusiness
   - endpoint: updateBusiness
   - endpoint: getAccountBusiness

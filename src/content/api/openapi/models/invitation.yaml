@@ -60,6 +60,8 @@ properties:
   params:
     type: object
     description: '[Params](#params-model) dependent on the Invitation type.'
+    allOf:
+      - $ref: './invitations-params.yaml'
   status:
     type: string
     description: The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.

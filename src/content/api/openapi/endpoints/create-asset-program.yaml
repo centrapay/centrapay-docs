@@ -128,7 +128,6 @@ get:
   responses:
     '200':
       description: Asset Programs listed
-      x-render-properties: true
       content:
         application/json:
           schema:

@@ -1,8 +1,5 @@
 x-title: Bank Account Approval Type Summary Model
 x-experimental: true
-x-intro: |
-  A summary of the [Bank Account Approvals](/api/bank-account-approvals) for a Bank Account.
-  There is one object per type of Bank Account Approval, which provides a summary of the approval status.
 type: object
 properties:
   type:

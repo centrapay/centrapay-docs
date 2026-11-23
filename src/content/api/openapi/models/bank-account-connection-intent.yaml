@@ -10,6 +10,13 @@ properties:
   type:
     type: string
     description: The type of Bank Account Connection Intent. See [Bank Account Connection Intent Types](#bank-account-connection-intent-types).
+    x-values:
+      title: "Bank Account Connection Intent Types"
+      entries:
+        - name: "account-information-consent"
+          description: "Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created."
+        - name: "enduring-payment-consent"
+          description: "Initiates an authorization flow for authorizing access to create payments."
   status:
     type: string
     description: The current status of the Bank Account Connection Intent. Supported values are `created`, `authorized` and `failed`.

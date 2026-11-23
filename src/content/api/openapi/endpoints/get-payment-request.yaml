@@ -4,7 +4,7 @@ get:
   operationId: getPaymentRequest
   summary: Get a Payment Request
   description: |
-    This endpoint allows you to retrieve a Payment Request.                                                                        |
+    This endpoint allows you to retrieve a Payment Request.
   tags:
     - payment-requests
   parameters:

@@ -1,5 +1,5 @@
 title: Bank Accounts
-description: Bank Account model and related endpoints
+description: Bank Account endpoints
 nav:
   path: Bank Accounts
   order: 1
@@ -13,23 +13,6 @@ intro: |
   to perform a Withdrawal. A 4-digit code from any recent Centrapay-initiated
   bank transaction can be used to verify a bank account.
 sections:
-  - model: bank-account
-    rule: false
-  - title: Bank Account Type
-    rule: false
-    depth: 3
-    badges:
-      - experimental
-    body: |
-      Types of bank accounts to allow access to different [Asset Types](/api/asset-types).
-
-      |   Type    |                          Description                           |
-      | --------- | -------------------------------------------------------------- |
-      | centrapay | Allows topup and withdrawal of the `centrapay.nzd` asset type. |
-      | quartz    | Allows usage of the `quartz.nzd` asset type.                   |
-  - model: direct-debit-authority
-  - model: bank-account-approval-type-summary
-  - model: bank-account-balance
   - endpoint: createBankAccount
   - endpoint: addBankAccountDirectDebitAuthority
   - endpoint: getBankAccount

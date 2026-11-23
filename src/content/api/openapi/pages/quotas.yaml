@@ -1,19 +1,9 @@
 title: Quotas
-description: Quota model and related endpoints
+description: Quota endpoints
 nav:
   path: Quotas
   order: 19
 intro: |
   Centrapay account quotas are enforced on usage types such as spending or topping up, and may apply to a time period (daily, monthly, yearly). Account quotas may be affected by the verification status of the Centrapay account.
 sections:
-  - model: quota
-    rule: false
-  - title: Supported Quota Types
-    rule: false
-    depth: 3
-    body: |
-      | Type  | Description                                                         | Scoped | Periods            |
-      |:------|:--------------------------------------------------------------------|:------:|:-------------------|
-      | spend | Value of wallet asset-based payments or asset transfers from the account. |   Yes  | `monthly` `yearly` |
-      | topup | Value of topups from bank accounts linked to the account.           |   Yes  | `monthly` `yearly` |
   - endpoint: listAccountQuotas

@@ -3,7 +3,7 @@ type: object
 properties:
   paymentOptions:
     type: array
-    description: Array of [Payment Option Configs](#payment-option-config-model).
+    description: Array of [Payment Option Configs](#payment-option-config-model). Test payment options should never be used for live merchant configurations.
     items:
       $ref: './payment-option-config.yaml'
   createdAt:

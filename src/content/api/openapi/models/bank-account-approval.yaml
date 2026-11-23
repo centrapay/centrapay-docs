@@ -13,6 +13,15 @@ properties:
   type:
     type: string
     description: The type of Bank Account Approval. See [Bank Account Approval Types](#bank-account-approval-types).
+    x-values:
+      title: "Bank Account Approval Types"
+      entries:
+        - name: "settlement"
+          description: "An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet Asset](/api/wallet-assets#settlement-wallet-assets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved."
+        - name: "account-information-consent"
+          description: "An `approved` Bank Account Approval of type `account-information-consent` provides an access token to read account details from a third-party."
+        - name: "enduring-payment-consent"
+          description: "An `approved` Bank Account Approval of type `enduring-payment-consent` provides an access token for creating payments with a third-party."
   status:
     type: string
     description: The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`.

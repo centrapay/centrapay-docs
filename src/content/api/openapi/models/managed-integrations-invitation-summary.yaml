@@ -1,6 +1,4 @@
 x-title: Invitation Summary Model
-x-intro: |
-  A summary of the [Invitation](/api/invitations) for a Managed Integration.
 type: object
 properties:
   id:

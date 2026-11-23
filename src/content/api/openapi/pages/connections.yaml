@@ -1,13 +1,11 @@
 title: Connections
-description: Connection model and related endpoints
+description: Connection endpoints
 nav:
   path: Connections
   order: 1
 intro: |
   A Connection is a link between a Wallet and a Sales Channel.
 sections:
-  - model: connection
-    rule: false
   - endpoint: createConnection
   - endpoint: authorizeConnection
   - endpoint: getConnectionSummary

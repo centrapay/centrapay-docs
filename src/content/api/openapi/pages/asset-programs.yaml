@@ -8,8 +8,6 @@ intro: |
 
   An Asset Program is provided by an asset issuer as a mechanism that enables businesses to accept their assets as payment options. By participating in an Asset Program, businesses agree to the issuer's terms of service and privacy policy, establishing a formal relationship that allows customers to use the issuer's digital assets for payments.
 sections:
-  - model: asset-program
-    rule: false
   - endpoint: createAssetProgram
   - endpoint: listAssetPrograms
   - endpoint: getAssetProgram

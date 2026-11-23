@@ -16,7 +16,320 @@ function resolveRef(ref, schemasMap) {
   return pointer ? resolvePointer(target, pointer) : target;
 }
 
-const isRef = (obj) => obj && typeof obj === 'object' && '$ref' in obj;
+// --- Click-to-reveal model documentation -------------------------------------
+//
+// Routes document complex objects inline: a property, parameter or response
+// whose schema references a model with fields renders as a `<details>` element
+// revealing those fields, instead of the page front-loading dedicated model
+// sections. The tree produced here carries no anchors; openApiPage.js assigns
+// them in document order so links to the old model sections keep resolving.
+
+const isRef = obj => obj && typeof obj === 'object' && '$ref' in obj;
+
+// A schema that is nothing but a `$ref`, so its siblings (type, description...)
+// belong to the property rather than the referenced model.
+const isPureRef = obj => isRef(obj) && Object.keys(obj).length === 1;
+
+// A whole-file reference points at a model's own schema; a pointer reference
+// (`#/properties/name`) points at one property inside it.
+function modelRef(ref, models) {
+  const [filePart, pointer] = ref.split('#');
+  if (!filePart) {
+    return null;
+  }
+  const name = filePart.split('/').pop().replace(/\.yaml$/, '');
+  const schema = pointer ? resolvePointer(models[name], pointer) : models[name];
+  if (!schema || typeof schema !== 'object') {
+    return null;
+  }
+  // `index.yaml` holds shared components (ApiError), not documented models.
+  return { name: name === 'index' ? undefined : name, schema, wholeModel: !pointer };
+}
+
+function revealBadges(data) {
+  const badges = [];
+  if (data['x-experimental']) {
+    badges.push('experimental');
+  }
+  if (data['x-deprecated']) {
+    badges.push('deprecated');
+  }
+  return badges;
+}
+
+function hasFields(schema) {
+  return Boolean(schema?.properties);
+}
+
+// The whole models referenced by composition members (`allOf`, `oneOf`...).
+function wholeModelRefs(members, models) {
+  return members
+    .map(member => isPureRef(member) ? modelRef(member.$ref, models) : null)
+    .filter(ref => ref?.wholeModel);
+}
+
+// The models that vary another model: `oneOf`/`anyOf` members (eg a
+// promotion's challenge or draw params) and the models an `x-variants` base
+// model extends (eg an asset activity's type-specific shape).
+function variantReveals(schema, models, stack) {
+  const composed = wholeModelRefs([...(schema.oneOf ?? []), ...(schema.anyOf ?? [])], models)
+    .map(ref => modelReveal(ref, models, stack));
+  const listed = (schema['x-variants'] ?? [])
+    .filter(name => models[name])
+    .map(name => modelReveal({ name, schema: models[name] }, models, stack));
+  return [...composed, ...listed].filter(Boolean);
+}
+
+// The reveal for a whole model: its title, intro and outro prose, its fields,
+// and the models that vary it.
+function modelReveal({ name, schema }, models, stack) {
+  if (name && stack.includes(name)) {
+    return undefined;
+  }
+  const nestedStack = name ? [...stack, name] : stack;
+  return {
+    model: name,
+    title: schema['x-title'] ?? name,
+    badges: revealBadges(schema),
+    intro: schema['x-intro'],
+    outro: schema['x-outro'],
+    rows: objectRows(schema, models, nestedStack),
+    variants: variantReveals(schema, models, nestedStack),
+  };
+}
+
+// Fields merged in from `allOf` members that are not whole-model refs —
+// whole-model refs become variant reveals instead, so their fields must not
+// also be merged here.
+function mergedMemberRows(schema, models, stack) {
+  return (schema?.allOf ?? []).flatMap(member => {
+    const ref = isPureRef(member) ? modelRef(member.$ref, models) : { schema: member };
+    if (!ref?.schema || typeof ref.schema !== 'object' || ref.wholeModel) {
+      return [];
+    }
+    return objectRows(ref.schema, models, stack);
+  });
+}
+
+// Rows for one schema's own properties, in `allOf`-merged then own order.
+function objectRows(schema, models, stack) {
+  const required = new Set(schema?.required ?? []);
+  return [
+    ...mergedMemberRows(schema, models, stack),
+    ...Object.entries(schema?.properties ?? {})
+      .flatMap(([name, prop]) => propertyRow(name, prop, required.has(name), models, stack)),
+  ];
+}
+
+function rowType(prop, target) {
+  return (target?.['x-type'] ?? target?.type ?? prop.type ?? 'string').toLowerCase();
+}
+
+function customTypeLink(type) {
+  return CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined;
+}
+
+function rowDescription(prop, target) {
+  return formatDescription(prop.description ?? target?.description);
+}
+
+function rowBadges(prop, target) {
+  return {
+    isExperimental: Boolean(prop['x-experimental'] ?? target?.['x-experimental']),
+    isDeprecated: Boolean(prop['x-deprecated'] ?? target?.['x-deprecated']),
+  };
+}
+
+// A property may document its possible values in a reference table
+// (`x-table`), revealed inline from the row instead of a page section.
+function rowTable(name, prop) {
+  const table = prop?.['x-table'];
+  if (!table) {
+    return undefined;
+  }
+  if (!table.title || !table.body) {
+    throw new Error(`x-table on "${name}" needs a title and a body`);
+  }
+  return { title: table.title, body: table.body };
+}
+
+// A property may instead document its possible values as structured
+// entries (`x-values`): each value stacked over its description, with
+// optional labelled notes.
+function rowValues(name, prop) {
+  const values = prop?.['x-values'];
+  if (!values) {
+    return undefined;
+  }
+  if (!values.title || !(values.entries ?? []).some(entry => entry.name)) {
+    throw new Error(`x-values on "${name}" needs a title and entries`);
+  }
+  return { title: values.title, intro: values.intro, entries: values.entries };
+}
+
+// One attribute row, possibly with a reveal or a reference table hanging off
+// it.
+function propertyRow(name, prop, isRequired, models, stack) {
+  if (prop?.['x-flatten']) {
+    // An x-flatten property lists its child properties as `parent.child` rows
+    // instead of a row of its own.
+    return objectRows(prop, models, stack).map(row => ({ ...row, name: `${name}.${row.name}` }));
+  }
+  const target = isRef(prop) ? modelRef(prop.$ref, models)?.schema : prop;
+  const type = rowType(prop, target);
+  return [{
+    name,
+    formattedType: type,
+    typeLink: customTypeLink(type),
+    description: rowDescription(prop, target),
+    isRequired,
+    ...rowBadges(prop, target),
+    reveal: propertyReveal(prop, models, stack),
+    table: rowTable(name, prop),
+    values: rowValues(name, prop),
+  }];
+}
+
+// The reveal a property's schema documents, if any. A whole-model reference
+// (directly, as array items, or through a single-model `allOf`) reveals that
+// model; several models reveal as variants; an inline object reveals its own
+// fields unless a custom data type documents it on the data-types page.
+function propertyReveal(prop, models, stack) {
+  if (isPureRef(prop)) {
+    return refReveal(prop, models, stack);
+  }
+  if (prop.allOf) {
+    return allOfReveal(prop, models, stack);
+  }
+  if (prop.oneOf || prop.anyOf) {
+    return composedReveal(prop, models, stack);
+  }
+  if (prop.type === 'array') {
+    return itemsReveal(prop, models, stack);
+  }
+  return inlineReveal(prop, models, stack);
+}
+
+// An array row reveals whatever its items document.
+function itemsReveal(prop, models, stack) {
+  if (!prop.items) {
+    return undefined;
+  }
+  return propertyReveal(prop.items, models, stack);
+}
+
+// A whole-model reference reveals that model; a pointer reference lands on one
+// property inside it, so whatever that property documents is what the row
+// reveals.
+function refReveal(prop, models, stack) {
+  const ref = modelRef(prop.$ref, models);
+  if (!ref) {
+    return undefined;
+  }
+  return ref.wholeModel ? modelReveal(ref, models, stack) : propertyReveal(ref.schema, models, stack);
+}
+
+// A single whole-model `allOf` ref reveals that model; several refs (eg a
+// promotion membership's params are the promotion's params plus the
+// membership's progress) reveal as variants; otherwise inline members reveal
+// their own fields.
+function allOfReveal(prop, models, stack) {
+  const refs = wholeModelRefs(prop.allOf, models);
+  if (refs.length === 0) {
+    return inlineReveal(prop, models, stack);
+  }
+  const localRows = hasFields(prop) ? objectRows(prop, models, stack) : [];
+  if (refs.length === 1 && localRows.length === 0) {
+    return modelReveal(refs[0], models, stack);
+  }
+  return {
+    title: undefined,
+    badges: [],
+    intro: undefined,
+    outro: undefined,
+    rows: localRows,
+    variants: refs.map(ref => modelReveal(ref, models, stack)),
+  };
+}
+
+// `oneOf`/`anyOf` members document the shapes a property can take; each
+// whole-model member reveals as a variant.
+function composedReveal(prop, models, stack) {
+  const members = [...(prop.oneOf ?? []), ...(prop.anyOf ?? [])];
+  const variants = wholeModelRefs(members, models)
+    .map(ref => modelReveal(ref, models, [...stack]));
+  const inlineRows = members
+    .filter(member => !isPureRef(member))
+    .flatMap(member => objectRows(member, models, stack));
+  if (variants.length === 0 && inlineRows.length === 0) {
+    return undefined;
+  }
+  return { title: prop['x-title'], badges: [], intro: undefined, outro: undefined, rows: inlineRows, variants };
+}
+
+// An inline object reveals its own fields, unless a custom data type already
+// documents it on the data-types page.
+function inlineReveal(prop, models, stack) {
+  if (!hasFields(prop) || CUSTOM_DATA_TYPES.includes((prop['x-type'] ?? '').toLowerCase())) {
+    return undefined;
+  }
+  return {
+    model: undefined,
+    title: prop['x-title'],
+    badges: revealBadges(prop),
+    intro: undefined,
+    outro: undefined,
+    rows: objectRows(prop, models, stack),
+    variants: [],
+  };
+}
+
+// Rows for a request body or response object schema.
+export function propertyRows(schema, models) {
+  return objectRows(schema, models, []);
+}
+
+// The documented success response: the model's (or the inline object's) own
+// fields listed under the Response heading, with variants and nested reveals
+// inline — a top-level response object is never itself hidden behind a
+// toggle.
+export function responseModel(operation, models) {
+  const schema = firstMediaSchema(successResponse(operation.responses));
+  if (!schema) {
+    return undefined;
+  }
+  return responseShape(arrayItems(schema), models);
+}
+
+// The success response's schema, whatever its media type.
+function firstMediaSchema(response) {
+  const media = Object.values(response?.content ?? {})[0];
+  return media?.schema;
+}
+
+// A list response documents the shape of its items.
+function arrayItems(schema) {
+  if (schema.type === 'array') {
+    return schema.items ?? {};
+  }
+  return schema;
+}
+
+function responseShape(schema, models) {
+  const reveal = propertyReveal(schema, models, []);
+  if (reveal && (reveal.model || reveal.variants.length > 0)) {
+    return {
+      model: reveal.model,
+      title: reveal.title,
+      intro: reveal.intro,
+      outro: reveal.outro,
+      rows: reveal.rows,
+      variants: reveal.variants,
+    };
+  }
+  return hasFields(schema) ? { rows: objectRows(schema, models, []) } : undefined;
+}
+
 const isObject = (obj) => obj && typeof obj === 'object';
 
 export function resolveRefs(obj, schemasMap) {
@@ -56,39 +369,23 @@ export function responseExample(operation, exampleName) {
   };
 }
 
-function formatProperty(name, prop, schema, isRequired) {
-  const type = (schema?.['x-type'] ?? schema?.type ?? 'string').toLowerCase();
-  return {
-    name,
-    formattedType: type,
-    typeLink: CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined,
-    description: formatDescription(prop.description),
-    isRequired,
-    isExperimental: !!prop['x-experimental'],
-    isDeprecated: !!prop['x-deprecated'],
-  };
-}
-
 // The request body schema, whatever its media type (JSON, multipart, ...).
 export function requestSchema(operation) {
   return Object.values(operation.requestBody?.content ?? {})[0]?.schema;
 }
 
-// An object property marked `x-flatten` is listed as its child properties,
-// named `parent.child`, instead of as a single row.
-export function getProperties(schema, prefix = '') {
-  const required = schema?.required ?? [];
-  return Object.entries(schema?.properties ?? {}).flatMap(([name, prop]) =>
-    prop['x-flatten']
-      ? getProperties(prop, `${prefix}${name}.`)
-      : [formatProperty(`${prefix}${name}`, prop, prop, required.includes(name))]
-  );
-}
-
-export function getParameterProperties(parameters) {
+// Path and query parameters as attribute rows. A parameter documents its
+// description on the parameter itself, its type on its schema.
+export function getParameterProperties(parameters, models) {
   return (parameters ?? [])
     .filter(param => param?.in === 'path' || param?.in === 'query')
-    .map(param => formatProperty(param.name, param, param.schema, !!param.required));
+    .map(param => propertyRow(
+      param.name,
+      { ...param.schema, description: param.description ?? param.schema?.description },
+      !!param.required,
+      models,
+      []
+    )[0]);
 }
 
 const isSuccess = code => /^2\d\d$/.test(code);
@@ -97,16 +394,6 @@ const isSuccess = code => /^2\d\d$/.test(code);
 export function successResponse(responses) {
   const code = Object.keys(responses ?? {}).filter(isSuccess).sort()[0];
   return code ? responses[code] : undefined;
-}
-
-// Response attributes are only listed when the success response opts in with
-// `x-render-properties`; most pages document the response via its model.
-export function getResponseProperties(responses) {
-  const response = successResponse(responses);
-  if (!response?.['x-render-properties']) {
-    return [];
-  }
-  return getProperties(response.content?.['application/json']?.schema);
 }
 
 export function getErrors(responses, commonResponses = []) {

@@ -1,6 +1,14 @@
 x-title: Asset Activity Model
-x-intro: |
-  All Asset Activities extend this base model. This contains all properties that are shared between the activities
+# The activityType-specific models an activity can take. Each is revealed
+# inline from the routes that return activities, keeping the anchors the
+# page's old per-model sections had.
+x-variants:
+  - asset-transaction-activity
+  - token-refunded-activity
+  - token-redeemed-activity
+  - asset-created-activity
+  - asset-received-activity
+  - asset-sent-activity
 type: object
 properties:
   assetId:
@@ -20,6 +28,29 @@ properties:
   activityType:
     type: string
     description: The [Asset Activity Type](#asset-activity-types)
+    x-values:
+      title: "Asset Activity Types"
+      entries:
+        - name: "token"
+          description: "[Token](/api/assets#token-model) was refunded. Uses [Token refunded Model](#token-refunded-activity-model)"
+        - name: "value-in"
+          description: "[Asset](/api/assets#asset-model) value has been increased. Uses [Asset Transaction Model](#asset-transaction-activity-model)"
+        - name: "value-out"
+          description: "[Asset](/api/assets#asset-model) value has been decreased. Uses [Asset Transaction Model](#asset-transaction-activity-model)"
+        - name: "archive-asset"
+          description: "[Asset](/api/assets#asset-model) was archived. Uses [Asset Activity Model](#asset-activity-model)"
+        - name: "activate-asset"
+          description: "[Asset](/api/assets#asset-model) was activated. Uses [Asset Activity Model](#asset-activity-model)"
+        - name: "disable-asset"
+          description: "[Asset](/api/assets#asset-model) was disabled.  Uses [Asset Activity Model](#asset-activity-model)"
+        - name: "token-redeemed"
+          description: "[Token](/api/assets#token-model) was redeemed. Uses [Token Redeemed Model](#token-redeemed-activity-model)"
+        - name: "created"
+          description: "[Asset](/api/assets#asset-model) was created. Uses [Asset Created Model](#asset-created-activity-model)"
+        - name: "received"
+          description: "[Asset](/api/assets#asset-model) was received. Uses [Asset Received Model](#asset-received-activity-model)"
+        - name: "sent"
+          description: "[Asset](/api/assets#asset-model) was sent. Uses [Asset Sent Model](#asset-sent-activity-model)"
   accountId:
     type: string
     description: The account that owns the asset

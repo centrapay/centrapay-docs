@@ -1,13 +1,9 @@
 title: Promotion Memberships
-description: Promotion membership model and related endpoints
+description: Promotion membership endpoints
 nav:
   path: Loyalty Programs
   order: 4
 intro: |
   Promotion Memberships represents an [Account's](/api/accounts) membership to a [Promotion](/api/promotions). Each Promotion Membership carries progress towards completing the Promotion. Promotion Memberships are created automatically for the account when a [Loyalty Program Membership](/api/loyalty-program-memberships) is created.
 sections:
-  - model: promotion-membership
-    rule: false
-  - model: promotion-membership-progress
-    rule: false
   - endpoint: listPromotionMembershipsByAccount

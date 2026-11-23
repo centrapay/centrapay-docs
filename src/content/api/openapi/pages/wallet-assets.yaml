@@ -1,19 +1,11 @@
 title: Wallet Assets
-description: Wallet assets models and related endpoints
+description: Wallet assets endpoints
 nav:
   path: Assets
   order: 6
 intro: |
   A Wallet Asset is an Asset that represents [Money](/api/assets#money-model). The Wallet Asset maintains a record of all transactions it has participated in. A Wallet Asset has a single balance and a single currency.
 sections:
-  - title: Settlement Wallet Assets
-    rule: false
-    badges: [experimental]
-    body: |
-      A Settlement Wallet Asset is a special type of Wallet Asset that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot top up, withdraw, or send money from this Wallet Asset.
-  - model: wallet-assets
-    rule: false
-  - model: wallet-asset-transaction
   - endpoint: createWalletAsset
   - endpoint: listWalletAssets
   - endpoint: listWalletAssetTransactions

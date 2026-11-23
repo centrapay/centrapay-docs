@@ -59,6 +59,30 @@ properties:
       - deactivated
       - archived
     description: The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    x-values:
+      title: "Onboarding Statuses"
+      entries:
+        - name: "applied"
+          description: "Identifies merchants that have registered to be activated for the Centrapay service."
+        - name: "provisioning"
+          description: "Identifies merchants that are in the process of being activated for the Centrapay service."
+        - name: "active"
+          description: "Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request)."
+        - name: "deactivated"
+          description: "Identifies merchants that have been de-registered for the Centrapay service."
+          notes:
+            - label: "Allowed Reasons"
+              value: "duplicate, data-quality-issues, change-of-ownership, centrapay-discontinued-opt-out, blocked, company-closed, tid-cancelled"
+        - name: "on-hold"
+          description: "Identifies merchants that have been placed on hold."
+          notes:
+            - label: "Allowed Reasons"
+              value: "seasonal-business-closure, incompatible-terminal, no-response"
+        - name: "archived"
+          description: "Identifies merchants that have been archived. Archived merchants are not returned when listing Merchants."
+          notes:
+            - label: "Allowed Reasons"
+              value: "duplicate, data-quality-issues, change-of-ownership, centrapay-discontinued-opt-out, blocked, company-closed, tid-cancelled"
   onboardingStatusReason:
     type: string
     enum:
@@ -73,6 +97,29 @@ properties:
       - company-closed
       - tid-cancelled
     description: The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    x-values:
+      title: "Onboarding Status Reasons"
+      entries:
+        - name: "duplicate"
+          description: "The merchant already exists in the Centrapay system."
+        - name: "data-quality-issues"
+          description: "Data quality issues are preventing the merchant from onboarding."
+        - name: "no-response"
+          description: "No response has been received from the merchant."
+        - name: "change-of-ownership"
+          description: "The merchant has changed ownership."
+        - name: "centrapay-discontinued-opt-out"
+          description: "The merchant or partner has requested cancellation of Centrapay."
+        - name: "blocked"
+          description: "The merchant has been blocked."
+        - name: "company-closed"
+          description: "The merchant's business has closed."
+        - name: "tid-cancelled"
+          description: "The merchant's terminal has been cancelled."
+        - name: "seasonal-business-closure"
+          description: "The merchant has closed temporarily."
+        - name: "incompatible-terminal"
+          description: "The merchant does not have any compatible terminals."
   categoryCode:
     type: string
     description: The category code assigned to the Merchant by Centrapay. Must be 4 digits.

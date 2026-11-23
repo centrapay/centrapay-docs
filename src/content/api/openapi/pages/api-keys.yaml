@@ -6,8 +6,6 @@ nav:
 intro: |
   API keys provide enduring access to a single Centrapay [Account](/api/accounts).
 sections:
-  - model: api-key
-    rule: false
   - endpoint: createApiKey
   - endpoint: listApiKeys
   - endpoint: updateApiKey

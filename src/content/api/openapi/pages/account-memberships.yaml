@@ -1,5 +1,5 @@
 title: Account Memberships
-description: Account Memberships model and related endpoints
+description: Account Memberships endpoints
 nav:
   path: Accounts
   order: 2
@@ -8,8 +8,6 @@ intro: |
   [Account](/api/accounts/). An Account Membership has a role which grants the user access to
   some or all of the operations and resources within the account.
 sections:
-  - model: account-membership
-    rule: false
   - endpoint: addAccountMember
   - endpoint: listAccountMembers
   - endpoint: revokeAccountMember

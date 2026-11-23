@@ -19,17 +19,13 @@ post:
             - idempotencyKey
           properties:
             collectionId:
-              type: string
-              description: The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the token. Currently only Collections of type `product` are supported.
+              $ref: '../models/token.yaml#/properties/collectionId'
             idempotencyKey:
-              type: string
-              description: Client-supplied identifier that prevents double creation.
+              $ref: '../models/token.yaml#/properties/idempotencyKey'
             externalId:
-              type: string
-              description: The asset identifier from the issuing system.
+              $ref: '../models/token.yaml#/properties/externalId'
             accountId:
-              type: string
-              description: The Account to create the token for. Defaults to the Account on the Token Collection.
+              $ref: '../models/token.yaml#/properties/accountId'
         examples:
           default:
             value:

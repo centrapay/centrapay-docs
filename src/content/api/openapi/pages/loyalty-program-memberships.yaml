@@ -1,12 +1,10 @@
 title: Loyalty Program Memberships
-description: Loyalty Program Memberships model and related endpoints
+description: Loyalty Program Memberships endpoints
 nav:
   path: Loyalty Programs
   order: 2
 intro: |
   A Loyalty Program Membership represents an Account's membership to a Loyalty Program.
 sections:
-  - model: loyalty-program-membership
-    rule: false
   - endpoint: createLoyaltyProgramMembership
   - endpoint: listLoyaltyProgramMemberships

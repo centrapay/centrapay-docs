@@ -4,18 +4,5 @@ nav:
   path: Media Uploads
   order: 15
 sections:
-  - model: media-upload
-    rule: false
-  - title: Purpose
-    rule: false
-    depth: 3
-    body: |
-      Each valid purpose has specific file format and size requirements.
-
-      |        Purpose        |                             Description                             | Supported MIME Types | Max Size |
-      | --------------------- | ------------------------------------------------------------------- | -------------------- | -------- |
-      | `business-onboarding` | A file used to onboard Businesses so that they can accept payments. | CSV                  | 50MB     |
-      | `branding-logo`       | A logo used for any branding including [Tokens](/api/tokens) and [Businesses](/api/businesses). | JPEG, PNG            | 512KB    |
-      | `bank-account-verification` | Evidence of ownership of a [Bank Account](/api/bank-accounts), used to request a [Bank Account Approval](/api/bank-account-approvals). | JPEG, PNG | 5MB |
   - endpoint: createMediaUpload
   - endpoint: getMediaUploadLocation

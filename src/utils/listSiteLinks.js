@@ -2,12 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import { JSDOM } from 'jsdom';
 
+// Pages document models inline as click-to-reveal toggles beneath the rows
+// that reference them, so the links a page offers are its section headings,
+// those anchored headings, and the anchored reveal rows.
 function extractHeadings(filePath, urlPath) {
-  const fileContents = fs.readFileSync(filePath, 'utf-8');
+  const fileContents = fs.readFileSync(filePath, 'utf8');
   const dom = new JSDOM(fileContents);
-  const links = Array.from(dom.window.document.querySelectorAll('h2'))
-    .filter(heading => heading.id)
-    .map(heading => `${urlPath}#${heading.id}`);
+  const links = Array.from(dom.window.document.querySelectorAll('h2, [data-attributes] h3, li[id]'))
+    .filter(element => element.id)
+    .map(element => `${urlPath}#${element.id}`);
   return links;
 }
 

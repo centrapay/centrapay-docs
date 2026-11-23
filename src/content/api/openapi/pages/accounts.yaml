@@ -1,5 +1,5 @@
 title: Accounts
-description: Account model and related endpoints
+description: Account endpoints
 nav:
   path: Accounts
   order: 1
@@ -11,9 +11,6 @@ intro: |
   can only have a single member and Centrapay users can only be a member of a single
   individual account.
 sections:
-  - model: account
-    rule: false
-  - model: accounts-subscription
   - endpoint: createAccount
   - endpoint: getAccount
   - endpoint: updateAccount

@@ -1,13 +1,11 @@
 title: Payment Links
-description: Payment Link model and related endpoints
+description: Payment Link endpoints
 nav:
   path: Payment Requests
   order: 2
 intro: |
   A Payment Link is an entry point for a user to pay a payment request. A merchant can create a payment and associate the payment request to a payment link.
 sections:
-  - model: payment-link
-    rule: false
   - endpoint: getPaymentLink
   - endpoint: getPaymentLinkSummary
   - endpoint: listPaymentLinks

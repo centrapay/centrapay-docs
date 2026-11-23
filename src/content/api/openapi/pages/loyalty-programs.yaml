@@ -1,20 +1,11 @@
 title: Loyalty Programs
-description: Loyalty Program model and related endpoints
+description: Loyalty Program endpoints
 nav:
   path: Loyalty Programs
   order: 1
 intro: |
   A loyalty program is a container for one or more [Promotions](/api/promotions), which is a mechanism to reward accounts for completing certain actions.
 sections:
-  - model: loyalty-program
-    rule: false
-  - model: loyalty-programs-join-condition
-  - model: loyalty-programs-asset-ownership-join-condition
-    rule: false
-    depth: 3
-  - model: loyalty-programs-bank-account-ownership-join-condition
-    rule: false
-    depth: 3
   - endpoint: createLoyaltyProgram
   - endpoint: listLoyaltyProgramsByAccount
   - endpoint: getLoyaltyProgram

@@ -11,12 +11,16 @@ import { Code } from 'astro-expressive-code/components';
 import createEndpoint from '../utils/createEndpoint';
 import { createMarkdownRenderer } from '../utils/openApiPage.js';
 import OpenApiMarkdown from './OpenApiMarkdown.astro';
-import { resolveRefs, buildEndpointData, getProperties, getParameterProperties, getErrors, requestSchema, getResponseProperties, responseExample } from '../utils/OpenApiResolver.js';
+import { resolveRefs, buildEndpointData, responseExample } from '../utils/OpenApiResolver.js';
 
-// A section showing a named example of an operation (exampleName) renders the
-// example's own title, description and payload, without the attribute and
-// error lists already documented under the operation's main section.
-const { operationId, exampleName, title, description, anchor, depth, badges, subheadingAnchors, schemasMap } = Astro.props;
+// Renders one route section. Rows, response and errors arrive precomputed by
+// getPageSections, which also assigns every reveal's anchor; the code panel
+// still needs the raw endpoint entry resolved against the schema map.
+const { section, schemasMap } = Astro.props;
+const {
+  operationId, exampleName, title, description, anchor, depth, badges,
+  subheadingAnchors, properties = [], response, errors = [],
+} = section;
 
 const endpoints = await getCollection('openapiEndpoints');
 const entry = endpoints.find(e =>
@@ -28,16 +32,17 @@ const pathItem = resolveRefs(entry.data, schemasMap);
 const operation = Object.values(pathItem).find(op => op?.operationId === operationId);
 const endpoint = createEndpoint(buildEndpointData(operation, exampleName));
 // Non-JSON responses (eg a plain `OK`) are shown as is rather than as JSON.
-const response = responseExample(operation, exampleName);
-const responseCode = response.isJson ? endpoint.response : response.value;
-const responseLang = response.isJson ? 'json' : 'text';
-const properties = exampleName ? [] : [
-  ...getParameterProperties(operation.parameters),
-  ...getProperties(requestSchema(operation)),
-];
-const responseProperties = exampleName ? [] : getResponseProperties(operation.responses);
-const commonResponses = Object.values(schemasMap['responses'] ?? {});
-const errors = exampleName ? [] : getErrors(operation.responses, commonResponses);
+const example = responseExample(operation, exampleName);
+const responseCode = example.isJson ? endpoint.response : example.value;
+const responseLang = example.isJson ? 'json' : 'text';
+// A response that is (a list of) a model lists that model's fields directly
+// under the Response heading; only variants of it are hidden behind a toggle.
+const responseIntro = response?.intro
+  ? createMarkdownRenderer(response.introAnchors ?? [])(response.intro) : null;
+const responseOutro = response?.outro
+  ? createMarkdownRenderer(response.outroAnchors ?? [])(response.outro) : null;
+const responseVariants = (response?.variants ?? [])
+  .map(variant => ({ isReveal: true, name: variant.title, badges: variant.badges, reveal: variant }));
 ---
 
 <Row>
@@ -46,12 +51,15 @@ const errors = exampleName ? [] : getErrors(operation.responses, commonResponses
     {description && <OpenApiMarkdown segments={createMarkdownRenderer(subheadingAnchors)(description)} />}
     {properties.length > 0 && (
       <Properties>
-        {properties.map(property => <OpenApiPropertyItem {...property} />)}
+        {properties.map(property => <OpenApiPropertyItem property={property} />)}
       </Properties>
     )}
-    {responseProperties.length > 0 && (
-      <Properties heading="Response">
-        {responseProperties.map(property => <OpenApiPropertyItem {...property} />)}
+    {response && (
+      <Properties heading="Response" anchor={response.anchor}>
+        {responseIntro && <OpenApiMarkdown slot="intro" segments={responseIntro} />}
+        {response.rows.map(property => <OpenApiPropertyItem property={property} />)}
+        {responseVariants.map(property => <OpenApiPropertyItem property={property} />)}
+        {responseOutro && <OpenApiMarkdown slot="outro" segments={responseOutro} />}
       </Properties>
     )}
     {errors.length > 0 && (

@@ -1,15 +1,11 @@
 x-title: Payment Option Config Model
-x-outro: |
-  See [Asset Types](/api/asset-types) for values that may be present in the `type` field.
-
-  > Test payment options should never be used for live merchant configurations.
 type: object
 required:
   - type
 properties:
   type:
     type: string
-    description: Type of payment method. See supported payment types below.
+    description: Type of payment method. See [Asset Types](/api/asset-types) for supported values.
   walletId:
     type: string
     description: Merchant's Centrapay Settlement Wallet Asset to receive payments. Optional for `centrapay.nzd` types, if not supplied then a settlement wallet asset may be created and then assigned.

@@ -8,8 +8,6 @@ intro: |
 
   An Asset Program Config manages the relationship between a specific merchant and an Asset Program, defining how the program's assets will be configured as payment options for that merchant. These configs can be created even if the Asset Program Membership is not yet fully in effect, but they will only become active when all requirements are met: the membership must be both approved by the asset program owner and accepted by the business account. This allows businesses to prepare their payment configurations in advance while ensuring proper authorization before assets can be accepted as payments.
 sections:
-  - model: asset-program-config
-    rule: false
   - endpoint: createAssetProgramConfig
   - endpoint: getAssetProgramConfig
   - endpoint: listAssetProgramConfigsByAssetProgram

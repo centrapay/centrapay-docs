@@ -1,6 +1,4 @@
 x-title: Promotion Params Model
-x-intro: |
-  The shape of `params` depends on the Promotion's `type`.
 type: object
 oneOf:
   - $ref: ../models/promotions-challenge-params.yaml

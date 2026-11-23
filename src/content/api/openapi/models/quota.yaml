@@ -4,6 +4,23 @@ properties:
   type:
     type: string
     description: The quota's type. See [Supported Quota Types](#supported-quota-types).
+    x-values:
+      title: "Supported Quota Types"
+      entries:
+        - name: "spend"
+          description: "Value of wallet asset-based payments or asset transfers from the account."
+          notes:
+            - label: "Scoped"
+              value: "Yes"
+            - label: "Periods"
+              value: "`monthly` `yearly`"
+        - name: "topup"
+          description: "Value of topups from bank accounts linked to the account."
+          notes:
+            - label: "Scoped"
+              value: "Yes"
+            - label: "Periods"
+              value: "`monthly` `yearly`"
   limit:
     x-type: bignumber
     type: string

@@ -25,6 +25,15 @@ properties:
   type:
     type: string
     description: The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
+    x-values:
+      title: "Bank Account Type"
+      intro: |
+        Types of bank accounts to allow access to different [Asset Types](/api/asset-types).
+      entries:
+        - name: "centrapay"
+          description: "Allows topup and withdrawal of the `centrapay.nzd` asset type."
+        - name: "quartz"
+          description: "Allows usage of the `quartz.nzd` asset type."
   directDebitAuthorized:
     type: boolean
     description: Flag indicating the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
@@ -32,7 +41,7 @@ properties:
     type: array
     items:
       $ref: ../models/bank-account-approval-type-summary.yaml
-    description: A list of [Bank Account Approval Type Summaries](#bank-account-approval-type-summary-model).
+    description: 'A list of [Bank Account Approval Type Summaries](#bank-account-approval-type-summary-model): one per type of [Bank Account Approval](/api/bank-account-approvals), summarising its approval status.'
   createdAt:
     type: string
     format: date-time

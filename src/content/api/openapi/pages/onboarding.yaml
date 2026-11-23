@@ -1,5 +1,5 @@
 title: Business Onboarding
-description: Business onboarding model and endpoints for registering merchants
+description: Business onboarding endpoints for registering merchants
 nav:
   path: Onboarding
   order: 20
@@ -26,18 +26,6 @@ sections:
       | **[Asset Program](/api/asset-programs)** | A payment program that enables merchants to accept specific payment methods. |
       | **Vendor** | The organization that manufactures or provides the payment device or software. |
       | **Reseller** | The distributor or third party that sells or supports the terminal to the merchant. |
-  - model: onboarding-request
-    rule: false
-  - model: onboarding-tax-number
-    rule: false
-  - model: onboarding-merchant
-    rule: false
-  - model: onboarding-location
-    rule: false
-  - model: onboarding-asset-program
-    rule: false
-  - model: onboarding-sales-channel
-    rule: false
   - endpoint: createOnboardingRequest
   - endpoint: createOnboardingRequest
     example: ecommerce

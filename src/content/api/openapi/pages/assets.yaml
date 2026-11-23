@@ -1,5 +1,5 @@
 title: Assets
-description: Asset models and related endpoints
+description: Asset endpoints
 nav:
   path: Assets
   order: 1
@@ -13,11 +13,6 @@ intro: |
   asset category, an asset will have different attributes available and different
   rules governing how it can be obtained, shared or spent.
 sections:
-  - model: asset
-    rule: false
-  - model: assets-money
-  - model: assets-token
-  - model: assets-ledger
   - endpoint: getAsset
   - endpoint: getAssetSummary
   - endpoint: listAccountAssets

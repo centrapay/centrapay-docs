@@ -1,12 +1,10 @@
 title: Profiles
-description: Profile model and related endpoints
+description: Profile endpoints
 nav:
   path: Profiles
   order: 18
 intro: |
   A profile represents a Centrapay user's attributes.
 sections:
-  - model: profile
-    rule: false
   - endpoint: updateProfile
   - endpoint: getUserProfile

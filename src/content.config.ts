@@ -89,7 +89,6 @@ const openapiPages = defineCollection({
     intro: z.string().optional(),
     // `rule: false` drops the horizontal rule drawn above a section.
     sections: z.array(z.union([
-      z.object({ model: z.string(), depth: z.number().optional(), rule: z.boolean().optional() }).strict(),
       z.object({
         endpoint: z.string(),
         example: z.string().optional(),

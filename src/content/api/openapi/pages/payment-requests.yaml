@@ -1,5 +1,5 @@
 title: Payment Requests
-description: Payment request models and related endpoints
+description: Payment request endpoints
 nav:
   path: Payment Requests
   order: 1
@@ -18,49 +18,6 @@ intro: |
 
   Payment request state transitions can be notified to webhooks.
 sections:
-  - model: payment-request
-  - model: payment-option
-  - model: accepted-collections
-  - model: payment-condition
-  - model: line-item
-  - model: product-classification
-  - model: paid-by
-  - model: asset-totals
-  - model: payment-activity
-  - model: strategy
-  - title: Payment Activity Types
-    depth: 3
-    body: |
-      |       Name        |                                                 Description                                                 |
-      | ----------------- | ----------------------------------------------------------------------------------------------------------- |
-      | request           | [Payment Request](#payment-request-model) was created.                                                      |
-      | preAuthRequest    | [Payment Request](#payment-request-model) was created with the `preAuth` flag set to "true".                |
-      | paid              | [Payment Request](#payment-request-model) was paid.                                                         |
-      | payment           | A payment was made towards the [Payment Request](#payment-request-model).                                   |
-      | refund            | Funds were returned to the shopper.                                                                         |
-      | cancellation      | [Payment Request](#payment-request-model) was cancelled by the merchant or the shopper.                     |
-      | expiry            | [Payment Request](#payment-request-model) wasn't paid before time out.                                      |
-      | accept-condition  | A [Payment Condition](#payment-condition-model) was accepted.                                               |
-      | decline-condition | A [Payment Condition](#payment-condition-model) was declined.                                               |
-      | authorization     | A Pre Auth [Payment Request](#payment-request-model) was approved and confirmations can be made against it. |
-      | confirmation      | Funds on a Pre Auth have been drawn down on.                                                                |
-      | release           | Pre Auth has been finalised and any remaining funds from Authorization have been returned.                  |
-  - title: Cancellation Reasons
-    depth: 2
-    body: |
-      |            Reason            |                                                                                                     Description                                                                                                      |
-      | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | CANCELLED_BY_MERCHANT        | The merchant cancelled the Payment Request by calling the cancel or void endpoint.                                                                                                                                   |
-      | CANCELLED_BY_PATRON          | The patron cancelled the transaction.                                                                                                                                                                                |
-      | PATRON_CODE_INVALID          | The patron code on the Payment Request was invalid.                                                                                                                                                                  |
-      | PAYMENT_FAILED               | The Payment Request failed for an unknown reason.                                                                                                                                                                    |
-      | PATRON_CODE_EXPIRED          | The patron code on the Payment Request has expired.                                                                                                                                                                  |
-      | DECLINED_BY_PATRON           | The payment was declined by the patron during approval steps.                                                                                                                                                        |
-      | DECLINED_BY_MERCHANT         | The payment was declined by the merchant during approval steps.                                                                                                                                                      |
-      | PAYMENT_DECLINED             | The payment parameters were valid but payment was declined because additional payment restrictions were violated. For example, asset not active, asset overdrawn, quota exceeded or line item category restrictions. |
-      | PAYMENT_REQUEST_EXPIRED      | The Payment Request has expired.                                                                                                                                                                                     |
-      | NO_AVAILABLE_PAYMENT_OPTIONS | No payment options match the requested payment parameters.                                                                                                                                                           |
-      | INACTIVE_ASSET               | The asset used to pay the Payment Request is inactive.                                                                                                                                                               |
   - endpoint: createPaymentRequest
   - endpoint: getPaymentRequest
   - endpoint: getPaymentRequestByShortCode

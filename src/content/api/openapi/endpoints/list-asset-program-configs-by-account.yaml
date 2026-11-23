@@ -29,7 +29,6 @@ get:
   responses:
     '200':
       description: Asset Program Configs listed
-      x-render-properties: true
       content:
         application/json:
           schema:

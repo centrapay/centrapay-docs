@@ -13,6 +13,25 @@ properties:
   type:
     type: string
     description: The type of the Integration Request. Refer to [Integration Types](#integration-types).
+    x-values:
+      title: "Integration Types"
+      entries:
+        - name: "epay"
+          description: "Asset provider [ePay](https://www.giftstation.co.nz/)"
+        - name: "invenco"
+          description: "Terminal vendor [invenco](https://www.invenco.com/)"
+        - name: "skyzer"
+          description: "Terminal vendor [skyzer](https://www.skyzer.co.nz)"
+        - name: "smartpay"
+          description: "Terminal vendor [smartpay](https://www.smartpay.co.nz)"
+        - name: "verifone"
+          description: "Terminal vendor [Verifone](https://www.verifone.com/en/nz)"
+        - name: "vista"
+          description: "Terminal vendor [vista](https://www.vista.co)"
+        - name: "windcave"
+          description: "Terminal vendor [Windcave](https://www.windcave.com/)"
+        - name: "shopify"
+          description: "E-commerce provider [Shopify](https://www.shopify.com/)"
   status:
     type: string
     description: The current status of the Integration Request. Supported values are `active`, `available`, `pending`, `rejected` and `disabled`.
@@ -22,9 +41,13 @@ properties:
   terminal:
     type: object
     description: The terminal configuration. Required for all terminal vendors except Vista. Refer to [Terminal](#terminal).
+    allOf:
+      - $ref: './integration-requests-terminal.yaml'
   product:
     type: object
     description: The requested Epay gift card types to support. Refer to [Product](#product).
+    allOf:
+      - $ref: './integration-requests-product.yaml'
   createdAt:
     type: string
     format: date-time

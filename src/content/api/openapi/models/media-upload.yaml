@@ -10,6 +10,32 @@ properties:
   purpose:
     type: string
     description: The [purpose](#purpose) of the Media Upload.
+    x-values:
+      title: "Purpose"
+      intro: |
+        Each valid purpose has specific file format and size requirements.
+      entries:
+        - name: "`business-onboarding`"
+          description: "A file used to onboard Businesses so that they can accept payments."
+          notes:
+            - label: "Supported MIME Types"
+              value: "CSV"
+            - label: "Max Size"
+              value: "50MB"
+        - name: "`branding-logo`"
+          description: "A logo used for any branding including [Tokens](/api/tokens) and [Businesses](/api/businesses)."
+          notes:
+            - label: "Supported MIME Types"
+              value: "JPEG, PNG"
+            - label: "Max Size"
+              value: "512KB"
+        - name: "`bank-account-verification`"
+          description: "Evidence of ownership of a [Bank Account](/api/bank-accounts), used to request a [Bank Account Approval](/api/bank-account-approvals)."
+          notes:
+            - label: "Supported MIME Types"
+              value: "JPEG, PNG"
+            - label: "Max Size"
+              value: "5MB"
   createdAt:
     type: string
     format: date-time

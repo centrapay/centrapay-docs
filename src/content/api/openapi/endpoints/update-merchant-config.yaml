@@ -30,7 +30,7 @@ put:
           properties:
             paymentOptions:
               type: array
-              description: A list of [Payment Option Configs](#payment-option-config-model).
+              description: A list of [Payment Option Configs](#payment-option-config-model). Test payment options should never be used for live merchant configurations.
               items:
                 $ref: '../models/payment-option-config.yaml'
             allowedRedirectUrls:
