@@ -46,6 +46,8 @@ post:
       description: Event created
       content:
         application/json:
+          schema:
+            $ref: ../models/event.yaml
           examples:
             default:
               value:
@@ -67,4 +69,6 @@ post:
             EVENT_ALREADY_EXISTS:
               description: An Event with this `idempotencyKey` has already been created for the account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: EVENT_ALREADY_EXISTS

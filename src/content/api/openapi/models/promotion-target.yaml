@@ -3,7 +3,15 @@ type: object
 properties:
   type:
     type: string
-    description: Can be `count`, `shared` or `sum`. `count` if the progress should be incremented by 1 each time. `sum` if the progress should be summed from the specified `field` property. `shared` if the progress should be shared with other accounts that have memberships to the same Promotion.
+    description: How progress towards the target is counted.
+    x-values:
+      entries:
+        - name: "count"
+          description: Progress is incremented by 1 each time.
+        - name: "sum"
+          description: Progress is summed from the specified `field` property.
+        - name: "shared"
+          description: Progress is shared with other accounts that have memberships to the same Promotion.
   field:
     type: string
     description: Only supplied if `type` is `sum`. This denotes which field to sum on the [Event](/api/events) to reach the target amount.

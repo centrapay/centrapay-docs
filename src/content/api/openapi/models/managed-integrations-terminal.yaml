@@ -5,21 +5,9 @@ required:
 properties:
   provider:
     type: string
-    enum:
-      - verifone
-      - windcave
-      - epay
-      - invenco
-      - smartpay
-      - skyzer
-      - vista
-      - shopify
-      - epay-pos
-      - eftpos-central
-      - sektor
-      - nomad
-      - fat-zebra
-    description: The terminal provider. Refer to [Integration Types](/api/integration-requests#integration-types).
+    allOf:
+      - $ref: './integration-request.yaml#/properties/type'
+    description: The terminal provider.
   terminalId:
     type: string
     description: The software or logical id of the payment terminal. Either `terminalId` or `kitId` is required.

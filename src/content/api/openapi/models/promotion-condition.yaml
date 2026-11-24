@@ -9,7 +9,31 @@ properties:
     description: The value that the field must satisfy depending on the `operator`. Must be an array of strings when using the `in` operator.
   operator:
     type: string
-    description: The operator to use when looking at the value of the field. Can be `equals`, `not`, `in`, `greater-than`, `less-than`.
+    enum: [equals, not, in, greater-than, less-than]
+    description: The operator to use when looking at the value of the field.
+    x-values:
+      entries:
+        - name: "equals"
+          description: The event field must equal `value`.
+        - name: "not"
+          description: The event field must not equal `value`.
+        - name: "in"
+          description: The event field must match one of the strings in `value`.
+        - name: "greater-than"
+          description: The event field must be numerically greater than `value`.
+        - name: "less-than"
+          description: The event field must be numerically less than `value`.
   type:
     type: string
-    description: The type of condition. Can be `participation-limit`, `merchantId`, `merchantAccountId`, or `accountId`.
+    enum: [participation-limit, merchantId, merchantAccountId, accountId]
+    description: The type of condition.
+    x-values:
+      entries:
+        - name: "participation-limit"
+          description: Caps how much each account can contribute towards a shared goal.
+        - name: "merchantId"
+          description: Only events at the given Merchants count.
+        - name: "merchantAccountId"
+          description: Only events at Merchants owned by the given Accounts count.
+        - name: "accountId"
+          description: Only events from the given Accounts count.

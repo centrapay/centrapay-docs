@@ -1,0 +1,30 @@
+x-title: Event Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Event's unique identifier.
+  accountId:
+    type: string
+    description: The id of the [Account](/api/accounts) the Event belongs to.
+  type:
+    type: string
+    description: The type of Event, as supplied when it was created.
+  data:
+    type: object
+    description: The metadata supplied when the Event was created. Only present if it was supplied.
+  idempotencyKey:
+    type: string
+    description: The key supplied to make the request idempotent.
+  test:
+    type: boolean
+    description: '`true` if the Event was created as a test. Only present if it was supplied.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Event was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Event.

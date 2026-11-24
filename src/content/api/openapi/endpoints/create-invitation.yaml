@@ -75,8 +75,12 @@ post:
             INVALID_ACCOUNT_TYPE:
               description: The resourceId is associated with an account with a non `org` type.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ACCOUNT_TYPE
             RECIPIENT_ALREADY_INVITED:
               description: An active invitation for this recipientAlias and resource already exists, or the recipient has already joined the resource.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: RECIPIENT_ALREADY_INVITED

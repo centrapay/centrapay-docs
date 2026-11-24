@@ -206,3 +206,41 @@ describe('deprecated results', () => {
       .toEqual('/api/merchants#list-merchants');
   });
 });
+
+describe('field results', () => {
+  const fieldData = {
+    0: {
+      href: '/api/accounts#account-model',
+      path: ['Accounts', 'Accounts'],
+      title: 'Account Model',
+      description: 'An Account represents a permission boundary.',
+      content: 'id, region, createdAt',
+      keywords: 'id, region, createdAt',
+    },
+    1: {
+      href: '/api/accounts#account-model.attributes.region',
+      path: ['Accounts', 'Accounts', 'Account Model'],
+      title: 'region',
+      description: 'The region that the Account will operate in.',
+      content: 'region',
+      keywords: 'region',
+      field: true,
+    },
+    2: {
+      href: '/api/regions',
+      path: ['Regions', 'Region'],
+      title: 'Region',
+      description: 'Supported regions.',
+    },
+  };
+  const fieldIndex = createSearchIndex(fieldData);
+
+  it('links straight to a field matching the query', () => {
+    const hrefs = searchSite(fieldIndex, 'region').map(result => result.href);
+    expect(hrefs).toContain('/api/accounts#account-model.attributes.region');
+  });
+
+  it('ranks a page with the same title above the field', () => {
+    expect(searchSite(fieldIndex, 'region')[0].href).toBe('/api/regions');
+  });
+});

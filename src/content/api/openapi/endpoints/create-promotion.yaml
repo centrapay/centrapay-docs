@@ -53,8 +53,7 @@ post:
               type: object
               description: Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
             type:
-              type: string
-              description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+              $ref: '../models/promotion.yaml#/properties/type'
             conditions:
               type: array
               items:
@@ -150,6 +149,8 @@ post:
             PROMOTION_REWARDS_INVALID:
               description: One or more of the rewards ledgers does not exist or permissions are invalid.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PROMOTION_REWARDS_INVALID
 get:
   x-method: GET

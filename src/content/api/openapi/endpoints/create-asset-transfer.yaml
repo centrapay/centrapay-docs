@@ -128,26 +128,38 @@ post:
             INSUFFICIENT_WALLET_BALANCE:
               description: The value of the asset-transfer exceeds the balance on the wallet asset.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INSUFFICIENT_WALLET_BALANCE
             QUOTA_EXCEEDED:
               description: The transfer exceeds one or more spend quota limits. See [Quota Error Response](/api/quotas#errors).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: QUOTA_EXCEEDED
             ASSET_NOT_ACTIVE:
               description: The asset is not active and cannot be transferred.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ASSET_NOT_ACTIVE
             RECIPIENT_MISSING:
               description: The asset must be transferred with a recipient supplied.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: RECIPIENT_MISSING
             INVALID_ASSET_TYPE:
               description: The [asset's type](/api/asset-types/) does not support transfers.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ASSET_TYPE
             LOYALTY_PROGRAM_NOT_FOUND:
               description: The loyalty program does not exist.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LOYALTY_PROGRAM_NOT_FOUND
 get:
   x-method: GET

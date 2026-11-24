@@ -6,7 +6,16 @@ required:
 properties:
   type:
     type: string
-    description: The type of join condition. Valid values are `asset-ownership`, `bank-account-ownership` and `email-domain-verified`.
+    enum: [asset-ownership, bank-account-ownership, email-domain-verified]
+    description: The type of join condition.
+    x-values:
+      entries:
+        - name: "asset-ownership"
+          description: The account must hold an active asset of `params.assetType`.
+        - name: "bank-account-ownership"
+          description: The account must have an active bank account with `params.bank`.
+        - name: "email-domain-verified"
+          description: The user must verify an email address at `params.emailDomain`.
   params:
     type: object
     description: The parameters for the join condition. The structure depends on the `type` field.

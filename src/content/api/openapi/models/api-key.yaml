@@ -9,7 +9,14 @@ properties:
     description: The alphanumeric name of the API key, must be unique within the account.
   role:
     type: string
-    description: 'Supported roles are: "account-owner" and "merchant-terminal". See [Auth Permissions](/api/auth#permissions) for role details.'
+    enum: [account-owner, merchant-terminal]
+    description: The role of the API key. See [Auth Permissions](/api/auth#permissions) for what each role can do.
+    x-values:
+      entries:
+        - name: "account-owner"
+          description: Full control of the account and all its resources.
+        - name: "merchant-terminal"
+          description: Limited to creating and managing payment requests from a point of sale or terminal.
   enabled:
     type: boolean
     description: Flag indicating the API Key is usable for authentication.

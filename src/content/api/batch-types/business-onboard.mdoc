@@ -65,8 +65,8 @@ Used to bulk onboard Businesses into the Centrapay platform.
   {% property name="merchantCountry" type="string" required=true %}
     The country where the Merchant is located.
   {% /property %}
-  {% property name="merchantType" type="string" required=true %}
-    They type of Merchant. Valid values are `physical` or `e-commerce`.
+  {% property name="merchantType" type="string" required=true values=[{name: "physical", description: "A merchant with a physical store."}, {name: "e-commerce", description: "An online only merchant."}] %}
+    The type of Merchant.
   {% /property %}
   {% property name="externalMerchantId" type="string" required=true %}
     The unique identifier of the Merchant in your system.

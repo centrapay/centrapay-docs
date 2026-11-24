@@ -41,7 +41,7 @@ post:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/funds-transfer.yaml
           examples:
             default:
               value:
@@ -64,18 +64,26 @@ post:
             BANK_AUTHORITY_WALLET_MISMATCH:
               description: The wallet asset and the bank account for the withdrawal request do not belong to the same account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_AUTHORITY_WALLET_MISMATCH
             INSUFFICIENT_WALLET_BALANCE:
               description: The wallet asset balance is less than the required amount.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INSUFFICIENT_WALLET_BALANCE
             INVALID_WALLET_TYPE:
               description: The wallet asset type does not support withdrawals. See [settlement wallet assets](/api/wallet-assets#settlement-wallet-assets).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_WALLET_TYPE
             BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL:
               description: The bank account type is not configured for withdrawals. Only `centrapay` type bank accounts are configured.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_TYPE_NOT_CONFIGURED_FOR_WITHDRAWAL
 get:
   x-method: GET
@@ -95,7 +103,7 @@ get:
           schema:
             type: array
             items:
-              type: object
+              $ref: ../models/funds-transfer.yaml
           examples:
             default:
               value:

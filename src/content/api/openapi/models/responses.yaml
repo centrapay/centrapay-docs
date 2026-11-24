@@ -1,60 +1,85 @@
+# Examples are keyed by their message, except 400, whose message varies.
 BadRequest:
   x-status-code: '400'
   description: Malformed Request
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        BAD REQUEST:
-          description: The request is malformed or missing required fields.
+        Bad Request:
+          description: The request is malformed or missing required fields. The message says what's wrong, eg `amount is required`. See [400 Malformed Request](/api/http-status-codes#400-malformed-request).
           value:
-            message: BAD REQUEST
+            statusCode: 400
+            error: Bad Request
+            message: amount is required
 Unauthorized:
   x-status-code: '401'
   description: Unauthorized
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        UNAUTHORIZED:
+        Missing authentication:
           description: API key or JWT is missing, expired or invalid. See [Auth](/api/auth).
           value:
+            statusCode: 401
+            error: Unauthorized
             message: Missing authentication
 Forbidden:
   x-status-code: '403'
   description: Forbidden
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        FORBIDDEN:
-          description: Resource missing, permission denied, or business rule violated.
+        Forbidden:
+          description: The resource doesn't exist, or your user or API key doesn't have permission to access it. See [403 Forbidden](/api/http-status-codes#403-forbidden).
           value:
-            message: FORBIDDEN
+            statusCode: 403
+            error: Forbidden
+            message: Forbidden
 NotFound:
   x-status-code: '404'
   description: Not Found
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        NOT FOUND:
-          description: The requested resource does not exist or you do not have access.
+        Not Found:
+          description: The route doesn't exist. Check the URL and HTTP method against the examples. See [404 Route Not Found](/api/http-status-codes#404-route-not-found).
           value:
-            message: NOT FOUND
+            statusCode: 404
+            error: Not Found
+            message: Not Found
 TooManyRequests:
   x-status-code: '429'
   description: Too Many Requests
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        RATE LIMIT EXCEEDED:
+        RATE_LIMIT_EXCEEDED:
           description: Centrapay API rate limits have been exceeded. See [Rate Limits](/api/rate-limits).
           value:
-            message: RATE LIMIT EXCEEDED
+            statusCode: 429
+            error: Too Many Requests
+            message: RATE_LIMIT_EXCEEDED
 InternalServerError:
   x-status-code: '500'
   description: Internal Server Error
   content:
     application/json:
+      schema:
+        $ref: '../index.yaml#/components/schemas/ApiError'
       examples:
-        SERVER ERROR:
-          description: Something went wrong on our end. Retrying should solve the issue.
+        An internal server error occurred:
+          description: Something went wrong on our end. Retrying should solve the issue. See [5xx Server Error](/api/http-status-codes#5xx-server-error).
           value:
-            message: SERVER ERROR
+            statusCode: 500
+            error: Internal Server Error
+            message: An internal server error occurred

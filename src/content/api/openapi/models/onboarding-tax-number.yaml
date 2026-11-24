@@ -11,4 +11,8 @@ properties:
     type: string
     enum:
       - nz-gst
-    description: Must be `nz-gst`.
+    description: The type of tax number.
+    x-values:
+      entries:
+        - name: "nz-gst"
+          description: A New Zealand GST number.

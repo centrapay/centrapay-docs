@@ -49,28 +49,42 @@ post:
             VOID_WINDOW_EXCEEDED:
               description: The void window is closed 24 hours after the Payment Request `createdAt`. After the void window has closed if the Payment Request is paid, use Refund endpoint to reverse the payment.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: VOID_WINDOW_EXCEEDED
             ALREADY_REFUNDED:
               description: The Payment Request already been refunded.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ALREADY_REFUNDED
             REPEAT_REFERENCE:
               description: A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REPEAT_REFERENCE
             INACTIVE_ASSET:
               description: The Asset is not refundable. It may have been disabled, expired, or already refunded.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INACTIVE_ASSET
             REFUND_NOT_SUPPORTED:
               description: The Asset type does not support refunds.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REFUND_NOT_SUPPORTED
             REQUEST_EXPIRED:
               description: The Payment Request has expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REQUEST_EXPIRED
             PRE_AUTH_ALREADY_CONFIRMED:
               description: The Pre Auth Payment Request already has confirmations. Use Refund endpoint to reverse the transaction.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PRE_AUTH_ALREADY_CONFIRMED

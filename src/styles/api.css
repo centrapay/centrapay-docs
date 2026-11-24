@@ -1,0 +1,80 @@
+/* Repeated on every field, so defined once: as inline class lists they doubled page sizes. */
+
+@utility api-rich-text {
+  @apply text-sm leading-6 text-content-secondary;
+
+  & a {
+    @apply font-medium text-content-primary underline decoration-outline-opaque underline-offset-2;
+  }
+
+  & a:hover {
+    @apply decoration-current;
+  }
+
+  & code {
+    @apply rounded border border-outline-opaque bg-surface-secondary px-1 py-px font-mono text-[0.8125rem];
+  }
+
+  & p + p {
+    @apply mt-2;
+  }
+}
+
+@utility api-anchor-link {
+  @apply absolute hidden size-6 items-center justify-center rounded text-content-tertiary opacity-0 transition-opacity motion-reduce:transition-none md:flex;
+  @apply group-hover/anchor:opacity-100 hover:text-content-primary focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-focus-ring;
+
+  &::before {
+    content: '';
+    @apply size-3.5 bg-current;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M6.75 9.25a3 3 0 0 0 4.24 0l2-2a3 3 0 0 0-4.24-4.24l-.75.75'/%3E%3Cpath d='M9.25 6.75a3 3 0 0 0-4.24 0l-2 2a3 3 0 0 0 4.24 4.24l.75-.75'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  &[data-copied] {
+    @apply text-content-primary opacity-100;
+  }
+
+  &[data-copied]::after {
+    content: 'Copied';
+    @apply pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-surface-inverse px-1.5 py-0.5 text-[11px] leading-4 font-medium whitespace-nowrap text-content-inverse-primary shadow-sm;
+  }
+}
+
+/* Expressive Code resets everything inside its blocks with an unlayered
+   `all: revert`, which beats layered utilities, hence the `!important`s.
+   On wide screens the column is a sticky flex column no taller than the
+   screen, and each sample shrinks into a share of it: a short request
+   leaves the rest to the response. */
+@utility api-code-column {
+  @apply min-w-0 space-y-6;
+
+  & pre {
+    max-height: 28rem !important;
+    overflow-y: auto !important;
+  }
+
+  @variant xl {
+    @apply sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col self-start;
+
+    & [data-code-sample],
+    & .expressive-code,
+    & figure {
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: 0 !important;
+    }
+
+    & pre {
+      max-height: none !important;
+      min-height: 0 !important;
+    }
+
+    /* The request keeps its height rather than shrinking to a sliver beside
+       a long response, and scrolls past half the column. */
+    & > [data-code-sample]:first-child {
+      flex: none !important;
+      max-height: calc((100vh - 8.5rem) / 2) !important;
+    }
+  }
+}
+

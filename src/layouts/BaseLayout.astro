@@ -77,7 +77,7 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
   <body class="bg-surface-primary text-content-primary">
     <header>
     </header>
-    <div class="flex h-screen w-screen flex-col">
+    <div class="flex h-screen w-full flex-col">
       <AppShell path={Astro.url.pathname} navigation={navigation}>
         <slot />
         <Footer />

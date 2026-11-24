@@ -12,7 +12,7 @@ properties:
     description: The url where the file is located.
   status:
     type: string
-    description: The current [Lifecycle Stage](#batch-lifecycle) of the batch.
+    description: The current lifecycle stage of the batch.
     x-values:
       title: "Batch Lifecycle"
       intro: |
@@ -31,11 +31,9 @@ properties:
           description: "There is an error accessing or reading the file, preventing processing."
   type:
     type: string
-    description: '[Batch Type](#batch-types) id used to describe the batch content.'
+    description: The Batch Type, which describes the batch content.
     x-values:
       title: "Batch Types"
-      intro: |
-        The following table describes the Batch Types supported for loading.
       entries:
         - name: "[farmlands-external-asset](/api/batch-types/farmlands-external-asset)"
           description: "Farmlands External Asset Batch."
@@ -43,6 +41,8 @@ properties:
           description: "Ticketek Ticket Batch."
         - name: "[business-onboard](/api/batch-types/business-onboard)"
           description: "Business Onboard Batch."
+        - name: "payap-merchant"
+          description: Payap Merchant Batch.
   totalCount:
     type: string
     x-type: bignumber

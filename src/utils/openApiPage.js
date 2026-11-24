@@ -1,11 +1,15 @@
 import Slugger from 'github-slugger';
 import { Marked, marked } from 'marked';
 import {
+  errorBodyRows,
+  formatDescription,
   getErrors,
   getParameterProperties,
+  plainValue,
   propertyRows,
   requestSchema,
   responseModel,
+  successCode,
 } from './OpenApiResolver.js';
 
 // Source of truth for spec-driven API pages, shared by the Astro page,
@@ -79,6 +83,8 @@ function endpointSection(section, operations) {
     exampleName: section.example,
     title: shown.summary,
     description: shown.description,
+    method: operation['x-method'],
+    path: operation['x-path'],
     depth: section.depth ?? 2,
     badges: shown.badges,
   };
@@ -114,18 +120,76 @@ function resolveSection(section, { operations }) {
   return extraSection(section);
 }
 
+const paramsIn = (operation, location) => (operation.parameters ?? []).filter(param => param?.in === location);
+
 // The full route documentation for an operation: parameter and payload rows,
 // the response (a reveal when it is (a list of) a model, otherwise rows) and
 // the error list.
 function endpointDetails(operation, models) {
+  const pathParams = getParameterProperties(paramsIn(operation, 'path'), models);
+  const queryParams = getParameterProperties(paramsIn(operation, 'query'), models);
+  const body = propertyRows(requestSchema(operation), models);
+  const commonResponses = Object.values(models['responses'] ?? {});
+  const errors = getErrors(operation.responses, commonResponses);
   return {
-    properties: [
-      ...getParameterProperties(operation.parameters, models),
-      ...propertyRows(requestSchema(operation), models),
-    ],
+    pathParams,
+    queryParams,
+    body,
+    properties: [...pathParams, ...queryParams, ...body],
     response: responseModel(operation, models),
-    errors: getErrors(operation.responses, Object.values(models['responses'] ?? {})),
+    errors,
+    responses: statusResponses(operation, errors, commonResponses, models),
   };
+}
+
+function statusResponses(operation, errors, commonResponses, models) {
+  const byCode = new Map(commonResponses
+    .filter(response => response?.['x-status-code'])
+    .map(response => [String(response['x-status-code']), response]));
+  for (const [code, response] of Object.entries(operation.responses ?? {})) {
+    byCode.set(code, response ?? byCode.get(code));
+  }
+  const success = successCode(operation.responses);
+  const codes = new Set([...(success ? [success] : []), ...errors.map(error => String(error.code))]);
+  return [...codes]
+    .sort((a, b) => Number(a) - Number(b))
+    .map(code => {
+      const codeErrors = errors.filter(error => String(error.code) === code);
+      return {
+        code,
+        success: code === success,
+        description: formatDescription(byCode.get(code)?.description),
+        errors: codeErrors,
+        example: codeErrors[0]?.example,
+        fields: code === success ? [] : errorFields(byCode.get(code), codeErrors, models),
+      };
+    });
+}
+
+// Error bodies share one shape: `message` lists each documented error as a
+// possible value, and fields with one value across them say what it is.
+function errorFields(response, errors, models) {
+  return errorBodyRows(response, models).map(row => (row.name === 'message'
+    ? { ...row, typeLabel: 'enum', values: { entries: errors.map(errorValue) } }
+    : constantField(row, errors)));
+}
+
+function errorValue(error) {
+  return { name: escapeHtml(error.message), description: error.description };
+}
+
+function constantField(row, errors) {
+  const values = new Set(errors.map(error => error.example?.[row.name]));
+  const [value] = values;
+  if (values.size !== 1 || value === undefined) {
+    return row;
+  }
+  const always = `Always <code>${escapeHtml(String(value))}</code>.`;
+  return { ...row, description: row.description ? `${row.description} ${always}` : always };
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function resolvePageSection(section, ctx) {
@@ -140,6 +204,7 @@ function resolvePageSection(section, ctx) {
   if (resolved.kind === 'endpoint' && !resolved.exampleName) {
     Object.assign(resolved, endpointDetails(ctx.operations[resolved.operationId], ctx.models));
     anchorSectionContent(resolved, ctx);
+    anchorFields(resolved);
   }
   return resolved;
 }
@@ -187,10 +252,50 @@ function anchorReveal(reveal, ctx) {
   reveal.variants?.forEach(variant => anchorReveal(variant, ctx));
 }
 
+// Field anchors are dotted paths (`create-an-account.body.name`). Slugs never
+// contain a dot, so they can't collide with heading or model anchors.
+const fieldSlug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function anchorFieldRows(rows, prefix) {
+  for (const row of rows ?? []) {
+    row.fieldAnchor = `${prefix}.${row.name}`;
+    if (row.reveal) {
+      anchorFieldReveal(row.reveal, row.fieldAnchor);
+    }
+    if (row.values) {
+      anchorValues(row.values, row.fieldAnchor);
+    }
+  }
+}
+
+// Each possible value is anchored under its field
+// (`get-a-payment-request.responses.body.status.paid`).
+function anchorValues(values, prefix) {
+  values.anchors = values.entries.map(entry => `${prefix}.${plainValue(entry.name).replace(/\s+/g, '-')}`);
+}
+
+function anchorFieldReveal(reveal, prefix) {
+  anchorFieldRows(reveal.rows, prefix);
+  for (const variant of reveal.variants ?? []) {
+    variant.fieldAnchor = `${prefix}.${fieldSlug(variant.title ?? 'variant')}`;
+    anchorFieldReveal(variant, variant.fieldAnchor);
+  }
+}
+
+function anchorFields(section) {
+  const anchors = sectionAnchors(section.anchor);
+  anchorFieldRows(section.pathParams, anchors.path);
+  anchorFieldRows(section.queryParams, anchors.query);
+  anchorFieldRows(section.body, anchors.body);
+  if (section.response) {
+    anchorFieldReveal(section.response, anchors.responseBody);
+  }
+}
+
 // A reference table or value list anchors its first occurrence per page,
 // keeping the anchor the page's old table section had.
 function anchorReference(reference, ctx) {
-  if (ctx.anchored.has(reference.title)) {
+  if (!reference.title || ctx.anchored.has(reference.title)) {
     return;
   }
   ctx.anchored.add(reference.title);
@@ -262,7 +367,23 @@ export function createMarkdownRenderer(anchors = []) {
 export function navHeadings(sections) {
   return sections
     .filter(section => section.depth === 2)
-    .map(section => ({ depth: 2, slug: section.anchor, text: section.title }));
+    .map(section => ({
+      depth: 2,
+      slug: section.anchor,
+      text: section.title,
+      ...(section.method ? { method: section.method } : {}),
+    }));
+}
+
+export function sectionAnchors(sectionAnchor) {
+  const part = name => `${sectionAnchor}.${name}`;
+  return {
+    path: part('path'),
+    query: part('query'),
+    body: part('body'),
+    responses: part('responses'),
+    responseBody: part('responses.body'),
+  };
 }
 
 export function firstParagraph(text) {

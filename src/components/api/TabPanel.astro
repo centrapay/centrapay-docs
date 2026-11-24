@@ -1,0 +1,9 @@
+---
+import { SHOW_PANEL } from './tabs.js';
+
+const { index, scope = 'tabs', label, class: className } = Astro.props;
+---
+
+<div role={label ? 'group' : undefined} aria-label={label} class:list={['hidden', SHOW_PANEL[scope][index], scope === 'section' && 'min-h-0 flex-col', className ?? (scope === 'tabs' && 'pt-5')]}>
+  <slot />
+</div>

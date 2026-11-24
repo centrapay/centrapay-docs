@@ -75,16 +75,24 @@ post:
             INVITATION_EXPIRED:
               description: The Invitation is expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVITATION_EXPIRED
             INVITATION_ALREADY_ACCEPTED:
               description: The Invitation has already been accepted.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVITATION_ALREADY_ACCEPTED
             RECIPIENT_ALIAS_MISMATCH:
               description: The alias of the user accepting an Invitation is not the same as the recipientAlias of the Invitation.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: RECIPIENT_ALIAS_MISMATCH
             INVITATION_REVOKED:
               description: The Invitation was revoked.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVITATION_REVOKED

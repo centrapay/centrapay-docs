@@ -18,7 +18,14 @@ properties:
     description: When the Connection was created.
   status:
     type: string
-    description: The status of the Connection. Can be `created` or `authorized`.
+    enum: [created, authorized]
+    description: The status of the Connection.
+    x-values:
+      entries:
+        - name: "created"
+          description: Waiting for a user to authorize the Connection with a wallet.
+        - name: "authorized"
+          description: A user has authorized the Connection and linked a wallet to it.
   url:
     type: string
     description: The url of the Connection.

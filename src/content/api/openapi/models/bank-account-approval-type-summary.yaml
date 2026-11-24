@@ -7,7 +7,16 @@ properties:
     description: The type of Bank Account Approval Summary.
   status:
     type: string
-    description: The summarized status of the Bank Account Approvals. Supported values are `pending`, `approved` and `declined`.
+    enum: [pending, approved, declined]
+    description: The summarized status of the Bank Account Approvals.
+    x-values:
+      entries:
+        - name: "pending"
+          description: No approval of this type has been decided yet.
+        - name: "approved"
+          description: At least one approval of this type has been approved.
+        - name: "declined"
+          description: Every decided approval of this type was declined.
   updatedAt:
     type: string
     format: date-time

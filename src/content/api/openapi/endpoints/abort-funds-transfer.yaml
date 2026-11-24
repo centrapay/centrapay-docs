@@ -33,8 +33,12 @@ post:
             ABORT_WITHDRAWAL_NOT_SUPPORTED:
               description: Aborting funds transfers of type `withdrawal` is not supported.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ABORT_WITHDRAWAL_NOT_SUPPORTED
             FUNDS_TRANSFER_ALREADY_COMPLETE:
               description: The funds transfer is already complete.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: FUNDS_TRANSFER_ALREADY_COMPLETE

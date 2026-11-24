@@ -48,4 +48,6 @@ post:
             BILLING_BANK_ACCOUNT_REQUIRED:
               description: A billing bank account is required before the membership can be accepted or approved.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BILLING_BANK_ACCOUNT_REQUIRED

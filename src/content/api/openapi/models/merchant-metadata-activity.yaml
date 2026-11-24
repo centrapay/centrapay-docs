@@ -1,0 +1,20 @@
+x-title: Merchant Metadata Activity Model
+type: object
+properties:
+  merchantId:
+    type: string
+    description: The id of the [Merchant](#merchant-model).
+  metadata:
+    type: object
+    additionalProperties:
+      type: string
+    description: The Merchant's metadata after the update, including keys set earlier. Keys set to an empty string are removed.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the metadata was set.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that set the metadata.

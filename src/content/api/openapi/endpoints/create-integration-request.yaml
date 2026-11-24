@@ -21,22 +21,7 @@ post:
               type: string
               description: The [Merchant](/api/merchants) id for the Integration Request.
             type:
-              type: string
-              enum:
-                - verifone
-                - windcave
-                - epay
-                - invenco
-                - smartpay
-                - skyzer
-                - vista
-                - shopify
-                - epay-pos
-                - eftpos-central
-                - sektor
-                - nomad
-                - fat-zebra
-              description: The type of the Integration Request. Refer to [Integration Types](#integration-types).
+              $ref: '../models/integration-request.yaml#/properties/type'
             terminal:
               type: object
               description: The terminal configuration. Required for all terminal vendors except Vista. Not allowed for `vista`, `epay`, `shopify`, `nomad` and `fat-zebra`. Refer to [Terminal](#terminal).
@@ -95,21 +80,7 @@ get:
     - name: type
       in: query
       schema:
-        type: string
-        enum:
-          - verifone
-          - windcave
-          - epay
-          - invenco
-          - smartpay
-          - skyzer
-          - vista
-          - shopify
-          - epay-pos
-          - eftpos-central
-          - sektor
-          - nomad
-          - fat-zebra
+        $ref: '../models/integration-request.yaml#/properties/type'
       example: epay
       description: The type of Integration Request.
     - name: pending

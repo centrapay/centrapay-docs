@@ -42,7 +42,7 @@ post:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/merchant-metadata-activity.yaml
           examples:
             default:
               value:

@@ -71,8 +71,12 @@ post:
             DIRECT_DEBIT_ALREADY_AUTHORIZED:
               description: This bank authority cannot be changed as all fields have been set.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: DIRECT_DEBIT_ALREADY_AUTHORIZED
             DIRECT_DEBIT_LIMIT_EXCEEDED:
               description: The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: DIRECT_DEBIT_LIMIT_EXCEEDED

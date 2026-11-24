@@ -12,7 +12,14 @@ properties:
     description: The [Account](/api/accounts/) that owns the [Merchant](/api/merchants).
   status:
     type: string
-    description: 'The status of the Asset Program Membership. Possible values: `created`, `active`, `inactive`.'
+    enum: [created, active]
+    description: The status of the Asset Program Membership.
+    x-values:
+      entries:
+        - name: "created"
+          description: Waiting for the terms of service to be accepted and the membership approved.
+        - name: "active"
+          description: The terms of service are accepted and the membership is approved.
   tosAcceptedAt:
     type: string
     format: date-time

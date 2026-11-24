@@ -124,8 +124,12 @@ post:
             BANK_AUTHORITY_LIMIT_EXCEEDED:
               description: The account already has the max amount of bank accounts.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_AUTHORITY_LIMIT_EXCEEDED
             BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED:
               description: There are already two bank accounts for the provided bank account number, which is the maximum allowed.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_AUTHORITIES_FOR_BANK_ACCOUNT_EXCEEDED

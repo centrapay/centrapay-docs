@@ -54,8 +54,7 @@ properties:
     description: Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
     x-deprecated: true
   type:
-    type: string
-    description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+    $ref: './promotion.yaml#/properties/type'
   conditions:
     type: array
     items:
@@ -71,7 +70,18 @@ properties:
     x-deprecated: true
   status:
     type: string
-    description: The status of the Promotion Membership. Can be `active`, `expired`, or `complete`.
+    enum: [active, expired, complete, archived]
+    description: The status of the Promotion Membership.
+    x-values:
+      entries:
+        - name: "active"
+          description: The member is taking part and progress is still counting.
+        - name: "expired"
+          description: The Promotion ended, expired or ran out of rewards before the member completed it.
+        - name: "complete"
+          description: The member reached the target, or the shared goal they contributed to was met.
+        - name: "archived"
+          description: The membership has been archived.
   createdAt:
     type: string
     format: date-time

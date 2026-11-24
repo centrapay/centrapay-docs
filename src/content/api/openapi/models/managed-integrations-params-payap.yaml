@@ -55,7 +55,9 @@ properties:
     description: The name of the merchant.
   merchantType:
     type: string
-    description: The type of the merchant, eg `physical` or `e-commerce`. When `physical`, `merchantStreetNumberName`, `merchantTown` and `merchantCountry` are required.
+    allOf:
+      - $ref: './merchant-model.yaml#/properties/type'
+    description: The type of the merchant. When `physical`, `merchantStreetNumberName`, `merchantTown` and `merchantCountry` are required.
   merchantCategoryCode:
     type: string
     minLength: 4

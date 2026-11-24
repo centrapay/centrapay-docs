@@ -1,25 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
-import Row from './Row.astro';
-import Column from './Column.astro';
-import CodePanel from './CodePanel.astro';
-import Properties from './Properties.astro';
-import ErrorItem from './Error.astro';
-import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
-import OpenApiHeading from './OpenApiHeading.astro';
-import { Code } from 'astro-expressive-code/components';
+import ApiSection from './api/ApiSection.astro';
+import AnchorHeading from './api/AnchorHeading.astro';
+import CodeSample from './api/CodeSample.astro';
+import EndpointPath from './api/EndpointPath.astro';
+import FieldList from './api/FieldList.astro';
+import Markdown from './api/Markdown.astro';
+import ResponseTabs from './api/ResponseTabs.astro';
+import StatusTag from './api/StatusTag.astro';
+import Subsection from './api/Subsection.astro';
+import TabPanel from './api/TabPanel.astro';
+import { ANCHOR_TARGET } from './api/styles.js';
+import OpenApiField from './OpenApiField.astro';
 import createEndpoint from '../utils/createEndpoint';
-import { createMarkdownRenderer } from '../utils/openApiPage.js';
-import OpenApiMarkdown from './OpenApiMarkdown.astro';
+import { createMarkdownRenderer, sectionAnchors } from '../utils/openApiPage.js';
 import { resolveRefs, buildEndpointData, responseExample } from '../utils/OpenApiResolver.js';
 
-// Renders one route section. Rows, response and errors arrive precomputed by
-// getPageSections, which also assigns every reveal's anchor; the code panel
-// still needs the raw endpoint entry resolved against the schema map.
-const { section, schemasMap } = Astro.props;
+// Rows, response and errors arrive precomputed by getPageSections, which also
+// assigns every anchor; the code samples still need the raw operation resolved
+// against the schema map.
+const { section, schemasMap, divider = true } = Astro.props;
 const {
-  operationId, exampleName, title, description, anchor, depth, badges,
-  subheadingAnchors, properties = [], response, errors = [],
+  operationId, exampleName, title, description, anchor, depth, badges, method, path,
+  subheadingAnchors, pathParams = [], queryParams = [], body = [], response, responses = [],
 } = section;
 
 const endpoints = await getCollection('openapiEndpoints');
@@ -35,51 +38,81 @@ const endpoint = createEndpoint(buildEndpointData(operation, exampleName));
 const example = responseExample(operation, exampleName);
 const responseCode = example.isJson ? endpoint.response : example.value;
 const responseLang = example.isJson ? 'json' : 'text';
-// A response that is (a list of) a model lists that model's fields directly
-// under the Response heading; only variants of it are hidden behind a toggle.
-const responseIntro = response?.intro
-  ? createMarkdownRenderer(response.introAnchors ?? [])(response.intro) : null;
-const responseOutro = response?.outro
-  ? createMarkdownRenderer(response.outroAnchors ?? [])(response.outro) : null;
-const responseVariants = (response?.variants ?? [])
-  .map(variant => ({ isReveal: true, name: variant.title, badges: variant.badges, reveal: variant }));
+
+const anchors = sectionAnchors(anchor);
+const subLevel = depth + 1;
+const markdown = (text, headingAnchors) => (text ? createMarkdownRenderer(headingAnchors ?? [])(text) : null);
+const responseIntro = markdown(response?.intro, response?.introAnchors);
+const responseOutro = markdown(response?.outro, response?.outroAnchors);
+const responseRows = response?.rows ?? [];
+const responseVariants = response?.variants ?? [];
+const hasResponseFields = Boolean(responseIntro || responseOutro || responseRows.length || responseVariants.length);
+
+const responseSamples = responses.map(status => (status.success
+  ? { title: `Response ${status.code}`, code: responseCode, lang: responseLang }
+  : { title: `Response ${status.code}`, code: status.example && JSON.stringify(status.example, null, 2), lang: 'json' }));
+
+const fieldGroups = [
+  { id: anchors.path, title: 'Path parameters', rows: pathParams },
+  { id: anchors.query, title: 'Query parameters', rows: queryParams },
+  { id: anchors.body, title: 'Request body', rows: body },
+].filter(group => group.rows.length > 0);
 ---
 
-<Row>
-  <Column>
-    <OpenApiHeading depth={depth} anchor={anchor} title={title} badges={badges} />
-    {description && <OpenApiMarkdown segments={createMarkdownRenderer(subheadingAnchors)(description)} />}
-    {properties.length > 0 && (
-      <Properties>
-        {properties.map(property => <OpenApiPropertyItem property={property} />)}
-      </Properties>
-    )}
-    {response && (
-      <Properties heading="Response" anchor={response.anchor}>
-        {responseIntro && <OpenApiMarkdown slot="intro" segments={responseIntro} />}
-        {response.rows.map(property => <OpenApiPropertyItem property={property} />)}
-        {responseVariants.map(property => <OpenApiPropertyItem property={property} />)}
-        {responseOutro && <OpenApiMarkdown slot="outro" segments={responseOutro} />}
-      </Properties>
-    )}
-    {errors.length > 0 && (
-      <Properties heading="Errors">
-        {errors.map(({ code, message, description }) => (
-          <ErrorItem code={code} message={message}>
-            {description && <p set:html={description} />}
-          </ErrorItem>
+<ApiSection divider={divider}>
+  <div class="space-y-4">
+    <AnchorHeading level={depth} id={anchor}>
+      {title}
+      {badges.map(status => <StatusTag status={status} />)}
+    </AnchorHeading>
+    <EndpointPath method={method} path={path} />
+  </div>
+  {description && <Markdown segments={createMarkdownRenderer(subheadingAnchors)(description)} />}
+  {fieldGroups.map(group => (
+    <Subsection level={subLevel} id={group.id} title={group.title}>
+      <FieldList>
+        {group.rows.map(row => <OpenApiField row={row} required />)}
+      </FieldList>
+    </Subsection>
+  ))}
+  {responses.length > 0 && (
+    <Subsection level={subLevel} id={anchors.responses} title="Responses">
+      <ResponseTabs id={anchors.responses} codes={responses.map(status => status.code)}>
+        {responses.map((status, index) => (
+          <TabPanel index={index} label={`${status.code} response`} class="pt-1">
+            {status.success ? (
+              <>
+                {!hasResponseFields && status.description && <p class="pt-4 api-rich-text" set:html={status.description} />}
+                {/* Keeps the anchor the response model's old page section had. */}
+                <div id={response?.anchor} data-link-target={response?.anchor ? '' : undefined} class:list={['space-y-3 empty:hidden', ANCHOR_TARGET]}>
+                  {responseIntro && <Markdown segments={responseIntro} class="prose-sm" />}
+                  {(responseRows.length > 0 || responseVariants.length > 0) && (
+                    <FieldList flush>
+                      {responseRows.map(row => <OpenApiField row={row} />)}
+                      {responseVariants.map(variant => <OpenApiField variant={variant} />)}
+                    </FieldList>
+                  )}
+                  {responseOutro && <Markdown segments={responseOutro} class="prose-sm" />}
+                </div>
+              </>
+            ) : (
+              <FieldList flush>
+                {status.fields.map(row => <OpenApiField row={row} />)}
+              </FieldList>
+            )}
+          </TabPanel>
         ))}
-      </Properties>
-    )}
-  </Column>
-  <Column sticky>
-    <CodePanel>
-      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal" />
-    </CodePanel>
-    {responseCode &&
-      <CodePanel>
-        <Code code={responseCode} lang={responseLang} title="Response" frame="terminal" />
-      </CodePanel>
-    }
-  </Column>
-</Row>
+      </ResponseTabs>
+    </Subsection>
+  )}
+  <Fragment slot="code">
+    <CodeSample code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" />
+    {responses.length > 0
+      ? responseSamples.map((sample, index) => sample.code && (
+        <TabPanel index={index} scope="section">
+          <CodeSample code={sample.code} lang={sample.lang} title={sample.title} />
+        </TabPanel>
+      ))
+      : responseCode && <CodeSample code={responseCode} lang={responseLang} title="Response" />}
+  </Fragment>
+</ApiSection>

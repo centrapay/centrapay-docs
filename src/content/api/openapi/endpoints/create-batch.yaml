@@ -19,13 +19,7 @@ post:
             - accountId
           properties:
             type:
-              type: string
-              description: '[Batch Type](#batch-types) used to describe the batch content.'
-              enum:
-                - farmlands-external-asset
-                - ticketek-ticket
-                - payap-merchant
-                - business-onboard
+              $ref: '../models/batch.yaml#/properties/type'
             url:
               type: string
               description: The url where the file is located.
@@ -71,4 +65,6 @@ post:
             LIVENESS_MISSMATCH:
               description: accountId `test` flag is not the same as submitted Batch’s `test` flag.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISSMATCH

@@ -1,8 +1,5 @@
 ---
-import Row from './Row.astro';
-import Column from './Column.astro';
-import CodePanel from './CodePanel.astro';
-import { Code } from 'astro-expressive-code/components'
+import CodeSample from './api/CodeSample.astro';
 import createEndpoint from '../utils/createEndpoint';
 
 const { path, filename } = Astro.props;
@@ -20,35 +17,12 @@ if (!endpoint) {
 }
 ---
 
-{ stacked ? (
-  <div class="[&>:first-child]:mt-0">
-    <slot/>
-    <CodePanel>
-      <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
-    </CodePanel>
-
-    { endpoint.response &&
-      <CodePanel>
-        <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
-      </CodePanel>
-    }
+<div class:list={['my-8 grid grid-cols-1 items-start gap-x-12 gap-y-6', !stacked && 'xl:grid-cols-2']}>
+  <div class="min-w-0 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+    <slot />
   </div>
-) : (
-  <Row>
-    <Column>
-      <slot/>
-    </Column>
-
-    <Column sticky>
-      <CodePanel>
-        <Code code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" frame="terminal"/>
-      </CodePanel>
-
-      { endpoint.response &&
-        <CodePanel>
-          <Code code={endpoint.response} lang="json" title="Response" frame="terminal"/>
-        </CodePanel>
-      }
-    </Column>
-  </Row>
-)}
+  <div class:list={['not-prose', stacked ? 'min-w-0 space-y-6' : 'api-code-column']}>
+    <CodeSample code={endpoint.requests.curl.code} lang={endpoint.requests.curl.lang} title="Request" />
+    {endpoint.response && <CodeSample code={endpoint.response} lang="json" title="Response" />}
+  </div>
+</div>

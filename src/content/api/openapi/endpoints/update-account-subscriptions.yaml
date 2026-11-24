@@ -38,6 +38,14 @@ put:
       description: Subscriptions updated
       content:
         application/json:
+          schema:
+            type: object
+            properties:
+              subscriptions:
+                type: array
+                items:
+                  type: string
+                description: The subscriptions from the request, exactly as sent.
           examples:
             default:
               value:
@@ -53,8 +61,12 @@ put:
             INVALID_ACCOUNT_ID:
               description: The account does not exist.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ACCOUNT_ID
             INVALID_SUBSCRIPTION:
               description: One of the subscriptions in the list is not valid.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_SUBSCRIPTION

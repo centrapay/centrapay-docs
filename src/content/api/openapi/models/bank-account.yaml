@@ -24,7 +24,7 @@ properties:
     description: Flag indicating the Bank Account is verified, allowing it to be used to Top Up.
   type:
     type: string
-    description: The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
+    description: The type of the Bank Account. Defaults to `centrapay`.
     x-values:
       title: "Bank Account Type"
       intro: |

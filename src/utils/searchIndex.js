@@ -27,6 +27,10 @@ const DEPRECATED_PENALTY = 0.35;
 // ...unless the query itself asks for them, in which case they rank normally.
 const DEPRECATED_INTENT = /\b(legacy|deprecated|old|v1)\b/i;
 
+// Fields outnumber sections and share names across endpoints, so a matching
+// page or section should still come first.
+const FIELD_PENALTY = 0.5;
+
 // Extra score for a query that lines up with the start of a title, which is
 // almost always what someone typing a page or endpoint name is after.
 const TITLE_EXACT_BOOST = 100;
@@ -142,7 +146,8 @@ function collectTallies(index, query) {
 }
 
 function demotion(entry, wantsDeprecated) {
-  return entry.deprecated && !wantsDeprecated ? DEPRECATED_PENALTY : 1;
+  const deprecation = entry.deprecated && !wantsDeprecated ? DEPRECATED_PENALTY : 1;
+  return deprecation * (entry.field ? FIELD_PENALTY : 1);
 }
 
 /**

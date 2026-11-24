@@ -50,4 +50,6 @@ post:
             UNSUPPORTED_ASSET_TYPE:
               description: Asset type can not be archived
               value:
+                statusCode: 403
+                error: Forbidden
                 message: UNSUPPORTED_ASSET_TYPE

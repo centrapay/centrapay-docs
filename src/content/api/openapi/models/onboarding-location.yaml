@@ -24,4 +24,8 @@ properties:
     type: string
     enum:
       - NZ
-    description: ISO 3166-1 alpha-2 country code. Must be `NZ`.
+    description: ISO 3166-1 alpha-2 country code.
+    x-values:
+      entries:
+        - name: "NZ"
+          description: New Zealand.

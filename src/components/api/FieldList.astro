@@ -1,0 +1,14 @@
+---
+const { nested = false, flush = false } = Astro.props;
+---
+
+<ul
+  role="list"
+  class:list={[
+    'divide-y divide-outline-opaque/60',
+    nested && 'mt-3 ml-[7px] border-l border-outline-opaque pl-6',
+    !nested && !flush && 'border-t border-outline-opaque/60',
+  ]}
+>
+  <slot />
+</ul>

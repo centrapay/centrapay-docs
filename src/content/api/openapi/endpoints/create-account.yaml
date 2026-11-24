@@ -20,8 +20,7 @@ post:
               type: string
               description: The name of the Account.
             type:
-              type: string
-              description: Account type, must be either "org" or "individual".
+              $ref: '../models/account.yaml#/properties/type'
             region:
               type: string
               description: The region that the Account will operate in. Required for "org" Accounts, not allowed for "individual" Accounts. Can be "NZ", "AU", or "US".

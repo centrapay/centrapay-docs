@@ -36,11 +36,27 @@ properties:
   status:
     type: string
     enum: [new, paid, cancelled, expired]
-    description: 'Valid values: `new`, `paid`, `cancelled`, or `expired`.'
+    description: The status of the Payment Request.
+    x-values:
+      entries:
+        - name: "new"
+          description: Created and waiting for payment.
+        - name: "paid"
+          description: Paid in full, or a partial payment was accepted.
+        - name: "cancelled"
+          description: Cancelled before payment was completed, eg voided or declined by the merchant.
+        - name: "expired"
+          description: Not paid before `expiresAt`, so it can no longer be paid.
   liveness:
     type: string
     enum: [test, main]
-    description: Indicates liveness of assets that are accepted, determined by the payment options. Values are `main` or `test`.
+    description: Indicates liveness of assets that are accepted, determined by the payment options.
+    x-values:
+      entries:
+        - name: "main"
+          description: Accepts live assets with real funds. Created by a live merchant.
+        - name: "test"
+          description: Accepts only test assets and no real funds move. Created by a test merchant.
   createdAt:
     type: string
     format: date-time
@@ -138,7 +154,7 @@ properties:
     description: "Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model)."
   cancellationReason:
     type: string
-    description: The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
+    description: The reason that the Payment Request was cancelled.
     x-values:
       title: "Cancellation Reasons"
       entries:
@@ -173,7 +189,14 @@ properties:
     description: Pre Auth completions and releases will be accepted until this time.
   preAuthStatus:
     type: string
-    description: Describes which state a Pre Auth Payment Request is in. Valid values are `authorized` or `released`.
+    enum: [authorized, released]
+    description: Describes which state a Pre Auth Payment Request is in.
+    x-values:
+      entries:
+        - name: "authorized"
+          description: Funds are held and can still be confirmed or released.
+        - name: "released"
+          description: The hold has ended, either released or past `preAuthExpiresAt`.
   taxNumber:
     type: object
     description: The value-added tax configuration for the [Business](/api/businesses) that the [Merchant](/api/merchants) belongs to. See [Tax Number](/api/businesses#tax-number-model).

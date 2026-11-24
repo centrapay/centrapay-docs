@@ -30,11 +30,7 @@ post:
             settlementConfig:
               $ref: '../models/merchant-model.yaml#/properties/settlementConfig'
             type:
-              type: string
-              enum:
-                - physical
-                - e-commerce
-              description: 'Valid values: `physical` or `e-commerce`.'
+              $ref: '../models/merchant-model.yaml#/properties/type'
             location:
               type: object
               x-type: location
@@ -77,14 +73,20 @@ post:
             BANK_ACCOUNT_MISMATCH:
               description: The bank account in the settlement config does not belong to the same account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_MISMATCH
             ACCOUNT_REGION_MISMATCH:
               description: The merchant's "country" does not match the "region" on the Account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_REGION_MISMATCH
             INVALID_ACCOUNT:
               description: The Account is not an organisation account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ACCOUNT
 get:
   x-method: GET

@@ -49,4 +49,6 @@ post:
             INVALID_BANK_ACCOUNT_TYPE:
               description: The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
               value:
+                statusCode: 400
+                error: Bad Request
                 message: INVALID_BANK_ACCOUNT_TYPE

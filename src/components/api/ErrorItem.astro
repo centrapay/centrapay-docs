@@ -1,0 +1,13 @@
+---
+const { message, code, description } = Astro.props;
+const hasSlot = Astro.slots.has('default');
+---
+
+<li class="py-4">
+  <div class="flex flex-wrap items-baseline gap-x-2">
+    <code class="font-mono text-sm leading-6 font-semibold break-all text-content-primary">{message}</code>
+    {code && <span class="font-mono text-xs text-content-tertiary">{code}</span>}
+  </div>
+  {description && <div class="mt-1 api-rich-text" set:html={description} />}
+  {!description && hasSlot && <div class="mt-1 [&>:first-child]:mt-0 [&>:last-child]:mb-0 api-rich-text"><slot /></div>}
+</li>

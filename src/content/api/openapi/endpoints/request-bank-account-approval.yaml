@@ -25,7 +25,9 @@ post:
               description: The id of the associated [Bank Account](/api/bank-accounts).
             type:
               type: string
-              description: The [Bank Account Approval Type](#bank-account-approval-types). Defaults to `settlement`.
+              allOf:
+                - $ref: '../models/bank-account-approval.yaml#/properties/type'
+              description: The type of Bank Account Approval. Defaults to `settlement`.
         examples:
           default:
             value:
@@ -62,4 +64,6 @@ post:
             APPROVAL_ALREADY_IN_PROGRESS:
               description: There is already a Bank Account Approval in progress that is awaiting review from Centrapay.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: APPROVAL_ALREADY_IN_PROGRESS

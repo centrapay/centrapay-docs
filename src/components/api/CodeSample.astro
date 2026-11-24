@@ -1,0 +1,9 @@
+---
+import { Code } from 'astro-expressive-code/components';
+
+const { code, lang, title } = Astro.props;
+---
+
+<div class="min-w-0" data-code-sample>
+  <Code code={code} lang={lang} title={title} frame="terminal" />
+</div>

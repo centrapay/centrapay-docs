@@ -54,7 +54,7 @@ properties:
   onboardingStatus:
     type: string
     enum: [applied, provisioning, active, on-hold, deactivated, archived]
-    description: The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    description: The onboarding status of the Business.
     x-values:
       title: "Onboarding Statuses"
       entries:
@@ -68,7 +68,9 @@ properties:
           description: "Identifies businesses that have been de-registered for the Centrapay service."
           notes:
             - label: "Allowed Reasons"
-              value: "data-quality-issues,change-of-ownership, centrapay-discontinued, duplicate, blocked"
+              value: "data-quality-issues, change-of-ownership, centrapay-discontinued, duplicate, blocked, lapsed"
+        - name: "archived"
+          description: Identifies businesses that have been removed from the Centrapay service.
         - name: "on-hold"
           description: "Identifies businesses that have been placed on hold."
           notes:
@@ -76,7 +78,8 @@ properties:
               value: "seasonal-business-closure,  no-response"
   onboardingStatusReason:
     type: string
-    description: The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    enum: [data-quality-issues, change-of-ownership, centrapay-discontinued, duplicate, blocked, lapsed, seasonal-business-closure, no-response]
+    description: The reason for the Business's onboarding status.
 
     x-values:
       title: "Onboarding Status Reasons"
@@ -93,3 +96,7 @@ properties:
           description: "The business is no longer using Centrapay."
         - name: "seasonal-business-closure"
           description: "The business has closed temporarily."
+        - name: "blocked"
+          description: The business has been blocked from using Centrapay.
+        - name: "lapsed"
+          description: The business's Centrapay service has lapsed.

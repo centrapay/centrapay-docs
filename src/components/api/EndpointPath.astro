@@ -1,0 +1,15 @@
+---
+import MethodBadge from './MethodBadge.astro';
+
+const { method, path } = Astro.props;
+const parts = path.split(/(\{[^}]+\})/).filter(Boolean);
+---
+
+<div class="flex min-w-0 items-center gap-2.5">
+  <MethodBadge method={method} />
+  <code class="min-w-0 font-mono text-sm break-all text-content-secondary">{
+    parts.map(part => part.startsWith('{')
+      ? <span class="text-content-tertiary">{part}</span>
+      : part)
+  }</code>
+</div>

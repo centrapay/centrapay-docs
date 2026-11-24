@@ -1,0 +1,15 @@
+---
+const { status } = Astro.props;
+
+const STYLES = {
+  experimental: 'text-content-accent ring-content-accent/30 dark:text-orange-300 dark:ring-orange-300/30',
+  deprecated: 'text-rose-700 ring-rose-700/30 dark:text-rose-300 dark:ring-rose-300/30',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex shrink-0 items-center rounded-full px-2 py-px align-middle text-[11px] leading-4 font-medium tracking-normal ring-1 ring-inset',
+    STYLES[status],
+  ]}
+>{status}</span>

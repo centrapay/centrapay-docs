@@ -122,7 +122,14 @@ function createSection({ title, href, path, deprecated }) {
   return { title, href, path, deprecated, description: '', keywords: [], prose: [] };
 }
 
-function finalizeSection({ title, href, path, description, deprecated, keywords, prose }) {
+function entryFlags({ deprecated, field }) {
+  return {
+    ...(deprecated ? { deprecated: true } : {}),
+    ...(field ? { field: true } : {}),
+  };
+}
+
+function finalizeSection({ title, href, path, description, deprecated, keywords, prose, field = false }) {
   const identifiers = normalizeWhitespace([...new Set(keywords)].join(', '));
   const narrative = normalizeWhitespace(prose.join(' ')).slice(0, MAX_PROSE_LENGTH);
   const content = normalizeWhitespace(
@@ -139,7 +146,7 @@ function finalizeSection({ title, href, path, description, deprecated, keywords,
     // keyword list, without the two bleeding into each other mid-sentence.
     ...(narrative ? { prose: narrative } : {}),
     ...(identifiers ? { keywords: identifiers } : {}),
-    ...(deprecated ? { deprecated: true } : {}),
+    ...entryFlags({ deprecated, field }),
   };
 }
 
@@ -290,7 +297,7 @@ function revealRow(row, buckets) {
     buckets.prose.push(stripMarkdown(row.table.body));
   }
   if (row.values) {
-    buckets.names.push(row.values.title, ...row.values.entries.map(entry => entry.name));
+    buckets.names.push(...[row.values.title, ...row.values.entries.map(entry => entry.name)].filter(Boolean));
     buckets.prose.push(...row.values.entries.map(entry => stripMarkdown(entry.description)));
     if (row.values.intro) {
       buckets.prose.push(stripMarkdown(row.values.intro));
@@ -356,6 +363,30 @@ function sectionDetails(section, { operations }) {
   return endpointDetails(section, operations);
 }
 
+function sectionFields(section) {
+  return [
+    ...(section.pathParams ?? []),
+    ...(section.queryParams ?? []),
+    ...(section.body ?? []),
+    ...(section.response?.rows ?? []),
+  ].filter(row => row.fieldAnchor);
+}
+
+const stripHtml = html => normalizeWhitespace((html ?? '').replace(/<[^>]+>/g, ''));
+
+function fieldEntry({ row, href, path, deprecated }) {
+  return finalizeSection({
+    title: row.name,
+    href: `${href}#${row.fieldAnchor}`,
+    path,
+    description: stripHtml(row.description),
+    deprecated: deprecated || row.isDeprecated,
+    keywords: [row.name],
+    prose: [],
+    field: true,
+  });
+}
+
 // Search entries for a spec-driven API page, shaped like the entries
 // buildPageEntries produces for mdoc pages.
 export function buildOpenApiEntries({ id, page, endpointFiles, models }) {
@@ -373,15 +404,21 @@ export function buildOpenApiEntries({ id, page, endpointFiles, models }) {
       keywords: [],
       prose: [stripMarkdown(page.intro)],
     }),
-    ...sections.map(section => sectionDetails(section, { models, operations })).map(section => finalizeSection({
-      title: section.title,
-      href: `${href}#${section.anchor}`,
-      path,
-      description: section.description,
-      deprecated: section.badges.includes('deprecated'),
-      keywords: section.keywords,
-      prose: section.prose,
-    })),
+    ...sections.map(section => sectionDetails(section, { models, operations })).flatMap(section => {
+      const deprecated = section.badges.includes('deprecated');
+      return [
+        finalizeSection({
+          title: section.title,
+          href: `${href}#${section.anchor}`,
+          path,
+          description: section.description,
+          deprecated,
+          keywords: section.keywords,
+          prose: section.prose,
+        }),
+        ...sectionFields(section).map(row => fieldEntry({ row, href, path: [...path, section.title], deprecated })),
+      ];
+    }),
   ];
 }
 

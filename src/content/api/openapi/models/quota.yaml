@@ -3,7 +3,7 @@ type: object
 properties:
   type:
     type: string
-    description: The quota's type. See [Supported Quota Types](#supported-quota-types).
+    description: The quota's type.
     x-values:
       title: "Supported Quota Types"
       entries:
@@ -34,7 +34,14 @@ properties:
     description: The type of asset the quota is scoped to, eg `centrapay.nzd.main`.
   period:
     type: string
-    description: 'The recurring, time-bound quota''s duration: `daily`, `monthly` or `yearly`.'
+    enum: [monthly, yearly]
+    description: The recurring, time-bound quota's duration.
+    x-values:
+      entries:
+        - name: "monthly"
+          description: Usage is counted per calendar month and resets on the 1st.
+        - name: "yearly"
+          description: Usage is counted per calendar year and resets on 1 January.
   interval:
     type: string
     description: 'The specific day, month or year the quota applies to, eg: `2020-01-01`, `2020-01`, `2020`.'

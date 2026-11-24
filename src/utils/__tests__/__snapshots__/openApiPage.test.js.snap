@@ -66,6 +66,7 @@ exports[`payment requests spec page > anchors every revealed model once per page
   "asset-transfers": [
     "asset-transfer-lifecycle",
     "asset-transfer-model",
+    "asset-transfer-summary-model",
     "cancel-an-asset-transfer",
     "claim-asset-transfer",
     "create-an-asset-transfer",
@@ -77,6 +78,7 @@ exports[`payment requests spec page > anchors every revealed model once per page
   "assets": [
     "archive-asset",
     "asset-model",
+    "asset-summary-model",
     "get-asset",
     "get-asset-by-external-id",
     "get-asset-summary",
@@ -104,6 +106,7 @@ exports[`payment requests spec page > anchors every revealed model once per page
   "bank-accounts": [
     "add-direct-debit-authority-to-a-bank-account",
     "archive-bank-account",
+    "bank-account-activity-model",
     "bank-account-approval-type-summary-model",
     "bank-account-balance-model",
     "bank-account-model",
@@ -129,9 +132,11 @@ exports[`payment requests spec page > anchors every revealed model once per page
   ],
   "businesses": [
     "business-model",
+    "business-onboarding-status-activity-model",
     "create-business",
     "get-business-by-account-id",
     "get-business-details-from-nz-company-register",
+    "nzbn-details-model",
     "onboarding-status-reasons",
     "onboarding-statuses",
     "search-nz-company-register",
@@ -147,10 +152,12 @@ exports[`payment requests spec page > anchors every revealed model once per page
   ],
   "events": [
     "create-event",
+    "event-model",
   ],
   "funds-transfers": [
     "abort-funds-transfer",
     "create-withdrawal",
+    "funds-transfer-model",
     "get-top-up",
     "get-withdrawal",
     "list-top-ups-for-an-account",
@@ -198,6 +205,7 @@ exports[`payment requests spec page > anchors every revealed model once per page
   "managed-integrations": [
     "create-or-update-managed-integration",
     "get-managed-integration",
+    "integration-types",
     "invitation-summary-model",
     "list-managed-integration",
     "managed-integration-model",
@@ -227,7 +235,9 @@ exports[`payment requests spec page > anchors every revealed model once per page
     "get-merchant",
     "list-merchants",
     "list-merchants-for-account",
+    "merchant-metadata-activity-model",
     "merchant-model",
+    "merchant-onboarding-status-activity-model",
     "merchant-search-result-model",
     "onboarding-status-reasons",
     "onboarding-statuses",
@@ -256,8 +266,10 @@ exports[`payment requests spec page > anchors every revealed model once per page
     "get-patron-code",
     "get-patron-code-by-barcode",
     "get-patron-code-by-namespace-and-external-id",
+    "patron-code-metadata-activity-model",
     "patron-code-model",
     "set-patron-code-metadata",
+    "test-scenario-name",
   ],
   "payment-links": [
     "archive-payment-link",

@@ -12,7 +12,13 @@ properties:
     enum:
       - reseller
       - provider
-    description: The type of the Sales Channel integration either `reseller` or `provider`.
+    description: The type of the Sales Channel integration.
+    x-values:
+      entries:
+        - name: "provider"
+          description: A channel run by a device or terminal provider.
+        - name: "reseller"
+          description: A channel run by a reseller of a provider's devices, which references the provider's channel through `providerSalesChannelId`.
   accountId:
     type: string
     description: Id of the [Account](/api/accounts/) that owns the Sales Channel.
@@ -39,7 +45,13 @@ properties:
     enum:
       - daily
       - weekly
-    description: Frequency of notification emails. Valid values are `weekly` and `daily`.
+    description: Frequency of notification emails.
+    x-values:
+      entries:
+        - name: "daily"
+          description: Notification emails are sent once a day.
+        - name: "weekly"
+          description: Notification emails are sent once a week.
   notificationUrl:
     type: string
     description: Url for web hook notifications for requests to connect to Sales Channel.

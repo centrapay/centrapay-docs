@@ -58,4 +58,6 @@ post:
             LIVENESS_MISMATCH:
               description: The liveness of the [Merchant](/api/merchants)'s [Account](/api/accounts) doesn't match the liveness of the [Sales Channel](/api/sales-channels).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

@@ -1,0 +1,75 @@
+x-title: Asset Transfer Summary Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Asset Transfer's unique identifier.
+  status:
+    $ref: './asset-transfer.yaml#/properties/status'
+  type:
+    type: string
+    enum: [request]
+    description: Only present when the Asset Transfer is a request for funds.
+    x-values:
+      entries:
+        - name: "request"
+          description: The Asset Transfer is a request for funds from a payer.
+  assetId:
+    type: string
+    description: The id of the sent [Asset](/api/assets). Not present for requests.
+  assetCollectionId:
+    type: string
+    description: The id of the sent asset's [Token Collection](/api/tokens#token-collection-model). Only present if it has one.
+  assetDescription:
+    type: string
+    description: Displayable description of the sent asset. Only present if it has one.
+  assetImg:
+    type: string
+    description: The URL of the sent asset's image. Only present if it has one.
+  value:
+    type: string
+    x-type: bignumber
+    description: The requested amount, in cents. Only present for requests.
+  message:
+    type: string
+    description: The sender's message. Only present if one was given.
+  senderName:
+    type: string
+    description: The sender's display name. Only present if one was given.
+  recipientName:
+    type: string
+    description: The name of the recipient making the request. Only present for requests.
+  recipientMobile:
+    type: string
+    description: The mobile number of the recipient making the request. Only present for requests.
+  recipientEmail:
+    type: string
+    description: The email address of the recipient making the request. Only present for requests.
+  recipientAlias:
+    type: string
+    description: The alias of the recipient making the request. Only present for requests.
+  recipientAccountId:
+    type: string
+    description: The id of the [Account](/api/accounts) of the recipient making the request. Only present for requests.
+  url:
+    type: string
+    description: The URL to claim the Asset Transfer. Not present when the transfer has a recipient alias, unless it is a `centrapay.ledger` transfer.
+  loyaltyProgramId:
+    type: string
+    description: The id of the linked [Loyalty Program](/api/loyalty-programs). Only present if there is one.
+  termsAndConditionsUrl:
+    type: string
+    description: The URL of the terms and conditions for the asset. Only present if there is one.
+  test:
+    type: boolean
+    description: '`true` if the Asset Transfer is a test. Only present when `true`.'
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Transfer was created.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Asset Transfer expires. Only present if it does.

@@ -21,7 +21,7 @@ get:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/funds-transfer.yaml
           examples:
             default:
               value:

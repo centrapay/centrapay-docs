@@ -1,0 +1,114 @@
+x-title: NZBN Details Model
+type: object
+properties:
+  nzbn:
+    type: string
+    description: The business's New Zealand Business Number.
+  companyName:
+    type: string
+    description: The registered name of the business.
+  tradingName:
+    type: string
+    description: The business's first trading name. Only present if it has one.
+  companyNumber:
+    type: string
+    description: The business's company number. Only present if it has one.
+  status:
+    type: string
+    description: The business's registration status as reported by the NZBN register, eg `Registered`, `In Liquidation`, `In Receivership` or `Removed`. Only present if reported.
+  directors:
+    type: array
+    description: The business's active directors. Empty if it has none.
+    items:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The director's first name. Only present if known.
+        lastName:
+          type: string
+          description: The director's last name. Only present if known.
+        addressLines:
+          type: array
+          items:
+            type: string
+          description: The director's current address, one line per item. Empty if unknown.
+  shareholders:
+    type: array
+    description: The business's current shareholders. Joint holders of a share parcel each show the parcel's full allocation. Empty if it has none.
+    items:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [individual, entity]
+          description: Whether the shareholder is a person or another entity.
+          x-values:
+            entries:
+              - name: "individual"
+                description: The shareholder is a person.
+              - name: "entity"
+                description: The shareholder is a company or other entity.
+        name:
+          type: string
+          description: The shareholder's full name, or the entity's name.
+        firstName:
+          type: string
+          description: The shareholder's first name. Only present for individuals.
+        lastName:
+          type: string
+          description: The shareholder's last name. Only present for individuals.
+        entityName:
+          type: string
+          description: The name of the shareholding entity. Only present for entities.
+        entityNzbn:
+          type: string
+          description: The NZBN of the shareholding entity. Only present for entities.
+        entityNumber:
+          type: string
+          description: The company number of the shareholding entity. Only present for entities.
+        addressLines:
+          type: array
+          items:
+            type: string
+          description: The shareholder's current address, one line per item. Empty if unknown.
+        sharesHeld:
+          type: number
+          description: The number of shares in the parcel. Only present if reported.
+        totalShares:
+          type: number
+          description: The total number of shares in the company. Only present if reported.
+        ownershipPercentage:
+          type: number
+          description: '`sharesHeld` as a percentage of `totalShares`, unrounded. Only present when `totalShares` is more than 0.'
+  registeredIndustries:
+    type: array
+    description: The business's industry classifications. Empty if it has none.
+    items:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The industry classification code.
+        description:
+          type: string
+          description: The industry classification's description.
+  address:
+    type: object
+    description: The business's registered address. Only present if it has a current one.
+    properties:
+      street:
+        type: string
+        description: The address lines before the suburb and city, joined by commas.
+      suburb:
+        type: string
+        description: The suburb. Only present if the address has three or more lines.
+      city:
+        type: string
+        description: The city. Only present if the address has two or more lines.
+      postCode:
+        type: string
+        description: The post code. Only present if known.
+      country:
+        type: string
+        description: The two-letter country code, eg `NZ`. Only present if known.

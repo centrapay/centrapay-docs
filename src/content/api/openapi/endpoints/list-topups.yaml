@@ -15,7 +15,7 @@ get:
           schema:
             type: array
             items:
-              type: object
+              $ref: ../models/funds-transfer.yaml
           examples:
             default:
               value:

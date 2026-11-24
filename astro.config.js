@@ -18,12 +18,7 @@ export default defineConfig({
   site: 'https://docs.centrapay.com',
   integrations: [
     vue(),
-    expressiveCode({
-      themes: ['material-theme-palenight'],
-      styleOverrides: {
-        borderRadius: '0.5rem',
-      },
-    }),
+    expressiveCode(),
     markdoc({ ignoreIndentation: true }),
   ],
   markdown: {
@@ -60,7 +55,6 @@ export default defineConfig({
     '/api/': '/api/introduction/',
     '/guides/loading-and-sending-assets/': '/guides/transferring-assets/',
     '/guides/compatible-devices': '/guides/compatible-solutions',
-    '/api/http-status-codes/': '/guides/merchant-integration-error-handling/#types-of-error-and-responses',
     '/guides/requesting-payment/': '/guides/point-of-sale/',
     '/guides/transaction-reporting/': '/guides/point-of-sale/',
     '/guides/sales-channel-integration-overview/': '/guides/getting-started/',

@@ -45,7 +45,14 @@ post:
               description: Used to authorize an external transaction.
             mode:
               type: string
-              description: The mode of payment. Valid values are `partial-payment` and `multi-asset-payment`.
+              enum: [partial-payment, multi-asset-payment]
+              description: The mode of payment.
+              x-values:
+                entries:
+                  - name: "partial-payment"
+                    description: Pays only part of the amount, and the Payment Request is then marked paid. Requires `partialAllowed` on the Payment Request.
+                  - name: "multi-asset-payment"
+                    description: Pays part of the amount with this asset. The Payment Request stays open until fully paid, with at most 20 payments.
             amount:
               x-type: bignumber
               type: string
@@ -106,48 +113,72 @@ post:
             INVALID_ASSET_TYPE:
               description: Either the merchant is not configured with the provided asset type or the asset type does not exist.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ASSET_TYPE
             REQUEST_EXPIRED:
               description: Action cannot be completed because the request has expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REQUEST_EXPIRED
             REQUEST_PAID:
               description: Action cannot be completed because the request has been paid.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REQUEST_PAID
             REQUEST_CANCELLED:
               description: Action cannot be completed because the request has already been cancelled.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REQUEST_CANCELLED
             INACTIVE_ASSET:
               description: The asset is not spendable. It may have been disabled, expired, or already spent.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INACTIVE_ASSET
             INVALID_MERCHANT_CONFIG:
               description: The merchant is not configured properly to satisfy the Payment Request. This could be due to incorrect information, or the merchant's credentials might be blocked by an external service.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_MERCHANT_CONFIG
             QUOTA_EXCEEDED:
               description: The payment pay request exceeds the allowed spend quota supplied.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: QUOTA_EXCEEDED
             INSUFFICIENT_ASSET_VALUE:
               description: The asset has insufficient funds to pay the Payment Request or the transaction amount received by Centrapay is less than the total of the payment.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INSUFFICIENT_ASSET_VALUE
             ASSET_REDEMPTION_DENIED:
               description: The asset redemption has been unsuccessful due to an error with provided payment parameters, the Merchant, or the Asset.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ASSET_REDEMPTION_DENIED
             PAYMENT_DECLINED:
               description: The payment parameters were valid but payment was declined because additional payment restrictions were violated.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PAYMENT_DECLINED
             PAYMENT_UNCONFIRMED:
               description: Confirmation of payment success or failure was not received from the provider within the expected time.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PAYMENT_UNCONFIRMED
             REMAINING_AMOUNT_EXCEEDED:
               description: The payment amount exceeds the remaining amount on the Payment Request.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REMAINING_AMOUNT_EXCEEDED

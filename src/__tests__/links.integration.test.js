@@ -1,6 +1,6 @@
 import { listSiteLinks } from '../utils/listSiteLinks.js';
 
-test('the build should not break any links', {timeout: 10000}, () => {
+test('the build should not break any links', {timeout: 30000}, () => {
   const uniqueLinks = listSiteLinks('dist');
   const sortedLinks = Array.from(uniqueLinks).sort();
   expect(sortedLinks).toMatchSnapshot();

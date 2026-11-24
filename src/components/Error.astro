@@ -1,15 +1,9 @@
 ---
-import Badge from '../components/Badge.astro';
+import ErrorItem from './api/ErrorItem.astro';
 
 const { code, message } = Astro.props;
 ---
 
-<li class="not-prose m-0 flex flex-col p-0 py-4 text-content-secondary first:pt-0">
-  <div class="flex flex-row items-center gap-3">
-    <h4 id={message}>{message}</h4>
-    <Badge text={code}></Badge>
-  </div>
-  <div data-expandable-slot class="expanded transition-opacity duration-500">
-    <slot />
-  </div>
-</li>
+<ErrorItem code={code} message={message}>
+  <slot />
+</ErrorItem>

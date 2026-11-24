@@ -57,12 +57,18 @@ post:
             PATRON_NOT_AUTHORIZED:
               description: The Payment Condition is `awaiting-merchant`, therefore the patron is not authorized to accept the condition.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PATRON_NOT_AUTHORIZED
             MERCHANT_NOT_AUTHORIZED:
               description: The Payment Condition is `awaiting-patron`, therefore the merchant is not authorized to accept the condition.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: MERCHANT_NOT_AUTHORIZED
             CONDITION_ALREADY_SET:
               description: The Payment Condition has already been accepted or declined.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: CONDITION_ALREADY_SET

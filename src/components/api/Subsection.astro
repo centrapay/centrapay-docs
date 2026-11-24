@@ -1,0 +1,10 @@
+---
+import AnchorHeading from './AnchorHeading.astro';
+
+const { level, id, title } = Astro.props;
+---
+
+<div>
+  <AnchorHeading level={level} id={id} class="mb-3">{title}</AnchorHeading>
+  <slot />
+</div>

@@ -22,11 +22,7 @@ post:
               type: string
               description: The display name of the Sales Channel.
             type:
-              type: string
-              enum:
-                - reseller
-                - provider
-              description: The type of the Sales Channel integration either `reseller` or `provider`.
+              $ref: '../models/sales-channel.yaml#/properties/type'
             accountId:
               type: string
               description: Id of the [Account](/api/accounts/) that owns the Sales Channel.
@@ -47,10 +43,9 @@ post:
               description: Email to notify for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
             notificationFrequency:
               type: string
-              enum:
-                - daily
-                - weekly
-              description: Frequency of notification emails. Valid values are `weekly` and `daily`. Required if `notificationEmail` is set and `notificationUrl` is not.
+              allOf:
+                - $ref: '../models/sales-channel.yaml#/properties/notificationFrequency'
+              description: Frequency of notification emails. Required if `notificationEmail` is set and `notificationUrl` is not.
             notificationUrl:
               type: string
               description: Url for web hook notifications for requests to connect to Sales Channel. Either `notificationEmail` or `notificationUrl` required.
@@ -101,4 +96,6 @@ post:
             ACCOUNT_TYPE_INVALID:
               description: The Account must be type `org`.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_TYPE_INVALID

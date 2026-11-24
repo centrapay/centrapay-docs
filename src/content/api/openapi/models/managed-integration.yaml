@@ -9,13 +9,34 @@ properties:
     enum:
       - paypal-referral
       - payap
-    description: The type of Managed Integration. Supported types are `paypal-referral` and `payap`.
+    description: The type of Managed Integration.
+    x-values:
+      entries:
+        - name: "paypal-referral"
+          description: Onboards a merchant to PayPal by emailing them a PayPal partner referral link.
+        - name: "payap"
+          description: Sets up a Payap merchant from partner-supplied business, merchant, bank and terminal details.
   enabled:
     type: boolean
     description: Flag indicating whether the Managed Integration should become active or inactive.
   status:
     type: string
-    description: Current status of the Managed Integration. Supported values are `created`, `pending`, `provisioning`, `active`, `inactive` and `archived`.
+    enum: [created, pending, provisioning, active, inactive, archived]
+    description: Current status of the Managed Integration.
+    x-values:
+      entries:
+        - name: "created"
+          description: Just created and not yet being set up.
+        - name: "pending"
+          description: Being set up. For PayPal, waiting for the merchant to complete the referral.
+        - name: "provisioning"
+          description: Being set up with the provider.
+        - name: "active"
+          description: Set up and live.
+        - name: "inactive"
+          description: Set up but disabled.
+        - name: "archived"
+          description: No longer in use, eg because the PayPal referral link expired.
   externalId:
     type: string
     description: Field used to reference an id from an external system.

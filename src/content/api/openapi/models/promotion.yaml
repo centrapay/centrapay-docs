@@ -54,7 +54,13 @@ properties:
       - $ref: '../models/promotion-target.yaml'
   type:
     type: string
-    description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.
+    description: The type of Promotion.
+    x-values:
+      entries:
+        - name: "challenge"
+          description: Rewards the account once, after the challenge target is met.
+        - name: "draw"
+          description: Collects entrants and selects winner(s) once the entrant count is within the configured bounds.
   conditions:
     type: array
     items:

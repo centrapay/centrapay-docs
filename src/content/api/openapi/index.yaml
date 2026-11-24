@@ -392,9 +392,15 @@ components:
     ApiError:
       type: object
       properties:
+        statusCode:
+          type: integer
+          description: The HTTP status code.
+        error:
+          type: string
+          description: The name of the HTTP status.
         message:
           type: string
-          description: The error code.
+          description: The error code, or for a 400 a description of what's wrong with the request.
   responses:
     $ref: './models/responses.yaml'
   securitySchemes:

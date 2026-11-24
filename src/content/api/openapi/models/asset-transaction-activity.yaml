@@ -19,7 +19,16 @@ properties:
     description: Name of the Centrapay resource that initiated the transaction.
   type:
     type: string
-    description: Type of the Asset Transaction. Supported values are `increment-balance`, `decrement-balance` and `transfer`.
+    enum: [increment-balance, decrement-balance, transfer]
+    description: Type of the Asset Transaction.
+    x-values:
+      entries:
+        - name: "increment-balance"
+          description: Funds were added from outside Centrapay, eg a bank top up.
+        - name: "decrement-balance"
+          description: Funds were removed to outside Centrapay, eg a withdrawal to a bank account.
+        - name: "transfer"
+          description: Value moved between two Centrapay assets, eg a payment or a transfer between users.
   kind:
     type: string
     description: Human readable value indicating the reason for the transaction.

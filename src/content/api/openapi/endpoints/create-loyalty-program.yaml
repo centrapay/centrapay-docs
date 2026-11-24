@@ -82,4 +82,6 @@ post:
             INVALID_ACCOUNT_TYPE:
               description: The Account must be type `org`.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ACCOUNT_TYPE

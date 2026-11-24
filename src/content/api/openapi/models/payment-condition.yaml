@@ -13,4 +13,13 @@ properties:
     description: The human-readable description of the condition.
   status:
     type: string
-    description: "The status of the condition. Valid values include `accepted`, `declined`, `awaiting-merchant` or `void`."
+    enum: [awaiting-merchant, accepted, declined]
+    description: The status of the condition.
+    x-values:
+      entries:
+        - name: "awaiting-merchant"
+          description: Waiting for the merchant to perform the check, eg photo ID or signature.
+        - name: "accepted"
+          description: The merchant confirmed the check and payment can proceed.
+        - name: "declined"
+          description: The merchant declined the check, and the Payment Request is cancelled.

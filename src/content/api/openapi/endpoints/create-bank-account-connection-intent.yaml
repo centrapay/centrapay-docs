@@ -22,11 +22,7 @@ post:
               type: string
               description: The id of the owning [Account](/api/accounts/).
             type:
-              type: string
-              description: The type of Bank Account Connection Intent.
-              enum:
-                - account-information-consent
-                - enduring-payment-consent
+              $ref: '../models/bank-account-connection-intent.yaml#/properties/type'
             bankAccountId:
               type: string
               description: The id of the associated [Bank Account](/api/bank-accounts/). Required if type is `enduring-payment-consent`.
@@ -38,13 +34,25 @@ post:
               description: The name of the consent. Only available if type is `enduring-payment-consent`.
             period:
               type: string
-              description: The period after which the amount spent using the consent will be reset. Only available if type is `enduring-payment-consent`. Valid values are `daily`, `weekly`, `fortnightly`, `monthly` and `yearly`. Defaults to `daily`.
+              description: The period after which the amount spent using the consent will be reset. Only available if type is `enduring-payment-consent`. Defaults to `daily`.
               enum:
                 - daily
                 - weekly
                 - fortnightly
                 - monthly
                 - yearly
+              x-values:
+                entries:
+                  - name: "daily"
+                    description: The amount spent resets every day.
+                  - name: "weekly"
+                    description: The amount spent resets every week.
+                  - name: "fortnightly"
+                    description: The amount spent resets every fortnight.
+                  - name: "monthly"
+                    description: The amount spent resets every month.
+                  - name: "yearly"
+                    description: The amount spent resets every year.
             totalAmount:
               type: string
               description: The total cent value of transactions the consent can be used for within the period. Only available if type is `enduring-payment-consent`.
@@ -84,4 +92,6 @@ post:
             LIVENESS_MISMATCH:
               description: Only Bank Account Connection Intents with the `test` flag can be associated with test [Bank Accounts](/api/bank-accounts/), and vice versa.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

@@ -27,7 +27,7 @@ properties:
     description: The service that created the activity
   activityType:
     type: string
-    description: The [Asset Activity Type](#asset-activity-types)
+    description: The type of Asset Activity.
     x-values:
       title: "Asset Activity Types"
       entries:
