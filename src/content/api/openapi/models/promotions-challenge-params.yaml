@@ -4,8 +4,12 @@ properties:
   target:
     type: object
     description: Describes how to complete the promotion. See [Promotion Target](/api/promotions#promotion-target-model).
+    allOf:
+      - $ref: '../models/promotion-target.yaml'
   rewards:
     type: object
-    description: Describes the rewards the account will receive upon completing the Promotion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+    description: Describes the rewards the account will receive upon completing the Promotion. Rewards are a tree of `and` groups - each item a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or a nested group - with every leaf issued on completion. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+    allOf:
+      - $ref: '../models/promotion-rewards.yaml'
 required:
   - target

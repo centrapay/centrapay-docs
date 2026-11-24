@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Prose from '../../components/Prose.astro';
 import OpenApiEndpoint from '../../components/OpenApiEndpoint.astro';
 import OpenApiHeading from '../../components/OpenApiHeading.astro';
-import OpenApiModel from '../../components/OpenApiModel.astro';
 import OpenApiMarkdown from '../../components/OpenApiMarkdown.astro';
 import navigation from '../../navigation/apiNavigation';
 import { loadOpenApiPages } from '../../utils/openApiLoader.js';
@@ -35,9 +34,6 @@ const previewImg = '/default-cover.jpg';
           {sections.map(section => (
             <>
               {section.rule && <hr />}
-              {section.kind === 'model' && (
-                <OpenApiModel name={section.name} anchor={section.anchor} subheadingAnchors={section.subheadingAnchors} depth={section.depth} badges={section.badges} schemasMap={schemasMap} />
-              )}
               {section.kind === 'extra' && (
                 <>
                   <OpenApiHeading depth={section.depth} anchor={section.anchor} title={section.title} badges={section.badges} />
@@ -45,7 +41,7 @@ const previewImg = '/default-cover.jpg';
                 </>
               )}
               {section.kind === 'endpoint' && (
-                <OpenApiEndpoint operationId={section.operationId} exampleName={section.exampleName} title={section.title} description={section.description} anchor={section.anchor} subheadingAnchors={section.subheadingAnchors} depth={section.depth} badges={section.badges} schemasMap={schemasMap} />
+                <OpenApiEndpoint section={section} schemasMap={schemasMap} />
               )}
             </>
           ))}

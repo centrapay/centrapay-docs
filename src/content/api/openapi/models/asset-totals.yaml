@@ -1,6 +1,4 @@
 x-title: Asset Totals
-x-intro: |
-  The Asset Totals provides a sum of every transaction for each [Asset Type](/api/asset-types)
 type: object
 properties:
   type:

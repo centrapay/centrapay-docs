@@ -6,6 +6,4 @@ nav:
 intro: |
   A Sales Channel is a container for information to assist onboarding a [Merchant](/api/merchants) to accept payment.
 sections:
-  - model: sales-channel
-    rule: false
   - endpoint: createSalesChannel

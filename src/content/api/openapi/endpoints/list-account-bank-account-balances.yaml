@@ -26,6 +26,7 @@ get:
             properties:
               items:
                 type: array
+                description: Balances, retrieved using Open Banking flows. Supported for `quartz` [bank accounts](#bank-account-type).
                 items:
                   $ref: ../models/bank-account-balance.yaml
               nextPageKey:

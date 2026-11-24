@@ -1,5 +1,17 @@
 ---
-const { name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated } = Astro.props;
+import OpenApiMarkdown from './OpenApiMarkdown.astro';
+import OpenApiRevealBody from './OpenApiRevealBody.astro';
+import OpenApiValues from './OpenApiValues.astro';
+import { createMarkdownRenderer } from '../utils/openApiPage.js';
+// Renders one attribute row. A row whose payload, parameter or response
+// references a model with fields, documents its possible values (`x-values`,
+// `x-table`), or varies by type, renders exactly like a plain row with a
+// quiet "show fields" toggle beneath its description; the toggle is a
+// native <details> element - no JavaScript. A standalone model (one varying
+// another) renders as its own item, titled by the model.
+const { property } = Astro.props;
+const { name, formattedType, typeLink, description, isRequired, isExperimental, isDeprecated, reveal, table, values } = property;
+const standalone = property.isReveal === true;
 
 const badgeClasses = {
   experimental: 'bg-surface-accent-light text-content-accent border-outline-opaque',
@@ -9,22 +21,92 @@ const badgeClasses = {
 };
 
 const badge = (type) => `${badgeClasses[type] ?? badgeClasses.default} type-caption-2 px-2 py-0.5 rounded-full border`;
+
+const renderTable = table ? createMarkdownRenderer(table.headingAnchors ?? [])(table.body) : null;
+const hasToggle = Boolean(reveal || renderTable || values);
+// The toggle names what it reveals: fields for a model, possible values for
+// an enum, more for prose.
+const toggleNoun = values ? 'possible values' : (table ? 'more' : 'fields');
+// A standalone model (one varying another) shows its intro as the row
+// description; the toggle beneath holds only its fields.
+const renderIntro = standalone && reveal?.intro
+  ? createMarkdownRenderer(reveal.introAnchors ?? [])(reveal.intro) : null;
 ---
 
-<li class="px-0 border-b-0">
-  <div class="m-0 flex flex-wrap items-baseline gap-x-3">
-    <h4 class="my-0" id={name}>{name}</h4>
-    <span class="not-prose inline-flex items-center">
-      {typeLink
-        ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
-        : <span class={badge('default')}>{formattedType}</span>
-      }
-    </span>
-    {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
-    {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
-    {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
-  </div>
-  <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-    {description && <p set:html={description} />}
-  </div>
-</li>
+{hasToggle ? (
+  <li class="px-0 border-b-0" id={reveal ? reveal.anchor : (values ?? table)?.anchor}>
+    <div class="m-0 flex flex-wrap items-center gap-x-3">
+      <h4 class="my-0">{name}</h4>
+      {!standalone && (
+        <span class="not-prose inline-flex items-center">
+          {typeLink
+            ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+            : <span class={badge('default')}>{formattedType}</span>
+          }
+        </span>
+      )}
+      {standalone && reveal.badges.map(type => (
+        <span class="not-prose inline-flex items-center"><span class={badge(type)}>{type}</span></span>
+      ))}
+      {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+      {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
+      {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
+    </div>
+    {(!standalone || description) && (
+      <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        {description && <p set:html={description} />}
+      </div>
+    )}
+    {renderIntro && (
+      <div class="mt-2 w-full flex-none">
+        <OpenApiMarkdown segments={renderIntro} />
+      </div>
+    )}
+    <details data-reveal>
+      <summary class="not-prose mt-1 inline-flex cursor-pointer select-none list-none items-center gap-1 rounded-lg bg-surface-tertiary px-2.5 py-1 text-sm font-medium leading-5 text-content-tertiary ring-focus-ring hover:bg-surface-tertiary-hover hover:text-content-primary focus:outline-hidden focus:ring-2 focus:ring-inset [&::-webkit-details-marker]:hidden">
+        <span class="only-closed">Show</span>
+        <span class="only-open">Hide</span>
+        {toggleNoun}
+        <svg class="chevron size-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+      </summary>
+      <div class="mt-2 border-l border-outline-opaque pl-4 open:mt-3">
+        {reveal && <OpenApiRevealBody reveal={reveal} />}
+        {values && <OpenApiValues values={values} />}
+        {renderTable && <OpenApiMarkdown segments={renderTable} />}
+      </div>
+    </details>
+  </li>
+) : (
+  <li class="px-0 border-b-0">
+    <div class="m-0 flex flex-wrap items-center gap-x-3">
+      <h4 class="my-0">{name}</h4>
+      <span class="not-prose inline-flex items-center">
+        {typeLink
+          ? <a class={badge('default') + ' underline'} href={typeLink}>{formattedType}</a>
+          : <span class={badge('default')}>{formattedType}</span>
+        }
+      </span>
+      {isRequired && <span class="not-prose inline-flex items-center"><span class={badge('required')}>required</span></span>}
+      {isExperimental && <span class="not-prose inline-flex items-center"><span class={badge('experimental')}>experimental</span></span>}
+      {isDeprecated && <span class="not-prose inline-flex items-center"><span class={badge('deprecated')}>deprecated</span></span>}
+    </div>
+    <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+      {description && <p set:html={description} />}
+    </div>
+  </li>
+)}
+
+<style is:global>
+  /* The toggle label swaps with the <details> state: pure CSS, no script.
+     The swap spans sit in the details' own direct summary - a descendant
+     selector would let an open outer reveal hide the "Show" label of a
+     nested, still-closed toggle. */
+  details[data-reveal]:not([open]) > summary .only-open { display: none; }
+  details[data-reveal][open] > summary .only-closed { display: none; }
+
+  /* The chevron tracks its own <details> open state. A `group-open:` utility
+     would also match any open ancestor reveal, turning nested chevrons that
+     are still closed. */
+  details[data-reveal] > summary .chevron { transition: transform 150ms ease-out; }
+  details[data-reveal][open] > summary .chevron { transform: rotate(90deg); }
+</style>

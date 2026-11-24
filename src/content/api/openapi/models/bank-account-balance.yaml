@@ -1,7 +1,5 @@
 x-title: Bank Account Balance Model
 x-experimental: true
-x-intro: |
-  The Bank Account balance, retrieved using Open Banking flows. The supported Bank Account type is `quartz`.
 type: object
 properties:
   bankAccountId:

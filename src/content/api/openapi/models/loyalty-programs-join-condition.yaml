@@ -1,6 +1,4 @@
 x-title: Join Condition Model
-x-intro: |
-  A join condition defines the requirements that an Account must meet to join a Loyalty Program.
 type: object
 required:
   - type
@@ -12,3 +10,6 @@ properties:
   params:
     type: object
     description: The parameters for the join condition. The structure depends on the `type` field.
+    oneOf:
+      - $ref: './loyalty-programs-asset-ownership-join-condition.yaml'
+      - $ref: './loyalty-programs-bank-account-ownership-join-condition.yaml'

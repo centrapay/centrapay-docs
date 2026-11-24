@@ -27,14 +27,11 @@ post:
             - emailAddress
           properties:
             phoneNumber:
-              type: string
-              description: The user's phone number.
+              $ref: '../models/direct-debit-authority.yaml#/properties/phoneNumber'
             fullName:
-              type: string
-              description: The first and last name of the user.
+              $ref: '../models/direct-debit-authority.yaml#/properties/fullName'
             emailAddress:
-              type: string
-              description: The user's email address.
+              $ref: '../models/direct-debit-authority.yaml#/properties/emailAddress'
         examples:
           default:
             value:

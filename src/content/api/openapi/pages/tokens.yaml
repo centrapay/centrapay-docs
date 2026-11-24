@@ -1,5 +1,5 @@
 title: Tokens
-description: Token models and related endpoints
+description: Token endpoints
 nav:
   path: Assets
   order: 5
@@ -10,11 +10,6 @@ intro: |
 
   A [Redemption Condition](#redemption-condition-model) is created for each [Merchant](/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
 sections:
-  - model: token-collection
-  - model: token-expires-after
-  - model: redemption-condition
-  - model: allowed-products
-  - model: token
   - endpoint: createTokenCollection
   - endpoint: listTokenCollections
   - endpoint: createRedemptionCondition

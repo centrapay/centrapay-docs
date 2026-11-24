@@ -7,6 +7,24 @@ properties:
   status:
     type: string
     description: The status of the Asset Transfer. See [Asset Transfer lifecycle](#asset-transfer-lifecycle) for possible values.
+    x-values:
+      title: "Asset Transfer lifecycle"
+      intro: |
+        Asset Transfer goes through different lifecycle stages.
+        ![Asset Transfer Lifecycle](/asset-lifecycle.png)
+      entries:
+        - name: "created"
+          description: "Asset transfer successfully created"
+        - name: "sent"
+          description: "Asset transfer notification (sms, email) was sent to a new user"
+        - name: "expired"
+          description: "Asset transfer expired as new user didn't create his account and claimed the asset. This is very short lived state"
+        - name: "returned"
+          description: "Asset transfer expired and was returned to original owner"
+        - name: "claimed"
+          description: "Asset transfer was successfully completed"
+        - name: "cancelled"
+          description: "Asset transfer was cancelled."
   value:
     type: string
     x-type: bignumber

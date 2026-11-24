@@ -1,0 +1,13 @@
+x-title: Error
+type: object
+properties:
+  message:
+    type: string
+    description: A description of what caused the Error.
+  externalId:
+    type: string
+    description: Field used in debugging in reference to an id from the file.
+  index:
+    type: string
+    x-type: bignumber
+    description: Item offset where the Error was identified in the file.

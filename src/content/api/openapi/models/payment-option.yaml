@@ -1,6 +1,4 @@
 x-title: Payment Option Model
-x-outro: |
-  ⭐️ For Payment Options which specify an address, there's a requirement to make a transaction on an external ledger. Once you have made that payment, you can use the transaction id to [Pay a Payment Request](#pay-a-payment-request).
 type: object
 properties:
   assetType:
@@ -15,6 +13,6 @@ properties:
     description: "⭐️ Address to send Bitcoin, when the `assetType` is `bitcoin.*`."
   acceptedCollections:
     type: array
-    description: "[Accepted Collections](#accepted-collections) for the Payment Request, when the “assetType” is `centrapay.token.*`."
+    description: "[Accepted Collections](#accepted-collections) for the Payment Request, when the “assetType” is `centrapay.token.*`. They can be used to determine whether a [Centrapay Token](/api/tokens) can be used to pay the Payment Request, and which Line Items can be purchased using the Token."
     items:
       $ref: './accepted-collections.yaml'

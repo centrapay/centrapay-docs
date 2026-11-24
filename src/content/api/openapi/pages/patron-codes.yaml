@@ -1,13 +1,11 @@
 title: Patron Codes
-description: Patron Code model and related endpoints
+description: Patron Code endpoints
 nav:
   path: Scanned Codes
   order: 2
 intro: |
   A Patron Code is an alternative to presenting a QR code where that option isn’t available.
 sections:
-  - model: patron-code
-    rule: false
   - endpoint: createPatronCode
   - endpoint: getPatronCode
   - endpoint: getPatronCodeByBarcode

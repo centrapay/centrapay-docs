@@ -1,0 +1,5 @@
+x-title: Params Model
+type: object
+oneOf:
+  - $ref: './managed-integrations-params-paypal-referral.yaml'
+  - $ref: './managed-integrations-params-payap.yaml'

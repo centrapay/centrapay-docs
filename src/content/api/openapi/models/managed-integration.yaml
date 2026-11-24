@@ -22,6 +22,8 @@ properties:
   params:
     type: object
     description: '[Params](#params-model) depending on the Managed Integration type.'
+    allOf:
+      - $ref: './managed-integrations-params.yaml'
   createdAt:
     type: string
     format: date-time
@@ -55,6 +57,8 @@ properties:
   invitation:
     type: object
     description: A summary of the associated [Invitation](/api/invitations). See [Invitation Summary](#invitation-summary-model).
+    allOf:
+      - $ref: './managed-integrations-invitation-summary.yaml'
   inProgress:
     type: boolean
     description: Flag indicating whether a status transition is in progress.

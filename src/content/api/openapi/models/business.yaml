@@ -45,6 +45,8 @@ properties:
   taxNumber:
     type: object
     description: The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
+    allOf:
+      - $ref: './businesses-tax-number.yaml'
   location:
     type: object
     x-type: location
@@ -53,6 +55,41 @@ properties:
     type: string
     enum: [applied, provisioning, active, on-hold, deactivated, archived]
     description: The onboarding status of the Business. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    x-values:
+      title: "Onboarding Statuses"
+      entries:
+        - name: "applied"
+          description: "Identifies businesses that have registered to be activated for the Centrapay service."
+        - name: "provisioning"
+          description: "Identifies businesses that are in the process of being activated for the Centrapay service."
+        - name: "active"
+          description: "Identifies businesses that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request)."
+        - name: "deactivated"
+          description: "Identifies businesses that have been de-registered for the Centrapay service."
+          notes:
+            - label: "Allowed Reasons"
+              value: "data-quality-issues,change-of-ownership, centrapay-discontinued, duplicate, blocked"
+        - name: "on-hold"
+          description: "Identifies businesses that have been placed on hold."
+          notes:
+            - label: "Allowed Reasons"
+              value: "seasonal-business-closure,  no-response"
   onboardingStatusReason:
     type: string
     description: The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+
+    x-values:
+      title: "Onboarding Status Reasons"
+      entries:
+        - name: "duplicate"
+          description: "The business already exists in the Centrapay system."
+        - name: "data-quality-issues"
+          description: "Data quality issues are preventing the business from onboarding."
+        - name: "no-response"
+          description: "No response has been received from the business."
+        - name: "change-of-ownership"
+          description: "The business has changed ownership."
+        - name: "centrapay-discontinued"
+          description: "The business is no longer using Centrapay."
+        - name: "seasonal-business-closure"
+          description: "The business has closed temporarily."

@@ -44,10 +44,14 @@ properties:
   params:
     type: object
     description: Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+    allOf:
+      - $ref: '../models/promotion-params.yaml'
   target:
     type: object
     description: Use `params.target` instead. Retained on responses for backwards compatibility. See [Promotion Target](/api/promotions#promotion-target-model).
     x-deprecated: true
+    allOf:
+      - $ref: '../models/promotion-target.yaml'
   type:
     type: string
     description: The type of Promotion. Can be `challenge` or `draw`. `challenge` rewards the account once, after the challenge target is met. `draw` collects entrants and selects winner(s) once the entrant count is within the configured bounds.

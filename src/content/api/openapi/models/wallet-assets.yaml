@@ -42,3 +42,8 @@ properties:
     type: boolean
     x-experimental: true
     description: '`true` if the Wallet Asset is a [Settlement Wallet Asset](#settlement-wallet-assets).'
+
+    x-table:
+      title: "Settlement Wallet Assets"
+      body: |
+        A Settlement Wallet Asset is a special type of Wallet Asset that can only receive or refund money related to a [Payment Request](/api/payment-requests). This means you cannot top up, withdraw, or send money from this Wallet Asset.

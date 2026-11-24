@@ -10,6 +10,33 @@ properties:
   type:
     type: string
     description: The [Payment Activity Type](#payment-activity-types).
+    x-values:
+      title: "Payment Activity Types"
+      entries:
+        - name: "request"
+          description: "[Payment Request](#payment-request-model) was created."
+        - name: "preAuthRequest"
+          description: "[Payment Request](#payment-request-model) was created with the `preAuth` flag set to \"true\"."
+        - name: "paid"
+          description: "[Payment Request](#payment-request-model) was paid."
+        - name: "payment"
+          description: "A payment was made towards the [Payment Request](#payment-request-model)."
+        - name: "refund"
+          description: "Funds were returned to the shopper."
+        - name: "cancellation"
+          description: "[Payment Request](#payment-request-model) was cancelled by the merchant or the shopper."
+        - name: "expiry"
+          description: "[Payment Request](#payment-request-model) wasn't paid before time out."
+        - name: "accept-condition"
+          description: "A [Payment Condition](#payment-condition-model) was accepted."
+        - name: "decline-condition"
+          description: "A [Payment Condition](#payment-condition-model) was declined."
+        - name: "authorization"
+          description: "A Pre Auth [Payment Request](#payment-request-model) was approved and confirmations can be made against it."
+        - name: "confirmation"
+          description: "Funds on a Pre Auth have been drawn down on."
+        - name: "release"
+          description: "Pre Auth has been finalised and any remaining funds from Authorization have been returned."
   value:
     x-type: monetary
     type: object
@@ -75,7 +102,11 @@ properties:
     description: '`true` if the related Payment Request is a Pre Auth.'
   paidBy:
     type: object
-    description: Shows the [Paid By](#paid-by-model) when a Payment Request is paid.
+    description: Shows the [Paid By](#paid-by-model) - a summary of the transactions - when a Payment Request is paid.
+    allOf:
+      - $ref: './paid-by.yaml'
   strategy:
     type: object
     description: Details about the specifics for a refund. See [Strategy Model](#strategy-model)
+    allOf:
+      - $ref: './strategy.yaml'

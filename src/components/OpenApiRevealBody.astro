@@ -1,0 +1,20 @@
+---
+import OpenApiPropertyItem from './OpenApiPropertyItem.astro';
+
+// The revealed content of a model documented inline: its field rows and the
+// models varying it (`oneOf`/`anyOf` members, `x-variants`) each as a
+// nested reveal. Model prose never renders here - a row's description
+// carries it, and a standalone model's intro renders under its own title.
+const { reveal } = Astro.props;
+
+const nested = [
+  ...reveal.rows,
+  ...reveal.variants.map(variant => ({ isReveal: true, name: variant.title, badges: variant.badges, reveal: variant })),
+];
+---
+
+{nested.length > 0 && (
+  <ul role="list" class="mt-0 list-none divide-outline-transparent p-0 prose-li:m-0">
+    {nested.map(row => <OpenApiPropertyItem property={row} />)}
+  </ul>
+)}

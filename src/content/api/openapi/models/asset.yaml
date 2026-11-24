@@ -2,6 +2,13 @@ x-title: Asset Model
 x-intro: |
   All assets have the following fields along with the additional fields that are
   specific to its category. Assets which don't have a category are experimental and the model may change.
+# The category-specific models an asset can take. Each is revealed inline from
+# the routes that return assets, keeping the anchors the page's old per-model
+# sections had.
+x-variants:
+  - assets-money
+  - assets-token
+  - assets-ledger
 type: object
 properties:
   id:

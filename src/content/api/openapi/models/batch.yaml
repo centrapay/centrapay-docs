@@ -13,9 +13,36 @@ properties:
   status:
     type: string
     description: The current [Lifecycle Stage](#batch-lifecycle) of the batch.
+    x-values:
+      title: "Batch Lifecycle"
+      intro: |
+        Different stages of a Batch's lifecycle.
+        ![Batch Lifecycle](/batch-lifecycle.png)
+      entries:
+        - name: "created"
+          description: "The batch has successfully been submitted."
+        - name: "copied"
+          description: "The file has been transferred to Centrapay."
+        - name: "chunked"
+          description: "The batch has been broken up for processing."
+        - name: "complete"
+          description: "The batch has been processed and may include errors."
+        - name: "error"
+          description: "There is an error accessing or reading the file, preventing processing."
   type:
     type: string
     description: '[Batch Type](#batch-types) id used to describe the batch content.'
+    x-values:
+      title: "Batch Types"
+      intro: |
+        The following table describes the Batch Types supported for loading.
+      entries:
+        - name: "[farmlands-external-asset](/api/batch-types/farmlands-external-asset)"
+          description: "Farmlands External Asset Batch."
+        - name: "[ticketek-ticket](/api/batch-types/ticketek-ticket)"
+          description: "Ticketek Ticket Batch."
+        - name: "[business-onboard](/api/batch-types/business-onboard)"
+          description: "Business Onboard Batch."
   totalCount:
     type: string
     x-type: bignumber
@@ -27,7 +54,7 @@ properties:
   errors:
     type: array
     items:
-      type: object
+      $ref: './batch-error.yaml'
     description: '[Error](#error) list for the batch.'
   test:
     type: boolean

@@ -1,5 +1,5 @@
 title: Merchants
-description: Merchant models and related endpoints
+description: Merchant endpoints
 nav:
   path: Merchants
   order: 1
@@ -7,40 +7,6 @@ intro: |
   A merchant is an initiator of [Payment Requests](/api/payment-requests). A Merchant has [Merchant Configs](/api/merchant-configs)
   which define the payment methods available for a Payment Request.
 sections:
-  - model: merchant-model
-    rule: false
-  - title: Onboarding Statuses
-    rule: false
-    depth: 3
-    body: |
-      |    Status    |                                                                Description                                                                 |                                                       Allowed Reasons                                                        |
-      | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-      | applied      | Identifies merchants that have registered to be activated for the Centrapay service.                                                       |                                                                                                                              |
-      | provisioning | Identifies merchants that are in the process of being activated for the Centrapay service.                                                 |                                                                                                                              |
-      | active       | Identifies merchants that have been activated for Centrapay services successfully (i.e. they have successfully created a Payment Request). |                                                                                                                              |
-      | deactivated  | Identifies merchants that have been de-registered for the Centrapay service.                                                               | duplicate, data-quality-issues, change-of-ownership, centrapay-discontinued-opt-out, blocked, company-closed, tid-cancelled  |
-      | on-hold      | Identifies merchants that have been placed on hold.                                                                                        | seasonal-business-closure, incompatible-terminal, no-response                                                                |
-      | archived     | Identifies merchants that have been archived. Archived merchants are not returned when listing Merchants.                                  | duplicate, data-quality-issues, change-of-ownership, centrapay-discontinued-opt-out, blocked, company-closed, tid-cancelled  |
-  - title: Onboarding Status Reasons
-    rule: false
-    depth: 3
-    body: |
-      |             Reason             |                          Description                           |
-      | :----------------------------- | :------------------------------------------------------------- |
-      | duplicate                      | The merchant already exists in the Centrapay system.           |
-      | data-quality-issues            | Data quality issues are preventing the merchant from onboarding. |
-      | no-response                    | No response has been received from the merchant.               |
-      | change-of-ownership            | The merchant has changed ownership.                            |
-      | centrapay-discontinued-opt-out | The merchant or partner has requested cancellation of Centrapay. |
-      | blocked                        | The merchant has been blocked.                                 |
-      | company-closed                 | The merchant's business has closed.                            |
-      | tid-cancelled                  | The merchant's terminal has been cancelled.                    |
-      | seasonal-business-closure      | The merchant has closed temporarily.                           |
-      | incompatible-terminal          | The merchant does not have any compatible terminals.           |
-  - model: settlement-config
-  - model: merchant-search-result
-  - model: accepted-asset
-  - model: merchants-product
   - endpoint: createMerchant
   - endpoint: getMerchant
   - endpoint: listMerchantsForAccount

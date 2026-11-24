@@ -13,7 +13,6 @@ import {
   pageNavPath,
   OPENAPI_DIR,
 } from '../utils/openApiPage.js';
-import { getProperties, requestSchema } from '../utils/OpenApiResolver.js';
 
 // Mirrors the tokenizer `@astrojs/markdoc` builds for this site: `allowComments`
 // is always on, and `allowIndentation` follows `ignoreIndentation` in
@@ -264,34 +263,75 @@ export function stripMarkdown(text) {
   );
 }
 
-function requestPropertyNames(operation) {
-  return getProperties(requestSchema(operation)).map(property => property.name);
-}
-
 function errorMessages(operation) {
   return Object.entries(operation.responses ?? {})
     .filter(([code]) => !/^2\d\d$/.test(code))
     .flatMap(([, response]) => Object.keys(response?.content?.['application/json']?.examples ?? {}));
 }
 
-function endpointKeywords(operation) {
+// Field names and prose from every reveal a section's rows and response hang
+// off, so a model's fields and its reference tables stay searchable under the
+// routes that document them now that pages have no model sections of their
+// own.
+function revealProse(reveal) {
+  return [reveal.intro, reveal.outro].filter(Boolean).map(stripMarkdown);
+}
+
+function revealRow(row, buckets) {
+  buckets.names.push(row.name);
+  if (row.description) {
+    buckets.prose.push(row.description.replace(/<[^>]+>/g, ''));
+  }
+  if (row.reveal) {
+    revealContent(row.reveal, buckets);
+  }
+  if (row.table) {
+    buckets.names.push(row.table.title);
+    buckets.prose.push(stripMarkdown(row.table.body));
+  }
+  if (row.values) {
+    buckets.names.push(row.values.title, ...row.values.entries.map(entry => entry.name));
+    buckets.prose.push(...row.values.entries.map(entry => stripMarkdown(entry.description)));
+    if (row.values.intro) {
+      buckets.prose.push(stripMarkdown(row.values.intro));
+    }
+  }
+}
+
+function revealContent(reveal, buckets) {
+  if (reveal.title) {
+    buckets.names.push(reveal.title);
+  }
+  buckets.prose.push(...revealProse(reveal));
+  (reveal.rows ?? []).forEach(row => revealRow(row, buckets));
+  (reveal.variants ?? []).forEach(variant => revealContent(variant, buckets));
+}
+
+function revealRows(rows, buckets) {
+  for (const row of rows ?? []) {
+    revealRow(row, buckets);
+  }
+}
+
+function sectionReveals(section) {
+  const buckets = { names: [], prose: [] };
+  revealRows(section.properties, buckets);
+  if (section.response) {
+    revealContent(section.response, buckets);
+  }
+  return buckets;
+}
+
+function endpointKeywords(section, operation) {
+  const { names } = sectionReveals(section);
   return [
     operation.operationId,
     operation['x-path'],
     ...(operation.parameters ?? []).map(param => param.name),
-    ...requestPropertyNames(operation),
+    ...(section.properties ?? []).map(property => property.name),
+    ...names,
     ...errorMessages(operation),
   ];
-}
-
-function modelDetails(section, models) {
-  const data = models[section.name];
-  return {
-    ...section,
-    description: firstParagraph(stripMarkdown(data['x-intro'] ?? '')),
-    keywords: getProperties(data).map(property => property.name),
-    prose: [stripMarkdown(data['x-intro'] ?? ''), stripMarkdown(data['x-outro'] ?? '')],
-  };
 }
 
 function extraDetails(section) {
@@ -300,18 +340,16 @@ function extraDetails(section) {
 
 function endpointDetails(section, operations) {
   const operation = operations[section.operationId];
+  const { prose } = sectionReveals(section);
   return {
     ...section,
     description: firstParagraph(stripMarkdown(section.description ?? '')),
-    keywords: endpointKeywords(operation),
-    prose: [stripMarkdown(section.description ?? '')],
+    keywords: endpointKeywords(section, operation),
+    prose: [stripMarkdown(section.description ?? ''), ...prose],
   };
 }
 
-function sectionDetails(section, { models, operations }) {
-  if (section.kind === 'model') {
-    return modelDetails(section, models);
-  }
+function sectionDetails(section, { operations }) {
   if (section.kind === 'extra') {
     return extraDetails(section);
   }

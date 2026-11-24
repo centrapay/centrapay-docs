@@ -1,5 +1,5 @@
 title: Settlements
-description: Settlement models and related endpoints
+description: Settlement endpoints
 nav:
   path: Settlements
   order: 21
@@ -8,5 +8,4 @@ intro: |
 
   Settlements can only be created if the Merchant has a [Settlement Config](/api/merchants#settlement-config-model).
 sections:
-  - model: settlement
   - endpoint: listMerchantSettlements

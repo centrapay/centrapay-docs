@@ -1,12 +1,4 @@
 x-title: Line Item Model
-x-intro: |
-  An order item for which payment is requested.
-  The currency and units for a Line Item price will be consistent with the Payment Request value and the sum of Line Item prices should equal the Payment Request value.
-
-  Line items can include a discount amount.
-  A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
-
-  Either `price` or `unitPrice` must be supplied. If `price` is supplied it is used as-is; if only `unitPrice` is supplied, `price` is computed as `unitPrice * qty`. When both are supplied, `price` takes priority and is not validated against `unitPrice * qty`.
 type: object
 required:
   - name
@@ -48,7 +40,7 @@ properties:
     x-type: bignumber
     type: string
     example: '400'
-    description: Discount amount in cents (tax exclusive).
+    description: Discount amount in cents (tax exclusive). A discount that applies to multiple Line Items may be represented as a separate Line Item with a negative amount.
   metadata:
     type: object
     additionalProperties:
@@ -65,12 +57,5 @@ properties:
   classification:
     type: object
     description: "[Product Classification](#product-classification)."
-    properties:
-      type:
-        type: string
-      code:
-        type: string
-      name:
-        type: string
-      props:
-        type: object
+    allOf:
+      - $ref: './product-classification.yaml'

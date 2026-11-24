@@ -1,0 +1,39 @@
+---
+import OpenApiMarkdown from './OpenApiMarkdown.astro';
+import { createMarkdownRenderer } from '../utils/openApiPage.js';
+import { formatDescription } from '../utils/OpenApiResolver.js';
+
+// Renders a property's possible values (`x-values`) as stacked entries:
+// each value close over its description, with a larger gap between
+// entries. Markdown links and code in names, descriptions and note values
+// render as elsewhere.
+const { values } = Astro.props;
+
+const intro = values.intro ? createMarkdownRenderer(values.headingAnchors ?? [])(values.intro) : null;
+---
+
+{intro && <OpenApiMarkdown segments={intro} />}
+<div data-values class="my-2">
+  {values.entries.map(entry => (
+    <div class="my-4 first:mt-0 last:mb-0">
+      {entry.name && <p class="m-0 font-semibold" set:html={formatDescription(entry.name)} />}
+      {entry.description && <p class="m-0 text-content-secondary" set:html={formatDescription(entry.description)} />}
+      {entry.notes?.map(note => (
+        <p class="m-0 text-sm text-content-tertiary">
+          <span class="font-semibold">{note.label}: </span><span set:html={formatDescription(note.value)} />
+        </p>
+      ))}
+    </div>
+  ))}
+</div>
+
+<style is:global>
+  /* Entries read as name-plus-description units. Prose paragraph margins
+     (which survive Tailwind's m-0 here - the typography plugin emits them
+     into the utilities layer after it) would space the name and description
+     apart like separate paragraphs, so zero them unlayered and keep a
+     small gap between the lines of one entry; the entry's own margin does
+     the separating between values. */
+  [data-values] p { margin-block: 0; }
+  [data-values] p + p { margin-top: 0.25rem; }
+</style>

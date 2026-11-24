@@ -1,19 +1,10 @@
 title: Bank Account Connection Intents
-description: Bank Account Connection Intent model and related endpoints
+description: Bank Account Connection Intent endpoints
 nav:
   path: Bank Accounts
   order: 3
 intro: |
   A Bank Account Connection Intent facilitates user authorization of access to Bank Accounts, for example, using Open Banking flows. Typically the authorization will follow an OAuth flow where the user is redirected to a third-party system to authenticate and select one or more bank accounts.
 sections:
-  - model: bank-account-connection-intent
-  - title: Bank Account Connection Intent Types
-    rule: false
-    depth: 3
-    body: |
-      |      Name                   |                                                                                               description                                                                                                |
-      | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | account-information-consent | Initiates an authorization flow for authorizing access to bank account details. After a Bank Account Connection Intent has been authorized, one or more Centrapay Bank Account resources may be created. |
-      | enduring-payment-consent    | Initiates an authorization flow for authorizing access to create payments.                                                                                                                               |
   - endpoint: createBankAccountConnectionIntent
   - endpoint: authorizeBankAccountConnectionIntent

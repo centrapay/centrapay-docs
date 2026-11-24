@@ -14,6 +14,8 @@ properties:
   tokenExpiresAfter:
     type: object
     description: The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+    allOf:
+      - $ref: './token-expires-after.yaml'
   tokenExpiresAt:
     type: string
     format: date-time
