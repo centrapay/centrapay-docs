@@ -16,7 +16,7 @@ When a patron's wallet is linked to a POS transaction via a Connection, the inte
 - Retrieving and applying promotional offers and discounts
 - Redeeming loyalty tokens as partial payment
 
-The POS [creates a Connection](/api/connections#create-connection) and displays the Connection URL as a QR code. When the patron scans it, they authorises the Connection through the wallet, linking the wallet to the transaction. The wallet then determines eligibility for discounts and offers before any payment is taken, and the remaining balance is collected by the POS.
+The POS [creates a Connection](/api/connections/create-connection/) and displays the Connection URL as a QR code. When the patron scans it, they authorises the Connection through the wallet, linking the wallet to the transaction. The wallet then determines eligibility for discounts and offers before any payment is taken, and the remaining balance is collected by the POS.
 
 ## Payment Flow
 
@@ -61,17 +61,17 @@ sequenceDiagram
 
 The flow begins when the POS creates a Connection and the patron scans the QR code to link their wallet to the transaction.
 
-**POS:** [Create a Connection](/api/connections#create-connection) and display the returned Connection URL as a QR code.
+**POS:** [Create a Connection](/api/connections/create-connection/) and display the returned Connection URL as a QR code.
 
-**Wallet:** Implement the [authorise the connection](/api/connections#authorize-connection) to authorize the connection.
+**Wallet:** Implement the [authorise the connection](/api/connections/authorize-connection/) to authorize the connection.
 
 ## Requesting payment
 
 Once the connection is authorised, the POS creates a Payment Request tied to the connection.
 
-**POS:** [Create a Payment Request](/api/payment-requests#create-a-payment-request) with the `connectionId` from the Connection. This allows Centrapay to associate the transaction with the patron's wallet so offers can be applied.
+**POS:** [Create a Payment Request](/api/payment-requests/create-a-payment-request/) with the `connectionId` from the Connection. This allows Centrapay to associate the transaction with the patron's wallet so offers can be applied.
 
-**Wallet:** [Get Payment Request by connectionId](/api/payment-requests#get-a-payment-request-by-connection-id) to fetch the payment request details from Centrapay. The payment request will contain line items that can be used to calculate available offers.
+**Wallet:** [Get Payment Request by connectionId](/api/payment-requests/get-a-payment-request-by-connection-id/) to fetch the payment request details from Centrapay. The payment request will contain line items that can be used to calculate available offers.
 
 ## Applying Offers and Processing Payment
 

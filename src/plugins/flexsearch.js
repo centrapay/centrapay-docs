@@ -10,6 +10,9 @@ import {
   indexOperations,
   firstParagraph,
   pageHref,
+  routeHref,
+  splitPageRoutes,
+  stripMarkdown,
   pageNavPath,
   OPENAPI_DIR,
 } from '../utils/openApiPage.js';
@@ -259,17 +262,6 @@ function isExcluded(frontMatter, includeDrafts) {
   return Boolean(frontMatter.draft) && !includeDrafts;
 }
 
-export function stripMarkdown(text) {
-  return normalizeWhitespace(
-    (text ?? '')
-      .replace(/```[\s\S]*?```/g, ' ')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/[`*_>#]/g, '')
-      .replace(/\|/g, ' ')
-      .replace(/^\s*-\s+/gm, '')
-  );
-}
-
 function errorMessages(operation) {
   return Object.entries(operation.responses ?? {})
     .filter(([code]) => !/^2\d\d$/.test(code))
@@ -393,7 +385,7 @@ export function buildOpenApiEntries({ id, page, endpointFiles, models }) {
   const href = pageHref(id);
   const path = pageNavPath(page);
   const operations = indexOperations(endpointFiles);
-  const sections = getPageSections(page, { models, operations });
+  const { prose, routes } = splitPageRoutes(getPageSections(page, { models, operations }));
   return [
     finalizeSection({
       title: page.title,
@@ -404,22 +396,33 @@ export function buildOpenApiEntries({ id, page, endpointFiles, models }) {
       keywords: [],
       prose: [stripMarkdown(page.intro)],
     }),
-    ...sections.map(section => sectionDetails(section, { models, operations })).flatMap(section => {
-      const deprecated = section.badges.includes('deprecated');
-      return [
-        finalizeSection({
-          title: section.title,
-          href: `${href}#${section.anchor}`,
-          path,
-          description: section.description,
-          deprecated,
-          keywords: section.keywords,
-          prose: section.prose,
-        }),
-        ...sectionFields(section).map(row => fieldEntry({ row, href, path: [...path, section.title], deprecated })),
-      ];
+    ...prose.flatMap(section => sectionEntries(section, `${href}#${section.anchor}`)),
+    ...routes.flatMap(route => {
+      const routePage = routeHref(id, route.slug);
+      return route.sections.flatMap(section => sectionEntries(
+        section,
+        section === route.section ? routePage : `${routePage}#${section.anchor}`,
+        routePage,
+      ));
     }),
   ];
+
+  function sectionEntries(section, sectionHref, fieldPage) {
+    const details = sectionDetails(section, { models, operations });
+    const deprecated = details.badges.includes('deprecated');
+    return [
+      finalizeSection({
+        title: details.title,
+        href: sectionHref,
+        path,
+        description: details.description,
+        deprecated,
+        keywords: details.keywords,
+        prose: details.prose,
+      }),
+      ...sectionFields(details).map(row => fieldEntry({ row, href: fieldPage, path: [...path, details.title], deprecated })),
+    ];
+  }
 }
 
 async function loadYamlFile(filepath) {

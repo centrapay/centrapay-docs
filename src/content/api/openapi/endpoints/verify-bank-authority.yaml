@@ -5,7 +5,7 @@ post:
   operationId: verifyBankAuthority
   summary: Verify Bank Authority
   description: |
-    If you're creating new interfaces, please work with [Verify Bank Account](#verify-bank-account).
+    If you're creating new interfaces, please work with [Verify Bank Account](/api/bank-accounts/verify-bank-account/).
   tags:
     - bank-accounts
   parameters:

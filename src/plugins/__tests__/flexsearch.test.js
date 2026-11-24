@@ -232,25 +232,31 @@ describe('deprecation', () => {
 });
 
 describe('spec-driven API page entries', () => {
-  it('adds an entry per top-level field, linked to its anchor on the page', async () => {
+  it('adds an entry per top-level field, linked to its anchor on the route page', async () => {
     const entries = await createOpenApiIndexEntries();
-    const name = entries.find(entry => entry.href === '/api/accounts#create-an-account.body.name');
+    const name = entries.find(entry => entry.href === '/api/accounts/create-an-account/#body.name');
     expect(name).toMatchObject({
       title: 'name',
       path: ['Accounts', 'Accounts', 'Create an Account'],
       description: 'The name of the Account.',
       field: true,
     });
-    expect(entries.find(entry => entry.href === '/api/accounts#get-an-account.path.accountId')).toBeDefined();
-    expect(entries.find(entry => entry.href === '/api/accounts#get-an-account.responses.body.region')).toBeDefined();
+    expect(entries.find(entry => entry.href === '/api/accounts/get-an-account/#path.accountId')).toBeDefined();
+    expect(entries.find(entry => entry.href === '/api/accounts/get-an-account/#responses.body.region')).toBeDefined();
   });
 
   it('keeps nested field names searchable through their section', async () => {
     const entries = await createOpenApiIndexEntries();
-    const section = entries.find(entry => entry.href === '/api/payment-requests#create-a-payment-request');
+    const section = entries.find(entry => entry.href === '/api/payment-requests/create-a-payment-request/');
     expect(section.keywords).toContain('unitPrice');
     expect(section.field).toBeUndefined();
     expect(entries.find(entry => entry.href.endsWith('.lineItems.unitPrice'))).toBeUndefined();
+  });
+
+  it('links a named example to its anchor on its route\'s page and prose to the resource page', async () => {
+    const hrefs = (await createOpenApiIndexEntries()).map(entry => entry.href);
+    expect(hrefs).toContain('/api/onboarding#api-behavior');
+    expect(hrefs.filter(href => href.startsWith('/api/onboarding/create-an-onboarding-request/#') && !href.includes('.'))).toHaveLength(1);
   });
 });
 

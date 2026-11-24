@@ -132,7 +132,7 @@ post:
                 error: Forbidden
                 message: INSUFFICIENT_WALLET_BALANCE
             QUOTA_EXCEEDED:
-              description: The transfer exceeds one or more spend quota limits. See [Quota Error Response](/api/quotas#errors).
+              description: The transfer exceeds one or more spend quota limits. See [Quota Error Response](/api/quotas/get-account-quotas/#errors).
               value:
                 statusCode: 403
                 error: Forbidden

@@ -55,8 +55,8 @@
                     <a
                       role="menuitem"
                       class="flex items-start gap-2 py-2 pl-8 pr-2 text-xs text-content-tertiary"
-                      :aria-current="isActiveHeading(subChild, navigationGrandchild) ? 'location' : undefined"
-                      :href="`${pageHref(subChild)}#${navigationGrandchild.slug}`"
+                      :aria-current="headingCurrent(subChild, navigationGrandchild)"
+                      :href="headingHref(subChild, navigationGrandchild)"
                     >
                       <span
                         v-if="navigationGrandchild.method"
@@ -100,8 +100,8 @@
                   <a
                     role="menuitem"
                     class="flex items-start gap-2 py-2 pl-6 pr-2 text-xs text-content-tertiary"
-                    :aria-current="isActiveHeading(navigationChild, navigationGrandchild) ? 'location' : undefined"
-                    :href="`${pageHref(navigationChild)}#${navigationGrandchild.slug}`"
+                    :aria-current="headingCurrent(navigationChild, navigationGrandchild)"
+                    :href="headingHref(navigationChild, navigationGrandchild)"
                   >
                     <span
                       v-if="navigationGrandchild.method"
@@ -149,7 +149,7 @@ function findItem(items) {
   }
 }
 
-const currentHeadings = findItem(props.navigation.items)?.headings || [];
+const currentHeadings = (findItem(props.navigation.items)?.headings || []).filter(heading => !isRoute(heading));
 
 function hashSlug() {
   return decodeURIComponent(window.location.hash.slice(1));
@@ -255,16 +255,36 @@ function isActive(item) {
   return props.path === item.path;
 }
 
+// Only API route headings have a method, and each route has its own page.
+function isRoute(heading) {
+  return Boolean(heading.method);
+}
+
+function headingHref(item, heading) {
+  return isRoute(heading) ? `${pageHref(item)}${heading.slug}/` : `${pageHref(item)}#${heading.slug}`;
+}
+
+function isOnRoute(item, heading) {
+  return isRoute(heading) && props.path === `${item.path}/${heading.slug}`;
+}
+
+function headingCurrent(item, heading) {
+  if (isOnRoute(item, heading)) {
+    return 'page';
+  }
+  return isActiveHeading(item, heading) ? 'location' : undefined;
+}
+
 function hasHeadings(item) {
   return props.showHeadings && item.headings?.length > 0;
 }
 
 function showHeadingsFor(item) {
-  return hasHeadings(item) && isActive(item);
+  return hasHeadings(item) && (isActive(item) || item.headings.some(heading => isOnRoute(item, heading)));
 }
 
 function isActiveHeading(item, heading) {
-  return isActive(item) && activeSlug.value === heading.slug;
+  return isOnRoute(item, heading) || (isActive(item) && !isRoute(heading) && activeSlug.value === heading.slug);
 }
 
 function hasActiveHeading(item) {

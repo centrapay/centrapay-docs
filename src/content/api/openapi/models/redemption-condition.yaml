@@ -15,7 +15,7 @@ properties:
     description: The unique identifier of the Redemption Condition.
   collectionId:
     type: string
-    description: The [Token Collection](#create-token-collection) that will govern the branding and redemption rules for the Token.
+    description: The [Token Collection](/api/tokens/create-token-collection/) that will govern the branding and redemption rules for the Token.
   createdAt:
     type: string
     format: date-time

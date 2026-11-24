@@ -5,7 +5,7 @@ post:
   operationId: createRedemptionCondition
   summary: Create Redemption Condition
   description: |
-    This endpoint allows you to create a Redemption Condition. Redemption conditions are only created for [Token Collections](#create-token-collection) of type `product`.
+    This endpoint allows you to create a Redemption Condition. Redemption conditions are only created for [Token Collections](/api/tokens/create-token-collection/) of type `product`.
   tags:
     - tokens
   parameters:

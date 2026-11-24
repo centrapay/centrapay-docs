@@ -1,44 +1,60 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import OpenApiEndpoint from '../../components/OpenApiEndpoint.astro';
 import ApiPage from '../../components/api/ApiPage.astro';
 import ApiSection from '../../components/api/ApiSection.astro';
 import AnchorHeading from '../../components/api/AnchorHeading.astro';
+import AnchorRedirects from '../../components/api/AnchorRedirects.astro';
 import Markdown from '../../components/api/Markdown.astro';
+import RouteList from '../../components/api/RouteList.astro';
+import RouteListItem from '../../components/api/RouteListItem.astro';
 import StatusTag from '../../components/api/StatusTag.astro';
 import navigation from '../../navigation/apiNavigation';
 import { loadOpenApiPages } from '../../utils/openApiLoader.js';
-import { createMarkdownRenderer } from '../../utils/openApiPage.js';
+import {
+  createMarkdownRenderer,
+  routeHref,
+  splitPageRoutes,
+} from '../../utils/openApiPage.js';
 
 export async function getStaticPaths() {
   const pages = await loadOpenApiPages();
-  return pages.map(({ id, page, sections, schemasMap }) => ({
+  return pages.map(({ id, page, sections }) => ({
     params: { openapiPage: id },
-    props: { page, sections, schemasMap },
+    props: { id, page, sections },
   }));
 }
 
-const { page, sections, schemasMap } = Astro.props;
+const { id, page, sections } = Astro.props;
+const { prose, routes } = splitPageRoutes(sections);
 const previewImg = '/default-cover.jpg';
 ---
 
 <BaseLayout title={page.title} description={page.description} img={previewImg} navigation={navigation}>
+  <AnchorRedirects slugs={routes.map(route => route.slug)} />
   <ApiPage title={page.title}>
     {page.intro && <Markdown slot="intro" segments={createMarkdownRenderer()(page.intro)} />}
-    {sections.map((section, index) => {
-      const divider = index > 0 && section.rule;
-      if (section.kind === 'endpoint') {
-        return <OpenApiEndpoint section={section} schemasMap={schemasMap} divider={divider} />;
-      }
-      return (
-        <ApiSection divider={divider}>
-          <AnchorHeading level={section.depth} id={section.anchor}>
-            {section.title}
-            {section.badges.map(status => <StatusTag status={status} />)}
-          </AnchorHeading>
-          <Markdown segments={createMarkdownRenderer(section.subheadingAnchors)(section.body)} />
-        </ApiSection>
-      );
-    })}
+    {routes.length > 0 && (
+      <RouteList slot="aside">
+        {routes.map(({ slug, section }) => (
+          <RouteListItem
+            id={slug}
+            href={routeHref(id, slug)}
+            title={section.title}
+            method={section.method}
+            path={section.path}
+            badges={section.badges}
+          />
+        ))}
+      </RouteList>
+    )}
+    {prose.map((section, index) => (
+      <ApiSection divider={index > 0 && section.rule}>
+        <AnchorHeading level={section.depth} id={section.anchor}>
+          {section.title}
+          {section.badges.map(status => <StatusTag status={status} />)}
+        </AnchorHeading>
+        <Markdown segments={createMarkdownRenderer(section.subheadingAnchors)(section.body)} />
+      </ApiSection>
+    ))}
   </ApiPage>
 </BaseLayout>

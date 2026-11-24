@@ -1,11 +1,12 @@
 ---
-const { divider = true } = Astro.props;
+const { divider = true, flushTop = false } = Astro.props;
 const hasCode = Astro.slots.has('code');
 ---
 
 <section
   class:list={[
-    'group/section grid grid-cols-1 gap-x-12 gap-y-8 py-12 md:py-16 xl:grid-cols-2 2xl:gap-x-16',
+    'group/section grid grid-cols-1 gap-x-12 gap-y-8 pb-12 md:pb-16 xl:grid-cols-2 2xl:gap-x-16',
+    flushTop ? 'pt-4' : 'pt-12 md:pt-16',
     divider && 'border-t border-outline-opaque',
   ]}
 >

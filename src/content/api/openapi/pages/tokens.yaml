@@ -6,9 +6,9 @@ nav:
 intro: |
   Tokens are [Assets](/api/assets/) which can only be spent in full.
 
-  Every [Token](#create-token) is associated with a [Collection](#create-token-collection), which defines the branding and general rules for the Tokens, such as active duration.
+  Every [Token](/api/tokens/create-token/) is associated with a [Collection](/api/tokens/create-token-collection/), which defines the branding and general rules for the Tokens, such as active duration.
 
-  A [Redemption Condition](#create-redemption-condition) is created for each [Merchant](/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
+  A [Redemption Condition](/api/tokens/create-redemption-condition/) is created for each [Merchant](/api/merchants) that accepts Tokens from a Collection, and contains additional conditions specific to that Merchant, such as redeemable product identifiers.
 sections:
   - endpoint: createTokenCollection
   - endpoint: listTokenCollections

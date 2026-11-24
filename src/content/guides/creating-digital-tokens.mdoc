@@ -39,7 +39,7 @@ sequenceDiagram
 
 1. **Create Collection**
 
-    You can create Collections by calling our [Create Token Collection](/api/tokens#create-token-collection) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
+    You can create Collections by calling our [Create Token Collection](/api/tokens/create-token-collection/) endpoint. You will need the account identifier of the owning account for the `accountId` field. The `maxValue` field is optional, and defines the upper limit on any settlement amount for a redeemed token.
 
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/collections \
@@ -62,7 +62,7 @@ sequenceDiagram
 
 2. **Create Redemption Condition** for each merchant, using the collection Id from step 1
 
-    Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens#create-redemption-condition) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests#create-a-payment-request).
+    Redemption Conditions are created by calling the [Create Redemption Condition](/api/tokens/create-redemption-condition/) endpoint. You will need the merchant identifier for the `merchantId` field. The list of `allowedProducts` defines those products sold by the merchant that are eligible for redemption. The `sku` for the product will need to match the `sku` that is passed in with the line item when the merchant creates the payment during redemption: [Create Payment Request](/api/payment-requests/create-a-payment-request/).
 
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/collections/c_NFhUgPQEYbk2EbTXAYArTX/redemption-conditions \
@@ -93,7 +93,7 @@ sequenceDiagram
 
 3. **Create Token**
 
-    Tokens can be created for the collection by calling the [Create Token](/api/tokens#create-token) endpoint.
+    Tokens can be created for the collection by calling the [Create Token](/api/tokens/create-token/) endpoint.
 
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/tokens \
@@ -105,7 +105,7 @@ sequenceDiagram
         }'
       ```
 
-    To create tokens directly into a user account, call our [Create Token](/api/tokens#create-token) endpoint and include the user’s `accountId` in your request.
+    To create tokens directly into a user account, call our [Create Token](/api/tokens/create-token/) endpoint and include the user’s `accountId` in your request.
 
       ```bash title="Request"
       curl -X POST https://service.centrapay.com/api/tokens \
@@ -120,4 +120,4 @@ sequenceDiagram
 
 4. **Transfer Token**
 
-    For sending tokens to users, see [Create an Asset Transfer](/api/asset-transfers#create-an-asset-transfer).
+    For sending tokens to users, see [Create an Asset Transfer](/api/asset-transfers/create-an-asset-transfer/).

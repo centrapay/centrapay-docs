@@ -8,7 +8,7 @@ type: object
 properties:
   collectionId:
     type: string
-    description: The [token collection](/api/tokens#create-token-collection) that will govern the branding and redemption rules for the token.
+    description: The [token collection](/api/tokens/create-token-collection/) that will govern the branding and redemption rules for the token.
   collectionType:
     type: string
     description: The type of the token collection.

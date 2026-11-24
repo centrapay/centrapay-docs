@@ -34,4 +34,4 @@ properties:
       type: string
   searchHidden:
     type: boolean
-    description: Whether the merchant should be hidden from the [Merchant Search](/api/merchants#search-merchants) API.
+    description: Whether the merchant should be hidden from the [Merchant Search](/api/merchants/search-merchants/) API.

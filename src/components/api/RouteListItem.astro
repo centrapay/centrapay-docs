@@ -1,0 +1,29 @@
+---
+import MethodBadge from './MethodBadge.astro';
+import StatusTag from './StatusTag.astro';
+
+// Only the title is the link, stretched over the row, so a screen reader
+// announces the route's name, then its method and path as the description,
+// rather than the whole row as one name. `id` is the route's old anchor, for
+// old links when JavaScript is off.
+const { href, title, method, path, badges = [], id } = Astro.props;
+const pathId = `${id}-path`;
+---
+
+<li
+  id={id}
+  class="relative scroll-mt-24 space-y-1 px-4 py-2.5 transition-colors hover:bg-surface-secondary target:bg-surface-secondary motion-reduce:transition-none"
+>
+  <a
+    href={href}
+    aria-describedby={pathId}
+    class="flex flex-wrap items-center gap-2 text-sm font-medium text-content-primary after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-focus-ring"
+  >
+    {title}
+    {badges.map(status => <StatusTag status={status} />)}
+  </a>
+  <div id={pathId} class="flex min-w-0 items-baseline gap-2">
+    <MethodBadge method={method} short class="w-11" />
+    <code class="min-w-0 font-mono text-xs break-all text-content-tertiary">{path}</code>
+  </div>
+</li>

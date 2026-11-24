@@ -4,7 +4,7 @@ post:
   operationId: createPatronCode
   summary: Create Patron Code
   description: |
-    This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests#get-a-payment-request-linked-to-a-patron-code) using the transacting APIs.
+    This endpoint allows you to create a Patron Code. You can find payment request information attached to a Patron Code by [polling for the Payment Request](/api/payment-requests/get-a-payment-request-linked-to-a-patron-code/) using the transacting APIs.
   tags:
     - patron-codes
   responses:

@@ -1,0 +1,12 @@
+---
+const { title = 'Endpoints', id = 'endpoints' } = Astro.props;
+---
+
+<nav aria-labelledby={id} class="overflow-hidden rounded-lg border border-outline-opaque bg-surface-primary">
+  <h2 id={id} class="scroll-mt-24 border-b border-outline-opaque bg-surface-secondary px-4 py-2.5 type-overline text-content-primary">
+    {title}
+  </h2>
+  <ul class="divide-y divide-outline-opaque">
+    <slot />
+  </ul>
+</nav>

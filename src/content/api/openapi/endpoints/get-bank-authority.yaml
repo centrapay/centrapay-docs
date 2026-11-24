@@ -5,7 +5,7 @@ get:
   operationId: getBankAuthority
   summary: Get Bank Authority
   description: |
-    If you're creating new interfaces, please work with [Get Bank Account](#get-bank-account).
+    If you're creating new interfaces, please work with [Get Bank Account](/api/bank-accounts/get-bank-account/).
   tags:
     - bank-accounts
   parameters:

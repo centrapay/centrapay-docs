@@ -2,14 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import { JSDOM } from 'jsdom';
 
-// The links a page offers are its section headings. Field anchors are left
-// out: they follow the spec, not links other pages rely on.
+// The links a page offers are its section headings, plus the old anchors it
+// redirects (AnchorRedirects.astro). Field anchors are left out: they follow
+// the spec, not links other pages rely on.
 function extractHeadings(filePath, urlPath) {
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const dom = new JSDOM(fileContents);
-  return Array.from(dom.window.document.querySelectorAll('h2'))
+  const { document } = new JSDOM(fileContents).window;
+  const headings = Array.from(document.querySelectorAll('h2'))
     .filter(element => element.id)
-    .map(element => `${urlPath}#${element.id}`);
+    .map(element => element.id);
+  const redirected = Array.from(document.querySelectorAll('[data-anchor-redirects]'))
+    .flatMap(element => JSON.parse(element.dataset.anchorRedirects));
+  return [...headings, ...redirected].map(id => `${urlPath}#${id}`);
 }
 
 function listSiteLinks(directory) {

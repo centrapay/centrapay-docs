@@ -22,13 +22,57 @@ import {
 // property, parameter or response that references them. Models have no
 // anchors of their own - link to the route, or the field, that shows them.
 //
-// Anchors are slugged in document order with a single Slugger to match the
-// Markdoc rendering the deleted mdoc pages produced.
+// A resource's sections are slugged in document order with a single Slugger
+// to match the Markdoc rendering the deleted mdoc pages produced, and name
+// the routes' pages. Each route's page slugs its own anchors.
 
 export const OPENAPI_DIR = 'src/content/api/openapi';
 
 export function pageHref(id) {
   return `/api/${id}`;
+}
+
+export function routeHref(pageId, slug) {
+  return `${pageHref(pageId)}/${slug}/`;
+}
+
+// A named example belongs to the route before it.
+export function splitPageRoutes(sections) {
+  const prose = [];
+  const routes = [];
+  for (const section of sections) {
+    if (section.kind !== 'endpoint') {
+      prose.push(section);
+    } else if (section.exampleName && routes.length > 0) {
+      routes.at(-1).pageSections.push(section);
+    } else {
+      routes.push({ slug: section.anchor, pageSections: [section] });
+    }
+  }
+  return { prose, routes: routes.map(routeSections) };
+}
+
+export const FIELD_GROUP_ANCHORS = {
+  path: 'path',
+  query: 'query',
+  body: 'body',
+  responses: 'responses',
+  responseBody: 'responses.body',
+};
+
+// Reserved so a description heading such as "Body" can't take a group's id.
+const ROUTE_PAGE_IDS = ['top', ...Object.values(FIELD_GROUP_ANCHORS)];
+
+function routeSections({ slug, pageSections }) {
+  const anchor = createAnchorSlugger(ROUTE_PAGE_IDS);
+  const sections = pageSections.map((pageSection, index) => {
+    const section = { ...pageSection, anchor: index === 0 ? 'top' : anchor(pageSection.title) };
+    section.subheadingAnchors = sectionMarkdown(section).flatMap(markdownHeadings).map(heading => anchor(heading.text));
+    return section;
+  });
+  const [section] = sections;
+  anchorFields(section);
+  return { slug, section, sections };
 }
 
 export function pageNavPath(page) {
@@ -201,13 +245,12 @@ function resolvePageSection(section, ctx) {
     .map(heading => ctx.anchor(heading.text));
   if (resolved.kind === 'endpoint' && !resolved.exampleName) {
     Object.assign(resolved, endpointDetails(ctx.operations[resolved.operationId], ctx.models));
-    anchorFields(resolved);
   }
   return resolved;
 }
 
-// Field anchors are dotted paths (`create-an-account.body.name`). Slugs never
-// contain a dot, so they can't collide with heading or model anchors.
+// Field anchors are dotted paths (`body.name`). Slugs never contain a dot, so
+// they can't collide with heading anchors.
 const fieldSlug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 function anchorFieldRows(rows, prefix) {
@@ -237,22 +280,26 @@ function anchorFieldReveal(reveal, prefix) {
 }
 
 function anchorFields(section) {
-  const anchors = sectionAnchors(section.anchor);
-  anchorFieldRows(section.pathParams, anchors.path);
-  anchorFieldRows(section.queryParams, anchors.query);
-  anchorFieldRows(section.body, anchors.body);
+  anchorFieldRows(section.pathParams, FIELD_GROUP_ANCHORS.path);
+  anchorFieldRows(section.queryParams, FIELD_GROUP_ANCHORS.query);
+  anchorFieldRows(section.body, FIELD_GROUP_ANCHORS.body);
   if (section.response) {
-    anchorFieldReveal(section.response, anchors.responseBody);
+    anchorFieldReveal(section.response, FIELD_GROUP_ANCHORS.responseBody);
   }
 }
 
-export function getPageSections(page, { models, operations }) {
+// Markdoc trims the trailing dash a heading's badge leaves behind.
+function createAnchorSlugger(taken = []) {
   const slugger = new Slugger();
-  const anchor = text => slugger.slug(text).replace(/-$/, '');
+  taken.forEach(id => slugger.slug(id));
+  return text => slugger.slug(text).replace(/-$/, '');
+}
+
+export function getPageSections(page, { models, operations }) {
   const ctx = {
     operations,
     models,
-    anchor,
+    anchor: createAnchorSlugger(),
   };
   return page.sections.map(section => resolvePageSection(section, ctx));
 }
@@ -316,15 +363,16 @@ export function navHeadings(sections) {
     }));
 }
 
-export function sectionAnchors(sectionAnchor) {
-  const part = name => `${sectionAnchor}.${name}`;
-  return {
-    path: part('path'),
-    query: part('query'),
-    body: part('body'),
-    responses: part('responses'),
-    responseBody: part('responses.body'),
-  };
+
+export function stripMarkdown(text) {
+  return (text ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[`*_>#]/g, '')
+    .replace(/\|/g, ' ')
+    .replace(/^\s*-\s+/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 export function firstParagraph(text) {

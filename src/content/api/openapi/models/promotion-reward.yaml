@@ -6,13 +6,13 @@ properties:
     description: The [assetType](/api/asset-types) to reward.
   collectionId:
     type: string
-    description: The ID of the [Token Collection](/api/tokens#create-token-collection) that should be rewarded. Only supplied if `assetType` is `centrapay.token.test` or `centrapay.token.main`.
+    description: The ID of the [Token Collection](/api/tokens/create-token-collection/) that should be rewarded. Only supplied if `assetType` is `centrapay.token.test` or `centrapay.token.main`.
   name:
     type: string
-    description: The name of the [Token Collection](/api/tokens#create-token-collection) that is being rewarded.
+    description: The name of the [Token Collection](/api/tokens/create-token-collection/) that is being rewarded.
   img:
     type: string
-    description: The image of the [Token Collection](/api/tokens#create-token-collection) that is being rewarded.
+    description: The image of the [Token Collection](/api/tokens/create-token-collection/) that is being rewarded.
   amount:
     type: string
     x-type: bignumber

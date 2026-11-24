@@ -25,4 +25,4 @@ properties:
     type: array
     items:
       type: string
-    description: Ids of the [Token Collections](/api/tokens#create-token-collection), which must be `discount` collections. Required for `centrapay.ledger` types.
+    description: Ids of the [Token Collections](/api/tokens/create-token-collection/), which must be `discount` collections. Required for `centrapay.ledger` types.

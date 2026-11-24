@@ -1,0 +1,18 @@
+---
+// A fragment never reaches the server, so old links to a route's anchor on
+// this page can only be sent on to the route's page from the browser.
+// listSiteLinks reads the data attribute to keep them in the links snapshot.
+const { slugs } = Astro.props;
+---
+
+{slugs.length > 0 && (
+  <script is:inline data-anchor-redirects={JSON.stringify(slugs)}>
+    (() => {
+      const slugs = JSON.parse(document.currentScript.dataset.anchorRedirects);
+      const slug = location.hash.slice(1).split('.')[0];
+      if (slugs.includes(slug)) {
+        location.replace(`${location.pathname.replace(/\/?$/, '/')}${slug}/`);
+      }
+    })();
+  </script>
+)}

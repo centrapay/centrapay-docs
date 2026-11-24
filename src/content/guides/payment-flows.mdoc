@@ -21,10 +21,10 @@ The merchant can show either:
 - **A dynamic merchant QR code:** generated for each payment and shown on a customer-facing display.
 - **A static merchant QR code:** a fixed, printed QR code for a [Payment Link](/api/payment-links), for merchant systems that can neither display nor scan codes, such as unattended vending machines. The merchant sets the amount on each Payment Request; the patron doesn't enter one. A Payment Link can only have one open Payment Request at a time.
 
-1. The merchant [creates a Payment Request](/api/payment-requests#create-a-payment-request). With a dynamic QR code, it shows the Payment Request's QR code. With a static QR code, it creates the Payment Request with the `paymentLinkId` of the Payment Link, so scanning the printed QR code opens this Payment Request.
-2. The patron scans the QR code and [pays the Payment Request](/api/payment-requests#pay-a-payment-request) in their app.
-3. The merchant [polls the Payment Request](/api/payment-requests#get-a-payment-request) and displays the result once its status is `paid`, `cancelled` or `expired`.
-4. Paid Payment Requests can later be [refunded](/api/payment-requests#refund-a-payment-request).
+1. The merchant [creates a Payment Request](/api/payment-requests/create-a-payment-request/). With a dynamic QR code, it shows the Payment Request's QR code. With a static QR code, it creates the Payment Request with the `paymentLinkId` of the Payment Link, so scanning the printed QR code opens this Payment Request.
+2. The patron scans the QR code and [pays the Payment Request](/api/payment-requests/pay-a-payment-request/) in their app.
+3. The merchant [polls the Payment Request](/api/payment-requests/get-a-payment-request/) and displays the result once its status is `paid`, `cancelled` or `expired`.
+4. Paid Payment Requests can later be [refunded](/api/payment-requests/refund-a-payment-request/).
 
 ## Patron-presented
 
@@ -40,8 +40,8 @@ The patron can present either:
 - **A static patron barcode:** a long-lived Centrapay Enabled Barcode, such as a card. You may need to check the patron's photo ID before the payment goes through.
 
 1. The patron presents their barcode and the merchant scans it.
-2. The merchant optionally checks the barcode for support using the [Scanned Codes](/api/scanned-codes#decode-scanned-code) endpoints.
-3. The merchant [creates a Payment Request](/api/payment-requests#create-a-payment-request) using the barcode as a parameter.
-4. The merchant [polls the Payment Request](/api/payment-requests#get-a-payment-request). The first poll triggers the payment.
-5. If the Payment Request has [Payment Conditions](/api/payment-requests#get-a-payment-request.responses.body.merchantConditions) with an `awaiting-merchant` status, the merchant must [accept](/api/payment-requests/#accept-a-payment-condition) or decline them.
+2. The merchant optionally checks the barcode for support using the [Scanned Codes](/api/scanned-codes/decode-scanned-code/) endpoints.
+3. The merchant [creates a Payment Request](/api/payment-requests/create-a-payment-request/) using the barcode as a parameter.
+4. The merchant [polls the Payment Request](/api/payment-requests/get-a-payment-request/). The first poll triggers the payment.
+5. If the Payment Request has [Payment Conditions](/api/payment-requests/get-a-payment-request/#responses.body.merchantConditions) with an `awaiting-merchant` status, the merchant must [accept](/api/payment-requests/accept-a-payment-condition/) or decline them.
 6. Once the status of the Payment Request is `paid`, the process is complete.

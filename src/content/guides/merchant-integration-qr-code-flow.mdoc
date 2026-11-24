@@ -43,7 +43,7 @@ sequenceDiagram
 	Note over Patron: ✅ Display Successful Payment
 ```
 
-1. The POS/Terminal server [creates a Payment Request](/api/payment-requests#create-a-payment-request).
+1. The POS/Terminal server [creates a Payment Request](/api/payment-requests/create-a-payment-request/).
    The POS/Terminal then presents a QR code to the Patron on a customer-facing display.
 
     > The QR code decodes to a URL of the form `https://app.centrapay.com/pay/{paymentRequestId}`
@@ -88,7 +88,7 @@ sequenceDiagram
     ```
 
 2. The patron scans the QR code using a Centrapay-enabled app.
-3. The POS/Terminal server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) Payment Confirmation.
+3. The POS/Terminal server [polls the Payment Request for](/api/payment-requests/get-a-payment-request/) Payment Confirmation.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -121,7 +121,7 @@ sequenceDiagram
     }
     ```
 
-4. While the POS/Terminal server continues to poll, the patron [pays the Payment Request](/api/payment-requests#pay-a-payment-request)
+4. While the POS/Terminal server continues to poll, the patron [pays the Payment Request](/api/payment-requests/pay-a-payment-request/)
    via their Centrapay integrated app. When the Payment Request status is in a final state (`paid`, `cancelled` or `expired`).
    The POS/Terminal server stops polling and the POS/Terminal displays the result.
 

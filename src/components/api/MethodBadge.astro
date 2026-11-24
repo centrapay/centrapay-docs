@@ -2,6 +2,8 @@
 import { methodLabel, methodStyle } from './methods.js';
 
 const { method, short = false, class: className = '' } = Astro.props;
+const label = methodLabel(method);
+const shown = methodLabel(method, { short });
 ---
 
 <span
@@ -10,4 +12,4 @@ const { method, short = false, class: className = '' } = Astro.props;
     methodStyle(method),
     className,
   ]}
->{methodLabel(method, { short })}</span>
+>{shown === label ? label : <><span aria-hidden="true">{shown}</span><span class="sr-only">{label}</span></>}</span>
