@@ -3,11 +3,12 @@ type: object
 properties:
   type:
     type: string
-    description: |
-      The classification type.
-      Currently only `GS1` is supported.
-      See [GS1 Global Product Classification](https://www.gs1.org/standards/gpc).
-      When `GS1` is used as the product classification type then the product code should be the GPC product brick identifier.
+    enum: [GS1]
+    description: The classification type. See [GS1 Global Product Classification](https://www.gs1.org/standards/gpc). When `GS1` is used as the product classification type then the product code should be the GPC product brick identifier.
+    x-values:
+      entries:
+        - name: "GS1"
+          description: A [GS1 Global Product Classification](https://www.gs1.org/standards/gpc) code.
   code:
     type: string
     description: The classification code.

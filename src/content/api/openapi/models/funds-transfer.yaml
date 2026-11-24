@@ -1,0 +1,63 @@
+x-title: Funds Transfer Model
+type: object
+properties:
+  id:
+    type: string
+    description: The Funds Transfer's unique identifier.
+  accountId:
+    type: string
+    description: The id of the [Account](/api/accounts) that owns the Wallet Asset.
+  assetId:
+    type: string
+    description: The id of the [Wallet Asset](/api/wallet-assets) credited by a top up or debited by a withdrawal.
+  bankAccountId:
+    type: string
+    description: The id of the [Bank Account](/api/bank-accounts) the money moves from or to.
+  amount:
+    type: string
+    x-type: bignumber
+    description: The amount transferred, in cents.
+  type:
+    type: string
+    description: The direction of the Funds Transfer.
+    x-values:
+      entries:
+        - name: "topup"
+          description: Money moves from the Bank Account into the Wallet Asset by direct debit.
+        - name: "withdrawal"
+          description: Money moves from the Wallet Asset out to the Bank Account by direct credit.
+  status:
+    type: string
+    description: The current status of the Funds Transfer.
+    x-values:
+      entries:
+        - name: "created"
+          description: The Funds Transfer has been created and no bank transfer has started yet.
+        - name: "requested"
+          description: The bank transfer has been submitted and is waiting for the bank to confirm it. A withdrawal debits the Wallet Asset at this point.
+        - name: "applied"
+          description: The bank transfer is confirmed. A top up has credited the Wallet Asset; a withdrawal has reached the Bank Account. A top up can no longer be aborted.
+        - name: "done"
+          description: The Funds Transfer has settled. This is final.
+        - name: "expired"
+          description: The bank didn't confirm the transfer in time. A top up never credits the Wallet Asset; a withdrawal is refunded to it, but can still become `applied` if the bank confirms later.
+        - name: "failed"
+          description: The Funds Transfer was aborted, rejected or dishonored by the bank, or a withdrawal found the Wallet Asset balance too low. Any money already moved is reversed. This is final.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Funds Transfer was created.
+  updatedAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Funds Transfer was last updated.
+  walletId:
+    type: string
+    x-deprecated: true
+    description: The same as `assetId`.
+  bankAuthorityId:
+    type: string
+    x-deprecated: true
+    description: The same as `bankAccountId`.

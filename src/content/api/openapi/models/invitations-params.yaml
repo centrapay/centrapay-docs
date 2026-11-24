@@ -3,7 +3,14 @@ type: object
 properties:
   role:
     type: string
-    description: The role assigned to the recipient, for invitations of type `account-membership`. Supported values are `account-owner` and `cashier`.
+    enum: [account-owner, cashier]
+    description: The role assigned to the recipient, for invitations of type `account-membership`.
+    x-values:
+      entries:
+        - name: "account-owner"
+          description: The recipient gets full control of the account.
+        - name: "cashier"
+          description: The recipient can take and look up payments, with read-only access to everything else.
   accountName:
     type: string
     description: The name of the account that the recipient is invited to, for invitations of type `account-membership`

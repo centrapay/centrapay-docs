@@ -1,0 +1,66 @@
+---
+import AnchorLink from './AnchorLink.astro';
+import StatusTag from './StatusTag.astro';
+import { ANCHOR_TARGET } from './styles.js';
+
+const {
+  name,
+  type,
+  typeLink,
+  anchor,
+  linkId,
+  required,
+  experimental = false,
+  deprecated = false,
+  description,
+  plainName = false,
+  fieldsLabel = 'Fields',
+} = Astro.props;
+
+const requirement = required === undefined ? undefined : required ? 'required' : 'optional';
+// A slot filled by an expression that renders nothing still counts as passed.
+const renderSlot = async name => (Astro.slots.has(name) ? (await Astro.slots.render(name)).trim() : '');
+const descriptionHtml = await renderSlot('default');
+const fieldsHtml = await renderSlot('fields');
+const hasFields = fieldsHtml !== '';
+---
+
+<li id={linkId} class:list={['relative py-4', ANCHOR_TARGET]}>
+  <div class="group/anchor relative">
+    <div id={anchor} class:list={['flex flex-wrap items-baseline gap-x-2 gap-y-1', ANCHOR_TARGET]}>
+      {plainName
+        ? <span class="text-sm leading-6 font-semibold text-content-primary">{name}</span>
+        : <code class="font-mono text-sm leading-6 font-semibold break-all text-content-primary">{name}</code>}
+      {(requirement || type) && (
+        <span class="text-xs leading-6 text-content-tertiary">
+          {requirement && <span class:list={[required && 'font-medium']}>{requirement}</span>}
+          {requirement && type && ' '}
+          {type && (typeLink
+            ? <a href={typeLink} class="underline decoration-dotted underline-offset-2 hover:text-content-primary">{type}</a>
+            : type)}
+        </span>
+      )}
+      {experimental && <StatusTag status="experimental" />}
+      {deprecated && <StatusTag status="deprecated" />}
+    </div>
+    {description && <div class="mt-1 api-rich-text" set:html={description} />}
+    {descriptionHtml && <div class="mt-1 [&>:first-child]:mt-0 [&>:last-child]:mb-0 api-rich-text" set:html={descriptionHtml} />}
+    {anchor && (
+      <AnchorLink href={`#${anchor}`} label={`Copy link to ${name}`} class={hasFields ? 'top-0 -left-12' : 'top-0 -left-7'} />
+    )}
+  </div>
+  {hasFields && (
+    <details>
+      {/* Positioned against the <li> (details is static), so it sits in the gutter beside the name. */}
+      <summary
+        aria-label={`${fieldsLabel} of ${name}`}
+        class="absolute top-4 -left-6 flex size-6 cursor-pointer list-none items-center justify-center rounded text-content-tertiary transition-transform hover:text-content-primary motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-focus-ring [details[open]>&]:rotate-90 [&::-webkit-details-marker]:hidden"
+      >
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="size-4">
+          <path d="M6 4.5v7l5-3.5-5-3.5Z" />
+        </svg>
+      </summary>
+      <Fragment set:html={fieldsHtml} />
+    </details>
+  )}
+</li>

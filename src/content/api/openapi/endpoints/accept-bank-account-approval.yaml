@@ -50,4 +50,6 @@ post:
             APPROVAL_ALREADY_REVIEWED:
               description: The Bank Account Approval has already been accepted or declined.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: APPROVAL_ALREADY_REVIEWED

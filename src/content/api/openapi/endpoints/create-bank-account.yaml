@@ -35,11 +35,7 @@ post:
               type: object
               description: A [direct-debit authority](#direct-debit-authority-model). By including `directDebitAuthority`, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
             type:
-              type: string
-              description: The [Bank Account Type](#bank-account-type) of the bank, defaults to `centrapay`.
-              enum:
-                - centrapay
-                - quartz
+              $ref: '../models/bank-account.yaml#/properties/type'
             test:
               type: boolean
               description: A flag which is present if the Bank Account is for testing.
@@ -86,12 +82,18 @@ post:
             BANK_ACCOUNT_LIMIT_EXCEEDED:
               description: The Centrapay account already has the max amount of directDebitAuthorized enabled Bank Accounts.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_LIMIT_EXCEEDED
             BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED:
               description: The global maximum Bank Accounts for the provided Bank Account number has been reached.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_HOLDER_LIMIT_EXCEEDED
             DUPLICATE_BANK_ACCOUNT:
               description: The Centrapay account already holds this Bank Account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: DUPLICATE_BANK_ACCOUNT

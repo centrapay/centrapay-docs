@@ -20,6 +20,24 @@ get:
       description: Companies listed
       content:
         application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                description: The registered businesses that match the search.
+                items:
+                  type: object
+                  properties:
+                    nzbn:
+                      type: string
+                      description: The business's New Zealand Business Number.
+                    companyName:
+                      type: string
+                      description: The registered name of the business.
+                    companyNumber:
+                      type: string
+                      description: The business's company number. Only present if it has one.
           examples:
             default:
               value:

@@ -26,8 +26,7 @@ post:
             onboardingStatus:
               $ref: '../models/merchant-model.yaml#/properties/onboardingStatus'
             onboardingStatusReason:
-              type: string
-              description: The reason associated with the [Onboarding Status](#onboarding-statuses). Required if the onboardingStatus is `on-hold`, `deactivated` or `archived`, and not allowed otherwise. See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+              $ref: '../models/merchant-model.yaml#/properties/onboardingStatusReason'
         examples:
           default:
             value:
@@ -39,7 +38,7 @@ post:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/merchant-onboarding-status-activity.yaml
           examples:
             default:
               value:

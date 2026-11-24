@@ -37,6 +37,8 @@ post:
       description: Onboarding status set
       content:
         application/json:
+          schema:
+            $ref: ../models/business-onboarding-status-activity.yaml
           examples:
             default:
               value:

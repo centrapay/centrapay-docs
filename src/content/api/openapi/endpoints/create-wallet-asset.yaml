@@ -23,6 +23,12 @@ post:
               type: string
               enum: [centrapay.nzd.main, centrapay.nzd.test]
               description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
+              x-values:
+                entries:
+                  - name: "centrapay.nzd.main"
+                    description: A live NZD wallet holding real funds.
+                  - name: "centrapay.nzd.test"
+                    description: A test NZD wallet for integration testing, with no real funds.
             settlement:
               $ref: '../models/wallet-assets.yaml#/properties/settlement'
         examples:
@@ -63,6 +69,8 @@ post:
             ACCOUNT_MAX_WALLETS_REACHED:
               description: The maximum number of wallet assets for the given ledger has been reached.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_MAX_WALLETS_REACHED
 get:
   x-method: GET

@@ -12,7 +12,7 @@ properties:
     description: The id of the owning Centrapay [Account](/api/accounts/).
   type:
     type: string
-    description: The type of Bank Account Approval. See [Bank Account Approval Types](#bank-account-approval-types).
+    description: The type of Bank Account Approval.
     x-values:
       title: "Bank Account Approval Types"
       entries:
@@ -24,7 +24,20 @@ properties:
           description: "An `approved` Bank Account Approval of type `enduring-payment-consent` provides an access token for creating payments with a third-party."
   status:
     type: string
-    description: The current status of the Bank Account Approval. Supported values are `created`, `pending`, `approved`, `declined` and `done`.
+    enum: [created, pending, approved, declined, done]
+    description: The current status of the Bank Account Approval.
+    x-values:
+      entries:
+        - name: "created"
+          description: The approval has been requested and isn't queued for review yet.
+        - name: "pending"
+          description: Waiting for Centrapay to review the approval.
+        - name: "approved"
+          description: The approval was accepted and is being finalised.
+        - name: "declined"
+          description: The approval was declined and is being finalised.
+        - name: "done"
+          description: Processing is complete. The outcome is shown in the Bank Account's approval summary.
   createdAt:
     type: string
     format: date-time

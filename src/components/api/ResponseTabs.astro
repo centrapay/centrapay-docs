@@ -1,0 +1,18 @@
+---
+import Tabs from './Tabs.astro';
+
+const { id, codes } = Astro.props;
+
+function tone(code) {
+  if (code.startsWith('2')) {
+    return 'success';
+  }
+  return code.startsWith('5') ? 'danger' : 'warning';
+}
+
+const tabs = codes.map(code => ({ label: code, tone: tone(code) }));
+---
+
+<Tabs id={id} label="Response status" tabs={tabs}>
+  <slot />
+</Tabs>

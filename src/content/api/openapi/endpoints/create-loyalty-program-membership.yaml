@@ -65,12 +65,18 @@ post:
             LOYALTY_PROGRAM_ACCOUNT_LIVENESS_MISMATCH:
               description: The account cannot be test if the loyalty program is not test.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LOYALTY_PROGRAM_ACCOUNT_LIVENESS_MISMATCH
             LOYALTY_PROGRAM_INACTIVE:
               description: Memberships can only be created for loyalty programs with an `active` status.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LOYALTY_PROGRAM_INACTIVE
             JOIN_CONDITIONS_NOT_MET:
               description: The account does not meet the join conditions for the loyalty program.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: JOIN_CONDITIONS_NOT_MET

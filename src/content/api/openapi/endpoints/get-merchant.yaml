@@ -117,4 +117,6 @@ put:
             BANK_ACCOUNT_MISMATCH:
               description: The bank account in the settlement config does not belong to the same account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_MISMATCH

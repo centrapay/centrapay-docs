@@ -9,13 +9,23 @@ properties:
     description: The Invitation code.
   type:
     type: string
-    description: The type of invitation. Supported values are `account-membership`.
+    enum: [account-membership]
+    description: The type of invitation.
+    x-values:
+      entries:
+        - name: "account-membership"
+          description: Invites the recipient to become a member of an [Account](/api/accounts).
   resourceId:
     type: string
     description: The id of the related resource.
   resourceType:
     type: string
-    description: The type of the related resource. Supported values are `account`.
+    enum: [account]
+    description: The type of the related resource.
+    x-values:
+      entries:
+        - name: "account"
+          description: The related resource is an [Account](/api/accounts).
   expiresAt:
     type: string
     format: date-time
@@ -64,4 +74,15 @@ properties:
       - $ref: './invitations-params.yaml'
   status:
     type: string
-    description: The status of the invitation. Possible values are `created`, `sent`, `accepted` and `revoked`.
+    enum: [created, sent, accepted, revoked]
+    description: The status of the invitation.
+    x-values:
+      entries:
+        - name: "created"
+          description: The invitation has been created and its email hasn't been sent yet.
+        - name: "sent"
+          description: The invitation email has been sent and is waiting for the recipient to accept it.
+        - name: "accepted"
+          description: The recipient has accepted the invitation.
+        - name: "revoked"
+          description: The invitation was cancelled and can no longer be accepted or resent.

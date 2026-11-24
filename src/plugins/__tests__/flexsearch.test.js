@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   buildPageEntries,
+  createOpenApiIndexEntries,
   expandIdentifiers,
   hrefForFilepath,
   navPath,
@@ -229,3 +230,27 @@ describe('deprecation', () => {
     expect(section.deprecated).toBeUndefined();
   });
 });
+
+describe('spec-driven API page entries', () => {
+  it('adds an entry per top-level field, linked to its anchor on the page', async () => {
+    const entries = await createOpenApiIndexEntries();
+    const name = entries.find(entry => entry.href === '/api/accounts#create-an-account.body.name');
+    expect(name).toMatchObject({
+      title: 'name',
+      path: ['Accounts', 'Accounts', 'Create an Account'],
+      description: 'The name of the Account.',
+      field: true,
+    });
+    expect(entries.find(entry => entry.href === '/api/accounts#get-an-account.path.accountId')).toBeDefined();
+    expect(entries.find(entry => entry.href === '/api/accounts#get-an-account.responses.body.region')).toBeDefined();
+  });
+
+  it('keeps nested field names searchable through their section', async () => {
+    const entries = await createOpenApiIndexEntries();
+    const section = entries.find(entry => entry.href === '/api/payment-requests#create-a-payment-request');
+    expect(section.keywords).toContain('unitPrice');
+    expect(section.field).toBeUndefined();
+    expect(entries.find(entry => entry.href.endsWith('.lineItems.unitPrice'))).toBeUndefined();
+  });
+});
+

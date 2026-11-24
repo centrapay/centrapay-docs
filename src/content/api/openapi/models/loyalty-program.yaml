@@ -33,13 +33,26 @@ properties:
     description: '`true` if the Loyalty Program is for testing purposes only.'
   status:
     type: string
-    description: '`draft` if the loyalty program is not ready yet. `active` if the loyalty program is ready for consumers to start joining and earning.'
+    description: The status of the Loyalty Program.
+    x-values:
+      entries:
+        - name: "draft"
+          description: The Loyalty Program is not ready yet.
+        - name: "active"
+          description: The Loyalty Program is ready for consumers to start joining and earning.
   memberCount:
     type: string
     description: The number of [Loyalty Program Memberships](/api/loyalty-program-memberships) that have been created for the loyalty program.
   visibility:
     type: string
-    description: The visibility setting for the Loyalty Program. Valid values are `public` or `unlisted`.
+    enum: [public, unlisted]
+    description: The visibility setting for the Loyalty Program.
+    x-values:
+      entries:
+        - name: "public"
+          description: Shown with its merchants in merchant search, so customers can discover it.
+        - name: "unlisted"
+          description: Hidden from merchant search. Customers need a direct link to find it.
   joinConditions:
     type: array
     items:

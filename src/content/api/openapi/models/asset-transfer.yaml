@@ -6,13 +6,17 @@ properties:
     description: The unique identifier.
   status:
     type: string
-    description: The status of the Asset Transfer. See [Asset Transfer lifecycle](#asset-transfer-lifecycle) for possible values.
+    description: The status of the Asset Transfer.
     x-values:
       title: "Asset Transfer lifecycle"
       intro: |
         Asset Transfer goes through different lifecycle stages.
         ![Asset Transfer Lifecycle](/asset-lifecycle.png)
       entries:
+        - name: "requested"
+          description: A request for funds was created.
+        - name: "accepted"
+          description: The payer authorized the request for funds.
         - name: "created"
           description: "Asset transfer successfully created"
         - name: "sent"
@@ -25,6 +29,8 @@ properties:
           description: "Asset transfer was successfully completed"
         - name: "cancelled"
           description: "Asset transfer was cancelled."
+        - name: "failed"
+          description: The transfer couldn't proceed, eg the wallet balance was too low.
   value:
     type: string
     x-type: bignumber

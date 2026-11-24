@@ -54,8 +54,12 @@ post:
             INVALID_PAYMENT_REQUEST_TYPE:
               description: The Payment Request is not related to a Pre Auth.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_PAYMENT_REQUEST_TYPE
             PRE_AUTH_RELEASED:
               description: '`preAuthExpiresAt` has passed.'
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PRE_AUTH_RELEASED

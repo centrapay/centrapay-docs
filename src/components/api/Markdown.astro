@@ -1,0 +1,20 @@
+---
+import CodeFence from '../CodeFence.astro';
+
+const { segments = [], class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'prose max-w-none text-content-secondary dark:prose-invert',
+    'prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:text-content-primary',
+    'prose-a:font-medium prose-a:decoration-outline-opaque prose-a:underline-offset-2 hover:prose-a:decoration-current',
+    'prose-p:leading-7 [&>:first-child]:mt-0 [&>:last-child]:mb-0',
+    className,
+  ]}
+>
+  {segments.map(segment => segment.kind === 'code'
+    ? <CodeFence code={segment.code} lang={segment.lang} title={segment.title} />
+    : <Fragment set:html={segment.html} />
+  )}
+</div>

@@ -26,8 +26,7 @@ put:
             - visibility
           properties:
             visibility:
-              type: string
-              description: The visibility setting for the Loyalty Program. Valid values are `public` or `unlisted`.
+              $ref: '../models/loyalty-program.yaml#/properties/visibility'
         examples:
           default:
             value:

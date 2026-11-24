@@ -282,12 +282,18 @@ post:
             DUPLICATE_EXTERNAL_ID:
               description: The supplied `externalId` has already been used with a different payload.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: DUPLICATE_EXTERNAL_ID
             INVALID_SALES_CHANNEL:
               description: The `vendor` of a sales channel did not match a supported sales channel vendor in Centrapay.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_SALES_CHANNEL
             LIVENESS_MISMATCH:
               description: The account and asset program do not match on test/live status.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

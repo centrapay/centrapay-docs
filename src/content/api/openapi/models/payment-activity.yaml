@@ -9,7 +9,7 @@ properties:
     description: The unique identifier of the Payment Activity.
   type:
     type: string
-    description: The [Payment Activity Type](#payment-activity-types).
+    description: The type of Payment Activity.
     x-values:
       title: "Payment Activity Types"
       entries:
@@ -86,8 +86,7 @@ properties:
     type: boolean
     description: '`true` if the Payment Activity is recording a transaction that occurred outside the Centrapay system.'
   cancellationReason:
-    type: string
-    description: The reason that the Payment Request was cancelled. See [Cancellation Reasons](#cancellation-reasons) for possible values.
+    $ref: './payment-request.yaml#/properties/cancellationReason'
   conditionId:
     type: integer
     description: The id of a Condition if the activity was for a Condition being accepted or declined.

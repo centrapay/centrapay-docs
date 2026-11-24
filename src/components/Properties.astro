@@ -1,17 +1,12 @@
 ---
-const { heading = 'Attributes', anchor } = Astro.props;
+import FieldList from './api/FieldList.astro';
+
+const { heading = 'Attributes' } = Astro.props;
 ---
 
-<div data-attributes class="my-6">
-  <div class="not-prose flex items-center justify-between py-2">
-    <h3 class="type-subtitle-1" id={anchor}>{ heading }</h3>
-  </div>
-  <slot name="intro" />
-  <ul
-    role="list"
-    class="mt-0 list-none prose-li:m-0 divide-outline-transparent p-0"
-  >
+<div class="not-prose my-8">
+  <h3 class="mb-3 text-base font-semibold text-content-primary">{heading}</h3>
+  <FieldList>
     <slot />
-  </ul>
-  <slot name="outro" />
+  </FieldList>
 </div>

@@ -54,16 +54,24 @@ post:
             UNKNOWN_CODE:
               description: The code doesn’t exist or is no longer active in our system.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: UNKNOWN_CODE
             MERCHANT_CONFIG_NOT_FOUND:
               description: The supplied merchant config does not exist.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: MERCHANT_CONFIG_NOT_FOUND
             INVALID_MERCHANT_CONFIG:
               description: The merchant config does not have a payment option that can satisfy the scanned code.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_MERCHANT_CONFIG
             LIVENESS_MISMATCH:
               description: The caller is a test account but the merchant config belongs to a live [Merchant](/api/merchants).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

@@ -9,13 +9,25 @@ properties:
     description: The Wallet Asset's owning Centrapay [Account](/api/accounts/) id.
   category:
     type: string
-    description: Asset category (`money`, `giftcard`, `token`).
+    description: Asset category.
+    x-values:
+      entries:
+        - name: "money"
+          description: A currency balance, such as an NZD wallet.
+        - name: "token"
+          description: A Token asset, eg a product or loyalty token.
   type:
     type: string
     description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
   liveness:
     type: string
-    description: Either `main` (live payments allowed) or `test`.
+    description: Whether the asset can be used for live payments.
+    x-values:
+      entries:
+        - name: "main"
+          description: Live payments allowed.
+        - name: "test"
+          description: Test payments only.
   description:
     type: string
     description: Displayable asset description.

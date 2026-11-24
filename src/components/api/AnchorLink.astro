@@ -1,0 +1,56 @@
+---
+const { href, label, class: className = '' } = Astro.props;
+---
+
+<a href={href} aria-label={label} data-anchor-link class:list={['api-anchor-link', className]}></a>
+
+<script>
+  const COPIED_MS = 1500;
+
+  // The Clipboard API is only available on https pages, eg not the http dev site.
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const field = Object.assign(document.createElement('textarea'), { value: text });
+      field.setAttribute('readonly', '');
+      field.style.cssText = 'position:fixed;opacity:0';
+      document.body.append(field);
+      field.select();
+      const copied = document.execCommand('copy');
+      field.remove();
+      return copied;
+    }
+  }
+
+  function announce(message) {
+    let region = document.getElementById('anchor-link-status');
+    if (!region) {
+      region = Object.assign(document.createElement('div'), { id: 'anchor-link-status', className: 'sr-only' });
+      region.setAttribute('role', 'status');
+      document.body.append(region);
+    }
+    region.textContent = message;
+  }
+
+  function opensElsewhere(event) {
+    return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
+  }
+
+  document.addEventListener('click', async event => {
+    const link = event.target.closest('a[data-anchor-link]');
+    if (!link || opensElsewhere(event)) {
+      return;
+    }
+    event.preventDefault();
+    // Unlike following the link, replacing the URL doesn't scroll to it.
+    history.replaceState(history.state, '', link.hash);
+    if (await copy(link.href)) {
+      link.dataset.copied = '';
+      announce('Link copied');
+      clearTimeout(link.copiedTimer);
+      link.copiedTimer = setTimeout(() => delete link.dataset.copied, COPIED_MS);
+    }
+  });
+</script>

@@ -1,0 +1,22 @@
+---
+import AnchorLink from './AnchorLink.astro';
+import { ANCHOR_TARGET } from './styles.js';
+
+const { entries = [] } = Astro.props;
+const plain = html => html.replace(/<[^>]+>/g, '');
+---
+
+<ul role="list" class="mt-3 ml-[7px] divide-y divide-outline-opaque/60 border-l border-outline-opaque pl-6">
+  {entries.map(entry => (
+    <li id={entry.anchor} class:list={['group/anchor relative py-3', ANCHOR_TARGET]}>
+      {entry.name && <code class="font-mono text-sm leading-6 font-semibold text-content-primary" set:html={entry.name} />}
+      {entry.description && <div class="mt-0.5 api-rich-text" set:html={entry.description} />}
+      {entry.notes?.map(note => (
+        <p class="mt-1 text-xs leading-5 text-content-tertiary">
+          <span class="font-medium">{note.label}:</span> <span set:html={note.value} />
+        </p>
+      ))}
+      {entry.anchor && <AnchorLink href={`#${entry.anchor}`} label={`Copy link to ${plain(entry.name)}`} class="top-3 -left-7" />}
+    </li>
+  ))}
+</ul>

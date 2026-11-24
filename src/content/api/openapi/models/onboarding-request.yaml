@@ -72,10 +72,15 @@ properties:
     description: The User or API Key that created the onboarding request.
   status:
     type: string
-    enum:
-      - pending
-      - in-progress
-      - completed
-      - failed
-      - aborted
-    description: 'Current status of the onboarding request: `pending`, `in-progress`, `completed`, `failed` or `aborted`.'
+    enum: [pending, completed, failed, aborted]
+    description: Current status of the onboarding request.
+    x-values:
+      entries:
+        - name: "pending"
+          description: Received and waiting to be processed, or still being processed.
+        - name: "completed"
+          description: The business, merchant and related resources were set up.
+        - name: "failed"
+          description: Onboarding couldn't finish, eg because the business or bank account couldn't be created.
+        - name: "aborted"
+          description: Cancelled before processing completed.

@@ -123,24 +123,36 @@ post:
             INVALID_PAYMENT_REQUEST_TYPE:
               description: The Payment Request is not related to a Pre Auth.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_PAYMENT_REQUEST_TYPE
             PRE_AUTH_RELEASED:
               description: The Payment Request has been released or Pre Auth has expired. Remaining funds have been returned to the Patron.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PRE_AUTH_RELEASED
             PRE_AUTH_PENDING:
               description: The Payment Request has not been authorized.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PRE_AUTH_PENDING
             REQUEST_CANCELLED:
               description: The Payment Request has been cancelled.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REQUEST_CANCELLED
             INVALID_AMOUNT:
               description: The confirmation is greater then the remaining funds on the authroization.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_AMOUNT
             IDEMPOTENT_OPERATION_FAILED:
               description: There has already been a confirmation against the Payment Request with the same idempotencyKey but different content.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: IDEMPOTENT_OPERATION_FAILED

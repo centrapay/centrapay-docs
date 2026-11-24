@@ -1,0 +1,30 @@
+x-title: Bank Account Activity Model
+type: object
+properties:
+  activityNumber:
+    type: string
+    x-type: bignumber
+    description: The Bank Account's sequential activity number, incremented by each activity.
+  bankAccountId:
+    type: string
+    description: The id of the [Bank Account](#bank-account-model).
+  type:
+    type: string
+    enum: [set-preferred-bank-account-name]
+    description: The type of Bank Account Activity.
+    x-values:
+      entries:
+        - name: "set-preferred-bank-account-name"
+          description: The preferred bank account name was set.
+  preferredBankAccountName:
+    type: string
+    description: The preferred bank account name that was set.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the Bank Account Activity was created.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that created the Bank Account Activity.

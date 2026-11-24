@@ -86,12 +86,18 @@ post:
             INVALID_ACCOUNT:
               description: Account does not exist, is not authorized, is of the wrong type, or is not in the NZ region.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ACCOUNT
             INVALID_NZBN:
               description: The NZBN provided does not match any NZ business.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_NZBN
             BUSINESS_ALREADY_EXISTS:
               description: The account already has a business or there is already a business with the provided NZBN.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BUSINESS_ALREADY_EXISTS

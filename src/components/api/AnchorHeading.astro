@@ -1,0 +1,33 @@
+---
+import AnchorLink from './AnchorLink.astro';
+import { ANCHOR_TARGET } from './styles.js';
+
+const { level, id, class: className = '' } = Astro.props;
+const Tag = `h${Math.min(Math.max(level, 1), 6)}`;
+
+const SIZES = {
+  1: 'text-3xl md:text-4xl font-semibold tracking-tight',
+  2: 'text-xl md:text-2xl font-semibold tracking-tight',
+  3: 'text-base font-semibold',
+  4: 'text-sm font-semibold',
+  5: 'text-sm font-medium',
+  6: 'text-sm font-medium',
+};
+const text = Astro.slots.has('default') ? await Astro.slots.render('default') : '';
+const label = text.replace(/<[^>]+>/g, '').trim() || 'this section';
+---
+
+{/* The link sits beside the heading rather than in it, so it isn't read as part of the heading's name. */}
+<div class:list={['group/anchor relative', className]}>
+  <Tag
+    id={id}
+    class:list={[
+      'flex flex-wrap items-center gap-x-3 gap-y-1 text-content-primary',
+      ANCHOR_TARGET,
+      SIZES[level],
+    ]}
+  >
+    <Fragment set:html={text} />
+  </Tag>
+  <AnchorLink href={`#${id}`} label={`Copy link to ${label}`} class="top-1/2 -left-7 -translate-y-1/2" />
+</div>

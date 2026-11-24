@@ -2,6 +2,8 @@
 
 @config "../../tailwind.config.js";
 
+@import "./api.css";
+
 :root {
   --color-surface-primary: #FFFFFF;
   --color-surface-secondary: #F8F8F8;

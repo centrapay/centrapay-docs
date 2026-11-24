@@ -145,6 +145,7 @@ export default defineMarkdocConfig({
         name: { type: String },
         required: { type: Boolean },
         type: { type: String },
+        values: { type: Array },
       },
     },
     mermaid: {

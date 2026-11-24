@@ -9,7 +9,13 @@ properties:
     enum:
       - active
       - archived
-    description: The status of the Payment Link. Can be "active" or "archived".
+    description: The status of the Payment Link.
+    x-values:
+      entries:
+        - name: "active"
+          description: The Payment Link is live and can be used to take payments.
+        - name: "archived"
+          description: The merchant archived the Payment Link.
   name:
     type: string
     description: The display name of the Payment Link.

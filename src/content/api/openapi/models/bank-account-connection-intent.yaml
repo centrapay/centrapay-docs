@@ -9,7 +9,7 @@ properties:
     description: The id of the owning Centrapay [Account](/api/accounts/).
   type:
     type: string
-    description: The type of Bank Account Connection Intent. See [Bank Account Connection Intent Types](#bank-account-connection-intent-types).
+    description: The type of Bank Account Connection Intent.
     x-values:
       title: "Bank Account Connection Intent Types"
       entries:
@@ -19,7 +19,18 @@ properties:
           description: "Initiates an authorization flow for authorizing access to create payments."
   status:
     type: string
-    description: The current status of the Bank Account Connection Intent. Supported values are `created`, `authorized` and `failed`.
+    enum: [created, authorized, failed, revoked]
+    description: The current status of the Bank Account Connection Intent.
+    x-values:
+      entries:
+        - name: "created"
+          description: Waiting for the user to complete authorization with their bank.
+        - name: "authorized"
+          description: The user has authorized access with their bank.
+        - name: "failed"
+          description: Authorization with the bank didn't succeed.
+        - name: "revoked"
+          description: The last Bank Account linked through the intent was archived.
   createdAt:
     type: string
     format: date-time

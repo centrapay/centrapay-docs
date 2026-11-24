@@ -19,8 +19,8 @@ get:
     - name: status
       in: query
       schema:
-        type: string
-      description: 'Filter memberships by status. Possible values: `created`, `active`, `inactive`.'
+        $ref: '../models/asset-program-membership.yaml#/properties/status'
+      description: Filter memberships by status.
     - name: pageKey
       in: query
       schema:

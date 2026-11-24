@@ -25,7 +25,13 @@ properties:
     description: '[Asset Type](/api/asset-types) id used by payment option asset types.'
   liveness:
     type: string
-    description: Either "main" (live payments allowed) or "test".
+    description: Whether the asset can be used for live payments.
+    x-values:
+      entries:
+        - name: "main"
+          description: Live payments allowed.
+        - name: "test"
+          description: Test payments only.
   description:
     type: string
     description: Displayable asset description.

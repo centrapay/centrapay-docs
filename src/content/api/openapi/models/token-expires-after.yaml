@@ -6,10 +6,34 @@ required:
 properties:
   period:
     type: string
-    description: Supported values are `hour`, `day`, `week`, `month` and `year`.
+    enum: [hour, day, week, month, year]
+    description: The unit of time that `duration` counts.
+    x-values:
+      entries:
+        - name: "hour"
+          description: '`duration` counts hours.'
+        - name: "day"
+          description: '`duration` counts days.'
+        - name: "week"
+          description: '`duration` counts weeks.'
+        - name: "month"
+          description: '`duration` counts calendar months.'
+        - name: "year"
+          description: '`duration` counts years.'
   duration:
     type: string
     description: Number of `period` until token expiration.
   ceil:
     type: string
-    description: Interval to round token expiry up to. Supported values are `day`, `week`, `month` and `year`, and must not be longer than `period`. Not supported when `period` is `hour`.
+    enum: [day, week, month, year]
+    description: Interval to round token expiry up to. Must not be longer than `period`. Not supported when `period` is `hour`.
+    x-values:
+      entries:
+        - name: "day"
+          description: Expiry is rounded up to the end of the day.
+        - name: "week"
+          description: Expiry is rounded up to the end of the week (Sunday).
+        - name: "month"
+          description: Expiry is rounded up to the end of the calendar month.
+        - name: "year"
+          description: Expiry is rounded up to the end of the calendar year.

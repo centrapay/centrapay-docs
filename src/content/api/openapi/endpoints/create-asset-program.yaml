@@ -95,14 +95,20 @@ post:
             ACCOUNT_TYPE_INVALID:
               description: The Account must be type `org`.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_TYPE_INVALID
             MEDIA_UPLOAD_INVALID:
               description: The media upload id does not reference a media upload.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: MEDIA_UPLOAD_INVALID
             COLLECTION_IDS_INVALID:
               description: The collectionIds array contains one or more invalid collection ids.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: COLLECTION_IDS_INVALID
 get:
   x-method: GET

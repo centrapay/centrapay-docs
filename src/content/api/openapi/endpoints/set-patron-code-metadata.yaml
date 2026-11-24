@@ -40,7 +40,7 @@ post:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/patron-code-metadata-activity.yaml
           examples:
             default:
               value:
@@ -59,4 +59,6 @@ post:
             PATRON_CODE_INVALID:
               description: Patron Code doesn't exist or it has expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PATRON_CODE_INVALID

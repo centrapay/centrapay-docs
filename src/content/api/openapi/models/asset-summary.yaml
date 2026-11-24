@@ -1,0 +1,25 @@
+x-title: Asset Summary Model
+type: object
+x-intro: |
+  Product tokens return every field. Ledger assets return `id`, `description`, `img` and `liveness`. Other asset types return only `id`.
+properties:
+  id:
+    type: string
+    description: The Asset's unique identifier.
+  description:
+    type: string
+    description: Displayable asset description.
+  img:
+    type: string
+    description: The URL of the asset's image. Only present if the asset has one.
+  issuer:
+    type: string
+    description: The display name of the token's issuer. Only present if the token has one.
+  expiresAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    nullable: true
+    description: When the token expires, or `null` if it doesn't.
+  liveness:
+    $ref: './asset.yaml#/properties/liveness'

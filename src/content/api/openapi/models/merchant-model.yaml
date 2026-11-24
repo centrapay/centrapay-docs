@@ -41,10 +41,14 @@ properties:
       - $ref: './settlement-config.yaml'
   type:
     type: string
-    enum:
-      - physical
-      - e-commerce
-    description: 'Valid values: `physical` or `e-commerce`. Merchants with a physical store should provide type `physical`. Online only merchants should provide type `e-commerce`. E-commerce merchants will not be displayed in the store finder.'
+    enum: [physical, e-commerce]
+    description: The type of the Merchant.
+    x-values:
+      entries:
+        - name: "physical"
+          description: A merchant with a physical store.
+        - name: "e-commerce"
+          description: An online only merchant. E-commerce merchants are not displayed in the store finder.
   location:
     type: object
     x-type: location
@@ -58,7 +62,7 @@ properties:
       - on-hold
       - deactivated
       - archived
-    description: The onboarding status of the Merchant. See [Onboarding Statuses](#onboarding-statuses) for possible values.
+    description: The onboarding status of the Merchant.
     x-values:
       title: "Onboarding Statuses"
       entries:
@@ -96,7 +100,7 @@ properties:
       - blocked
       - company-closed
       - tid-cancelled
-    description: The reason associated with the [Onboarding Status](#onboarding-statuses). See [Onboarding Status Reasons](#onboarding-status-reasons) for possible values.
+    description: The reason for the Merchant's onboarding status.
     x-values:
       title: "Onboarding Status Reasons"
       entries:

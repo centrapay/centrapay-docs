@@ -1,0 +1,31 @@
+x-title: Merchant Onboarding Status Activity Model
+type: object
+properties:
+  type:
+    type: string
+    enum: [set-onboarding-status]
+    description: The type of activity.
+    x-values:
+      entries:
+        - name: "set-onboarding-status"
+          description: The onboarding status was set.
+  merchantId:
+    type: string
+    description: The id of the [Merchant](#merchant-model).
+  onboardingStatus:
+    $ref: './merchant-model.yaml#/properties/onboardingStatus'
+  onboardingStatusReason:
+    $ref: './merchant-model.yaml#/properties/onboardingStatusReason'
+  activityNumber:
+    type: string
+    x-type: bignumber
+    description: The Merchant's sequential activity number, incremented by each activity.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the onboarding status was set.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that set the onboarding status.

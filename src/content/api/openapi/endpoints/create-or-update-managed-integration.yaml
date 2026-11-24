@@ -11,10 +11,7 @@ put:
       in: path
       required: true
       schema:
-        type: string
-        enum:
-          - paypal-referral
-          - payap
+        $ref: '../models/managed-integration.yaml#/properties/type'
       example: paypal-referral
       description: The Managed Integration type.
     - name: externalId
@@ -87,6 +84,8 @@ put:
             INVALID_PARAMS:
               description: Invalid [Params](#params-model) provided for Managed Integration type.
               value:
+                statusCode: 400
+                error: Bad Request
                 message: INVALID_PARAMS
     '403':
       description: Forbidden
@@ -98,10 +97,14 @@ put:
             MERCHANT_LIVENESS_MISMATCH:
               description: The `test` flag on the merchant doesn't match the `test` flag on the `paypal-referral` managed integration.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: MERCHANT_LIVENESS_MISMATCH
             MERCHANT_NOT_FOUND:
               description: The merchant is not found with the `centrapayMerchantId` on the `paypal-referral` managed integration.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: MERCHANT_NOT_FOUND
 get:
   x-method: GET
@@ -116,10 +119,7 @@ get:
       in: path
       required: true
       schema:
-        type: string
-        enum:
-          - paypal-referral
-          - payap
+        $ref: '../models/managed-integration.yaml#/properties/type'
       example: paypal-referral
       description: The Managed Integration type.
     - name: externalId

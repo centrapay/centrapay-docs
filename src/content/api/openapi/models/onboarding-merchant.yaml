@@ -12,11 +12,7 @@ properties:
     type: string
     description: ISO 18245 Merchant category code (4 digits).
   type:
-    type: string
-    enum:
-      - physical
-      - e-commerce
-    description: Must be either `physical` or `e-commerce`.
+    $ref: './merchant-model.yaml#/properties/type'
   contactName:
     type: string
     description: Merchant contact name (3-100 characters).

@@ -54,11 +54,20 @@
                   >
                     <a
                       role="menuitem"
-                      class="block py-2 pl-8 text-xs text-content-tertiary"
+                      class="flex items-start gap-2 py-2 pl-8 pr-2 text-xs text-content-tertiary"
                       :aria-current="isActiveHeading(subChild, navigationGrandchild) ? 'location' : undefined"
                       :href="`${pageHref(subChild)}#${navigationGrandchild.slug}`"
                     >
-                      {{ navigationGrandchild.text }}
+                      <span
+                        v-if="navigationGrandchild.method"
+                        :class="methodBadgeClass(navigationGrandchild.method)"
+                        aria-hidden="true"
+                      >{{ methodLabel(navigationGrandchild.method, { short: true }) }}</span>
+                      <span
+                        v-if="navigationGrandchild.method"
+                        class="sr-only"
+                      >{{ methodLabel(navigationGrandchild.method) }}</span>
+                      <span>{{ navigationGrandchild.text }}</span>
                     </a>
                   </li>
                 </div>
@@ -90,11 +99,20 @@
                 >
                   <a
                     role="menuitem"
-                    class="block py-2 pl-6 text-xs text-content-tertiary"
+                    class="flex items-start gap-2 py-2 pl-6 pr-2 text-xs text-content-tertiary"
                     :aria-current="isActiveHeading(navigationChild, navigationGrandchild) ? 'location' : undefined"
                     :href="`${pageHref(navigationChild)}#${navigationGrandchild.slug}`"
                   >
-                    {{ navigationGrandchild.text }}
+                    <span
+                      v-if="navigationGrandchild.method"
+                      :class="methodBadgeClass(navigationGrandchild.method)"
+                      aria-hidden="true"
+                    >{{ methodLabel(navigationGrandchild.method, { short: true }) }}</span>
+                    <span
+                      v-if="navigationGrandchild.method"
+                      class="sr-only"
+                    >{{ methodLabel(navigationGrandchild.method) }}</span>
+                    <span>{{ navigationGrandchild.text }}</span>
                   </a>
                 </li>
               </div>
@@ -108,6 +126,7 @@
 
 <script setup>
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { methodLabel, methodStyle } from './api/methods.js';
 
 const props = defineProps({
   path: { type: [String, undefined], required: false, default: undefined },
@@ -226,6 +245,10 @@ function onPageLinkClick(event, item) {
   history.pushState(null, '', pageHref(item));
   window.scrollTo({ top: 0 });
   updateActiveSlug();
+}
+
+function methodBadgeClass(method) {
+  return `${methodStyle(method)} w-9 shrink-0 rounded px-1 text-center font-mono text-[10px] font-semibold leading-4`;
 }
 
 function isActive(item) {

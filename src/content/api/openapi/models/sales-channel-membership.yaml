@@ -36,4 +36,9 @@ properties:
     description: The User or API Key that updated the Sales Channel Membership.
   status:
     type: string
-    description: The current status of the Sales Channel Membership. Supported values are `created`, `provisioning`, `active`, `suspending` and `deactivated`.
+    enum: [created]
+    description: The current status of the Sales Channel Membership.
+    x-values:
+      entries:
+        - name: "created"
+          description: The merchant has requested to join the Sales Channel.

@@ -47,8 +47,12 @@ post:
             INTEGRATION_PARAM_MISSING:
               description: Integration Request needs updating with the parameters before activating.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INTEGRATION_PARAM_MISSING
             INTEGRATION_ALREADY_ACTIVATED:
               description: Integration Request is already activated.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INTEGRATION_ALREADY_ACTIVATED

@@ -55,16 +55,24 @@ post:
             BANK_ACCOUNT_ALREADY_VERIFIED:
               description: The bank account is already verified.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_ALREADY_VERIFIED
             VERIFICATION_CODE_INVALID:
               description: The verification code is incorrect.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: VERIFICATION_CODE_INVALID
             BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED:
               description: The bank account's maximum failed verification attempts has been reached.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BANK_ACCOUNT_VERIFICATION_ATTEMPTS_EXCEEDED
             ACCOUNT_MISMATCH:
               description: The top up / withdrawal and the bank account do not belong to the same account.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_MISMATCH

@@ -6,7 +6,14 @@ properties:
     description: The unique identifier.
   type:
     type: string
-    description: Account type, must be either 'org' or 'individual'.
+    enum: [org, individual]
+    description: The Account type.
+    x-values:
+      entries:
+        - name: "org"
+          description: A business or organisation account that can have multiple members.
+        - name: "individual"
+          description: A personal account for a single user. Each user can have only one, and its members can't be changed.
   name:
     type: string
     description: The display name of the Account.

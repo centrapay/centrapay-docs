@@ -23,7 +23,14 @@ properties:
     description: A date that all tokens will expire on if they haven’t expired earlier.
   type:
     type: string
-    description: The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+    enum: [product, discount]
+    description: The type of value gained by redeeming Tokens.
+    x-values:
+      entries:
+        - name: "product"
+          description: Tokens are redeemed for specific products, which redemption conditions can restrict.
+        - name: "discount"
+          description: Tokens give money off a purchase, up to the collection's `maxValue`.
   maxValue:
     type: object
     x-type: monetary
@@ -41,7 +48,14 @@ properties:
     description: '`true` if the Token Collection is for testing purposes only.'
   status:
     type: string
-    description: 'The status of the Token Collection. Valid values: `active`.'
+    enum: [active, archived]
+    description: The status of the Token Collection.
+    x-values:
+      entries:
+        - name: "active"
+          description: The collection is live and Tokens can be issued from it.
+        - name: "archived"
+          description: The collection is archived and no more Tokens can be issued from it.
   createdAt:
     type: string
     format: date-time

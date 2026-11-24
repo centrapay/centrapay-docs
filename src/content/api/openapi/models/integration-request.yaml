@@ -12,7 +12,7 @@ properties:
     description: The [Merchant](/api/merchants) id for the Integration Request.
   type:
     type: string
-    description: The type of the Integration Request. Refer to [Integration Types](#integration-types).
+    description: The type of the Integration Request.
     x-values:
       title: "Integration Types"
       entries:
@@ -32,9 +32,30 @@ properties:
           description: "Terminal vendor [Windcave](https://www.windcave.com/)"
         - name: "shopify"
           description: "E-commerce provider [Shopify](https://www.shopify.com/)"
+        - name: "epay-pos"
+          description: Point of sale [Epay Convenience POS](/guides/compatible-solutions)
+        - name: "eftpos-central"
+          description: Terminal vendor [Eftpos Central](/guides/compatible-solutions#eftpos-central-group)
+        - name: "sektor"
+          description: Terminal vendor [Sektor](/guides/compatible-solutions#sektor)
+        - name: "nomad"
+          description: Centrapay's hardware-free sales channel, [Nomad](/guides/nomad)
+        - name: "fat-zebra"
+          description: E-commerce provider Fat Zebra
   status:
     type: string
-    description: The current status of the Integration Request. Supported values are `active`, `available`, `pending`, `rejected` and `disabled`.
+    enum: [pending, active, rejected, deleted]
+    description: The current status of the Integration Request.
+    x-values:
+      entries:
+        - name: "pending"
+          description: Submitted and waiting to be enabled.
+        - name: "active"
+          description: Enabled for Centrapay acceptance.
+        - name: "rejected"
+          description: The Integration Request was declined.
+        - name: "deleted"
+          description: The Integration Request was deleted.
   terminalId:
     type: string
     description: Epay terminalId for the Integration Request. Required if type is `epay`.

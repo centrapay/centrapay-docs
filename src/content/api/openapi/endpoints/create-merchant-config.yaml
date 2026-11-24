@@ -77,6 +77,8 @@ post:
             PAYMENT_OPTION_TYPE_DOES_NOT_EXIST:
               description: A payment option `type` is not a known [Asset Type](/api/asset-types).
               value:
+                statusCode: 400
+                error: Bad Request
                 message: PAYMENT_OPTION_TYPE_DOES_NOT_EXIST
     '403':
       description: Forbidden
@@ -88,14 +90,20 @@ post:
             INVALID_WALLET_TYPE:
               description: '`walletId` does not belong to a [Settlement Wallet Asset](/api/wallet-assets#settlement-wallet-assets).'
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_WALLET_TYPE
             LIVENESS_MISMATCH:
               description: Only [Merchants](/api/merchants) with the `test` flag can have merchant configs with test assets, vice versa
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH
             COLLECTIONS_INVALID:
               description: An item in the `collectionIds` array does not exist or does not belong to a supported collection type.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: COLLECTIONS_INVALID
 get:
   x-method: GET

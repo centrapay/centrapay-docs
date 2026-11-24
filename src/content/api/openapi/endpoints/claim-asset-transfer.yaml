@@ -49,12 +49,18 @@ post:
             ASSET_TRANSFER_INVALID_RECIPIENT:
               description: The asset transfer already has a recipient defined through the `recipientAlias` field and cannot be claimed with this API.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ASSET_TRANSFER_INVALID_RECIPIENT
             ASSET_TRANSFER_INVALID_STATUS:
               description: The asset transfer is not in a `sent` status and hence cannot be claimed.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ASSET_TRANSFER_INVALID_STATUS
             ASSET_TRANSFER_CLAIM_CONDITIONS_NOT_MET:
               description: The claim has failed because one or more of the claim conditions were not met.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ASSET_TRANSFER_CLAIM_CONDITIONS_NOT_MET

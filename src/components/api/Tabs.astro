@@ -1,0 +1,31 @@
+---
+import { MAX_TABS } from './tabs.js';
+
+const { id, label, tabs } = Astro.props;
+
+if (tabs.length > MAX_TABS) {
+  throw new Error(`Tabs "${id}" has ${tabs.length} tabs; at most ${MAX_TABS} are supported`);
+}
+
+const TONES = {
+  success: 'bg-emerald-500',
+  warning: 'bg-amber-500',
+  danger: 'bg-rose-500',
+  neutral: 'bg-content-tertiary',
+};
+---
+
+<div class="group/tabs">
+  <div role="radiogroup" aria-label={label} class="flex flex-wrap gap-1 border-b border-outline-opaque">
+    {tabs.map((tab, index) => (
+      <label data-tab class="-mb-px cursor-pointer">
+        <input type="radio" name={id} value={tab.label} checked={index === 0} class="peer sr-only" />
+        <span class="flex items-center gap-2 rounded-t-md border-b-2 border-transparent px-3 py-2 font-mono text-sm text-content-tertiary transition-colors motion-reduce:transition-none hover:text-content-primary peer-checked:border-content-primary peer-checked:font-semibold peer-checked:text-content-primary peer-focus-visible:outline-2 peer-focus-visible:outline-focus-ring">
+          {tab.tone && <span aria-hidden="true" class:list={['size-1.5 rounded-full', TONES[tab.tone]]} />}
+          {tab.label}
+        </span>
+      </label>
+    ))}
+  </div>
+  <slot />
+</div>

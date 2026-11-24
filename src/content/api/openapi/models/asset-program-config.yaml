@@ -21,7 +21,16 @@ properties:
     description: '`true` if the Asset Program Config is enabled for payments.'
   status:
     type: string
-    description: 'The status of the Asset Program Config. Possible values: `pending`, `active`, `inactive`.'
+    enum: [pending, active, inactive]
+    description: The status of the Asset Program Config.
+    x-values:
+      entries:
+        - name: "pending"
+          description: Created or changed and still being processed.
+        - name: "active"
+          description: Enabled, approved and the membership is active, so the merchant accepts the Asset Program's payments.
+        - name: "inactive"
+          description: Not accepting payments, because it is disabled, not approved, or the membership is not active.
   test:
     type: boolean
     description: '`true` if the Asset Program Config is for testing purposes only.'

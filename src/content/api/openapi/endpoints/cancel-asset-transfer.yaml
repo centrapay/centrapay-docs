@@ -47,4 +47,6 @@ post:
             INVALID_ASSET_TRANSFER_STATUS:
               description: The asset transfer status is invalid and cannot be cancelled.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_ASSET_TRANSFER_STATUS

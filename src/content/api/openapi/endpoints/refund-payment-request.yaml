@@ -107,6 +107,8 @@ post:
             LINE_ITEMS_SUM_CHECK_FAILED:
               description: The sum value of the line items did not equal the value of the refund.
               value:
+                statusCode: 400
+                error: Bad Request
                 message: LINE_ITEMS_SUM_CHECK_FAILED
     '403':
       description: Forbidden
@@ -118,44 +120,66 @@ post:
             NOT_PAID:
               description: The Payment Request has not been paid.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: NOT_PAID
             ALREADY_REFUNDED:
               description: The Payment Request already been refunded. If you want to perfom additional refunds then an `externalRef` is required.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ALREADY_REFUNDED
             INVALID_AMOUNT:
               description: The refund requested is greater than the refundable amount.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVALID_AMOUNT
             REPEAT_REFERENCE:
               description: A refund has already been requested with the same external reference. Refunding the payment request twice with the same external reference is not allowed. If the amount of the refund is the same we assume it is a repeat request and return 200.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REPEAT_REFERENCE
             PARTIAL_REFUNDS_NOT_ALLOWED:
               description: The Asset does not support partial refunds.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PARTIAL_REFUNDS_NOT_ALLOWED
             INACTIVE_ASSET:
               description: The Asset is not refundable. It may have been disabled, expired, or already refunded.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INACTIVE_ASSET
             REFUND_NOT_SUPPORTED:
               description: The Asset type does not support refunds.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REFUND_NOT_SUPPORTED
             REFUND_WINDOW_EXCEEDED:
               description: The time since the payment exceeds the window of time a payment request can be refunded in.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REFUND_WINDOW_EXCEEDED
             PRE_AUTH_PENDING:
               description: The Pre Auth Payment Request has yet to be authorized.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PRE_AUTH_PENDING
             CONFIRMATION_NOT_FOUND:
               description: The confirmationIdempotencyKey does not match a Confirmation on the Payment Request.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: CONFIRMATION_NOT_FOUND
             REFUND_DECLINED:
               description: The refund parameters were valid but refund was declined because additional business rules were violated.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: REFUND_DECLINED

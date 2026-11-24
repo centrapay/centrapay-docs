@@ -69,8 +69,12 @@ post:
             TOKEN_ALREADY_CREATED:
               description: Token with supplied parameters already exists.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: TOKEN_ALREADY_CREATED
             LIVENESS_MISMATCH:
               description: The account is test and the collection's liveness is main or vice versa.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

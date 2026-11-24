@@ -44,6 +44,8 @@ get:
             CHECKSUM_FAILED:
               description: Luhn checksum digit doesn't pass.
               value:
+                statusCode: 400
+                error: Bad Request
                 message: CHECKSUM_FAILED
     '403':
       description: Forbidden
@@ -55,4 +57,6 @@ get:
             PATRON_CODE_INVALID:
               description: Patron Code doesn't exist or it has expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PATRON_CODE_INVALID

@@ -21,7 +21,7 @@ get:
       content:
         application/json:
           schema:
-            type: object
+            $ref: ../models/asset-transfer-summary.yaml
           examples:
             default:
               value:

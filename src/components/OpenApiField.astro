@@ -1,0 +1,68 @@
+---
+import FieldItem from './api/FieldItem.astro';
+import FieldList from './api/FieldList.astro';
+import Markdown from './api/Markdown.astro';
+import ValueList from './api/ValueList.astro';
+import { createMarkdownRenderer } from '../utils/openApiPage.js';
+import { formatDescription } from '../utils/OpenApiResolver.js';
+
+const { row, variant, required: showRequired = false } = Astro.props;
+
+const reveal = variant ?? row?.reveal;
+const values = row?.values;
+const table = row?.table;
+const nestedRows = reveal?.rows ?? [];
+const variants = reveal?.variants ?? [];
+const hasFields = nestedRows.length > 0 || variants.length > 0 || Boolean(values) || Boolean(table);
+
+// The historical anchor of the page section this replaced, on its first occurrence.
+const linkId = reveal?.anchor ?? (values ?? table)?.anchor;
+
+const markdown = (text, anchors) => (text ? createMarkdownRenderer(anchors ?? [])(text) : null);
+const variantIntro = variant ? markdown(variant.intro, variant.introAnchors) : null;
+const valuesIntro = values ? markdown(values.intro, values.headingAnchors) : null;
+const tableBody = table ? markdown(table.body, table.headingAnchors) : null;
+const entries = (values?.entries ?? []).map((entry, index) => ({
+  anchor: values.anchors?.[index],
+  name: formatDescription(entry.name),
+  description: formatDescription(entry.description),
+  notes: entry.notes?.map(note => ({ label: note.label, value: formatDescription(note.value) })),
+}));
+const fieldsLabel = values ? 'Possible values' : 'Fields';
+
+const props = variant
+  ? {
+    name: variant.title,
+    plainName: true,
+    anchor: variant.fieldAnchor,
+    experimental: variant.badges?.includes('experimental'),
+    deprecated: variant.badges?.includes('deprecated'),
+  }
+  : {
+    name: row.name,
+    type: row.typeLabel ?? row.formattedType,
+    typeLink: row.typeLink,
+    anchor: row.fieldAnchor,
+    required: showRequired ? row.isRequired : undefined,
+    experimental: row.isExperimental,
+    deprecated: row.isDeprecated,
+    description: row.description,
+  };
+---
+
+<FieldItem {...props} linkId={linkId} fieldsLabel={fieldsLabel}>
+  {variantIntro && <Markdown segments={variantIntro} class="prose-sm" />}
+  {hasFields && (
+    <div slot="fields">
+      {(nestedRows.length > 0 || variants.length > 0) && (
+        <FieldList nested>
+          {nestedRows.map(child => <Astro.self row={child} required={showRequired} />)}
+          {variants.map(child => <Astro.self variant={child} required={showRequired} />)}
+        </FieldList>
+      )}
+      {valuesIntro && <Markdown segments={valuesIntro} class="prose-sm mt-3 ml-8" />}
+      {values && <ValueList entries={entries} />}
+      {tableBody && <Markdown segments={tableBody} class="prose-sm mt-3 ml-[7px] border-l border-outline-opaque pl-6" />}
+    </div>
+  )}
+</FieldItem>

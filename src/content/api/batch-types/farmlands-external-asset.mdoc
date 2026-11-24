@@ -85,8 +85,8 @@ Exported Farmlands Credit Card information used for importing and updating of a 
     16 digit primary account number of the Card.
   {% /property %}
 
-  {% property name="status" type="string" %}
-    Current state of the Card. Valid values are "active", "inactive" and "archived".
+  {% property name="status" type="string" values=[{name: "active", description: "The card can be used for payments until it expires."}, {name: "inactive", description: "The card is suspended and payments are declined."}, {name: "archived", description: "The card is retired and payments are declined."}] %}
+    Current state of the Card.
   {% /property %}
 
   {% property name="expiry" type="timestamp" %}

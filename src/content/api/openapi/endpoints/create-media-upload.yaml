@@ -31,8 +31,7 @@ post:
               format: binary
               description: A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
             purpose:
-              type: string
-              description: The [purpose](#purpose) of the Media Upload.
+              $ref: '../models/media-upload.yaml#/properties/purpose'
   responses:
     '200':
       description: Media Upload created
@@ -54,8 +53,12 @@ post:
             FILE_TYPE_INVALID:
               description: Invalid file extension or mime type provided for the purpose.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: FILE_TYPE_INVALID
             FILE_TOO_LARGE:
               description: File size exceeds the allowed threshold.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: FILE_TOO_LARGE

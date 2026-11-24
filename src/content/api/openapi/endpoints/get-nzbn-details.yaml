@@ -20,6 +20,8 @@ get:
       description: Business details retrieved
       content:
         application/json:
+          schema:
+            $ref: ../models/nzbn-details.yaml
           examples:
             default:
               value:

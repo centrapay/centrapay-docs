@@ -34,4 +34,6 @@ delete:
             LAST_OWNER_NOT_REVOKABLE:
               description: The last remaining membership to an account cannot be revoked.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LAST_OWNER_NOT_REVOKABLE

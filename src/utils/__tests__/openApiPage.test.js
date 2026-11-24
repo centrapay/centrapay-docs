@@ -6,6 +6,7 @@ import {
   indexOperations,
   firstParagraph,
   createMarkdownRenderer,
+  navHeadings,
 } from '../openApiPage';
 
 const DIR = 'src/content/api/openapi';
@@ -322,3 +323,115 @@ describe('page sections', () => {
     expect(getPageSections(page, { models: {}, operations }).map(section => section.rule)).toEqual([false, true]);
   });
 });
+
+describe('endpoint layout', () => {
+  const { index, pages, models: modelFiles, operations } = loadSpec();
+  // The site loads index.yaml alongside the models (see openApiLoader.js).
+  const models = { ...modelFiles, index };
+  const accounts = getPageSections(pages['accounts'], { models, operations });
+  const create = accounts.find(section => section.anchor === 'create-an-account');
+  const get = accounts.find(section => section.anchor === 'get-an-account');
+
+  it('splits path parameters, query parameters and the request body', () => {
+    expect(create.pathParams).toEqual([]);
+    expect(create.body.map(row => row.name)).toContain('name');
+    expect(get.pathParams.map(row => row.name)).toEqual(['accountId']);
+    expect(get.properties).toEqual([...get.pathParams, ...get.queryParams, ...get.body]);
+  });
+
+  it('gives every field an anchor scoped by its section and parents', () => {
+    expect(create.body.find(row => row.name === 'name').fieldAnchor).toBe('create-an-account.body.name');
+    expect(get.pathParams[0].fieldAnchor).toBe('get-an-account.path.accountId');
+    const subscriptions = get.response.rows.find(row => row.name === 'subscriptions');
+    expect(subscriptions.fieldAnchor).toBe('get-an-account.responses.body.subscriptions');
+    expect(subscriptions.reveal.rows[0].fieldAnchor).toBe('get-an-account.responses.body.subscriptions.name');
+  });
+
+  it('anchors each possible value under its field', () => {
+    const type = get.response.rows.find(row => row.name === 'type');
+    expect(type.values.anchors).toEqual([
+      'get-an-account.responses.body.type.org',
+      'get-an-account.responses.body.type.individual',
+    ]);
+  });
+
+  it('keeps field anchors unique on every page', () => {
+    for (const [pid, page] of Object.entries(pages)) {
+      const anchors = [];
+      const collect = rows => rows?.forEach(row => {
+        anchors.push(row.fieldAnchor, ...(row.values?.anchors ?? []));
+        collect(row.reveal?.rows);
+        row.reveal?.variants?.forEach(variant => { anchors.push(variant.fieldAnchor); collect(variant.rows); });
+      });
+      for (const section of getPageSections(page, { models, operations })) {
+        collect(section.properties);
+        collect(section.response?.rows);
+      }
+      const defined = anchors.filter(Boolean);
+      expect(new Set(defined).size, pid).toEqual(defined.length);
+    }
+  });
+
+  it('lists each status code with its errors, success first', () => {
+    expect(get.responses[0]).toMatchObject({ code: '200', success: true, errors: [] });
+    const notFound = get.responses.find(response => response.code === '404');
+    expect(notFound.success).toBe(false);
+    expect(notFound.errors.length).toBeGreaterThan(0);
+    expect(get.responses.map(response => Number(response.code)))
+      .toEqual([...get.responses.map(response => Number(response.code))].sort((a, b) => a - b));
+  });
+
+  it('gives each error status the example body of its first error', () => {
+    const notFound = get.responses.find(response => response.code === '404');
+    expect(notFound.example).toEqual(notFound.errors[0].example);
+    expect(notFound.example).toHaveProperty('message');
+    expect(get.responses[0].example).toBeUndefined();
+  });
+
+  it('anchors only the success response fields', () => {
+    const notFound = get.responses.find(response => response.code === '404');
+    expect(notFound.fields.every(row => row.fieldAnchor === undefined)).toBe(true);
+  });
+
+  it('lists the body fields of each error status', () => {
+    const notFound = get.responses.find(response => response.code === '404');
+    expect(notFound.fields.map(row => row.name)).toEqual(['statusCode', 'error', 'message']);
+    expect(get.responses[0].fields).toEqual([]);
+  });
+
+  it('lists the errors of each status as possible values of message', () => {
+    const notFound = get.responses.find(response => response.code === '404');
+    const message = notFound.fields.find(row => row.name === 'message');
+    expect(message.values.entries.map(entry => entry.name))
+      .toEqual(notFound.errors.map(error => error.message));
+    expect(message.values.entries[0].description).toEqual(notFound.errors[0].description);
+  });
+
+  it('types fields with possible values as enums and lists them', () => {
+    const type = get.response.rows.find(row => row.name === 'type');
+    expect(type.typeLabel).toEqual('enum');
+    expect(type.values.entries.map(entry => entry.name)).toEqual(['org', 'individual']);
+    const notFound = get.responses.find(response => response.code === '404');
+    expect(notFound.fields.find(row => row.name === 'message').typeLabel).toEqual('enum');
+  });
+
+  it('says what the fields that never vary within a status are', () => {
+    const notFound = get.responses.find(response => response.code === '404');
+    const field = name => notFound.fields.find(row => row.name === name);
+    expect(field('statusCode').description).toContain('Always <code>404</code>.');
+    expect(field('error').description).toContain('Always <code>Not Found</code>.');
+  });
+
+  it('describes array types by their items', () => {
+    const subscriptions = get.response.rows.find(row => row.name === 'subscriptions');
+    expect(subscriptions.typeLabel).toBe('array of objects');
+    expect(create.body.find(row => row.name === 'subscriptions').typeLabel).toBe('array of strings');
+  });
+
+  it('gives endpoint headings their HTTP method for the sidebar', () => {
+    expect(create).toMatchObject({ method: 'POST', path: '/api/accounts' });
+    expect(navHeadings(accounts).find(heading => heading.slug === 'get-an-account'))
+      .toEqual({ depth: 2, slug: 'get-an-account', text: 'Get an Account', method: 'GET' });
+  });
+});
+

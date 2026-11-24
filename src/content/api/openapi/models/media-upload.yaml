@@ -9,7 +9,7 @@ properties:
     description: A file to upload. Make sure that the specifications follow [RFC 2388](https://datatracker.ietf.org/doc/html/rfc2388), which defines file transfers for the multipart/form-data protocol.
   purpose:
     type: string
-    description: The [purpose](#purpose) of the Media Upload.
+    description: The purpose of the Media Upload.
     x-values:
       title: "Purpose"
       intro: |

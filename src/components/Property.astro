@@ -1,21 +1,26 @@
 ---
-import Badge from '../components/Badge.astro';
+import FieldItem from './api/FieldItem.astro';
+import ValueList from './api/ValueList.astro';
+import { customTypeLink } from '../utils/OpenApiResolver.js';
 
-const { name, type, required, experimental, deprecated } = Astro.props;
-const customDataTypes = ['timestamp', 'bignumber', 'monetary', 'crn', 'location', 'phonenumber', 'pan'];
-const formattedType = type.toLowerCase();
-const link = customDataTypes.includes(formattedType) ? '/api/data-types#' + formattedType : undefined;
+const { name, type, required, experimental, deprecated, values } = Astro.props;
+const formattedType = values ? 'enum' : type.toLowerCase();
 ---
 
-<li class="px-0 border-b-0">
-  <div class="m-0 flex flex-wrap items-baseline gap-x-3">
-    <h4 class="my-0" id={name}>{name}</h4>
-    <Badge text={formattedType} link={link} />
-    { required && <Badge type="required" /> }
-    { experimental && <Badge type="experimental" /> }
-    { deprecated && <Badge type="deprecated" /> }
-  </div>
-  <div data-expandable-slot class="expanded w-full flex-none transition-opacity duration-500 [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-    <slot />
-  </div>
-</li>
+<FieldItem
+  name={name}
+  anchor={name}
+  type={formattedType}
+  typeLink={customTypeLink(formattedType)}
+  required={required ? true : undefined}
+  experimental={experimental}
+  deprecated={deprecated}
+  fieldsLabel="Possible values"
+>
+  <slot />
+  {values && (
+    <div slot="fields">
+      <ValueList entries={values.map(value => (typeof value === 'string' ? { name: value } : value)).map(entry => ({ ...entry, anchor: `${name}.${entry.name}` }))} />
+    </div>
+  )}
+</FieldItem>

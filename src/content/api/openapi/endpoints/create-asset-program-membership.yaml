@@ -72,16 +72,24 @@ post:
             ACCOUNT_TYPE_INVALID:
               description: The Account must be type `org`.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ACCOUNT_TYPE_INVALID
             LIVENESS_MISMATCH:
               description: The liveness of the [Account](/api/accounts) doesn't match the liveness of the [Asset Program](/api/asset-programs).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH
             ALREADY_A_MEMBER_OF_ASSET_PROGRAM:
               description: The Account is already a member of the Asset Program.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: ALREADY_A_MEMBER_OF_ASSET_PROGRAM
             BILLING_BANK_ACCOUNT_REQUIRED:
               description: A billing bank account is required before the membership can be accepted or approved.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: BILLING_BANK_ACCOUNT_REQUIRED

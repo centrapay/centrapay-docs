@@ -34,8 +34,7 @@ post:
               x-type: timestamp
               description: A date that all tokens will expire on if they haven’t expired earlier.
             type:
-              type: string
-              description: The type of value gained by redeeming Tokens. Valid values are `product` and `discount`.
+              $ref: '../models/token-collection.yaml#/properties/type'
             maxValue:
               type: object
               x-type: monetary
@@ -103,4 +102,6 @@ post:
             EXTERNAL_ID_ALREADY_USED:
               description: A collection has already been created for this account with the given externalId.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: EXTERNAL_ID_ALREADY_USED

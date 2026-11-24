@@ -52,4 +52,6 @@ get:
             PATRON_CODE_INVALID:
               description: Patron Code doesn't exist or it has expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: PATRON_CODE_INVALID

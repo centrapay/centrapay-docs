@@ -43,4 +43,6 @@ get:
             LIVENESS_MISMATCH:
               description: The caller is a test account but the Merchant Config belongs to a live [Merchant](/api/merchants).
               value:
+                statusCode: 403
+                error: Forbidden
                 message: LIVENESS_MISMATCH

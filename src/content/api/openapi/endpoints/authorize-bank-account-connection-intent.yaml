@@ -50,4 +50,6 @@ post:
             AUTHORIZATION_PENDING:
               description: User has not completed steps to authorize the consent
               value:
+                statusCode: 403
+                error: Forbidden
                 message: AUTHORIZATION_PENDING

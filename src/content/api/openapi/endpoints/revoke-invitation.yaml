@@ -50,8 +50,12 @@ post:
             INVITATION_EXPIRED:
               description: The Invitation is expired.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVITATION_EXPIRED
             INVITATION_ACCEPTED:
               description: The Invitation has already been accepted.
               value:
+                statusCode: 403
+                error: Forbidden
                 message: INVITATION_ACCEPTED

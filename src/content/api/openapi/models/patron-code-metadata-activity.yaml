@@ -1,0 +1,20 @@
+x-title: Patron Code Metadata Activity Model
+type: object
+properties:
+  patronCodeId:
+    type: string
+    description: The id of the [Patron Code](#patron-code-model).
+  metadata:
+    type: object
+    additionalProperties:
+      type: string
+    description: The Patron Code's metadata after the update, including keys set earlier. Keys set to an empty string are removed.
+  createdAt:
+    type: string
+    format: date-time
+    x-type: timestamp
+    description: When the metadata was set.
+  createdBy:
+    type: string
+    x-type: crn
+    description: The User or API Key that set the metadata.

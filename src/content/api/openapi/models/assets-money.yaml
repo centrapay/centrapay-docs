@@ -24,8 +24,21 @@ properties:
     description: The asset is configured for [Settlements](/api/wallet-assets#settlement-wallet-assets).
   period:
     type: string
+    enum: [daily, weekly, fortnightly, monthly, yearly]
     x-experimental: true
-    description: The period after which the `balance` will be reset. This field is only available on the [quartz](/api/asset-types) asset type. Possible values are `daily`, `weekly`, `fortnightly`, `monthly` or `yearly`.
+    description: The period after which the `balance` will be reset. This field is only available on the [quartz](/api/asset-types) asset type.
+    x-values:
+      entries:
+        - name: "daily"
+          description: The balance resets to the spend limit every day.
+        - name: "weekly"
+          description: The balance resets to the spend limit every week.
+        - name: "fortnightly"
+          description: The balance resets to the spend limit every fortnight.
+        - name: "monthly"
+          description: The balance resets to the spend limit every month.
+        - name: "yearly"
+          description: The balance resets to the spend limit every year.
   periodStartedAt:
     type: string
     format: date-time

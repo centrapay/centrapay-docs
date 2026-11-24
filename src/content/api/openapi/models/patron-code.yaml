@@ -29,7 +29,12 @@ properties:
     description: The account id of the creator of the patron code.
   testScenarioName:
     type: string
-    description: The [Test Scenario Name](#test-scenario-name) of the Patron Code.
+    description: Injects behavior into a [Payment Request](/api/payment-requests) when the generated barcode is supplied on creation. A Patron Code with a Test Scenario Name is a test resource and can only be used with Payment Requests that will have a liveness of `test`. The [Asset Type](/api/asset-types) `centrapay.nzd.test` is required to run test scenarios.
+    x-values:
+      title: "Test Scenario Name"
+      entries:
+        - name: "force-condition-check-photo-id"
+          description: The Payment Request will have a required [Merchant Condition](/api/payment-requests#payment-request-model) to check photo id.
   externalId:
     type: string
     description: The external Id of the Patron Code.
@@ -65,15 +70,3 @@ x-outro: |
   * 929394
   * 987600
   * 999000
-
-  ### Test Scenario Name
-
-  This field is used to inject behavior into a [Payment Request](/api/payment-requests) when the
-  generated barcode is supplied on creation. If a Test Scenario Name is
-  defined on a Patron Code, it is considered a test resource and can only
-  be used with Payment Requests that will have a liveness of 'test'. The [Asset Type](/api/asset-types)
-  `centrapay.nzd.test` is required to run test scenarios.
-
-  |              Name              |                                    Description                                     |
-  | :----------------------------- | :--------------------------------------------------------------------------------- |
-  | force-condition-check-photo-id | The Payment Request will have a required [Merchant Condition](/api/payment-requests#payment-request-model) to check photo id. |

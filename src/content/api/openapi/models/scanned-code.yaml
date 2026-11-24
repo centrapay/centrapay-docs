@@ -8,7 +8,11 @@ properties:
     type: string
     enum:
       - merchant
-    description: The party that scanned the code. Can be `merchant`.
+    description: The party that scanned the code.
+    x-values:
+      entries:
+        - name: "merchant"
+          description: The merchant scanned the code, eg from the customer's phone or card.
   provider:
     type: string
     enum:
@@ -16,7 +20,17 @@ properties:
       - venmo
       - farmlands
       - centrapay
-    description: The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model). Can be `paypal`, `venmo`, `farmlands` or `centrapay`.
+    description: The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model).
+    x-values:
+      entries:
+        - name: "paypal"
+          description: A PayPal QR code or barcode.
+        - name: "venmo"
+          description: A Venmo QR code or barcode.
+        - name: "farmlands"
+          description: A Farmlands card barcode.
+        - name: "centrapay"
+          description: A Centrapay patron code, eg from a Centrapay wallet or token.
   displayName:
     type: string
     description: A formatted name that can be displayed in a client.

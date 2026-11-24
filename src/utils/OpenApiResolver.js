@@ -125,7 +125,31 @@ function rowType(prop, target) {
   return (target?.['x-type'] ?? target?.type ?? prop.type ?? 'string').toLowerCase();
 }
 
-function customTypeLink(type) {
+const COMPOSITE_KEYS = ['properties', 'allOf', 'oneOf', 'anyOf'];
+
+function isUntypedComposite(schema) {
+  const target = schema ?? {};
+  return !target.type && !target['x-type'] && COMPOSITE_KEYS.some(key => target[key]);
+}
+
+function itemType(items, models) {
+  const target = isRef(items) ? modelRef(items.$ref, models)?.schema : items;
+  return isUntypedComposite(target) ? 'object' : rowType(items, target);
+}
+
+function pluralType(text) {
+  return text.replace(/^(\w+)/, word => (word.endsWith('s') ? word : `${word}s`));
+}
+
+function typeLabel(type, prop, target, models) {
+  const items = (target ?? prop)?.items;
+  if (type !== 'array' || !items) {
+    return type;
+  }
+  return `array of ${pluralType(typeLabel(itemType(items, models), items, undefined, models))}`;
+}
+
+export function customTypeLink(type) {
   return CUSTOM_DATA_TYPES.includes(type) ? `/api/data-types#${type}` : undefined;
 }
 
@@ -153,18 +177,54 @@ function rowTable(name, prop) {
   return { title: table.title, body: table.body };
 }
 
-// A property may instead document its possible values as structured
-// entries (`x-values`): each value stacked over its description, with
-// optional labelled notes.
-function rowValues(name, prop) {
-  const values = prop?.['x-values'];
-  if (!values) {
+// A property's possible values: structured entries (`x-values`), each value
+// stacked over its description with optional labelled notes, or else the
+// bare names of an `enum`. A title keeps the anchor of the page section the
+// values used to live in.
+function rowValues(name, prop, target) {
+  const values = prop?.['x-values'] ?? target?.['x-values'];
+  const names = enumNames(prop) ?? enumNames(target);
+  return values ? structuredValues(name, values, names) : enumValues(names);
+}
+
+// Enum values the entries don't describe are still listed, by name.
+function structuredValues(name, values, names = []) {
+  if (!(values.entries ?? []).some(entry => entry.name)) {
+    throw new Error(`x-values on "${name}" needs entries`);
+  }
+  const described = new Set(values.entries.map(entry => plainValue(entry.name)));
+  const undescribed = names.filter(value => !described.has(String(value))).map(value => ({ name: String(value) }));
+  return { title: values.title, intro: values.intro, entries: [...values.entries, ...undescribed] };
+}
+
+export function plainValue(text = '') {
+  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/`/g, '');
+}
+
+function enumValues(names) {
+  return names ? { entries: names.map(value => ({ name: String(value) })) } : undefined;
+}
+
+// A field can reuse another field's values through a single `allOf` ref while
+// keeping its own description, eg a request field and its model's field.
+function valuesSource(prop, target, models) {
+  return reusedValues(prop, models) ?? target;
+}
+
+function reusedValues(prop, models) {
+  const members = prop?.allOf ?? [];
+  if (members.length !== 1 || !isPureRef(members[0])) {
     return undefined;
   }
-  if (!values.title || !(values.entries ?? []).some(entry => entry.name)) {
-    throw new Error(`x-values on "${name}" needs a title and entries`);
-  }
-  return { title: values.title, intro: values.intro, entries: values.entries };
+  return modelRef(members[0].$ref, models)?.schema;
+}
+
+function enumNames(schema) {
+  return schema?.enum ?? schema?.items?.enum;
+}
+
+function valuesTypeLabel(type) {
+  return type === 'array' ? 'array of enums' : 'enum';
 }
 
 // One attribute row, possibly with a reveal or a reference table hanging off
@@ -177,16 +237,18 @@ function propertyRow(name, prop, isRequired, models, stack) {
   }
   const target = isRef(prop) ? modelRef(prop.$ref, models)?.schema : prop;
   const type = rowType(prop, target);
+  const values = rowValues(name, prop, valuesSource(prop, target, models));
   return [{
     name,
     formattedType: type,
+    typeLabel: values ? valuesTypeLabel(type) : typeLabel(type, prop, target, models),
     typeLink: customTypeLink(type),
     description: rowDescription(prop, target),
     isRequired,
     ...rowBadges(prop, target),
     reveal: propertyReveal(prop, models, stack),
     table: rowTable(name, prop),
-    values: rowValues(name, prop),
+    values,
   }];
 }
 
@@ -330,6 +392,13 @@ function responseShape(schema, models) {
   return hasFields(schema) ? { rows: objectRows(schema, models, []) } : undefined;
 }
 
+// The fields of an error response's body, from its schema (usually ApiError).
+export function errorBodyRows(response, models) {
+  const schema = firstMediaSchema(response);
+  const target = isPureRef(schema) ? modelRef(schema.$ref, models)?.schema : schema;
+  return hasFields(target) ? objectRows(target, models, []) : [];
+}
+
 const isObject = (obj) => obj && typeof obj === 'object';
 
 export function resolveRefs(obj, schemasMap) {
@@ -391,34 +460,32 @@ export function getParameterProperties(parameters, models) {
 const isSuccess = code => /^2\d\d$/.test(code);
 
 // The documented success response: 200 when present, otherwise the first 2xx.
+export function successCode(responses) {
+  return Object.keys(responses ?? {}).filter(isSuccess).sort()[0];
+}
+
 export function successResponse(responses) {
-  const code = Object.keys(responses ?? {}).filter(isSuccess).sort()[0];
+  const code = successCode(responses);
   return code ? responses[code] : undefined;
+}
+
+function errorEntries(code, response) {
+  return Object.entries(response?.content?.['application/json']?.examples ?? {})
+    .map(([message, example]) => ({
+      code,
+      message,
+      description: formatDescription(example.description),
+      example: example.value,
+    }));
 }
 
 export function getErrors(responses, commonResponses = []) {
   const endpointErrors = Object.entries(responses ?? {})
     .filter(([code]) => !isSuccess(code))
-    .flatMap(([code, response]) =>
-      Object.entries(response?.content?.['application/json']?.examples ?? {})
-        .map(([message, example]) => ({
-          code,
-          message,
-          description: formatDescription(example.description),
-        }))
-    );
-
+    .flatMap(([code, response]) => errorEntries(code, response));
   const sharedErrors = commonResponses
     .filter(response => response?.['x-status-code'])
-    .flatMap(response =>
-      Object.entries(response?.content?.['application/json']?.examples ?? {})
-        .map(([message, example]) => ({
-          code: response['x-status-code'],
-          message,
-          description: formatDescription(example.description),
-        }))
-    );
-
+    .flatMap(response => errorEntries(response['x-status-code'], response));
   return [...endpointErrors, ...sharedErrors].sort((a, b) => Number(a.code) - Number(b.code));
 }
 
