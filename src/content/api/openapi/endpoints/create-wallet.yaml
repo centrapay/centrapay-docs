@@ -4,7 +4,7 @@ post:
   x-experimental: true
   operationId: createWallet
   summary: Create Wallet
-  description: This endpoint allows you to create a [Wallet](#wallet-model).
+  description: This endpoint allows you to create a Wallet.
   tags:
     - wallets
   requestBody:

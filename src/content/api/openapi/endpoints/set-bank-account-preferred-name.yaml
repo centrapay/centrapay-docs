@@ -3,7 +3,7 @@ post:
   x-path: /api/bank-accounts/{bankAccountId}/set-preferred-name
   operationId: setBankAccountPreferredName
   summary: Set Preferred Bank Account Name
-  description: This endpoint allows you to set the preferred name of a [Bank Account](#bank-account-model).
+  description: This endpoint allows you to set the preferred name of a Bank Account.
   tags:
     - bank-accounts
   parameters:
@@ -55,7 +55,7 @@ post:
             $ref: ../index.yaml#/components/schemas/ApiError
           examples:
             INVALID_BANK_ACCOUNT_TYPE:
-              description: The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
+              description: The type of bank account is not supported for this operation. Only quartz bank accounts are supported.
               value:
                 statusCode: 403
                 error: Forbidden

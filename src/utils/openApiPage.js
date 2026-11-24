@@ -19,10 +19,8 @@ import {
 //
 // A page only documents routes: the spec's refs pull everything together,
 // and models render inline as click-to-reveal toggles hanging off the
-// property, parameter or response that references them. Every model a
-// page's routes reveal is anchored on its first occurrence per page, in
-// document order, keeping the anchor the page's old model section had -
-// so links like /api/payment-requests#line-item-model keep resolving.
+// property, parameter or response that references them. Models have no
+// anchors of their own - link to the route, or the field, that shows them.
 //
 // Anchors are slugged in document order with a single Slugger to match the
 // Markdoc rendering the deleted mdoc pages produced.
@@ -203,53 +201,9 @@ function resolvePageSection(section, ctx) {
     .map(heading => ctx.anchor(heading.text));
   if (resolved.kind === 'endpoint' && !resolved.exampleName) {
     Object.assign(resolved, endpointDetails(ctx.operations[resolved.operationId], ctx.models));
-    anchorSectionContent(resolved, ctx);
     anchorFields(resolved);
   }
   return resolved;
-}
-
-// Anchors the section's first reveal of each page-registered model (including
-// the response block, which counts as its model's reveal) and the first
-// occurrence of each reference table.
-function anchorSectionContent(section, ctx) {
-  section.properties.forEach(row => anchorRow(row, ctx));
-  if (section.response) {
-    anchorReveal(section.response, ctx);
-  }
-}
-
-function anchorRow(row, ctx) {
-  if (row.reveal) {
-    anchorReveal(row.reveal, ctx);
-  }
-  if (row.table) {
-    anchorReference(row.table, ctx);
-  }
-  if (row.values) {
-    anchorReference(row.values, ctx);
-  }
-}
-
-// Gives the first reveal of each model the anchor the page's old model
-// section had, so historical links keep resolving. Markdown headings inside
-// a model's intro and outro keep anchors too.
-function assignAnchor(reveal, ctx) {
-  reveal.anchor = ctx.anchor(reveal.title);
-  reveal.introAnchors = markdownHeadings(reveal.intro).map(heading => ctx.anchor(heading.text));
-  reveal.outroAnchors = markdownHeadings(reveal.outro).map(heading => ctx.anchor(heading.text));
-}
-
-// The spec's refs pull everything together: every model a page's routes
-// reveal is anchored on its first occurrence per page, in document order.
-// Only the first occurrence carries the anchor, keeping ids unique.
-function anchorReveal(reveal, ctx) {
-  if (reveal.model && !ctx.anchored.has(reveal.model)) {
-    ctx.anchored.add(reveal.model);
-    assignAnchor(reveal, ctx);
-  }
-  reveal.rows?.forEach(row => anchorRow(row, ctx));
-  reveal.variants?.forEach(variant => anchorReveal(variant, ctx));
 }
 
 // Field anchors are dotted paths (`create-an-account.body.name`). Slugs never
@@ -292,25 +246,12 @@ function anchorFields(section) {
   }
 }
 
-// A reference table or value list anchors its first occurrence per page,
-// keeping the anchor the page's old table section had.
-function anchorReference(reference, ctx) {
-  if (!reference.title || ctx.anchored.has(reference.title)) {
-    return;
-  }
-  ctx.anchored.add(reference.title);
-  reference.anchor = ctx.anchor(reference.title);
-  reference.headingAnchors = markdownHeadings(reference.intro ?? reference.body)
-    .map(heading => ctx.anchor(heading.text));
-}
-
 export function getPageSections(page, { models, operations }) {
   const slugger = new Slugger();
   const anchor = text => slugger.slug(text).replace(/-$/, '');
   const ctx = {
     operations,
     models,
-    anchored: new Set(),
     anchor,
   };
   return page.sections.map(section => resolvePageSection(section, ctx));

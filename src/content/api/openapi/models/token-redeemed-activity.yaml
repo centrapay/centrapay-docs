@@ -1,6 +1,6 @@
 x-title: Token Redeemed Activity Model
 x-intro: |
-  This records the redeeming of a token. Used when activityType is `token-redeemed`. This extends the [Asset Activity Model](#asset-activity-model)
+  This records the redeeming of a token. Used when activityType is `token-redeemed`. This extends the Asset Activity Model
 type: object
 properties:
   idempotencyKey:
@@ -8,6 +8,6 @@ properties:
     description: Client-supplied identifier that prevents double creation.
   lineItems:
     type: array
-    description: The [Line Items](/api/payment-requests/#line-item-model) being paid for
+    description: The Line Items being paid for
     items:
       $ref: './line-item.yaml'

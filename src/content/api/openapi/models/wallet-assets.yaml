@@ -53,7 +53,7 @@ properties:
   settlement:
     type: boolean
     x-experimental: true
-    description: '`true` if the Wallet Asset is a [Settlement Wallet Asset](#settlement-wallet-assets).'
+    description: '`true` if the Wallet Asset is a Settlement Wallet Asset.'
 
     x-table:
       title: "Settlement Wallet Assets"

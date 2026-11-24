@@ -44,7 +44,7 @@ properties:
     description: The User or API Key that updated the Business.
   taxNumber:
     type: object
-    description: The value-added tax configuration for the Business. See [Tax Number Model](#tax-number-model).
+    description: The value-added tax configuration for the Business.
     allOf:
       - $ref: './businesses-tax-number.yaml'
   location:

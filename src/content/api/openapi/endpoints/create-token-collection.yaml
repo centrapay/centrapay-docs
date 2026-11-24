@@ -5,7 +5,7 @@ post:
   operationId: createTokenCollection
   summary: Create Token Collection
   description: |
-    This endpoint allows you to create a [Token Collection](#token-collection-model).
+    This endpoint allows you to create a Token Collection.
   tags:
     - tokens
   requestBody:
@@ -27,7 +27,7 @@ post:
               description: The [Account](/api/accounts/) that will own the Collection.
             tokenExpiresAfter:
               type: object
-              description: The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+              description: The active duration of all Tokens created from this Collection.
             tokenExpiresAt:
               type: string
               format: date-time

@@ -5,7 +5,7 @@ post:
   operationId: setAssetProgramTermsOfServiceUrl
   summary: Set Asset Program Terms of Service URL
   description: |
-    This endpoint allows you to set the terms of service url for an [Asset Program](#asset-program-model).
+    This endpoint allows you to set the terms of service url for an Asset Program.
   tags:
     - asset-programs
   parameters:

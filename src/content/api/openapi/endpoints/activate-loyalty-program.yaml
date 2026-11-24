@@ -5,7 +5,7 @@ post:
   operationId: activateLoyaltyProgram
   summary: Activate Loyalty Program
   description: |
-    Allows the user to set the status of the [Loyalty Program](#loyalty-program-model) to `active`.
+    Allows the user to set the status of the Loyalty Program to `active`.
   tags:
     - loyalty-programs
   parameters:

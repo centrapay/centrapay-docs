@@ -5,7 +5,7 @@ get:
   operationId: listAssetTransactions
   summary: List Asset Transactions
   description: |
-    Returns a [paginated](/api/pagination) list of [Asset Transactions](#asset-transaction-activity-model). This endpoint is currently only supported for `quartz` asset types.
+    Returns a [paginated](/api/pagination) list of Asset Transactions. This endpoint is currently only supported for `quartz` asset types.
   tags:
     - asset-activities
   parameters:

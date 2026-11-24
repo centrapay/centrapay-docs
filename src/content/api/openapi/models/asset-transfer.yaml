@@ -44,7 +44,7 @@ properties:
   assetCollectionId:
     type: string
     x-experimental: true
-    description: The [Token Collection](/api/tokens#token-collection-model) id being transferred.
+    description: The [Token Collection](/api/tokens#create-token-collection) id being transferred.
   description:
     type: string
     description: Shows up in transaction history against the transfer. 200 character limit.

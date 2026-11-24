@@ -7,7 +7,7 @@ properties:
     description: The Bank Account's sequential activity number, incremented by each activity.
   bankAccountId:
     type: string
-    description: The id of the [Bank Account](#bank-account-model).
+    description: The id of the Bank Account.
   type:
     type: string
     enum: [set-preferred-bank-account-name]

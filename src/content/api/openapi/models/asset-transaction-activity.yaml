@@ -8,7 +8,7 @@ x-intro: |
   `increment-balance` and `decrement-balance`. Values may include bank account
   number.
 
-  This extends the [asset activity model](#asset-activity-model)
+  This extends the asset activity model
 type: object
 properties:
   ref:

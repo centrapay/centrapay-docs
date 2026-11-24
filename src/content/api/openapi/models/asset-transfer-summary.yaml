@@ -19,7 +19,7 @@ properties:
     description: The id of the sent [Asset](/api/assets). Not present for requests.
   assetCollectionId:
     type: string
-    description: The id of the sent asset's [Token Collection](/api/tokens#token-collection-model). Only present if it has one.
+    description: The id of the sent asset's [Token Collection](/api/tokens#create-token-collection). Only present if it has one.
   assetDescription:
     type: string
     description: Displayable description of the sent asset. Only present if it has one.

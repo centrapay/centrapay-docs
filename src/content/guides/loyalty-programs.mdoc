@@ -65,7 +65,7 @@ When an Event is generated for an Account, Centrapay will look up all the Promot
 
 `eventType` must match the `type` on the Event that will cause the Promotion Membership to be incremented.
 
-Centrapay generates one native Event type you can use: `payment-request:paid`, created when a [Payment Request](/api/payment-requests#payment-request-model) is paid.
+Centrapay generates one native Event type you can use: `payment-request:paid`, created when a [Payment Request](/api/payment-requests#get-a-payment-request) is paid.
 
 You should NOT send us Events with a native Event `type`. You CAN create Promotions with that Event type if you wish to reward Accounts for native Centrapay Events.
 

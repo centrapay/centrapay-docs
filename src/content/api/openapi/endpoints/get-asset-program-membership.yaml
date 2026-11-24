@@ -5,7 +5,7 @@ get:
   operationId: getAssetProgramMembership
   summary: Get Asset Program Membership
   description: |
-    This endpoint allows you to retrieve a specific [Asset Program Membership](#asset-program-membership-model).
+    This endpoint allows you to retrieve a specific Asset Program Membership.
   tags:
     - asset-program-memberships
   parameters:

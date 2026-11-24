@@ -24,10 +24,10 @@ post:
               $ref: '../models/integration-request.yaml#/properties/type'
             terminal:
               type: object
-              description: The terminal configuration. Required for all terminal vendors except Vista. Not allowed for `vista`, `epay`, `shopify`, `nomad` and `fat-zebra`. Refer to [Terminal](#terminal).
+              description: The terminal configuration. Required for all terminal vendors except Vista. Not allowed for `vista`, `epay`, `shopify`, `nomad` and `fat-zebra`. Refer to Terminal.
             product:
               type: object
-              description: The requested Epay gift card types to support. Required if type is `epay`, and not allowed for other types. Refer to [Product](#product).
+              description: The requested Epay gift card types to support. Required if type is `epay`, and not allowed for other types. Refer to Product.
             externalId:
               type: string
               description: The external identifier for the integration. Required for `shopify` integration requests, and not allowed for other types.

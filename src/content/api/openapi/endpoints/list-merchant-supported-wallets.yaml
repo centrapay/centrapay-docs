@@ -4,7 +4,7 @@ get:
   x-experimental: true
   operationId: listMerchantSupportedWallets
   summary: List Supported Wallets for Merchant
-  description: This endpoint allows you to retrieve a list of [Wallets](#wallet-model) that a merchant supports. Wallets are filtered to match the merchant's supported assets.
+  description: This endpoint allows you to retrieve a list of Wallets that a merchant supports. Wallets are filtered to match the merchant's supported assets.
   tags:
     - wallets
   x-request-headers: {}

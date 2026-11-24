@@ -3,7 +3,7 @@ type: object
 properties:
   merchantId:
     type: string
-    description: The id of the [Merchant](#merchant-model).
+    description: The id of the Merchant.
   metadata:
     type: object
     additionalProperties:

@@ -5,7 +5,7 @@ get:
   summary: List Managed Integration
   description: |
     This endpoint allows you to retrieve the list of managed integrations for an account.
-    Returns a [paginated](/api/pagination/) list of [Managed Integrations](#managed-integration-model) for an Account.
+    Returns a [paginated](/api/pagination/) list of Managed Integrations for an Account.
   tags:
     - managed-integrations
   parameters:

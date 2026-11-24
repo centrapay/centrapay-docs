@@ -24,7 +24,7 @@ properties:
         type: string
   paymentOptions:
     type: array
-    description: The [Payment Options](#payment-option-model), indicating valid asset for payment. ⭐️ For Payment Options which specify an address, a transaction on an external ledger is required - once made, use the transaction id to [Pay a Payment Request](#pay-a-payment-request).
+    description: The Payment Options, indicating valid asset for payment. ⭐️ For Payment Options which specify an address, a transaction on an external ledger is required - once made, use the transaction id to [Pay a Payment Request](#pay-a-payment-request).
     items:
       $ref: './payment-option.yaml'
   merchantId:
@@ -74,7 +74,7 @@ properties:
     description: When the Payment Request expires.
   merchantConditions:
     type: array
-    description: A dynamic list of [Payment Conditions](#payment-condition-model) that require operator approval to complete a payment. Some [Asset Types](/api/asset-types) require conditional approval, such as confirming proof of ID or a promotional item purchase. Conditions are calculated when [polling a Payment Request](#get-a-payment-request), and can be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition) - a declined condition cancels the Payment Request.
+    description: A dynamic list of Payment Conditions that require operator approval to complete a payment. Some [Asset Types](/api/asset-types) require conditional approval, such as confirming proof of ID or a promotional item purchase. Conditions are calculated when [polling a Payment Request](#get-a-payment-request), and can be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition) - a declined condition cancels the Payment Request.
     items:
       $ref: './payment-condition.yaml'
   remainingAmount:
@@ -86,7 +86,7 @@ properties:
     description: The id of a [Patron Code](/api/patron-codes) the Payment Request is attached to.
   barcode:
     type: string
-    description: "[Scanned Code](/api/scanned-codes) used to create the Payment Request. Required when the [Quick Pay](/guides/payment-flows/#quick-pay) payment flow is used."
+    description: "[Scanned Code](/api/scanned-codes) used to create the Payment Request. Required when the [Quick Pay](/guides/payment-flows/#barcode-flow) payment flow is used."
   barcodeType:
     type: string
     description: "Indicates the provider of a barcode, e.g. `ticketek`."
@@ -98,7 +98,7 @@ properties:
     description: The expiry seconds used to configure the Payment Request expiry.
   lineItems:
     type: array
-    description: The [Line Items](#line-item-model) being paid for. Line Item currency and units are consistent with the Payment Request value, and the sum of Line Item prices should equal the Payment Request value.
+    description: The Line Items being paid for. Line Item currency and units are consistent with the Payment Request value, and the sum of Line Item prices should equal the Payment Request value.
     example:
       - name: Hard Hat
         sku: GH1234
@@ -148,10 +148,10 @@ properties:
     description: Name of the [Centrapay Account](/api/accounts) creating the Payment Request.
   conditionsEnabled:
     type: boolean
-    description: Flag to indicate that a merchant is able to accept [Payment Conditions](#payment-condition-model). Set it when creating a Payment Request; if a condition arises without it, the Payment Request is cancelled.
+    description: Flag to indicate that a merchant is able to accept Payment Conditions. Set it when creating a Payment Request; if a condition arises without it, the Payment Request is cancelled.
   patronNotPresent:
     type: boolean
-    description: "Flag to indicate the patron is not physically present. This may affect payment conditions or available [Payment Options](#payment-option-model)."
+    description: "Flag to indicate the patron is not physically present. This may affect payment conditions or available Payment Options."
   cancellationReason:
     type: string
     description: The reason that the Payment Request was cancelled.
@@ -199,7 +199,7 @@ properties:
           description: The hold has ended, either released or past `preAuthExpiresAt`.
   taxNumber:
     type: object
-    description: The value-added tax configuration for the [Business](/api/businesses) that the [Merchant](/api/merchants) belongs to. See [Tax Number](/api/businesses#tax-number-model).
+    description: The value-added tax configuration for the [Business](/api/businesses) that the [Merchant](/api/merchants) belongs to.
     allOf:
       - $ref: './businesses-tax-number.yaml'
   partialAllowed:
@@ -207,7 +207,7 @@ properties:
     description: Flag to indicate that the Payment Request can be paid for partially.
   paidBy:
     type: object
-    description: Shows the [Paid By](#paid-by-model) - a summary of the transactions - when a Payment Request is paid for with multiple Assets.
+    description: Shows the Paid By - a summary of the transactions - when a Payment Request is paid for with multiple Assets.
     allOf:
       - $ref: './paid-by.yaml'
   basketAmount:

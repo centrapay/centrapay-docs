@@ -42,7 +42,7 @@ properties:
     description: Field used to reference an id from an external system.
   params:
     type: object
-    description: '[Params](#params-model) depending on the Managed Integration type.'
+    description: 'Params depending on the Managed Integration type.'
     allOf:
       - $ref: './managed-integrations-params.yaml'
   createdAt:
@@ -77,7 +77,7 @@ properties:
     description: When the Managed Integration was claimed.
   invitation:
     type: object
-    description: A summary of the associated [Invitation](/api/invitations). See [Invitation Summary](#invitation-summary-model).
+    description: A summary of the associated [Invitation](/api/invitations).
     allOf:
       - $ref: './managed-integrations-invitation-summary.yaml'
   inProgress:

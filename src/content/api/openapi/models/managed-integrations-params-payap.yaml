@@ -104,4 +104,4 @@ properties:
     type: array
     items:
       $ref: './managed-integrations-terminal.yaml'
-    description: Array of [Terminal](#terminal-model) information. May be empty.
+    description: Array of Terminal information. May be empty.

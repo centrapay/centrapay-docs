@@ -36,7 +36,7 @@ properties:
     description: Flag indicating merchant is for testing.
   settlementConfig:
     type: object
-    description: Merchant [Settlement Config](#settlement-config-model).
+    description: Merchant Settlement Config.
     allOf:
       - $ref: './settlement-config.yaml'
   type:

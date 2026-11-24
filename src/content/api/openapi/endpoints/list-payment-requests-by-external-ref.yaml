@@ -4,7 +4,7 @@ get:
   operationId: listPaymentRequestsByExternalRef
   summary: List Payment Requests by External Reference
   description: |
-    This endpoint returns a list of [Payment Requests](#payment-request-model) that match the given external reference.
+    This endpoint returns a list of Payment Requests that match the given external reference.
     Results are [paginated](/api/pagination/).
   tags:
     - payment-requests

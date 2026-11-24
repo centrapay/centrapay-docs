@@ -22,7 +22,7 @@ function resolveRef(ref, schemasMap) {
 // whose schema references a model with fields renders as a `<details>` element
 // revealing those fields, instead of the page front-loading dedicated model
 // sections. The tree produced here carries no anchors; openApiPage.js assigns
-// them in document order so links to the old model sections keep resolving.
+// each field its anchor.
 
 const isRef = obj => obj && typeof obj === 'object' && '$ref' in obj;
 

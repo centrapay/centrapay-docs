@@ -9,7 +9,7 @@ properties:
     description: Merchant's name
   acceptedAssets:
     type: array
-    description: List of assets accepted by the merchant. See [Accepted Asset Model](#accepted-asset-model).
+    description: List of assets accepted by the merchant.
     items:
       $ref: './accepted-asset.yaml'
   location:

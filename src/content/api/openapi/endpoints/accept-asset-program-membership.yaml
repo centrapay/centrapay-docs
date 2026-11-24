@@ -5,7 +5,7 @@ post:
   operationId: acceptAssetProgramMembership
   summary: Accept Asset Program Membership
   description: |
-    This endpoint allows you to accept the terms of service for an [Asset Program Membership](#asset-program-membership-model).
+    This endpoint allows you to accept the terms of service for an Asset Program Membership.
   tags:
     - asset-program-memberships
   parameters:

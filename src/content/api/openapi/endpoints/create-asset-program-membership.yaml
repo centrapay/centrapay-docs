@@ -5,7 +5,7 @@ post:
   operationId: createAssetProgramMembership
   summary: Create Asset Program Membership
   description: |
-    This endpoint allows you to create an [Asset Program Membership](#asset-program-membership-model).
+    This endpoint allows you to create an Asset Program Membership.
   tags:
     - asset-program-memberships
   requestBody:

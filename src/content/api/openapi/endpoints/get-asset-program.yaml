@@ -5,7 +5,7 @@ get:
   operationId: getAssetProgram
   summary: Get Asset Program
   description: |
-    This endpoint allows you to retrieve a specific [Asset Program](#asset-program-model).
+    This endpoint allows you to retrieve a specific Asset Program.
   tags:
     - asset-programs
   parameters:

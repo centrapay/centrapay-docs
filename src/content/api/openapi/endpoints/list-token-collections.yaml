@@ -5,7 +5,7 @@ get:
   operationId: listTokenCollections
   summary: List Token Collections
   description: |
-    Returns a [paginated](/api/pagination/) list of [Token Collections](#token-collection-model) for an Account.
+    Returns a [paginated](/api/pagination/) list of Token Collections for an Account.
   tags:
     - tokens
   parameters:

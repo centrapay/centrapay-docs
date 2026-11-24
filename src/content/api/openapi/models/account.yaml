@@ -43,7 +43,7 @@ properties:
     description: The User or API Key that updated the Account.
   subscriptions:
     type: array
-    description: A list of [Subscriptions](#subscription-model) on the Account.
+    description: A list of Subscriptions on the Account.
     items:
       $ref: './accounts-subscription.yaml'
   parentAccountId:

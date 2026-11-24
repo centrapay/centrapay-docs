@@ -5,7 +5,7 @@ get:
   operationId: listAssetProgramConfigsByAssetProgram
   summary: List Asset Program Configs by Asset Program
   description: |
-    This endpoint allows you to list [Asset Program Configs](#asset-program-config-model) for a specific Asset Program.
+    This endpoint allows you to list Asset Program Configs for a specific Asset Program.
   tags:
     - asset-program-configs
   parameters:

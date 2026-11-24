@@ -4,7 +4,7 @@ get:
   operationId: listAssetActivities
   summary: List Asset Activities
   description: |
-    Returns a [paginated](/api/pagination) list of [Asset Activities](#asset-activity-model).
+    Returns a [paginated](/api/pagination) list of Asset Activities.
   tags:
     - asset-activities
   parameters:

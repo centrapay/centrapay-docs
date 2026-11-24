@@ -4,7 +4,7 @@ post:
   x-experimental: true
   operationId: createSalesChannel
   summary: Create Sales Channel
-  description: This endpoint allows you to create a [Sales Channel](#sales-channel-model).
+  description: This endpoint allows you to create a Sales Channel.
   tags:
     - sales-channels
   requestBody:

@@ -21,7 +21,7 @@ properties:
   settlement:
     type: boolean
     x-experimental: true
-    description: The asset is configured for [Settlements](/api/wallet-assets#settlement-wallet-assets).
+    description: The asset is configured for [Settlements](/api/wallet-assets).
   period:
     type: string
     enum: [daily, weekly, fortnightly, monthly, yearly]

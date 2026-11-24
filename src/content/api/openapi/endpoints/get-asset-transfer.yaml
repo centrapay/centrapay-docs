@@ -3,7 +3,7 @@ get:
   x-path: /api/asset-transfers/{assetTransferId}
   operationId: getAssetTransfer
   summary: Get an Asset Transfer
-  description: 'This endpoint allows you to retrieve an [Asset Transfer](#asset-transfer-model).'
+  description: 'This endpoint allows you to retrieve an Asset Transfer.'
   tags:
     - asset-transfers
   parameters:

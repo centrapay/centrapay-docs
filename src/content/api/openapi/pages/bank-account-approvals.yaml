@@ -6,7 +6,7 @@ nav:
 intro: |
   A Bank Account Approval represents any added authorization on a [Bank Account](/api/bank-accounts).
   This may be an approval from Centrapay or a consent from a Centrapay [Account](/api/accounts) owner
-  that allows access to a third-party system. See [Bank Account Approval Types](#bank-account-approval-types).
+  that allows access to a third-party system.
 sections:
   - endpoint: requestBankAccountApproval
   - endpoint: getBankAccountApproval

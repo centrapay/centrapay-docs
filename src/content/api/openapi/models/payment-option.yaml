@@ -13,6 +13,6 @@ properties:
     description: "⭐️ Address to send Bitcoin, when the `assetType` is `bitcoin.*`."
   acceptedCollections:
     type: array
-    description: "[Accepted Collections](#accepted-collections) for the Payment Request, when the “assetType” is `centrapay.token.*`. They can be used to determine whether a [Centrapay Token](/api/tokens) can be used to pay the Payment Request, and which Line Items can be purchased using the Token."
+    description: "Accepted Collections for the Payment Request, when the “assetType” is `centrapay.token.*`. They can be used to determine whether a [Centrapay Token](/api/tokens) can be used to pay the Payment Request, and which Line Items can be purchased using the Token."
     items:
       $ref: './accepted-collections.yaml'

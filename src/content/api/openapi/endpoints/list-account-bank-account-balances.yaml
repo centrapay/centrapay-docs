@@ -5,7 +5,7 @@ get:
   operationId: listAccountBankAccountBalances
   summary: List Bank Account Balances
   description: |
-    This endpoint allows you to retrieve the [balances](#bank-account-balance-model) of an Account's Bank Accounts.
+    This endpoint allows you to retrieve the balances of an Account's Bank Accounts.
   tags:
     - bank-accounts
   parameters:
@@ -26,7 +26,7 @@ get:
             properties:
               items:
                 type: array
-                description: Balances, retrieved using Open Banking flows. Supported for `quartz` [bank accounts](#bank-account-type).
+                description: Balances, retrieved using Open Banking flows. Supported for `quartz` bank accounts.
                 items:
                   $ref: ../models/bank-account-balance.yaml
               nextPageKey:

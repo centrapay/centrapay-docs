@@ -38,7 +38,7 @@ post:
               description: A reference to an invoice for this Payment Request. Must be less than or equal to 128 characters.
             lineItems:
               type: array
-              description: The [Line Items](#line-item-model) being confirmed.
+              description: The Line Items being confirmed.
               items:
                 $ref: '../models/line-item.yaml'
             value:

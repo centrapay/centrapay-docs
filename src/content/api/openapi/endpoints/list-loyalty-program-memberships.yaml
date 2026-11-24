@@ -5,7 +5,7 @@ get:
   operationId: listLoyaltyProgramMemberships
   summary: List Loyalty Program Memberships by Account
   description: |
-    This endpoint allows you to list [Loyalty Program Memberships](#loyalty-program-membership-model) that an [Account](/api/accounts/) owns.
+    This endpoint allows you to list Loyalty Program Memberships that an [Account](/api/accounts/) owns.
   tags:
     - loyalty-program-memberships
   parameters:

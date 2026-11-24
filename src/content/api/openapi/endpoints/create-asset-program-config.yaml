@@ -5,7 +5,7 @@ post:
   operationId: createAssetProgramConfig
   summary: Create Asset Program Config
   description: |
-    This endpoint allows you to create an [Asset Program Config](#asset-program-config-model) for an Asset Program Membership. If an Asset Program Config already exists for the Merchant and Asset Program, the existing config is returned.
+    This endpoint allows you to create an Asset Program Config for an Asset Program Membership. If an Asset Program Config already exists for the Merchant and Asset Program, the existing config is returned.
   tags:
     - asset-program-configs
   parameters:

@@ -8,4 +8,4 @@ properties:
     type: array
     items:
       $ref: './merchants-product.yaml'
-    description: List of [Products](#product-model) supported by the asset type. Only available for [centrapay.token](/api/assets#token-model) and [centrapay.ledger](/api/assets#ledger-model) asset types.
+    description: List of Products supported by the asset type. Only available for centrapay.token and centrapay.ledger asset types.

@@ -17,7 +17,7 @@ properties:
       title: "Bank Account Approval Types"
       entries:
         - name: "settlement"
-          description: "An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet Asset](/api/wallet-assets#settlement-wallet-assets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved."
+          description: "An `approved` Bank Account Approval of type `settlement` is required for the funds in a [Settlement Wallet Asset](/api/wallet-assets) to be released. A [Media Upload](/api/media-uploads) is uploaded by the user to provide evidence of ownership of the [Bank Account](/api/bank-accounts) to be approved."
         - name: "account-information-consent"
           description: "An `approved` Bank Account Approval of type `account-information-consent` provides an access token to read account details from a third-party."
         - name: "enduring-payment-consent"
@@ -60,7 +60,7 @@ properties:
     type: array
     items:
       $ref: ../models/bank-account-approval-activity.yaml
-    description: An array of [Bank Account Approval Activities](#bank-account-approval-activity-model) associated with the Bank Account Approval.
+    description: An array of Bank Account Approval Activities associated with the Bank Account Approval.
   mediaUploadId:
     type: string
     description: The id of the associated [Media Upload](/api/media-uploads). Required for type `settlement`.

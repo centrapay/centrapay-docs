@@ -1,6 +1,6 @@
 x-title: Asset Sent Activity Model
 x-intro: |
-  This records the sending of an asset. Used when activityType is `sent`. This extends the [Asset Activity Model](#asset-activity-model)
+  This records the sending of an asset. Used when activityType is `sent`. This extends the Asset Activity Model
 type: object
 properties:
   recipientAlias:

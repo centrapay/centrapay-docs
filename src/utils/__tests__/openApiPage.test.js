@@ -34,9 +34,7 @@ function loadSpec() {
 }
 
 // Every `#anchor` other pages link to must keep rendering, otherwise
-// cross-links like /api/payment-requests#pay-a-payment-request break. The
-// model anchors moved off dedicated sections onto the reveals that document
-// each model inline from the route that references it.
+// cross-links like /api/payment-requests#pay-a-payment-request break.
 const EXPECTED_SECTION_ANCHORS = [
   'create-a-payment-request',
   'get-a-payment-request',
@@ -55,63 +53,6 @@ const EXPECTED_SECTION_ANCHORS = [
   'accept-a-payment-condition',
   'decline-a-payment-condition',
 ];
-
-const EXPECTED_REVEAL_ANCHORS = [
-  'payment-request-model',
-  'payment-option-model',
-  'accepted-collections',
-  'payment-condition-model',
-  'line-item-model',
-  'product-classification',
-  'paid-by-model',
-  'asset-totals',
-  'payment-activity-model',
-  'strategy-model',
-];
-
-// Reference tables moved off page sections onto the rows that document them.
-const EXPECTED_TABLE_ANCHORS = [
-  'cancellation-reasons',
-  'payment-activity-types',
-];
-
-// Anchors a page's renders carry, including the ones inside reveals and
-// reference tables.
-function pageAnchors(sections) {
-  const anchors = [];
-  const collectReveal = reveal => {
-    anchors.push(reveal.anchor);
-    reveal.rows.forEach(row => collectRow(row));
-    reveal.variants.forEach(collectReveal);
-  };
-  const collectRow = row => {
-    if (row.reveal) {
-      collectReveal(row.reveal);
-    }
-    if (row.table || row.values) {
-      anchors.push((row.table ?? row.values).anchor);
-    }
-  };
-  const collectRows = rows => (rows ?? []).forEach(collectRow);
-  const collectResponse = response => {
-    if (response.model || response.variants) {
-      anchors.push(response.anchor);
-      (response.variants ?? []).forEach(collectReveal);
-    }
-    collectRows(response.rows);
-  };
-  for (const section of sections) {
-    anchors.push(section.anchor);
-    if (section.kind !== 'endpoint') {
-      continue;
-    }
-    collectRows(section.properties);
-    if (section.response) {
-      collectResponse(section.response);
-    }
-  }
-  return anchors.filter(Boolean);
-}
 
 describe('payment requests spec page', () => {
   it('orders endpoints following the page sections', () => {
@@ -137,35 +78,18 @@ describe('payment requests spec page', () => {
     ]);
   });
 
-  it('keeps every historical section anchor stable', () => {
+  it('keeps every section anchor stable', () => {
     const { pages, models, operations } = loadSpec();
     const sections = getPageSections(pages['payment-requests'], { models, operations });
     expect(sections.map(section => section.anchor)).toEqual(EXPECTED_SECTION_ANCHORS);
   });
 
-  it('reveals the documented models inline, each with its historical anchor', () => {
+  it('gives every section on every page a unique anchor', () => {
     const { pages, models, operations } = loadSpec();
-    const sections = getPageSections(pages['payment-requests'], { models, operations });
-    const anchors = pageAnchors(sections);
-    expect(anchors.filter(anchor => EXPECTED_REVEAL_ANCHORS.includes(anchor)))
-      .toEqual(expect.arrayContaining(EXPECTED_REVEAL_ANCHORS));
-    expect(anchors.filter(anchor => EXPECTED_TABLE_ANCHORS.includes(anchor)))
-      .toEqual(expect.arrayContaining(EXPECTED_TABLE_ANCHORS));
-  });
-
-  it('anchors every revealed model once per page', () => {
-    const { pages, models, operations } = loadSpec();
-    const snapshots = {};
     for (const [pid, page] of Object.entries(pages)) {
-      const sections = getPageSections(page, { models, operations });
-      const anchors = pageAnchors(sections);
-      // ids stay unique, whatever the spec wires up
+      const anchors = getPageSections(page, { models, operations }).map(section => section.anchor);
       expect(new Set(anchors).size, pid).toEqual(anchors.length);
-      snapshots[pid] = anchors.sort();
     }
-    // The full per-page anchor map: a broken ref drops a model's anchor
-    // somewhere and fails here.
-    expect(snapshots).toMatchSnapshot();
   });
 
   it('reveals a payload model from the route row that references it', () => {
@@ -173,17 +97,17 @@ describe('payment requests spec page', () => {
     const sections = getPageSections(pages['payment-requests'], { models, operations });
     const create = sections.find(section => section.operationId === 'createPaymentRequest');
     const lineItems = create.properties.find(row => row.name === 'lineItems');
-    expect(lineItems.reveal).toMatchObject({ title: 'Line Item Model', anchor: 'line-item-model' });
+    expect(lineItems.reveal).toMatchObject({ title: 'Line Item Model' });
     expect(lineItems.reveal.rows.map(row => row.name)).toContain('name');
     expect(lineItems.reveal.rows.find(row => row.name === 'classification').reveal)
-      .toMatchObject({ title: 'Product Classification', anchor: 'product-classification' });
+      .toMatchObject({ title: 'Product Classification' });
   });
 
   it('lists a response model\'s fields directly, not behind a toggle', () => {
     const { pages, models, operations } = loadSpec();
     const sections = getPageSections(pages['payment-requests'], { models, operations });
     const create = sections.find(section => section.operationId === 'createPaymentRequest');
-    expect(create.response).toMatchObject({ title: 'Payment Request Model', anchor: 'payment-request-model' });
+    expect(create.response).toMatchObject({ title: 'Payment Request Model' });
     expect(create.response.rows.map(row => row.name)).toContain('lineItems');
     // The top-level response is a flat field list: only nested objects such
     // as lineItems toggle.
@@ -195,17 +119,13 @@ describe('payment requests spec page', () => {
   it('reveals reference values from the rows that document them', () => {
     const { pages, models, operations } = loadSpec();
     const sections = getPageSections(pages['payment-requests'], { models, operations });
-    const [create, get] = sections.filter(section => section.operationId === 'createPaymentRequest'
-      || section.operationId === 'getPaymentRequest');
+    const create = sections.find(section => section.operationId === 'createPaymentRequest');
     const createReason = create.response.rows.find(row => row.name === 'cancellationReason');
-    expect(createReason.values).toMatchObject({ title: 'Cancellation Reasons', anchor: 'cancellation-reasons' });
+    expect(createReason.values).toMatchObject({ title: 'Cancellation Reasons' });
     expect(createReason.values.entries[0]).toMatchObject({ name: 'CANCELLED_BY_MERCHANT' });
-    // The values anchor once per page; later occurrences render unanchored.
-    const getReason = get.response.rows.find(row => row.name === 'cancellationReason');
-    expect(getReason.values.anchor).toBeUndefined();
     const pay = sections.find(section => section.operationId === 'payPaymentRequest');
     const type = pay.response.rows.find(row => row.name === 'type');
-    expect(type.values).toMatchObject({ title: 'Payment Activity Types', anchor: 'payment-activity-types' });
+    expect(type.values).toMatchObject({ title: 'Payment Activity Types' });
   });
 
   it('documents a child object as model fields, not a markdown table', () => {
@@ -213,25 +133,13 @@ describe('payment requests spec page', () => {
     const sections = getPageSections(pages['batches'], { models, operations });
     const create = sections.find(section => section.operationId === 'createBatch');
     const errors = create.response.rows.find(row => row.name === 'errors');
-    expect(errors.reveal).toMatchObject({ title: 'Error', anchor: 'error' });
+    expect(errors.reveal).toMatchObject({ title: 'Error' });
     expect(errors.reveal.rows.map(row => row.name)).toEqual(['message', 'externalId', 'index']);
   });
 
   it('takes the first paragraph of prose', () => {
     expect(firstParagraph('First.\n\nSecond.')).toEqual('First.');
     expect(firstParagraph(undefined)).toEqual('');
-  });
-});
-
-describe('tokens spec page', () => {
-  it('anchors a registered model to a same-titled response when no route references it directly', () => {
-    const { pages, models, operations } = loadSpec();
-    const sections = getPageSections(pages['tokens'], { models, operations });
-    // The Tokens page's old Token Model section documented the create-token
-    // payload; the response of Create Token is now the model titled Token
-    // Model, so the anchor lands on its field list.
-    const create = sections.find(section => section.operationId === 'createToken');
-    expect(create.response).toMatchObject({ title: 'Token Model', anchor: 'token-model' });
   });
 });
 

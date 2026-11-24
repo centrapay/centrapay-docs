@@ -3,7 +3,7 @@ post:
   x-path: /api/asset-transfers/{assetTransferId}/cancel
   operationId: cancelAssetTransfer
   summary: Cancel an Asset Transfer
-  description: 'This endpoint allows you to cancel an [Asset Transfer](#asset-transfer-model).'
+  description: 'This endpoint allows you to cancel an Asset Transfer.'
   tags:
     - asset-transfers
   parameters:

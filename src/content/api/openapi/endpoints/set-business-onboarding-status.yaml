@@ -3,7 +3,7 @@ post:
   x-path: /api/businesses/{businessId}/set-onboarding-status
   operationId: setBusinessOnboardingStatus
   summary: Set Business Onboarding Status
-  description: This endpoint allows you to set the [onboarding status](#onboarding-statuses) of a Business.
+  description: This endpoint allows you to set the onboarding status of a Business.
   tags:
     - businesses
   parameters:

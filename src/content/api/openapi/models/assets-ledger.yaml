@@ -8,7 +8,7 @@ type: object
 properties:
   collectionId:
     type: string
-    description: The [Token Collection](/api/tokens#token-collection-model) that all tokens in the ledger belong to.
+    description: The [Token Collection](/api/tokens#create-token-collection) that all tokens in the ledger belong to.
   collectionType:
     type: string
     description: The type of the token collection.

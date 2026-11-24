@@ -47,7 +47,7 @@ post:
             $ref: ../index.yaml#/components/schemas/ApiError
           examples:
             INVALID_BANK_ACCOUNT_TYPE:
-              description: The type of bank account is not supported for this operation. Only [quartz](#bank-account-type) bank accounts are supported.
+              description: The type of bank account is not supported for this operation. Only quartz bank accounts are supported.
               value:
                 statusCode: 400
                 error: Bad Request

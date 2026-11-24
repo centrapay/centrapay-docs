@@ -44,7 +44,7 @@ post:
               description: Required when refunding a Pre Auth Confirmation. Should be the same as the idempotencyKey used for Confirmation.
             lineItems:
               type: array
-              description: The [Line Items](#line-item-model) being refunded.
+              description: The Line Items being refunded.
               items:
                 $ref: '../models/line-item.yaml'
             merchantConfigId:

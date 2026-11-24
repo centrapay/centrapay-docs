@@ -11,7 +11,7 @@ properties:
           description: The onboarding status was set.
   merchantId:
     type: string
-    description: The id of the [Merchant](#merchant-model).
+    description: The id of the Merchant.
   onboardingStatus:
     $ref: './merchant-model.yaml#/properties/onboardingStatus'
   onboardingStatusReason:

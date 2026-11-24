@@ -14,13 +14,13 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 |    Asset Type             |                     Description                     |              Category              |          Currencies           |  Flags      |
 | :------------------------ | :-------------------------------------------------- | :--------------------------------- | :---------------------------- | :---------- |
 | bitcoin                   | [Bitcoin](https://bitcoin.org/en/)                  |                                    | `NZD` `AUD`                   | ⚡️          |
-| cca.coke                  | Coke tokens                                         | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪 🚫    |
-| centrapay.nzd             | Centrapay NZD wallet                                | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪       |
-| centrapay.token           | Centrapay tokens                                    | [Token](/api/assets#token-model)   | `NZD`                         | ⚡️ 🧪       |
+| cca.coke                  | Coke tokens                                         | Token   | `NZD`                         | ⚡️ 🧪 🚫    |
+| centrapay.nzd             | Centrapay NZD wallet                                | Money   | `NZD`                         | ⚡️ 🧪       |
+| centrapay.token           | Centrapay tokens                                    | Token   | `NZD`                         | ⚡️ 🧪       |
 | epay                      | [EPay NZ giftcards](https://www.giftstation.co.nz/) |                                    | `NZD`                         | ⚡️ 🧪       |
-| farmlands.nzd             | [Farmlands](https://www.farmlands.co.nz/)           | [Money](/api/assets#money-model)   | `NZD`                         | ⚡️ 🧪 💸 💼 |
+| farmlands.nzd             | [Farmlands](https://www.farmlands.co.nz/)           | Money   | `NZD`                         | ⚡️ 🧪 💸 💼 |
 | paypal                    | [PayPal](https://www.paypal.com/)                   |                                    | `USD`                         | ⚡️ 🧪 💸    |
-| centrapay.ledger          | Centrapay Ledgers                                   | [Ledger](/api/assets#ledger-model) | `NZD`                         | ⚡️ 🧪       |
+| centrapay.ledger          | Centrapay Ledgers                                   | Ledger | `NZD`                         | ⚡️ 🧪       |
 | quartz.nzd                | BNZ Open Banking via Payap                          |                                    | `NZD`                         | ⚡️ 🧪       |
 | quartz-one-off.nzd        | BNZ Open Banking via BNZ App                        |                                    | `NZD`                         | ⚡️ 🧪       |
 | venmo                     | [Venmo](https://venmo.com/)                         |                                    | `USD`                         | ⚡️ 🧪 💸    |
@@ -38,6 +38,6 @@ applicable. When blank, the Asset is not managed by a Centrapay Account.
 
  * ⚡️ : **Supports Live Assets** -- Add `.main` to the Asset Type e.g. `centrapay.nzd.main`.
  * 🧪 : **Supports Test Assets** -- Add `.test` to the Asset Type e.g. `centrapay.nzd.test`.
- * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" [Line Items](/api/payment-requests#line-item-model).
+ * 🚫 : **Restricted Asset** -- Cannot be used to pay for "restricted" Line Items.
  * 💸 : **Supports Quick Pay** -- Can be used to quick pay a [Payment Request](/api/payment-requests).
- * 💼 : **Requires Tax Number** -- [Tax Number](/api/businesses#tax-number-model) must exist on the Merchant's Business to transact this asset type.
+ * 💼 : **Requires Tax Number** -- Tax Number must exist on the Merchant's Business to transact this asset type.

@@ -8,4 +8,4 @@ properties:
     description: The unique identifier of the Asset Type.
   collectionId:
     type: string
-    description: Identifier of a [Collection](/api/tokens/#token-collection-model) that is supported by the wallet. Only valid if the Asset Type is a `centrapay.token` or `centrapay.ledger`.
+    description: Identifier of a [Collection](/api/tokens#create-token-collection) that is supported by the wallet. Only valid if the Asset Type is a `centrapay.token` or `centrapay.ledger`.

@@ -50,12 +50,12 @@ properties:
   errorCount:
     type: string
     x-type: bignumber
-    description: Total [Error](#error) counted.
+    description: Total Error counted.
   errors:
     type: array
     items:
       $ref: './batch-error.yaml'
-    description: '[Error](#error) list for the batch.'
+    description: 'Error list for the batch.'
   test:
     type: boolean
     description: true if the batch is for testing purposes only.

@@ -4,7 +4,7 @@ post:
   x-experimental: true
   operationId: createPromotion
   summary: Create Promotion
-  description: This endpoint allows you to create a [Promotion](#promotion-model).
+  description: This endpoint allows you to create a Promotion.
   tags:
     - promotions
   parameters:
@@ -51,14 +51,14 @@ post:
               description: The type of [Event](/api/events) that will trigger increments and completions of the Promotion.
             params:
               type: object
-              description: Type-specific parameters for the Promotion. See [Promotion Params Model](/api/promotions#promotion-params-model).
+              description: Type-specific parameters for the Promotion.
             type:
               $ref: '../models/promotion.yaml#/properties/type'
             conditions:
               type: array
               items:
                 $ref: ../models/promotion-condition.yaml
-              description: The list of [Conditions](/api/promotions#promotion-condition-model) that need to be met when incrementing/completing the Promotion.
+              description: The list of Conditions that need to be met when incrementing/completing the Promotion.
             description:
               type: string
               description: Displayable description for the Promotion.
