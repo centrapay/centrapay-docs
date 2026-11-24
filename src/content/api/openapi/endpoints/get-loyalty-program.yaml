@@ -5,7 +5,7 @@ get:
   operationId: getLoyaltyProgram
   summary: Get Loyalty Program
   description: |
-    Allows the user to get a [Loyalty Program](#loyalty-program-model).
+    Allows the user to get a Loyalty Program.
   tags:
     - loyalty-programs
   parameters:

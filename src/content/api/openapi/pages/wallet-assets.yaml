@@ -4,7 +4,7 @@ nav:
   path: Assets
   order: 6
 intro: |
-  A Wallet Asset is an Asset that represents [Money](/api/assets#money-model). The Wallet Asset maintains a record of all transactions it has participated in. A Wallet Asset has a single balance and a single currency.
+  A Wallet Asset is an Asset that represents Money. The Wallet Asset maintains a record of all transactions it has participated in. A Wallet Asset has a single balance and a single currency.
 sections:
   - endpoint: createWalletAsset
   - endpoint: listWalletAssets

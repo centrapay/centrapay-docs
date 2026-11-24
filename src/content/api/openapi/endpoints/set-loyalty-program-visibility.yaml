@@ -5,7 +5,7 @@ put:
   operationId: setLoyaltyProgramVisibility
   summary: Set Visibility for Loyalty Program
   description: |
-    Allows the user to set the visibility of the [Loyalty Program](#loyalty-program-model).
+    Allows the user to set the visibility of the Loyalty Program.
   tags:
     - loyalty-programs
   parameters:

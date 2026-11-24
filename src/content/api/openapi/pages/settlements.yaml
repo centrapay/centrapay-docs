@@ -6,6 +6,6 @@ nav:
 intro: |
   A Settlement is created from completed [Payment Requests](/api/payment-requests/) over a specified period for each supported [Asset Type](/api/asset-types/) for each [Merchant](/api/merchants/).
 
-  Settlements can only be created if the Merchant has a [Settlement Config](/api/merchants#settlement-config-model).
+  Settlements can only be created if the Merchant has a Settlement Config.
 sections:
   - endpoint: listMerchantSettlements

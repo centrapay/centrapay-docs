@@ -9,13 +9,13 @@ properties:
     type: array
     items:
       $ref: ./allowed-products.yaml
-    description: List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+    description: List of Allowed Products. Required for collections of type `product`.
   id:
     type: string
     description: The unique identifier of the Redemption Condition.
   collectionId:
     type: string
-    description: The [Token Collection](#token-collection-model) that will govern the branding and redemption rules for the Token.
+    description: The [Token Collection](#create-token-collection) that will govern the branding and redemption rules for the Token.
   createdAt:
     type: string
     format: date-time

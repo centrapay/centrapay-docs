@@ -5,7 +5,7 @@ post:
   operationId: createAssetProgram
   summary: Create Asset Program
   description: |
-    This endpoint allows you to create an [Asset Program](#asset-program-model).
+    This endpoint allows you to create an Asset Program.
   tags:
     - asset-programs
   requestBody:
@@ -117,7 +117,7 @@ get:
   operationId: listAssetPrograms
   summary: List Asset Programs
   description: |
-    This endpoint allows you to list published [Asset Programs](#asset-program-model).
+    This endpoint allows you to list published Asset Programs.
   tags:
     - asset-programs
   parameters:

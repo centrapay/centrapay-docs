@@ -5,7 +5,7 @@ post:
   operationId: createLoyaltyProgram
   summary: Create Loyalty Program
   description: |
-    This endpoint allows you to create a [Loyalty Program](#loyalty-program-model).
+    This endpoint allows you to create a Loyalty Program.
   tags:
     - loyalty-programs
   requestBody:
@@ -34,7 +34,7 @@ post:
               type: array
               items:
                 $ref: ../models/loyalty-programs-join-condition.yaml
-              description: The list of [Join Conditions](#join-condition-model) that an Account must meet to join the Loyalty Program.
+              description: The list of Join Conditions that an Account must meet to join the Loyalty Program.
         examples:
           default:
             value:

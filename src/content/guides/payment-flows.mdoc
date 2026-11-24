@@ -43,5 +43,5 @@ The patron can present either:
 2. The merchant optionally checks the barcode for support using the [Scanned Codes](/api/scanned-codes#decode-scanned-code) endpoints.
 3. The merchant [creates a Payment Request](/api/payment-requests#create-a-payment-request) using the barcode as a parameter.
 4. The merchant [polls the Payment Request](/api/payment-requests#get-a-payment-request). The first poll triggers the payment.
-5. If the Payment Request has [Payment Conditions](/api/payment-requests#payment-condition-model) with an `awaiting-merchant` status, the merchant must [accept](/api/payment-requests/#accept-a-payment-condition) or decline them.
+5. If the Payment Request has [Payment Conditions](/api/payment-requests#get-a-payment-request.responses.body.merchantConditions) with an `awaiting-merchant` status, the merchant must [accept](/api/payment-requests/#accept-a-payment-condition) or decline them.
 6. Once the status of the Payment Request is `paid`, the process is complete.

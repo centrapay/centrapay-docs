@@ -69,7 +69,7 @@ properties:
     description: The email address of the user accepting the Invitation.
   params:
     type: object
-    description: '[Params](#params-model) dependent on the Invitation type.'
+    description: 'Params dependent on the Invitation type.'
     allOf:
       - $ref: './invitations-params.yaml'
   status:

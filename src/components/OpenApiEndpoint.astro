@@ -10,7 +10,6 @@ import ResponseTabs from './api/ResponseTabs.astro';
 import StatusTag from './api/StatusTag.astro';
 import Subsection from './api/Subsection.astro';
 import TabPanel from './api/TabPanel.astro';
-import { ANCHOR_TARGET } from './api/styles.js';
 import OpenApiField from './OpenApiField.astro';
 import createEndpoint from '../utils/createEndpoint';
 import { createMarkdownRenderer, sectionAnchors } from '../utils/openApiPage.js';
@@ -42,8 +41,8 @@ const responseLang = example.isJson ? 'json' : 'text';
 const anchors = sectionAnchors(anchor);
 const subLevel = depth + 1;
 const markdown = (text, headingAnchors) => (text ? createMarkdownRenderer(headingAnchors ?? [])(text) : null);
-const responseIntro = markdown(response?.intro, response?.introAnchors);
-const responseOutro = markdown(response?.outro, response?.outroAnchors);
+const responseIntro = markdown(response?.intro);
+const responseOutro = markdown(response?.outro);
 const responseRows = response?.rows ?? [];
 const responseVariants = response?.variants ?? [];
 const hasResponseFields = Boolean(responseIntro || responseOutro || responseRows.length || responseVariants.length);
@@ -83,8 +82,7 @@ const fieldGroups = [
             {status.success ? (
               <>
                 {!hasResponseFields && status.description && <p class="pt-4 api-rich-text" set:html={status.description} />}
-                {/* Keeps the anchor the response model's old page section had. */}
-                <div id={response?.anchor} data-link-target={response?.anchor ? '' : undefined} class:list={['space-y-3 empty:hidden', ANCHOR_TARGET]}>
+                <div class="space-y-3 empty:hidden">
                   {responseIntro && <Markdown segments={responseIntro} class="prose-sm" />}
                   {(responseRows.length > 0 || responseVariants.length > 0) && (
                     <FieldList flush>

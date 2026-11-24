@@ -50,4 +50,4 @@ properties:
   name:
     type: string
     x-experimental: true
-    description: The name of the asset when created from an [enduring payment consent](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only valid for `quartz.nzd` assets.
+    description: The name of the asset when created from an enduring payment consent. Only valid for `quartz.nzd` assets.

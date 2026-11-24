@@ -1,6 +1,6 @@
 x-title: Asset Created Activity Model
 x-intro: |
-  This records the creation of an asset. Used when activityType is `created`. This extends the [Asset Activity Model](#asset-activity-model)
+  This records the creation of an asset. Used when activityType is `created`. This extends the Asset Activity Model
 type: object
 properties:
   status:

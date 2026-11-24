@@ -5,7 +5,7 @@ post:
   operationId: createLoyaltyProgramMembership
   summary: Create Loyalty Program Memberships
   description: |
-    This endpoint allows you to create [Loyalty Program Memberships](#loyalty-program-membership-model) to onboard users to [Loyalty Programs](#loyalty-program-model).
+    This endpoint allows you to create Loyalty Program Memberships to onboard users to [Loyalty Programs](/api/loyalty-programs#get-loyalty-program).
 
     If the Account is already a member of the Loyalty Program, the existing membership is returned (and reactivated if it was archived).
   tags:

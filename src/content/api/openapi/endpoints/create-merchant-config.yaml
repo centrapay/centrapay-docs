@@ -25,7 +25,7 @@ post:
           properties:
             paymentOptions:
               type: array
-              description: A list of [Payment Option Configs](#payment-option-config-model). Test payment options should never be used for live merchant configurations.
+              description: A list of Payment Option Configs. Test payment options should never be used for live merchant configurations.
               items:
                 $ref: '../models/payment-option-config.yaml'
             allowedRedirectUrls:
@@ -88,7 +88,7 @@ post:
             $ref: '../index.yaml#/components/schemas/ApiError'
           examples:
             INVALID_WALLET_TYPE:
-              description: '`walletId` does not belong to a [Settlement Wallet Asset](/api/wallet-assets#settlement-wallet-assets).'
+              description: '`walletId` does not belong to a [Settlement Wallet Asset](/api/wallet-assets).'
               value:
                 statusCode: 403
                 error: Forbidden

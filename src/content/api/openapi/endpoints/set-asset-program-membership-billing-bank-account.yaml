@@ -5,7 +5,7 @@ post:
   operationId: setAssetProgramMembershipBillingBankAccount
   summary: Set Asset Program Membership Billing Bank Account
   description: |
-    This endpoint allows you to set the Billing [Bank Account](/api/bank-accounts) on an [Asset Program Membership](#asset-program-membership-model).
+    This endpoint allows you to set the Billing [Bank Account](/api/bank-accounts) on an Asset Program Membership.
   tags:
     - asset-program-memberships
   parameters:

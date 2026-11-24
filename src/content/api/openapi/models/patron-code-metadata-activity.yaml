@@ -3,7 +3,7 @@ type: object
 properties:
   patronCodeId:
     type: string
-    description: The id of the [Patron Code](#patron-code-model).
+    description: The id of the Patron Code.
   metadata:
     type: object
     additionalProperties:

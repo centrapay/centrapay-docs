@@ -56,6 +56,6 @@ properties:
     description: Disallow payment with a “restricted” [Asset Type](/api/asset-types).
   classification:
     type: object
-    description: "[Product Classification](#product-classification)."
+    description: "Product Classification."
     allOf:
       - $ref: './product-classification.yaml'

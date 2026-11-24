@@ -24,6 +24,6 @@ properties:
     description: A hex color code used to visually represent the wallet or brand in the UI.
   assetTypes:
     type: array
-    description: List of [Asset Types](#asset-types-model) that the wallet supports.
+    description: List of Asset Types that the wallet supports.
     items:
       $ref: './wallets-asset-types.yaml'

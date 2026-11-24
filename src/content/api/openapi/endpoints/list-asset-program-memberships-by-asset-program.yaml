@@ -5,7 +5,7 @@ get:
   operationId: listAssetProgramMembershipsByAssetProgram
   summary: List Asset Program Memberships by Asset Program
   description: |
-    This endpoint allows you to list [Asset Program Memberships](#asset-program-membership-model) for a specific Asset Program.
+    This endpoint allows you to list Asset Program Memberships for a specific Asset Program.
   tags:
     - asset-program-memberships
   parameters:

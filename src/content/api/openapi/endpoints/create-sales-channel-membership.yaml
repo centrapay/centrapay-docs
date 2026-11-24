@@ -4,7 +4,7 @@ post:
   x-experimental: true
   operationId: createSalesChannelMembership
   summary: Create Sales Channel Membership
-  description: This endpoint allows you to create a [Sales Channel Membership](#sales-channel-membership-model).
+  description: This endpoint allows you to create a Sales Channel Membership.
   tags:
     - sales-channel-memberships
   requestBody:

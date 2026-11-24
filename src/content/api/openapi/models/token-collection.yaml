@@ -13,7 +13,7 @@ properties:
     description: The [Account](/api/accounts/) that will own the Collection.
   tokenExpiresAfter:
     type: object
-    description: The active duration of all Tokens created from this Collection. See [Token Expires After Model](#token-expires-after-model).
+    description: The active duration of all Tokens created from this Collection.
     allOf:
       - $ref: './token-expires-after.yaml'
   tokenExpiresAt:

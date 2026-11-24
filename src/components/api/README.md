@@ -55,9 +55,8 @@ ApiPage                      h1 title and intro
   Only success response fields are anchored: error tabs can't be opened by a link.
   `getPageSections` in `utils/openApiPage.js` assigns them (`fieldAnchor` on
   each row), and the search index (`src/plugins/flexsearch.js`) links to the
-  same ones. A field can also carry a `linkId`: the historical anchor of the
-  model section it replaced, eg `line-item-model`. Links to anything inside a
-  closed `<details>` open it.
+  same ones. Models have no anchors of their own: link to the route or field
+  that shows them. Links to anything inside a closed `<details>` open it.
 - **Gutter icons.** Carets and anchor icons sit in the gutter to the left of a
   name (absolutely positioned), never inline, so items with and without them
   stay aligned. `ApiPage` and nested `FieldList`s leave room for them.

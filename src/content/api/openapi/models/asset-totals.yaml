@@ -23,6 +23,6 @@ properties:
         type: string
   lineItems:
     type: array
-    description: The [Line Items](#line-item-model) paid for by the Asset Type.
+    description: The Line Items paid for by the Asset Type.
     items:
       $ref: './line-item.yaml'

@@ -4,8 +4,8 @@ post:
   operationId: declinePaymentCondition
   summary: Decline a Payment Condition
   description: |
-    Decline a [Payment Condition](#payment-condition-model) listed in `merchantConditions` with status `awaiting-merchant`.
-    Returns a [Payment Activity](#payment-activity-model).
+    Decline a Payment Condition listed in `merchantConditions` with status `awaiting-merchant`.
+    Returns a Payment Activity.
   tags:
     - payment-requests
   parameters:

@@ -20,7 +20,7 @@ properties:
       - venmo
       - farmlands
       - centrapay
-    description: The integrator that owns the code. This can be used to calculate discounts on [Line Items](/api/payment-requests#line-item-model).
+    description: The integrator that owns the code. This can be used to calculate discounts on Line Items.
     x-values:
       entries:
         - name: "paypal"

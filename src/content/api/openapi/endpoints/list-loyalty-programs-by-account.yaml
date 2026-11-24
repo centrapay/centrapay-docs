@@ -5,7 +5,7 @@ get:
   operationId: listLoyaltyProgramsByAccount
   summary: List Loyalty Programs by Account Id
   description: |
-    Returns a [paginated](/api/pagination/) list of [Loyalty Programs](#loyalty-program-model) for an Account.
+    Returns a [paginated](/api/pagination/) list of Loyalty Programs for an Account.
   tags:
     - loyalty-programs
   parameters:

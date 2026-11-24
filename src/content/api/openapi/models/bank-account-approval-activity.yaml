@@ -6,7 +6,7 @@ properties:
     description: Unique sequential Bank Account Approval Activity number.
   approvalId:
     type: string
-    description: The id of the associated [Bank Account Approval](#bank-account-approval-model).
+    description: The id of the associated Bank Account Approval.
   activityType:
     type: string
     description: The type of the Bank Account Approval Activity.

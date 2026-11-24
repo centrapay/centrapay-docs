@@ -36,7 +36,7 @@ put:
               description: Flag indicating whether the Managed Integration should become active or inactive.
             params:
               type: object
-              description: '[Params](#params-model) depending on the Managed Integration type.'
+              description: 'Params depending on the Managed Integration type.'
             test:
               type: boolean
               default: false
@@ -82,7 +82,7 @@ put:
             $ref: '../index.yaml#/components/schemas/ApiError'
           examples:
             INVALID_PARAMS:
-              description: Invalid [Params](#params-model) provided for Managed Integration type.
+              description: Invalid Params provided for Managed Integration type.
               value:
                 statusCode: 400
                 error: Bad Request

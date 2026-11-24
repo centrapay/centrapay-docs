@@ -5,7 +5,7 @@ get:
   operationId: listPromotionActivities
   summary: List Activities for Promotion
   description: |
-    Returns a [paginated](/api/pagination) list of [Promotion Activities](#promotion-activity-model) for a Promotion.
+    Returns a [paginated](/api/pagination) list of Promotion Activities for a Promotion.
   tags:
     - promotions
   parameters:

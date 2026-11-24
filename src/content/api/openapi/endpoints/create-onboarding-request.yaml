@@ -39,7 +39,7 @@ post:
               description: Trading name (3-100 characters). Defaults to `legalName` if omitted.
             location:
               type: object
-              description: Physical location of the business. See [Location Model](#location-model).
+              description: Physical location of the business.
               allOf:
                 - $ref: ../models/onboarding-location.yaml
             contactEmail:
@@ -53,22 +53,22 @@ post:
               description: Unique client-side identifier (max 35 characters) for idempotency.
             taxNumber:
               type: object
-              description: Tax number information. See [Tax Number Model](#tax-number-model).
+              description: Tax number information.
               allOf:
                 - $ref: ../models/onboarding-tax-number.yaml
             merchant:
               type: object
-              description: Merchant details. See [Merchant Model](#merchant-model).
+              description: Merchant details.
               allOf:
                 - $ref: ../models/onboarding-merchant.yaml
             assetProgram:
               type: object
-              description: Asset program configuration. See [Asset Program Model](#asset-program-model).
+              description: Asset program configuration.
               allOf:
                 - $ref: ../models/onboarding-asset-program.yaml
             salesChannels:
               type: array
-              description: Optional sales channel configurations. See [Sales Channel Model](#sales-channel-model).
+              description: Optional sales channel configurations.
               items:
                 $ref: ../models/onboarding-sales-channel.yaml
             metadata:

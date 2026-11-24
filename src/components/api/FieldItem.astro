@@ -8,7 +8,6 @@ const {
   type,
   typeLink,
   anchor,
-  linkId,
   required,
   experimental = false,
   deprecated = false,
@@ -25,7 +24,7 @@ const fieldsHtml = await renderSlot('fields');
 const hasFields = fieldsHtml !== '';
 ---
 
-<li id={linkId} class:list={['relative py-4', ANCHOR_TARGET]}>
+<li class="relative py-4">
   <div class="group/anchor relative">
     <div id={anchor} class:list={['flex flex-wrap items-baseline gap-x-2 gap-y-1', ANCHOR_TARGET]}>
       {plainName

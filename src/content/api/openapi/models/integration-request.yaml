@@ -61,12 +61,12 @@ properties:
     description: Epay terminalId for the Integration Request. Required if type is `epay`.
   terminal:
     type: object
-    description: The terminal configuration. Required for all terminal vendors except Vista. Refer to [Terminal](#terminal).
+    description: The terminal configuration. Required for all terminal vendors except Vista. Refer to Terminal.
     allOf:
       - $ref: './integration-requests-terminal.yaml'
   product:
     type: object
-    description: The requested Epay gift card types to support. Refer to [Product](#product).
+    description: The requested Epay gift card types to support. Refer to Product.
     allOf:
       - $ref: './integration-requests-product.yaml'
   createdAt:

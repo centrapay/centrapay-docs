@@ -6,6 +6,6 @@ properties:
     description: The id of a collection that the Merchant accepts for the given Payment Request.
   lineItems:
     type: array
-    description: The [Line Items](#line-item-model) that can be purchased by a [Centrapay Token](/api/tokens) with matching collection id.
+    description: The Line Items that can be purchased by a [Centrapay Token](/api/tokens) with matching collection id.
     items:
       $ref: './line-item.yaml'

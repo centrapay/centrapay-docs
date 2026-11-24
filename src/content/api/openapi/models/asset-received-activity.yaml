@@ -1,6 +1,6 @@
 x-title: Asset Received Activity Model
 x-intro: |
-  This records the receiving of an asset. Used when activityType is `received`. This extends the [Asset Activity Model](#asset-activity-model)
+  This records the receiving of an asset. Used when activityType is `received`. This extends the Asset Activity Model
 type: object
 properties:
   recipientAlias:

@@ -5,7 +5,7 @@ get:
   operationId: getAssetProgramConfig
   summary: Get Asset Program Config
   description: |
-    This endpoint allows you to retrieve a specific [Asset Program Config](#asset-program-config-model).
+    This endpoint allows you to retrieve a specific Asset Program Config.
   tags:
     - asset-program-configs
   parameters:

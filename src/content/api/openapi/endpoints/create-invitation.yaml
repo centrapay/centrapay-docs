@@ -30,7 +30,7 @@ post:
               $ref: '../models/invitation.yaml#/properties/recipientAlias'
             params:
               type: object
-              description: '[Params](#params-model) depending on the Invitation type.'
+              description: 'Params depending on the Invitation type.'
         examples:
           default:
             value:

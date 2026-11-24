@@ -4,7 +4,7 @@ get:
   operationId: searchMerchants
   summary: Search Merchants
   description: |
-    Returns a [paginated](/api/pagination) response of [Merchant Search Results](#merchant-search-result-model) that match the search query. This endpoint does not require [Auth](/api/auth); if auth is provided, each loyalty program in the results also includes `isMember`.
+    Returns a [paginated](/api/pagination) response of Merchant Search Results that match the search query. This endpoint does not require [Auth](/api/auth); if auth is provided, each loyalty program in the results also includes `isMember`.
   tags:
     - merchants
   parameters:
@@ -25,7 +25,7 @@ get:
       schema:
         type: string
       example: 'centrapay.token.main,Xv990BzkgfoDS7bBls50pd'
-      description: A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's collectionId for [centrapay.token](/api/assets#token-model) and [centrapay.ledger](/api/assets#ledger-model) asset types. Can be repeated to match merchants accepting any of several assets.
+      description: A string of the format `assetType`, `productId` describing the asset where `assetType` is the type of [asset](/api/asset-types) to filter the merchants by and `productId` is the asset's collectionId for centrapay.token and centrapay.ledger asset types. Can be repeated to match merchants accepting any of several assets.
     - name: name
       in: query
       schema:

@@ -5,11 +5,11 @@ required:
 properties:
   rewards:
     type: object
-    description: Describes the rewards that will be issued to the drawn winner(s). Rewards are a tree of `and`/`or` groups - each item a leaf [Promotion Reward](/api/promotions#promotion-reward-model) or a nested group - with `or` branches issued once winner selection decides. See [Promotion Rewards Model](/api/promotions#promotion-rewards-model).
+    description: Describes the rewards that will be issued to the drawn winner(s). Rewards are a tree of `and`/`or` groups - each item a leaf Promotion Reward or a nested group - with `or` branches issued once winner selection decides.
     allOf:
       - $ref: '../models/promotion-rewards.yaml'
   progress:
     type: object
-    description: The entrant bounds for the draw. See [Promotion Progress Model](/api/promotions#promotion-progress-model).
+    description: The entrant bounds for the draw.
     allOf:
       - $ref: '../models/promotion-progress.yaml'

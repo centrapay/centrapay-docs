@@ -62,7 +62,7 @@ post:
               description: An external reference to the payment. Required when `assetType` is `farmlands.nzd.*`.
             lineItems:
               type: array
-              description: The [Line Items](#line-item-model) associated with this payment attempt. This field is only allowed for `centrapay.token.*` payments. If omitted for `centrapay.token.*` payments, the highest-value valid line item from the payment request will be used by default.
+              description: The Line Items associated with this payment attempt. This field is only allowed for `centrapay.token.*` payments. If omitted for `centrapay.token.*` payments, the highest-value valid line item from the payment request will be used by default.
               items:
                 $ref: '../models/line-item.yaml'
         examples:

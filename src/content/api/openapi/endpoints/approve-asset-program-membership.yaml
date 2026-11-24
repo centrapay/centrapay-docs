@@ -5,7 +5,7 @@ post:
   operationId: approveAssetProgramMembership
   summary: Approve Asset Program Membership
   description: |
-    This endpoint allows you to approve an [Asset Program Membership](#asset-program-membership-model). This action can only be performed by the Asset Program owner.
+    This endpoint allows you to approve an Asset Program Membership. This action can only be performed by the Asset Program owner.
   tags:
     - asset-program-memberships
   parameters:

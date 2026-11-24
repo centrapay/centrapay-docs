@@ -34,7 +34,7 @@ properties:
       title: "Test Scenario Name"
       entries:
         - name: "force-condition-check-photo-id"
-          description: The Payment Request will have a required [Merchant Condition](/api/payment-requests#payment-request-model) to check photo id.
+          description: The Payment Request will have a required Merchant Condition to check photo id.
   externalId:
     type: string
     description: The external Id of the Patron Code.

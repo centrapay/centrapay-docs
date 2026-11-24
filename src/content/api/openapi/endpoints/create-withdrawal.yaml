@@ -74,7 +74,7 @@ post:
                 error: Forbidden
                 message: INSUFFICIENT_WALLET_BALANCE
             INVALID_WALLET_TYPE:
-              description: The wallet asset type does not support withdrawals. See [settlement wallet assets](/api/wallet-assets#settlement-wallet-assets).
+              description: The wallet asset type does not support withdrawals. See [settlement wallet assets](/api/wallet-assets).
               value:
                 statusCode: 403
                 error: Forbidden

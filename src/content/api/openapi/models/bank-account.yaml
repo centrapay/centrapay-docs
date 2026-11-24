@@ -12,7 +12,7 @@ properties:
     description: The name on the Bank Account provided by the user.
   preferredBankAccountName:
     type: string
-    description: The preferred bank account name for the Bank Account provided by the user. This is only available on Bank Accounts of type [quartz](#bank-account-type).
+    description: The preferred bank account name for the Bank Account provided by the user. This is only available on Bank Accounts of type quartz.
   accountId:
     type: string
     description: The id of the owning Centrapay [Account](/api/accounts).
@@ -41,7 +41,7 @@ properties:
     type: array
     items:
       $ref: ../models/bank-account-approval-type-summary.yaml
-    description: 'A list of [Bank Account Approval Type Summaries](#bank-account-approval-type-summary-model): one per type of [Bank Account Approval](/api/bank-account-approvals), summarising its approval status.'
+    description: 'A list of Bank Account Approval Type Summaries: one per type of [Bank Account Approval](/api/bank-account-approvals), summarising its approval status.'
   createdAt:
     type: string
     format: date-time
@@ -65,4 +65,4 @@ properties:
     description: A flag which is present if the Bank Account is for testing.
   enduringPaymentConsentAuthorized:
     type: boolean
-    description: Flag indicating whether the bank account can be used for creating [enduring payment consents](/api/bank-account-connection-intents#bank-account-connection-intent-types). Only present on [quartz](#bank-account-type) bank accounts.
+    description: Flag indicating whether the bank account can be used for creating enduring payment consents. Only present on quartz bank accounts.

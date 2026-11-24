@@ -5,7 +5,7 @@ post:
   operationId: setRedemptionConditionAllowedProducts
   summary: Set Allowed Products for Redemption Condition
   description: |
-    This endpoint allows you to set [Allowed Products](#allowed-products-model) for a [Redemption Condition](#redemption-condition-model).
+    This endpoint allows you to set Allowed Products for a [Redemption Condition](#create-redemption-condition).
   tags:
     - tokens
   parameters:
@@ -36,7 +36,7 @@ post:
               type: array
               items:
                 $ref: ../models/allowed-products.yaml
-              description: List of [Allowed Products](#allowed-products-model). Required for collections of type `product`.
+              description: List of Allowed Products. Required for collections of type `product`.
         examples:
           default:
             value:

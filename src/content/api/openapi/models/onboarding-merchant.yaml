@@ -24,7 +24,7 @@ properties:
     description: Merchant contact phone number (max 20 characters).
   location:
     type: object
-    description: Physical location of the merchant. Required if `type` is `physical`. See [Location Model](#location-model).
+    description: Physical location of the merchant. Required if `type` is `physical`.
     allOf:
       - $ref: './onboarding-location.yaml'
   redirectUrls:
