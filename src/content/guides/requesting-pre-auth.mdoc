@@ -51,13 +51,13 @@ sequenceDiagram
 
 ### Authorize
 
-An authorization is created when the [Payment Request is created](/api/payment-requests#create-a-payment-request) with the `preAuth` flag.
+An authorization is created when the [Payment Request is created](/api/payment-requests/create-a-payment-request/) with the `preAuth` flag.
 
 Once the authorization is successful, the Payment Request `preAuthStatus` is set to `authorized`.
 
 ### Confirm
 
-Merchants can draw down on authorized funds by making one or more [confirmations](/api/payment-requests#confirm-pre-auth-payment-request) against an authorized amount. Confirmations must be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorized funds twice.
+Merchants can draw down on authorized funds by making one or more [confirmations](/api/payment-requests/confirm-pre-auth-payment-request/) against an authorized amount. Confirmations must be made with an `idempotencyKey` in order to prevent merchants from drawing down on authorized funds twice.
 
 Confirmations against authorized funds have limits:
 
@@ -69,7 +69,7 @@ Confirmations against authorized funds have limits:
 
 ### Release
 
-Authorized funds that have not been confirmed can optionally be [released](/api/payment-requests#release-pre-auth-funds) so that the asset holder is granted access to their remaining funds without needing to wait for the authorization to expire.
+Authorized funds that have not been confirmed can optionally be [released](/api/payment-requests/release-pre-auth-funds/) so that the asset holder is granted access to their remaining funds without needing to wait for the authorization to expire.
 Once releasing any remaining authorized funds is successful, the Payment Request `preAuthStatus` is set to `released`.
 
 >Authorizations automatically expire at the Payment Request's `preAuthExpiresAt`, which depends on the asset type used. Any unreleased funds can then be released to the Patron.
@@ -82,4 +82,4 @@ Refunds made against confirmations must include the `confirmationIdempotencyKey`
 
 ### Void
 
-[Voiding a Payment Request](/api/payment-requests#void-a-payment-request) will cancel a Payment Request and trigger any refunds necessary. This operation is useful if the Integrator needs to back out of a transaction due to a network error for example. Voiding can only be used up to 24 hours after the Payment Request was created.
+[Voiding a Payment Request](/api/payment-requests/void-a-payment-request/) will cancel a Payment Request and trigger any refunds necessary. This operation is useful if the Integrator needs to back out of a transaction due to a network error for example. Voiding can only be used up to 24 hours after the Payment Request was created.

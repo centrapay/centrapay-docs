@@ -4,7 +4,7 @@ type: object
 properties:
   collectionId:
     type: string
-    description: The [Token Collection](#create-token-collection) that will govern the branding and redemption rules for the token. Currently only Collections of type `product` are supported.
+    description: The [Token Collection](/api/tokens/create-token-collection/) that will govern the branding and redemption rules for the token. Currently only Collections of type `product` are supported.
   idempotencyKey:
     type: string
     description: Client-supplied identifier that prevents double creation.

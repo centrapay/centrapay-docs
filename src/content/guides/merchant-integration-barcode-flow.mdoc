@@ -6,7 +6,7 @@ nav:
   title: Barcode Flow
   order: 2
 ---
-Connecting with patrons using our Barcode Flow, also called the Quick Pay Flow, requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](/api/payment-requests#create-a-payment-request).
+Connecting with patrons using our Barcode Flow, also called the Quick Pay Flow, requires the patron to present a Barcode and the merchant integration to scan it in order to [create a Payment Request](/api/payment-requests/create-a-payment-request/).
 
 Quick Pay is used to immediately complete the payment without requiring patron approval.
 
@@ -39,7 +39,7 @@ sequenceDiagram
 ```
 
 1. The patron presents a Barcode for the POS to scan.
-2. The POS server [creates a Centrapay Payment Request](/api/payment-requests#create-a-payment-request) with the Barcode.
+2. The POS server [creates a Centrapay Payment Request](/api/payment-requests/create-a-payment-request/) with the Barcode.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \
@@ -84,7 +84,7 @@ sequenceDiagram
     }
     ```
 
-3. The POS server [polls the Payment Request for](/api/payment-requests#get-a-payment-request) payment completion.
+3. The POS server [polls the Payment Request for](/api/payment-requests/get-a-payment-request/) payment completion.
 
     ```bash {% title="Request" %}
     curl https://service.centrapay.com/api/payment-requests/MhocUmpxxmgdHjr7DgKoKw \
@@ -158,7 +158,7 @@ sequenceDiagram
 
 ## Checking Barcode Details
 
-The POS server can optionally [decode a scanned barcode](/api/scanned-codes#decode-scanned-code) in order to get further details about a barcode before it creates a Payment Request.
+The POS server can optionally [decode a scanned barcode](/api/scanned-codes/decode-scanned-code/) in order to get further details about a barcode before it creates a Payment Request.
 For example, the POS server can use the barcode `provider` to apply any provider-specific discounts before creating the Payment Request.
 
 ```mermaid
@@ -187,7 +187,7 @@ sequenceDiagram
 ```
 
 1. The patron presents a barcode for the POS to scan.
-2. The POS server [decodes the scanned barcode](/api/scanned-codes#decode-scanned-code) and applies any provider-related discounts.
+2. The POS server [decodes the scanned barcode](/api/scanned-codes/decode-scanned-code/) and applies any provider-related discounts.
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/decode \
       -H "Authorization: $jwt" \
@@ -210,7 +210,7 @@ sequenceDiagram
     ```
 
 
-3. The POS server [creates a Payment Request](/api/payment-requests#create-a-payment-request) with the barcode and continues with the rest of the flow.
+3. The POS server [creates a Payment Request](/api/payment-requests/create-a-payment-request/) with the barcode and continues with the rest of the flow.
 
     ```bash {% title="Request" %}
     curl -X POST https://service.centrapay.com/api/payment-requests \

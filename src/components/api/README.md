@@ -3,15 +3,31 @@
 Components for the API reference pages. They're plain Astro and Tailwind:
 tabs are driven by hidden radio inputs, and nested fields by native
 `<details>` elements. The only JavaScript is in `AnchorLink`, which copies a
-link without scrolling the page; without it the link icons are plain links.
+link without scrolling the page (without it the link icons are plain links),
+and `AnchorRedirects`, which sends old links to a route's anchor on its
+resource's page on to the route's own page.
 
-These components know nothing about OpenAPI. Spec-driven pages
-(`src/pages/api/[openapiPage].astro`) compose them through `OpenApiEndpoint`,
-which renders each row of the spec with `OpenApiField`. Markdoc pages use them
+These components know nothing about OpenAPI. Spec-driven pages compose them:
+a resource's page (`src/pages/api/[openapiPage].astro`) introduces it and
+lists its routes, and each route has its own page
+(`src/pages/api/[openapiPage]/[route].astro`) rendered through
+`OpenApiEndpoint`, which renders each row of the spec with `OpenApiField`. Markdoc pages use them
 through the `{% properties %}`, `{% property %}`, `{% error %}` and
 `{% endpoint %}` tags.
 
 ## Page structure
+
+A resource's page:
+
+```
+ApiPage                      h1 title and intro
+│  └─ slot="aside"           beside the intro on wide screens
+│     └─ RouteList           "Endpoints" panel
+│        └─ RouteListItem    title, method and path; the whole row links to the route
+└─ ApiSection                prose sections, if any
+```
+
+A route's page, or a Markdoc page:
 
 ```
 ApiPage                      h1 title and intro
@@ -32,7 +48,7 @@ ApiPage                      h1 title and intro
 
 | Component | Use it for |
 | --- | --- |
-| `ApiPage` | The page frame: the only `h1`, an `intro` slot and the sections. |
+| `ApiPage` | The page frame: the only `h1`, an `intro` slot, an `aside` slot beside it and the sections. |
 | `ApiSection` | One section. Default slot is the copy column; the `code` slot is the sticky code column. Columns stack below `xl`. |
 | `AnchorHeading` | Any heading that should be linkable. Set `level` to keep the outline correct. |
 | `Subsection` | A titled part of a section, one heading level below it. |
@@ -41,22 +57,25 @@ ApiPage                      h1 title and intro
 | `ErrorItem` | An error message and its description, inside a `FieldList`. |
 | `Tabs` / `TabPanel` | CSS-only tabs. Give `Tabs` the labels and add one `TabPanel` per tab, in order. |
 | `ResponseTabs` | An endpoint's responses, one tab per status code. The default slot fills the success tab. |
-| `MethodBadge` / `EndpointPath` | Colour-coded HTTP methods. Colours live in `methods.js`, shared with the sidebar. |
+| `RouteList` / `RouteListItem` | A resource's routes as a compact panel, labelled as navigation. Each row's title is its link, stretched over the row, so the whole row is clickable; the title is the link's name and the method and path its description. |
+| `AnchorRedirects` | On a resource's page, sends links to a route's old anchor there on to the route's own page. |
+| `MethodBadge` / `EndpointPath` | Colour-coded HTTP methods. Colours live in `methods.js`, shared with the sidebar. `short` shows `DEL` for `DELETE`, but screen readers still hear the full method. |
 | `StatusTag` | `experimental` or `deprecated`. |
 | `CodeSample` | A titled Expressive Code block. |
 | `Markdown` | Markdown segments from `createMarkdownRenderer`, styled as prose. |
 
 ## Conventions
 
-- **Anchors.** Every heading and field has a unique id, scoped by its
-  section: `create-an-account`, `create-an-account.body`,
-  `create-an-account.body.name`, `get-an-account.responses.body.subscriptions.name`,
-  and a possible value under its field: `get-a-payment-request.responses.body.status.paid`.
-  Only success response fields are anchored: error tabs can't be opened by a link.
-  `getPageSections` in `utils/openApiPage.js` assigns them (`fieldAnchor` on
-  each row), and the search index (`src/plugins/flexsearch.js`) links to the
-  same ones. Models have no anchors of their own: link to the route or field
-  that shows them. Links to anything inside a closed `<details>` open it.
+- **Anchors.** Every heading and field has a unique id. On a route's page
+  the route's heading is `top` and fields are scoped by their group, without
+  repeating the route's name: `body`, `body.name`,
+  `responses.body.subscriptions.name`, and a possible value under its field:
+  `responses.body.status.paid`. Only success response fields are anchored:
+  error tabs can't be opened by a link. `splitPageRoutes` in
+  `utils/openApiPage.js` assigns them (`fieldAnchor` on each row), and the
+  search index (`src/plugins/flexsearch.js`) links to the same ones. Models
+  have no anchors of their own: link to the route or field that shows them.
+  Links to anything inside a closed `<details>` open it.
 - **Gutter icons.** Carets and anchor icons sit in the gutter to the left of a
   name (absolutely positioned), never inline, so items with and without them
   stay aligned. `ApiPage` and nested `FieldList`s leave room for them.

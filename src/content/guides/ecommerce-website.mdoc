@@ -112,7 +112,7 @@ autonumber
 ### Implementation
 
 1. Display Centrapay as a payment option on checkout.
-2. When the customer places an order using the Centrapay payment option, [Create a Payment Request](/api/payment-requests/#create-a-payment-request).
+2. When the customer places an order using the Centrapay payment option, [Create a Payment Request](/api/payment-requests/create-a-payment-request/).
   **You must define a `redirectPaidUrl` and a `redirectCancelUrl`.**
 
     > When you add your E-commerce merchant site in the Business Portal, enter your website in the **Website** field, and select **Add another website** for any other domains. Your `redirectPaidUrl` and `redirectCancelUrl` must use one of these domains.
@@ -138,17 +138,17 @@ autonumber
     window.location.replace(paymentRequest.url);
     ```
 
-    See [Create a Payment Request](/api/payment-requests/#create-a-payment-request) for the full list of parameters and error codes.
+    See [Create a Payment Request](/api/payment-requests/create-a-payment-request/) for the full list of parameters and error codes.
 
 3. The customer will be redirected to your site at the end of the payment process.
     - If the Payment Request is `paid`, they are redirected to the `redirectPaidUrl` with the `paymentRequestId` appended as a HTTP query parameter.
     - If the Payment Request is `cancelled` or `expired`, they are redirected to the `redirectCancelUrl` with the `paymentRequestId` appended as a HTTP query parameter.
 
-4. On your redirect pages, read the `paymentRequestId` query parameter and [Get the Payment Request](/api/payment-requests/#get-a-payment-request) to confirm its status.
+4. On your redirect pages, read the `paymentRequestId` query parameter and [Get the Payment Request](/api/payment-requests/get-a-payment-request/) to confirm its status.
 
     - If the Payment Request is `paid`, you can show the customer the order confirmation page.
     - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
-    - If the Payment Request is still `new`, the payment was not completed and you are responsible for [Voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
+    - If the Payment Request is still `new`, the payment was not completed and you are responsible for [Voiding the Payment Request](/api/payment-requests/void-a-payment-request/).
 
 ## Popup Method
 
@@ -252,18 +252,18 @@ autonumber
 
         This callback is triggered when the customer clicks the 'Pay with Centrapay' button.
 
-        The callback is expected to [Create a Payment Request](/api/payment-requests/#create-a-payment-request) and return the Payment Request.
-        See [Create a Payment Request](/api/payment-requests/#create-a-payment-request) for the full list of parameters and error codes.
+        The callback is expected to [Create a Payment Request](/api/payment-requests/create-a-payment-request/) and return the Payment Request.
+        See [Create a Payment Request](/api/payment-requests/create-a-payment-request/) for the full list of parameters and error codes.
 
     2. `onComplete`
 
         This callback is triggered when the checkout process finishes or the customer closes the payment popup.
         Your callback will receive a `data` object containing the Payment Request ID.
-        You are expected to [Get the Payment Request](/api/payment-requests/#get-a-payment-request) and act on its status.
+        You are expected to [Get the Payment Request](/api/payment-requests/get-a-payment-request/) and act on its status.
 
         - If the Payment Request is `paid`, you can redirect the customer to the order confirmation page.
         - If the Payment Request is `cancelled` or `expired`, the payment was not completed.
-        - If the Payment Request is `new`, you are responsible for [Voiding the Payment Request](/api/payment-requests/#void-a-payment-request).
+        - If the Payment Request is `new`, you are responsible for [Voiding the Payment Request](/api/payment-requests/void-a-payment-request/).
 
 ## Interface Guidelines
 

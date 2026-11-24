@@ -12,13 +12,13 @@ import Subsection from './api/Subsection.astro';
 import TabPanel from './api/TabPanel.astro';
 import OpenApiField from './OpenApiField.astro';
 import createEndpoint from '../utils/createEndpoint';
-import { createMarkdownRenderer, sectionAnchors } from '../utils/openApiPage.js';
+import { createMarkdownRenderer, FIELD_GROUP_ANCHORS as anchors } from '../utils/openApiPage.js';
 import { resolveRefs, buildEndpointData, responseExample } from '../utils/OpenApiResolver.js';
 
-// Rows, response and errors arrive precomputed by getPageSections, which also
-// assigns every anchor; the code samples still need the raw operation resolved
-// against the schema map.
-const { section, schemasMap, divider = true } = Astro.props;
+// Rows, response and errors arrive precomputed by getPageSections, and
+// splitPageRoutes assigns the route page's anchors; the code samples still
+// need the raw operation resolved against the schema map.
+const { section, schemasMap, divider = true, flushTop = false } = Astro.props;
 const {
   operationId, exampleName, title, description, anchor, depth, badges, method, path,
   subheadingAnchors, pathParams = [], queryParams = [], body = [], response, responses = [],
@@ -38,7 +38,6 @@ const example = responseExample(operation, exampleName);
 const responseCode = example.isJson ? endpoint.response : example.value;
 const responseLang = example.isJson ? 'json' : 'text';
 
-const anchors = sectionAnchors(anchor);
 const subLevel = depth + 1;
 const markdown = (text, headingAnchors) => (text ? createMarkdownRenderer(headingAnchors ?? [])(text) : null);
 const responseIntro = markdown(response?.intro);
@@ -58,7 +57,7 @@ const fieldGroups = [
 ].filter(group => group.rows.length > 0);
 ---
 
-<ApiSection divider={divider}>
+<ApiSection divider={divider} flushTop={flushTop}>
   <div class="space-y-4">
     <AnchorHeading level={depth} id={anchor}>
       {title}

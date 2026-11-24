@@ -7,6 +7,8 @@ import {
   firstParagraph,
   createMarkdownRenderer,
   navHeadings,
+  routeHref,
+  splitPageRoutes,
 } from '../openApiPage';
 
 const DIR = 'src/content/api/openapi';
@@ -232,13 +234,63 @@ describe('page sections', () => {
   });
 });
 
+describe('route pages', () => {
+  const operations = {
+    createThing: {
+      operationId: 'createThing',
+      summary: 'Create a Thing',
+      description: '## Notes\n\nSome notes.',
+      requestBody: { content: { 'application/json': { examples: {
+        bulk: { summary: 'Bulk Example', value: {} },
+      } } } },
+    },
+    getThing: { operationId: 'getThing', summary: 'Get a Thing', description: '## Notes\n\nMore notes.' },
+  };
+  const page = { sections: [
+    { title: 'Overview', body: 'About things.' },
+    { endpoint: 'createThing' },
+    { endpoint: 'createThing', example: 'bulk', depth: 3 },
+    { endpoint: 'getThing' },
+  ] };
+  const { prose, routes } = splitPageRoutes(getPageSections(page, { models: {}, operations }));
+
+  it('gives each operation a route, with its named examples, and leaves prose on the resource page', () => {
+    expect(prose.map(section => section.anchor)).toEqual(['overview']);
+    expect(routes.map(route => [route.slug, route.sections.map(section => section.title)])).toEqual([
+      ['create-a-thing', ['Create a Thing', 'Bulk Example']],
+      ['get-a-thing', ['Get a Thing']],
+    ]);
+  });
+
+  it('slugs each route page\'s anchors afresh, with the route as the page\'s top', () => {
+    expect(routes.map(route => route.sections.flatMap(section => [section.anchor, ...section.subheadingAnchors]))).toEqual([
+      ['top', 'notes', 'bulk-example'],
+      ['top', 'notes'],
+    ]);
+  });
+
+  it('nests a route\'s page under its resource\'s page', () => {
+    expect(routeHref('things', 'get-a-thing')).toBe('/api/things/get-a-thing/');
+  });
+
+  it('gives every route on every page a unique slug', () => {
+    const pages = loadDir('pages');
+    const specOperations = indexOperations(Object.values(loadDir('endpoints')).map(pathItem => ({ operations: Object.values(pathItem) })));
+    for (const specPage of Object.values(pages)) {
+      const slugs = splitPageRoutes(getPageSections(specPage, { models: {}, operations: specOperations })).routes.map(route => route.slug);
+      expect(new Set(slugs).size).toBe(slugs.length);
+    }
+  });
+});
+
 describe('endpoint layout', () => {
   const { index, pages, models: modelFiles, operations } = loadSpec();
   // The site loads index.yaml alongside the models (see openApiLoader.js).
   const models = { ...modelFiles, index };
   const accounts = getPageSections(pages['accounts'], { models, operations });
-  const create = accounts.find(section => section.anchor === 'create-an-account');
-  const get = accounts.find(section => section.anchor === 'get-an-account');
+  const { routes } = splitPageRoutes(accounts);
+  const create = routes.find(route => route.slug === 'create-an-account').section;
+  const get = routes.find(route => route.slug === 'get-an-account').section;
 
   it('splits path parameters, query parameters and the request body', () => {
     expect(create.pathParams).toEqual([]);
@@ -247,23 +299,24 @@ describe('endpoint layout', () => {
     expect(get.properties).toEqual([...get.pathParams, ...get.queryParams, ...get.body]);
   });
 
-  it('gives every field an anchor scoped by its section and parents', () => {
-    expect(create.body.find(row => row.name === 'name').fieldAnchor).toBe('create-an-account.body.name');
-    expect(get.pathParams[0].fieldAnchor).toBe('get-an-account.path.accountId');
+  it('gives every field an anchor scoped by its group and parents, without the route\'s name', () => {
+    expect(create.body.find(row => row.name === 'name').fieldAnchor).toBe('body.name');
+    expect(get.pathParams[0].fieldAnchor).toBe('path.accountId');
     const subscriptions = get.response.rows.find(row => row.name === 'subscriptions');
-    expect(subscriptions.fieldAnchor).toBe('get-an-account.responses.body.subscriptions');
-    expect(subscriptions.reveal.rows[0].fieldAnchor).toBe('get-an-account.responses.body.subscriptions.name');
+    expect(subscriptions.fieldAnchor).toBe('responses.body.subscriptions');
+    expect(subscriptions.reveal.rows[0].fieldAnchor).toBe('responses.body.subscriptions.name');
   });
 
   it('anchors each possible value under its field', () => {
     const type = get.response.rows.find(row => row.name === 'type');
     expect(type.values.anchors).toEqual([
-      'get-an-account.responses.body.type.org',
-      'get-an-account.responses.body.type.individual',
+      'responses.body.type.org',
+      'responses.body.type.individual',
     ]);
   });
 
-  it('keeps field anchors unique on every page', () => {
+  it('keeps field anchors unique on every route page', () => {
+    let total = 0;
     for (const [pid, page] of Object.entries(pages)) {
       const anchors = [];
       const collect = rows => rows?.forEach(row => {
@@ -271,13 +324,16 @@ describe('endpoint layout', () => {
         collect(row.reveal?.rows);
         row.reveal?.variants?.forEach(variant => { anchors.push(variant.fieldAnchor); collect(variant.rows); });
       });
-      for (const section of getPageSections(page, { models, operations })) {
+      for (const { slug, section } of splitPageRoutes(getPageSections(page, { models, operations })).routes) {
+        anchors.length = 0;
         collect(section.properties);
         collect(section.response?.rows);
+        const defined = anchors.filter(Boolean);
+        total += defined.length;
+        expect(new Set(defined).size, `${pid}/${slug}`).toEqual(defined.length);
       }
-      const defined = anchors.filter(Boolean);
-      expect(new Set(defined).size, pid).toEqual(defined.length);
     }
+    expect(total).toBeGreaterThan(0);
   });
 
   it('lists each status code with its errors, success first', () => {

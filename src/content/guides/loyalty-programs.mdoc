@@ -27,18 +27,18 @@ sequenceDiagram
 	end
 ```
 
-1. [Create Loyalty Program](/api/loyalty-programs/#create-loyalty-program)
+1. [Create Loyalty Program](/api/loyalty-programs/create-loyalty-program/)
     - A Loyalty Program is a container for the Promotions that will be created in step 2.
-2. [Create Promotion(s)](/api/promotions/#create-promotion)
+2. [Create Promotion(s)](/api/promotions/create-promotion/)
     - Promotions contain conditions, a target, and a reward.
-3. [Create Account](/api/accounts/#create-an-account)
+3. [Create Account](/api/accounts/create-an-account/)
     - This will be the account that will participate in the Loyalty Program.
-4. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/#create-loyalty-program-memberships)
+4. [Create Loyalty Program Membership for Account](/api/loyalty-program-memberships/create-loyalty-program-memberships/)
     - This will onboard the Account to the Loyalty Program. A Promotion Membership will be created for each Promotion under the Loyalty Program.
     - A Promotion Membership contains the progress for the Account towards completing the Promotion.
-5. [Create Events](/api/events/#create-event)
+5. [Create Events](/api/events/create-event/)
     - When Accounts perform actions, Events are generated that are used to increment progress on their Promotion Memberships. Centrapay generates some Events internally but you can use this API if you'd like to send us Events from your own application.
-6. [List Promotion Memberships for Account](/api/promotion-memberships/#list-promotion-memberships-by-account)
+6. [List Promotion Memberships for Account](/api/promotion-memberships/list-promotion-memberships-by-account/)
     - This will return the Account's Promotion Memberships along with their current progress and whether they have been completed or not.
 
 ## Events
@@ -65,7 +65,7 @@ When an Event is generated for an Account, Centrapay will look up all the Promot
 
 `eventType` must match the `type` on the Event that will cause the Promotion Membership to be incremented.
 
-Centrapay generates one native Event type you can use: `payment-request:paid`, created when a [Payment Request](/api/payment-requests#get-a-payment-request) is paid.
+Centrapay generates one native Event type you can use: `payment-request:paid`, created when a [Payment Request](/api/payment-requests/get-a-payment-request/) is paid.
 
 You should NOT send us Events with a native Event `type`. You CAN create Promotions with that Event type if you wish to reward Accounts for native Centrapay Events.
 

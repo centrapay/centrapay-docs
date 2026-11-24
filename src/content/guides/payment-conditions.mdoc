@@ -6,7 +6,7 @@ nav:
   order: 3
 ---
 
-Some [Asset Types](/api/asset-types) such as tokens or closed-loop cards may require conditional operator approval. Merchant integrations are required to support [Payment Conditions](/api/payment-requests#get-a-payment-request.responses.body.merchantConditions) for these asset types in order for them to be accepted for payment.
+Some [Asset Types](/api/asset-types) such as tokens or closed-loop cards may require conditional operator approval. Merchant integrations are required to support [Payment Conditions](/api/payment-requests/get-a-payment-request/#responses.body.merchantConditions) for these asset types in order for them to be accepted for payment.
 
 Examples of Payment Conditions include:
 
@@ -16,7 +16,7 @@ Examples of Payment Conditions include:
 
 ## Implementation
 
-In order to support Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](/api/payment-requests#create-a-payment-request) with the `conditionsEnabled` flag set to true.
+In order to support Payment Conditions, the merchant integration must extend Centrapay's payment protocol by [creating the Payment Request](/api/payment-requests/create-a-payment-request/) with the `conditionsEnabled` flag set to true.
 
 The example flow below assumes that the merchant integration has first connected with the patron using the [QR Code Flow for Merchants](/guides/merchant-integration-qr-code-flow) or the [Barcode Flow for Merchants](/guides/merchant-integration-barcode-flow).
 
@@ -52,9 +52,9 @@ When Payment Conditions are present on a [Payment Request](/api/payment-requests
 
 1. **Prompt**
 
-    Merchant integrations should prompt the terminal operator to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) any conditions that have status `awaiting-merchant`.
+    Merchant integrations should prompt the terminal operator to [accept](/api/payment-requests/accept-a-payment-condition/) or [decline](/api/payment-requests/decline-a-payment-condition/) any conditions that have status `awaiting-merchant`.
 
-    Consumer apps should inform the patron to [accept](/api/payment-requests#accept-a-payment-condition) or [decline](/api/payment-requests#decline-a-payment-condition) any conditions that have status `awaiting-patron`.
+    Consumer apps should inform the patron to [accept](/api/payment-requests/accept-a-payment-condition/) or [decline](/api/payment-requests/decline-a-payment-condition/) any conditions that have status `awaiting-patron`.
 
 2. **Inform**
 
@@ -66,7 +66,7 @@ When Payment Conditions are present on a [Payment Request](/api/payment-requests
 
 ## Additional Behaviors
 
-The payment request status must always be polled after [accepting](/api/payment-requests#accept-a-payment-condition) or [declining](/api/payment-requests#decline-a-payment-condition) a condition as these actions may trigger the additional behaviors below.
+The payment request status must always be polled after [accepting](/api/payment-requests/accept-a-payment-condition/) or [declining](/api/payment-requests/decline-a-payment-condition/) a condition as these actions may trigger the additional behaviors below.
 
 - Conditions can be linked such that they are added or voided due to state changes on the [Payment Request](/api/payment-requests/). Note that accepting or declining a voided condition will fail.
 - The [Patron Not Present extension](/guides/patron-not-present) may prevent the presentation of conditions that are impossible to satisfy such as checking photo ID.

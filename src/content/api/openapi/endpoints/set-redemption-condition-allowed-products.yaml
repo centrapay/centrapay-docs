@@ -5,7 +5,7 @@ post:
   operationId: setRedemptionConditionAllowedProducts
   summary: Set Allowed Products for Redemption Condition
   description: |
-    This endpoint allows you to set Allowed Products for a [Redemption Condition](#create-redemption-condition).
+    This endpoint allows you to set Allowed Products for a [Redemption Condition](/api/tokens/create-redemption-condition/).
   tags:
     - tokens
   parameters:

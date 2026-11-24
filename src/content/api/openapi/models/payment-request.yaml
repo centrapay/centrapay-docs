@@ -24,7 +24,7 @@ properties:
         type: string
   paymentOptions:
     type: array
-    description: The Payment Options, indicating valid asset for payment. ⭐️ For Payment Options which specify an address, a transaction on an external ledger is required - once made, use the transaction id to [Pay a Payment Request](#pay-a-payment-request).
+    description: The Payment Options, indicating valid asset for payment. ⭐️ For Payment Options which specify an address, a transaction on an external ledger is required - once made, use the transaction id to [Pay a Payment Request](/api/payment-requests/pay-a-payment-request/).
     items:
       $ref: './payment-option.yaml'
   merchantId:
@@ -74,7 +74,7 @@ properties:
     description: When the Payment Request expires.
   merchantConditions:
     type: array
-    description: A dynamic list of Payment Conditions that require operator approval to complete a payment. Some [Asset Types](/api/asset-types) require conditional approval, such as confirming proof of ID or a promotional item purchase. Conditions are calculated when [polling a Payment Request](#get-a-payment-request), and can be [accepted](#accept-a-payment-condition) or [declined](#decline-a-payment-condition) - a declined condition cancels the Payment Request.
+    description: A dynamic list of Payment Conditions that require operator approval to complete a payment. Some [Asset Types](/api/asset-types) require conditional approval, such as confirming proof of ID or a promotional item purchase. Conditions are calculated when [polling a Payment Request](/api/payment-requests/get-a-payment-request/), and can be [accepted](/api/payment-requests/accept-a-payment-condition/) or [declined](/api/payment-requests/decline-a-payment-condition/) - a declined condition cancels the Payment Request.
     items:
       $ref: './payment-condition.yaml'
   remainingAmount:

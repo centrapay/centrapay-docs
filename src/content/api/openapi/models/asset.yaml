@@ -46,7 +46,7 @@ properties:
   meta:
     type: object
     x-experimental: true
-    description: Additional data that may only appear in the [Get Asset](#get-asset) response.
+    description: Additional data that may only appear in the [Get Asset](/api/assets/get-asset/) response.
   name:
     type: string
     x-experimental: true

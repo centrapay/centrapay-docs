@@ -5,7 +5,7 @@ get:
   operationId: listBankAuthorities
   summary: List Bank Authorities
   description: |
-    If you're creating new interfaces, please work with [List Bank Accounts](#list-bank-accounts).
+    If you're creating new interfaces, please work with [List Bank Accounts](/api/bank-accounts/list-bank-accounts/).
   tags:
     - bank-accounts
   responses:
@@ -48,7 +48,7 @@ post:
   operationId: createBankAuthority
   summary: Create Bank Authority
   description: |
-    If you're creating new interfaces, please work with [Create Bank Account](#create-bank-account).
+    If you're creating new interfaces, please work with [Create Bank Account](/api/bank-accounts/create-bank-account/).
 
     Creating a Bank Authority both creates a new Bank Account and a direct debit authority. By using this endpoint, the user accepts our [Direct Debit terms](https://centrapay.com/directdebit-termsandconditions/) and has authority to operate this account.
   tags:

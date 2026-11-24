@@ -2,12 +2,23 @@
 import AnchorHeading from './AnchorHeading.astro';
 
 const { title, id = 'top' } = Astro.props;
+const hasAside = Astro.slots.has('aside');
 ---
 
 <article class="mx-auto w-full max-w-[90rem] px-6 pt-10 pb-8 md:px-12 md:pt-14 xl:px-16">
-  <header class="max-w-3xl space-y-5 pb-4 xl:max-w-none xl:pr-[calc(50%+1.5rem)] 2xl:pr-[calc(50%+2rem)]">
-    <AnchorHeading level={1} id={id}>{title}</AnchorHeading>
-    <slot name="intro" />
+  <header
+    class:list={[
+      'pb-4',
+      hasAside
+        ? 'grid grid-cols-1 gap-x-12 gap-y-8 xl:grid-cols-2 2xl:gap-x-16'
+        : 'max-w-3xl xl:max-w-none xl:pr-[calc(50%+1.5rem)] 2xl:pr-[calc(50%+2rem)]',
+    ]}
+  >
+    <div class="min-w-0 space-y-5">
+      <AnchorHeading level={1} id={id}>{title}</AnchorHeading>
+      <slot name="intro" />
+    </div>
+    {hasAside && <div class="min-w-0"><slot name="aside" /></div>}
   </header>
   <slot />
 </article>

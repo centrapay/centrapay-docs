@@ -202,17 +202,17 @@ For the message `Forbidden`:
 
 A `5xx` error means something has gone wrong on Centrapay's end, and retrying usually solves it. A Centrapay engineer usually investigates, but bug reports are welcome at [integrations@centrapay.com](mailto:integrations@centrapay.com).
 
-> Retries must reuse the original idempotency value, so a retry isn't processed twice. For example, retry a [Pre Auth confirmation](/api/payment-requests#confirm-pre-auth-payment-request) with the same `idempotencyKey`, and a [refund](/api/payment-requests#refund-a-payment-request) with the same `externalRef`.
+> Retries must reuse the original idempotency value, so a retry isn't processed twice. For example, retry a [Pre Auth confirmation](/api/payment-requests/confirm-pre-auth-payment-request/) with the same `idempotencyKey`, and a [refund](/api/payment-requests/refund-a-payment-request/) with the same `externalRef`.
 
 ## Respect Payment Status
 
-The Payment Request status is the source of truth for whether a payment went through. Don't assume a payment failed or succeeded based on what the POS or terminal saw. Always [get the Payment Request](/api/payment-requests#get-a-payment-request) and act on its status.
+The Payment Request status is the source of truth for whether a payment went through. Don't assume a payment failed or succeeded based on what the POS or terminal saw. Always [get the Payment Request](/api/payment-requests/get-a-payment-request/) and act on its status.
 
-For example, if a request times out and you're not sure whether the patron paid, get the Payment Request before showing the result. If it's `paid`, either complete the sale or, if the sale should not go ahead, [void the Payment Request](/api/payment-requests#void-a-payment-request) to refund the patron.
+For example, if a request times out and you're not sure whether the patron paid, get the Payment Request before showing the result. If it's `paid`, either complete the sale or, if the sale should not go ahead, [void the Payment Request](/api/payment-requests/void-a-payment-request/) to refund the patron.
 
 ## Void Incomplete Payment Requests
 
-[Void the Payment Request](/api/payment-requests#void-a-payment-request) as soon as the POS or terminal determines it will not be completed. Leaving it open could lead to unresolved transactions or the Payment Request being paid by accident. Void it when:
+[Void the Payment Request](/api/payment-requests/void-a-payment-request/) as soon as the POS or terminal determines it will not be completed. Leaving it open could lead to unresolved transactions or the Payment Request being paid by accident. Void it when:
 
 - The patron or merchant cancels, or the patron abandons the payment.
 - Its status still can't be determined after [retrying](#unknown-errors).
