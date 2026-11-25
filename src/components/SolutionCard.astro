@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { assetImage } from '../utils/assetImage.js';
+
 const {
   description,
   imageSrc,
@@ -6,14 +9,13 @@ const {
   linkUrl,
   title,
 } = Astro.props;
+const src = assetImage(imageSrc);
 ---
 <div class="flex flex-col overflow-hidden rounded-lg shadow-xl">
   <div class="shrink-0">
-    <img
-      class="h-48 w-full object-cover"
-      src={imageSrc}
-      alt=""
-    >
+    {typeof src === 'string'
+      ? <img class="h-48 w-full object-cover" src={src} alt="" loading="lazy" decoding="async">
+      : <Image class="h-48 w-full object-cover" src={src} alt="" />}
   </div>
   <div class="prose flex flex-1 flex-col justify-between gap-6 bg-surface-primary p-6 dark:prose-invert">
     <div class="flex-1">

@@ -1,8 +1,15 @@
 ---
+import { Image } from 'astro:assets';
+import { assetImage } from '../utils/assetImage.js';
+
 const { image, caption, displayWidth, displayHeight } = Astro.props;
+const src = assetImage(image);
+const style = displayWidth ? `width: ${displayWidth}px; max-width: 100%; height: auto;` : undefined;
 ---
 
 <div class="flex flex-col gap-2 text-wrap" style={displayWidth ? `width: ${displayWidth}px; max-width: 100%;` : undefined}>
-  <img class="block h-auto my-0" src={image} width={displayWidth} height={displayHeight} style={displayWidth ? `width: ${displayWidth}px; max-width: 100%; height: auto;` : undefined} />
+  {typeof src === 'string'
+    ? <img class="block h-auto my-0" src={src} alt="" width={displayWidth} height={displayHeight} style={style} loading="lazy" decoding="async" />
+    : <Image class="block h-auto my-0" src={src} alt="" width={displayWidth} style={style} />}
   {caption && <p class="font-normal text-xs text-center">{caption}</p>}
 </div>
