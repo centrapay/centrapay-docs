@@ -4,6 +4,8 @@
 
 @import "./api.css";
 
+@custom-variant nav-open (:root:has(#site-nav:popover-open) &);
+
 @keyframes menu-in {
   from {
     opacity: 0;

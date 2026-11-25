@@ -1,9 +1,8 @@
 ---
 import CentrapayLogo from './icons/CentrapayLogo.astro';
 import SiteSearch from './search/SiteSearch.astro';
-import MobileMenu from './MobileMenu.astro';
-
-const { path, navigation, flat = false, flatTitle } = Astro.props;
+import CloseOutline from './icons/CloseOutline.astro';
+import NavigationMenu from './icons/NavigationMenu.astro';
 ---
   <header class="fixed inset-x-0 z-10 flex h-16 shrink-0 bg-surface-primary shadow-sm">
     <div class="flex w-full items-center justify-between">
@@ -41,7 +40,15 @@ const { path, navigation, flat = false, flatTitle } = Astro.props;
       </div>
       <div class="flex items-center">
         <SiteSearch />
-        <MobileMenu path={path} navigation={navigation} flat={flat} flatTitle={flatTitle} />
+        <button
+          type="button"
+          popovertarget="site-nav"
+          class="flex size-11 cursor-pointer items-center justify-center ring-focus-ring focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset md:hidden"
+        >
+          <span class="sr-only">Menu</span>
+          <NavigationMenu class="block size-6 text-content-tertiary nav-open:hidden" />
+          <CloseOutline class="hidden size-6 text-content-tertiary nav-open:block" />
+        </button>
       </div>
     </div>
   </header>

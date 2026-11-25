@@ -1,0 +1,120 @@
+---
+import Navigation from './Navigation.astro';
+const { path, navigation, showHeadings = true, flat = false, flatTitle } = Astro.props;
+
+// Below md this is a popover. At md+ author styles override the browser's popover
+// defaults, including display: none while closed, so it is always shown as the sidebar.
+const links = [
+  { href: '/', label: 'Guides' },
+  { href: '/api/introduction', label: 'API Reference' },
+  { href: '/guides/merchant-introduction', label: 'Merchant Services' },
+];
+---
+<div
+  id="site-nav"
+  popover
+  class="fixed inset-x-0 top-16 bottom-auto m-0 h-auto w-full overflow-visible border-0 bg-transparent p-0 text-inherit motion-safe:animate-[menu-in_150ms_ease-out] md:pointer-events-none md:inset-y-0 md:right-auto md:flex md:h-full md:w-72 md:flex-col md:animate-none"
+>
+  <div
+    id="site-nav-content"
+    class="max-h-[calc(100dvh-64px)] w-full overflow-y-auto border-t border-outline-opaque bg-surface-primary pb-4 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:pointer-events-auto md:mt-16 md:max-h-none md:grow md:border-r md:border-t-0 md:pb-10 md:pt-6"
+  >
+    <div class="flex flex-col gap-1 border-b border-outline-opaque px-4 pb-4 pt-2 md:hidden">
+      {links.map(link => (
+        <a
+          href={link.href}
+          class="rounded-lg bg-surface-tertiary px-3 py-2 text-sm font-medium text-content-tertiary ring-focus-ring hover:bg-surface-tertiary-hover hover:text-content-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset"
+        >{link.label}</a>
+      ))}
+    </div>
+    <Navigation navigation={navigation} path={path} showHeadings={showHeadings} flat={flat} flatTitle={flatTitle} />
+  </div>
+  <div class="pointer-events-none absolute bottom-0 left-0 right-px hidden h-10 bg-linear-to-t from-surface-primary to-transparent md:block" aria-hidden="true"></div>
+</div>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('site-nav');
+    const scroller = document.getElementById('site-nav-content');
+    if (!nav || !scroller) {
+      return;
+    }
+    const desktop = matchMedia('(min-width: 48rem)');
+    const section = location.pathname.split('/')[1];
+    const sidebarKey = `sidebar-scroll:${section}`;
+    const menuKey = `mobile-menu-scroll:${section}`;
+    const clickKey = 'sidebar-clicked-link';
+    const trim = pathname => pathname.replace(/\/$/, '');
+    const top = element => element.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
+
+    const read = key => {
+      try {
+        return sessionStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    };
+    const write = (key, value) => {
+      try {
+        sessionStorage.setItem(key, value);
+      } catch {
+        // Storage can be blocked.
+      }
+    };
+
+    const reveal = () => {
+      const current = scroller.querySelector('[aria-current="page"]');
+      if (!current) {
+        return;
+      }
+      const link = current.getBoundingClientRect();
+      const view = scroller.getBoundingClientRect();
+      if (link.top < view.top || link.bottom > view.bottom) {
+        scroller.scrollTop += link.top - view.top - (view.height - link.height) / 2;
+      }
+    };
+
+    // Opening a page expands its routes and collapses the last page's, which shifts the links.
+    // Keep the clicked link at the height it was clicked at; otherwise restore the last position.
+    const restoreSidebar = () => {
+      const current = scroller.querySelector('[aria-current="page"]');
+      const clicked = JSON.parse(read(clickKey) || 'null');
+      const saved = read(sidebarKey);
+      if (current && clicked?.pathname === trim(location.pathname)) {
+        scroller.scrollTop += top(current) - clicked.offset;
+      } else if (saved !== null) {
+        scroller.scrollTop = parseInt(saved, 10);
+      }
+      reveal();
+    };
+
+    const isOtherPage = link => link && link.origin === location.origin
+      && trim(link.pathname) !== trim(location.pathname);
+
+    if (desktop.matches) {
+      restoreSidebar();
+    }
+
+    scroller.addEventListener('click', event => {
+      const link = event.target.closest('a[href]');
+      if (desktop.matches && isOtherPage(link)) {
+        write(clickKey, JSON.stringify({ pathname: trim(link.pathname), offset: top(link) }));
+      }
+    });
+
+    nav.addEventListener('toggle', event => {
+      if (event.newState === 'open' && !desktop.matches) {
+        scroller.scrollTop = parseInt(read(menuKey) || '0', 10);
+        reveal();
+      }
+    });
+
+    addEventListener('pagehide', () => {
+      if (desktop.matches) {
+        write(sidebarKey, scroller.scrollTop);
+      } else if (nav.matches(':popover-open')) {
+        write(menuKey, scroller.scrollTop);
+      }
+    });
+  })();
+</script>
