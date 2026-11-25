@@ -22,9 +22,6 @@ const {
 const socialImage = await socialImageUrl(img, Astro.site);
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 
-const datadogEnabled = import.meta.env.DATADOG_ENABLED;
-const env = import.meta.env.ENV;
-const version = import.meta.env.GITHUB_RUN_ID;
 const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
 ---
 <!DOCTYPE html>
@@ -47,34 +44,6 @@ const intercomAppId = import.meta.env.PUBLIC_INTERCOM_APP_ID;
 
     <!-- Intercom widget -->
     <meta name="referrer" content="no-referrer-when-downgrade">
-
-    <!-- Datadog -->
-    <script is:inline define:vars={{env, version, datadogEnabled}}>
-      /* eslint-disable no-undef */
-      if (datadogEnabled === 'true') {
-        (function(h,o,u,n,d) {
-          h = h[d] = h[d] || {q: [],onReady: function(c){h.q.push(c);}};
-          d = o.createElement(u);d.async = 1;d.src = n;
-          n = o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n);
-        })(window,document,'script','https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js','DD_RUM');
-        window.DD_RUM.onReady(function() {
-          window.DD_RUM.init({
-            clientToken: 'pub57276ecbb44c72e44eddae1f327e7109',
-            applicationId: '31d8b456-9734-45e2-8fd3-5cf23ceb5c87',
-            site: 'datadoghq.com',
-            service: 'centrapay-docs',
-            env,
-            version,
-            sessionSampleRate: 100,
-            sessionReplaySampleRate: 20,
-            trackUserInteractions: true,
-            trackResources: true,
-            trackLongTasks: true,
-            defaultPrivacyLevel: 'mask-user-input',
-          });
-        });
-      }
-    </script>
   </head>
   <body class="bg-surface-primary text-content-primary">
     <header>

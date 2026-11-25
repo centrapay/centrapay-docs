@@ -9,8 +9,6 @@ services:
       - -c
       - yarn dev --host 0.0.0.0
     ports: [ "4321:4321", "24678:24678" ]
-    environment:
-      - "ENV=development"
   script:
     image: node:22-alpine
     init: true
