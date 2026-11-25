@@ -1,7 +1,7 @@
 title: API Keys
 description: Introduction to API Keys
 nav:
-  path: API Reference
+  path: Using our APIs
   order: 6
 intro: |
   API keys provide enduring access to a single Centrapay [Account](/api/accounts).

@@ -4,7 +4,7 @@ nav:
   path: Integrations
   order: 2
 intro: |
-  An Integration Request allows Centrapay users to request the creation of an [Integration](/api/integrations/) on a Centrapay Account.
+  An Integration Request allows Centrapay users to request the creation of an Integration on a Centrapay Account.
 sections:
   - endpoint: createIntegrationRequest
   - endpoint: getIntegrationRequest

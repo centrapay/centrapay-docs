@@ -1,77 +1,96 @@
 ---
-import Navigation from './Navigation.vue';
-const { path, navigation, showHeadings = true } = Astro.props;
+import Navigation from './Navigation.astro';
+const { path, navigation, showHeadings = true, flat = false, flatTitle } = Astro.props;
 ---
-<div
-  id="sidebar"
-  class="hidden md:fixed md:flex md:h-full md:w-64 md:flex-col"
->
-  <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto border-r border-outline-opaque bg-surface-primary py-5">
-    <Navigation
-      navigation={navigation}
-      path={path}
-      showHeadings={showHeadings}
-      client:load
-    />
+<div id="sidebar" class="hidden md:fixed md:flex md:h-full md:w-72 md:flex-col">
+  <div id="sidebar-content" class="mt-16 flex grow flex-col overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden border-r border-outline-opaque bg-surface-primary pb-10 pt-6">
+    <Navigation navigation={navigation} path={path} showHeadings={showHeadings} flat={flat} flatTitle={flatTitle} />
   </div>
+  <div class="pointer-events-none absolute bottom-0 left-0 right-px h-10 bg-linear-to-t from-surface-primary to-transparent" aria-hidden="true"></div>
 </div>
 
 <script is:inline>
-  const leftSidebar = document.querySelector('#sidebar > #sidebar-content');
-  // Guides, API and Connections have different sidebars, so remember each separately.
-  const scrollKey = `sidebar-scroll:${window.location.pathname.split('/')[1]}`;
-  const clickedLinkKey = 'sidebar-clicked-link';
-  const trimSlash = pathname => pathname.replace(/\/$/, '');
-  const activeLink = leftSidebar.querySelector('[aria-current="page"]');
-  const offsetInSidebar = link => link.getBoundingClientRect().top - leftSidebar.getBoundingClientRect().top;
+  (() => {
+    const sidebar = document.getElementById('sidebar-content');
+    const menu = document.getElementById('mobile-menu');
+    const menuContent = document.getElementById('mobile-menu-content');
+    const section = location.pathname.split('/')[1];
+    const sidebarKey = `sidebar-scroll:${section}`;
+    const menuKey = `mobile-menu-scroll:${section}`;
+    const clickKey = 'sidebar-clicked-link';
+    const trim = pathname => pathname.replace(/\/$/, '');
+    const top = (scroller, element) => element.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
 
-  try {
-    // Opening a page expands its headings and collapses the previous page's, which shifts the
-    // links around. Keep the clicked link at the same height it was at when it was clicked.
-    const clickedLink = JSON.parse(sessionStorage.getItem(clickedLinkKey));
-    sessionStorage.removeItem(clickedLinkKey);
-    const savedScroll = sessionStorage.getItem(scrollKey);
-    if (activeLink && clickedLink?.pathname === trimSlash(window.location.pathname)) {
-      leftSidebar.scrollTop += offsetInSidebar(activeLink) - clickedLink.offset;
-    } else if (savedScroll !== null) {
-      leftSidebar.scrollTop = parseInt(savedScroll, 10);
-    }
-  } catch {
-    // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
-  }
+    const read = key => {
+      try {
+        return sessionStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    };
+    const write = (key, value) => {
+      try {
+        sessionStorage.setItem(key, value);
+      } catch {
+        // Storage can be blocked.
+      }
+    };
 
-  // Make sure the current page is visible, e.g. when arriving from search or a new tab.
-  if (activeLink) {
-    const linkRect = activeLink.getBoundingClientRect();
-    const sidebarRect = leftSidebar.getBoundingClientRect();
-    if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
-      leftSidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebarRect.height - linkRect.height) / 2;
-    }
-  }
+    const reveal = scroller => {
+      const current = scroller.querySelector('[aria-current="page"]');
+      if (!current) {
+        return;
+      }
+      const link = current.getBoundingClientRect();
+      const view = scroller.getBoundingClientRect();
+      if (link.top < view.top || link.bottom > view.bottom) {
+        scroller.scrollTop += link.top - view.top - (view.height - link.height) / 2;
+      }
+    };
 
-  leftSidebar.addEventListener('click', event => {
-    const link = event.target.closest('a[href]');
-    const isOtherPage = link
-      && link.origin === window.location.origin
-      && trimSlash(link.pathname) !== trimSlash(window.location.pathname);
-    if (!isOtherPage) {
-      return;
-    }
-    try {
-      sessionStorage.setItem(clickedLinkKey, JSON.stringify({
-        pathname: trimSlash(link.pathname),
-        offset: offsetInSidebar(link),
-      }));
-    } catch {
-      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
-    }
-  });
+    // Opening a page expands its routes and collapses the last page's, which shifts the links.
+    // Keep the clicked link at the height it was clicked at; otherwise restore the last position.
+    const restoreSidebar = () => {
+      const current = sidebar.querySelector('[aria-current="page"]');
+      const clicked = JSON.parse(read(clickKey) || 'null');
+      const saved = read(sidebarKey);
+      if (current && clicked?.pathname === trim(location.pathname)) {
+        sidebar.scrollTop += top(sidebar, current) - clicked.offset;
+      } else if (saved !== null) {
+        sidebar.scrollTop = parseInt(saved, 10);
+      }
+      reveal(sidebar);
+    };
 
-  window.addEventListener('pagehide', () => {
-    try {
-      sessionStorage.setItem(scrollKey, leftSidebar.scrollTop);
-    } catch {
-      // Storage can be unavailable (e.g. blocked cookies); the sidebar works without it.
+    const isOtherPage = link => link && link.origin === location.origin
+      && trim(link.pathname) !== trim(location.pathname);
+
+    if (sidebar) {
+      restoreSidebar();
+      sidebar.addEventListener('click', event => {
+        const link = event.target.closest('a[href]');
+        if (isOtherPage(link)) {
+          write(clickKey, JSON.stringify({ pathname: trim(link.pathname), offset: top(sidebar, link) }));
+        }
+      });
     }
-  });
+
+    if (menu && menuContent) {
+      menu.addEventListener('toggle', () => {
+        if (menu.open) {
+          menuContent.scrollTop = parseInt(read(menuKey) || '0', 10);
+          reveal(menuContent);
+        }
+      });
+    }
+
+    addEventListener('pagehide', () => {
+      if (sidebar) {
+        write(sidebarKey, sidebar.scrollTop);
+      }
+      if (menu?.open) {
+        write(menuKey, menuContent.scrollTop);
+      }
+    });
+  })();
 </script>

@@ -448,7 +448,6 @@ exports[`the build should not break any links 1`] = `
   "/api/integration-requests/search-integration-requests",
   "/api/integration-requests/search-integration-requests#query",
   "/api/integration-requests/search-integration-requests#responses",
-  "/api/integrations",
   "/api/introduction",
   "/api/invitations",
   "/api/invitations#accept-invitation",

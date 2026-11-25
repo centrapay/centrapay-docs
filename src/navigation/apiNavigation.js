@@ -5,7 +5,7 @@ import { navHeadings } from '../utils/openApiPage';
 import { loadOpenApiPages } from '../utils/openApiLoader.js';
 
 const nav = [
-  { title: 'API Reference' },
+  { title: 'Using our APIs' },
   { title: 'Accounts' },
   { title: 'Asset Programs' },
   { title: 'Assets' },
