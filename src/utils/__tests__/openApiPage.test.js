@@ -11,6 +11,7 @@ import {
   routeHref,
   splitPageRoutes,
 } from '../openApiPage';
+import { sortEntries, sortKeys } from '../OpenApiResolver';
 
 const DIR = 'src/content/api/openapi';
 
@@ -137,7 +138,7 @@ describe('payment requests spec page', () => {
     const create = sections.find(section => section.operationId === 'createBatch');
     const errors = create.response.rows.find(row => row.name === 'errors');
     expect(errors.reveal).toMatchObject({ title: 'Error' });
-    expect(errors.reveal.rows.map(row => row.name)).toEqual(['message', 'externalId', 'index']);
+    expect(errors.reveal.rows.map(row => row.name)).toEqual(['externalId', 'index', 'message']);
   });
 
   it('takes the first paragraph of prose', () => {
@@ -311,8 +312,8 @@ describe('endpoint layout', () => {
   it('anchors each possible value under its field', () => {
     const type = get.response.rows.find(row => row.name === 'type');
     expect(type.values.anchors).toEqual([
-      'responses.body.type.org',
       'responses.body.type.individual',
+      'responses.body.type.org',
     ]);
   });
 
@@ -360,7 +361,7 @@ describe('endpoint layout', () => {
 
   it('lists the body fields of each error status', () => {
     const notFound = get.responses.find(response => response.code === '404');
-    expect(notFound.fields.map(row => row.name)).toEqual(['statusCode', 'error', 'message']);
+    expect(notFound.fields.map(row => row.name)).toEqual(['error', 'message', 'statusCode']);
     expect(get.responses[0].fields).toEqual([]);
   });
 
@@ -375,7 +376,7 @@ describe('endpoint layout', () => {
   it('types fields with possible values as enums and lists them', () => {
     const type = get.response.rows.find(row => row.name === 'type');
     expect(type.typeLabel).toEqual('enum');
-    expect(type.values.entries.map(entry => entry.name)).toEqual(['org', 'individual']);
+    expect(type.values.entries.map(entry => entry.name)).toEqual(['individual', 'org']);
     const notFound = get.responses.find(response => response.code === '404');
     expect(notFound.fields.find(row => row.name === 'message').typeLabel).toEqual('enum');
   });
@@ -429,5 +430,17 @@ describe('route order', () => {
 
   it('puts routes with an unknown method last', () => {
     expect(sorted([route('Probe Thing', 'HEAD'), route('Get a Thing', 'GET')])).toEqual(['Get a Thing', 'Probe Thing']);
+  });
+});
+
+describe('alphabetical ordering', () => {
+  it('sorts object keys recursively and keeps array order', () => {
+    const sorted = sortKeys({ b: 1, a: { d: [{ z: 1, y: 2 }, 3], c: null } });
+    expect(JSON.stringify(sorted)).toBe('{"a":{"c":null,"d":[{"y":2,"z":1},3]},"b":1}');
+  });
+
+  it('sorts value entries by their plain name', () => {
+    const names = sortEntries([{ name: 'pending' }, { name: '[`active`](/x)' }, { name: 'closed' }]).map(e => e.name);
+    expect(names).toEqual(['[`active`](/x)', 'closed', 'pending']);
   });
 });
