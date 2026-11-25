@@ -3,6 +3,7 @@
 script	src/components/search/SearchDialog.astro
 # Support widget: loads the Intercom SDK.
 script	src/components/IntercomButton.astro
+script	src/components/Mermaid.astro
 # "On this page" scroll highlighting needs IntersectionObserver.
 script	src/components/TocNav.astro
 script	src/components/api/AnchorLink.astro
@@ -10,5 +11,4 @@ script	src/components/api/AnchorRedirects.astro
 script	src/components/CopyAsMarkdown.astro
 script	src/content/guides/ecommerce-website.mdoc
 script	src/layouts/BaseLayout.astro
-script	src/layouts/IframeLayout.astro
 script	src/components/DesktopNavigation.astro
