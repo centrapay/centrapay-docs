@@ -1,28 +1,10 @@
-vue-file	src/components/CommandPalette.vue
-vue-file	src/components/DisclosureTransition.vue
-vue-file	src/components/IntercomButton.vue
-vue-file	src/components/SiteSearch.vue
-vue-file	src/components/TocNav.vue
-vue-file	src/components/icons/AnchorLink.vue
-vue-file	src/components/icons/Carat.vue
-vue-file	src/components/icons/Checkmark.vue
-vue-file	src/components/icons/Clipboard.vue
-vue-file	src/components/icons/Connections.vue
-vue-file	src/components/icons/Dashboard.vue
-vue-file	src/components/icons/DisclosureArrowRight.vue
-vue-file	src/components/icons/InformationCircle.vue
-vue-file	src/components/icons/MessagesBubbleDouble.vue
-vue-file	src/components/icons/Receipt.vue
-vue-file	src/components/icons/Rocket.vue
-vue-file	src/components/icons/Search.vue
-vue-file	src/components/icons/Settings.vue
-client-island	src/components/Header.astro
-client-island	src/layouts/BaseLayout.astro
-client-island	src/pages/guides/[...id].astro
-framework-dep	@astrojs/vue
-framework-dep	@headlessui/vue
-framework-dep	eslint-plugin-vue
-framework-dep	vue
+# Each line is a deliberate use of JS (or a framework). Explain why in the PR.
+# Site search: fetches and queries the FlexSearch index in the browser.
+script	src/components/search/SearchDialog.astro
+# Support widget: loads the Intercom SDK.
+script	src/components/IntercomButton.astro
+# "On this page" scroll highlighting needs IntersectionObserver.
+script	src/components/TocNav.astro
 script	src/components/api/AnchorLink.astro
 script	src/components/api/AnchorRedirects.astro
 script	src/components/CopyAsMarkdown.astro

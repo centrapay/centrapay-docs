@@ -1,0 +1,52 @@
+---
+import TocLink from './TocLink.astro';
+
+const { headings } = Astro.props;
+const visibleHeadings = headings.filter(heading => heading.depth <= 3);
+---
+
+{visibleHeadings.length ? (
+  <nav aria-labelledby="on-this-page-title" class="w-56">
+    <h2 id="on-this-page-title" class="type-overline text-content-primary">On this page</h2>
+    <ol class="mt-4">
+      {visibleHeadings.map(heading => (
+        <TocLink slug={heading.slug} depth={heading.depth}>{heading.text}</TocLink>
+      ))}
+    </ol>
+  </nav>
+) : (
+  // Placeholder keeps the page content width consistent when there is no TOC.
+  <div class="w-56"></div>
+)}
+
+<script>
+  const links = document.querySelectorAll('[data-toc-link]');
+  const headings = [...links]
+    .map(link => document.getElementById(link.dataset.tocLink))
+    .filter(Boolean);
+
+  // The current section is the last heading that has scrolled into the top
+  // fifth of the viewport, falling back to the first before any has.
+  function update() {
+    const line = window.innerHeight * 0.2;
+    const current = headings.filter(heading => heading.getBoundingClientRect().top <= line).pop() ?? headings[0];
+    links.forEach(link => {
+      if (link.dataset.tocLink === current.id) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  if (headings.length) {
+    update();
+    // Fires whenever a heading crosses that line, in either direction.
+    const observer = new IntersectionObserver(update, { rootMargin: '0px 0px -80% 0px' });
+    headings.forEach(heading => observer.observe(heading));
+    links.forEach(link => link.addEventListener('click', () => {
+      // Let the browser finish jumping to the anchor before measuring.
+      requestAnimationFrame(update);
+    }));
+  }
+</script>

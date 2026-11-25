@@ -5,9 +5,6 @@ import flexsearchPlugin from './src/plugins/flexsearch';
 // Rehype plugins
 import rehypeSectionize from '@hbsnow/rehype-sectionize';
 
-// https://astro.build/config
-import vue from '@astrojs/vue';
-
 import markdoc from '@astrojs/markdoc';
 import expressiveCode from 'astro-expressive-code';
 
@@ -17,7 +14,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://docs.centrapay.com',
   integrations: [
-    vue(),
     expressiveCode(),
     markdoc({ ignoreIndentation: true }),
   ],

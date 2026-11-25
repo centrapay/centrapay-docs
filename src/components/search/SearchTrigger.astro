@@ -1,0 +1,16 @@
+---
+import Search from '../icons/Search.astro';
+import KeyboardHint from '../KeyboardHint.astro';
+---
+<button
+  type="button"
+  data-search-open
+  aria-label="Search"
+  aria-haspopup="dialog"
+  aria-keyshortcuts="/"
+  class="flex h-10 min-w-10 flex-row items-center justify-center gap-3 overflow-hidden rounded-none border-outline-opaque bg-surface-primary p-0 text-left transition-colors hover:bg-surface-secondary focus-visible:outline-2 focus-visible:outline-focus-ring md:mr-4 md:w-64 md:justify-start md:rounded-lg md:border md:px-4 md:pr-0 md:shadow-xs"
+>
+  <Search class="size-6 shrink-0 md:size-4" />
+  <span class="hidden flex-auto text-content-tertiary md:flex" aria-hidden="true">Search</span>
+  <KeyboardHint class="hidden h-full items-center justify-center px-3 text-sm leading-5 md:flex">/</KeyboardHint>
+</button>

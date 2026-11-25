@@ -1,0 +1,211 @@
+---
+import Search from '../icons/Search.astro';
+import CloseOutline from '../icons/CloseOutline.astro';
+import KeyboardHint from '../KeyboardHint.astro';
+import IconButton from '../IconButton.astro';
+import SearchResult from './SearchResult.astro';
+---
+<dialog
+  data-search-dialog
+  aria-label="Search the documentation"
+  class="fixed inset-0 m-0 size-full max-h-none max-w-none bg-transparent p-4 backdrop:bg-black/50 backdrop:backdrop-blur-xs"
+>
+  <div class="mx-auto mt-[6vh] w-full max-w-3xl md:mt-[10vh]">
+    <form
+      role="search"
+      class="flex w-full flex-row items-center gap-3 overflow-hidden rounded-lg bg-surface-primary px-4 py-3 text-left shadow-md focus-within:outline-2 focus-within:outline-focus-ring"
+    >
+      <label for="query-input" class="shrink-0">
+        <span class="sr-only">Search</span>
+        <Search class="size-5 text-content-tertiary" />
+      </label>
+      <!-- 16px text stops iOS Safari zooming the page when the input is focused. -->
+      <input
+        id="query-input"
+        data-search-input
+        type="text"
+        role="combobox"
+        aria-controls="search-results"
+        aria-expanded="false"
+        aria-autocomplete="list"
+        enterkeyhint="go"
+        class="min-w-0 flex-1 border-none bg-transparent text-base leading-6 text-content-primary outline-hidden placeholder:text-content-tertiary"
+        placeholder="Search..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <KeyboardHint class="hidden shrink-0 rounded-sm px-2 py-0.5 text-xs md:block">Esc</KeyboardHint>
+      <!-- Touch users have no Esc key. -->
+      <IconButton
+        label="Close search"
+        data-search-close
+        class="-mr-2 shrink-0 rounded-sm p-1 text-content-tertiary hover:text-content-primary md:hidden"
+      >
+        <CloseOutline class="size-5" />
+      </IconButton>
+    </form>
+    <p class="sr-only" role="status" data-search-status></p>
+    <div
+      data-search-panel
+      hidden
+      class="mt-2 max-h-[65vh] w-full overflow-auto rounded-lg bg-surface-primary py-2 text-sm shadow-lg ring-1 ring-outline-opaque"
+    >
+      <p data-search-message class="px-4 py-3 text-content-secondary" hidden></p>
+      <ul id="search-results" role="listbox" aria-label="Search results"></ul>
+    </div>
+  </div>
+  <SearchResult />
+</dialog>
+
+<script>
+  import { loadSearchIndex, searchSite } from '../../utils/searchIndex.js';
+
+  const dialog = document.querySelector('[data-search-dialog]');
+  const input = dialog.querySelector('[data-search-input]');
+  const status = dialog.querySelector('[data-search-status]');
+  const panel = dialog.querySelector('[data-search-panel]');
+  const message = dialog.querySelector('[data-search-message]');
+  const list = dialog.querySelector('#search-results');
+  const template = dialog.querySelector('template[data-search-result]');
+
+  let searchIndex = null;
+  let active = -1;
+
+  // Building the index takes a moment, so start it as soon as there is a hint
+  // the user is heading for search rather than waiting until the dialog opens.
+  const warm = () => {
+    loadSearchIndex().then(index => {
+      searchIndex = index;
+      render();
+    }, () => {});
+  };
+
+  function fill(node, field, text) {
+    node.querySelector(`[data-field="${field}"]`).textContent = text;
+  }
+
+  // A content match is shown with the matched text highlighted; otherwise the description.
+  function detailParts(result) {
+    return result.snippet ?? { prefix: result.description ?? '', match: '', suffix: '' };
+  }
+
+  function resultItem(result, i) {
+    const item = template.content.firstElementChild.cloneNode(true);
+    item.id = `search-option-${i}`;
+    item.querySelector('[data-field="link"]').href = result.href;
+    item.querySelector('[data-field="deprecated"]').hidden = !result.deprecated;
+    fill(item, 'title', result.title);
+    const { prefix, match, suffix } = detailParts(result);
+    fill(item, 'prefix', prefix);
+    fill(item, 'match', match);
+    fill(item, 'suffix', suffix);
+    fill(item, 'path', (result.path ?? []).join(' / '));
+    item.addEventListener('pointermove', () => setActive(i));
+    return item;
+  }
+
+  function setActive(i) {
+    const options = list.children;
+    active = i;
+    for (let n = 0; n < options.length; n++) {
+      options[n].setAttribute('aria-selected', String(n === i));
+    }
+    if (i >= 0) {
+      input.setAttribute('aria-activedescendant', options[i].id);
+      options[i].scrollIntoView({ block: 'nearest' });
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function showMessage(text) {
+    message.textContent = text;
+    message.hidden = false;
+    status.textContent = text;
+  }
+
+  function render() {
+    const query = input.value;
+    list.replaceChildren();
+    panel.hidden = query === '';
+    panel.setAttribute('aria-busy', String(query !== '' && !searchIndex));
+    input.setAttribute('aria-expanded', String(query !== ''));
+    message.hidden = true;
+    status.textContent = '';
+    setActive(-1);
+    if (query === '') {
+      return;
+    }
+    if (!searchIndex) {
+      showMessage('Loading search…');
+      return;
+    }
+    const results = searchSite(searchIndex, query);
+    if (results.length === 0) {
+      showMessage(`No results for “${query}”.`);
+      return;
+    }
+    list.append(...results.map(resultItem));
+    status.textContent = `${results.length} ${results.length === 1 ? 'result' : 'results'}`;
+    setActive(0);
+  }
+
+  function open() {
+    warm();
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+    input.focus();
+  }
+
+  function isTypingTarget(node) {
+    return Boolean(node) && (node.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName));
+  }
+
+  document.querySelectorAll('[data-search-open]').forEach(button => {
+    button.addEventListener('click', open);
+    button.addEventListener('pointerenter', warm);
+    button.addEventListener('focus', warm);
+  });
+
+  // `/` is a plain character, so it must not act as a shortcut while typing.
+  const hasModifier = event => event.metaKey || event.ctrlKey || event.altKey;
+  document.addEventListener('keydown', event => {
+    if (event.key === '/' && !hasModifier(event) && !dialog.open && !isTypingTarget(event.target)) {
+      event.preventDefault();
+      open();
+    }
+  });
+
+  function onInputKeydown(event) {
+    const count = list.children.length;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      const step = event.key === 'ArrowDown' ? 1 : -1;
+      setActive((active + step + count) % count);
+    } else if (event.key === 'Enter' && active >= 0) {
+      event.preventDefault();
+      list.children[active].querySelector('a').click();
+    }
+  }
+
+  input.addEventListener('input', render);
+  input.addEventListener('keydown', event => {
+    if (list.children.length) {
+      onInputKeydown(event);
+    }
+  });
+  dialog.querySelector('form').addEventListener('submit', event => event.preventDefault());
+  dialog.querySelector('[data-search-close]').addEventListener('click', () => dialog.close());
+
+  // A click on the dialog itself (rather than its content) lands on the backdrop.
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+  dialog.addEventListener('close', () => {
+    input.value = '';
+    render();
+  });
+</script>

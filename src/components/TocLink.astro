@@ -1,0 +1,14 @@
+---
+// One entry in TocNav. The script there marks the current section with
+// aria-current="location", which also drives the active styling.
+const { slug, depth } = Astro.props;
+---
+<li>
+  <a
+    href={`#${slug}`}
+    data-toc-link={slug}
+    class="flex break-words border-l-2 border-outline-opaque text-sm text-content-tertiary p-squish-2 hover:border-content-primary hover:text-content-primary aria-[current=location]:border-brand-accent aria-[current=location]:text-content-primary"
+  >
+    <span class:list={{ 'pl-4': depth === 3 }}><slot /></span>
+  </a>
+</li>

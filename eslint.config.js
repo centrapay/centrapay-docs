@@ -2,25 +2,10 @@ import globals from 'globals';
 import js from '@eslint/js';
 import babelParser from '@babel/eslint-parser';
 import eslintPluginAstro from 'eslint-plugin-astro';
-import eslintPluginVue from 'eslint-plugin-vue';
 import eslintPluginJest from 'eslint-plugin-jest';
 
 export default [
   ...eslintPluginAstro.configs.recommended,
-  ...eslintPluginVue.configs['flat/recommended'],
-  {
-    rules: {
-      'vue/html-self-closing': [
-        'error',
-        {
-          html: {
-            component: 'any',
-          },
-        },
-      ],
-      'vue/multi-word-component-names': 'off',
-    }
-  },
   {
     ignores: [
       '**/dist/*',

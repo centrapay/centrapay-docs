@@ -1,0 +1,6 @@
+---
+// A visual hint for a keyboard shortcut (renders a <kbd>). Decorative by default: pair it with `aria-keyshortcuts` or
+// visible text so assistive tech gets the information some other way.
+const { class: className = '' } = Astro.props;
+---
+<kbd aria-hidden="true" class:list={['font-sans font-medium text-content-secondary bg-surface-secondary', className]}><slot /></kbd>
