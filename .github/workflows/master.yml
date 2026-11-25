@@ -77,7 +77,7 @@ jobs:
       - uses: actions/cache@v4
         with: ${{ fromJson(needs.setup.outputs.yarn-cache-config) }}
       - run: yarn install --immutable
-      - run: yarn build --mode dev
+      - run: SITE=http://centrapay-docs.dev.s3-website-ap-southeast-1.amazonaws.com yarn build --mode dev
       - run: tar --directory dist -cvf centrapay-docs-dev.tar .
       - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:

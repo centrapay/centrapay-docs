@@ -4,10 +4,10 @@ import { glob } from 'astro/loaders';
 
 const guides = defineCollection({
   loader: glob({ pattern: '**/*.mdoc', base: "./src/content/guides" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    img: z.string().optional(),
+    img: image().optional(),
     draft: z.boolean().optional().default(false),
     iframe: z.boolean().optional().default(false),
     agentSkill: z.string().optional(),
@@ -22,10 +22,10 @@ const guides = defineCollection({
 
 const connections = defineCollection({
   loader: glob({ pattern: '**/*.mdoc', base: "./src/content/connections" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    img: z.string().optional(),
+    img: image().optional(),
     draft: z.boolean().optional().default(false),
     nav: z.object({
       title: z.string().optional(),
@@ -37,10 +37,10 @@ const connections = defineCollection({
 
 const api = defineCollection({
   loader: glob({ pattern: '**/*.mdoc', base: "./src/content/api" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    img: z.string().optional(),
+    img: image().optional(),
     draft: z.boolean().optional().default(false),
     nav: z.object({
       title: z.string().optional(),
@@ -52,10 +52,10 @@ const api = defineCollection({
 
 const merchantServices = defineCollection({
   loader: glob({ pattern: '**/*.mdoc', base: "./src/content/merchant-services" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    img: z.string().optional(),
+    img: image().optional(),
     draft: z.boolean().optional().default(false),
     iframe: z.boolean().optional().default(false),
     nav: z.object({

@@ -4,11 +4,19 @@ import XLogo from './icons/XLogo.astro';
 import InstagramLogo from './icons/InstagramLogo.astro';
 import LinkedInLogo from './icons/LinkedInLogo.astro';
 import VerifiedCheck from './icons/VerifiedCheck.astro';
+import { Image } from 'astro:assets';
+import countryside from '../assets/covers/countryside.jpg';
 ---
 <div>
-  <header
-    class="not-prose bg-[#174B33] bg-[url('/countryside.jpg')] bg-cover bg-bottom bg-blend-overlay"
-  >
+  <header class="not-prose relative isolate overflow-hidden bg-[#174B33]">
+    <Image
+      class="absolute inset-0 -z-10 size-full object-cover object-bottom mix-blend-overlay"
+      src={countryside}
+      alt=""
+      widths={[640, 1024, 1600, 2400]}
+      sizes="100vw"
+      priority
+    />
     <div class="flex flex-col max-w-6xl mx-auto w-full gap-6 px-8 py-16">
       <h1 class="type-display mb-8 mt-4 text-content-inverse-primary">
         <b>Farmlands</b>

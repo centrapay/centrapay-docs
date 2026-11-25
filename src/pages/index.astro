@@ -5,10 +5,8 @@ import Card from '../components/Card.astro';
 import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import gettingStartedCover from '../assets/covers/getting-started-cover.png';
-import paymentFlowsCover from '../../public/payment-flows-cover.jpg';
-import farmlandsPortalCover from '../../public/farmlands-portal-guide-cover.png';
-import farmlandsPosIntegrationCover from '../../public/farmlands-pos-integration-cover.jpg';
-import apiReferenceCover from '../../public/api-reference-cover.jpg';
+import apiReferenceCover from '../assets/covers/api-reference-cover.jpg';
+import homepagePreview from '../assets/covers/homepage-preview.png';
 import navigation from '../navigation/guideNavigation';
 const paymentFlowsGuide = await getEntry('guides', 'payment-flows');
 const farmlandsPortal = await getEntry('guides', 'farmlands-portal');
@@ -16,7 +14,7 @@ const farmlandsPosIntegrationGuide = await getEntry('guides', 'farmlands-pos-int
 const gettingStartedGuide = await getEntry('guides', 'getting-started');
 
 const description = 'Learn to connect with Centrapay experiences.';
-const img = '/homepage-preview.png';
+const img = homepagePreview;
 ---
 
 <BaseLayout description={description} img={img} navigation={navigation}>
@@ -62,21 +60,21 @@ const img = '/homepage-preview.png';
       <FeaturedContentCard
         title={paymentFlowsGuide.data.title}
         description={paymentFlowsGuide.data.description}
-        img={paymentFlowsCover}
+        img={paymentFlowsGuide.data.img}
         href=`guides/${paymentFlowsGuide.id}`
         type="guide"
       />
       <FeaturedContentCard
         title={farmlandsPortal.data.title}
         description={farmlandsPortal.data.description}
-        img={farmlandsPortalCover}
+        img={farmlandsPortal.data.img}
         href=`guides/${farmlandsPortal.id}`
         type="guide"
       />
       <FeaturedContentCard
         title={farmlandsPosIntegrationGuide.data.title}
         description={farmlandsPosIntegrationGuide.data.description}
-        img={farmlandsPosIntegrationCover}
+        img={farmlandsPosIntegrationGuide.data.img}
         href=`guides/${farmlandsPosIntegrationGuide.id}`
         type="guide"
       />
