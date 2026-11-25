@@ -1,6 +1,7 @@
 ---
 import IconButton from './IconButton.astro';
 import MessagesBubbleDouble from './icons/MessagesBubbleDouble.astro';
+import Spinner from './icons/Spinner.astro';
 
 const { appId } = Astro.props;
 ---
@@ -9,19 +10,31 @@ const { appId } = Astro.props;
   id="intercom-button"
   label="Open support widget"
   data-app-id={appId}
-  class="fixed bottom-6 right-6 z-50 flex size-16 items-center justify-center rounded-full border border-outline-opaque bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
+  class="group fixed bottom-6 right-6 z-50 flex size-16 items-center justify-center rounded-full border border-outline-opaque bg-interactive-quaternary shadow-lg hover:bg-interactive-quaternary-hover active:bg-interactive-quaternary-active"
 >
-  <MessagesBubbleDouble class="inline-block size-5 text-content-on-color" />
+  <MessagesBubbleDouble class="inline-block size-5 text-content-on-color group-aria-busy:hidden" />
+  <Spinner class="hidden size-5 text-content-on-color group-aria-busy:inline-block motion-safe:animate-spin" />
 </IconButton>
 
 <script>
   // Named imports: the SDK is CommonJS, and its default export doesn't survive the bundler's interop.
-  import { Intercom, show } from '@intercom/messenger-js-sdk';
+  import { Intercom, onShow, show } from '@intercom/messenger-js-sdk';
 
   const button = document.getElementById('intercom-button');
   const appId = button.dataset.appId;
-  if (appId) {
-    Intercom({ app_id: appId, hide_default_launcher: true });
-  }
-  button.addEventListener('click', () => show());
+  let booted = false;
+  button.addEventListener('click', () => {
+    if (!appId) {
+      return;
+    }
+    if (!booted) {
+      button.setAttribute('aria-busy', 'true');
+      const stopLoading = () => button.removeAttribute('aria-busy');
+      setTimeout(stopLoading, 10000);
+      Intercom({ app_id: appId, hide_default_launcher: true });
+      onShow(stopLoading);
+      booted = true;
+    }
+    show();
+  });
 </script>
