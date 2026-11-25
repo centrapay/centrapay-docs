@@ -1,0 +1,32 @@
+---
+import CloseOutline from './icons/CloseOutline.astro';
+import NavigationMenu from './icons/NavigationMenu.astro';
+import Navigation from './Navigation.astro';
+
+const { path, navigation, flat = false, flatTitle } = Astro.props;
+const links = [
+  { href: '/', label: 'Guides' },
+  { href: '/api/introduction', label: 'API Reference' },
+  { href: '/guides/merchant-introduction', label: 'Merchant Services' },
+];
+---
+<details id="mobile-menu" class="group static isolate z-50 md:hidden">
+  <summary class="flex size-11 cursor-pointer list-none items-center justify-center ring-focus-ring focus:outline-hidden focus:ring-2 focus:ring-inset [&::-webkit-details-marker]:hidden">
+    <span class="sr-only">Menu</span>
+    <NavigationMenu class="block size-6 text-content-tertiary group-open:hidden" />
+    <CloseOutline class="hidden size-6 text-content-tertiary group-open:block" />
+  </summary>
+  <div class="absolute inset-x-0 top-16 motion-safe:animate-[menu-in_150ms_ease-out]">
+    <div id="mobile-menu-content" class="max-h-[calc(100dvh-64px)] w-full overflow-y-auto border-t border-outline-opaque bg-surface-primary pb-4 pt-2">
+      <div class="flex flex-col gap-1 border-b border-outline-opaque px-4 pb-4 pt-2">
+        {links.map(link => (
+          <a
+            href={link.href}
+            class="rounded-lg bg-surface-tertiary px-3 py-2 text-sm font-medium text-content-tertiary hover:bg-surface-tertiary-hover hover:text-content-primary"
+          >{link.label}</a>
+        ))}
+      </div>
+      <Navigation path={path} navigation={navigation} flat={flat} flatTitle={flatTitle} />
+    </div>
+  </div>
+</details>

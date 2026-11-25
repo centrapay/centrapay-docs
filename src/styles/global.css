@@ -4,6 +4,13 @@
 
 @import "./api.css";
 
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
 :root {
   --color-surface-primary: #FFFFFF;
   --color-surface-secondary: #F8F8F8;

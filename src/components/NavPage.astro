@@ -1,0 +1,55 @@
+---
+import { methodLabel, methodStyle } from './api/methods.js';
+
+const { item, path, showHeadings = true } = Astro.props;
+
+const pageHref = item.path.endsWith('/') ? item.path : `${item.path}/`;
+const isRoute = heading => Boolean(heading.method);
+const onRoute = heading => isRoute(heading) && path === `${item.path}/${heading.slug}`;
+
+const headings = item.headings || [];
+const activePage = path === item.path;
+const open = showHeadings && headings.length > 0 && (activePage || headings.some(onRoute));
+const pageIsCurrent = activePage && !headings.some(onRoute);
+
+const focus = 'ring-focus-ring focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset forced-colors:aria-[current]:underline';
+const hover = 'transition-colors hover:bg-surface-tertiary-hover hover:text-content-primary motion-reduce:transition-none';
+const bar = 'relative before:absolute before:inset-y-1.5 before:left-0 before:w-0.5 before:rounded-full before:bg-brand-accent';
+---
+<li>
+  <a
+    href={pageHref}
+    aria-current={pageIsCurrent ? 'page' : undefined}
+    class:list={[
+      `block rounded-md px-3 py-2 text-sm leading-5 ${focus} ${hover}`,
+      pageIsCurrent ? `${bar} bg-surface-tertiary-hover font-medium text-content-primary` : 'text-content-secondary',
+    ]}
+  >{item.title}</a>
+  {open && (
+    <ul role="list" class="mb-2 ml-3 mt-1 space-y-0.5 border-l border-outline-opaque pl-2">
+      {headings.map(heading => (
+        <li class:list={[onRoute(heading) && '-ml-[calc(0.5rem+1px)] border-l-2 border-brand-accent pl-[calc(0.5rem-1px)]']}>
+          <a
+            href={isRoute(heading) ? `${pageHref}${heading.slug}/` : `${pageHref}#${heading.slug}`}
+            aria-current={onRoute(heading) ? 'page' : undefined}
+            class:list={[
+              `flex items-start gap-2 rounded-md px-2 py-1.5 text-[13px] leading-5 ${focus} ${hover}`,
+              onRoute(heading) ? 'bg-surface-tertiary-hover font-medium text-content-primary' : 'text-content-tertiary',
+            ]}
+          >
+            {heading.method && (
+              <>
+                <span
+                  aria-hidden="true"
+                  class={`${methodStyle(heading.method)} mt-px w-9 shrink-0 rounded px-1 text-center font-mono text-[10px] font-semibold leading-4`}
+                >{methodLabel(heading.method, { short: true })}</span>
+                <span class="sr-only">{methodLabel(heading.method)}</span>
+              </>
+            )}
+            <span>{heading.text}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</li>

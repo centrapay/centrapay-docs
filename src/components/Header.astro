@@ -1,11 +1,10 @@
 ---
 import CentrapayLogo from './icons/CentrapayLogo.astro';
 import SiteSearch from './SiteSearch.vue';
-import MobileMenu from './MobileMenu.vue';
+import MobileMenu from './MobileMenu.astro';
 
-const { path, navigation } = Astro.props;
+const { path, navigation, flat = false, flatTitle } = Astro.props;
 ---
-<centrapay-header>
   <header class="fixed inset-x-0 z-10 flex h-16 shrink-0 bg-surface-primary shadow-sm">
     <div class="flex w-full items-center justify-between">
       <div class="flex w-full items-center pr-2 md:pr-4">
@@ -42,35 +41,7 @@ const { path, navigation } = Astro.props;
       </div>
       <div class="flex items-center">
         <SiteSearch client:load />
-        <MobileMenu client:load data-mobile-menu path={path} navigation={navigation} />
+        <MobileMenu path={path} navigation={navigation} flat={flat} flatTitle={flatTitle} />
       </div>
     </div>
   </header>
-</centrapay-header>
-
-<script>
-  class CentrapayHeader extends HTMLElement {
-    connectedCallback() {
-      const openBtn = this.querySelector('button[data-open-mobile-menu]');
-      const closeBtn = this.querySelector('button[data-close-mobile-menu]');
-      const mobileMenu = this.querySelector('[data-mobile-menu]');
-      if (!openBtn || !closeBtn || !mobileMenu) {
-        return;
-      }
-
-      openBtn.addEventListener('click', () => {
-        openBtn.style.display = 'none';
-        closeBtn.style.display = 'flex';
-        mobileMenu.style.display = 'relative';
-      });
-
-      closeBtn.addEventListener('click', () => {
-        openBtn.style.display = 'flex';
-        closeBtn.style.display = 'none';
-        mobileMenu.style.display = 'none';
-      });
-    }
-  }
-
-  customElements.define('centrapay-header', CentrapayHeader);
-</script>

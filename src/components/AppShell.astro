@@ -5,6 +5,7 @@ const { path, navigation } = Astro.props;
 
 const navPath = path.endsWith('/') ? path.slice(0, -1) : path;
 const showHeadings = !navPath.startsWith('/guides');
+const flat = navPath.startsWith('/api');
 ---
 
 <div class="flex h-screen w-full">
@@ -12,9 +13,9 @@ const showHeadings = !navPath.startsWith('/guides');
     href="#main-content"
     class="sr-only z-20 rounded-lg bg-surface-inverse px-4 py-2 text-sm font-medium text-content-inverse-primary focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:outline-2 focus:outline-focus-ring"
   >Skip to content</a>
-  <Header path={navPath} navigation={navigation} />
-  <DesktopNavigation path={navPath} navigation={navigation} showHeadings={showHeadings} />
-  <main id="main-content" tabindex="-1" class="flex min-h-full w-full flex-col pt-16 outline-none md:pl-64">
+  <Header path={navPath} navigation={navigation} flat={flat} flatTitle="Endpoints" />
+  <DesktopNavigation path={navPath} navigation={navigation} showHeadings={showHeadings} flat={flat} flatTitle="Endpoints" />
+  <main id="main-content" tabindex="-1" class="flex min-h-full w-full flex-col pt-16 outline-none md:pl-72">
     <slot />
   </main>
 </div>

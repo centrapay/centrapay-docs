@@ -1,0 +1,37 @@
+---
+import NavPage from './NavPage.astro';
+
+const { path, navigation, showHeadings = true, flat = false, flatTitle } = Astro.props;
+
+function flatten(items) {
+  return items.flatMap(item => (item.path ? [item] : flatten(item.children || [])));
+}
+const byTitle = (a, b) => a.title.localeCompare(b.title);
+const groups = flat
+  ? [
+    navigation.items[0],
+    { title: flatTitle, children: flatten(navigation.items.slice(1)).sort(byTitle) },
+  ]
+  : navigation.items;
+---
+<nav class="w-full px-4 py-2" aria-label="Documentation">
+  {groups.map(group => (
+    <section class="pb-6">
+      {group.title && <p class="type-overline px-3 pb-2 font-bold" aria-hidden="true">{group.title}</p>}
+      <ul role="list" aria-label={group.title} class="space-y-1">
+        {group.children?.map(child => child.path ? (
+          <NavPage item={child} path={path} showHeadings={showHeadings} />
+        ) : (
+          <li>
+            <p class="px-3 pb-1 pt-3 text-xs font-semibold text-content-tertiary" aria-hidden="true">{child.title}</p>
+            <ul role="list" aria-label={child.title} class="space-y-1">
+              {child.children?.map(page => (
+                <NavPage item={page} path={path} showHeadings={showHeadings} />
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</nav>

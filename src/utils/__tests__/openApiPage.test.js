@@ -2,6 +2,7 @@ import fs from 'fs';
 import { load as loadYaml } from 'js-yaml';
 import { describe, expect, it } from 'vitest';
 import {
+  byMethodOrder,
   getPageSections,
   indexOperations,
   firstParagraph,
@@ -399,3 +400,34 @@ describe('endpoint layout', () => {
   });
 });
 
+
+describe('route order', () => {
+  const route = (title, method) => ({ title, method });
+  const sorted = routes => routes.sort(byMethodOrder).map(r => r.title);
+
+  it('lists POST, GET, PUT, PATCH then DELETE routes, each alphabetically', () => {
+    expect(sorted([
+      route('Remove Thing', 'DELETE'),
+      route('Update Thing', 'PUT'),
+      route('List Things', 'GET'),
+      route('Tweak Thing', 'PATCH'),
+      route('Accept Thing', 'POST'),
+      route('Get a Thing', 'GET'),
+      route('Create a Thing', 'POST'),
+      route('Archive Thing', 'DELETE'),
+    ])).toEqual([
+      'Accept Thing',
+      'Create a Thing',
+      'Get a Thing',
+      'List Things',
+      'Update Thing',
+      'Tweak Thing',
+      'Archive Thing',
+      'Remove Thing',
+    ]);
+  });
+
+  it('puts routes with an unknown method last', () => {
+    expect(sorted([route('Probe Thing', 'HEAD'), route('Get a Thing', 'GET')])).toEqual(['Get a Thing', 'Probe Thing']);
+  });
+});

@@ -37,6 +37,15 @@ export function routeHref(pageId, slug) {
 }
 
 // A named example belongs to the route before it.
+const byTitle = (a, b) => a.title.localeCompare(b.title);
+
+const METHOD_ORDER = ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'];
+const methodRank = ({ method }) => {
+  const index = METHOD_ORDER.indexOf(method?.toUpperCase());
+  return index === -1 ? METHOD_ORDER.length : index;
+};
+export const byMethodOrder = (a, b) => methodRank(a) - methodRank(b) || byTitle(a, b);
+
 export function splitPageRoutes(sections) {
   const prose = [];
   const routes = [];
@@ -49,7 +58,7 @@ export function splitPageRoutes(sections) {
       routes.push({ slug: section.anchor, pageSections: [section] });
     }
   }
-  return { prose, routes: routes.map(routeSections) };
+  return { prose, routes: routes.map(routeSections).sort((a, b) => byMethodOrder(a.section, b.section)) };
 }
 
 export const FIELD_GROUP_ANCHORS = {
@@ -353,8 +362,9 @@ export function createMarkdownRenderer(anchors = []) {
 // Headings shown in the navigation, matching the depth-2 headings the mdoc
 // pages exposed.
 export function navHeadings(sections) {
-  return sections
-    .filter(section => section.depth === 2)
+  const headings = sections.filter(section => section.depth === 2);
+  const isRoute = section => Boolean(section.method);
+  return [...headings.filter(section => !isRoute(section)), ...headings.filter(isRoute).sort(byMethodOrder)]
     .map(section => ({
       depth: 2,
       slug: section.anchor,
