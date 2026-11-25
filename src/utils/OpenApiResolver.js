@@ -111,14 +111,29 @@ function mergedMemberRows(schema, models, stack) {
   });
 }
 
-// Rows for one schema's own properties, in `allOf`-merged then own order.
+const byName = (a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+
+// Rows for one schema's own and `allOf`-merged properties, alphabetical
+// whatever order the spec declares them in.
 function objectRows(schema, models, stack) {
   const required = new Set(schema?.required ?? []);
   return [
     ...mergedMemberRows(schema, models, stack),
     ...Object.entries(schema?.properties ?? {})
       .flatMap(([name, prop]) => propertyRow(name, prop, required.has(name), models, stack)),
-  ];
+  ].sort(byName);
+}
+
+// A copy of a JSON value with every object's keys in alphabetical order, so
+// code samples match the alphabetical field lists. Array order is kept.
+export function sortKeys(value) {
+  if (Array.isArray(value)) {
+    return value.map(sortKeys);
+  }
+  if (isObject(value)) {
+    return Object.fromEntries(Object.keys(value).sort().map(key => [key, sortKeys(value[key])]));
+  }
+  return value;
 }
 
 function rowType(prop, target) {
@@ -187,6 +202,13 @@ function rowValues(name, prop, target) {
   return values ? structuredValues(name, values, names) : enumValues(names);
 }
 
+// Value entries alphabetical by their plain name, whatever order the spec
+// lists them in.
+export function sortEntries(entries) {
+  const key = entry => plainValue(entry.name);
+  return [...entries].sort((a, b) => (key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0));
+}
+
 // Enum values the entries don't describe are still listed, by name.
 function structuredValues(name, values, names = []) {
   if (!(values.entries ?? []).some(entry => entry.name)) {
@@ -194,7 +216,7 @@ function structuredValues(name, values, names = []) {
   }
   const described = new Set(values.entries.map(entry => plainValue(entry.name)));
   const undescribed = names.filter(value => !described.has(String(value))).map(value => ({ name: String(value) }));
-  return { title: values.title, intro: values.intro, entries: [...values.entries, ...undescribed] };
+  return { title: values.title, intro: values.intro, entries: sortEntries([...values.entries, ...undescribed]) };
 }
 
 export function plainValue(text = '') {
@@ -202,7 +224,7 @@ export function plainValue(text = '') {
 }
 
 function enumValues(names) {
-  return names ? { entries: names.map(value => ({ name: String(value) })) } : undefined;
+  return names ? { entries: sortEntries(names.map(value => ({ name: String(value) }))) } : undefined;
 }
 
 // A field can reuse another field's values through a single `allOf` ref while
@@ -426,7 +448,7 @@ export function formatDescription(text) {
 export function getExample(mediaType, name) {
   const examples = mediaType?.examples ?? {};
   const example = name ? examples[name] : Object.values(examples)[0];
-  return example ? example.value : mediaType?.example;
+  return sortKeys(example ? example.value : mediaType?.example);
 }
 
 // The success response example and whether it's JSON (eg `OK` as text/plain).
@@ -454,7 +476,8 @@ export function getParameterProperties(parameters, models) {
       !!param.required,
       models,
       []
-    )[0]);
+    )[0])
+    .sort(byName);
 }
 
 const isSuccess = code => /^2\d\d$/.test(code);
@@ -475,7 +498,7 @@ function errorEntries(code, response) {
       code,
       message,
       description: formatDescription(example.description),
-      example: example.value,
+      example: sortKeys(example.value),
     }));
 }
 
@@ -535,7 +558,7 @@ export function buildEndpointData(operation, exampleName) {
     request.postData = operation['x-request-postData'];
   }
   if (Object.keys(queryString).length > 0) {
-    request.queryString = queryString;
+    request.queryString = sortKeys(queryString);
   }
   return {
     method: operation['x-method'],

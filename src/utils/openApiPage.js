@@ -5,6 +5,7 @@ import {
   formatDescription,
   getErrors,
   getParameterProperties,
+  sortEntries,
   plainValue,
   propertyRows,
   requestSchema,
@@ -221,7 +222,7 @@ function statusResponses(operation, errors, commonResponses, models) {
 // possible value, and fields with one value across them say what it is.
 function errorFields(response, errors, models) {
   return errorBodyRows(response, models).map(row => (row.name === 'message'
-    ? { ...row, typeLabel: 'enum', values: { entries: errors.map(errorValue) } }
+    ? { ...row, typeLabel: 'enum', values: { entries: sortEntries(errors.map(errorValue)) } }
     : constantField(row, errors)));
 }
 
