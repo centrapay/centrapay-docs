@@ -4,7 +4,7 @@ import spacing from './src/styles/plugins/spacing.js';
 
 export default {
   content: [
-    './src/**/*.{astro,vue, js, css}',
+    './src/**/*.{astro,js,css}',
   ],
   theme: {
     extend: {

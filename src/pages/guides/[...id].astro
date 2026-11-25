@@ -6,7 +6,7 @@ import { render } from 'astro:content';
 import AgentSkillCallout from '../../components/AgentSkillCallout.astro';
 import CopyAsMarkdown from '../../components/CopyAsMarkdown.astro';
 import Prose from '../../components/Prose.astro';
-import TocNav from '../../components/TocNav.vue';
+import TocNav from '../../components/TocNav.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import guideNavigation from '../../navigation/guideNavigation';
 import merchantServicesNavigation from '../../navigation/merchantServicesNavigation';
@@ -66,7 +66,7 @@ const agentMarkdown = copyAsMarkdown
       </div>
       <div class="hidden md:flex md:w-64">
         <div class="hidden overflow-y-auto border-none xl:sticky xl:right-28 xl:top-16 xl:block xl:h-[calc(100vh-10rem)] xl:py-8">
-          <TocNav client:load headings={headings} />
+          <TocNav headings={headings} />
         </div>
       </div>
     </div>

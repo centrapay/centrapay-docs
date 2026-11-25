@@ -1,0 +1,18 @@
+---
+import Badge from '../Badge.astro';
+---
+<!-- Cloned by SearchDialog for each result; [data-field] nodes are filled in with textContent. -->
+<template data-search-result>
+  <li role="option" aria-selected="false" class="cursor-pointer select-none px-4 py-3 aria-selected:bg-surface-secondary">
+    <a data-field="link" class="block outline-hidden">
+      <span class="flex items-center gap-2 font-medium text-content-secondary">
+        <span data-field="title" class="truncate"></span>
+        <span data-field="deprecated" class="shrink-0" hidden><Badge type="deprecated" /></span>
+      </span>
+      <p class="block truncate text-content-tertiary">
+        <span data-field="prefix"></span><mark data-field="match" class="bg-transparent font-semibold text-content-secondary"></mark><span data-field="suffix"></span>
+      </p>
+      <span data-field="path" class="mt-2 block truncate capitalize text-content-tertiary"></span>
+    </a>
+  </li>
+</template>

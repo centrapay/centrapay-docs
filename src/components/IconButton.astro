@@ -1,0 +1,12 @@
+---
+// A button that shows only an icon (default slot). `label` is its accessible name.
+const { label, class: className = '', ...attrs } = Astro.props;
+---
+<button
+  type="button"
+  class:list={['focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring', className]}
+  {...attrs}
+>
+  <span class="sr-only">{label}</span>
+  <slot />
+</button>
