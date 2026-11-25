@@ -1,4 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+
 const { src, alt } = Astro.props;
 ---
-<img src={src} alt={alt} class="max-w-full h-auto"/>
+{typeof src === 'string'
+  ? <img src={src} alt={alt} class="max-w-full h-auto" loading="lazy" decoding="async" />
+  : <Image src={src} alt={alt} class="max-w-full h-auto" sizes="(min-width: 768px) 768px, 100vw" />}

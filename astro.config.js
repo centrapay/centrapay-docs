@@ -13,6 +13,9 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE ?? 'https://docs.centrapay.com',
+  image: {
+    layout: 'constrained',
+  },
   integrations: [
     expressiveCode(),
     markdoc({ ignoreIndentation: true }),
