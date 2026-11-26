@@ -1,22 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import Card from '../components/Card.astro';
+import Card from './Card.astro';
+import Image from './Image.astro';
+import { defaultCover } from '../utils/images.js';
 const { img, title, description, href, type } = Astro.props;
-const previewImg = img || '/default-cover.svg';
-const imgClass = 'size-full object-cover transition-transform duration-200 ease-in group-hover:scale-105';
 ---
 <Card>
   <a href={href} class="group block h-full">
     <div class="h-32 overflow-hidden rounded-t">
-      {typeof previewImg === 'string'
-        ? <img class={imgClass} src={previewImg} alt="" loading="lazy" decoding="async">
-        : <Image
-            class={imgClass}
-            src={previewImg}
-            alt=""
-            widths={[400, 640, 960]}
-            sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
-          />}
+      <Image
+        class="size-full object-cover transition-transform duration-200 ease-in group-hover:scale-105"
+        src={img ?? defaultCover}
+        alt=""
+        widths={[400, 640, 960]}
+        sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
+      />
     </div>
 
     <div class="flex flex-col gap-4 p-4">
