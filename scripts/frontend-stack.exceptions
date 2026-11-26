@@ -10,5 +10,4 @@ script	src/components/api/AnchorLink.astro
 script	src/components/api/AnchorRedirects.astro
 script	src/components/CopyAsMarkdown.astro
 script	src/content/guides/ecommerce-website.mdoc
-script	src/layouts/BaseLayout.astro
 script	src/components/DesktopNavigation.astro
