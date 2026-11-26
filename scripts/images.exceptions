@@ -1,0 +1,6 @@
+# Each line is an image rendered without src/components/Image.astro. Explain why in the PR.
+# The image abstraction itself.
+astro-assets	src/components/Image.astro
+astro-assets	src/utils/images.js
+# Brand logos stay in public/ at stable URLs so people can download and link to them.
+img	src/components/LogoPreview.astro

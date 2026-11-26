@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "scripts/check-frontend-stack.sh && eslint . && spectral lint --fail-severity=warn src/content/api/openapi/index.yaml",
+    "lint": "scripts/check-frontend-stack.sh && scripts/check-images.sh && eslint . && spectral lint --fail-severity=warn src/content/api/openapi/index.yaml",
     "linkinator": "linkinator dist/ --config linkinator.config.json",
     "dev": "astro dev",
     "build": "astro build",

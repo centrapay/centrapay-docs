@@ -1,0 +1,7 @@
+---
+import { Image as AstroImage } from 'astro:assets';
+import { resolveImage } from '../utils/images.js';
+
+const { src, ...props } = Astro.props;
+---
+<AstroImage src={resolveImage(src)} {...props} />
