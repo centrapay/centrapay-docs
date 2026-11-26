@@ -1,44 +1,10 @@
 ---
-const {code} = Astro.props;
+import { renderMermaid } from '../utils/mermaid.js';
+
+const { code } = Astro.props;
+const { light, dark } = await renderMermaid(code);
 ---
-<center>
-  <pre class="mermaid my-8 rounded-lg border border-outline-opaque bg-surface-secondary">
-    {code}
-  </pre>
-</center>
-
-<script>
-  import mermaid from 'mermaid';
-
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: 'base',
-    themeVariables: isDark ? {
-      mainBkg: '#1F2937',
-      actorBkg: '#1F2937',
-      primaryColor: '#1F2937',
-      primaryTextColor: '#F9FAFB',
-      primaryBorderColor: '#374151',
-      secondaryColor: '#1F2937',
-      noteBkgColor: '#F9FAFB',
-      noteTextColor: '#1F2937',
-      labelBoxBkgColor: '#111827',
-      clusterBkg: '#1F2937',
-    } : {
-      mainBkg: '#F8F8F8',
-      actorBkg: '#F8F8F8',
-      primaryColor: '#F8F8F8',
-      primaryTextColor: '#232323',
-      primaryBorderColor: '#D1D5DB',
-      secondaryColor: '#F8F8F8',
-      noteBkgColor: '#232323',
-      noteTextColor: '#F8F8F8',
-      labelBoxBkgColor: '#FFFFFF',
-      clusterBkg: '#F8F8F8',
-    },
-    sequence: {
-      diagramMarginY: 50,
-    },
-  });
-</script>
+<figure class="my-8 rounded-lg border border-outline-opaque bg-surface-secondary [&_svg]:mx-auto">
+  <div class="dark:hidden" set:html={light.svg} />
+  <div class="hidden dark:block" set:html={dark.svg} />
+</figure>

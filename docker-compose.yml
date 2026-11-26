@@ -1,6 +1,6 @@
 services:
   app:
-    image: node:22-alpine
+    image: mcr.microsoft.com/playwright:v1.65.1-noble
     init: true
     working_dir: /work
     volumes: [ ".:/work" ]
@@ -10,7 +10,7 @@ services:
       - yarn dev --host 0.0.0.0
     ports: [ "4321:4321", "24678:24678" ]
   script:
-    image: node:22-alpine
+    image: mcr.microsoft.com/playwright:v1.65.1-noble
     init: true
     working_dir: /work
     stop_signal: SIGKILL

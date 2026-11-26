@@ -8,6 +8,12 @@ Install app dependencies:
 docker compose run script yarn
 ```
 
+Mermaid diagrams are rendered to SVG at build time in headless Chromium. The Docker image includes it. To build outside Docker, install it once:
+
+```
+yarn playwright install --only-shell chromium
+```
+
 ## Local Docker Usage
 
 For local development (with hot reloading):
