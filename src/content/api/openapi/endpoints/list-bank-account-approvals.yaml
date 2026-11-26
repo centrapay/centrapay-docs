@@ -16,6 +16,16 @@ get:
         type: string
       example: 5vpkxjn6z787LiAKCqwuf9
       description: The [Bank Account](/api/bank-accounts) id.
+    - name: pageKey
+      in: query
+      schema:
+        type: string
+      description: Used to retrieve the next page of items.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: integer
+      description: The maximum number of results per page. Maximum value is 200.
   responses:
     '200':
       description: Bank Account Approvals listed
@@ -28,6 +38,8 @@ get:
                 type: array
                 items:
                   $ref: ../models/bank-account-approval.yaml
+              nextPageKey:
+                type: string
           examples:
             default:
               value:

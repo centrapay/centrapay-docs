@@ -16,6 +16,16 @@ get:
         type: string
       example: Jaim1Cu1Q55uooxSens6yk
       description: The [Account](/api/accounts) id.
+    - name: pageKey
+      in: query
+      schema:
+        type: string
+      description: Used to retrieve the next page of items.
+    - name: paginationLimit
+      in: query
+      schema:
+        type: integer
+      description: The maximum number of results per page. Maximum value is 200.
   responses:
     '200':
       description: Bank Account balances retrieved
