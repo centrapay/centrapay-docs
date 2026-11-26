@@ -23,7 +23,6 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
-const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description, agentSkill, copyAsMarkdown } = entry.data;
 const navigation = entry.collection === 'merchantServices' ? merchantServicesNavigation : guideNavigation;
 
@@ -34,7 +33,7 @@ const agentMarkdown = copyAsMarkdown
   ? toAgentMarkdown({ title, description, body: guideBody })
   : undefined;
 ---
-<BaseLayout title={title} description={description} img={previewImg} navigation={navigation}>
+<BaseLayout title={title} description={description} img={entry.data.img} navigation={navigation}>
   <div class="relative mx-auto xl:mx-0">
     <div class="flex w-full justify-center">
       <div class="flex grow justify-center">

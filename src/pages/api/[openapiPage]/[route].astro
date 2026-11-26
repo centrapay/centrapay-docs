@@ -18,10 +18,9 @@ export async function getStaticPaths() {
 const { id, page, route, schemasMap } = Astro.props;
 const { section } = route;
 const description = stripMarkdown(firstParagraph(section.description)) || page.description;
-const previewImg = '/default-cover.jpg';
 ---
 
-<BaseLayout title={`${section.title} - ${page.title}`} description={description} img={previewImg} navigation={navigation}>
+<BaseLayout title={`${section.title} - ${page.title}`} description={description} navigation={navigation}>
   <article class="mx-auto w-full max-w-[90rem] px-6 pt-10 pb-8 md:px-12 md:pt-14 xl:px-16">
     <a href={`${pageHref(id)}/`} class="text-sm text-content-tertiary hover:text-content-primary hover:underline">
       {page.title}

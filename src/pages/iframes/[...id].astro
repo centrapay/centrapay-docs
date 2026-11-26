@@ -20,10 +20,9 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const previewImg = entry.data.img || '/default-cover.jpg';
 const { title, description } = entry.data;
 ---
-<IframeLayout title={title} description={description} img={previewImg}>
+<IframeLayout title={title} description={description} img={entry.data.img}>
   <div class="w-full">
       <article>
         <Prose>

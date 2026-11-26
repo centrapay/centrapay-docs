@@ -26,10 +26,9 @@ export async function getStaticPaths() {
 
 const { id, page, sections } = Astro.props;
 const { prose, routes } = splitPageRoutes(sections);
-const previewImg = '/default-cover.jpg';
 ---
 
-<BaseLayout title={page.title} description={page.description} img={previewImg} navigation={navigation}>
+<BaseLayout title={page.title} description={page.description} navigation={navigation}>
   <AnchorRedirects slugs={routes.map(route => route.slug)} />
   <ApiPage title={page.title}>
     {page.intro && <Markdown slot="intro" segments={createMarkdownRenderer()(page.intro)} />}

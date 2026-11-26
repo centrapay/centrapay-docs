@@ -1,11 +1,13 @@
 ---
 import '../styles/global.css';
+import { socialImageUrl } from '../utils/socialImage';
 
 const {
   title,
   description,
   img
 } = Astro.props;
+const socialImage = await socialImageUrl(img, Astro.site);
 const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
 ---
 <!DOCTYPE html>
@@ -16,12 +18,12 @@ const metaTitle = title ? title + ' - Centrapay Docs' : 'Centrapay Docs';
     <meta name="viewport" content="width=device-width">
     <title>{metaTitle}</title>
     <meta name="description" content={description}>
-    <meta property="img" content={img}>
+    <meta property="img" content={socialImage}>
 
     <!-- OpenGraph Tags -->
     <meta name="og:title" content={metaTitle}>
     <meta name="og:description" content={description}>
-    <meta property="og:image" content={img}>
+    <meta property="og:image" content={socialImage}>
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
